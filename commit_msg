@@ -1,7 +1,10 @@
-refactor: streamline UI features and optimize data loading
+feat: implement server-side pagination and overhaul role-based UI
 
-- pos: remove client debt display and settlement UI from the POS interface
-- clients: remove financial/debt tracking sections and table columns
-- clients: implement lazy loading (infinite scroll) and debounced search to handle large datasets efficiently
-- inventory: update table columns by removing 'Type' and 'Quantity'
-- inventory: add 'Coût Façon', 'Type Marge', and 'Marge' columns to reflect detailed pricing and manufacturing costs
+- Backend: Added `limit` and `offset` pagination to Users and Students APIs to handle large datasets.
+- Backend: Updated managers to return responses in `{ data: [...], total: X }` format.
+- Frontend: Fixed `.map is not a function` crashes across Admin, Receptionist, Accountant, and Parent dashboards by safely extracting `response.data`.
+- Frontend: Resolved `404 Not Found` errors in financial modules by correctly mapping `user_id` to `student_id` before API calls.
+- Accountant UI: Added missing 'Search' and 'Attendance' tabs with real-time filtering and pagination support.
+- Accountant UI: Integrated the ability to send bulk and individual notifications directly from the dashboard.
+
+NOTE: The previous commit message was incorrect and did not accurately reflect the changes made in that snapshot.
