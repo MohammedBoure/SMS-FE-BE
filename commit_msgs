@@ -11,3 +11,35 @@ feat: implement server-side pagination and overhaul role-based UI
 - Accountant UI: Integrated the ability to send bulk and individual notifications directly from the dashboard.
 
 NOTE: The previous commit message was incorrect and did not accurately reflect the changes made in that snapshot.
+-----
+
+Implemented comprehensive database management classes for:
+- Conversations: Full CRUD, statistics, and history management.
+- Programs: Academic programs, pricing, and enrollment summaries.
+- Classes: Section management, occupancy tracking, and capacity levels.
+- Parents: User-to-parent mapping and children association.
+- Students: Registration, advanced search, pagination, and status control.
+- Teachers: Specializations, hiring records, and academic assignments.
+
+All managers include robust error handling, logging, and data integrity checks.
+
+Comprehensive update to the School Management System architecture, including:
+
+- Core & Users: 
+    - Updated UsersManager with plain-text auth and role-based filtering.
+    - Enhanced StudentsManager and TeachersManager with advanced search and status management.
+    - Added ParentsManager with student-linking capabilities.
+    - Updated SubjectsManager to include teacher-to-subject statistics.
+
+- Academics & Operations:
+    - Implemented ProgramsManager with dynamic pricing and enrollment summaries.
+    - Updated ClassesManager with occupancy tracking.
+    - Standardized StudentEnrollmentsManager and TeacherAssignmentsManager for relational linking.
+    - Integrated AssessmentsManager and ResourcesManager for academic content delivery.
+
+- System & Communication:
+    - Updated ConversationsManager with summary statistics and cleanup utilities.
+
+- Documentation:
+    - Re-structured PlantUML Class Diagram for A3 Landscape print optimization.
+    - Aligned all Manager methods with actual FastAPI route parameters and return types.

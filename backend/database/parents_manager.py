@@ -1,28 +1,13 @@
-# database/parents_manager.py
-
 import mysql.connector
 import logging
 from typing import List, Dict, Optional
 
-
 class ParentsManager:
-    """
-    مدير جدول parents.
-    يربط بين حساب المستخدم (User) ودور ولي الأمر (Parent).
-    يتضمن دوال متقدمة لجلب بيانات الولي وأبنائه (الطلاب).
-    """
 
     def __init__(self, db_instance):
         self.db = db_instance
 
-    # ================================================================
-    # CREATE
-    # ================================================================
-
     def create_parent(self, user_id: int) -> Optional[int]:
-        """
-        إنشاء ملف ولي أمر جديد وربطه بمستخدم موجود.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
@@ -39,14 +24,7 @@ class ParentsManager:
             logging.error(f"❌ Erreur ajout parent : {e}")
             return None
 
-    # ================================================================
-    # READ
-    # ================================================================
-
     def get_all_parents(self) -> List[Dict]:
-        """
-        جلب جميع أولياء الأمور مع بياناتهم الأساسية من جدول المستخدمين.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -64,9 +42,6 @@ class ParentsManager:
             return []
 
     def get_parent_by_id(self, parent_id: int) -> Optional[Dict]:
-        """
-        جلب بيانات ولي أمر واحد بواسطة معرّفه (مع بيانات المستخدم).
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -84,9 +59,6 @@ class ParentsManager:
             return None
 
     def get_parent_by_user_id(self, user_id: int) -> Optional[Dict]:
-        """
-        جلب بيانات الولي باستخدام معرّف المستخدم (مفيد جداً عند تسجيل الدخول).
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -97,9 +69,6 @@ class ParentsManager:
             return None
 
     def get_parent_students(self, parent_id: int) -> List[Dict]:
-        """
-        جلب قائمة الطلاب (الأبناء) المرتبطين بولي الأمر هذا، مع بيانات القسم.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -118,28 +87,11 @@ class ParentsManager:
             logging.error(f"❌ Erreur récupération enfants du parent #{parent_id} : {e}")
             return []
 
-    # ================================================================
-    # UPDATE
-    # ================================================================
-    
-    # ملاحظة هامة: لم أقم بإضافة دالة update_parent هنا.
-    # لأن جدول parents لا يحتوي على بيانات فعلية (الاسم، الهاتف، الخ).
-    # إذا أردت تحديث اسم الولي أو هاتفه، يجب استخدام UsersManager.update_user(user_id, ...)
-
-    # ================================================================
-    # DELETE
-    # ================================================================
-
     def delete_parent(self, parent_id: int) -> tuple:
-        """
-        حذف ارتباط "ولي الأمر". 
-        ملاحظة: هذا لن يحذف حساب المستخدم الأصلي (User)، بل يسحب منه صفة الولي فقط.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
                 
-                # التحقق مما إذا كان لديه أبناء مسجلين
                 cursor.execute("SELECT COUNT(*) FROM students WHERE parent_id = %s", (parent_id,))
                 children_count = cursor.fetchone()[0]
                 if children_count > 0:

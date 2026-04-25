@@ -1,34 +1,16 @@
-# database/conversations_manager.py
-
 import mysql.connector
 import logging
 from typing import List, Dict, Optional
 from datetime import datetime
 
-
-
 class ConversationsManager:
-    """
-    مدير جدول conversations.
-    يُغطّي العمليات الكاملة: إنشاء / تعديل / حذف / جلب / بحث.
-    """
 
     VALID_TYPES = ('individual', 'group', 'announcement')
 
     def __init__(self, db_instance):
         self.db = db_instance
 
-    # ================================================================
-    # CREATE
-    # ================================================================
-
-    def create_conversation(self, title: str = None,
-                            conv_type: str = 'individual') -> Optional[int]:
-        """
-        إنشاء محادثة جديدة.
-        conv_type: 'individual' | 'group' | 'announcement'
-        يُعيد id المحادثة، أو None عند الفشل.
-        """
+    def create_conversation(self, title: str = None, conv_type: str = 'individual') -> Optional[int]:
         if conv_type not in self.VALID_TYPES:
             logging.warning(f"⚠️ Type conversation invalide : '{conv_type}'. Utilisé 'individual'.")
             conv_type = 'individual'
@@ -48,15 +30,7 @@ class ConversationsManager:
             logging.error(f"❌ Erreur création conversation : {e}")
             return None
 
-    # ================================================================
-    # READ
-    # ================================================================
-
-    def get_all_conversations(self, conv_type: str = None,
-                              limit: int = 100) -> List[Dict]:
-        """
-        جلب جميع المحادثات، مع إمكانية التصفية حسب النوع.
-        """
+    def get_all_conversations(self, conv_type: str = None, limit: int = 100) -> List[Dict]:
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -78,9 +52,6 @@ class ConversationsManager:
             return []
 
     def get_conversation_by_id(self, conv_id: int) -> Optional[Dict]:
-        """
-        جلب محادثة واحدة بواسطة معرّفها.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -90,11 +61,7 @@ class ConversationsManager:
             logging.error(f"❌ Erreur récupération conversation #{conv_id} : {e}")
             return None
 
-    def search_conversations(self, keyword: str,
-                             conv_type: str = None) -> List[Dict]:
-        """
-        البحث في المحادثات بالعنوان مع إمكانية تصفية النوع.
-        """
+    def search_conversations(self, keyword: str, conv_type: str = None) -> List[Dict]:
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -113,11 +80,7 @@ class ConversationsManager:
             logging.error(f"❌ Erreur recherche conversations : {e}")
             return []
 
-    def get_recent_conversations(self, days: int = 7,
-                                 limit: int = 50) -> List[Dict]:
-        """
-        جلب المحادثات الحديثة خلال عدد الأيام المحدد.
-        """
+    def get_recent_conversations(self, days: int = 7, limit: int = 50) -> List[Dict]:
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -134,9 +97,6 @@ class ConversationsManager:
             return []
 
     def get_conversations_summary(self) -> Dict:
-        """
-        إحصائيات سريعة: إجمالي المحادثات مُصنَّفةً حسب النوع.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -166,17 +126,7 @@ class ConversationsManager:
                 'last_created_date': None,
             }
 
-    # ================================================================
-    # UPDATE
-    # ================================================================
-
-    def update_conversation(self, conv_id: int,
-                            title: str = None,
-                            conv_type: str = None) -> bool:
-        """
-        تحديث عنوان المحادثة أو نوعها (أو كليهما).
-        يُعيد True عند النجاح، False عند الفشل.
-        """
+    def update_conversation(self, conv_id: int, title: str = None, conv_type: str = None) -> bool:
         if title is None and conv_type is None:
             logging.warning("update_conversation: aucun champ à mettre à jour.")
             return False
@@ -212,15 +162,7 @@ class ConversationsManager:
             logging.error(f"❌ Erreur mise à jour conversation #{conv_id} : {e}")
             return False
 
-    # ================================================================
-    # DELETE
-    # ================================================================
-
     def delete_conversation(self, conv_id: int) -> tuple:
-        """
-        حذف محادثة نهائياً.
-        يُعيد (True, message) عند النجاح أو (False, message) عند الفشل.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
@@ -236,10 +178,6 @@ class ConversationsManager:
             return False, f"Erreur base de données : {e}"
 
     def delete_old_conversations(self, days_old: int = 365) -> tuple:
-        """
-        حذف دفعي للمحادثات الأقدم من عدد الأيام المحدد.
-        يُعيد (True, عدد المحذوفة) أو (False, رسالة الخطأ).
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()

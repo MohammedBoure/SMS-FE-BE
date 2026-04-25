@@ -15,6 +15,8 @@ from .user_transactions_api import router as user_transactions_router
 from .student_fees_api import router as student_fees_router
 from .payments_api import router as payments_router
 from .notifications_api import router as notifications_router
+from .posts_api import router as posts_router
+from .messages_api import router as messages_router
 
 __all__ = [
     "users_router",
@@ -34,4 +36,6 @@ __all__ = [
     "student_fees_router",
     "payments_router",
     "notifications_router",
+    "posts_router",
+    "messages_router",
 ]

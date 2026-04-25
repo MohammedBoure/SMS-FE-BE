@@ -1,0 +1,490 @@
+@startuml SchoolManagementSystem_A3_Landscape
+
+' ===================== إعدادات استغلال المساحة (A3 Landscape) =====================
+skinparam dpi 300
+left to right direction
+skinparam linetype ortho
+
+' إعدادات التقارب والتباعد لتشكيل مستطيل متراص
+skinparam nodesep 30
+skinparam ranksep 70
+skinparam padding 4
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam backgroundColor #FFFFFF
+
+skinparam class {
+  BorderColor #2C3E50
+  ArrowColor #34495E
+  BackgroundColor #FDFEFE
+  FontSize 13
+  AttributeFontSize 12
+}
+
+skinparam packageStyle rectangle
+skinparam package {
+  BorderColor #7F8C8D
+  BackgroundColor #F2F4F4
+  FontSize 16
+  FontStyle bold
+  FontColor #2C3E50
+}
+
+' ===================== الحزمة 1: النظام والمستخدمين =====================
+package "Core & Users" as P_Core {
+  
+  together {
+    class UsersManager {
+      ' الخصائص المرتبطة بقاعدة البيانات
+      - db: Database
+      - id: INT
+      - role_id: INT
+      - username: VARCHAR(50)
+      - password: VARCHAR(255)
+      - email: VARCHAR(100)
+      - full_name: VARCHAR(100)
+      - phone: VARCHAR(20)
+      - address: TEXT
+      - is_active: BOOLEAN
+      - created_at: TIMESTAMP
+      ..
+      ' الدوال (Methods)
+      + __init__(db_instance: Database)
+      + create_user(role_id: Integer, username: String,
+        password: String, full_name: String, email: String,
+        phone: String, address: String, is_active: Boolean): Integer
+      + authenticate_user(username: String,
+        password: String): Dictionary
+      + get_all_users(role_name: String, is_active: Boolean,
+        limit: Integer, offset: Integer): Dictionary
+      + get_user_by_id(user_id: Integer): Dictionary
+      + search_users(keyword: String, limit: Integer,
+        offset: Integer): Dictionary
+      + update_user(user_id: Integer, **kwargs): Boolean
+      + change_user_status(user_id: Integer,
+        is_active: Boolean): Boolean
+      + delete_user(user_id: Integer): Tuple
+    }
+    
+    class ParentsManager {
+      ' الخصائص
+      - db: Database
+      - id: INT
+      - user_id: INT
+      ..
+      ' الدوال المستنتجة من الـ API
+      + __init__(db_instance: Database)
+      + create_parent(user_id: Integer): Integer
+      + get_all_parents(): List
+      + get_parent_by_id(parent_id: Integer): Dictionary
+      + get_parent_by_user_id(user_id: Integer): Dictionary
+      + get_parent_students(parent_id: Integer): List
+      + delete_parent(parent_id: Integer): Tuple
+    }
+  }
+
+  together {
+    class StudentsManager {
+      ' الخصائص (بناءً على قاعدة البيانات وملفات Pydantic)
+      - db: Database
+      - id: INT
+      - user_id: INT
+      - parent_id: INT
+      - class_id: INT
+      - date_of_birth: DATE
+      - registration_date: DATE
+      - blood_group: VARCHAR(5)
+      - medical_info: TEXT
+      - status: VARCHAR(20)
+      ..
+      ' الدوال المستنتجة من الـ API
+      + __init__(db_instance: Database)
+      + create_student(**kwargs): Integer
+      + search_students(keyword: String, limit: Integer,
+        offset: Integer): Dictionary
+      + get_all_students(status: String, class_id: Integer,
+        limit: Integer, offset: Integer): Dictionary
+      + get_student_by_id(student_id: Integer): Dictionary
+      + update_student(student_id: Integer, **kwargs): Boolean
+      + change_student_status(student_id: Integer,
+        status: String): Boolean
+      + delete_student(student_id: Integer, force: Boolean): Tuple
+    }
+    
+    class TeachersManager {
+      ' الخصائص (بناءً على قاعدة البيانات وملفات Pydantic)
+      - db: Database
+      - id: INT
+      - user_id: INT
+      - specialty: VARCHAR(100)
+      - hire_date: DATE
+      ..
+      ' الدوال المستنتجة من الـ API
+      + __init__(db_instance: Database)
+      + create_teacher(user_id: Integer, specialty: String,
+        hire_date: String): Integer
+      + search_teachers(keyword: String): List
+      + get_all_teachers(): List
+      + get_teacher_by_id(teacher_id: Integer): Dictionary
+      + get_teacher_assignments(teacher_id: Integer): List
+      + update_teacher(teacher_id: Integer, **kwargs): Boolean
+      + delete_teacher(teacher_id: Integer): Tuple
+    }
+    
+    class SubjectsManager {
+      - db: Database
+      - id: INT
+      - subject_name: VARCHAR(100)
+      - description: TEXT
+      ..
+      + __init__(db_instance: Database)
+      + add_subject(subject_name: String, description: String): Integer
+      + get_all_subjects(): List
+      + get_subject_by_id(subject_id: Integer): Dictionary
+      + search_subjects(keyword: String): List
+      + get_subjects_with_teacher_count(): List
+      + update_subject(subject_id: Integer, subject_name: String,
+        description: String): Boolean
+      + delete_subject(subject_id: Integer): Tuple
+    }
+  }
+}
+
+' ===================== الحزمة 2: الأكاديميات والعمليات =====================
+package "Academics & Operations" as P_Acad {
+  
+  together {
+    class ProgramsManager {
+      ' الخصائص المرتبطة بقاعدة البيانات
+      - db: Database
+      - id: INT
+      - program_name: VARCHAR(100)
+      - program_type: VARCHAR(50)
+      - price_cash: INT
+      - price_installments: INT
+      ..
+      ' الدوال (Methods)
+      + __init__(db_instance: Database)
+      + create_program(program_name: String, program_type: String,
+        price_cash: Integer, price_installments: Integer): Integer
+      + get_all_programs(program_type: String): List
+      + get_program_by_id(program_id: Integer): Dictionary
+      + search_programs(keyword: String): List
+      + get_programs_summary(): List
+      + update_program(program_id: Integer, **kwargs): Boolean
+      + delete_program(program_id: Integer): Tuple
+    }
+    
+    class ClassesManager {
+      ' الخصائص
+      - db: Database
+      - id: INT
+      - class_name: VARCHAR(50)
+      - level: VARCHAR(50)
+      - age_group: VARCHAR(50)
+      - capacity: INT
+      ..
+      ' الدوال المستنتجة من الـ API
+      + __init__(db_instance: Database)
+      + add_class(class_name: String, level: String,
+        age_group: String, capacity: Integer): Integer
+      + get_all_classes(level: String): List
+      + get_class_by_id(class_id: Integer): Dictionary
+      + get_classes_occupancy(): List
+      + update_class(class_id: Integer, **kwargs): Boolean
+      + delete_class(class_id: Integer): Tuple
+    }
+    
+    class StudentEnrollmentsManager {
+      ' الخصائص المرتبطة بقاعدة البيانات
+      - db: Database
+      - id: INT
+      - student_id: INT
+      - program_id: INT
+      - group_name: VARCHAR(50)
+      - enrollment_date: DATE
+      - status: VARCHAR(50)
+      - notes: TEXT
+      ..
+      ' الدوال (Methods)
+      + __init__(db_instance: Database)
+      + create_enrollment(student_id: Integer, program_id: Integer,
+        group_name: String, enrollment_date: String, status: String,
+        notes: String): Integer
+      + get_all_enrollments(status: String): List
+      + get_student_enrollments(student_id: Integer): List
+      + get_program_enrollments(program_id: Integer,
+        status: String): List
+      + update_enrollment(enrollment_id: Integer, **kwargs): Boolean
+      + change_enrollment_status(enrollment_id: Integer,
+        status: String): Boolean
+      + delete_enrollment(enrollment_id: Integer): Tuple
+    }
+  }
+  
+  together {
+    class TeacherAssignmentsManager {
+      ' الخصائص المرتبطة بقاعدة البيانات
+      - db: Database
+      - id: INT
+      - teacher_id: INT
+      - subject_id: INT
+      - class_id: INT
+      - academic_year_id: INT
+      ..
+      ' الدوال المستنتجة من الـ API
+      + __init__(db_instance: Database)
+      + assign_teacher(teacher_id: Integer, subject_id: Integer,
+       class_id: Integer): Integer
+      + get_all_assignments(): List
+      + get_assignments_by_class(class_id: Integer): List
+      + get_assignments_by_teacher(teacher_id: Integer): List
+      + update_assignment(assignment_id: Integer, **kwargs): Boolean
+      + delete_assignment(assignment_id: Integer): Tuple
+    }
+    
+    class AssessmentsManager {
+      ' الخصائص (Attributes) المستمدة من بنية الجدول والـ API
+      - db: Database
+      - id: INT 
+      - title: VARCHAR(100) 
+      - type: VARCHAR(50) 
+      - max_grade: DOUBLE 
+      - assignment_id: INT 
+      - due_date: DATE 
+      ..
+      ' الدوال (Methods) المستنتجة من الـ API
+      + __init__(db_instance: Database)
+      + create_assessment(title: String, type: String, assignment_id: Integer, max_grade: Float, due_date: String): Integer 
+      + get_all_assessments(): List 
+      + get_assessments_by_class(class_id: Integer): List 
+      + get_assessments_by_assignment(assignment_id: Integer): List 
+      + get_assessment_by_id(assessment_id: Integer): Dictionary 
+      + update_assessment(assessment_id: Integer, **kwargs): Boolean 
+      + delete_assessment(assessment_id: Integer): Tuple 
+    }
+    
+    class GradesManager {
+      - id: INT
+      - student_id: INT
+      - assessment_id: INT
+      - grade_value: DOUBLE
+      - teacher_remarks: TEXT
+      ..
+    }
+  }
+  
+  together {
+    class AttendanceManager {
+      - id: INT
+      - student_id: INT
+      - date: DATE
+      - status: VARCHAR
+      - is_justified: BOOLEAN
+      - justification_reason: TEXT
+      ..
+    }
+    
+    class SchedulesManager {
+      - id: INT
+      - assignment_id: INT
+      - day_of_week: ENUM
+      - start_time: TIME
+      - end_time: TIME
+      - room_number: VARCHAR
+      ..
+    }
+    
+    class ResourcesManager {
+      ' الخصائص المرتبطة بجدول المصادر
+      - db: Database
+      - id: INT
+      - title: VARCHAR(255)
+      - description: TEXT
+      - resource_type: VARCHAR(50)
+      - file_path_or_url: VARCHAR(500)
+      - file_size_mb: DOUBLE
+      - assignment_id: INT
+      - upload_date: TIMESTAMP
+      ..
+      ' الدوال المستنتجة من ملف API (دعم الرفع والبحث والتحميل)
+      + __init__(db_instance: Database)
+      + create_resource(title: String, resource_type: String,
+        file_path_or_url: String, description: String,
+        file_size_mb: Float, assignment_id: Integer): Integer
+      + search_resources(keyword: String, resource_type: String): List
+      + get_resources_by_assignment(assignment_id: Integer): List
+      + get_all_resources(): List
+      + get_resource_by_id(resource_id: Integer): Dictionary
+      + update_resource(resource_id: Integer, **kwargs): Boolean
+      + delete_resource(resource_id: Integer): Tuple
+    }
+  }
+}
+
+' ===================== الحزمة 3: المالية =====================
+package "Finance" as P_Fin {
+  
+  together {
+    class UserTransactionsManager {
+      - id: INT
+      - from_user_id: INT
+      - to_user_id: INT
+      - amount: INT
+      - transaction_type: VARCHAR
+      - reference_type: VARCHAR
+      - reference_id: INT
+      - notes: TEXT
+      - status: ENUM
+      - created_at: TIMESTAMP
+      ..
+    }
+    
+    class StudentFeesManager {
+      - id: INT
+      - student_id: INT
+      - program_id: INT
+      - fee_type: VARCHAR
+      - amount_due: INT
+      - applied_discount: INT
+      - due_date: DATE
+      - transaction_id: INT
+      ..
+    }
+    
+    class PaymentsManager {
+      - id: INT
+      - fee_id: INT
+      - transaction_id: INT
+      - amount_paid: INT
+      - installment_number: INT
+      - payment_date: TIMESTAMP
+      - receipt_number: VARCHAR
+      ..
+    }
+  }
+}
+
+' ===================== الحزمة 4: المراسلات والنظام =====================
+package "System & Communications" as P_Sys {
+  
+  together {
+    class Database {
+      ..
+    }
+    
+    class SystemLogs {
+      - id: INT
+      - action: VARCHAR
+      - created_at: TIMESTAMP
+      ..
+    }
+  }
+  
+  together {
+    class ConversationsManager {
+      ' الخصائص المرتبطة بقاعدة البيانات
+      - db: Database
+      - id: INT
+      - title: VARCHAR(255)
+      - type: VARCHAR(20)
+      - created_at: TIMESTAMP
+      ..
+      ' الدوال (Methods)
+      + __init__(db_instance: Database)
+      + create_conversation(title: String, conv_type: String): Integer
+      + get_all_conversations(conv_type: String, limit: Integer): List
+      + get_conversation_by_id(conv_id: Integer): Dictionary
+      + search_conversations(keyword: String, conv_type: String): List
+      + get_recent_conversations(days: Integer, limit: Integer): List
+      + get_conversations_summary(): Dictionary
+      + update_conversation(conv_id: Integer, title: String, conv_type: String): Boolean
+      + delete_conversation(conv_id: Integer): Tuple
+      + delete_old_conversations(days_old: Integer): Tuple
+    }
+    
+    class MessagesManager {
+      - id: INT
+      - content: TEXT
+      - created_at: TIMESTAMP
+      - sender_id: INT
+      - receiver_id: INT
+      ..
+    }
+  }
+  
+  together {
+    class PostsManager {
+      - id: INT
+      - title: VARCHAR
+      - content: TEXT
+      - image: VARCHAR
+      - created_at: TIMESTAMP
+      - user_id: INT
+      ..
+    }
+    
+    class NotificationsManager {
+      - id: INT
+      - user_id: INT
+      - title: VARCHAR
+      - message: TEXT
+      - is_read: BOOLEAN
+      - created_at: TIMESTAMP
+      ..
+    }
+  }
+}
+
+' ===================== هندسة التخطيط (Layout Enforcement) =====================
+' إجبار الحزم على الاصطفاف كـ 2x2 لملء المساحة بشكل مستطيل
+P_Core -[hidden]right-> P_Acad
+P_Core -[hidden]down-> P_Fin
+P_Fin -[hidden]right-> P_Sys
+
+' ===================== العلاقات (Relations) =====================
+
+' -- علاقات المستخدمين --
+ParentsManager "1" --> "1" UsersManager : user_id
+StudentsManager "1" --> "1" UsersManager : user_id
+StudentsManager "*" --> "1" ParentsManager : parent_id
+StudentsManager "*" --> "1" ClassesManager : class_id
+TeachersManager "1" --> "1" UsersManager : user_id
+
+' -- علاقات الأكاديميات --
+StudentEnrollmentsManager "*" --> "1" StudentsManager : student_id
+StudentEnrollmentsManager "*" --> "1" ProgramsManager : program_id
+
+TeacherAssignmentsManager "*" --> "1" TeachersManager : teacher_id
+TeacherAssignmentsManager "*" --> "1" SubjectsManager : subject_id
+TeacherAssignmentsManager "*" --> "1" ClassesManager : class_id
+
+ResourcesManager "*" --> "1" TeacherAssignmentsManager : assignment_id
+AssessmentsManager "*" --> "1" TeacherAssignmentsManager : assignment_id
+SchedulesManager "*" --> "1" TeacherAssignmentsManager : assignment_id
+
+GradesManager "*" --> "1" StudentsManager : student_id
+GradesManager "*" --> "1" AssessmentsManager : assessment_id
+
+AttendanceManager "*" --> "1" StudentsManager : student_id
+
+' -- علاقات المالية --
+UserTransactionsManager "*" --> "1" UsersManager : from_user_id
+UserTransactionsManager "*" --> "1" UsersManager : to_user_id
+
+StudentFeesManager "*" --> "1" StudentsManager : student_id
+StudentFeesManager "*" --> "1" ProgramsManager : program_id
+StudentFeesManager "*" --> "1" UserTransactionsManager : transaction_id
+
+PaymentsManager "*" --> "1" StudentFeesManager : fee_id
+PaymentsManager "1" --> "1" UserTransactionsManager : transaction_id
+
+' -- علاقات النظام والمراسلات --
+NotificationsManager "*" --> "1" UsersManager : user_id
+PostsManager "*" --> "1" UsersManager : user_id
+MessagesManager "*" --> "1" UsersManager : sender_id
+MessagesManager "*" --> "1" UsersManager : receiver_id
+
+@enduml

@@ -1,28 +1,14 @@
-# database/classes_manager.py
-
 import mysql.connector
 import logging
 from typing import List, Dict, Optional
 
-
 class ClassesManager:
-    """
-    مدير جدول classes.
-    إدارة الأقسام الدراسية: إنشاء / تعديل / حذف / إحصائيات الاستيعاب.
-    """
 
     def __init__(self, db_instance):
         self.db = db_instance
 
-    # ================================================================
-    # CREATE
-    # ================================================================
-
     def add_class(self, class_name: str, level: str = None, 
                   age_group: str = None, capacity: int = None) -> Optional[int]:
-        """
-        إضافة قسم (فصل) دراسي جديد.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
@@ -39,14 +25,7 @@ class ClassesManager:
             logging.error(f"❌ Erreur ajout classe : {e}")
             return None
 
-    # ================================================================
-    # READ
-    # ================================================================
-
     def get_all_classes(self, level: str = None) -> List[Dict]:
-        """
-        جلب جميع الأقسام مع إمكانية التصفية حسب المستوى الدراسي.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -64,9 +43,6 @@ class ClassesManager:
             return []
 
     def get_class_by_id(self, class_id: int) -> Optional[Dict]:
-        """
-        جلب بيانات قسم معين بواسطة معرّفه.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -77,10 +53,6 @@ class ClassesManager:
             return None
 
     def get_classes_occupancy(self) -> List[Dict]:
-        """
-        جلب الأقسام مع إحصائيات الإشغال (عدد الطلاب الحالي مقابل السعة القصوى).
-        مفيد جداً لواجهات التسجيل.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -100,14 +72,7 @@ class ClassesManager:
             logging.error(f"❌ Erreur stats occupation classes : {e}")
             return []
 
-    # ================================================================
-    # UPDATE
-    # ================================================================
-
     def update_class(self, class_id: int, **kwargs) -> bool:
-        """
-        تحديث بيانات القسم بشكل ديناميكي.
-        """
         if not kwargs:
             return False
 
@@ -134,32 +99,21 @@ class ClassesManager:
             logging.error(f"❌ Erreur mise à jour classe #{class_id} : {e}")
             return False
 
-    # ================================================================
-    # DELETE
-    # ================================================================
-
     def delete_class(self, class_id: int) -> tuple:
-        """
-        حذف قسم دراسي.
-        يمنع الحذف إذا كان هناك طلاب في هذا القسم أو إذا كان مرتبطاً بتكليفات أساتذة.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
 
-                # 1. التحقق من وجود طلاب
                 cursor.execute("SELECT COUNT(*) FROM students WHERE class_id = %s", (class_id,))
                 student_count = cursor.fetchone()[0]
                 if student_count > 0:
                     return False, f"Impossible : {student_count} étudiant(s) affecté(s) à cette classe."
 
-                # 2. التحقق من وجود تكليفات أساتذة (Teacher Assignments)
                 cursor.execute("SELECT COUNT(*) FROM teacher_assignments WHERE class_id = %s", (class_id,))
                 assignment_count = cursor.fetchone()[0]
                 if assignment_count > 0:
                     return False, f"Impossible : {assignment_count} affectation(s) enseignant liée(s)."
 
-                # 3. تنفيذ الحذف
                 cursor.execute("DELETE FROM classes WHERE id = %s", (class_id,))
                 conn.commit()
 

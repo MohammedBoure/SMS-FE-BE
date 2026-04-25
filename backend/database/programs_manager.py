@@ -1,29 +1,14 @@
-# database/programs_manager.py
-
 import mysql.connector
 import logging
 from typing import List, Dict, Optional
 
-
 class ProgramsManager:
-    """
-    مدير جدول programs.
-    يُغطّي العمليات الكاملة: إضافة / تعديل / حذف / جلب وبحث.
-    """
 
     def __init__(self, db_instance):
         self.db = db_instance
 
-    # ================================================================
-    # CREATE
-    # ================================================================
-
     def create_program(self, program_name: str, program_type: str, 
                        price_cash: int = 0, price_installments: int = 0) -> Optional[int]:
-        """
-        إضافة برنامج دراسي جديد مع تحديد الأسعار.
-        يُعيد id البرنامج الجديد، أو None عند الفشل.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
@@ -41,14 +26,7 @@ class ProgramsManager:
             logging.error(f"❌ Erreur ajout programme : {e}")
             return None
 
-    # ================================================================
-    # READ
-    # ================================================================
-
     def get_all_programs(self, program_type: str = None) -> List[Dict]:
-        """
-        جلب جميع البرامج الدراسية مع إمكانية التصفية حسب النوع.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -69,9 +47,6 @@ class ProgramsManager:
             return []
 
     def get_program_by_id(self, program_id: int) -> Optional[Dict]:
-        """
-        جلب بيانات برنامج واحد بناءً على المعرّف (ID).
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -82,9 +57,6 @@ class ProgramsManager:
             return None
 
     def search_programs(self, keyword: str) -> List[Dict]:
-        """
-        البحث عن البرامج بالاسم أو النوع.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -101,9 +73,6 @@ class ProgramsManager:
             return []
 
     def get_programs_summary(self) -> List[Dict]:
-        """
-        إحصائيات متقدمة: جلب البرامج مع عدد الطلاب المسجلين في كل برنامج.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -123,15 +92,7 @@ class ProgramsManager:
             logging.error(f"❌ Erreur statistiques programmes : {e}")
             return []
 
-    # ================================================================
-    # UPDATE
-    # ================================================================
-
     def update_program(self, program_id: int, **kwargs) -> bool:
-        """
-        تحديث بيانات البرنامج بشكل ديناميكي.
-        مثال: update_program(1, price_cash=50000, program_name="Nouveau Nom")
-        """
         if not kwargs:
             logging.warning("update_program: aucun champ à mettre à jour.")
             return False
@@ -167,20 +128,11 @@ class ProgramsManager:
             logging.error(f"❌ Erreur mise à jour programme #{program_id} : {e}")
             return False
 
-    # ================================================================
-    # DELETE
-    # ================================================================
-
     def delete_program(self, program_id: int) -> tuple:
-        """
-        حذف برنامج دراسي.
-        يمنع الحذف إذا كان هناك طلاب مسجلين في هذا البرنامج.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
                 
-                # 1. التحقق من وجود تسجيلات مرتبطة بهذا البرنامج
                 cursor.execute(
                     "SELECT COUNT(*) FROM student_enrollments WHERE program_id = %s", 
                     (program_id,)
@@ -190,7 +142,6 @@ class ProgramsManager:
                     logging.warning(f"⚠️ Impossible de supprimer le programme #{program_id}: {count} inscription(s) liée(s).")
                     return False, f"Impossible : {count} étudiant(s) inscrit(s) dans ce programme."
 
-                # 2. الحذف إذا لم يكن هناك ارتباطات
                 cursor.execute("DELETE FROM programs WHERE id = %s", (program_id,))
                 conn.commit()
 

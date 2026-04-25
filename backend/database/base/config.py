@@ -53,7 +53,7 @@ logger = logging.getLogger("SCHOOL_SYS")
 
 # ─── Constants ────────────────────────────────────────────────────────────────
 TABLE_IMPORT_ORDER = [
-    'roles', 'users', 'subjects', 'conversations',
+    'roles', 'users', 'posts', 'messages', 'subjects', 'conversations',
     'programs', 'classes', 'parents', 'students', 'teachers',
     'student_enrollments', 'teacher_assignments',
     'resources', 'assessments', 'grades', 'attendance', 'schedules',

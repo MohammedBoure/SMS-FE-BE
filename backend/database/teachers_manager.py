@@ -1,30 +1,15 @@
-# database/teachers_manager.py
-
 import mysql.connector
 import logging
 from typing import List, Dict, Optional
 from datetime import date
 
-
 class TeachersManager:
-    """
-    مدير جدول teachers.
-    يربط بين حساب المستخدم (User) ودور الأستاذ.
-    يتضمن دوال لجلب بيانات الأستاذ، البحث عنه، ومعرفة تكليفاته الأكاديمية.
-    """
 
     def __init__(self, db_instance):
         self.db = db_instance
 
-    # ================================================================
-    # CREATE
-    # ================================================================
-
     def create_teacher(self, user_id: int, specialty: str = None, 
                        hire_date: str = None) -> Optional[int]:
-        """
-        إنشاء ملف أستاذ جديد وربطه بمستخدم موجود.
-        """
         if not hire_date:
             hire_date = date.today().isoformat()
 
@@ -47,14 +32,7 @@ class TeachersManager:
             logging.error(f"❌ Erreur ajout enseignant : {e}")
             return None
 
-    # ================================================================
-    # READ
-    # ================================================================
-
     def get_all_teachers(self) -> List[Dict]:
-        """
-        جلب جميع الأساتذة مع بياناتهم الشخصية من جدول المستخدمين.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -73,9 +51,6 @@ class TeachersManager:
             return []
 
     def get_teacher_by_id(self, teacher_id: int) -> Optional[Dict]:
-        """
-        جلب بيانات أستاذ واحد بواسطة معرّفه (مع بيانات المستخدم الخاصة به).
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -94,9 +69,6 @@ class TeachersManager:
             return None
 
     def search_teachers(self, keyword: str) -> List[Dict]:
-        """
-        البحث عن الأساتذة بالاسم أو التخصص.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -117,9 +89,6 @@ class TeachersManager:
             return []
 
     def get_teacher_assignments(self, teacher_id: int) -> List[Dict]:
-        """
-        ميزة متقدمة: جلب جميع الأقسام والمواد التي يُدرسها هذا الأستاذ.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -140,15 +109,7 @@ class TeachersManager:
             logging.error(f"❌ Erreur récupération affectations de l'enseignant #{teacher_id} : {e}")
             return []
 
-    # ================================================================
-    # UPDATE
-    # ================================================================
-
     def update_teacher(self, teacher_id: int, **kwargs) -> bool:
-        """
-        تحديث بيانات ملف الأستاذ (التخصص، تاريخ التوظيف).
-        (لتحديث الاسم أو الهاتف، يتم استخدام UsersManager).
-        """
         if not kwargs:
             return False
 
@@ -181,20 +142,11 @@ class TeachersManager:
             logging.error(f"❌ Erreur mise à jour enseignant #{teacher_id} : {e}")
             return False
 
-    # ================================================================
-    # DELETE
-    # ================================================================
-
     def delete_teacher(self, teacher_id: int) -> tuple:
-        """
-        حذف ملف الأستاذ.
-        يمنع الحذف إذا كان الأستاذ مرتبطاً بتكليفات جداول (حماية البيانات).
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
 
-                # التحقق من وجود تكليفات (Assignments)
                 cursor.execute("SELECT COUNT(*) FROM teacher_assignments WHERE teacher_id = %s", (teacher_id,))
                 if cursor.fetchone()[0] > 0:
                     return False, "Impossible : Cet enseignant a des affectations (classes/matières). Retirez-les d'abord."

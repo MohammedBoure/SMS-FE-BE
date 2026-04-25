@@ -73,4 +73,7 @@ INDEX_QUERIES = [
     "CREATE INDEX idx_attendance_student   ON attendance(student_id);",
     "CREATE INDEX idx_attendance_date      ON attendance(date);",
     "CREATE INDEX idx_notifications_user   ON notifications(user_id);",
+    "CREATE INDEX idx_posts_user_id        ON posts(user_id);",
+    "CREATE INDEX idx_messages_sender_id   ON messages(sender_id);",
+    "CREATE INDEX idx_messages_receiver_id ON messages(receiver_id);",
 ]

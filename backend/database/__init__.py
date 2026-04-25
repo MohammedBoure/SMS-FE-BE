@@ -17,6 +17,8 @@ from .user_transactions_manager import UserTransactionsManager
 from .student_fees_manager import StudentFeesManager
 from .payments_manager import PaymentsManager
 from .notifications_manager import NotificationsManager 
+from .messages_manager import MessagesManager
+from .posts_manager import PostsManager
 from .base import Database
 
 __all__ = [
@@ -39,5 +41,7 @@ __all__ = [
     "StudentFeesManager",
     "PaymentsManager",
     "NotificationsManager",
+    "MessagesManager",
+    "PostsManager",
     "Database",
 ]

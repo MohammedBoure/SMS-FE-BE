@@ -1,0 +1,125 @@
+@startuml SchoolManagement_EnrollmentSequence
+
+' ================= Styling & Optimization =================
+skinparam maxMessageSize 150
+skinparam ParticipantPadding 20
+skinparam BoxPadding 10
+skinparam defaultTextAlignment center
+skinparam NoteBackgroundColor #FFF8E1
+skinparam NoteBorderColor #FFC107
+skinparam sequence {
+    ArrowColor #37474F
+    LifeLineBorderColor #1565C0
+    LifeLineBackgroundColor #E3F2FD
+    ParticipantBorderColor #1565C0
+    ParticipantBackgroundColor #E3F2FD
+}
+
+title Sequence Diagram: Comprehensive Student Enrollment & Fee Payment Process
+
+' ================= Participants (Actors & System Components) =================
+actor "Parent/Student" as User
+actor "Admin/Accountant" as Staff
+boundary "System UI\n(Dashboard)" as UI
+control "Enrollment\nController" as EnrollCtrl
+control "Finance\nController" as FinCtrl
+database "Database\n(MySQL)" as DB
+
+' ================= Sequence Flow =================
+
+== 1. Enrollment Request & Validation ==
+User -> UI : 1. Request Enrollment (Program ID, Class ID)
+activate UI
+
+UI -> Staff : 2. Notify New Request
+activate Staff
+
+Staff -> UI : 3. Approve & Initiate Enrollment
+UI -> EnrollCtrl : 4. checkAvailableSeats(class_id)
+activate EnrollCtrl
+
+EnrollCtrl -> DB : 5. SELECT capacity FROM classes\nSELECT COUNT(*) FROM student_enrollments
+activate DB
+DB --> EnrollCtrl : 6. Return Current Capacity & Count
+deactivate DB
+
+alt Seats Available
+    EnrollCtrl --> UI : 7. Seats Available (Proceed)
+    
+    == 2. Profile Creation & Registration ==
+    UI -> EnrollCtrl : 8. createStudentProfile(user_id, parent_id)
+    EnrollCtrl -> DB : 9. INSERT INTO students
+    activate DB
+    DB --> EnrollCtrl : 10. Return student_id
+    deactivate DB
+    
+    UI -> EnrollCtrl : 11. enrollStudent(student_id, program_id, class_id)
+    EnrollCtrl -> DB : 12. INSERT INTO student_enrollments (status: 'pending')
+    activate DB
+    DB --> EnrollCtrl : 13. Return enrollment_id
+    deactivate DB
+
+    == 3. Financial Policy Application & Fee Generation ==
+    EnrollCtrl -> FinCtrl : 14. calculateFees(student_id, program_id, policy_id)
+    activate FinCtrl
+    
+    FinCtrl -> DB : 15. SELECT price FROM programs\nSELECT discount FROM financial_policies
+    activate DB
+    DB --> FinCtrl : 16. Return Prices & Discounts
+    deactivate DB
+    
+    FinCtrl -> FinCtrl : 17. Calculate Net Amount Due
+    FinCtrl -> DB : 18. INSERT INTO student_fees
+    activate DB
+    DB --> FinCtrl : 19. Return fee_id
+    deactivate DB
+    
+    FinCtrl --> UI : 20. Fee Calculation Complete
+    deactivate FinCtrl
+    deactivate EnrollCtrl
+    
+    UI --> User : 21. Display Enrollment Success & Amount Due
+    
+    == 4. Payment Processing ==
+    User -> UI : 22. Submit Payment Details (Amount, Method)
+    UI -> FinCtrl : 23. processPayment(fee_id, amount_paid)
+    activate FinCtrl
+    
+    FinCtrl -> DB : 24. SELECT amount_due FROM student_fees
+    activate DB
+    DB --> FinCtrl : 25. Return amount_due
+    deactivate DB
+    
+    alt Valid Payment Amount
+        FinCtrl -> DB : 26. INSERT INTO payments (receipt_number, payment_date)
+        activate DB
+        DB --> FinCtrl : 27. Payment Recorded
+        deactivate DB
+        
+        FinCtrl -> FinCtrl : 28. generatePDFReceipt()
+        
+        FinCtrl -> EnrollCtrl : 29. Update Status to "Active"
+        activate EnrollCtrl
+        EnrollCtrl -> DB : 30. UPDATE student_enrollments SET status='active'
+        EnrollCtrl --> FinCtrl : 31. Status Updated
+        deactivate EnrollCtrl
+        
+        FinCtrl --> UI : 32. Payment Success & Receipt URL
+        UI --> User : 33. Display Receipt & Confirm Activation
+        UI --> Staff : 34. Notify Payment Received
+    else Invalid Payment (e.g., Insufficient Funds)
+        FinCtrl --> UI : 35. Payment Error / Reject
+        UI --> User : 36. Prompt Retry Payment
+    end
+    deactivate FinCtrl
+
+else Class is Full (No Seats)
+    EnrollCtrl --> UI : 37. Error: Class Capacity Reached
+    UI --> Staff : 38. Display Capacity Error
+    UI --> User : 39. Reject Request / Add to Waitlist
+end
+
+deactivate Staff
+deactivate UI
+
+@enduml

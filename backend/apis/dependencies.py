@@ -20,7 +20,9 @@ from database import (
     UserTransactionsManager,
     StudentFeesManager,
     PaymentsManager,
-    NotificationsManager
+    NotificationsManager,
+    MessagesManager,
+    PostsManager
 )
 
 db_instance = Database()
@@ -82,3 +84,9 @@ def get_student_fees_manager() -> StudentFeesManager:
 
 def get_payments_manager() -> PaymentsManager:
     return PaymentsManager(db_instance)
+
+def get_posts_manager() -> PostsManager:
+    return PostsManager(db_instance)
+
+def get_messages_manager() -> MessagesManager:
+    return MessagesManager(db_instance)
