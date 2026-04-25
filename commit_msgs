@@ -13,6 +13,8 @@ feat: implement server-side pagination and overhaul role-based UI
 NOTE: The previous commit message was incorrect and did not accurately reflect the changes made in that snapshot.
 -----
 
+-----
+
 Implemented comprehensive database management classes for:
 - Conversations: Full CRUD, statistics, and history management.
 - Programs: Academic programs, pricing, and enrollment summaries.
