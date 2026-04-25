@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Receptionist Dashboard</title>
+  <link rel="stylesheet" href="../css/receptionist.css">
+</head>
+<body>
+  <div id="receptionist-app">
+    <header id="receptionist-header"></header>
+    <nav id="receptionist-nav"></nav>
+    <main id="receptionist-main"></main>
+  </div>
+
+  <script src="../js/core/storage.js"></script>
+  <script src="../js/core/api.js"></script>
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/core/router.js"></script>
+  <script src="../js/roles/receptionist/services.js"></script>
+  <script src="../js/roles/receptionist/ui.js"></script>
+  <script src="../js/roles/receptionist/tabs/students.js"></script>
+  <script src="../js/roles/receptionist/tabs/parents.js"></script>
+  <script src="../js/roles/receptionist/tabs/finance.js"></script>
+  <script src="../js/roles/receptionist/tabs/search.js"></script>
+  <script src="../js/roles/receptionist/tabs/notifications.js"></script>
+
+  <script src="../js/roles/receptionist/role.js"></script>
+  <script>
+    ReceptionistRole.init();
+  </script>
+</body>
+</html>

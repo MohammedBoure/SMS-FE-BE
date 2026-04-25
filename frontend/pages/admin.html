@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <div id="admin-app">
+    <header id="admin-header"></header>
+    <nav id="admin-nav"></nav>
+    <main id="admin-main"></main>
+  </div>
+
+  <script src="../js/core/storage.js"></script>
+  <script src="../js/core/api.js"></script>
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/core/router.js"></script>
+  <script src="../js/roles/admin/services.js"></script>
+  <script src="../js/roles/admin/ui.js"></script>
+  <script src="../js/roles/admin/role.js"></script>
+  <script>
+    AdminRole.init();
+  </script>
+</body>
+</html>

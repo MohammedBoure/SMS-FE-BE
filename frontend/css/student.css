@@ -1,0 +1,639 @@
+/* ==========================================================================
+   School Management System — Student Dashboard
+   Aesthetic: Clean Institutional Light · Slate & Teal with warm accents
+   Font: Tajawal (body) + Amiri (display headings)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap');
+
+/* ==========================================================================
+   CSS Variables
+   ========================================================================== */
+:root {
+  /* Core palette */
+  --navy:          #0f2942;
+  --navy-mid:      #1a3a5c;
+  --teal:          #0d9488;
+  --teal-light:    #14b8a6;
+  --teal-glow:     rgba(13, 148, 136, 0.12);
+  --amber:         #f59e0b;
+  --rose:          #f43f5e;
+  --emerald:       #10b981;
+
+  /* Surfaces */
+  --bg:            #f0f4f8;
+  --bg-alt:        #e8edf3;
+  --surface:       #ffffff;
+  --surface-2:     #f8fafc;
+  --surface-hover: #f1f5f9;
+
+  /* Text */
+  --text-primary:  #0f172a;
+  --text-secondary:#334155;
+  --text-muted:    #64748b;
+  --text-light:    #94a3b8;
+
+  /* Borders */
+  --border:        #e2e8f0;
+  --border-dark:   #cbd5e1;
+
+  /* Sidebar */
+  --sidebar-bg:    #0f2942;
+  --sidebar-w:     240px;
+  --sidebar-w-mob: 64px;
+
+  /* Header */
+  --header-h:      64px;
+
+  /* Radius */
+  --r-sm:   6px;
+  --r:      10px;
+  --r-lg:   16px;
+  --r-xl:   22px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 3px rgba(15,41,66,0.08), 0 1px 2px rgba(15,41,66,0.04);
+  --shadow:    0 4px 12px rgba(15,41,66,0.10), 0 2px  4px rgba(15,41,66,0.06);
+  --shadow-lg: 0 10px 30px rgba(15,41,66,0.13), 0 4px 8px rgba(15,41,66,0.06);
+
+  /* Transition */
+  --t-fast: 0.15s cubic-bezier(0.4,0,0.2,1);
+  --t:      0.25s cubic-bezier(0.4,0,0.2,1);
+  --t-slow: 0.45s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ==========================================================================
+   Reset & Base
+   ========================================================================== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  direction: rtl;
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   App Shell — Sidebar + Content Layout
+   ========================================================================== */
+#student-app {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  grid-template-rows: var(--header-h) 1fr;
+  grid-template-areas:
+    "sidebar header"
+    "sidebar main";
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   Sidebar Nav  (#student-nav)
+   ========================================================================== */
+#student-nav {
+  grid-area: sidebar;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+
+  /* Subtle inner right border */
+  box-shadow: inset -1px 0 0 rgba(255,255,255,0.05);
+}
+
+/* Logo area at top of sidebar */
+#student-nav::before {
+  content: 'SMS';
+  display: block;
+  font-family: 'Amiri', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--teal-light);
+  text-align: center;
+  padding: 0.5rem 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+/* Nav buttons */
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.78rem 1.25rem;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: right;
+  transition: background var(--t-fast), color var(--t-fast), padding var(--t-fast);
+  border-radius: 0;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.nav-btn::before {
+  content: '';
+  position: absolute;
+  right: 0; top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 3px;
+  height: 60%;
+  border-radius: 2px 0 0 2px;
+  background: var(--teal-light);
+  transition: transform var(--t);
+}
+
+.nav-btn:hover {
+  background: rgba(255,255,255,0.06);
+  color: #e2e8f0;
+}
+
+.nav-btn.active {
+  background: rgba(13,148,136,0.15);
+  color: var(--teal-light);
+  font-weight: 700;
+}
+
+.nav-btn.active::before {
+  transform: translateY(-50%) scaleY(1);
+}
+
+/* Nav icon (data-icon attribute driven) */
+.nav-btn::after {
+  content: attr(data-icon);
+  font-size: 1.1rem;
+  order: -1; /* icon first in RTL */
+  min-width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Header  (#student-header)
+   ========================================================================== */
+#student-header {
+  grid-area: header;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 1.75rem;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  box-shadow: var(--shadow-sm);
+  animation: slide-down 0.4s var(--t-slow) both;
+}
+
+@keyframes slide-down {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Inner wrapper injected by renderHeader() */
+#student-header > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 !important; /* override inline style */
+}
+
+/* Welcome text */
+#student-header h1 {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+#student-header h1 strong,
+#student-header h1 span {
+  color: var(--navy);
+  font-weight: 800;
+}
+
+/* Logout button */
+#logout-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.48rem 1.1rem;
+  background: transparent;
+  border: 1.5px solid var(--border-dark);
+  border-radius: var(--r);
+  color: var(--text-muted);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--t);
+}
+
+#logout-btn::before {
+  content: '⏻';
+  font-size: 0.95rem;
+}
+
+#logout-btn:hover {
+  background: var(--rose);
+  border-color: var(--rose);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(244,63,94,0.25);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Main Content  (#student-main)
+   ========================================================================== */
+#student-main {
+  grid-area: main;
+  padding: 2rem 2.25rem;
+  overflow-y: auto;
+  animation: fade-in 0.35s ease both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Section headings rendered by JS */
+#student-main h2 {
+  font-family: 'Amiri', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+  position: relative;
+}
+
+#student-main h2::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--teal);
+  border-radius: 2px;
+}
+
+/* Empty state paragraphs */
+#student-main > p,
+#student-main h2 + p {
+  color: var(--text-muted);
+  font-size: 0.97rem;
+  margin-top: 0.5rem;
+}
+
+/* Loading */
+#student-main h3 {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  padding: 2rem 0;
+}
+
+/* ==========================================================================
+   Tables (shared for all sections)
+   ========================================================================== */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  font-size: 0.93rem;
+  animation: fade-in 0.35s ease both;
+}
+
+thead {
+  background: linear-gradient(to left, var(--navy), var(--navy-mid));
+}
+
+thead th {
+  padding: 0.9rem 1.1rem;
+  color: #e2e8f0;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+thead th:first-child  { border-radius: 0 var(--r-lg) 0 0; }
+thead th:last-child   { border-radius: var(--r-lg) 0 0 0; }
+
+tbody tr {
+  transition: background var(--t-fast);
+  border-bottom: 1px solid var(--border);
+}
+
+tbody tr:last-child { border-bottom: none; }
+
+tbody tr:hover { background: var(--surface-hover); }
+
+tbody td {
+  padding: 0.85rem 1.1rem;
+  color: var(--text-secondary);
+  vertical-align: middle;
+}
+
+tbody td strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* Alternating rows */
+tbody tr:nth-child(even) { background: var(--surface-2); }
+tbody tr:nth-child(even):hover { background: var(--surface-hover); }
+
+/* ==========================================================================
+   Status badges (inline in JS via style, but we override with classes)
+   ========================================================================== */
+
+/* Grade coloring — override inline styles from JS for better look */
+td[style*="color: green"],
+td[style*="color:green"] {
+  color: var(--emerald) !important;
+  background: rgba(16,185,129,0.07);
+  border-radius: var(--r-sm);
+  font-weight: 700 !important;
+}
+
+td[style*="color: red"],
+td[style*="color:red"] {
+  color: var(--rose) !important;
+  background: rgba(244,63,94,0.07);
+  border-radius: var(--r-sm);
+  font-weight: 700 !important;
+}
+
+/* Due dates in assessments */
+td strong[style*="#e11d48"] {
+  color: var(--rose) !important;
+  background: rgba(244,63,94,0.08);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--r-sm);
+  display: inline-block;
+}
+
+/* ==========================================================================
+   Resource Cards  (renderResources)
+   ========================================================================== */
+#student-main > div > div[style*="border-right"] {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-right: 4px solid var(--teal) !important;
+  border-radius: var(--r-lg) !important;
+  padding: 1.1rem 1.4rem !important;
+  margin-bottom: 0.9rem !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: box-shadow var(--t), transform var(--t) !important;
+  animation: fade-in 0.35s ease both;
+}
+
+#student-main > div > div[style*="border-right"]:hover {
+  box-shadow: var(--shadow) !important;
+  transform: translateY(-2px) !important;
+}
+
+#student-main > div > div[style*="border-right"] strong {
+  font-size: 1rem !important;
+  color: var(--navy) !important;
+}
+
+#student-main > div > div[style*="border-right"] small {
+  color: var(--text-muted) !important;
+}
+
+/* Download button */
+#student-main a[style*="background: #0ea5e9"],
+#student-main a[style*="background:#0ea5e9"] {
+  background: var(--teal) !important;
+  padding: 0.55rem 1.1rem !important;
+  border-radius: var(--r) !important;
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  color: #fff !important;
+  transition: background var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast) !important;
+  display: inline-block !important;
+}
+
+#student-main a[style*="background: #0ea5e9"]:hover,
+#student-main a[style*="background:#0ea5e9"]:hover {
+  background: var(--teal-light) !important;
+  box-shadow: 0 4px 12px rgba(13,148,136,0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ==========================================================================
+   Notification Cards  (renderNotifications)
+   ========================================================================== */
+#student-main > div > div[style*="#f59e0b"] {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-right: 4px solid var(--amber) !important;
+  border-radius: var(--r-lg) !important;
+  padding: 1.1rem 1.4rem !important;
+  margin-bottom: 0.9rem !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: box-shadow var(--t) !important;
+  animation: fade-in 0.35s ease both;
+}
+
+#student-main > div > div[style*="#f59e0b"]:hover {
+  box-shadow: var(--shadow) !important;
+}
+
+#student-main > div > div[style*="#f59e0b"] strong {
+  color: var(--navy) !important;
+  font-size: 1rem !important;
+}
+
+#student-main > div > div[style*="#f59e0b"] p {
+  color: var(--text-secondary) !important;
+  margin: 0.3rem 0 0 !important;
+  font-size: 0.93rem !important;
+}
+
+#student-main > div > div[style*="#f59e0b"] small {
+  color: var(--text-light) !important;
+  font-size: 0.78rem !important;
+}
+
+/* ==========================================================================
+   Scrollbar (Webkit)
+   ========================================================================== */
+::-webkit-scrollbar         { width: 6px; height: 6px; }
+::-webkit-scrollbar-track   { background: transparent; }
+::-webkit-scrollbar-thumb   { background: var(--border-dark); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-light); }
+
+/* ==========================================================================
+   Mobile Hamburger Toggle
+   ========================================================================== */
+#menu-toggle {
+  display: none;
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  background: var(--navy);
+  color: var(--teal-light);
+  border: none;
+  border-radius: 99px;
+  padding: 0.7rem 1.6rem;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* ==========================================================================
+   Responsive — Tablet  (≤900px)
+   ========================================================================== */
+@media (max-width: 900px) {
+  :root { --sidebar-w: 200px; }
+
+  #student-main { padding: 1.5rem 1.25rem; }
+}
+
+/* ==========================================================================
+   Responsive — Mobile  (≤640px)
+   Sidebar collapses to bottom nav bar
+   ========================================================================== */
+@media (max-width: 640px) {
+  #student-app {
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--header-h) 1fr auto;
+    grid-template-areas:
+      "header"
+      "main"
+      "sidebar";
+  }
+
+  /* Bottom nav bar */
+  #student-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    top: auto;
+    height: auto;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.4rem 0.5rem;
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    z-index: 200;
+    box-shadow: 0 -4px 16px rgba(15,41,66,0.2);
+    gap: 0.25rem;
+  }
+
+  /* Hide the SMS logo on mobile */
+  #student-nav::before { display: none; }
+
+  .nav-btn {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.68rem;
+    border-radius: var(--r);
+    min-width: 56px;
+    flex-shrink: 0;
+  }
+
+  /* Hide the active indicator bar */
+  .nav-btn::before { display: none; }
+
+  .nav-btn::after {
+    font-size: 1.3rem;
+    order: 0;
+  }
+
+  /* Main + header */
+  #student-main {
+    padding: 1.1rem 1rem 5.5rem; /* room for bottom nav */
+  }
+
+  #student-header {
+    padding: 0 1rem;
+  }
+
+  #student-header h1 {
+    font-size: 0.92rem;
+  }
+
+  /* Tables: horizontal scroll */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--r);
+    white-space: nowrap;
+  }
+
+  thead th,
+  tbody td {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.85rem;
+  }
+
+  #student-main h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Resource/notification cards stack */
+  #student-main > div > div[style] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+}
+
+/* ==========================================================================
+   Print
+   ========================================================================== */
+@media print {
+  #student-nav,
+  #student-header,
+  #logout-btn { display: none !important; }
+
+  #student-app { display: block; }
+  #student-main { padding: 0; }
+  table { box-shadow: none; border: 1px solid #ccc; }
+}

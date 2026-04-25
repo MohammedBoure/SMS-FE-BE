@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>نظام المحاسبة والمالية</title>
+  </head>
+<body style="font-family: 'Cairo', sans-serif; background: #f8fafc; margin: 0;">
+  <div id="accountant-app" style="display: flex; flex-direction: column; min-height: 100vh;">
+    <header id="accountant-header"></header>
+    <nav id="accountant-nav"></nav>
+    <main id="accountant-main" style="flex: 1;"></main>
+  </div>
+
+  <script src="../js/core/storage.js"></script>
+  <script src="../js/core/api.js"></script>
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/core/router.js"></script>
+
+  <script src="../js/roles/accountant/services.js"></script>
+  <script src="../js/roles/accountant/ui.js"></script>
+  
+  <script src="../js/roles/accountant/tabs/students.js"></script>
+  <script src="../js/roles/accountant/tabs/fees.js"></script>
+  <script src="../js/roles/accountant/tabs/payments.js"></script>
+  <script src="../js/roles/accountant/tabs/transactions.js"></script>
+
+  <script src="../js/roles/accountant/tabs/search.js"></script>
+  <script src="../js/roles/accountant/tabs/attendance.js"></script>
+
+  <script src="../js/roles/accountant/role.js"></script>
+  <script>
+    AccountantRole.init();
+  </script>
+</body>
+</html>

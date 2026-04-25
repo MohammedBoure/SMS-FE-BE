@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parent Dashboard</title>
+  <link rel="stylesheet" href="../css/parent.css">
+</head>
+<body>
+  <div id="parent-app">
+    <header id="parent-header"></header>
+    <nav id="parent-nav"></nav>
+    <main id="parent-main"></main>
+  </div>
+
+  <script src="../js/core/storage.js"></script>
+  <script src="../js/core/api.js"></script>
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/core/router.js"></script>
+  <script src="../js/roles/parent/services.js"></script>
+  <script src="../js/roles/parent/ui.js"></script>
+  <script src="../js/roles/parent/role.js"></script>
+  <script>
+    ParentRole.init();
+  </script>
+</body>
+</html>

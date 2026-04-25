@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تسجيل الدخول — نظام إدارة المدرسة</title>
+  <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+
+  <div id="login-container">
+
+    <!-- ─── الشعار والعنوان ─── -->
+    <div class="login-logo">
+      <div class="login-emblem">
+        <!-- أيقونة قبعة التخرج SVG -->
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 8L4 22l28 14 28-14L32 8z"/>
+          <path d="M56 26v14c0 6-10.75 12-24 12S8 46 8 40V26" opacity="0.55"/>
+          <path d="M56 22v16" stroke-width="3" stroke-linecap="round"
+                stroke="currentColor" fill="none" opacity="0.7"/>
+          <circle cx="56" cy="40" r="4"/>
+        </svg>
+      </div>
+      <h1>نظام إدارة المدرسة</h1>
+      <p class="login-subtitle">School Management System</p>
+    </div>
+
+    <!-- ─── فاصل ─── -->
+    <div class="login-divider">
+      <span></span>
+      <em>تسجيل الدخول</em>
+      <span></span>
+    </div>
+
+    <!-- ─── النموذج ─── -->
+    <form id="login-form" novalidate>
+
+      <div>
+        <label for="username">اسم المستخدم</label>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="username"
+            required
+            autocomplete="username"
+          />
+          <span class="input-icon">
+            <!-- أيقونة مستخدم -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <div>
+        <label for="password">كلمة المرور</label>
+        <div class="input-wrapper">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="••••••••"
+            required
+            autocomplete="current-password"
+          />
+          <span class="input-icon">
+            <!-- أيقونة قفل -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="11" width="14" height="10" rx="2"/>
+              <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+              <circle cx="12" cy="16" r="1.2" fill="currentColor"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <button type="submit" id="login-btn">دخول</button>
+    </form>
+
+    <!-- ─── رسالة الخطأ ─── -->
+    <div id="error-msg" role="alert" aria-live="polite"></div>
+
+    <!-- ─── تذييل ─── -->
+    <p class="login-footer">جميع الحقوق محفوظة &copy; 2025 — نظام إدارة المدرسة</p>
+
+  </div><!-- /#login-container -->
+
+  <script src="../js/core/storage.js"></script>
+  <script src="../js/core/api.js"></script>
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/core/router.js"></script>
+  <script>
+    (function () {
+      /* إعادة توجيه المستخدم المسجّل مسبقاً */
+      if (Auth.isAuthenticated()) {
+        const session = Auth.getSession();
+        Router.redirectToDashboard(session.role);
+        return;
+      }
+
+      const form     = document.getElementById('login-form');
+      const errorMsg = document.getElementById('error-msg');
+      const loginBtn = document.getElementById('login-btn');
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        errorMsg.textContent = '';
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'جارٍ الدخول…';
+        loginBtn.classList.add('loading');
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+
+        try {
+          const user = await Auth.login(username, password);
+          Router.redirectToDashboard(user.role_name);
+        } catch (err) {
+          errorMsg.textContent = err.message || 'فشل تسجيل الدخول. حاول مرة أخرى.';
+          loginBtn.disabled = false;
+          loginBtn.textContent = 'دخول';
+          loginBtn.classList.remove('loading');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
