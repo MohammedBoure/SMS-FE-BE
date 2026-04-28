@@ -267,17 +267,28 @@ package "Academics & Operations" as P_Acad {
     }
     
     class GradesManager {
+      ' الخصائص (Attributes)
+      - db: Database
       - id: INT
       - student_id: INT
       - assessment_id: INT
       - grade_value: DOUBLE
       - teacher_remarks: TEXT
       ..
+      ' الدوال (Methods) المستنتجة من الملف المرفق
+      + __init__(db_instance: Database)
+      + save_grade(student_id: Integer, assessment_id: Integer, grade_value: Float, teacher_remarks: String): Integer
+      + get_assessment_grades(assessment_id: Integer): List
+      + get_student_grades(student_id: Integer): List
+      + get_assessment_statistics(assessment_id: Integer): Dictionary
+      + delete_grade(grade_id: Integer): Tuple
     }
   }
   
   together {
     class AttendanceManager {
+      ' الخصائص (Attributes)
+      - db: Database
       - id: INT
       - student_id: INT
       - date: DATE
@@ -285,16 +296,34 @@ package "Academics & Operations" as P_Acad {
       - is_justified: BOOLEAN
       - justification_reason: TEXT
       ..
+      ' الدوال (Methods) المستنتجة من الملف المرفق
+      + __init__(db_instance: Database)
+      + save_attendance(student_id: Integer, target_date: String, status: String, is_justified: Boolean, justification_reason: String): Integer
+      + get_class_attendance_sheet(class_id: Integer, target_date: String): List
+      + get_student_attendance(student_id: Integer, start_date: String, end_date: String): List
+      + get_attendance_statistics(student_id: Integer): Dictionary
+      + update_justification(attendance_id: Integer, is_justified: Boolean, justification_reason: String): Boolean
+      + delete_attendance(attendance_id: Integer): Tuple
     }
     
     class SchedulesManager {
+      ' الخصائص (Attributes)
+      - db: Database
       - id: INT
       - assignment_id: INT
-      - day_of_week: ENUM
+      - day_of_week: VARCHAR
       - start_time: TIME
       - end_time: TIME
       - room_number: VARCHAR
       ..
+      ' الدوال (Methods) المستنتجة من الملف المرفق
+      + __init__(db_instance: Database)
+      - _check_conflict(cursor: Cursor, assignment_id: Integer, day_of_week: String, start_time: String, end_time: String, room_number: String, exclude_schedule_id: Integer): String
+      + add_schedule(assignment_id: Integer, day_of_week: String, start_time: String, end_time: String, room_number: String): Integer
+      + get_class_schedule(class_id: Integer): List
+      + get_teacher_schedule(teacher_id: Integer): List
+      + update_schedule(schedule_id: Integer, **kwargs): Boolean
+      + delete_schedule(schedule_id: Integer): Tuple
     }
     
     class ResourcesManager {
@@ -329,20 +358,32 @@ package "Finance" as P_Fin {
   
   together {
     class UserTransactionsManager {
+      ' الخصائص (Attributes)
+      - db: Database
       - id: INT
-      - from_user_id: INT
+      - from_user_id:  INT
       - to_user_id: INT
       - amount: INT
       - transaction_type: VARCHAR
       - reference_type: VARCHAR
       - reference_id: INT
       - notes: TEXT
-      - status: ENUM
+      - status: VARCHAR
       - created_at: TIMESTAMP
       ..
+      ' الدوال (Methods) المستنتجة من الملف المرفق
+      + __init__(db_instance: Database)
+      + create_transaction(from_user_id: Integer, to_user_id: Integer, amount: Integer, transaction_type: String, reference_type: String, reference_id: Integer, notes: String, status: String): Integer
+      + get_all_transactions(status: String, transaction_type: String): List
+      + get_transaction_by_id(transaction_id: Integer): Dictionary
+      + get_user_statement(user_id: Integer): List
+      + update_transaction_status(transaction_id: Integer, status: String, notes: String): Boolean
+      + delete_transaction(transaction_id: Integer): Tuple
     }
     
     class StudentFeesManager {
+      ' الخصائص (Attributes)
+      - db: Database
       - id: INT
       - student_id: INT
       - program_id: INT
@@ -352,9 +393,19 @@ package "Finance" as P_Fin {
       - due_date: DATE
       - transaction_id: INT
       ..
+      ' الدوال (Methods) المستنتجة من الملف المرفق
+      + __init__(db_instance: Database)
+      + create_fee(student_id: Integer, fee_type: String, amount_due: Integer, program_id: Integer, applied_discount: Integer, due_date: String, transaction_id: Integer): Integer
+      + get_all_fees(fee_type: String): List
+      + get_student_fees(student_id: Integer): List
+      + get_overdue_fees(): List
+      + update_fee(fee_id: Integer, **kwargs): Boolean
+      + delete_fee(fee_id: Integer): Tuple
     }
     
     class PaymentsManager {
+      ' الخصائص (Attributes)
+      - db: Database
       - id: INT
       - fee_id: INT
       - transaction_id: INT
@@ -363,6 +414,15 @@ package "Finance" as P_Fin {
       - payment_date: TIMESTAMP
       - receipt_number: VARCHAR
       ..
+      ' الدوال (Methods) المستنتجة من الملف المرفق
+      + __init__(db_instance: Database)
+      + record_payment(fee_id: Integer, amount_paid: Integer, installment_number: Integer, transaction_id: Integer, receipt_number: String): Integer
+      + get_all_payments(): List
+      + get_payments_by_fee(fee_id: Integer): List
+      + get_student_payments(student_id: Integer): List
+      + get_fee_balance(fee_id: Integer): Dictionary
+      + update_payment(payment_id: Integer, **kwargs): Boolean
+      + delete_payment(payment_id: Integer): Tuple
     }
   }
 }
@@ -372,14 +432,20 @@ package "System & Communications" as P_Sys {
   
   together {
     class Database {
+      ' الخصائص (Attributes)
+      - _instance: Database {static}
+      - _conn_mgr: ConnectionManager
+      - _schema: SchemaInitializer
+      + engine: Engine
+      - _initialized: BOOLEAN
       ..
-    }
-    
-    class SystemLogs {
-      - id: INT
-      - action: VARCHAR
-      - created_at: TIMESTAMP
-      ..
+      ' الدوال (Methods) المستخرجة من الملف
+      + __new__(cls): Database
+      + __init__()
+      + get_db_connection(): ContextManager
+      + get_raw_connection(): MySQLConnection
+      + hard_reset_database(password: String): Tuple
+      + truncate_all_tables(password: String): Tuple
     }
   }
   
@@ -406,17 +472,27 @@ package "System & Communications" as P_Sys {
     }
     
     class MessagesManager {
+      ' الخصائص (Attributes)
+      - db: Database
       - id: INT
       - content: TEXT
       - created_at: TIMESTAMP
       - sender_id: INT
       - receiver_id: INT
       ..
+      ' الدوال (Methods) المستخرجة من الملف المرفق
+      + __init__(db_instance: Database)
+      + send_message(sender_id: Integer, receiver_id: Integer, content: String): Integer
+      + get_message_by_id(message_id: Integer): Dictionary
+      + get_conversation(user1_id: Integer, user2_id: Integer): List
+      + get_user_inbox(user_id: Integer): List
     }
   }
   
   together {
     class PostsManager {
+      ' الخصائص (Attributes)
+      - db: Database
       - id: INT
       - title: VARCHAR
       - content: TEXT
@@ -424,9 +500,19 @@ package "System & Communications" as P_Sys {
       - created_at: TIMESTAMP
       - user_id: INT
       ..
+      ' الدوال (Methods) المستخرجة من الملف المرفق
+      + __init__(db_instance: Database)
+      + create_post(title: String, content: String, user_id: Integer, image: String): Integer
+      + get_all_posts(): List
+      + get_post_by_id(post_id: Integer): Dictionary
+      + get_posts_by_user(user_id: Integer): List
+      + update_post(post_id: Integer, **kwargs): Boolean
+      + delete_post(post_id: Integer): Tuple
     }
     
     class NotificationsManager {
+      ' الخصائص (Attributes)
+      - db: Database
       - id: INT
       - user_id: INT
       - title: VARCHAR
@@ -434,6 +520,16 @@ package "System & Communications" as P_Sys {
       - is_read: BOOLEAN
       - created_at: TIMESTAMP
       ..
+      ' الدوال (Methods) المستخرجة من الملف المرفق
+      + __init__(db_instance: Database)
+      + create_notification(user_id: Integer, title: String, message: String): Integer
+      + create_bulk_notifications(user_ids: List, title: String, message: String): Boolean
+      + get_user_notifications(user_id: Integer, unread_only: Boolean, limit: Integer): List
+      + get_unread_count(user_id: Integer): Integer
+      + mark_as_read(notification_id: Integer): Boolean
+      + mark_all_as_read(user_id: Integer): Boolean
+      + delete_notification(notification_id: Integer): Tuple
+      + delete_old_notifications(days_old: Integer): Tuple
     }
   }
 }

@@ -1,6 +1,6 @@
 // js/core/api.js
 
-const API_BASE_URL = "http://rtxa.duckdns.org:8000";
+const API_BASE_URL = "http://127.0.0.1:8000";
 
 const Api = {
   async request(method, endpoint, body = null) {

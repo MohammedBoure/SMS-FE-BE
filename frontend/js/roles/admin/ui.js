@@ -1,200 +1,117 @@
 // js/roles/admin/ui.js
 
 const AdminUI = {
-  SECTIONS: ["users", "students", "teachers", "classes", "payments", "attendance"],
+  // هيكل التنقل الشامل لجميع الأقسام الـ 19
+  NAV_STRUCTURE: [
+    { 
+      category: "الإدارة الأساسية", 
+      items: [
+        { id: "users", label: "إدارة المستخدمين", icon: "👥" },
+        { id: "parents", label: "أولياء الأمور", icon: "👨‍👩‍👧" }
+      ] 
+    },
+    { 
+      category: "الشؤون الأكاديمية", 
+      items: [
+        { id: "academic", label: "نظرة عامة (أكاديمي)", icon: "📈" },
+        { id: "classes", label: "الفصول والمقاعد", icon: "🏫" },
+        { id: "students", label: "شؤون الطلاب", icon: "🎓" },
+        { id: "teachers", label: "الطاقم التعليمي", icon: "👨‍🏫" },
+        { id: "enrollments", label: "سجلات التسجيل", icon: "📑" },
+        { id: "attendance", label: "الحضور والغياب", icon: "⏱️" },
+        { id: "schedules", label: "الجداول الزمنية", icon: "📅" },
+        { id: "assessments", label: "التقييمات والامتحانات", icon: "📝" },
+        { id: "grades", label: "الدرجات والنتائج", icon: "📊" }
+      ] 
+    },
+    { 
+      category: "المالية والموارد", 
+      items: [
+        { id: "finance", label: "نظرة عامة (مالية)", icon: "💰" },
+        { id: "studentFees", label: "الرسوم والديون", icon: "🧾" },
+        { id: "payments", label: "سجل المدفوعات", icon: "💳" },
+        { id: "transactions", label: "الدفتر اليومي", icon: "📓" },
+        { id: "resources", label: "المكتبة الرقمية", icon: "📚" }
+      ] 
+    },
+    { 
+      category: "التواصل والمجتمع", 
+      items: [
+        { id: "conversations", label: "المحادثات المباشرة", icon: "💬" },
+        { id: "notifications", label: "الإشعارات والتنبيهات", icon: "📢" },
+        { id: "posts", label: "لوحة الإعلانات", icon: "📰" }
+      ] 
+    }
+  ],
 
   renderHeader(session) {
     const header = document.getElementById("admin-header");
     header.innerHTML = `
-      <h1>Admin Dashboard</h1>
-      <span>User ID: ${session.user_id} | Role: ${session.role}</span>
-      <button id="logout-btn">Logout</button>
+      <div style="padding: 10px 0;">
+        <h2 style="margin:0; font-size: 1.2em;">لوحة الإدارة الشاملة</h2>
+        <small style="color: #6ee7b7;">المعرف: #${session.user_id}</small>
+      </div>
     `;
+    
+    document.getElementById("user-info").innerText = `حساب: ${session.role}`;
     document.getElementById("logout-btn").addEventListener("click", () => Auth.logout());
   },
 
   renderNav(activeSection) {
     const nav = document.getElementById("admin-nav");
-    nav.innerHTML = this.SECTIONS.map(section =>
-      `<button class="nav-btn${activeSection === section ? " active" : ""}" data-section="${section}">${this._capitalize(section)}</button>`
-    ).join("");
+    let html = "";
+
+    this.NAV_STRUCTURE.forEach(group => {
+      html += `<div class="nav-category" style="padding: 15px 20px 5px; font-size: 0.75em; color: #a7f3d0; opacity: 0.8; font-weight: bold;">${group.category}</div>`;
+      group.items.forEach(item => {
+        const isActive = activeSection === item.id ? " active" : "";
+        html += `
+          <button class="nav-btn${isActive}" data-section="${item.id}" style="width: 100%; text-align: right; display: flex; align-items: center; gap: 10px; border: none; background: transparent; color: white; padding: 10px 20px; cursor: pointer; transition: 0.2s;">
+            <span style="font-size: 1.2em;">${item.icon}</span>
+            <span>${item.label}</span>
+          </button>`;
+      });
+    });
+
+    nav.innerHTML = html;
+
     nav.querySelectorAll(".nav-btn").forEach(btn => {
       btn.addEventListener("click", () => AdminRole.loadSection(btn.dataset.section));
     });
   },
 
+  prepareMain(title) {
+    const main = document.getElementById("admin-main");
+    document.getElementById("section-title").innerText = title;
+    main.innerHTML = ""; 
+    return main;
+  },
+
   renderLoading() {
-    document.getElementById("admin-main").innerHTML = "<p>Loading...</p>";
+    document.getElementById("admin-main").innerHTML = `
+      <div style="display: flex; justify-content: center; align-items: center; height: 300px; flex-direction: column; gap: 15px;">
+        <div style="width: 40px; height: 40px; border: 4px solid #cbd5e1; border-top: 4px solid #064e3b; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+        <p style="color: #64748b; font-weight: bold;">جاري تحميل البيانات...</p>
+        <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
+      </div>`;
   },
 
   renderError(message) {
-    document.getElementById("admin-main").innerHTML = `<p>Error: ${message}</p>`;
+    document.getElementById("admin-main").innerHTML = `
+      <div style="background: #fef2f2; color: #991b1b; padding: 20px; border-radius: 8px; border: 1px solid #fca5a5; margin-top: 20px;">
+        <strong>عذراً، حدث خطأ:</strong> ${message}
+      </div>`;
   },
 
-  renderUsers(response) {
-    // استخراج المصفوفة بأمان
-    const users = response.data || response || [];
-    const main = document.getElementById("admin-main");
-    if (!users || users.length === 0) {
-      main.innerHTML = "<h2>Users</h2><p>No users found.</p>";
-      return;
-    }
-    const rows = users.map(u => `
-      <tr>
-        <td>${u.id || u.user_id}</td>
-        <td>${u.full_name}</td>
-        <td>${u.username}</td>
-        <td>${u.role_name}</td>
-        <td>${u.email || ""}</td>
-        <td>${u.is_active ? "Active" : "Inactive"}</td>
-        <td>
-          <button data-action="toggle-status" data-id="${u.id || u.user_id}" data-active="${u.is_active}">${u.is_active ? "Deactivate" : "Activate"}</button>
-          <button data-action="delete-user" data-id="${u.id || u.user_id}">Delete</button>
-        </td>
-      </tr>
-    `).join("");
-    main.innerHTML = `
-      <h2>Users Management</h2>
-      <table border="1">
-        <thead>
-          <tr><th>ID</th><th>Name</th><th>Username</th><th>Role</th><th>Email</th><th>Status</th><th>Actions</th></tr>
-        </thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
-    main.querySelectorAll("[data-action='toggle-status']").forEach(btn => {
-      btn.addEventListener("click", () => AdminRole.toggleUserStatus(btn.dataset.id, btn.dataset.active === "true"));
-    });
-    main.querySelectorAll("[data-action='delete-user']").forEach(btn => {
-      btn.addEventListener("click", () => AdminRole.deleteUser(btn.dataset.id));
-    });
+  _escape(str) {
+    if (str === null || str === undefined) return "-";
+    return String(str).replace(/[&<>"']/g, m => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    })[m]);
   },
 
-  renderStudents(response) {
-    // استخراج المصفوفة بأمان
-    const students = response.data || response || [];
-    const main = document.getElementById("admin-main");
-    if (!students || students.length === 0) {
-      main.innerHTML = "<h2>Students</h2><p>No students found.</p>";
-      return;
-    }
-    const rows = students.map(s => `
-      <tr>
-        <td>${s.student_id || s.id}</td>
-        <td>${s.student_name || s.full_name}</td>
-        <td>${s.email || ""}</td>
-        <td>${s.student_phone || s.phone || ""}</td>
-      </tr>
-    `).join("");
-    main.innerHTML = `
-      <h2>Students</h2>
-      <table border="1">
-        <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
-  },
-
-  renderTeachers(response) {
-    const teachers = response.data || response || [];
-    const main = document.getElementById("admin-main");
-    if (!teachers || teachers.length === 0) {
-      main.innerHTML = "<h2>Teachers</h2><p>No teachers found.</p>";
-      return;
-    }
-    const rows = teachers.map(t => `
-      <tr>
-        <td>${t.teacher_id || t.id}</td>
-        <td>${t.teacher_name || t.full_name}</td>
-        <td>${t.subject || ""}</td>
-        <td>${t.email || ""}</td>
-      </tr>
-    `).join("");
-    main.innerHTML = `
-      <h2>Teachers</h2>
-      <table border="1">
-        <thead><tr><th>ID</th><th>Name</th><th>Subject</th><th>Email</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
-  },
-
-  renderClasses(response) {
-    const classes = response.data || response || [];
-    const main = document.getElementById("admin-main");
-    if (!classes || classes.length === 0) {
-      main.innerHTML = "<h2>Classes</h2><p>No classes found.</p>";
-      return;
-    }
-    const rows = classes.map(c => `
-      <tr>
-        <td>${c.class_id || c.id}</td>
-        <td>${c.class_name}</td>
-        <td>${c.level || c.grade_level || ""}</td>
-        <td>${c.capacity || ""}</td>
-      </tr>
-    `).join("");
-    main.innerHTML = `
-      <h2>Classes</h2>
-      <table border="1">
-        <thead><tr><th>ID</th><th>Name</th><th>Level</th><th>Capacity</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
-  },
-
-  renderPayments(response) {
-    const payments = response.data || response || [];
-    const main = document.getElementById("admin-main");
-    if (!payments || payments.length === 0) {
-      main.innerHTML = "<h2>Payments</h2><p>No payments found.</p>";
-      return;
-    }
-    const rows = payments.map(p => `
-      <tr>
-        <td>${p.payment_id || p.id}</td>
-        <td>${p.student_id || p.student_name || ""}</td>
-        <td>${p.amount_paid || p.amount}</td>
-        <td>${p.payment_date || ""}</td>
-        <td>${p.status || "completed"}</td>
-      </tr>
-    `).join("");
-    main.innerHTML = `
-      <h2>Payments</h2>
-      <table border="1">
-        <thead><tr><th>ID</th><th>Student</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
-  },
-
-  renderAttendance(response) {
-    const records = response.data || response || [];
-    const main = document.getElementById("admin-main");
-    if (!records || records.length === 0) {
-      main.innerHTML = "<h2>Attendance</h2><p>No attendance records found.</p>";
-      return;
-    }
-    const rows = records.map(r => `
-      <tr>
-        <td>${r.attendance_id || r.id}</td>
-        <td>${r.student_id || r.student_name || ""}</td>
-        <td>${r.class_id || ""}</td>
-        <td>${r.date || ""}</td>
-        <td>${r.status || ""}</td>
-      </tr>
-    `).join("");
-    main.innerHTML = `
-      <h2>Attendance</h2>
-      <table border="1">
-        <thead><tr><th>ID</th><th>Student</th><th>Class</th><th>Date</th><th>Status</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
-  },
-
-  _capitalize(str) {
-    if (!str) return "";
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  },
+  _formatCurrency(amount) {
+    if (amount === null || amount === undefined) return "0.00 دج";
+    return new Intl.NumberFormat('ar-DZ', { style: 'currency', currency: 'DZD' }).format(amount);
+  }
 };

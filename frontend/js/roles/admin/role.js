@@ -1,11 +1,14 @@
+// js/roles/admin/role.js
+
 const AdminRole = {
-  currentSection: "users",
+  currentSection: "academic", // الصفحة الافتراضية عند تسجيل الدخول
 
   init() {
     if (!Auth.requireAuth("admin")) return;
+    
     const session = Auth.getSession();
     AdminUI.renderHeader(session);
-    AdminUI.renderNav(this.currentSection);
+    
     this.loadSection(this.currentSection);
   },
 
@@ -16,60 +19,52 @@ const AdminRole = {
 
     try {
       switch (section) {
-        case "users": {
-          const users = await AdminServices.getUsers();
-          AdminUI.renderUsers(users);
-          break;
-        }
-        case "students": {
-          const students = await AdminServices.getStudents();
-          AdminUI.renderStudents(students);
-          break;
-        }
-        case "teachers": {
-          const teachers = await AdminServices.getTeachers();
-          AdminUI.renderTeachers(teachers);
-          break;
-        }
-        case "classes": {
-          const classes = await AdminServices.getClasses();
-          AdminUI.renderClasses(classes);
-          break;
-        }
-        case "payments": {
-          const payments = await AdminServices.getPayments();
-          AdminUI.renderPayments(payments);
-          break;
-        }
-        case "attendance": {
-          const attendance = await AdminServices.getAttendance();
-          AdminUI.renderAttendance(attendance);
-          break;
-        }
+        // الإدارة
+        case "users": AdminUI.renderUsersTab(await AdminServices.getUsers()); break;
+        case "parents": AdminUI.renderParentsTab(await AdminServices.getParents()); break;
+        
+        // الأكاديمي
+        case "academic": await AdminUI.renderAcademicTab(); break; // دالة تجلب بياناتها بنفسها
+        case "classes": AdminUI.renderClassesTab(await AdminServices.getClasses()); break;
+        case "students": AdminUI.renderStudentsTab(await AdminServices.getStudents()); break;
+        case "teachers": AdminUI.renderTeachersTab(await AdminServices.getTeachers()); break;
+        case "enrollments": AdminUI.renderEnrollmentsTab(await AdminServices.getEnrollments()); break;
+        case "attendance": await AdminUI.renderAttendanceTab(); break; // دالة تجلب بياناتها بنفسها
+        case "schedules": await AdminUI.renderSchedulesTab(); break; // دالة تجلب بياناتها بنفسها
+        case "assessments": AdminUI.renderAssessmentsTab(await AdminServices.getAssessments()); break;
+        case "grades": await AdminUI.renderGradesTab(); break; // دالة تجلب بياناتها بنفسها
+
+        // المالية
+        case "finance": await AdminUI.renderFinanceTab(); break; // دالة تجلب بياناتها بنفسها
+        case "studentFees": AdminUI.renderFeesTab(await AdminServices.getStudentFees()); break;
+        case "payments": AdminUI.renderPaymentsTab(await AdminServices.getPayments()); break;
+        case "transactions": AdminUI.renderTransactionsTab(await AdminServices.getTransactions()); break;
+        case "resources": AdminUI.renderResourcesTab(await AdminServices.getResources()); break;
+
+        // التواصل
+        case "conversations": await AdminUI.renderConversationsTab(); break; // دالة تجلب بياناتها بنفسها
+        case "notifications": AdminUI.renderNotificationsTab(await AdminServices.getNotifications()); break;
+        case "posts": AdminUI.renderPostsTab(await AdminServices.getPosts()); break;
+
         default:
-          AdminUI.renderError("Unknown section");
+          AdminUI.renderError("هذه الواجهة قيد التطوير أو غير مسجلة في الموجه (Router).");
       }
     } catch (err) {
-      AdminUI.renderError(err.message);
+      console.error("خطأ أثناء تحميل القسم:", err);
+      AdminUI.renderError(err.message || "فشل الاتصال بالخادم لجلب البيانات.");
     }
   },
 
-  async toggleUserStatus(userId, currentActive) {
+  // وظيفة الحذف المركزية
+  async deleteItem(endpoint, id, sectionRefresh) {
+    if (!confirm("هل أنت متأكد من حذف هذا السجل بشكل نهائي؟")) return;
+    
     try {
-      await AdminServices.changeUserStatus(userId, !currentActive);
-      this.loadSection("users");
+      await AdminServices.deleteRecord(endpoint, id);
+      alert("تم الحذف بنجاح.");
+      this.loadSection(sectionRefresh || this.currentSection);
     } catch (err) {
-      alert("Failed to update status: " + err.message);
+      alert("تعذر الحذف: " + err.message);
     }
-  },
-
-  async deleteUser(userId) {
-    if (!confirm("Are you sure you want to delete this user?")) return;
-    try {
-      await AdminServices.deleteUser(userId);
-      this.loadSection("users");
-    } catch (err) {
-      alert("Failed to delete user: " + err.message);
-    }
-  },
+  }
 };

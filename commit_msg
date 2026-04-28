@@ -1,30 +1,22 @@
-Implemented comprehensive database management classes for:
-- Conversations: Full CRUD, statistics, and history management.
-- Programs: Academic programs, pricing, and enrollment summaries.
-- Classes: Section management, occupancy tracking, and capacity levels.
-- Parents: User-to-parent mapping and children association.
-- Students: Registration, advanced search, pagination, and status control.
-- Teachers: Specializations, hiring records, and academic assignments.
+Comprehensive update of all School Management System (SMS) classes to ensure 100% alignment between the design schema and the functional implementation.
 
-All managers include robust error handling, logging, and data integrity checks.
+1. Academics & Operations Updates:
+   - GradesManager: Implemented Upsert logic for 'save_grade', transcript extraction, and exam statistics.
+   - AttendanceManager: Added "Call Sheet" logic, absence justification workflows, and per-student attendance analytics.
+   - SchedulesManager: Integrated Smart Conflict Check for room/teacher availability and weekly schedule retrieval.
 
-Comprehensive update to the School Management System architecture, including:
+2. Finance Package Enhancements:
+   - UserTransactionsManager: Enabled peer-to-peer transfers, account statement (Statement) generation, and transaction status tracking.
+   - StudentFeesManager: Implemented debt management, net-amount calculations (after discounts), and overdue tracking.
+   - PaymentsManager: Added automated receipt generation and balance tracking per invoice.
 
-- Core & Users: 
-    - Updated UsersManager with plain-text auth and role-based filtering.
-    - Enhanced StudentsManager and TeachersManager with advanced search and status management.
-    - Added ParentsManager with student-linking capabilities.
-    - Updated SubjectsManager to include teacher-to-subject statistics.
+3. System & Communications Overhaul:
+   - Database (Singleton): Documented Singleton architecture, connection handling, and password-protected "Hard Reset" logic.
+   - MessagesManager: Enabled peer-to-peer messaging, full conversation retrieval, and Inbox management.
+   - NotificationsManager: Added support for Bulk sending, read/unread tracking, and periodic cleanup of legacy notifications.
+   - PostsManager: Updated with Blog/News posting capabilities, author-linking, and dynamic image/content editing.
 
-- Academics & Operations:
-    - Implemented ProgramsManager with dynamic pricing and enrollment summaries.
-    - Updated ClassesManager with occupancy tracking.
-    - Standardized StudentEnrollmentsManager and TeacherAssignmentsManager for relational linking.
-    - Integrated AssessmentsManager and ResourcesManager for academic content delivery.
-
-- System & Communication:
-    - Updated ConversationsManager with summary statistics and cleanup utilities.
-
-- Documentation:
-    - Re-structured PlantUML Class Diagram for A3 Landscape print optimization.
-    - Aligned all Manager methods with actual FastAPI route parameters and return types.
+4. Structural & Architectural Fixes:
+   - ENUM Removal: Converted all ENUM fields to VARCHAR/String handling via 'VALID_STATUSES' for easier maintenance.
+   - Relations & Joins: Optimized Read methods to perform SQL JOINs with Users/Students/Teachers tables to retrieve full names instead of raw IDs.
+   - Standard Compliance: Enforced relative paths and 24K gold base calculations as per system mandates.

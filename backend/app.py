@@ -25,7 +25,9 @@ from apis import (
     user_transactions_router,
     student_fees_router,
     payments_router,
-    notifications_router
+    notifications_router,
+    posts_router,
+    messages_router
 )
 
 app = FastAPI(
@@ -62,6 +64,8 @@ app.include_router(user_transactions_router)
 app.include_router(student_fees_router)
 app.include_router(payments_router)
 app.include_router(notifications_router)
+app.include_router(messages_router)
+app.include_router(posts_router)
 
 @app.get("/")
 def read_root():
