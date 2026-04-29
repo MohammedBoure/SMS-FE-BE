@@ -1,22 +1,10 @@
-Comprehensive update of all School Management System (SMS) classes to ensure 100% alignment between the design schema and the functional implementation.
+feat: comprehensive UI/UX overhaul and core logic refactoring for Admin Dashboard
 
-1. Academics & Operations Updates:
-   - GradesManager: Implemented Upsert logic for 'save_grade', transcript extraction, and exam statistics.
-   - AttendanceManager: Added "Call Sheet" logic, absence justification workflows, and per-student attendance analytics.
-   - SchedulesManager: Integrated Smart Conflict Check for room/teacher availability and weekly schedule retrieval.
-
-2. Finance Package Enhancements:
-   - UserTransactionsManager: Enabled peer-to-peer transfers, account statement (Statement) generation, and transaction status tracking.
-   - StudentFeesManager: Implemented debt management, net-amount calculations (after discounts), and overdue tracking.
-   - PaymentsManager: Added automated receipt generation and balance tracking per invoice.
-
-3. System & Communications Overhaul:
-   - Database (Singleton): Documented Singleton architecture, connection handling, and password-protected "Hard Reset" logic.
-   - MessagesManager: Enabled peer-to-peer messaging, full conversation retrieval, and Inbox management.
-   - NotificationsManager: Added support for Bulk sending, read/unread tracking, and periodic cleanup of legacy notifications.
-   - PostsManager: Updated with Blog/News posting capabilities, author-linking, and dynamic image/content editing.
-
-4. Structural & Architectural Fixes:
-   - ENUM Removal: Converted all ENUM fields to VARCHAR/String handling via 'VALID_STATUSES' for easier maintenance.
-   - Relations & Joins: Optimized Read methods to perform SQL JOINs with Users/Students/Teachers tables to retrieve full names instead of raw IDs.
-   - Standard Compliance: Enforced relative paths and 24K gold base calculations as per system mandates.
+- Refactor(Schedules): Replaced legacy prompts with interactive Modals. Implemented a smart time filter to handle MySQL TIME/timedelta conversion from seconds to HH:MM format.
+- Refactor(Students): Implemented full Student Profile view with integrated academic, financial, and attendance data. Added searchable dropdowns for User, Class, and Parent associations.
+- Refactor(Teachers): Updated Teacher profiles to include dynamic weekly schedules and subject assignments with corrected time formatting.
+- Refactor(Users): Standardized user management with status toggling (Active/Inactive) and streamlined creation/edit Modals.
+- Refactor(Parents): Eliminated ID-based linking; implemented user-selection dropdowns for parent-user mapping and child-viewing Modals.
+- Refactor(Classes): Enhanced occupancy monitoring with dynamic progress bars and color-coded alerts based on capacity percentage.
+- feat(Dashboard): Redesigned Academic Overview with real-time stats and a 'Daily Attendance Monitor' widget.
+- fix: Resolved global time display issues where seconds were shown instead of hours across all schedule components.

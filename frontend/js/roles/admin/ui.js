@@ -76,7 +76,9 @@ const AdminUI = {
     nav.innerHTML = html;
 
     nav.querySelectorAll(".nav-btn").forEach(btn => {
-      btn.addEventListener("click", () => AdminRole.loadSection(btn.dataset.section));
+        btn.addEventListener("click", () => {
+            window.location.hash = btn.dataset.section;
+        });
     });
   },
 

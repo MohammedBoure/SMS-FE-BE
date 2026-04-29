@@ -2,110 +2,113 @@
 
 /**
  * لوحة التحكم الأكاديمية الشاملة (Academic Dashboard)
- * تقوم بجمع وعرض الإحصائيات العامة للطلاب، المعلمين، والفصول، مع توفير روابط وصول سريع
+ * تصميم عصري، إحصائيات دقيقة، ووصول سريع للمهام اليومية
  */
 AdminUI.renderAcademicTab = async function() {
     const main = this.prepareMain("نظرة عامة على الشؤون الأكاديمية");
 
-    // إظهار حالة التحميل
+    // تاريخ اليوم لعرضه في الواجهة واستخدامه في الغيابات
+    const todayDate = new Date().toISOString().split('T')[0];
+
     main.innerHTML = `
-        <div style="text-align:center; padding: 50px; color: #64748b;">
-            <div class="spinner" style="margin-bottom: 15px;"></div>
-            <h3>جاري تجميع البيانات الأكاديمية...</h3>
+        <div style="display: flex; justify-content: center; align-items: center; height: 300px; flex-direction: column; gap: 15px;">
+            <div style="width: 40px; height: 40px; border: 4px solid #cbd5e1; border-top: 4px solid #2563eb; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+            <p style="color: #64748b; font-weight: bold; font-size: 1.1em;">جاري تجميع وتحليل البيانات الأكاديمية...</p>
+            <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
         </div>
     `;
 
     try {
-        // جلب البيانات الأساسية بشكل متوازي لتسريع وقت التحميل
+        // جلب البيانات الأساسية بشكل متوازي وسريع
         const [studentsRes, teachersRes, occupancyRes] = await Promise.all([
-            Api.get("/students?limit=1"), // نطلب عنصراً واحداً فقط لأننا نحتاج إجمالي العدد (total) من الاستجابة
+            Api.get("/students?limit=1"), // استخراج total فقط
             Api.get("/teachers"),
             Api.get("/classes/occupancy")
         ]);
 
-        // استخراج الإحصائيات
-        const totalStudents = studentsRes.total || (studentsRes.data ? studentsRes.data.length : 0);
+        // معالجة البيانات القادمة من الـ APIs
+        const totalStudents = studentsRes.total || 0;
         const teachers = teachersRes.data || teachersRes || [];
         const totalTeachers = teachers.length;
         const occupancy = occupancyRes.data || occupancyRes || [];
         const totalClasses = occupancy.length;
 
-        // حساب إجمالي المقاعد المتاحة والمشغولة في المدرسة
+        // حساب معدل الإشغال العام في المدرسة
         const totalCapacity = occupancy.reduce((sum, cls) => sum + (cls.capacity || 0), 0);
         const totalOccupied = occupancy.reduce((sum, cls) => sum + (cls.student_count || 0), 0);
         const globalOccupancyRate = totalCapacity > 0 ? Math.round((totalOccupied / totalCapacity) * 100) : 0;
 
-        // 1. تصميم بطاقات المؤشرات (Stats Cards)
+        // 1. بطاقات المؤشرات الرئيسية (Stats Cards) بتصميم عصري (Gradients)
         const statsHtml = `
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px;">
                 
-                <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-bottom: 4px solid #3b82f6; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -10px; left: -10px; font-size: 5em; opacity: 0.05;">🎓</div>
-                    <h4 style="margin: 0 0 10px 0; color: #64748b; font-size: 1em;">إجمالي الطلاب المسجلين</h4>
-                    <div style="font-size: 2.5em; font-weight: bold; color: #1e40af;">${totalStudents}</div>
+                <div style="background: linear-gradient(135deg, #eff6ff, #bfdbfe); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #93c5fd;">
+                    <div style="position: absolute; top: 10px; left: 15px; font-size: 3em; opacity: 0.2;">🎓</div>
+                    <h4 style="margin: 0 0 10px 0; color: #1e40af; font-size: 1em;">إجمالي الطلاب</h4>
+                    <div style="font-size: 2.5em; font-weight: 900; color: #1d4ed8;">${totalStudents}</div>
                 </div>
 
-                <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-bottom: 4px solid #8b5cf6; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -10px; left: -10px; font-size: 5em; opacity: 0.05;">👨‍🏫</div>
-                    <h4 style="margin: 0 0 10px 0; color: #64748b; font-size: 1em;">الطاقم التعليمي</h4>
-                    <div style="font-size: 2.5em; font-weight: bold; color: #6d28d9;">${totalTeachers}</div>
+                <div style="background: linear-gradient(135deg, #f5f3ff, #ddd6fe); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #c4b5fd;">
+                    <div style="position: absolute; top: 10px; left: 15px; font-size: 3em; opacity: 0.2;">👨‍🏫</div>
+                    <h4 style="margin: 0 0 10px 0; color: #5b21b6; font-size: 1em;">الطاقم التعليمي</h4>
+                    <div style="font-size: 2.5em; font-weight: 900; color: #6d28d9;">${totalTeachers}</div>
                 </div>
 
-                <div style="background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-bottom: 4px solid #10b981; position: relative; overflow: hidden;">
-                    <div style="position: absolute; top: -10px; left: -10px; font-size: 5em; opacity: 0.05;">🏫</div>
-                    <h4 style="margin: 0 0 10px 0; color: #64748b; font-size: 1em;">الفصول الدراسية</h4>
-                    <div style="font-size: 2.5em; font-weight: bold; color: #064e3b;">${totalClasses}</div>
-                    <div style="margin-top: 10px; font-size: 0.85em; color: ${globalOccupancyRate > 90 ? '#ef4444' : '#10b981'}; font-weight: bold;">
-                        معدل امتلاء المدرسة: ${globalOccupancyRate}%
-                    </div>
+                <div style="background: linear-gradient(135deg, #ecfdf5, #a7f3d0); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #6ee7b7;">
+                    <div style="position: absolute; top: 10px; left: 15px; font-size: 3em; opacity: 0.2;">🏫</div>
+                    <h4 style="margin: 0 0 10px 0; color: #065f46; font-size: 1em;">الفصول الدراسية</h4>
+                    <div style="font-size: 2.5em; font-weight: 900; color: #047857;">${totalClasses}</div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #fff7ed, #fed7aa); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #fdba74;">
+                    <div style="position: absolute; top: 10px; left: 15px; font-size: 3em; opacity: 0.2;">📊</div>
+                    <h4 style="margin: 0 0 10px 0; color: #9a3412; font-size: 1em;">معدل الامتلاء العام</h4>
+                    <div style="font-size: 2.5em; font-weight: 900; color: ${globalOccupancyRate >= 90 ? '#dc2626' : '#c2410c'};">${globalOccupancyRate}%</div>
                 </div>
 
             </div>
         `;
 
-        // 2. تصميم شريط التنقل السريع بين الأقسام الأكاديمية
+        // 2. روابط الوصول السريع
         const quickLinksHtml = `
-            <h3 style="color: #0f172a; margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">روابط الوصول السريع</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 30px;">
-                <button onclick="AdminRole.loadSection('students')" style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; color: #0f172a; transition: 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f8fafc'">
-                    <div style="font-size: 1.5em; margin-bottom: 5px;">🎓</div> ملفات الطلاب
-                </button>
-                <button onclick="AdminRole.loadSection('teachers')" style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; color: #0f172a; transition: 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f8fafc'">
-                    <div style="font-size: 1.5em; margin-bottom: 5px;">👨‍🏫</div> إدارة المعلمين
-                </button>
-                <button onclick="AdminRole.loadSection('classes')" style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; color: #0f172a; transition: 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f8fafc'">
-                    <div style="font-size: 1.5em; margin-bottom: 5px;">🏫</div> الفصول والمقاعد
-                </button>
-                <button onclick="AdminRole.loadSection('schedules')" style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; color: #0f172a; transition: 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f8fafc'">
-                    <div style="font-size: 1.5em; margin-bottom: 5px;">📅</div> الجداول الزمنية
-                </button>
-                <button onclick="AdminRole.loadSection('grades')" style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; color: #0f172a; transition: 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f8fafc'">
-                    <div style="font-size: 1.5em; margin-bottom: 5px;">📊</div> الدرجات والنتائج
-                </button>
-                <button onclick="AdminRole.loadSection('attendance')" style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; color: #0f172a; transition: 0.2s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f8fafc'">
-                    <div style="font-size: 1.5em; margin-bottom: 5px;">📝</div> الغياب والحضور
-                </button>
+            <div style="margin-bottom: 30px;">
+                <h3 style="color: #0f172a; margin-bottom: 15px; font-size: 1.2em;">⚡ الإجراءات السريعة</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
+                    <button onclick="AdminRole.loadSection('students')" class="quick-link-btn" style="background: white; border: 1px solid #e2e8f0; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; color: #334155; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                        <div style="font-size: 1.8em; margin-bottom: 8px;">🧑‍🎓</div> إدارة الطلاب
+                    </button>
+                    <button onclick="AdminRole.loadSection('attendance')" class="quick-link-btn" style="background: white; border: 1px solid #e2e8f0; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; color: #334155; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                        <div style="font-size: 1.8em; margin-bottom: 8px;">📝</div> تسجيل الغياب
+                    </button>
+                    <button onclick="AdminRole.loadSection('schedules')" class="quick-link-btn" style="background: white; border: 1px solid #e2e8f0; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; color: #334155; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                        <div style="font-size: 1.8em; margin-bottom: 8px;">📅</div> الجدول الزمني
+                    </button>
+                    <button onclick="AdminRole.loadSection('grades')" class="quick-link-btn" style="background: white; border: 1px solid #e2e8f0; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: bold; color: #334155; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                        <div style="font-size: 1.8em; margin-bottom: 8px;">🏅</div> إدخال الدرجات
+                    </button>
+                </div>
+                <style>.quick-link-btn:hover { transform: translateY(-3px); box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important; border-color: #cbd5e1 !important; }</style>
             </div>
         `;
 
-        // 3. جدول مراقبة الأقسام المكتظة (للمتابعة الإدارية السريعة)
-        // يتم فرز الفصول حسب نسبة الإشغال (الأكثر اكتظاظاً أولاً)
+        // 3. الجزء السفلي: المراقبة المتقدمة (أقسام مكتظة + غياب اليوم)
+        
+        // أ. جدول الفصول الأكثر اكتظاظاً
         const sortedOccupancy = occupancy.sort((a, b) => {
             const pA = a.capacity > 0 ? a.student_count / a.capacity : 0;
             const pB = b.capacity > 0 ? b.student_count / b.capacity : 0;
             return pB - pA;
-        }).slice(0, 5); // عرض أعلى 5 فصول فقط
+        }).slice(0, 5);
 
         let occupancyRows = sortedOccupancy.map(cls => {
             const percent = cls.capacity > 0 ? Math.round((cls.student_count / cls.capacity) * 100) : 0;
-            const color = percent >= 90 ? '#ef4444' : (percent >= 70 ? '#f59e0b' : '#10b981');
+            const color = percent >= 95 ? '#ef4444' : (percent >= 80 ? '#f59e0b' : '#10b981');
             return `
-            <tr style="border-bottom: 1px solid #e2e8f0;">
-                <td style="padding: 12px; font-weight: bold;">${this._escape(cls.class_name)}</td>
-                <td style="padding: 12px; color: #64748b;">${this._escape(cls.level || "عام")}</td>
+            <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 12px; font-weight: bold; color: #0f172a;">${this._escape(cls.class_name)}</td>
                 <td style="padding: 12px; text-align: left;">
                     <div style="display: flex; align-items: center; justify-content: flex-end; gap: 10px;">
-                        <span style="font-size: 0.85em; font-weight: bold;">${cls.student_count} / ${cls.capacity}</span>
+                        <span style="font-size: 0.85em; font-weight: bold; color: #475569;">${cls.student_count} / ${cls.capacity}</span>
                         <div style="width: 100px; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
                             <div style="width: ${percent}%; height: 100%; background: ${color};"></div>
                         </div>
@@ -114,31 +117,103 @@ AdminUI.renderAcademicTab = async function() {
             </tr>
         `}).join("");
 
-        if(sortedOccupancy.length === 0) occupancyRows = `<tr><td colspan="3" style="text-align:center; padding: 15px; color:#64748b;">لا توجد بيانات للفصول الدراسية.</td></tr>`;
+        if (sortedOccupancy.length === 0) {
+            occupancyRows = `<tr><td colspan="2" style="text-align:center; padding: 20px; color:#64748b;">لا توجد بيانات للفصول الدراسية.</td></tr>`;
+        }
 
-        const recentActivityHtml = `
-            <div style="background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 20px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px;">
-                    <h3 style="margin: 0; color: #0f172a;">مراقبة اكتظاظ الفصول (أعلى 5)</h3>
-                    <button onclick="AdminRole.loadSection('classes')" style="background: none; border: none; color: #3b82f6; cursor: pointer; font-weight: bold;">عرض الكل ➡️</button>
+        // ب. خيارات الفصول لـ "مراقب الغياب السريع"
+        const classOptions = occupancy.map(c => `<option value="${c.class_id || c.id}">${this._escape(c.class_name)}</option>`).join("");
+
+        const bottomWidgetsHtml = `
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                
+                <div style="background: white; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); padding: 20px; border: 1px solid #e2e8f0;">
+                    <h3 style="margin: 0 0 15px 0; color: #0f172a; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
+                        <span>🚨</span> تنبيه الاكتظاظ (أعلى 5 فصول)
+                    </h3>
+                    <table style="width: 100%; border-collapse: collapse; text-align: right; font-size: 0.95em;">
+                        <tbody>${occupancyRows}</tbody>
+                    </table>
                 </div>
-                <table style="width: 100%; border-collapse: collapse; text-align: right; font-size: 0.95em;">
-                    <thead style="background: #f1f5f9;">
-                        <tr>
-                            <th style="padding: 10px;">اسم الفصل</th>
-                            <th style="padding: 10px;">المستوى</th>
-                            <th style="padding: 10px; text-align: left;">حالة الإشغال</th>
-                        </tr>
-                    </thead>
-                    <tbody>${occupancyRows}</tbody>
-                </table>
+
+                <div style="background: white; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); padding: 20px; border: 1px solid #e2e8f0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="margin: 0; color: #0f172a; font-size: 1.1em; display: flex; align-items: center; gap: 8px;">
+                            <span>⏱️</span> حضور اليوم (${todayDate})
+                        </h3>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <select id="dash-attendance-class" style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; background: #f8fafc;">
+                            <option value="">-- اختر فصلاً لمعرفة حضوره اليوم --</option>
+                            ${classOptions}
+                        </select>
+                        <button onclick="AdminUI.checkDashboardAttendance('${todayDate}')" style="background: #2563eb; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;">تحقق</button>
+                    </div>
+
+                    <div id="dash-attendance-result" style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 20px; text-align: center; color: #64748b;">
+                        اختر الفصل واضغط تحقق لرؤية إحصائية اليوم فوراً.
+                    </div>
+                </div>
+
             </div>
         `;
 
-        // تركيب الصفحة النهائية
-        main.innerHTML = statsHtml + quickLinksHtml + recentActivityHtml;
+        main.innerHTML = statsHtml + quickLinksHtml + bottomWidgetsHtml;
 
     } catch (err) {
-        main.innerHTML = `<div style="background: #fef2f2; color: #991b1b; padding: 20px; border-radius: 8px; border: 1px solid #fca5a5;"><strong>خطأ في تجميع البيانات الأكاديمية:</strong> ${err.message}</div>`;
+        main.innerHTML = `<div style="background: #fef2f2; color: #991b1b; padding: 20px; border-radius: 8px; border: 1px solid #fca5a5; margin-top: 20px;"><strong>خطأ في الاتصال بالخادم:</strong> ${err.message}</div>`;
+    }
+};
+
+/**
+ * دالة فرعية: مراقب الغياب السريع في لوحة التحكم
+ * تعتمد على مسار: /attendance/class/{class_id}/sheet
+ */
+AdminUI.checkDashboardAttendance = async function(targetDate) {
+    const classId = document.getElementById("dash-attendance-class").value;
+    const resultContainer = document.getElementById("dash-attendance-result");
+
+    if (!classId) {
+        alert("يرجى اختيار الفصل أولاً.");
+        return;
+    }
+
+    resultContainer.innerHTML = `<div style="color: #2563eb; font-weight: bold;">جاري جلب السجلات... ⏳</div>`;
+
+    try {
+        const response = await Api.get(`/attendance/class/${classId}/sheet?target_date=${targetDate}`);
+        const records = response.data || response || [];
+
+        if (records.length === 0) {
+            resultContainer.innerHTML = `<div style="color: #f59e0b; font-weight: bold;">لم يتم تسجيل غياب/حضور هذا الفصل لليوم بعد.</div>`;
+            return;
+        }
+
+        // حساب الحاضرين والغائبين
+        const total = records.length;
+        const present = records.filter(r => r.status === 'present').length;
+        const absent = records.filter(r => r.status === 'absent').length;
+        const late = records.filter(r => r.status === 'late').length;
+
+        const presentRate = Math.round((present / total) * 100);
+
+        resultContainer.innerHTML = `
+            <div style="display: flex; justify-content: space-around; align-items: center;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2em; font-weight: bold; color: #16a34a;">${presentRate}%</div>
+                    <div style="font-size: 0.8em; color: #64748b; font-weight: bold;">نسبة الحضور</div>
+                </div>
+                <div style="border-right: 1px solid #cbd5e1; height: 40px;"></div>
+                <div style="text-align: right; font-size: 0.9em; line-height: 1.8;">
+                    <div>✅ حاضر: <strong>${present}</strong></div>
+                    <div>❌ غائب: <strong style="color: #ef4444;">${absent}</strong></div>
+                    <div>⚠️ متأخر: <strong style="color: #f59e0b;">${late}</strong></div>
+                </div>
+            </div>
+        `;
+
+    } catch (err) {
+        resultContainer.innerHTML = `<div style="color: #ef4444; font-size: 0.9em;">فشل الجلب: ${err.message}</div>`;
     }
 };
