@@ -5,3 +5,4 @@ data/
 venv/
 app.log
 .env
+backend/.env
