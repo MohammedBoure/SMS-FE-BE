@@ -1,8 +1,10 @@
 // js/roles/teacher/ui.js
 
 const TeacherUI = {
-  SECTIONS: ["assignments", "schedule", "attendance", "grades", "resources", "posts", "notifications"],
+  SECTIONS: ["assignments", "schedule", "attendance", "grades", "resources", "posts", "messages", "notifications"],
   _postsCache: [],
+  _currentUserId: null,
+  _activeMessageContact: null,
 
   renderHeader(session, teacherData) {
     const header = document.getElementById("teacher-header");
@@ -235,6 +237,197 @@ const TeacherUI = {
     `;
   },
 
+  renderMessages(inboxData, userId) {
+    this._currentUserId = Number(userId);
+    this._activeMessageContact = null;
+    const contacts = this._buildMessageContacts(inboxData, this._currentUserId);
+    const main = document.getElementById("teacher-main");
+
+    main.innerHTML = `
+      <section class="teacher-messages-dashboard">
+        <div class="teacher-messages-header">
+          <div>
+            <h2>المراسلة</h2>
+            <p>تابع محادثاتك أو ابحث عن طالب أو ولي أمر أو مستخدم آخر للتواصل معه.</p>
+          </div>
+          <div class="teacher-message-search">
+            <input type="text" id="teacher-message-user-search" placeholder="ابحث باسم المستخدم..." autocomplete="off">
+            <button type="button" id="teacher-message-search-btn">بحث</button>
+          </div>
+        </div>
+
+        <div class="teacher-message-search-results" id="teacher-message-search-results"></div>
+
+        <div class="teacher-messages-shell">
+          <aside class="teacher-message-contacts">
+            <div class="teacher-message-panel-title">المحادثات</div>
+            <div id="teacher-message-contacts-list">
+              ${this._renderMessageContacts(contacts)}
+            </div>
+          </aside>
+
+          <section class="teacher-chat-panel">
+            <div id="teacher-chat-header" class="teacher-chat-header">اختر محادثة من القائمة أو ابحث عن مستخدم جديد.</div>
+            <div id="teacher-chat-messages" class="teacher-chat-messages">
+              <div class="teacher-chat-empty">
+                <p>المحادثة ستظهر هنا.</p>
+              </div>
+            </div>
+            <form id="teacher-message-form" class="teacher-message-form" hidden>
+              <textarea id="teacher-message-input" rows="2" placeholder="اكتب رسالتك..." required></textarea>
+              <button type="submit">إرسال</button>
+              <small id="teacher-message-status"></small>
+            </form>
+          </section>
+        </div>
+      </section>
+    `;
+
+    this._bindMessageEvents();
+  },
+
+  async searchMessageUsers() {
+    const input = document.getElementById("teacher-message-user-search");
+    const results = document.getElementById("teacher-message-search-results");
+    const keyword = input?.value?.trim() || "";
+
+    if (!results) return;
+    if (keyword.length < 2) {
+      results.innerHTML = `<div class="teacher-message-inline-note">اكتب حرفين على الأقل للبحث.</div>`;
+      return;
+    }
+
+    results.innerHTML = `<div class="teacher-message-inline-note">جاري البحث...</div>`;
+
+    try {
+      const response = await TeacherServices.searchUsers(keyword);
+      const users = (Array.isArray(response) ? response : (response?.data || []))
+        .filter(user => {
+          const userId = Number(user.id ?? user.user_id);
+          return userId && userId !== this._currentUserId;
+        });
+
+      if (users.length === 0) {
+        results.innerHTML = `<div class="teacher-message-inline-note">لا توجد نتائج مطابقة.</div>`;
+        return;
+      }
+
+      results.innerHTML = users.map(user => {
+        const userId = Number(user.id ?? user.user_id);
+        const name = user.full_name || user.username || `مستخدم #${userId}`;
+        const role = user.role_name || user.role || user.user_type || "مستخدم";
+
+        return `
+          <button type="button" class="teacher-message-user-result" data-user-id="${userId}" data-user-name="${this._escape(name)}">
+            <span>${this._escape(name)}</span>
+            <small>${this._escape(role)}</small>
+          </button>
+        `;
+      }).join("");
+
+      results.querySelectorAll(".teacher-message-user-result").forEach(btn => {
+        btn.addEventListener("click", () => {
+          results.innerHTML = "";
+          this.openMessageConversation(Number(btn.dataset.userId), btn.dataset.userName);
+        });
+      });
+    } catch (err) {
+      results.innerHTML = `<div class="teacher-message-inline-note error">فشل البحث: ${this._escape(err.message)}</div>`;
+    }
+  },
+
+  async openMessageConversation(contactId, contactName) {
+    this._activeMessageContact = { id: Number(contactId), name: contactName };
+
+    const header = document.getElementById("teacher-chat-header");
+    const messagesArea = document.getElementById("teacher-chat-messages");
+    const form = document.getElementById("teacher-message-form");
+    const status = document.getElementById("teacher-message-status");
+
+    if (header) header.textContent = contactName;
+    if (messagesArea) messagesArea.innerHTML = `<div class="teacher-message-inline-note">جاري تحميل المحادثة...</div>`;
+    if (form) form.hidden = false;
+    if (status) status.textContent = "";
+
+    try {
+      const response = await TeacherServices.getConversation(this._currentUserId, contactId);
+      const messages = Array.isArray(response) ? response : (response?.data || []);
+      this.renderMessageConversation(messages);
+    } catch (err) {
+      if (messagesArea) messagesArea.innerHTML = `<div class="teacher-message-inline-note error">تعذر تحميل الرسائل: ${this._escape(err.message)}</div>`;
+    }
+  },
+
+  renderMessageConversation(messages) {
+    const area = document.getElementById("teacher-chat-messages");
+    if (!area) return;
+
+    const ordered = [...(messages || [])].sort((a, b) => new Date(a.created_at || a.timestamp || 0) - new Date(b.created_at || b.timestamp || 0));
+
+    if (ordered.length === 0) {
+      area.innerHTML = `<div class="teacher-chat-empty"><p>لا توجد رسائل بعد.</p></div>`;
+      return;
+    }
+
+    area.innerHTML = ordered.map(msg => {
+      const isMine = Number(msg.sender_id) === this._currentUserId;
+      const author = isMine ? "أنت" : (msg.sender_name || this._activeMessageContact?.name || "المستخدم");
+      const date = msg.created_at ? new Date(msg.created_at).toLocaleString("ar-DZ") : "";
+
+      return `
+        <div class="teacher-message-bubble${isMine ? " mine" : ""}">
+          <div class="teacher-message-author">${this._escape(author)}</div>
+          <div>${this._escape(msg.content || "")}</div>
+          <time>${date}</time>
+        </div>
+      `;
+    }).join("");
+
+    area.scrollTop = area.scrollHeight;
+  },
+
+  async sendMessageToActiveContact() {
+    const input = document.getElementById("teacher-message-input");
+    const status = document.getElementById("teacher-message-status");
+    const content = input?.value?.trim() || "";
+
+    if (!this._activeMessageContact || !content) return;
+
+    if (status) {
+      status.textContent = "جاري الإرسال...";
+      status.className = "";
+    }
+
+    try {
+      await TeacherServices.sendMessage(this._currentUserId, this._activeMessageContact.id, content);
+      input.value = "";
+      if (status) status.textContent = "تم الإرسال";
+      await this.openMessageConversation(this._activeMessageContact.id, this._activeMessageContact.name);
+      this.refreshMessageContacts();
+    } catch (err) {
+      if (status) {
+        status.textContent = "فشل الإرسال: " + err.message;
+        status.className = "error";
+      }
+    }
+  },
+
+  async refreshMessageContacts() {
+    if (!this._currentUserId) return;
+
+    try {
+      const inbox = await TeacherServices.getMessagesInbox(this._currentUserId);
+      const contacts = this._buildMessageContacts(inbox, this._currentUserId);
+      const list = document.getElementById("teacher-message-contacts-list");
+      if (list) {
+        list.innerHTML = this._renderMessageContacts(contacts);
+        this._bindMessageContactEvents();
+      }
+    } catch (err) {
+      console.warn("تعذر تحديث صندوق المحادثات:", err);
+    }
+  },
+
   renderPosts(postsData) {
     const posts = Array.isArray(postsData) ? postsData : (postsData?.data || []);
     const main = document.getElementById("teacher-main");
@@ -342,10 +535,79 @@ const TeacherUI = {
   _translate(str) {
     const map = {
       assignments: "أقسامي", schedule: "الجدول الزمني", attendance: "الغياب", 
-      grades: "العلامات", resources: "الموارد", posts: "منشورات الإدارة", notifications: "الإشعارات"
+      grades: "العلامات", resources: "الموارد", posts: "منشورات الإدارة", messages: "المراسلة", notifications: "الإشعارات"
     };
     return map[str] || str;
   },
+  _bindMessageEvents() {
+    document.getElementById("teacher-message-search-btn")?.addEventListener("click", () => this.searchMessageUsers());
+    document.getElementById("teacher-message-user-search")?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") this.searchMessageUsers();
+    });
+    document.getElementById("teacher-message-form")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this.sendMessageToActiveContact();
+    });
+    this._bindMessageContactEvents();
+  },
+
+  _bindMessageContactEvents() {
+    document.querySelectorAll(".teacher-message-contact").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".teacher-message-contact").forEach(item => item.classList.remove("active"));
+        btn.classList.add("active");
+        this.openMessageConversation(Number(btn.dataset.contactId), btn.dataset.contactName);
+      });
+    });
+  },
+
+  _buildMessageContacts(inboxData, userId) {
+    const messages = Array.isArray(inboxData) ? inboxData : (inboxData?.data || []);
+    const contacts = new Map();
+    const currentUserId = Number(userId);
+
+    messages.forEach(message => {
+      const senderId = Number(message.sender_id);
+      const receiverId = Number(message.receiver_id);
+      const contactId = senderId === currentUserId ? receiverId : senderId;
+      if (!contactId || contactId === currentUserId) return;
+
+      const contactName = senderId === currentUserId
+        ? (message.receiver_name || message.receiver_full_name || message.receiver_username || `مستخدم #${contactId}`)
+        : (message.sender_name || message.sender_full_name || message.sender_username || `مستخدم #${contactId}`);
+      const createdAt = message.created_at || message.timestamp || "";
+      const existing = contacts.get(contactId);
+
+      if (!existing || new Date(createdAt || 0) > new Date(existing.created_at || 0)) {
+        contacts.set(contactId, {
+          id: contactId,
+          name: contactName,
+          last_message: message.content || message.last_message || "",
+          created_at: createdAt
+        });
+      }
+    });
+
+    return Array.from(contacts.values()).sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+  },
+
+  _renderMessageContacts(contacts) {
+    if (!contacts || contacts.length === 0) {
+      return `<div class="teacher-message-empty-list">لا توجد محادثات بعد.</div>`;
+    }
+
+    return contacts.map(contact => {
+      const activeClass = Number(contact.id) === this._activeMessageContact?.id ? " active" : "";
+
+      return `
+        <button type="button" class="teacher-message-contact${activeClass}" data-contact-id="${contact.id}" data-contact-name="${this._escape(contact.name)}">
+          <span>${this._escape(contact.name)}</span>
+          <small>${this._escape(contact.last_message || "...")}</small>
+        </button>
+      `;
+    }).join("");
+  },
+
   _translateDay(day) {
     const map = { 'Sunday': 'الأحد', 'Monday': 'الإثنين', 'Tuesday': 'الثلاثاء', 'Wednesday': 'الأربعاء', 'Thursday': 'الخميس', 'Friday': 'الجمعة', 'Saturday': 'السبت' };
     return map[day] || day;

@@ -5,7 +5,7 @@ const AccountantRole = {
   
   // حالة الصفحات لكل قسم
   pages: {
-    students: 1, search: 1, attendance: 1, fees: 1, payments: 1, transactions: 1
+    students: 1, search: 1, attendance: 1, fees: 1, payments: 1, transactions: 1, messages: 1
   },
   lastSearchKeyword: "", // لحفظ كلمة البحث أثناء التنقل بين الصفحات
 
@@ -62,6 +62,12 @@ const AccountantRole = {
           const studentsData = await AccountantServices.getStudents(page);
           AccountantUI.renderAttendance(studentsData);
           break;
+        case "messages": {
+          const session = Auth.getSession();
+          const inbox = await AccountantServices.getMessagesInbox(session.user_id);
+          AccountantUI.renderMessages(inbox, session.user_id);
+          break;
+        }
         default:
           AccountantUI.renderError("قسم غير معروف");
       }

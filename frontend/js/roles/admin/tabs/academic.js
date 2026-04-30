@@ -32,10 +32,12 @@ AdminUI.renderAcademicTab = async function() {
         const totalTeachers = teachers.length;
         const occupancy = occupancyRes.data || occupancyRes || [];
         const totalClasses = occupancy.length;
+        const getStudentCount = (cls) => Number(cls.student_count ?? cls.students_count ?? cls.current_occupancy ?? cls.occupied ?? cls.enrolled_count ?? 0) || 0;
+        const getCapacity = (cls) => Number(cls.capacity ?? 0) || 0;
 
         // حساب معدل الإشغال العام في المدرسة
-        const totalCapacity = occupancy.reduce((sum, cls) => sum + (cls.capacity || 0), 0);
-        const totalOccupied = occupancy.reduce((sum, cls) => sum + (cls.student_count || 0), 0);
+        const totalCapacity = occupancy.reduce((sum, cls) => sum + getCapacity(cls), 0);
+        const totalOccupied = occupancy.reduce((sum, cls) => sum + getStudentCount(cls), 0);
         const globalOccupancyRate = totalCapacity > 0 ? Math.round((totalOccupied / totalCapacity) * 100) : 0;
 
         // 1. بطاقات المؤشرات الرئيسية (Stats Cards) بتصميم عصري (Gradients)
@@ -95,22 +97,27 @@ AdminUI.renderAcademicTab = async function() {
         
         // أ. جدول الفصول الأكثر اكتظاظاً
         const sortedOccupancy = occupancy.sort((a, b) => {
-            const pA = a.capacity > 0 ? a.student_count / a.capacity : 0;
-            const pB = b.capacity > 0 ? b.student_count / b.capacity : 0;
+            const capacityA = getCapacity(a);
+            const capacityB = getCapacity(b);
+            const pA = capacityA > 0 ? getStudentCount(a) / capacityA : 0;
+            const pB = capacityB > 0 ? getStudentCount(b) / capacityB : 0;
             return pB - pA;
         }).slice(0, 5);
 
         let occupancyRows = sortedOccupancy.map(cls => {
-            const percent = cls.capacity > 0 ? Math.round((cls.student_count / cls.capacity) * 100) : 0;
+            const studentCount = getStudentCount(cls);
+            const capacity = getCapacity(cls);
+            const percent = capacity > 0 ? Math.round((studentCount / capacity) * 100) : 0;
+            const barPercent = Math.min(percent, 100);
             const color = percent >= 95 ? '#ef4444' : (percent >= 80 ? '#f59e0b' : '#10b981');
             return `
             <tr style="border-bottom: 1px solid #f1f5f9;">
                 <td style="padding: 12px; font-weight: bold; color: #0f172a;">${this._escape(cls.class_name)}</td>
                 <td style="padding: 12px; text-align: left;">
                     <div style="display: flex; align-items: center; justify-content: flex-end; gap: 10px;">
-                        <span style="font-size: 0.85em; font-weight: bold; color: #475569;">${cls.student_count} / ${cls.capacity}</span>
+                        <span style="font-size: 0.85em; font-weight: bold; color: #475569;">إشغال: ${studentCount} / ${capacity > 0 ? capacity : "∞"}</span>
                         <div style="width: 100px; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
-                            <div style="width: ${percent}%; height: 100%; background: ${color};"></div>
+                            <div style="width: ${barPercent}%; height: 100%; background: ${color};"></div>
                         </div>
                     </div>
                 </td>

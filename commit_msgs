@@ -111,3 +111,6 @@ feat(ui): enhance posts management interfaces
   - Parents
 
 chore: overall code hardening and stability improvements
+-----
+
+feat: add messaging and receptionist post management

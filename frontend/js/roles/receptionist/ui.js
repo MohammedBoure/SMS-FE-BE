@@ -1,7 +1,7 @@
 // js/roles/receptionist/ui.js
 
 const ReceptionistUI = {
-  SECTIONS: ["students", "parents", "search", "finance", "notifications"],
+  SECTIONS: ["students", "parents", "search", "finance", "posts", "messages", "notifications"],
 
   renderHeader(userProfile) {
     const header = document.getElementById("receptionist-header");
@@ -38,7 +38,7 @@ const ReceptionistUI = {
 
   // === الدوال المساعدة (Helpers) ===
   _translate(str) {
-    const map = { students: "الطلاب", parents: "أولياء الأمور", search: "البحث الشامل", finance: "المالية", notifications: "الإشعارات" };
+    const map = { students: "الطلاب", parents: "أولياء الأمور", search: "البحث الشامل", finance: "المالية", posts: "المنشورات", messages: "المراسلة", notifications: "الإشعارات" };
     return map[str] || str;
   },
 

@@ -28,8 +28,9 @@ const ReceptionistRole = {
   bindNavEvents() {
     const nav = document.getElementById("receptionist-nav");
     nav.addEventListener("click", (e) => {
-      if (e.target.classList.contains("nav-btn")) {
-        this.loadSection(e.target.dataset.section);
+      const btn = e.target.closest(".nav-btn");
+      if (btn) {
+        this.loadSection(btn.dataset.section);
       }
     });
   },
@@ -58,6 +59,17 @@ const ReceptionistRole = {
         }
         case "finance": {
           ReceptionistUI.renderFinanceDashboard();
+          break;
+        }
+        case "posts": {
+          const posts = await ReceptionistServices.getPosts();
+          ReceptionistUI.renderPosts(posts);
+          break;
+        }
+        case "messages": {
+          const session = Auth.getSession();
+          const inbox = await ReceptionistServices.getMessagesInbox(session.user_id);
+          ReceptionistUI.renderMessages(inbox, session.user_id);
           break;
         }
         case "notifications": {

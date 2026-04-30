@@ -1,8 +1,10 @@
 // js/roles/student/ui.js
 
 const StudentUI = {
-  SECTIONS: ["schedule", "assessments", "grades", "attendance", "resources", "posts", "fees", "notifications"],
+  SECTIONS: ["schedule", "assessments", "grades", "attendance", "resources", "posts", "messages", "fees", "notifications"],
   _postsCache: [],
+  _currentUserId: null,
+  _activeMessageContact: null,
 
   renderHeader(userProfile) {
     const header = document.getElementById("student-header");
@@ -298,10 +300,193 @@ const StudentUI = {
     this._typesetMath(main);
   },
 
+  renderMessages(inboxData, userId) {
+    this._currentUserId = Number(userId);
+    this._activeMessageContact = null;
+    const contacts = this._buildMessageContacts(inboxData, this._currentUserId);
+    const main = document.getElementById("student-main");
+
+    main.innerHTML = `
+      <section class="student-messages-dashboard">
+        <div class="student-messages-header">
+          <div>
+            <h2>المراسلة</h2>
+            <p>تواصل مع الإدارة أو الأساتذة أو أي مستخدم متاح في النظام.</p>
+          </div>
+          <div class="student-message-search">
+            <input type="text" id="student-message-user-search" placeholder="ابحث باسم المستخدم..." autocomplete="off">
+            <button type="button" id="student-message-search-btn">بحث</button>
+          </div>
+        </div>
+
+        <div class="student-message-search-results" id="student-message-search-results"></div>
+
+        <div class="student-messages-shell">
+          <aside class="student-message-contacts">
+            <div class="student-message-panel-title">المحادثات</div>
+            <div id="student-message-contacts-list">
+              ${this._renderMessageContacts(contacts)}
+            </div>
+          </aside>
+
+          <section class="student-chat-panel">
+            <div id="student-chat-header" class="student-chat-header">اختر محادثة من القائمة أو ابحث عن مستخدم جديد.</div>
+            <div id="student-chat-messages" class="student-chat-messages">
+              <div class="student-chat-empty">
+                <div>💬</div>
+                <p>المحادثة ستظهر هنا.</p>
+              </div>
+            </div>
+            <form id="student-message-form" class="student-message-form" hidden>
+              <textarea id="student-message-input" rows="2" placeholder="اكتب رسالتك..." required></textarea>
+              <button type="submit">إرسال</button>
+              <small id="student-message-status"></small>
+            </form>
+          </section>
+        </div>
+      </section>
+    `;
+
+    this._bindMessageEvents();
+  },
+
+  async searchMessageUsers() {
+    const input = document.getElementById("student-message-user-search");
+    const results = document.getElementById("student-message-search-results");
+    const keyword = input?.value?.trim() || "";
+
+    if (!results) return;
+    if (keyword.length < 2) {
+      results.innerHTML = `<div class="student-message-inline-note">اكتب حرفين على الأقل للبحث.</div>`;
+      return;
+    }
+
+    results.innerHTML = `<div class="student-message-inline-note">جاري البحث...</div>`;
+
+    try {
+      const response = await StudentServices.searchUsers(keyword);
+      const users = (Array.isArray(response) ? response : (response?.data || []))
+        .filter(user => Number(user.id) !== this._currentUserId);
+
+      if (users.length === 0) {
+        results.innerHTML = `<div class="student-message-inline-note">لا توجد نتائج مطابقة.</div>`;
+        return;
+      }
+
+      results.innerHTML = users.map(user => `
+        <button type="button" class="student-message-user-result" data-user-id="${user.id}" data-user-name="${this._escape(user.full_name || user.username || ('مستخدم #' + user.id))}">
+          <span>${this._escape(user.full_name || user.username || ('مستخدم #' + user.id))}</span>
+          <small>${this._escape(user.role_name || "مستخدم")}</small>
+        </button>
+      `).join("");
+
+      results.querySelectorAll(".student-message-user-result").forEach(btn => {
+        btn.addEventListener("click", () => {
+          results.innerHTML = "";
+          this.openMessageConversation(Number(btn.dataset.userId), btn.dataset.userName);
+        });
+      });
+    } catch (err) {
+      results.innerHTML = `<div class="student-message-inline-note error">فشل البحث: ${this._escape(err.message)}</div>`;
+    }
+  },
+
+  async openMessageConversation(contactId, contactName) {
+    this._activeMessageContact = { id: Number(contactId), name: contactName };
+
+    const header = document.getElementById("student-chat-header");
+    const messagesArea = document.getElementById("student-chat-messages");
+    const form = document.getElementById("student-message-form");
+    const status = document.getElementById("student-message-status");
+
+    if (header) header.textContent = contactName;
+    if (messagesArea) messagesArea.innerHTML = `<div class="student-message-inline-note">جاري تحميل المحادثة...</div>`;
+    if (form) form.hidden = false;
+    if (status) status.textContent = "";
+
+    try {
+      const response = await StudentServices.getConversation(this._currentUserId, contactId);
+      const messages = Array.isArray(response) ? response : (response?.data || []);
+      this.renderMessageConversation(messages);
+    } catch (err) {
+      if (messagesArea) messagesArea.innerHTML = `<div class="student-message-inline-note error">تعذر تحميل الرسائل: ${this._escape(err.message)}</div>`;
+    }
+  },
+
+  renderMessageConversation(messages) {
+    const area = document.getElementById("student-chat-messages");
+    if (!area) return;
+
+    const ordered = [...(messages || [])].sort((a, b) => new Date(a.created_at || a.timestamp || 0) - new Date(b.created_at || b.timestamp || 0));
+
+    if (ordered.length === 0) {
+      area.innerHTML = `<div class="student-chat-empty"><div>✉️</div><p>لا توجد رسائل بعد.</p></div>`;
+      return;
+    }
+
+    area.innerHTML = ordered.map(msg => {
+      const isMine = Number(msg.sender_id) === this._currentUserId;
+      const author = isMine ? "أنت" : (msg.sender_name || this._activeMessageContact?.name || "المستخدم");
+      const date = msg.created_at ? new Date(msg.created_at).toLocaleString("ar-DZ") : "";
+
+      return `
+        <div class="student-message-bubble${isMine ? " mine" : ""}">
+          <div class="student-message-author">${this._escape(author)}</div>
+          <div>${this._escape(msg.content || "")}</div>
+          <time>${date}</time>
+        </div>
+      `;
+    }).join("");
+
+    area.scrollTop = area.scrollHeight;
+  },
+
+  async sendMessageToActiveContact() {
+    const input = document.getElementById("student-message-input");
+    const status = document.getElementById("student-message-status");
+    const content = input?.value?.trim() || "";
+
+    if (!this._activeMessageContact || !content) return;
+
+    if (status) {
+      status.textContent = "جاري الإرسال...";
+      status.className = "";
+    }
+
+    try {
+      await StudentServices.sendMessage(this._currentUserId, this._activeMessageContact.id, content);
+      input.value = "";
+      if (status) status.textContent = "تم الإرسال";
+      await this.openMessageConversation(this._activeMessageContact.id, this._activeMessageContact.name);
+      this.refreshMessageContacts();
+    } catch (err) {
+      if (status) {
+        status.textContent = "فشل الإرسال: " + err.message;
+        status.className = "error";
+      }
+    }
+  },
+
+  async refreshMessageContacts() {
+    if (!this._currentUserId) return;
+
+    try {
+      const inbox = await StudentServices.getMessagesInbox(this._currentUserId);
+      const contacts = this._buildMessageContacts(inbox, this._currentUserId);
+      const list = document.getElementById("student-message-contacts-list");
+      if (list) {
+        list.innerHTML = this._renderMessageContacts(contacts);
+        this._bindMessageContactEvents();
+      }
+    } catch (err) {
+      console.warn("تعذر تحديث صندوق المحادثات:", err);
+    }
+  },
+
   _translate(str) {
     const map = {
       schedule: "الجدول الزمني", assessments: "الامتحانات", grades: "العلامات", 
-      attendance: "الغياب", resources: "الدروس", posts: "منشورات الإدارة", fees: "المالية", notifications: "الإشعارات"
+      attendance: "الغياب", resources: "الدروس", posts: "منشورات الإدارة", messages: "المراسلة", fees: "المالية", notifications: "الإشعارات"
     };
     return map[str] || str;
   },
@@ -309,6 +494,70 @@ const StudentUI = {
   _translateDay(day) {
     const map = { 'Sunday': 'الأحد', 'Monday': 'الإثنين', 'Tuesday': 'الثلاثاء', 'Wednesday': 'الأربعاء', 'Thursday': 'الخميس', 'Friday': 'الجمعة', 'Saturday': 'السبت' };
     return map[day] || day;
+  },
+
+  _bindMessageEvents() {
+    document.getElementById("student-message-search-btn")?.addEventListener("click", () => this.searchMessageUsers());
+    document.getElementById("student-message-user-search")?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") this.searchMessageUsers();
+    });
+    document.getElementById("student-message-form")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this.sendMessageToActiveContact();
+    });
+    this._bindMessageContactEvents();
+  },
+
+  _bindMessageContactEvents() {
+    document.querySelectorAll(".student-message-contact").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".student-message-contact").forEach(item => item.classList.remove("active"));
+        btn.classList.add("active");
+        this.openMessageConversation(Number(btn.dataset.contactId), btn.dataset.contactName);
+      });
+    });
+  },
+
+  _buildMessageContacts(inboxData, userId) {
+    const messages = Array.isArray(inboxData) ? inboxData : (inboxData?.data || []);
+    const contacts = new Map();
+
+    messages.forEach(message => {
+      const senderId = Number(message.sender_id);
+      const receiverId = Number(message.receiver_id);
+      const contactId = senderId === Number(userId) ? receiverId : senderId;
+      if (!contactId || contactId === Number(userId)) return;
+
+      const contactName = senderId === Number(userId)
+        ? (message.receiver_name || `مستخدم #${contactId}`)
+        : (message.sender_name || `مستخدم #${contactId}`);
+      const createdAt = message.created_at || message.timestamp || "";
+      const existing = contacts.get(contactId);
+
+      if (!existing || new Date(createdAt || 0) > new Date(existing.created_at || 0)) {
+        contacts.set(contactId, {
+          id: contactId,
+          name: contactName,
+          last_message: message.content || message.last_message || "",
+          created_at: createdAt
+        });
+      }
+    });
+
+    return Array.from(contacts.values()).sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+  },
+
+  _renderMessageContacts(contacts) {
+    if (!contacts || contacts.length === 0) {
+      return `<div class="student-message-empty-list">لا توجد محادثات بعد.</div>`;
+    }
+
+    return contacts.map(contact => `
+      <button type="button" class="student-message-contact" data-contact-id="${contact.id}" data-contact-name="${this._escape(contact.name)}">
+        <span>${this._escape(contact.name)}</span>
+        <small>${this._escape(contact.last_message || "...")}</small>
+      </button>
+    `).join("");
   },
 
   _processPostMarkdown(raw) {

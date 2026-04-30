@@ -36,8 +36,9 @@ const ParentRole = {
   bindNavEvents() {
     const nav = document.getElementById("parent-nav");
     nav.addEventListener("click", (e) => {
-      if (e.target.classList.contains("nav-btn")) {
-        this.loadSection(e.target.dataset.section);
+      const btn = e.target.closest(".nav-btn");
+      if (btn) {
+        this.loadSection(btn.dataset.section);
       }
     });
   },
@@ -92,6 +93,13 @@ const ParentRole = {
         case "posts": {
           const res = await ParentServices.getPosts();
           ParentUI.renderPosts(res);
+          break;
+        }
+
+        case "messages": {
+          const session = Auth.getSession();
+          const inbox = await ParentServices.getMessagesInbox(session.user_id);
+          ParentUI.renderMessages(inbox, session.user_id);
           break;
         }
 

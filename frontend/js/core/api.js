@@ -24,7 +24,8 @@ const Api = {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.detail || "Request failed");
+      const detail = data?.detail || data?.message || "Request failed";
+      throw new Error(typeof detail === "string" ? detail : JSON.stringify(detail));
     }
 
     return data;

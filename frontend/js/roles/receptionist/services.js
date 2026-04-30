@@ -55,5 +55,34 @@ const ReceptionistServices = {
   // === الإشعارات ===
   async getNotifications(userId) {
     return await Api.get(`/notifications/user/${userId}`);
+  },
+
+  // === المنشورات ===
+  async getPosts() {
+    return await Api.get("/posts");
+  },
+  async createPost(data) {
+    return await Api.post("/posts/", data);
+  },
+  async updatePost(postId, data) {
+    return await Api.put(`/posts/${postId}`, data);
+  },
+  async deletePost(postId) {
+    return await Api.delete(`/posts/${postId}`);
+  },
+
+  // === المراسلة ===
+  async getMessagesInbox(userId) {
+    return await Api.get(`/messages/inbox/${userId}`);
+  },
+  async getConversation(userId, contactId) {
+    return await Api.get(`/messages/conversation/${userId}/${contactId}`);
+  },
+  async sendMessage(senderId, receiverId, content) {
+    return await Api.post("/messages/", {
+      sender_id: parseInt(senderId),
+      receiver_id: parseInt(receiverId),
+      content
+    });
   }
 };

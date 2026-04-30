@@ -1,8 +1,10 @@
 // js/roles/parent/ui.js
 
 const ParentUI = {
-  SECTIONS: ["children", "grades", "attendance", "fees", "posts", "notifications"],
+  SECTIONS: ["children", "grades", "attendance", "fees", "posts", "messages", "notifications"],
   _postsCache: [],
+  _currentUserId: null,
+  _activeMessageContact: null,
 
   renderHeader(userProfile) {
     const header = document.getElementById("parent-header");
@@ -159,6 +161,197 @@ const ParentUI = {
     `;
   },
 
+  renderMessages(inboxData, userId) {
+    this._currentUserId = Number(userId);
+    this._activeMessageContact = null;
+    const contacts = this._buildMessageContacts(inboxData, this._currentUserId);
+    const main = document.getElementById("parent-main");
+
+    main.innerHTML = `
+      <section class="parent-messages-dashboard">
+        <div class="parent-messages-header">
+          <div>
+            <h2>المراسلة</h2>
+            <p>تابع محادثاتك أو ابحث عن مستخدم جديد للتواصل معه.</p>
+          </div>
+          <div class="parent-message-search">
+            <input type="text" id="parent-message-user-search" placeholder="ابحث باسم المستخدم..." autocomplete="off">
+            <button type="button" id="parent-message-search-btn">بحث</button>
+          </div>
+        </div>
+
+        <div class="parent-message-search-results" id="parent-message-search-results"></div>
+
+        <div class="parent-messages-shell">
+          <aside class="parent-message-contacts">
+            <div class="parent-message-panel-title">المحادثات</div>
+            <div id="parent-message-contacts-list">
+              ${this._renderMessageContacts(contacts)}
+            </div>
+          </aside>
+
+          <section class="parent-chat-panel">
+            <div id="parent-chat-header" class="parent-chat-header">اختر محادثة من القائمة أو ابحث عن مستخدم جديد.</div>
+            <div id="parent-chat-messages" class="parent-chat-messages">
+              <div class="parent-chat-empty">
+                <p>المحادثة ستظهر هنا.</p>
+              </div>
+            </div>
+            <form id="parent-message-form" class="parent-message-form" hidden>
+              <textarea id="parent-message-input" rows="2" placeholder="اكتب رسالتك..." required></textarea>
+              <button type="submit">إرسال</button>
+              <small id="parent-message-status"></small>
+            </form>
+          </section>
+        </div>
+      </section>
+    `;
+
+    this._bindMessageEvents();
+  },
+
+  async searchMessageUsers() {
+    const input = document.getElementById("parent-message-user-search");
+    const results = document.getElementById("parent-message-search-results");
+    const keyword = input?.value?.trim() || "";
+
+    if (!results) return;
+    if (keyword.length < 2) {
+      results.innerHTML = `<div class="parent-message-inline-note">اكتب حرفين على الأقل للبحث.</div>`;
+      return;
+    }
+
+    results.innerHTML = `<div class="parent-message-inline-note">جاري البحث...</div>`;
+
+    try {
+      const response = await ParentServices.searchUsers(keyword);
+      const users = (Array.isArray(response) ? response : (response?.data || []))
+        .filter(user => {
+          const userId = Number(user.id ?? user.user_id);
+          return userId && userId !== this._currentUserId;
+        });
+
+      if (users.length === 0) {
+        results.innerHTML = `<div class="parent-message-inline-note">لا توجد نتائج مطابقة.</div>`;
+        return;
+      }
+
+      results.innerHTML = users.map(user => {
+        const userId = Number(user.id ?? user.user_id);
+        const name = user.full_name || user.username || `مستخدم #${userId}`;
+        const role = user.role_name || user.role || user.user_type || "مستخدم";
+
+        return `
+          <button type="button" class="parent-message-user-result" data-user-id="${userId}" data-user-name="${this._escape(name)}">
+            <span>${this._escape(name)}</span>
+            <small>${this._escape(role)}</small>
+          </button>
+        `;
+      }).join("");
+
+      results.querySelectorAll(".parent-message-user-result").forEach(btn => {
+        btn.addEventListener("click", () => {
+          results.innerHTML = "";
+          this.openMessageConversation(Number(btn.dataset.userId), btn.dataset.userName);
+        });
+      });
+    } catch (err) {
+      results.innerHTML = `<div class="parent-message-inline-note error">فشل البحث: ${this._escape(err.message)}</div>`;
+    }
+  },
+
+  async openMessageConversation(contactId, contactName) {
+    this._activeMessageContact = { id: Number(contactId), name: contactName };
+
+    const header = document.getElementById("parent-chat-header");
+    const messagesArea = document.getElementById("parent-chat-messages");
+    const form = document.getElementById("parent-message-form");
+    const status = document.getElementById("parent-message-status");
+
+    if (header) header.textContent = contactName;
+    if (messagesArea) messagesArea.innerHTML = `<div class="parent-message-inline-note">جاري تحميل المحادثة...</div>`;
+    if (form) form.hidden = false;
+    if (status) status.textContent = "";
+
+    try {
+      const response = await ParentServices.getConversation(this._currentUserId, contactId);
+      const messages = Array.isArray(response) ? response : (response?.data || []);
+      this.renderMessageConversation(messages);
+    } catch (err) {
+      if (messagesArea) messagesArea.innerHTML = `<div class="parent-message-inline-note error">تعذر تحميل الرسائل: ${this._escape(err.message)}</div>`;
+    }
+  },
+
+  renderMessageConversation(messages) {
+    const area = document.getElementById("parent-chat-messages");
+    if (!area) return;
+
+    const ordered = [...(messages || [])].sort((a, b) => new Date(a.created_at || a.timestamp || 0) - new Date(b.created_at || b.timestamp || 0));
+
+    if (ordered.length === 0) {
+      area.innerHTML = `<div class="parent-chat-empty"><p>لا توجد رسائل بعد.</p></div>`;
+      return;
+    }
+
+    area.innerHTML = ordered.map(msg => {
+      const isMine = Number(msg.sender_id) === this._currentUserId;
+      const author = isMine ? "أنت" : (msg.sender_name || this._activeMessageContact?.name || "المستخدم");
+      const date = msg.created_at ? new Date(msg.created_at).toLocaleString("ar-DZ") : "";
+
+      return `
+        <div class="parent-message-bubble${isMine ? " mine" : ""}">
+          <div class="parent-message-author">${this._escape(author)}</div>
+          <div>${this._escape(msg.content || "")}</div>
+          <time>${date}</time>
+        </div>
+      `;
+    }).join("");
+
+    area.scrollTop = area.scrollHeight;
+  },
+
+  async sendMessageToActiveContact() {
+    const input = document.getElementById("parent-message-input");
+    const status = document.getElementById("parent-message-status");
+    const content = input?.value?.trim() || "";
+
+    if (!this._activeMessageContact || !content) return;
+
+    if (status) {
+      status.textContent = "جاري الإرسال...";
+      status.className = "";
+    }
+
+    try {
+      await ParentServices.sendMessage(this._currentUserId, this._activeMessageContact.id, content);
+      input.value = "";
+      if (status) status.textContent = "تم الإرسال";
+      await this.openMessageConversation(this._activeMessageContact.id, this._activeMessageContact.name);
+      this.refreshMessageContacts();
+    } catch (err) {
+      if (status) {
+        status.textContent = "فشل الإرسال: " + err.message;
+        status.className = "error";
+      }
+    }
+  },
+
+  async refreshMessageContacts() {
+    if (!this._currentUserId) return;
+
+    try {
+      const inbox = await ParentServices.getMessagesInbox(this._currentUserId);
+      const contacts = this._buildMessageContacts(inbox, this._currentUserId);
+      const list = document.getElementById("parent-message-contacts-list");
+      if (list) {
+        list.innerHTML = this._renderMessageContacts(contacts);
+        this._bindMessageContactEvents();
+      }
+    } catch (err) {
+      console.warn("تعذر تحديث صندوق المحادثات:", err);
+    }
+  },
+
   renderPosts(postsData) {
     const posts = Array.isArray(postsData) ? postsData : (postsData?.data || []);
     const main = document.getElementById("parent-main");
@@ -266,10 +459,80 @@ const ParentUI = {
   _translate(str) {
     const map = {
       children: "أبنائي", grades: "العلامات", attendance: "الغياب", 
-      fees: "المالية", posts: "منشورات الإدارة", notifications: "الإشعارات", messages: "الرسائل"
+      fees: "المالية", posts: "منشورات الإدارة", notifications: "الإشعارات", messages: "المراسلة"
     };
     return map[str] || str;
   },
+
+  _bindMessageEvents() {
+    document.getElementById("parent-message-search-btn")?.addEventListener("click", () => this.searchMessageUsers());
+    document.getElementById("parent-message-user-search")?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") this.searchMessageUsers();
+    });
+    document.getElementById("parent-message-form")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      this.sendMessageToActiveContact();
+    });
+    this._bindMessageContactEvents();
+  },
+
+  _bindMessageContactEvents() {
+    document.querySelectorAll(".parent-message-contact").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".parent-message-contact").forEach(item => item.classList.remove("active"));
+        btn.classList.add("active");
+        this.openMessageConversation(Number(btn.dataset.contactId), btn.dataset.contactName);
+      });
+    });
+  },
+
+  _buildMessageContacts(inboxData, userId) {
+    const messages = Array.isArray(inboxData) ? inboxData : (inboxData?.data || []);
+    const contacts = new Map();
+    const currentUserId = Number(userId);
+
+    messages.forEach(message => {
+      const senderId = Number(message.sender_id);
+      const receiverId = Number(message.receiver_id);
+      const contactId = senderId === currentUserId ? receiverId : senderId;
+      if (!contactId || contactId === currentUserId) return;
+
+      const contactName = senderId === currentUserId
+        ? (message.receiver_name || message.receiver_full_name || message.receiver_username || `مستخدم #${contactId}`)
+        : (message.sender_name || message.sender_full_name || message.sender_username || `مستخدم #${contactId}`);
+      const createdAt = message.created_at || message.timestamp || "";
+      const existing = contacts.get(contactId);
+
+      if (!existing || new Date(createdAt || 0) > new Date(existing.created_at || 0)) {
+        contacts.set(contactId, {
+          id: contactId,
+          name: contactName,
+          last_message: message.content || message.last_message || "",
+          created_at: createdAt
+        });
+      }
+    });
+
+    return Array.from(contacts.values()).sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+  },
+
+  _renderMessageContacts(contacts) {
+    if (!contacts || contacts.length === 0) {
+      return `<div class="parent-message-empty-list">لا توجد محادثات بعد.</div>`;
+    }
+
+    return contacts.map(contact => {
+      const activeClass = Number(contact.id) === this._activeMessageContact?.id ? " active" : "";
+
+      return `
+        <button type="button" class="parent-message-contact${activeClass}" data-contact-id="${contact.id}" data-contact-name="${this._escape(contact.name)}">
+          <span>${this._escape(contact.name)}</span>
+          <small>${this._escape(contact.last_message || "...")}</small>
+        </button>
+      `;
+    }).join("");
+  },
+
   _processPostMarkdown(raw) {
     if (!raw) return "";
 

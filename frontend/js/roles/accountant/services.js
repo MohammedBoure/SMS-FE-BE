@@ -9,6 +9,16 @@ const AccountantServices = {
   async getStudents(page = 1) { return await Api.get(`/students/?page=${page}&limit=50`); },
   async getAllUsers(page = 1) { return await Api.get(`/users/?page=${page}&limit=50`); },
   async searchUsers(keyword, page = 1) { return await Api.get(`/users/search?keyword=${encodeURIComponent(keyword)}&page=${page}&limit=50`); },
+
+  async getMessagesInbox(userId) { return await Api.get(`/messages/inbox/${userId}`); },
+  async getConversation(userId, contactId) { return await Api.get(`/messages/conversation/${userId}/${contactId}`); },
+  async sendMessage(senderId, receiverId, content) {
+    return await Api.post("/messages/", {
+      sender_id: parseInt(senderId),
+      receiver_id: parseInt(receiverId),
+      content
+    });
+  },
   
   async getStudent(studentId) { return await Api.get(`/students/${studentId}`); },
   async getStudentFees(studentId) { return await Api.get(`/student-fees/student/${studentId}`); },

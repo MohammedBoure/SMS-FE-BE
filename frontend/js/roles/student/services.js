@@ -41,6 +41,26 @@ const StudentServices = {
     return await Api.get("/posts");
   },
 
+  async searchUsers(keyword) {
+    return await Api.get(`/users/search?keyword=${encodeURIComponent(keyword)}`);
+  },
+
+  async getMessagesInbox(userId) {
+    return await Api.get(`/messages/inbox/${userId}`);
+  },
+
+  async getConversation(userId, contactId) {
+    return await Api.get(`/messages/conversation/${userId}/${contactId}`);
+  },
+
+  async sendMessage(senderId, receiverId, content) {
+    return await Api.post("/messages/", {
+      sender_id: parseInt(senderId),
+      receiver_id: parseInt(receiverId),
+      content
+    });
+  },
+
   async getMyNotifications(userId) {
     return await Api.get(`/notifications/user/${userId}`);
   }

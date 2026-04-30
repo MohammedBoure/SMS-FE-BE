@@ -638,6 +638,320 @@ body.modal-open {
   color: var(--danger) !important;
 }
 
+.receptionist-messages-dashboard {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.receptionist-messages-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+#receptionist-main .receptionist-messages-header h2 {
+  margin-bottom: 4px;
+}
+
+#receptionist-main .receptionist-messages-header h2::after {
+  display: none;
+}
+
+#receptionist-main .receptionist-messages-header p {
+  margin: 0;
+}
+
+.receptionist-message-search {
+  display: flex;
+  gap: 10px;
+  min-width: 320px;
+}
+
+.receptionist-message-search-results {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+#receptionist-main .receptionist-message-user-result,
+.receptionist-message-user-result {
+  width: 100%;
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  min-height: auto !important;
+  padding: 12px 14px !important;
+  color: var(--text) !important;
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-sm) !important;
+  text-align: right;
+}
+
+#receptionist-main .receptionist-message-user-result:hover,
+.receptionist-message-user-result:hover {
+  background: var(--surface-muted) !important;
+  transform: none !important;
+}
+
+.receptionist-message-user-result span {
+  font-weight: 800;
+}
+
+.receptionist-message-user-result small {
+  color: var(--muted);
+}
+
+.receptionist-messages-shell {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 16px;
+  height: min(680px, calc(100vh - 230px));
+  min-height: 520px;
+}
+
+.receptionist-message-contacts,
+.receptionist-chat-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.receptionist-message-panel-title,
+.receptionist-chat-header {
+  padding: 14px 16px;
+  color: var(--text);
+  background: var(--surface-muted);
+  border-bottom: 1px solid var(--border);
+  font-weight: 800;
+}
+
+#receptionist-message-contacts-list {
+  overflow-y: auto;
+  padding: 10px;
+}
+
+#receptionist-main .receptionist-message-contact,
+.receptionist-message-contact {
+  width: 100%;
+  display: block !important;
+  min-height: auto !important;
+  padding: 12px 10px !important;
+  color: var(--text) !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: none !important;
+  text-align: right;
+}
+
+#receptionist-main .receptionist-message-contact:hover,
+#receptionist-main .receptionist-message-contact.active,
+.receptionist-message-contact:hover,
+.receptionist-message-contact.active {
+  background: var(--primary-soft) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.receptionist-message-contact span,
+.receptionist-message-contact small {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.receptionist-message-contact span {
+  color: var(--text);
+  font-weight: 800;
+}
+
+.receptionist-message-contact small {
+  margin-top: 2px;
+  color: var(--muted);
+}
+
+.receptionist-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: var(--surface-muted);
+}
+
+.receptionist-chat-empty,
+.receptionist-message-empty-list,
+.receptionist-message-inline-note {
+  padding: 22px 16px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.receptionist-message-inline-note {
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.receptionist-message-inline-note.error {
+  color: #991b1b;
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.receptionist-message-bubble {
+  align-self: flex-start;
+  max-width: 72%;
+  padding: 11px 13px;
+  color: #1e3a8a;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius);
+  line-height: 1.7;
+  word-break: break-word;
+}
+
+.receptionist-message-bubble.mine {
+  align-self: flex-end;
+  color: #14532d;
+  background: #dcfce7;
+  border-color: #bbf7d0;
+}
+
+.receptionist-message-author {
+  margin-bottom: 3px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  opacity: 0.75;
+}
+
+.receptionist-message-bubble time {
+  display: block;
+  margin-top: 5px;
+  direction: ltr;
+  text-align: left;
+  font-size: 0.74rem;
+  opacity: 0.65;
+}
+
+.receptionist-message-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  padding: 12px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.receptionist-message-form textarea {
+  resize: none;
+  min-height: 50px;
+  line-height: 1.55;
+}
+
+.receptionist-message-form small {
+  grid-column: 1 / -1;
+  color: var(--muted);
+}
+
+.receptionist-message-form small.error {
+  color: var(--danger);
+}
+
+#receptionist-main .posts-dashboard .btn-new-post,
+#receptionist-main .post-editor-page .btn-save {
+  width: auto !important;
+  min-height: auto !important;
+  color: #fff !important;
+  background: linear-gradient(135deg, #064e3b, #059669) !important;
+  box-shadow: 0 4px 14px rgba(6, 78, 59, 0.3) !important;
+}
+
+#receptionist-main .posts-dashboard .btn-new-post {
+  padding: 11px 22px !important;
+}
+
+#receptionist-main .post-editor-page .btn-save {
+  padding: 11px 28px !important;
+}
+
+#receptionist-main .posts-dashboard .tbl-btn,
+#receptionist-main .post-editor-page .tb-btn,
+#receptionist-main .post-editor-page .btn-secondary {
+  width: auto !important;
+  min-height: auto !important;
+  transform: none !important;
+}
+
+#receptionist-main .posts-dashboard .tbl-btn {
+  padding: 6px 12px !important;
+  box-shadow: none !important;
+}
+
+#receptionist-main .posts-dashboard .tbl-btn-preview {
+  color: #16a34a !important;
+  background: #f0fdf4 !important;
+  border-color: #bbf7d0 !important;
+}
+
+#receptionist-main .posts-dashboard .tbl-btn-edit {
+  color: #2563eb !important;
+  background: #eff6ff !important;
+  border-color: #bfdbfe !important;
+}
+
+#receptionist-main .posts-dashboard .tbl-btn-delete {
+  color: #dc2626 !important;
+  background: #fef2f2 !important;
+  border-color: #fca5a5 !important;
+}
+
+#receptionist-main .post-editor-page .tb-btn {
+  padding: 5px 9px !important;
+  color: #475569 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+#receptionist-main .post-editor-page .tb-btn:hover {
+  color: #0f172a !important;
+  background: #e2e8f0 !important;
+}
+
+#receptionist-main .post-editor-page .btn-secondary {
+  padding: 10px 20px !important;
+  color: #475569 !important;
+  background: #f1f5f9 !important;
+  border: 1.5px solid #e2e8f0 !important;
+  box-shadow: none !important;
+}
+
+.receptionist-post-preview-cover {
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
 @media (max-width: 760px) {
   #receptionist-header > div {
     align-items: stretch !important;
@@ -667,6 +981,38 @@ body.modal-open {
 
   #receptionist-main button {
     width: 100%;
+  }
+
+  .receptionist-messages-header {
+    flex-direction: column;
+  }
+
+  .receptionist-message-search {
+    min-width: 0;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .receptionist-messages-shell {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: 0;
+  }
+
+  .receptionist-message-contacts {
+    max-height: 240px;
+  }
+
+  .receptionist-chat-panel {
+    min-height: 520px;
+  }
+
+  .receptionist-message-bubble {
+    max-width: 88%;
+  }
+
+  .receptionist-message-form {
+    grid-template-columns: 1fr;
   }
 
   table {

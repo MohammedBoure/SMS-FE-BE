@@ -75,6 +75,11 @@ const TeacherRole = {
           const posts = await TeacherServices.getPosts();
           TeacherUI.renderPosts(posts);
           break;
+        case "messages":
+          const messageSession = Auth.getSession();
+          const inbox = await TeacherServices.getMessagesInbox(messageSession.user_id);
+          TeacherUI.renderMessages(inbox, messageSession.user_id);
+          break;
         case "notifications":
           const session = Auth.getSession();
           const notifications = await TeacherServices.getNotifications(session.user_id);

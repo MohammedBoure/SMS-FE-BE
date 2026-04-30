@@ -57,6 +57,22 @@ async def websocket_endpoint(websocket: WebSocket, user_id: int, db_manager: Mes
 class MessageUpdate(BaseModel):
     content: str
 
+class MessageCreate(BaseModel):
+    sender_id: int
+    receiver_id: int
+    content: str
+
+@router.post("/", status_code=status.HTTP_201_CREATED)
+def send_message(data: MessageCreate, manager: MessagesManager = Depends(get_messages_manager)):
+    msg_id = manager.send_message(
+        sender_id=data.sender_id,
+        receiver_id=data.receiver_id,
+        content=data.content
+    )
+    if not msg_id:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Failed to send message.")
+    return {"message": "Message sent successfully.", "message_id": msg_id}
+
 @router.get("/conversation/{user1_id}/{user2_id}")
 def get_conversation(user1_id: int, user2_id: int, manager: MessagesManager = Depends(get_messages_manager)):
     return manager.get_conversation(user1_id, user2_id)

@@ -92,6 +92,12 @@ const StudentRole = {
           StudentUI.renderPosts(posts);
           break;
         }
+        case "messages": {
+          const session = Auth.getSession();
+          const inbox = await StudentServices.getMessagesInbox(session.user_id);
+          StudentUI.renderMessages(inbox, session.user_id);
+          break;
+        }
         case "fees": {
           const fees = await StudentServices.getMyFees(this.studentId);
           StudentUI.renderFees(fees);

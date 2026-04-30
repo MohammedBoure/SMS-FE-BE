@@ -114,6 +114,37 @@ AdminUI.renderUserListForChat = function(users) {
     `;
 };
 
+AdminUI._buildChatContacts = function(messages, mainUserId) {
+    const userId = Number(mainUserId);
+    const contactsMap = new Map();
+
+    (messages || []).forEach(msg => {
+        const senderId = Number(msg.sender_id);
+        const receiverId = Number(msg.receiver_id);
+        const contactId = senderId === userId ? receiverId : senderId;
+
+        if (!contactId || contactId === userId) return;
+
+        const contactName = senderId === userId
+            ? (msg.receiver_name || `مستخدم #${contactId}`)
+            : (msg.sender_name || `مستخدم #${contactId}`);
+        const createdAt = msg.created_at || msg.timestamp || "";
+        const existing = contactsMap.get(contactId);
+
+        if (!existing || new Date(createdAt || 0) > new Date(existing.created_at || 0)) {
+            contactsMap.set(contactId, {
+                contact_id: contactId,
+                contact_name: contactName,
+                last_message: msg.content || msg.last_message || "...",
+                created_at: createdAt
+            });
+        }
+    });
+
+    return Array.from(contactsMap.values())
+        .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+};
+
 /**
  * فتح صندوق الوارد (Inbox) لمستخدم معين (يقسم الشاشة لقسمين)
  */
@@ -124,7 +155,8 @@ AdminUI.openUserInbox = async function(userId, userName) {
     try {
         // الاتصال بمسار الـ Inbox من messages_api.py
         const inbox = await Api.get(`/messages/inbox/${userId}`);
-        const contacts = inbox.data || inbox || [];
+        const inboxMessages = inbox.data || inbox || [];
+        const contacts = this._buildChatContacts(inboxMessages, userId);
 
         // إعداد تصميم ثنائي الأعمدة (جهات الاتصال يميناً، والمحادثة يساراً)
         const layoutHtml = `
@@ -142,10 +174,10 @@ AdminUI.openUserInbox = async function(userId, userName) {
                     <div style="flex: 1; overflow-y: auto; padding: 10px;" id="inbox-contacts-list">
                         ${contacts.length === 0 ? '<p style="text-align:center; color:#64748b; margin-top:20px;">لا توجد محادثات سابقة.</p>' : ''}
                         ${contacts.map(c => `
-                            <div onclick="AdminUI.loadChatHistory(${userId}, ${c.contact_id || c.user_id}, '${userName}', '${this._escape(c.contact_name || 'مستخدم ' + c.contact_id)}')" 
+                            <div onclick="AdminUI.loadChatHistory(${userId}, ${c.contact_id}, '${this._escape(userName)}', '${this._escape(c.contact_name)}')" 
                                  style="padding: 12px; border-bottom: 1px solid #e2e8f0; cursor: pointer; border-radius: 6px; transition: background 0.2s;" 
                                  onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
-                                <div style="font-weight: bold; color: #0f172a;">${this._escape(c.contact_name || 'مستخدم #' + (c.contact_id || c.user_id))}</div>
+                                <div style="font-weight: bold; color: #0f172a;">${this._escape(c.contact_name)}</div>
                                 <div style="font-size: 0.8em; color: #64748b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                     ${this._escape(c.last_message || '...')}
                                 </div>
@@ -187,6 +219,11 @@ AdminUI.loadChatHistory = async function(mainUserId, contactId, mainUserName, co
     const header = document.getElementById("chat-header");
     const area = document.getElementById("chat-messages-area");
 
+    if (!contactId || Number.isNaN(Number(contactId))) {
+        area.innerHTML = `<div style="color: #991b1b; background: #fef2f2; padding: 10px; border-radius: 6px;">تعذر تحديد طرف المحادثة.</div>`;
+        return;
+    }
+
     header.innerHTML = `محادثة بين: <span style="color:#1d4ed8;">${mainUserName}</span> و <span style="color:#059669;">${contactName}</span>`;
     area.innerHTML = `<div style="text-align:center; color: #64748b; margin-top: 20px;">جاري تحميل الرسائل...</div>`;
 
@@ -205,7 +242,7 @@ AdminUI.loadChatHistory = async function(mainUserId, contactId, mainUserName, co
 
         const bubblesHtml = messages.map(msg => {
             // التحقق من صاحب الرسالة لتحديد اتجاه ولون الفقاعة
-            const isMainUser = msg.sender_id === mainUserId;
+            const isMainUser = Number(msg.sender_id) === Number(mainUserId);
             
             const align = isMainUser ? 'align-self: flex-start;' : 'align-self: flex-end;';
             const bg = isMainUser ? 'background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe;' : 'background: #dcfce7; color: #166534; border: 1px solid #bbf7d0;';
