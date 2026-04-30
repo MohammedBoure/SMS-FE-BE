@@ -37,6 +37,16 @@ const ReceptionistUI = {
   },
 
   // === الدوال المساعدة (Helpers) ===
+  _getNotificationId(notification) {
+    const id = notification?.id ?? notification?.notification_id;
+    return id === undefined || id === null || id === "" ? null : id;
+  },
+
+  _isNotificationRead(notification) {
+    const value = notification?.is_read;
+    return value === true || value === 1 || value === "1" || value === "true";
+  },
+
   _translate(str) {
     const map = { students: "الطلاب", parents: "أولياء الأمور", search: "البحث الشامل", finance: "المالية", posts: "المنشورات", messages: "المراسلة", notifications: "الإشعارات" };
     return map[str] || str;

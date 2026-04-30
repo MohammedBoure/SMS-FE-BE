@@ -5,7 +5,7 @@ const AccountantRole = {
   
   // حالة الصفحات لكل قسم
   pages: {
-    students: 1, search: 1, attendance: 1, fees: 1, payments: 1, transactions: 1, messages: 1
+    students: 1, search: 1, attendance: 1, fees: 1, payments: 1, transactions: 1, messages: 1, notifications: 1
   },
   lastSearchKeyword: "", // لحفظ كلمة البحث أثناء التنقل بين الصفحات
 
@@ -68,6 +68,12 @@ const AccountantRole = {
           AccountantUI.renderMessages(inbox, session.user_id);
           break;
         }
+        case "notifications": {
+          const session = Auth.getSession();
+          const notifications = await AccountantServices.getNotifications(session.user_id);
+          AccountantUI.renderNotifications(notifications);
+          break;
+        }
         default:
           AccountantUI.renderError("قسم غير معروف");
       }
@@ -89,6 +95,37 @@ const AccountantRole = {
 
     // 2. إدارة جميع النقرات
     document.addEventListener("click", async (e) => {
+      if (e.target.id === "accountant-mark-all-notifications-read") {
+        const session = Auth.getSession();
+        const originalText = e.target.textContent;
+        e.target.disabled = true;
+        e.target.textContent = "جارٍ التحديث...";
+        try {
+          await AccountantServices.markAllNotificationsAsRead(session.user_id);
+          await this.loadSection("notifications");
+        } catch (err) {
+          e.target.disabled = false;
+          e.target.textContent = originalText;
+          alert(err.message || "تعذر تحديث الإشعارات.");
+        }
+        return;
+      }
+
+      const markNotificationBtn = e.target.closest(".accountant-mark-notification-read");
+      if (markNotificationBtn) {
+        const originalText = markNotificationBtn.textContent;
+        markNotificationBtn.disabled = true;
+        markNotificationBtn.textContent = "جارٍ التحديث...";
+        try {
+          await AccountantServices.markNotificationAsRead(markNotificationBtn.dataset.notificationId);
+          await this.loadSection("notifications");
+        } catch (err) {
+          markNotificationBtn.disabled = false;
+          markNotificationBtn.textContent = originalText;
+          alert(err.message || "تعذر تحديث الإشعار.");
+        }
+        return;
+      }
       
       // === أزرار الانتقال بين الصفحات (Pagination) ===
       if (e.target.classList.contains("pagination-btn")) {

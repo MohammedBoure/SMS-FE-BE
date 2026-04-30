@@ -146,17 +146,40 @@ const ParentUI = {
       main.innerHTML = "<h2>الإشعارات والإنذارات</h2><p style='color: #64748b;'>صندوق الإشعارات فارغ.</p>";
       return;
     }
+
+    const unreadCount = notifications.filter(n => !this._isNotificationRead(n)).length;
     const items = notifications.map(n => {
-      const dateStr = n.created_at ? new Date(n.created_at).toLocaleString('ar-DZ') : '';
+      const dateStr = n.created_at ? new Date(n.created_at).toLocaleString("ar-DZ") : "تاريخ غير محدد";
+      const isRead = this._isNotificationRead(n);
+      const notificationId = this._getNotificationId(n);
+      const action = isRead
+        ? `<span style="color:#16a34a; font-weight:700;">مقروء</span>`
+        : notificationId !== null
+          ? `<button type="button" class="parent-mark-notification-read" data-notification-id="${this._escape(notificationId)}" style="background:#eab308; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">تعيين كمقروء</button>`
+          : `<span style="color:#64748b; font-weight:700;">غير متاح</span>`;
+
       return `
-      <div style="background: white; padding: 15px; margin-bottom: 15px; border-radius: 8px; border-right: 4px solid #eab308; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-        <strong style="display:block; margin-bottom:5px; font-size:1.1rem; color: #0f172a;">${this._escape(n.title)}</strong>
+      <div style="background: white; padding: 15px; margin-bottom: 15px; border-radius: 8px; border-right: 4px solid ${isRead ? '#94a3b8' : '#eab308'}; box-shadow: 0 2px 4px rgba(0,0,0,0.05); opacity:${isRead ? '.78' : '1'};">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:5px;">
+          <strong style="display:block; font-size:1.1rem; color: #0f172a;">${this._escape(n.title || "إشعار")}</strong>
+          <span style="white-space:nowrap; color:${isRead ? '#16a34a' : '#d97706'}; background:${isRead ? '#dcfce7' : '#fef3c7'}; border:1px solid ${isRead ? '#bbf7d0' : '#fde68a'}; padding:4px 10px; border-radius:999px; font-size:.85rem; font-weight:700;">${isRead ? 'مقروء' : 'غير مقروء'}</span>
+        </div>
         <p style="margin:0; color:#334155; line-height: 1.6;">${this._escape(n.message)}</p>
-        <small style="color:#94a3b8; display:block; margin-top:10px; direction: ltr; text-align: right;">${dateStr}</small>
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:10px; flex-wrap:wrap;">
+          <small style="color:#94a3b8; direction: ltr; text-align: right;">${dateStr}</small>
+          ${action}
+        </div>
       </div>
     `}).join("");
+
     main.innerHTML = `
-      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">الإشعارات الواردة</h2>
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; border-bottom:2px solid #e2e8f0; padding-bottom:10px;">
+        <div>
+          <h2 style="color:#1e293b; margin:0;">الإشعارات الواردة</h2>
+          <small style="color:#64748b;">${unreadCount} إشعار غير مقروء</small>
+        </div>
+        ${unreadCount > 0 ? '<button type="button" id="parent-mark-all-notifications-read" style="background:#0f172a; color:white; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700;">تعيين الكل كمقروء</button>' : ''}
+      </div>
       <div>${items}</div>
     `;
   },
@@ -456,6 +479,16 @@ const ParentUI = {
   },
 
   // === الدوال المساعدة (Helpers) ===
+  _getNotificationId(notification) {
+    const id = notification?.id ?? notification?.notification_id;
+    return id === undefined || id === null || id === "" ? null : id;
+  },
+
+  _isNotificationRead(notification) {
+    const value = notification?.is_read;
+    return value === true || value === 1 || value === "1" || value === "true";
+  },
+
   _translate(str) {
     const map = {
       children: "أبنائي", grades: "العلامات", attendance: "الغياب", 

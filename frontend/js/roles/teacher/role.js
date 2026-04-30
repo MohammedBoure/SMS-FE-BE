@@ -97,6 +97,38 @@ const TeacherRole = {
     const main = document.getElementById("teacher-main");
 
     main.addEventListener("click", async (e) => {
+      if (e.target.id === "teacher-mark-all-notifications-read") {
+        const session = Auth.getSession();
+        const originalText = e.target.textContent;
+        e.target.disabled = true;
+        e.target.textContent = "جارٍ التحديث...";
+        try {
+          await TeacherServices.markAllNotificationsAsRead(session.user_id);
+          await this.loadSection("notifications");
+        } catch (err) {
+          e.target.disabled = false;
+          e.target.textContent = originalText;
+          alert(err.message || "تعذر تحديث الإشعارات.");
+        }
+        return;
+      }
+
+      const markNotificationBtn = e.target.closest(".teacher-mark-notification-read");
+      if (markNotificationBtn) {
+        const originalText = markNotificationBtn.textContent;
+        markNotificationBtn.disabled = true;
+        markNotificationBtn.textContent = "جارٍ التحديث...";
+        try {
+          await TeacherServices.markNotificationAsRead(markNotificationBtn.dataset.notificationId);
+          await this.loadSection("notifications");
+        } catch (err) {
+          markNotificationBtn.disabled = false;
+          markNotificationBtn.textContent = originalText;
+          alert(err.message || "تعذر تحديث الإشعار.");
+        }
+        return;
+      }
+
       if (e.target.id === "load-attendance-btn") {
         const classId = document.getElementById("attendance-class-select").value;
         const date = document.getElementById("attendance-date").value;

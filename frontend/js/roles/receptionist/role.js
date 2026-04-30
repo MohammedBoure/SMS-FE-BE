@@ -90,6 +90,38 @@ const ReceptionistRole = {
     const main = document.getElementById("receptionist-main");
 
     main.addEventListener("click", async (e) => {
+      if (e.target.id === "receptionist-mark-all-notifications-read") {
+        const session = Auth.getSession();
+        const originalText = e.target.textContent;
+        e.target.disabled = true;
+        e.target.textContent = "جارٍ التحديث...";
+        try {
+          await ReceptionistServices.markAllNotificationsAsRead(session.user_id);
+          await this.loadSection("notifications");
+        } catch (err) {
+          e.target.disabled = false;
+          e.target.textContent = originalText;
+          alert(err.message || "تعذر تحديث الإشعارات.");
+        }
+        return;
+      }
+
+      const markNotificationBtn = e.target.closest(".receptionist-mark-notification-read");
+      if (markNotificationBtn) {
+        const originalText = markNotificationBtn.textContent;
+        markNotificationBtn.disabled = true;
+        markNotificationBtn.textContent = "جارٍ التحديث...";
+        try {
+          await ReceptionistServices.markNotificationAsRead(markNotificationBtn.dataset.notificationId);
+          await this.loadSection("notifications");
+        } catch (err) {
+          markNotificationBtn.disabled = false;
+          markNotificationBtn.textContent = originalText;
+          alert(err.message || "تعذر تحديث الإشعار.");
+        }
+        return;
+      }
+
       if (e.target.classList.contains("view-student-details-btn")) {
         const studentId = e.target.dataset.id;
         try {

@@ -38,6 +38,7 @@ const StudentRole = {
       console.log("✅ تم تحديد المعرفات بنجاح!", { studentId: this.studentId, classId: this.classId });
 
       this.bindNavEvents();
+      this.bindDynamicEvents();
       this.loadSection(this.currentSection);
 
     } catch (err) {
@@ -51,6 +52,44 @@ const StudentRole = {
     nav.addEventListener("click", (e) => {
       if (e.target.classList.contains("nav-btn")) {
         this.loadSection(e.target.dataset.section);
+      }
+    });
+  },
+
+  bindDynamicEvents() {
+    const main = document.getElementById("student-main");
+    if (!main) return;
+
+    main.addEventListener("click", async (e) => {
+      if (e.target.id === "student-mark-all-notifications-read") {
+        const session = Auth.getSession();
+        const originalText = e.target.textContent;
+        e.target.disabled = true;
+        e.target.textContent = "جارٍ التحديث...";
+        try {
+          await StudentServices.markAllNotificationsAsRead(session.user_id);
+          await this.loadSection("notifications");
+        } catch (err) {
+          e.target.disabled = false;
+          e.target.textContent = originalText;
+          alert(err.message || "تعذر تحديث الإشعارات.");
+        }
+        return;
+      }
+
+      const markNotificationBtn = e.target.closest(".student-mark-notification-read");
+      if (markNotificationBtn) {
+        const originalText = markNotificationBtn.textContent;
+        markNotificationBtn.disabled = true;
+        markNotificationBtn.textContent = "جارٍ التحديث...";
+        try {
+          await StudentServices.markNotificationAsRead(markNotificationBtn.dataset.notificationId);
+          await this.loadSection("notifications");
+        } catch (err) {
+          markNotificationBtn.disabled = false;
+          markNotificationBtn.textContent = originalText;
+          alert(err.message || "تعذر تحديث الإشعار.");
+        }
       }
     });
   },

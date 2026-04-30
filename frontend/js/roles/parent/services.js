@@ -31,6 +31,14 @@ const ParentServices = {
     return await Api.get(`/notifications/user/${userId}`);
   },
 
+  async markNotificationAsRead(notificationId) {
+    return await Api.patch(`/notifications/${notificationId}/read`);
+  },
+
+  async markAllNotificationsAsRead(userId) {
+    return await Api.patch(`/notifications/user/${userId}/read-all`);
+  },
+
   async getPosts() {
     return await Api.get("/posts");
   },

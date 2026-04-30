@@ -19,6 +19,9 @@ const AccountantServices = {
       content
     });
   },
+  async getNotifications(userId) { return await Api.get(`/notifications/user/${userId}`); },
+  async markNotificationAsRead(notificationId) { return await Api.patch(`/notifications/${notificationId}/read`); },
+  async markAllNotificationsAsRead(userId) { return await Api.patch(`/notifications/user/${userId}/read-all`); },
   
   async getStudent(studentId) { return await Api.get(`/students/${studentId}`); },
   async getStudentFees(studentId) { return await Api.get(`/student-fees/student/${studentId}`); },

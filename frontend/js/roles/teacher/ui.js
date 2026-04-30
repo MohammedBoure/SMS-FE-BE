@@ -219,20 +219,40 @@ const TeacherUI = {
       return;
     }
 
+    const unreadCount = notifications.filter(n => !this._isNotificationRead(n)).length;
     const items = notifications.map(n => {
       const date = n.created_at ? new Date(n.created_at).toLocaleString("ar-DZ") : "تاريخ غير محدد";
+      const isRead = this._isNotificationRead(n);
+      const notificationId = this._getNotificationId(n);
+      const action = isRead
+        ? `<span style="color:#16a34a; font-weight:700;">مقروء</span>`
+        : notificationId !== null
+          ? `<button type="button" class="teacher-mark-notification-read" data-notification-id="${this._escape(notificationId)}" style="background:#4f46e5; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">تعيين كمقروء</button>`
+          : `<span style="color:#64748b; font-weight:700;">غير متاح</span>`;
 
       return `
-        <div style="background:#fff; padding:16px 18px; margin-bottom:12px; border-radius:12px; border-right:4px solid #4f46e5; box-shadow:0 2px 8px rgba(15,23,42,.06);">
-          <strong style="display:block; margin-bottom:6px; color:#0f172a; font-size:1.05rem;">${this._escape(n.title || "إشعار")}</strong>
+        <div style="background:#fff; padding:16px 18px; margin-bottom:12px; border-radius:12px; border-right:4px solid ${isRead ? '#94a3b8' : '#4f46e5'}; box-shadow:0 2px 8px rgba(15,23,42,.06); opacity:${isRead ? '.78' : '1'};">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:6px;">
+            <strong style="display:block; color:#0f172a; font-size:1.05rem;">${this._escape(n.title || "إشعار")}</strong>
+            <span style="white-space:nowrap; color:${isRead ? '#16a34a' : '#d97706'}; background:${isRead ? '#dcfce7' : '#fef3c7'}; border:1px solid ${isRead ? '#bbf7d0' : '#fde68a'}; padding:4px 10px; border-radius:999px; font-size:.85rem; font-weight:700;">${isRead ? 'مقروء' : 'غير مقروء'}</span>
+          </div>
           <p style="margin:0; color:#334155; line-height:1.7;">${this._escape(n.message || "")}</p>
-          <small style="color:#94a3b8; display:block; margin-top:8px; direction:ltr; text-align:right;">${date}</small>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:10px; flex-wrap:wrap;">
+            <small style="color:#94a3b8; direction:ltr; text-align:right;">${date}</small>
+            ${action}
+          </div>
         </div>
       `;
     }).join("");
 
     main.innerHTML = `
-      <h2>الإشعارات</h2>
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap;">
+        <div>
+          <h2 style="margin:0;">الإشعارات</h2>
+          <small style="color:#64748b;">${unreadCount} إشعار غير مقروء</small>
+        </div>
+        ${unreadCount > 0 ? '<button type="button" id="teacher-mark-all-notifications-read" style="background:#0f172a; color:white; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700;">تعيين الكل كمقروء</button>' : ''}
+      </div>
       <div>${items}</div>
     `;
   },
@@ -532,6 +552,16 @@ const TeacherUI = {
   },
 
   // دوال مساعدة
+  _getNotificationId(notification) {
+    const id = notification?.id ?? notification?.notification_id;
+    return id === undefined || id === null || id === "" ? null : id;
+  },
+
+  _isNotificationRead(notification) {
+    const value = notification?.is_read;
+    return value === true || value === 1 || value === "1" || value === "true";
+  },
+
   _translate(str) {
     const map = {
       assignments: "أقسامي", schedule: "الجدول الزمني", attendance: "الغياب", 

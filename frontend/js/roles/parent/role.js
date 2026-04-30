@@ -25,6 +25,7 @@ const ParentRole = {
       this.myChildren = Array.isArray(childrenRes) ? childrenRes : (childrenRes.data || []);
 
       this.bindNavEvents();
+      this.bindDynamicEvents();
       this.loadSection(this.currentSection);
 
     } catch (err) {
@@ -39,6 +40,44 @@ const ParentRole = {
       const btn = e.target.closest(".nav-btn");
       if (btn) {
         this.loadSection(btn.dataset.section);
+      }
+    });
+  },
+
+  bindDynamicEvents() {
+    const main = document.getElementById("parent-main");
+    if (!main) return;
+
+    main.addEventListener("click", async (e) => {
+      if (e.target.id === "parent-mark-all-notifications-read") {
+        const session = Auth.getSession();
+        const originalText = e.target.textContent;
+        e.target.disabled = true;
+        e.target.textContent = "جارٍ التحديث...";
+        try {
+          await ParentServices.markAllNotificationsAsRead(session.user_id);
+          await this.loadSection("notifications");
+        } catch (err) {
+          e.target.disabled = false;
+          e.target.textContent = originalText;
+          alert(err.message || "تعذر تحديث الإشعارات.");
+        }
+        return;
+      }
+
+      const markNotificationBtn = e.target.closest(".parent-mark-notification-read");
+      if (markNotificationBtn) {
+        const originalText = markNotificationBtn.textContent;
+        markNotificationBtn.disabled = true;
+        markNotificationBtn.textContent = "جارٍ التحديث...";
+        try {
+          await ParentServices.markNotificationAsRead(markNotificationBtn.dataset.notificationId);
+          await this.loadSection("notifications");
+        } catch (err) {
+          markNotificationBtn.disabled = false;
+          markNotificationBtn.textContent = originalText;
+          alert(err.message || "تعذر تحديث الإشعار.");
+        }
       }
     });
   },
