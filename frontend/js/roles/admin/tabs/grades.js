@@ -42,10 +42,20 @@ AdminUI.renderGradesTab = async function() {
 
             <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-top: 4px solid #1e40af;">
                 <h3 style="margin-top: 0; color: #1e40af; display: flex; align-items: center; gap: 8px;"><span>🎓</span> كشف نقاط طالب</h3>
-                <p style="color: #64748b; font-size: 0.9em; margin-bottom: 15px;">أدخل المعرف الخاص بالطالب لعرض سجله الأكاديمي الشامل.</p>
+                <p style="color: #64748b; font-size: 0.9em; margin-bottom: 15px;">ابحث عن الطالب لعرض سجله الأكاديمي الشامل.</p>
                 
-                <div style="display: flex; gap: 10px;">
-                    <input type="number" id="grades-student-id" placeholder="رقم الطالب (Student ID)..." style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; flex: 1; outline: none;" onkeypress="if(event.key === 'Enter') AdminUI.loadStudentRecord()">
+                <div style="display: flex; gap: 10px; position: relative;">
+                    <div style="position: relative; flex: 1;">
+                        <input type="text" id="grades-student-search" placeholder="ابحث باسم الطالب..." 
+                               style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; width: 100%; outline: none; box-sizing: border-box;"
+                               onkeyup="AdminUI.searchStudentForGrades(this.value)">
+                        
+                        <!-- حقل مخفي لتخزين الـ ID بعد اختيار الاسم -->
+                        <input type="hidden" id="grades-student-id">
+                        
+                        <!-- القائمة المنسدلة لنتائج البحث -->
+                        <div id="grades-student-dropdown" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #cbd5e1; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-height: 200px; overflow-y: auto; z-index: 10; margin-top: 5px;"></div>
+                    </div>
                 </div>
                 <button onclick="AdminUI.loadStudentRecord()" style="margin-top: 15px; width: 100%; background: #1e40af; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: bold;">
                     استخراج كشف النقاط
@@ -61,6 +71,57 @@ AdminUI.renderGradesTab = async function() {
             </div>
         </div>
     `;
+
+    // إخفاء القائمة المنسدلة عند النقر خارجها
+    document.addEventListener('click', function(e) {
+        const dropdown = document.getElementById('grades-student-dropdown');
+        const searchInput = document.getElementById('grades-student-search');
+        if (dropdown && e.target !== searchInput && e.target !== dropdown) {
+            dropdown.style.display = 'none';
+        }
+    });
+};
+
+/**
+ * وظائف البحث الحي عن الطلاب (Autocomplete)
+ */
+AdminUI.searchStudentForGrades = async function(keyword) {
+    const dropdown = document.getElementById("grades-student-dropdown");
+    
+    if (keyword.trim().length < 2) {
+        dropdown.style.display = "none";
+        return;
+    }
+
+    try {
+        const response = await Api.get(`/students/search?keyword=${encodeURIComponent(keyword)}&limit=5`);
+        const students = response.data || [];
+
+        if (students.length === 0) {
+            dropdown.innerHTML = `<div style="padding: 10px; color: #64748b; text-align: center; font-size: 0.9em;">لا توجد نتائج مطابقة</div>`;
+        } else {
+            dropdown.innerHTML = students.map(s => `
+                <div onclick="AdminUI.selectStudentForGrades(${s.student_id || s.id}, '${this._escape(s.full_name || s.student_name)}')" 
+                     style="padding: 10px 15px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: 0.2s; display: flex; justify-content: space-between;" 
+                     onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+                    <strong style="color: #0f172a;">${this._escape(s.full_name || s.student_name)}</strong> 
+                    <small style="color: #64748b;">(رقم: ${s.student_id || s.id})</small>
+                </div>
+            `).join("");
+        }
+        dropdown.style.display = "block";
+    } catch (err) {
+        console.error("فشل البحث في القائمة المنسدلة:", err);
+    }
+};
+
+AdminUI.selectStudentForGrades = function(id, name) {
+    document.getElementById("grades-student-search").value = name;
+    document.getElementById("grades-student-id").value = id;
+    document.getElementById("grades-student-dropdown").style.display = "none";
+    
+    // تشغيل استخراج الكشف تلقائياً بعد اختيار الطالب
+    this.loadStudentRecord();
 };
 
 /**
@@ -113,9 +174,15 @@ AdminUI.loadAssessmentGrades = async function() {
 
         // نموذج إضافة درجة سريعة
         const addFormHtml = `
-            <div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
+            <div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; gap: 10px; align-items: center; position: relative;">
                 <span style="font-weight: bold; color: #334155;">إدخال نقطة:</span>
-                <input type="number" id="quick-student-id" placeholder="رقم الطالب" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; width: 120px;">
+                
+                <div style="position: relative; flex: 1;">
+                    <input type="text" id="quick-student-search" placeholder="ابحث عن الطالب..." style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; width: 100%; box-sizing: border-box;" onkeyup="AdminUI.searchStudentForQuickGrade(this.value)">
+                    <input type="hidden" id="quick-student-id">
+                    <div id="quick-student-dropdown" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #cbd5e1; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-height: 150px; overflow-y: auto; z-index: 10; margin-top: 2px;"></div>
+                </div>
+                
                 <input type="number" step="0.25" id="quick-grade-val" placeholder="العلامة" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; width: 100px;">
                 <input type="text" id="quick-remarks" placeholder="ملاحظات الأستاذ (اختياري)" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; flex: 1;">
                 <button onclick="AdminUI.saveGrade(${assessmentId})" style="background: #064e3b; color: white; border: none; padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: bold;">حفظ</button>
@@ -159,9 +226,57 @@ AdminUI.loadAssessmentGrades = async function() {
                 <tbody>${tableRows}</tbody>
             </table>
         `;
+        
+        // إخفاء القائمة المنسدلة للدرجة السريعة عند النقر خارجها
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('quick-student-dropdown');
+            const searchInput = document.getElementById('quick-student-search');
+            if (dropdown && e.target !== searchInput && e.target !== dropdown) {
+                dropdown.style.display = 'none';
+            }
+        });
+
     } catch (err) {
         container.innerHTML = `<div style="color: #991b1b; background: #fef2f2; padding: 15px; border-radius: 6px;">فشل تحميل بيانات التقييم: ${err.message}</div>`;
     }
+};
+
+/**
+ * وظائف البحث الحي عن الطلاب للإدخال السريع للدرجات
+ */
+AdminUI.searchStudentForQuickGrade = async function(keyword) {
+    const dropdown = document.getElementById("quick-student-dropdown");
+    
+    if (keyword.trim().length < 2) {
+        dropdown.style.display = "none";
+        return;
+    }
+
+    try {
+        const response = await Api.get(`/students/search?keyword=${encodeURIComponent(keyword)}&limit=5`);
+        const students = response.data || [];
+
+        if (students.length === 0) {
+            dropdown.innerHTML = `<div style="padding: 8px; color: #64748b; text-align: center; font-size: 0.85em;">لا توجد نتائج</div>`;
+        } else {
+            dropdown.innerHTML = students.map(s => `
+                <div onclick="AdminUI.selectStudentForQuickGrade(${s.student_id || s.id}, '${this._escape(s.full_name || s.student_name)}')" 
+                     style="padding: 8px 10px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: 0.2s; display: flex; justify-content: space-between; font-size: 0.9em;" 
+                     onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+                    <strong style="color: #0f172a;">${this._escape(s.full_name || s.student_name)}</strong> 
+                </div>
+            `).join("");
+        }
+        dropdown.style.display = "block";
+    } catch (err) {
+        console.error("فشل البحث في القائمة المنسدلة:", err);
+    }
+};
+
+AdminUI.selectStudentForQuickGrade = function(id, name) {
+    document.getElementById("quick-student-search").value = name;
+    document.getElementById("quick-student-id").value = id;
+    document.getElementById("quick-student-dropdown").style.display = "none";
 };
 
 /**
@@ -173,7 +288,7 @@ AdminUI.saveGrade = async function(assessmentId) {
     const remarks = document.getElementById("quick-remarks").value;
 
     if (!studentId || !gradeVal) {
-        alert("يرجى إدخال رقم الطالب والعلامة.");
+        alert("يرجى اختيار الطالب وإدخال العلامة.");
         return;
     }
 
@@ -187,6 +302,7 @@ AdminUI.saveGrade = async function(assessmentId) {
         
         // مسح الحقول وإعادة تحميل القائمة
         document.getElementById("quick-student-id").value = "";
+        document.getElementById("quick-student-search").value = "";
         document.getElementById("quick-grade-val").value = "";
         document.getElementById("quick-remarks").value = "";
         AdminUI.loadAssessmentGrades();
@@ -203,7 +319,7 @@ AdminUI.loadStudentRecord = async function() {
     const container = document.getElementById("grades-results-container");
 
     if (!studentId) {
-        alert("يرجى إدخال رقم الطالب.");
+        alert("يرجى اختيار الطالب أولاً.");
         return;
     }
 

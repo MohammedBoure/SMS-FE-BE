@@ -30,6 +30,7 @@ const AdminServices = {
 
   // --- التواصل والإعلانات ---
   async getConversations() { return await Api.get("/conversations"); },
+  async getPrograms() { return await Api.get("/programs"); },
   async getNotifications() {
     const session = Storage.getSession();
     return await Api.get(`/notifications/user/${session.user_id}`);
@@ -38,7 +39,6 @@ const AdminServices = {
     return await Api.get("/posts"); 
   },
 
-  // --- دوال الحذف العامة ---
   async deleteRecord(endpoint, id) {
     return await Api.delete(`${endpoint}/${id}`);
   }

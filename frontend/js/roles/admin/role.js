@@ -88,6 +88,9 @@ const AdminRole = {
         case "posts": 
           AdminUI.renderPostsTab(await AdminServices.getPosts()); 
           break;
+        case "programs": 
+          AdminUI.renderProgramsTab(await AdminServices.getPrograms()); 
+          break;
 
         default:
           AdminUI.renderError("هذه الواجهة قيد التطوير أو غير مسجلة.");

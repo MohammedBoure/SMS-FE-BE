@@ -17,6 +17,7 @@ from .payments_api import router as payments_router
 from .notifications_api import router as notifications_router
 from .posts_api import router as posts_router
 from .messages_api import router as messages_router
+from .programs_api import router as programs_router
 
 __all__ = [
     "users_router",

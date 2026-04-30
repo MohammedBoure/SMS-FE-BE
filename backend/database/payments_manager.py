@@ -139,7 +139,7 @@ class PaymentsManager:
                         COALESCE(SUM(p.amount_paid), 0) AS total_paid,
                         ((sf.amount_due - sf.applied_discount) - COALESCE(SUM(p.amount_paid), 0)) AS remaining_balance
                     FROM student_fees sf
-                    LEFT JOIN payments p ON sf.fee_id = p.fee_id
+                    LEFT JOIN payments p ON sf.id = p.fee_id
                     WHERE sf.id = %s
                     GROUP BY sf.id
                 """

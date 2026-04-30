@@ -1,10 +1,7 @@
-feat: comprehensive UI/UX overhaul and core logic refactoring for Admin Dashboard
+feat(admin): overhaul school management system UI/UX and logic
 
-- Refactor(Schedules): Replaced legacy prompts with interactive Modals. Implemented a smart time filter to handle MySQL TIME/timedelta conversion from seconds to HH:MM format.
-- Refactor(Students): Implemented full Student Profile view with integrated academic, financial, and attendance data. Added searchable dropdowns for User, Class, and Parent associations.
-- Refactor(Teachers): Updated Teacher profiles to include dynamic weekly schedules and subject assignments with corrected time formatting.
-- Refactor(Users): Standardized user management with status toggling (Active/Inactive) and streamlined creation/edit Modals.
-- Refactor(Parents): Eliminated ID-based linking; implemented user-selection dropdowns for parent-user mapping and child-viewing Modals.
-- Refactor(Classes): Enhanced occupancy monitoring with dynamic progress bars and color-coded alerts based on capacity percentage.
-- feat(Dashboard): Redesigned Academic Overview with real-time stats and a 'Daily Attendance Monitor' widget.
-- fix: Resolved global time display issues where seconds were shown instead of hours across all schedule components.
+- implement professional modals and autocomplete search for students in attendance, grades, and payments[cite: 7, 8, 16, 22]
+- refactor attendance logic with bulk save feature and real-time statistics visualization[cite: 7, 8, 21]
+- enhance financial module with live balance calculation, overdue debt tracking, and Xprinter thermal receipt simulation[cite: 17, 18, 19, 21]
+- update routing system to support 19 sections and new academic programs module[cite: 1, 2, 3]
+- improve data integrity by fixing status mismatches and implementing dynamic ID-based linking across all modules[cite: 1, 8, 21]

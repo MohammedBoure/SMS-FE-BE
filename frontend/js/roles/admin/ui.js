@@ -17,6 +17,7 @@ const AdminUI = {
         { id: "classes", label: "الفصول والمقاعد", icon: "🏫" },
         { id: "students", label: "شؤون الطلاب", icon: "🎓" },
         { id: "teachers", label: "الطاقم التعليمي", icon: "👨‍🏫" },
+        { id: "programs", label: "البرامج الدراسية", icon: "📚" },
         { id: "enrollments", label: "سجلات التسجيل", icon: "📑" },
         { id: "attendance", label: "الحضور والغياب", icon: "⏱️" },
         { id: "schedules", label: "الجداول الزمنية", icon: "📅" },
