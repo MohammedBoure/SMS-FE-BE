@@ -123,3 +123,6 @@ feat(admin): major overhaul of financial, resource, and notification modules
 - Resources: Overhaul digital library with dynamic assignment linking and OS-independent secure download logic[cite: 14, 16, 17, 18].
 - Notifications: Implement advanced bulk sending, autocomplete user search, and sophisticated filtering/cleanup tools[cite: 19, 20, 21].
 - Core: Fix critical data integrity bugs, including the zero-balance display and notification history visibility issues[cite: 3, 20, 21].
+-----
+
+Add read status actions for role notifications

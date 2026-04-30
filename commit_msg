@@ -1,7 +1,1 @@
-feat(admin): major overhaul of financial, resource, and notification modules
-
-- Financials: Implement real-time balance tracking and auto-status updates for fees.
-- Payments: Add professional payment modal with dynamic fee loading and Xprinter thermal receipt support[cite: 1, 3, 6].
-- Resources: Overhaul digital library with dynamic assignment linking and OS-independent secure download logic[cite: 14, 16, 17, 18].
-- Notifications: Implement advanced bulk sending, autocomplete user search, and sophisticated filtering/cleanup tools[cite: 19, 20, 21].
-- Core: Fix critical data integrity bugs, including the zero-balance display and notification history visibility issues[cite: 3, 20, 21].
+Add read status actions for role notifications
