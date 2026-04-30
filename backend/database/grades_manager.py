@@ -24,6 +24,12 @@ class GradesManager:
         إضافة أو تحديث علامة الطالب في تقييم معين.
         إذا كانت العلامة موجودة مسبقاً، سيتم تحديثها. وإذا لم تكن موجودة، سيتم إنشاؤها.
         """
+        if grade_value < 0 or grade_value > 20:
+            logging.warning(
+                f"❌ Invalid grade_value {grade_value} for student #{student_id}, assessment #{assessment_id}."
+            )
+            return None
+
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()

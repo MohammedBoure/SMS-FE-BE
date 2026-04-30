@@ -48,6 +48,7 @@ class SchemaInitializer:
                 self._run_queries(cursor, ALL_SCHEMA_QUERIES, "Schema")
                 self._run_queries(cursor, VIEW_QUERIES,       "Views")
                 self._run_queries(cursor, INDEX_QUERIES,      "Indexes", ignore_errors=True)
+                self._ensure_grades_range_constraint(cursor)
 
                 self._create_default_roles(cursor)
                 self._create_default_admin(cursor)
@@ -57,6 +58,39 @@ class SchemaInitializer:
 
         except mysql.connector.Error as err:
             logger.error(f"❌ Failed to initialize schema: {err}")
+
+    def _ensure_grades_range_constraint(self, cursor) -> None:
+        """Add range validation for grades on existing databases if missing."""
+        db_name = self._cm.db_config.get("database")
+        if not db_name:
+            return
+
+        try:
+            cursor.execute(
+                """
+                SELECT 1
+                FROM information_schema.table_constraints
+                WHERE constraint_schema = %s
+                  AND table_name = 'grades'
+                  AND constraint_name = 'chk_grades_grade_value_range'
+                  AND constraint_type = 'CHECK'
+                LIMIT 1
+                """,
+                (db_name,),
+            )
+            if cursor.fetchone():
+                return
+
+            cursor.execute(
+                """
+                ALTER TABLE grades
+                ADD CONSTRAINT chk_grades_grade_value_range
+                CHECK (grade_value >= 0 AND grade_value <= 20)
+                """
+            )
+            logger.info("✅ Added constraint chk_grades_grade_value_range on grades table.")
+        except mysql.connector.Error as err:
+            logger.warning(f"Could not add grades range constraint automatically: {err}")
 
     @staticmethod
     def _run_queries(cursor, queries: list, label: str, ignore_errors: bool = False) -> None:

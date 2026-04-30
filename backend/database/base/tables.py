@@ -180,6 +180,7 @@ ACADEMIC_OPERATIONS_TABLE_QUERIES = [
         assessment_id   INT,
         grade_value     DOUBLE NOT NULL,
         teacher_remarks TEXT,
+        CONSTRAINT chk_grades_grade_value_range CHECK (grade_value >= 0 AND grade_value <= 20),
         FOREIGN KEY (student_id)    REFERENCES students(id)    ON DELETE CASCADE,
         FOREIGN KEY (assessment_id) REFERENCES assessments(id) ON DELETE CASCADE
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;""",

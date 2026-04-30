@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List, Dict, Optional
 
 from .dependencies import get_grades_manager
@@ -10,7 +10,7 @@ router = APIRouter(prefix="/grades", tags=["Grades"])
 class GradeSave(BaseModel):
     student_id: int
     assessment_id: int
-    grade_value: float
+    grade_value: float = Field(..., ge=0, le=20)
     teacher_remarks: Optional[str] = None
 
 @router.post("/", status_code=status.HTTP_200_OK)
