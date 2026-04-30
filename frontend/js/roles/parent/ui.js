@@ -1,7 +1,8 @@
 // js/roles/parent/ui.js
 
 const ParentUI = {
-  SECTIONS: ["children", "grades", "attendance", "fees", "notifications"],
+  SECTIONS: ["children", "grades", "attendance", "fees", "posts", "notifications"],
+  _postsCache: [],
 
   renderHeader(userProfile) {
     const header = document.getElementById("parent-header");
@@ -158,13 +159,197 @@ const ParentUI = {
     `;
   },
 
+  renderPosts(postsData) {
+    const posts = Array.isArray(postsData) ? postsData : (postsData?.data || []);
+    const main = document.getElementById("parent-main");
+    const sortedPosts = [...posts].sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
+    this._postsCache = sortedPosts;
+
+    if (!sortedPosts || sortedPosts.length === 0) {
+      main.innerHTML = `
+        <div class="posts-dashboard student-posts-dashboard parent-posts-dashboard">
+          <div class="posts-header-bar">
+            <div>
+              <h3>منشورات الإدارة</h3>
+              <p>الإعلانات والمحتوى المنشور من الإدارة يظهر هنا.</p>
+            </div>
+          </div>
+          <div class="posts-empty">
+            <div class="empty-icon">📭</div>
+            <h4>لا توجد منشورات حالياً</h4>
+            <p>ستظهر منشورات الإدارة هنا عند توفرها.</p>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    const cards = sortedPosts.map((post, index) => {
+      const title = this._escape(post.title || "منشور بدون عنوان");
+      const date = this._formatPostDate(post.created_at);
+      const snippet = this._extractPostSnippet(post.content ?? "");
+      const excerpt = snippet ? this._escape(snippet) : "";
+
+      return `
+        <article class="student-post-list-card">
+          ${post.image
+            ? `<img src="${this._escape(post.image)}" class="student-post-thumb" alt="${title}">`
+            : `<div class="student-post-thumb student-post-thumb-placeholder">📄</div>`}
+          <div class="student-post-summary">
+            <div>
+              <div class="student-post-label">من الإدارة</div>
+              <h3 class="student-post-list-title">${title}</h3>
+              <p>${excerpt || "اضغط لعرض تفاصيل المنشور."}</p>
+            </div>
+            <div class="student-post-list-actions">
+              <time class="student-post-date">${date}</time>
+              <button type="button" class="student-post-open" data-post-index="${index}">عرض التفاصيل</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join("");
+
+    main.innerHTML = `
+      <div class="posts-dashboard student-posts-dashboard parent-posts-dashboard">
+        <div class="posts-header-bar">
+          <div>
+            <h3>منشورات الإدارة</h3>
+            <p>اختر منشوراً من القائمة لعرض التفاصيل الكاملة.</p>
+          </div>
+        </div>
+        <div class="student-posts-list">${cards}</div>
+      </div>
+    `;
+    main.querySelectorAll(".student-post-open").forEach(btn => {
+      btn.addEventListener("click", () => this.renderPostDetails(Number(btn.dataset.postIndex)));
+    });
+  },
+
+  renderPostDetails(index) {
+    const post = this._postsCache[index];
+    const main = document.getElementById("parent-main");
+
+    if (!post) {
+      this.renderPosts(this._postsCache);
+      return;
+    }
+
+    const title = this._escape(post.title || "منشور بدون عنوان");
+    const date = this._formatPostDate(post.created_at);
+    const contentHtml = this._processPostMarkdown(post.content ?? "");
+
+    main.innerHTML = `
+      <div class="posts-dashboard student-posts-dashboard parent-posts-dashboard">
+        <div class="student-post-detail-topbar">
+          <button type="button" class="btn-secondary" id="parent-posts-back">← الرجوع للمنشورات</button>
+          <time class="student-post-date">${date}</time>
+        </div>
+        <article class="student-post-card student-post-detail">
+          ${post.image ? `<img src="${this._escape(post.image)}" class="student-post-cover" alt="${title}">` : ""}
+          <div class="student-post-head">
+            <div>
+              <div class="student-post-label">من الإدارة</div>
+              <h3 class="preview-title">${title}</h3>
+            </div>
+          </div>
+          <div class="md-body">${contentHtml || '<p class="preview-placeholder">لا يوجد محتوى لهذا المنشور.</p>'}</div>
+        </article>
+      </div>
+    `;
+
+    document.getElementById("parent-posts-back")?.addEventListener("click", () => this.renderPosts(this._postsCache));
+    this._typesetMath(main);
+  },
+
   // === الدوال المساعدة (Helpers) ===
   _translate(str) {
     const map = {
       children: "أبنائي", grades: "العلامات", attendance: "الغياب", 
-      fees: "المالية", notifications: "الإشعارات", messages: "الرسائل"
+      fees: "المالية", posts: "منشورات الإدارة", notifications: "الإشعارات", messages: "الرسائل"
     };
     return map[str] || str;
+  },
+  _processPostMarkdown(raw) {
+    if (!raw) return "";
+
+    let source = String(raw).replace(
+      /\[تحميل:\s*([^\]|]+?)(?:\|([^\]|]*?))?(?:\|([^\]]*?))?\]\(([^)]+)\)/g,
+      (_, name, type, size, url) => {
+        const safeUrl = this._escape(url.trim());
+        const safeName = this._escape(name.trim());
+        const ext = safeUrl.split(".").pop()?.split("?")[0];
+        const icon = this._getFileIcon(ext);
+        const meta = [type, size].map(part => part?.trim()).filter(Boolean).join(" · ");
+
+        return `
+          <a href="${safeUrl}" target="_blank" class="dl-card" rel="noopener noreferrer">
+            <span class="dl-card-icon">${icon}</span>
+            <span class="dl-card-info">
+              <span class="dl-card-name">${safeName}</span>
+              ${meta ? `<span class="dl-card-meta">${this._escape(meta)}</span>` : ""}
+            </span>
+            <span class="dl-card-btn">تحميل</span>
+          </a>
+        `;
+      }
+    );
+
+    let html = (typeof marked !== "undefined")
+      ? marked.parse(source, { gfm: true, breaks: true, tables: true })
+      : this._escape(source).replace(/\n/g, "<br>");
+
+    if (typeof DOMPurify !== "undefined") {
+      html = DOMPurify.sanitize(html, {
+        ADD_ATTR: ["target", "rel", "class"]
+      });
+    }
+
+    return html;
+  },
+  _typesetMath(container, attempt = 0) {
+    if (!container || typeof MathJax === "undefined") return;
+
+    if (MathJax.typesetPromise) {
+      if (MathJax.typesetClear) MathJax.typesetClear([container]);
+      MathJax.typesetPromise([container]).catch(() => {});
+      return;
+    }
+
+    if (MathJax.startup?.promise) {
+      MathJax.startup.promise.then(() => this._typesetMath(container, attempt + 1)).catch(() => {});
+      return;
+    }
+
+    if (attempt < 8) {
+      setTimeout(() => this._typesetMath(container, attempt + 1), 250);
+    }
+  },
+  _formatPostDate(value) {
+    if (!value) return "تاريخ غير محدد";
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "تاريخ غير محدد";
+
+    return date.toLocaleDateString("ar-DZ", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
+  },
+  _extractPostSnippet(markdown, length = 140) {
+    const text = String(markdown)
+      .replace(/```[\s\S]*?```/g, " ")
+      .replace(/!\[[^\]]*\]\([^)]+\)/g, " ")
+      .replace(/\[[^\]]+\]\([^)]+\)/g, match => match.replace(/^\[|\]\([^)]+\)$/g, ""))
+      .replace(/[#>*_`~|$\\]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    return text.length > length ? `${text.slice(0, length).trim()}...` : text;
+  },
+  _getFileIcon(ext) {
+    const icons = { pdf: "📄", doc: "📝", docx: "📝", xls: "📊", xlsx: "📊", ppt: "📑", pptx: "📑", zip: "🗜️", rar: "🗜️", mp4: "🎬", mp3: "🎵", png: "🖼️", jpg: "🖼️", jpeg: "🖼️" };
+    return icons[ext?.toLowerCase()] || "📎";
   },
   _formatValue(value) { 
     return value === null || value === undefined || value === "" ? "-" : value; 

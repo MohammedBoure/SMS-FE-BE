@@ -41,6 +41,10 @@ const TeacherServices = {
     return await Api.post("/resources/upload", formData);
   },
 
+  async getPosts() {
+    return await Api.get("/posts");
+  },
+
   async getNotifications(userId) {
     return await Api.get(`/notifications/user/${userId}`);
   }

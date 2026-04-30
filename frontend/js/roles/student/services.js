@@ -37,6 +37,10 @@ const StudentServices = {
     return await Api.get("/resources/");
   },
 
+  async getPosts() {
+    return await Api.get("/posts");
+  },
+
   async getMyNotifications(userId) {
     return await Api.get(`/notifications/user/${userId}`);
   }

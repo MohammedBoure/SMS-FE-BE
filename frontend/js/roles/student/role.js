@@ -87,6 +87,11 @@ const StudentRole = {
           StudentUI.renderResources(resources);
           break;
         }
+        case "posts": {
+          const posts = await StudentServices.getPosts();
+          StudentUI.renderPosts(posts);
+          break;
+        }
         case "fees": {
           const fees = await StudentServices.getMyFees(this.studentId);
           StudentUI.renderFees(fees);

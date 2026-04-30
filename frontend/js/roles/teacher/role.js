@@ -40,8 +40,9 @@ const TeacherRole = {
   bindNavEvents() {
     const nav = document.getElementById("teacher-nav");
     nav.addEventListener("click", (e) => {
-      if (e.target.classList.contains("nav-btn")) {
-        this.loadSection(e.target.dataset.section);
+      const btn = e.target.closest(".nav-btn");
+      if (btn) {
+        this.loadSection(btn.dataset.section);
       }
     });
   },
@@ -69,6 +70,10 @@ const TeacherRole = {
           break;
         case "resources":
           TeacherUI.renderResources(this.myAssignments);
+          break;
+        case "posts":
+          const posts = await TeacherServices.getPosts();
+          TeacherUI.renderPosts(posts);
           break;
         case "notifications":
           const session = Auth.getSession();

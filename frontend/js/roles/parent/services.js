@@ -29,5 +29,9 @@ const ParentServices = {
   // جلب إشعارات الولي (بواسطة user_id وليس parent_id لأن الإشعارات مرتبطة بالمستخدم)
   async getNotifications(userId) {
     return await Api.get(`/notifications/user/${userId}`);
+  },
+
+  async getPosts() {
+    return await Api.get("/posts");
   }
 };

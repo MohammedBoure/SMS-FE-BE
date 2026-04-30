@@ -89,6 +89,12 @@ const ParentRole = {
           break;
         }
 
+        case "posts": {
+          const res = await ParentServices.getPosts();
+          ParentUI.renderPosts(res);
+          break;
+        }
+
         case "notifications": {
           const session = Auth.getSession();
           const res = await ParentServices.getNotifications(session.user_id);

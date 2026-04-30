@@ -90,3 +90,24 @@ feat(admin): overhaul school management system UI/UX and logic
 - enhance financial module with live balance calculation, overdue debt tracking, and Xprinter thermal receipt simulation[cite: 17, 18, 19, 21]
 - update routing system to support 19 sections and new academic programs module[cite: 1, 2, 3]
 - improve data integrity by fixing status mismatches and implementing dynamic ID-based linking across all modules[cite: 1, 8, 21]
+-----
+
+fix(security): prevent path traversal in file upload API
+
+- Replaced user-controlled filenames with UUID-based safe filenames
+- Added file extension validation (whitelist)
+- Enforced maximum file size limit to prevent DoS attacks
+- Implemented secure path validation to block directory traversal
+- Stored relative file paths instead of absolute paths
+- Secured file download endpoint against unauthorized file access
+- Improved file deletion safety checks
+
+feat(ui): enhance posts management interfaces
+
+- Improved admin UI for creating and editing posts
+- Added posts display interfaces for:
+  - Teachers
+  - Students
+  - Parents
+
+chore: overall code hardening and stability improvements
