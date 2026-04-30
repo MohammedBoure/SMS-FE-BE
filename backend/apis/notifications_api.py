@@ -17,6 +17,11 @@ class BulkNotificationCreate(BaseModel):
     title: str
     message: str
 
+# 1. جلب السجل الشامل للإشعارات للإدارة (المسار الجديد)
+@router.get("/")
+def get_all_notifications(limit: int = 100, manager: NotificationsManager = Depends(get_notifications_manager)):
+    return manager.get_all_notifications(limit=limit)
+
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create_notification(data: NotificationCreate, manager: NotificationsManager = Depends(get_notifications_manager)):
     notification_id = manager.create_notification(

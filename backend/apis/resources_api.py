@@ -34,12 +34,14 @@ def validate_extension(filename: str):
     if ext not in ALLOWED_EXTENSIONS:
         raise HTTPException(status_code=400, detail="File type not allowed")
 
-def validate_path(file_path: str):
-    real_upload_dir = os.path.realpath(UPLOAD_DIR)
-    real_file_path = os.path.realpath(file_path)
-
-    if not real_file_path.startswith(real_upload_dir):
-        raise HTTPException(status_code=400, detail="Invalid file path detected")
+def get_safe_full_path(db_file_path: str) -> str:
+    """
+    دالة حماية ذكية: تستخرج اسم الملف فقط بغض النظر عن نظام التشغيل،
+    وتجبره على أن يكون داخل مجلد UPLOAD_DIR لتجنب أخطاء المسارات (Path Traversal).
+    """
+    clean_path = db_file_path.replace("\\", "/")
+    filename = os.path.basename(clean_path)
+    return os.path.abspath(os.path.join(UPLOAD_DIR, filename))
 
 # =========================
 # MODELS
@@ -72,29 +74,21 @@ def upload_resource(
     file: UploadFile = File(...),
     manager: ResourcesManager = Depends(get_resources_manager)
 ):
-    # 1. تحقق من الامتداد
     validate_extension(file.filename)
 
-    # 2. اسم آمن
     safe_name = safe_filename(file.filename)
     file_path = os.path.join(UPLOAD_DIR, safe_name)
 
-    # 3. تحقق من المسار
-    validate_path(file_path)
-
-    # 4. قراءة الملف والتحقق من الحجم
     content = file.file.read()
     if len(content) > MAX_FILE_SIZE:
         raise HTTPException(status_code=400, detail="File too large")
 
-    # 5. حفظ الملف
     with open(file_path, "wb") as buffer:
         buffer.write(content)
 
     file_size_mb = len(content) / (1024 * 1024)
-
-    # 6. حفظ في DB (نخزن فقط المسار النسبي)
-    relative_path = os.path.join("uploads/resources", safe_name)
+    # توحيد طريقة تخزين المسار كمسار نسبي ثابت
+    relative_path = f"uploads/resources/{safe_name}"
 
     resource_id = manager.create_resource(
         title=title,
@@ -155,15 +149,14 @@ def download_resource(resource_id: int, manager: ResourcesManager = Depends(get_
     if not file_path:
         raise HTTPException(status_code=404, detail="File path missing")
 
-    full_path = os.path.realpath(file_path)
-
-    # حماية من path traversal
-    validate_path(full_path)
+    # استخدام دالة الحماية الجديدة للحصول على المسار المؤكد
+    full_path = get_safe_full_path(file_path)
 
     if not os.path.exists(full_path):
-        raise HTTPException(status_code=404, detail="File not found")
+        raise HTTPException(status_code=404, detail="File not found on server")
 
-    return FileResponse(path=full_path, filename=os.path.basename(full_path))
+    filename = os.path.basename(full_path)
+    return FileResponse(path=full_path, filename=filename)
 
 # =========================
 # UPDATE
@@ -191,18 +184,13 @@ def delete_resource(resource_id: int, manager: ResourcesManager = Depends(get_re
 
     success, message = manager.delete_resource(resource_id)
 
+    # إذا تم حذف السجل بنجاح من قاعدة البيانات، نحذفه من التخزين (Disk)
     if success:
         file_path = resource.get("file_path_or_url")
         if file_path:
-            full_path = os.path.realpath(file_path)
-
-            # حماية
-            try:
-                validate_path(full_path)
-                if os.path.exists(full_path):
-                    os.remove(full_path)
-            except Exception:
-                pass
+            full_path = get_safe_full_path(file_path)
+            if os.path.exists(full_path):
+                os.remove(full_path)
 
     if not success:
         raise HTTPException(status_code=400, detail=message)

@@ -19,9 +19,6 @@ class NotificationsManager:
     # ================================================================
 
     def create_notification(self, user_id: int, title: str, message: str) -> Optional[int]:
-        """
-        إرسال إشعار لمستخدم واحد.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
@@ -39,9 +36,6 @@ class NotificationsManager:
             return None
 
     def create_bulk_notifications(self, user_ids: List[int], title: str, message: str) -> bool:
-        """
-        إرسال إشعار جماعي لقائمة من المستخدمين (مثال: إشعار لجميع طلاب قسم).
-        """
         if not user_ids:
             return False
 
@@ -49,7 +43,6 @@ class NotificationsManager:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
                 query = "INSERT INTO notifications (user_id, title, message) VALUES (%s, %s, %s)"
-                # تحضير البيانات للإدخال الدفعي (Batch Insert)
                 data = [(uid, title, message) for uid in user_ids]
                 
                 cursor.executemany(query, data)
@@ -64,10 +57,27 @@ class NotificationsManager:
     # READ
     # ================================================================
 
+    def get_all_notifications(self, limit: int = 100) -> List[Dict]:
+        """
+        [دالة جديدة] جلب السجل الشامل لجميع الإشعارات للإدارة (مع أسماء المستخدمين).
+        """
+        try:
+            with self.db.get_db_connection() as conn:
+                cursor = conn.cursor(dictionary=True)
+                query = """
+                    SELECT n.id, n.user_id, n.title, n.message, n.is_read, n.created_at, u.full_name
+                    FROM notifications n
+                    LEFT JOIN users u ON n.user_id = u.id
+                    ORDER BY n.created_at DESC
+                    LIMIT %s
+                """
+                cursor.execute(query, (limit,))
+                return cursor.fetchall()
+        except Exception as e:
+            logging.error(f"❌ Erreur récupération de toutes les notifications : {e}")
+            return []
+
     def get_user_notifications(self, user_id: int, unread_only: bool = False, limit: int = 50) -> List[Dict]:
-        """
-        جلب إشعارات مستخدم معين (مرتبة من الأحدث للأقدم).
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
@@ -87,9 +97,6 @@ class NotificationsManager:
             return []
 
     def get_unread_count(self, user_id: int) -> int:
-        """
-        جلب عدد الإشعارات غير المقروءة (مفيد لواجهة المستخدم Badge).
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
@@ -105,9 +112,6 @@ class NotificationsManager:
     # ================================================================
 
     def mark_as_read(self, notification_id: int) -> bool:
-        """
-        تحديد إشعار واحد كمقروء.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
@@ -119,9 +123,6 @@ class NotificationsManager:
             return False
 
     def mark_all_as_read(self, user_id: int) -> bool:
-        """
-        تحديد جميع إشعارات المستخدم كمقروءة دفعة واحدة.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
@@ -141,9 +142,6 @@ class NotificationsManager:
     # ================================================================
 
     def delete_notification(self, notification_id: int) -> tuple:
-        """
-        حذف إشعار محدد.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
@@ -158,9 +156,6 @@ class NotificationsManager:
             return False, f"Erreur base de données : {e}"
 
     def delete_old_notifications(self, days_old: int = 30) -> tuple:
-        """
-        تنظيف قاعدة البيانات بحذف الإشعارات المقروءة والقديمة (مثلاً أقدم من 30 يوماً).
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()

@@ -28,12 +28,10 @@ const AdminServices = {
   async getTransactions() { return await Api.get("/transactions"); },
   async getResources() { return await Api.get("/resources"); },
 
-  // --- التواصل والإعلانات ---
   async getConversations() { return await Api.get("/conversations"); },
   async getPrograms() { return await Api.get("/programs"); },
   async getNotifications() {
-    const session = Storage.getSession();
-    return await Api.get(`/notifications/user/${session.user_id}`);
+    return await Api.get("/notifications/?limit=1000"); 
   },
   async getPosts() { 
     return await Api.get("/posts"); 

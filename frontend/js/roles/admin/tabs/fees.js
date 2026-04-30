@@ -1,34 +1,48 @@
 // frontend/js/roles/admin/tabs/fees.js
 
 /**
- * واجهة إدارة الرسوم والديون (النسخة الاحترافية)
- * تتيح مراقبة المستحقات، فلترة الديون، إرسال التنبيهات، وإدارة السجلات عبر نوافذ ذكية
+ * واجهة إدارة الرسوم والديون (النسخة الاحترافية المصححة)
+ * تتيح مراقبة المستحقات الحقيقية، فلترة الديون، وإدارة السجلات عبر نوافذ ذكية
  */
 AdminUI.renderFeesTab = async function(feesData) {
     const main = this.prepareMain("إدارة الرسوم والديون");
-    const fees = feesData.data || feesData || [];
+    let rawFees = feesData.data || feesData || [];
 
-    // 1. جلب إحصائيات سريعة للديون المتأخرة
-    let overdueCount = 0;
-    try {
-        const overdueData = await Api.get("/student-fees/overdue");
-        overdueCount = overdueData.length || 0;
-    } catch (err) {
-        console.error("تعذر جلب إحصائيات الديون المتأخرة", err);
-    }
+    // 1. إظهار رسالة تحميل لأننا سنجلب الأرصدة الحقيقية من السيرفر
+    main.innerHTML = `<div style="text-align:center; padding: 50px; color: #64748b; font-weight: bold;">جاري معالجة وحساب أرصدة الديون... ⏳</div>`;
 
-    // 2. حساب إجمالي المبالغ المستحقة (بعد خصم التخفيضات إن وجدت)
-    const totalDue = fees.reduce((sum, f) => {
-        const amount = (f.amount_due || 0) - (f.applied_discount || 0);
-        return sum + (amount > 0 ? amount : 0);
-    }, 0);
+    // 2. التحقق من الرصيد الفعلي لكل رسم (لإخفاء الديون المدفوعة)
+    const feesPromises = rawFees.map(async (f) => {
+        const feeId = f.fee_id || f.id;
+        try {
+            const b = await Api.get(`/payments/fee/${feeId}/balance`);
+            f.actual_remaining = b.remaining_balance !== undefined ? b.remaining_balance : (f.amount_due - (f.applied_discount || 0));
+            f.actual_paid = b.total_paid || 0;
+        } catch (e) {
+            f.actual_remaining = f.amount_due - (f.applied_discount || 0);
+            f.actual_paid = 0;
+        }
+        
+        // تحديد الحالة بدقة بناءً على الرصيد
+        f.is_paid = f.actual_remaining <= 0;
+        f.is_overdue = !f.is_paid && new Date(f.due_date) < new Date();
+        return f;
+    });
 
-    // 3. قسم الملخص المالي العلوي
+    // انتظار اكتمال حساب جميع الأرصدة
+    const fees = await Promise.all(feesPromises);
+    window.currentFeesData = fees; // تخزين البيانات محلياً لتسهيل البحث
+
+    // 3. حساب الإحصائيات الدقيقة
+    const totalRemaining = fees.reduce((sum, f) => sum + (f.is_paid ? 0 : f.actual_remaining), 0);
+    const overdueCount = fees.filter(f => f.is_overdue).length;
+
+    // 4. بناء شريط الملخص المالي
     const statsHeader = `
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
             <div style="background: white; padding: 22px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-right: 5px solid #10b981;">
-                <div style="color: #64748b; font-size: 0.9em; font-weight: bold;">إجمالي الرسوم المعروضة</div>
-                <div style="font-size: 1.6em; font-weight: bold; color: #0f172a; margin-top: 5px;">${this._formatCurrency(totalDue)}</div>
+                <div style="color: #64748b; font-size: 0.9em; font-weight: bold;">إجمالي الديون المتبقية</div>
+                <div style="font-size: 1.6em; font-weight: bold; color: #0f172a; margin-top: 5px;">${this._formatCurrency(totalRemaining)}</div>
             </div>
             <div style="background: white; padding: 22px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-right: 5px solid #ef4444;">
                 <div style="color: #64748b; font-size: 0.9em; font-weight: bold;">حالات تأخير الدفع</div>
@@ -42,7 +56,7 @@ AdminUI.renderFeesTab = async function(feesData) {
         </div>
     `;
 
-    // 4. شريط البحث والفلترة
+    // 5. شريط البحث والفلترة
     const filterBar = `
         <div style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
             <div style="display: flex; align-items: center; gap: 8px;">
@@ -56,7 +70,7 @@ AdminUI.renderFeesTab = async function(feesData) {
                 </select>
             </div>
             <div style="flex: 1; min-width: 250px;">
-                <input type="text" id="fee-search-input" placeholder="بحث باسم الطالب..." onkeyup="AdminUI.searchFeesLocal(this.value)" style="width: 100%; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-weight: bold; box-sizing: border-box;">
+                <input type="text" id="fee-search-input" placeholder="بحث سريع باسم أو رقم الطالب..." onkeyup="AdminUI.searchFeesLocal(this.value)" style="width: 100%; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-weight: bold; box-sizing: border-box;">
             </div>
             <div style="display: flex; gap: 10px;">
                 <button onclick="AdminUI.loadOverdueOnly()" style="background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s;">⚠️ المتأخرات فقط</button>
@@ -65,7 +79,7 @@ AdminUI.renderFeesTab = async function(feesData) {
         </div>
     `;
 
-    // 5. الهيكل الأساسي للواجهة
+    // 6. الهيكل الأساسي للواجهة والنوافذ المنبثقة
     main.innerHTML = `
         ${statsHeader}
         ${filterBar}
@@ -121,7 +135,7 @@ AdminUI.renderFeesTab = async function(feesData) {
 
                 <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 30px;">
                     <button onclick="AdminUI.closeFeeModal()" style="padding: 12px 20px; border: none; background: #f1f5f9; color: #475569; border-radius: 8px; cursor: pointer; font-weight: bold;">إلغاء</button>
-                    <button onclick="AdminUI.submitFee()" style="padding: 12px 20px; border: none; background: #2563eb; color: white; border-radius: 8px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 6px rgba(37,99,235,0.2);">حفظ السجل المالي</button>
+                    <button onclick="AdminUI.submitFee()" style="padding: 12px 20px; border: none; background: #2563eb; color: white; border-radius: 8px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 6px rgba(37,99,235,0.2);">حفظ السجل</button>
                 </div>
             </div>
         </div>
@@ -140,10 +154,10 @@ AdminUI.renderFeesTab = async function(feesData) {
                     <table style="width: 100%; border-collapse: collapse; text-align: right;">
                         <thead style="background: #f8fafc; position: sticky; top: 0;">
                             <tr>
-                                <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; color: #334155;"># رقم الدفعة</th>
+                                <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; color: #334155;"># العملية</th>
                                 <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; color: #334155;">تاريخ الدفع</th>
                                 <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; color: #334155;">المبلغ المدفوع</th>
-                                <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; color: #334155;">طريقة الدفع</th>
+                                <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; color: #334155;">رقم الإيصال</th>
                             </tr>
                         </thead>
                         <tbody id="payments-modal-body">
@@ -155,11 +169,9 @@ AdminUI.renderFeesTab = async function(feesData) {
                 <button onclick="AdminUI.closePaymentsModal()" style="width: 100%; background: #0f172a; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold;">إغلاق السجل</button>
             </div>
         </div>
-
-        <script>window.currentFeesData = ${JSON.stringify(fees)};</script>
     `;
 
-    // إخفاء قائمة البحث عند النقر خارجها
+    // إخفاء القائمة المنسدلة عند النقر خارجها
     document.addEventListener('click', function(e) {
         const dropdown = document.getElementById('modal-fee-student-dropdown');
         const searchInput = document.getElementById('modal-fee-student-search');
@@ -170,7 +182,7 @@ AdminUI.renderFeesTab = async function(feesData) {
 };
 
 /**
- * دالة بناء جدول الرسوم
+ * دالة بناء جدول الرسوم بالاعتماد على الحسابات الدقيقة
  */
 AdminUI._generateFeesTableHtml = function(fees) {
     if (!fees || fees.length === 0) {
@@ -182,22 +194,16 @@ AdminUI._generateFeesTableHtml = function(fees) {
         `;
     }
 
-    const typeLabels = {
-        'tuition': 'مصاريف دراسية',
-        'transport': 'نقل مدرسي',
-        'activities': 'أنشطة',
-        'exam': 'رسوم امتحانات',
-        'other': 'أخرى'
-    };
+    const typeLabels = { 'tuition': 'دراسة', 'transport': 'نقل', 'activities': 'أنشطة', 'exam': 'امتحانات', 'other': 'أخرى' };
 
     const rows = fees.map(f => {
-        const isOverdue = new Date(f.due_date) < new Date() && f.status !== 'paid';
-        const statusLabel = isOverdue ? '⚠️ متأخر' : (f.status === 'paid' ? '✅ مدفوع' : '⏳ قيد الانتظار');
-        const statusColor = isOverdue ? '#ef4444' : (f.status === 'paid' ? '#10b981' : '#f59e0b');
-        const finalAmount = (f.amount_due || 0) - (f.applied_discount || 0);
+        // تم الاعتماد على الحسابات المجهزة مسبقاً بدلاً من الشرط القديم
+        const statusLabel = f.is_paid ? '✅ مدفوع بالكامل' : (f.is_overdue ? '⚠️ متأخر' : '⏳ قيد الانتظار');
+        const statusColor = f.is_paid ? '#10b981' : (f.is_overdue ? '#ef4444' : '#f59e0b');
+        const rowBg = f.is_paid ? '#f0fdf4' : (f.is_overdue ? '#fef2f2' : 'transparent');
 
         return `
-        <tr style="border-bottom: 1px solid #e2e8f0; background: ${isOverdue ? '#fef2f2' : (f.status === 'paid' ? '#f0fdf4' : 'transparent')}; transition: 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='${isOverdue ? '#fef2f2' : (f.status === 'paid' ? '#f0fdf4' : 'transparent')}'">
+        <tr style="border-bottom: 1px solid #e2e8f0; background: ${rowBg}; transition: 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='${rowBg}'">
             <td style="padding: 15px; font-weight: bold; color: #64748b;">#${f.fee_id || f.id}</td>
             <td style="padding: 15px;">
                 <div style="font-weight: bold; color: #0f172a; font-size: 1.05em;">${this._escape(f.student_name || "طالب #" + f.student_id)}</div>
@@ -207,10 +213,10 @@ AdminUI._generateFeesTableHtml = function(fees) {
                 ${typeLabels[f.fee_type] || f.fee_type}
             </td>
             <td style="padding: 15px; direction: ltr; text-align: right;">
-                <div style="font-weight: bold; color: #0f172a; font-size: 1.1em;">${this._formatCurrency(finalAmount)}</div>
-                ${f.applied_discount > 0 ? `<small style="color: #10b981;">(تخفيض: ${f.applied_discount} دج)</small>` : ''}
+                <div style="font-weight: bold; color: #0f172a; font-size: 1.1em; ${f.is_paid ? 'text-decoration: line-through; opacity:0.5;' : ''}">${this._formatCurrency(f.actual_remaining)}</div>
+                <small style="color: #10b981;">(المدفوع: ${f.actual_paid} دج)</small>
             </td>
-            <td style="padding: 15px; color: ${isOverdue ? '#dc2626' : '#475569'}; font-weight: ${isOverdue ? 'bold' : 'normal'}; direction: ltr; text-align: right;">
+            <td style="padding: 15px; color: ${f.is_overdue ? '#dc2626' : '#475569'}; font-weight: ${f.is_overdue ? 'bold' : 'normal'}; direction: ltr; text-align: right;">
                 ${this._escape(f.due_date || "-")}
             </td>
             <td style="padding: 15px;">
@@ -219,10 +225,9 @@ AdminUI._generateFeesTableHtml = function(fees) {
                 </span>
             </td>
             <td style="padding: 15px; text-align: left; display: flex; gap: 8px; justify-content: flex-end;">
-                ${!isOverdue && f.status !== 'paid' ? `<button onclick="AdminUI.sendFeeReminder(${f.student_id}, '${typeLabels[f.fee_type] || f.fee_type}')" title="إرسال تذكير بالدفع" style="background: #eff6ff; color: #2563eb; border: none; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s;">🔔</button>` : ''}
-                ${isOverdue ? `<button onclick="AdminUI.sendFeeReminder(${f.student_id}, '${typeLabels[f.fee_type] || f.fee_type}')" title="تنبيه تأخير" style="background: #fef2f2; color: #dc2626; border: none; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s;">⚠️ تنبيه</button>` : ''}
+                ${!f.is_paid ? `<button onclick="AdminUI.sendFeeReminder(${f.student_id}, '${typeLabels[f.fee_type] || f.fee_type}')" title="تذكير" style="background: ${f.is_overdue ? '#fef2f2' : '#eff6ff'}; color: ${f.is_overdue ? '#dc2626' : '#2563eb'}; border: none; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s;">🔔</button>` : ''}
                 
-                <button onclick="AdminUI.viewFeePayments(${f.fee_id || f.id})" title="سجل الدفعات" style="background: #f0fdf4; color: #16a34a; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;">💳 الدفعات</button>
+                <button onclick="AdminUI.viewFeePayments(${f.fee_id || f.id})" title="سجل الدفعات" style="background: #f0fdf4; color: #16a34a; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;">💳</button>
                 <button onclick='AdminUI.showFeeModal(${JSON.stringify(f).replace(/'/g, "&apos;")})' title="تعديل السجل" style="background: #fffbeb; color: #d97706; border: none; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s;">✏️</button>
                 <button onclick="AdminRole.deleteItem('/student-fees', ${f.fee_id || f.id}, 'studentFees')" title="حذف" style="background: #fef2f2; color: #dc2626; border: none; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s;">🗑️</button>
             </td>
@@ -241,7 +246,7 @@ AdminUI._generateFeesTableHtml = function(fees) {
                             <th style="padding: 15px; color: #334155;">ID</th>
                             <th style="padding: 15px; color: #334155;">الطالب</th>
                             <th style="padding: 15px; color: #334155;">نوع الرسم</th>
-                            <th style="padding: 15px; color: #334155;">المبلغ الصافي</th>
+                            <th style="padding: 15px; color: #334155;">المبلغ المتبقي</th>
                             <th style="padding: 15px; color: #334155;">تاريخ الاستحقاق</th>
                             <th style="padding: 15px; color: #334155;">الحالة</th>
                             <th style="padding: 15px; text-align: left; color: #334155;">إجراءات</th>
@@ -255,7 +260,7 @@ AdminUI._generateFeesTableHtml = function(fees) {
 };
 
 // ==========================================
-// وظائف الفلترة والبحث
+// وظائف الفلترة والبحث (مصححة ومرنة)
 // ==========================================
 
 AdminUI.filterFeesFromBackend = async function() {
@@ -285,12 +290,12 @@ AdminUI.searchFeesLocal = function(keyword) {
     keyword = keyword.toLowerCase().trim();
     const allFees = window.currentFeesData || [];
     const filtered = allFees.filter(f => {
-        const studentName = (f.student_name || "").toLowerCase();
-        return studentName.includes(keyword) || String(f.student_id).includes(keyword);
+        const studentName = String(f.student_name || "").toLowerCase();
+        const studentId = String(f.student_id || "");
+        return studentName.includes(keyword) || studentId.includes(keyword);
     });
     document.getElementById("fees-table-container").innerHTML = this._generateFeesTableHtml(filtered);
 };
-
 
 // ==========================================
 // وظائف النافذة المنبثقة (Modal) للإضافة والتعديل
@@ -301,31 +306,23 @@ AdminUI.showFeeModal = function(feeData = null) {
     const title = document.getElementById("fee-modal-title");
     const studentSection = document.getElementById("modal-student-section");
 
-    // تصفير الحقول
     document.getElementById("modal-fee-id").value = "";
     document.getElementById("modal-fee-student-id").value = "";
     document.getElementById("modal-fee-student-search").value = "";
     document.getElementById("modal-fee-type").value = "tuition";
     document.getElementById("modal-fee-amount").value = "0";
     document.getElementById("modal-fee-discount").value = "0";
-    
-    // تاريخ اليوم كافتراضي
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById("modal-fee-due-date").value = today;
+    document.getElementById("modal-fee-due-date").value = new Date().toISOString().split('T')[0];
 
     if (feeData) {
-        // وضع التعديل
         title.innerHTML = "<span>✏️</span> تعديل الرسم المالي";
         document.getElementById("modal-fee-id").value = feeData.fee_id || feeData.id;
         document.getElementById("modal-fee-type").value = feeData.fee_type || "tuition";
         document.getElementById("modal-fee-amount").value = feeData.amount_due || 0;
         document.getElementById("modal-fee-discount").value = feeData.applied_discount || 0;
         if (feeData.due_date) document.getElementById("modal-fee-due-date").value = feeData.due_date;
-        
-        // إخفاء حقل اختيار الطالب لأن التعديل لا يغير الطالب المرتبط
         studentSection.style.display = "none";
     } else {
-        // وضع الإضافة
         title.innerHTML = "<span>💰</span> إضافة رسم جديد";
         studentSection.style.display = "block";
     }
@@ -346,47 +343,33 @@ AdminUI.submitFee = async function() {
     const dueDate = document.getElementById("modal-fee-due-date").value;
 
     if (!id && !studentId) {
-        this.showToast("❌ يرجى اختيار الطالب أولاً.", "error");
-        return;
+        this.showToast("❌ يرجى اختيار الطالب أولاً.", "error"); return;
     }
-
     if (amount <= 0) {
-        this.showToast("❌ يرجى إدخال مبلغ صحيح أكبر من الصفر.", "error");
-        return;
+        this.showToast("❌ يرجى إدخال مبلغ صحيح أكبر من الصفر.", "error"); return;
     }
 
     try {
         if (id) {
-            // تحديث (PUT)
             await Api.put(`/student-fees/${id}`, {
-                fee_type: type,
-                amount_due: amount,
-                applied_discount: discount,
-                due_date: dueDate || null
+                fee_type: type, amount_due: amount, applied_discount: discount, due_date: dueDate || null
             });
-            this.showToast("✅ تم تحديث السجل المالي بنجاح.");
+            this.showToast("✅ تم التحديث بنجاح.");
         } else {
-            // إنشاء جديد (POST)
             await Api.post("/student-fees/", {
-                student_id: parseInt(studentId),
-                fee_type: type,
-                amount_due: amount,
-                applied_discount: discount,
-                due_date: dueDate || null
+                student_id: parseInt(studentId), fee_type: type, amount_due: amount, applied_discount: discount, due_date: dueDate || null
             });
-            this.showToast("✅ تمت إضافة الرسم المالي للطالب بنجاح.");
+            this.showToast("✅ تمت إضافة الرسم بنجاح.");
         }
-        
         this.closeFeeModal();
         AdminRole.loadSection("studentFees");
-
     } catch (err) {
-        this.showToast("❌ فشل الحفظ: " + (err.message || "تأكد من صحة البيانات المدخلة."), "error");
+        this.showToast("❌ فشل الحفظ: " + err.message, "error");
     }
 };
 
 // ==========================================
-// وظائف البحث التفاعلي عن الطلاب (Autocomplete)
+// وظائف البحث التفاعلي (تم تصحيحها لقراءة البيانات بمرونة)
 // ==========================================
 
 AdminUI.searchStudentForFee = async function(keyword) {
@@ -399,7 +382,8 @@ AdminUI.searchStudentForFee = async function(keyword) {
 
     try {
         const response = await Api.get(`/students/search?keyword=${encodeURIComponent(keyword)}&limit=5`);
-        const students = response.data || [];
+        // التصحيح: البحث بمرونة داخل البيانات العائدة لتجنب الأخطاء
+        const students = response?.data?.data || response?.data || response || [];
 
         if (students.length === 0) {
             dropdown.innerHTML = `<div style="padding: 10px; color: #64748b; text-align: center;">لا توجد نتائج</div>`;
@@ -431,9 +415,8 @@ AdminUI.selectStudentForFee = function(id, name) {
 
 AdminUI.sendFeeReminder = async function(studentId, feeType) {
     try {
-        // إرسال الإشعار الصامت في الخلفية
         await Api.post("/notifications/", {
-            user_id: studentId, // يفترض أن إشعار الطالب يذهب للـ user_id الخاص به
+            user_id: studentId,
             title: "تذكير بسداد الرسوم 💳",
             message: `عزيزي الطالب، يرجى العلم بوجود رسوم مستحقة من نوع (${feeType}) بانتظار السداد لتجنب غرامات التأخير. شكراً لكم.`
         });
@@ -455,39 +438,20 @@ AdminUI.viewFeePayments = async function(feeId) {
         const payments = response.data || response || [];
 
         if (payments.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="4" style="text-align: center; padding: 40px;">
-                        <span style="font-size: 3em; opacity: 0.3;">📉</span>
-                        <p style="color: #64748b; font-size: 1.1em; margin-top: 10px;">لم يتم تسجيل أي دفعات لهذا الرسم حتى الآن.</p>
-                    </td>
-                </tr>`;
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 40px;"><span style="font-size: 3em; opacity: 0.3;">📉</span><p style="color: #64748b; font-size: 1.1em; margin-top: 10px;">لم يتم تسجيل أي دفعات لهذا الرسم.</p></td></tr>`;
             return;
         }
 
-        tbody.innerHTML = payments.map(p => {
-            const methodLabels = { 'cash': 'نقداً', 'card': 'بطاقة بنكية', 'transfer': 'حوالة', 'online': 'أونلاين' };
-            return `
+        tbody.innerHTML = payments.map(p => `
             <tr style="border-bottom: 1px solid #e2e8f0; transition: background 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
                 <td style="padding: 12px 15px; font-weight: bold; color: #64748b;">#${p.payment_id || p.id}</td>
                 <td style="padding: 12px 15px; direction: ltr; text-align: right; color: #475569; font-weight: bold;">${this._escape(p.payment_date || "-")}</td>
                 <td style="padding: 12px 15px; font-weight: bold; color: #16a34a; direction: ltr; text-align: right;">${this._formatCurrency(p.amount_paid)}</td>
-                <td style="padding: 12px 15px;">
-                    <span style="background: #f1f5f9; color: #475569; padding: 4px 10px; border-radius: 6px; font-size: 0.9em; font-weight: bold; border: 1px solid #cbd5e1;">
-                        ${methodLabels[p.payment_method] || p.payment_method || 'غير محدد'}
-                    </span>
-                </td>
+                <td style="padding: 12px 15px;"><span style="background: #f1f5f9; color: #475569; padding: 4px 10px; border-radius: 6px; font-size: 0.9em; font-weight: bold; border: 1px solid #cbd5e1;">${this._escape(p.receipt_number || "بدون إيصال")}</span></td>
             </tr>
-            `;
-        }).join("");
-
+        `).join("");
     } catch (err) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="4" style="text-align: center; padding: 30px; background: #fef2f2; color: #dc2626; font-weight: bold;">
-                    ❌ فشل جلب سجل الدفعات: ${err.message}
-                </td>
-            </tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 30px; background: #fef2f2; color: #dc2626; font-weight: bold;">❌ فشل جلب سجل الدفعات: ${err.message}</td></tr>`;
     }
 };
 
@@ -495,9 +459,6 @@ AdminUI.closePaymentsModal = function() {
     document.getElementById("payments-view-modal").style.display = "none";
 };
 
-/**
- * دالة مساعدة لإظهار الإشعارات السريعة (Toasts)
- */
 if(!AdminUI.showToast) {
     AdminUI.showToast = function(message, type = "success") {
         const toast = document.createElement("div");
