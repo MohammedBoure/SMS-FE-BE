@@ -1181,6 +1181,82 @@ table.admin-auto-mobile-table {
 .btn-delete { background: #fef2f2; color: #dc2626; margin-right: 5px; }
 .btn-delete:hover { background: #fee2e2; }
 
+.admin-parent-action {
+    align-items: center;
+    gap: 6px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.admin-parent-action--children {
+    background: #eff6ff !important;
+    color: #2563eb !important;
+    border-color: #bfdbfe !important;
+}
+
+.admin-parent-action--delete {
+    background: #fef2f2 !important;
+    color: #ef4444 !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .admin-parent-action--children:hover,
+    .admin-parent-action--children:focus-visible {
+        background: #dbeafe !important;
+        transform: translateY(-1px);
+    }
+
+    .admin-parent-action--delete:hover,
+    .admin-parent-action--delete:focus-visible {
+        background: #fee2e2 !important;
+        transform: translateY(-1px);
+    }
+}
+
+.admin-parent-action:active {
+    transform: translateY(0);
+}
+
+.admin-parent-student-card {
+    min-width: 0;
+}
+
+.admin-parent-student-card > div {
+    min-width: 0;
+}
+
+.admin-parent-student-card strong,
+.admin-parent-student-card div {
+    overflow-wrap: anywhere;
+}
+
+body[data-theme="dark"] .admin-parent-action--children {
+    background: rgba(96, 165, 250, 0.14) !important;
+    color: #bfdbfe !important;
+    border-color: rgba(96, 165, 250, 0.36) !important;
+}
+
+body[data-theme="dark"] .admin-parent-action--delete {
+    background: rgba(251, 113, 133, 0.14) !important;
+    color: #fecdd3 !important;
+    border-color: rgba(251, 113, 133, 0.36) !important;
+}
+
+body[data-theme="dark"] .admin-parent-student-card {
+    background: var(--admin-surface-soft) !important;
+    color: var(--text-main) !important;
+    border-color: var(--admin-border) !important;
+}
+
+body[data-theme="dark"] .admin-parent-student-avatar {
+    background: rgba(96, 165, 250, 0.14) !important;
+    color: #bfdbfe !important;
+}
+
+body[data-theme="dark"] .admin-parent-student-status {
+    background: rgba(74, 222, 128, 0.14) !important;
+    color: #bbf7d0 !important;
+}
+
 body[data-theme="dark"] .btn-edit {
     background: rgba(96, 165, 250, 0.14);
     color: #bfdbfe;

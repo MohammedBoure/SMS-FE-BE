@@ -11,6 +11,22 @@ AdminUI.parentInlineString = function(value) {
         .replace(/</g, "&lt;");
 };
 
+AdminUI.parentStudentDisplayName = function(student) {
+    const id = student?.student_id || student?.id || "";
+    return student?.full_name
+        || student?.student_name
+        || student?.name
+        || student?.username
+        || this.parentsT("studentsModal.studentFallback", { id }, `Student #${id || "-"}`);
+};
+
+AdminUI.parentStudentClassName = function(student) {
+    return student?.class_name
+        || student?.class_names
+        || student?.level
+        || this.parentsT("common.notSpecified", {}, "Not specified");
+};
+
 AdminUI.renderParentsTab = function(parentsData) {
     const main = this.prepareMain(this.t("admin.sections.parents", {}, "Parent Management"));
     const parents = parentsData.data || parentsData || [];
@@ -76,27 +92,28 @@ AdminUI.renderParentsTab = function(parentsData) {
         const parentId = p.parent_id || p.id;
         const parentName = p.full_name || "-";
         const parentNameArg = this.parentInlineString(parentName);
+        const parentContact = p.username ? `@${p.username}` : (p.email || this.parentsT("common.notAvailable", {}, "Not available"));
         return `
-            <tr style="border-bottom: 1px solid #f1f5f9; transition: 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <tr class="admin-parent-row" style="border-bottom: 1px solid #f1f5f9; transition: 0.2s;">
                 <td data-label="${this.parentsT("table.id", {}, "ID")}" style="padding: 15px; font-weight: bold; color: #64748b;">#${parentId}</td>
                 <td data-label="${this.parentsT("table.parent", {}, "Parent")}" style="padding: 15px;">
                     <div style="font-weight: bold; color: #0f172a; font-size: 1.1em;">${this._escape(parentName)}</div>
-                    <div style="color: #0369a1; font-size: 0.85em;">@${this._escape(p.username || "-")}</div>
+                    <div style="color: #0369a1; font-size: 0.85em;">${this._escape(parentContact)}</div>
                 </td>
                 <td data-label="${this.parentsT("table.phone", {}, "Phone")}" style="padding: 15px; direction: ltr; text-align: right; color: #475569;">
                     <span class="admin-contact-line">${this.icon("phone", "inline-svg-icon")}<span>${this._escape(p.phone || this.parentsT("common.notAvailable", {}, "Not available"))}</span></span>
                 </td>
                 <td class="admin-actions-cell" data-label="${this.parentsT("table.children", {}, "Children")}" style="padding: 15px; text-align: center;">
-                    <button onclick="AdminUI.viewParentStudents(${parentId}, ${parentNameArg})"
+                    <button class="admin-parent-action admin-parent-action--children" onclick="AdminUI.viewParentStudents(${parentId}, ${parentNameArg})"
                             style="background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 0.9em; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px;"
-                            onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#eff6ff'">
+                            >
                         ${this.icon("eye", "inline-svg-icon")} ${this.parentsT("actions.viewChildren", {}, "View Children")}
                     </button>
                 </td>
                 <td class="admin-actions-cell" data-label="${this.parentsT("table.actions", {}, "Actions")}" style="padding: 15px; text-align: left;">
-                    <button onclick="AdminUI.deleteParentItem(${parentId})"
+                    <button class="admin-parent-action admin-parent-action--delete" onclick="AdminUI.deleteParentItem(${parentId})"
                             style="background: #fef2f2; color: #ef4444; border: none; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s;" title="${this.parentsT("actions.deleteRoleTitle", {}, "Remove role")}"
-                            onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='#fef2f2'">
+                            >
                         ${this.icon("trash", "inline-svg-icon")}
                     </button>
                 </td>
@@ -205,22 +222,29 @@ AdminUI.viewParentStudents = async function(parentId, parentName) {
             return;
         }
 
-        container.innerHTML = students.map(s => `
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 15px; background: white; border-radius: 8px; margin-bottom: 10px; border: 1px solid #e2e8f0; box-shadow: 0 1px 2px rgba(0,0,0,0.05); gap: 12px;">
+        container.innerHTML = students.map(s => {
+            const studentId = s.student_id || s.id || "";
+            const studentName = this.parentStudentDisplayName(s);
+            const className = this.parentStudentClassName(s);
+
+            return `
+            <div class="admin-parent-student-card" style="display: flex; align-items: center; justify-content: space-between; padding: 15px; background: white; border-radius: 8px; margin-bottom: 10px; border: 1px solid #e2e8f0; box-shadow: 0 1px 2px rgba(0,0,0,0.05); gap: 12px;">
                 <div style="display: flex; align-items: center; gap: 15px;">
-                    <div style="background: #e0f2fe; color: #0284c7; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                    <div class="admin-parent-student-avatar" style="background: #e0f2fe; color: #0284c7; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
                         ${this.icon("graduation", "inline-svg-icon")}
                     </div>
                     <div>
-                        <div style="font-weight: bold; color: #0f172a; font-size: 1.1em;">${this._escape(s.full_name)}</div>
-                        <div style="color: #64748b; font-size: 0.9em; margin-top: 3px;">${this.parentsT("studentsModal.className", { value: this._escape(s.class_name || this.parentsT("common.notSpecified", {}, "Not specified")) }, `Class: ${this._escape(s.class_name || "-")}`)}</div>
+                        <div style="font-weight: bold; color: #0f172a; font-size: 1.1em;">${this._escape(studentName)}</div>
+                        <div style="color: #64748b; font-size: 0.9em; margin-top: 3px;">${this.parentsT("studentsModal.className", { value: this._escape(className) }, `Class: ${this._escape(className)}`)}</div>
+                        ${studentId ? `<div style="color: #94a3b8; font-size: 0.78em; margin-top: 2px;">#${this._escape(studentId)}</div>` : ""}
                     </div>
                 </div>
-                <span style="background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold;">
+                <span class="admin-parent-student-status" style="background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 20px; font-size: 0.8em; font-weight: bold;">
                     ${this.parentsT("studentsModal.registered", {}, "Registered")}
                 </span>
             </div>
-        `).join("");
+            `;
+        }).join("");
     } catch (err) {
         container.innerHTML = `<div style="color: #ef4444; background: #fef2f2; padding: 15px; border-radius: 6px; border: 1px solid #fca5a5;">${this.parentsT("messages.loadChildrenFailed", { message: err.message }, `Failed to fetch data: ${err.message}`)}</div>`;
     }

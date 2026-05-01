@@ -761,7 +761,8 @@
         "titleWithName": "Parent Children: {name}",
         "empty": "No children are linked to this account currently.",
         "className": "Class: {value}",
-        "registered": "Registered"
+        "registered": "Registered",
+        "studentFallback": "Student #{id}"
       }
     },
     "notificationsTab": {

@@ -762,7 +762,8 @@
         "titleWithName": "Padre Children: {name}",
         "empty": "Actualmente no hay hijos vinculados a esta cuenta.",
         "className": "Clase: {value}",
-        "registered": "Registrado"
+        "registered": "Registrado",
+        "studentFallback": "Estudiante #{id}"
       }
     },
     "notificationsTab": {

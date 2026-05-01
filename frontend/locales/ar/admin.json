@@ -761,7 +761,8 @@
         "titleWithName": "أبناء ولي الأمر: {name}",
         "empty": "لا يوجد أبناء مرتبطين بهذا الحساب حاليا.",
         "className": "الفصل: {value}",
-        "registered": "مسجل"
+        "registered": "مسجل",
+        "studentFallback": "طالب #{id}"
       }
     },
     "notificationsTab": {

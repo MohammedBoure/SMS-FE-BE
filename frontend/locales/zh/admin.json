@@ -762,7 +762,8 @@
         "titleWithName": "家长 Children: {name}",
         "empty": "当前没有孩子关联到此账号。",
         "className": "班级: {value}",
-        "registered": "已注册"
+        "registered": "已注册",
+        "studentFallback": "学生 #{id}"
       }
     },
     "notificationsTab": {

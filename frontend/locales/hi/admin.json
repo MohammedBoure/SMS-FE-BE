@@ -762,7 +762,8 @@
         "titleWithName": "अभिभावक Children: {name}",
         "empty": "इस खाते से वर्तमान में कोई बच्चा जुड़ा नहीं है।",
         "className": "कक्षा: {value}",
-        "registered": "पंजीकृत"
+        "registered": "पंजीकृत",
+        "studentFallback": "विद्यार्थी #{id}"
       }
     },
     "notificationsTab": {

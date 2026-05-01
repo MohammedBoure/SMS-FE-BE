@@ -762,7 +762,8 @@
         "titleWithName": "Parent Enfants: {name}",
         "empty": "Aucun enfant n’est actuellement lié à ce compte.",
         "className": "Classee: {value}",
-        "registered": "Inscrit"
+        "registered": "Inscrit",
+        "studentFallback": "Élève #{id}"
       }
     },
     "notificationsTab": {
