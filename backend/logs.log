@@ -9831,3 +9831,46 @@
 2026-04-30 19:05:30,432 - SCHOOL_SYS - INFO - Running Indexes queries (13 total)…
 2026-04-30 19:05:30,499 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
 2026-04-30 19:05:30,853 - asyncio - DEBUG - Using selector: EpollSelector
+2026-05-01 10:34:57,259 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:34:57,259 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:34:57,259 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 10:34:57,259 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 10:34:57,260 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 10:34:57,260 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:34:57,262 - SCHOOL_SYS - INFO - ✅ Database 'SchoolDB' verified/created.
+2026-05-01 10:34:57,263 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:34:57,264 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:34:57,264 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:34:57,265 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:34:57,265 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:34:57,265 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:34:57,266 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:34:57,266 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:34:57,266 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:34:57,267 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:34:57,267 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:34:57,267 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:34:57,268 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:34:57,268 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:34:57,268 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:34:57,269 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:34:57,269 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:34:57,270 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:34:57,271 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:34:57,271 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:34:57,271 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:34:57,272 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:34:57,272 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:34:57,273 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:34:57,273 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:34:57,274 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:34:57,274 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:34:57,275 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:34:57,275 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:34:57,275 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:34:57,275 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 10:34:57,292 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 10:34:57,296 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 10:34:57,306 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 10:34:57,323 - SCHOOL_SYS - INFO - Running Indexes queries (13 total)…
+2026-05-01 10:34:57,390 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
