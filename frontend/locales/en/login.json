@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "lang": "en",
+    "dir": "ltr",
+    "locale": "en-US"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "Arabic",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "Français",
+      "dir": "ltr"
+    }
+  ],
+  "login": {
+    "documentTitle": "Login | School Management System",
+    "language": {
+      "label": "Language",
+      "select": "Choose language"
+    },
+    "theme": {
+      "light": "Light mode",
+      "dark": "Dark mode"
+    },
+    "brand": {
+      "kicker": "School Management System",
+      "title": "School Management System"
+    },
+    "form": {
+      "title": "Login",
+      "subtitle": "Access your workspace according to your account permissions.",
+      "username": "Username",
+      "usernamePlaceholder": "Username",
+      "password": "Password",
+      "submit": "Login",
+      "submitting": "Signing in...",
+      "error": "Login failed. Please try again."
+    },
+    "footer": "All rights reserved © 2026 - School Management System",
+    "posts": {
+      "kicker": "School Announcements",
+      "title": "Latest Posts",
+      "refresh": "Refresh posts",
+      "loading": "Loading posts...",
+      "empty": "No posts have been published currently.",
+      "loadFailed": "Could not load posts currently.",
+      "untitled": "Untitled post",
+      "openHint": "Open the post to view the full details."
+    },
+    "common": {
+      "close": "Close",
+      "file": "File",
+      "download": "Download",
+      "unknownDate": "Unknown date",
+      "fromManagement": "From administration",
+      "openDetails": "View details",
+      "noContent": "This post has no content."
+    }
+  }
+}

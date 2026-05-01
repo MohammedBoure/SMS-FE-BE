@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "lang": "fr",
+    "dir": "ltr",
+    "locale": "fr-FR"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "Arabe",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "Français",
+      "dir": "ltr"
+    }
+  ],
+  "login": {
+    "documentTitle": "Connexion | Système de gestion scolaire",
+    "language": {
+      "label": "Langue",
+      "select": "Choisir la langue"
+    },
+    "theme": {
+      "light": "Mode clair",
+      "dark": "Mode sombre"
+    },
+    "brand": {
+      "kicker": "Système de gestion scolaire",
+      "title": "Système de gestion scolaire"
+    },
+    "form": {
+      "title": "Connexion",
+      "subtitle": "Accédez à votre espace de travail selon les autorisations de votre compte.",
+      "username": "Nom d'utilisateur",
+      "usernamePlaceholder": "Nom d'utilisateur",
+      "password": "Mot de passe",
+      "submit": "Se connecter",
+      "submitting": "Connexion...",
+      "error": "Échec de la connexion. Veuillez réessayer."
+    },
+    "footer": "Tous droits réservés © 2026 - Système de gestion scolaire",
+    "posts": {
+      "kicker": "Annonces de l'école",
+      "title": "Dernières publications",
+      "refresh": "Actualiser les publications",
+      "loading": "Chargement des publications...",
+      "empty": "Aucune publication n'est disponible actuellement.",
+      "loadFailed": "Impossible de charger les publications actuellement.",
+      "untitled": "Publication sans titre",
+      "openHint": "Ouvrez la publication pour voir tous les détails."
+    },
+    "common": {
+      "close": "Fermer",
+      "file": "Fichier",
+      "download": "Télécharger",
+      "unknownDate": "Date inconnue",
+      "fromManagement": "De l'administration",
+      "openDetails": "Voir les détails",
+      "noContent": "Cette publication ne contient aucun contenu."
+    }
+  }
+}

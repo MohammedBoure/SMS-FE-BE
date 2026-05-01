@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تسجيل الدخول | نظام إدارة المدرسة</title>
+  <title>Login | School Management System</title>
   <meta name="theme-color" content="#0f766e" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2" />
   <script>
@@ -16,8 +16,8 @@
       } catch (e) {}
     })();
   </script>
-  <link rel="stylesheet" href="../css/posts.css?v=login-posts-1">
-  <link rel="stylesheet" href="../css/login.css">
+  <link rel="stylesheet" href="../css/posts.css?v=login-i18n-1">
+  <link rel="stylesheet" href="../css/login.css?v=login-i18n-1">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
   <script>
@@ -37,23 +37,29 @@
   <main class="login-shell">
     <section class="login-auth-panel" aria-labelledby="login-title">
       <div class="login-panel-toolbar">
-        <button type="button" class="login-theme-toggle" id="login-theme-toggle" aria-pressed="false">
-          <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="4"/>
-            <path d="M12 2v2"/>
-            <path d="M12 20v2"/>
-            <path d="M4.93 4.93 6.34 6.34"/>
-            <path d="M17.66 17.66 19.07 19.07"/>
-            <path d="M2 12h2"/>
-            <path d="M20 12h2"/>
-            <path d="M6.34 17.66 4.93 19.07"/>
-            <path d="M19.07 4.93 17.66 6.34"/>
-          </svg>
-          <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/>
-          </svg>
-          <span id="login-theme-label">الوضع الفاتح</span>
-        </button>
+        <div class="login-toolbar-actions">
+          <label class="login-language-control">
+            <span data-i18n="login.language.label">Language</span>
+            <select id="login-language-select" data-i18n-aria-label="login.language.select" aria-label="Choose language"></select>
+          </label>
+          <button type="button" class="login-theme-toggle" id="login-theme-toggle" aria-pressed="false">
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2"/>
+              <path d="M12 20v2"/>
+              <path d="M4.93 4.93 6.34 6.34"/>
+              <path d="M17.66 17.66 19.07 19.07"/>
+              <path d="M2 12h2"/>
+              <path d="M20 12h2"/>
+              <path d="M6.34 17.66 4.93 19.07"/>
+              <path d="M19.07 4.93 17.66 6.34"/>
+            </svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/>
+            </svg>
+            <span id="login-theme-label"></span>
+          </button>
+        </div>
       </div>
 
       <div class="login-brand">
@@ -66,25 +72,26 @@
           </svg>
         </div>
         <div>
-          <p class="login-kicker">School Management System</p>
-          <h1 id="login-title">نظام إدارة المدرسة</h1>
+          <p class="login-kicker" data-i18n="login.brand.kicker">School Management System</p>
+          <h1 id="login-title" data-i18n="login.brand.title">School Management System</h1>
         </div>
       </div>
 
       <div class="login-card">
         <div class="login-card-head">
-          <h2>تسجيل الدخول</h2>
-          <p>ادخل إلى مساحة العمل الخاصة بك حسب صلاحيات الحساب.</p>
+          <h2 data-i18n="login.form.title">Login</h2>
+          <p data-i18n="login.form.subtitle">Access your workspace according to your account permissions.</p>
         </div>
 
         <form id="login-form" novalidate>
           <div class="field-group">
-            <label for="username">اسم المستخدم</label>
+            <label for="username" data-i18n="login.form.username">Username</label>
             <div class="input-wrapper">
               <input
                 type="text"
                 id="username"
                 name="username"
+                data-i18n-placeholder="login.form.usernamePlaceholder"
                 placeholder="username"
                 required
                 autocomplete="username"
@@ -99,13 +106,13 @@
           </div>
 
           <div class="field-group">
-            <label for="password">كلمة المرور</label>
+            <label for="password" data-i18n="login.form.password">Password</label>
             <div class="input-wrapper">
               <input
                 type="password"
                 id="password"
                 name="password"
-                placeholder="••••••••"
+                placeholder="********"
                 required
                 autocomplete="current-password"
               />
@@ -120,7 +127,7 @@
           </div>
 
           <button type="submit" id="login-btn">
-            <span>دخول</span>
+            <span data-i18n="login.form.submit">Login</span>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 12h14"/>
               <path d="m13 6 6 6-6 6"/>
@@ -131,16 +138,16 @@
         <div id="error-msg" role="alert" aria-live="polite"></div>
       </div>
 
-      <p class="login-footer">جميع الحقوق محفوظة &copy; 2026 — نظام إدارة المدرسة</p>
+      <p class="login-footer" data-i18n="login.footer">All rights reserved © 2026 - School Management System</p>
     </section>
 
     <section class="login-posts-panel" aria-labelledby="posts-title">
       <div class="posts-panel-head">
         <div>
-          <p class="login-kicker">إعلانات المدرسة</p>
-          <h2 id="posts-title">آخر المنشورات</h2>
+          <p class="login-kicker" data-i18n="login.posts.kicker">School Announcements</p>
+          <h2 id="posts-title" data-i18n="login.posts.title">Latest Posts</h2>
         </div>
-        <button type="button" class="posts-refresh-btn" id="posts-refresh-btn" title="تحديث المنشورات" aria-label="تحديث المنشورات">
+        <button type="button" class="posts-refresh-btn" id="posts-refresh-btn" data-i18n-title="login.posts.refresh" data-i18n-aria-label="login.posts.refresh" title="Refresh posts" aria-label="Refresh posts">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M21 12a9 9 0 0 1-15.2 6.5L3 16"/>
             <path d="M3 16h5v5"/>
@@ -150,14 +157,14 @@
         </button>
       </div>
 
-      <div id="login-posts-status" class="posts-status">جاري تحميل المنشورات...</div>
+      <div id="login-posts-status" class="posts-status" data-i18n="login.posts.loading">Loading posts...</div>
       <div id="login-posts-list" class="login-posts-content" aria-live="polite"></div>
     </section>
   </main>
 
   <div id="login-post-modal" class="login-post-modal" hidden>
     <div class="login-post-modal-card" role="dialog" aria-modal="true" aria-labelledby="login-post-modal-title">
-      <button type="button" class="modal-close-btn" id="login-post-modal-close" aria-label="إغلاق">
+      <button type="button" class="modal-close-btn" id="login-post-modal-close" data-i18n-aria-label="login.common.close" aria-label="Close">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M18 6 6 18"/>
           <path d="m6 6 12 12"/>
@@ -171,26 +178,50 @@
   <script src="../js/core/api.js"></script>
   <script src="../js/core/auth.js"></script>
   <script src="../js/core/router.js"></script>
+  <script src="../js/core/i18n.js?v=login-i18n-1"></script>
   <script>
-    (function () {
+    (async function () {
       if (Auth.isAuthenticated()) {
         const session = Auth.getSession();
         Router.redirectToDashboard(session.role);
         return;
       }
 
+      if (window.I18n) {
+        await I18n.init({ scope: "login", defaultLang: "ar" });
+      }
+
       const form = document.getElementById("login-form");
       const errorMsg = document.getElementById("error-msg");
       const loginBtn = document.getElementById("login-btn");
+      const loginBtnLabel = loginBtn?.querySelector("span");
       const postsList = document.getElementById("login-posts-list");
       const postsStatus = document.getElementById("login-posts-status");
       const refreshBtn = document.getElementById("posts-refresh-btn");
       const themeToggle = document.getElementById("login-theme-toggle");
       const themeLabel = document.getElementById("login-theme-label");
+      const languageSelect = document.getElementById("login-language-select");
       const postModal = document.getElementById("login-post-modal");
       const postModalContent = document.getElementById("login-post-modal-content");
       const postModalClose = document.getElementById("login-post-modal-close");
       let postsCache = [];
+
+      function t(key, params = {}, fallback = "") {
+        return window.I18n ? I18n.t(key, params, fallback || key) : (fallback || key);
+      }
+
+      function locale() {
+        return window.I18n ? I18n.get("meta.locale", I18n.currentLang === "ar" ? "ar-DZ" : "en-US") : "ar-DZ";
+      }
+
+      function renderLanguageSelect() {
+        if (!languageSelect || !window.I18n) return;
+        languageSelect.innerHTML = I18n.getLanguages().map(lang => `
+          <option value="${escapeAttr(lang.code)}" dir="${escapeAttr(lang.dir || "auto")}" ${lang.code === I18n.currentLang ? "selected" : ""}>
+            ${escapeHtml(lang.label)}
+          </option>
+        `).join("");
+      }
 
       function setLoginTheme(theme) {
         const nextTheme = theme === "dark" ? "dark" : "light";
@@ -199,7 +230,11 @@
         localStorage.setItem("login-theme", nextTheme);
         document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
         themeToggle?.setAttribute("aria-pressed", String(nextTheme === "dark"));
-        if (themeLabel) themeLabel.textContent = nextTheme === "dark" ? "الوضع المظلم" : "الوضع الفاتح";
+        if (themeLabel) {
+          themeLabel.textContent = nextTheme === "dark"
+            ? t("login.theme.dark", {}, "Dark mode")
+            : t("login.theme.light", {}, "Light mode");
+        }
       }
 
       function escapeHtml(value) {
@@ -209,6 +244,10 @@
           .replace(/>/g, "&gt;")
           .replace(/"/g, "&quot;")
           .replace(/'/g, "&#039;");
+      }
+
+      function escapeAttr(value) {
+        return escapeHtml(value);
       }
 
       function stripMarkdown(value) {
@@ -222,38 +261,32 @@
       }
 
       function getFileIcon(ext) {
-        const icons = {
-          pdf: "📄", doc: "📝", docx: "📝", xls: "📊", xlsx: "📊",
-          ppt: "📑", pptx: "📑", zip: "🗜️", rar: "🗜️",
-          mp4: "🎬", mp3: "🎵", png: "🖼️", jpg: "🖼️", jpeg: "🖼️"
-        };
-        return icons[String(ext || "").toLowerCase()] || "📎";
+        return ext ? String(ext).toUpperCase().slice(0, 4) : t("login.common.file", {}, "File");
       }
 
       function processPostMarkdown(raw) {
         if (!raw) return "";
 
-        let source = String(raw).replace(
-          /\[تحميل:\s*([^\]|]+?)(?:\|([^\]|]*?))?(?:\|([^\]]*?))?\]\(([^)]+)\)/g,
-          (_, name, type, size, url) => {
-            const safeUrl = escapeHtml(url.trim());
-            const safeName = escapeHtml(name.trim());
-            const ext = safeUrl.split(".").pop()?.split("?")[0];
-            const icon = getFileIcon(ext);
-            const meta = [type, size].map(part => part?.trim()).filter(Boolean).join(" · ");
+        const downloadWords = ["\\u062a\\u062d\\u0645\\u064a\\u0644", "Download", "Telecharger", "Telechargement"];
+        const downloadPattern = new RegExp(`\\[(?:${downloadWords.join("|")}):\\s*([^\\]|]+?)(?:\\|([^\\]|]*?))?(?:\\|([^\\]]*?))?\\]\\(([^)]+)\\)`, "g");
+        let source = String(raw).replace(downloadPattern, (_, name, type, size, url) => {
+          const safeUrl = escapeAttr(url.trim());
+          const safeName = escapeHtml(name.trim());
+          const ext = safeUrl.split(".").pop()?.split("?")[0];
+          const icon = getFileIcon(ext);
+          const meta = [type, size].map(part => part?.trim()).filter(Boolean).join(" - ");
 
-            return `
-              <a href="${safeUrl}" target="_blank" class="dl-card" rel="noopener noreferrer">
-                <span class="dl-card-icon">${icon}</span>
-                <span class="dl-card-info">
-                  <span class="dl-card-name">${safeName}</span>
-                  ${meta ? `<span class="dl-card-meta">${escapeHtml(meta)}</span>` : ""}
-                </span>
-                <span class="dl-card-btn">تحميل</span>
-              </a>
-            `;
-          }
-        );
+          return `
+            <a href="${safeUrl}" target="_blank" class="dl-card" rel="noopener noreferrer">
+              <span class="dl-card-icon">${icon}</span>
+              <span class="dl-card-info">
+                <span class="dl-card-name">${safeName}</span>
+                ${meta ? `<span class="dl-card-meta">${escapeHtml(meta)}</span>` : ""}
+              </span>
+              <span class="dl-card-btn">${t("login.common.download", {}, "Download")}</span>
+            </a>
+          `;
+        });
 
         let html = typeof marked !== "undefined"
           ? marked.parse(source, { gfm: true, breaks: true, tables: true })
@@ -296,10 +329,10 @@
       }
 
       function formatDate(value) {
-        if (!value) return "تاريخ غير محدد";
+        if (!value) return t("login.common.unknownDate", {}, "Unknown date");
         const date = new Date(value);
-        if (Number.isNaN(date.getTime())) return "تاريخ غير محدد";
-        return date.toLocaleDateString("ar-DZ", { year: "numeric", month: "long", day: "numeric" });
+        if (Number.isNaN(date.getTime())) return t("login.common.unknownDate", {}, "Unknown date");
+        return date.toLocaleDateString(locale(), { year: "numeric", month: "long", day: "numeric" });
       }
 
       function getPostsArray(response) {
@@ -322,13 +355,13 @@
         postsCache = sortedPosts;
 
         if (!postsCache.length) {
-          renderEmptyPosts("لا توجد منشورات منشورة حالياً.");
+          renderEmptyPosts(t("login.posts.empty", {}, "No posts have been published currently."));
           return;
         }
 
         postsStatus.classList.add("is-hidden");
         const cards = postsCache.map((post, index) => {
-          const title = escapeHtml(post.title || "منشور بدون عنوان");
+          const title = escapeHtml(post.title || t("login.posts.untitled", {}, "Untitled post"));
           const excerpt = escapeHtml(stripMarkdown(post.content).slice(0, 145));
           const image = resolveMediaUrl(post.image);
           const date = formatDate(post.created_at);
@@ -336,17 +369,17 @@
           return `
             <article class="student-post-list-card login-post-list-card" tabindex="0" data-post-index="${index}">
               ${image
-                ? `<img src="${escapeHtml(image)}" class="student-post-thumb" alt="${title}">`
-                : `<div class="student-post-thumb student-post-thumb-placeholder" aria-hidden="true">📄</div>`}
+                ? `<img src="${escapeAttr(image)}" class="student-post-thumb" alt="${title}">`
+                : `<div class="student-post-thumb student-post-thumb-placeholder" aria-hidden="true">${t("login.common.file", {}, "File")}</div>`}
               <div class="student-post-summary">
                 <div>
-                  <div class="student-post-label">من الإدارة</div>
+                  <div class="student-post-label">${t("login.common.fromManagement", {}, "From administration")}</div>
                   <h3 class="student-post-list-title">${title}</h3>
-                  <p>${excerpt || "يمكن عرض تفاصيل هذا المنشور بالكامل."}</p>
+                  <p>${excerpt || t("login.posts.openHint", {}, "Open the post to view the full details.")}</p>
                 </div>
                 <div class="student-post-list-actions">
                   <time class="student-post-date">${escapeHtml(date)}</time>
-                  <button type="button" class="student-post-open" data-post-index="${index}">عرض التفاصيل</button>
+                  <button type="button" class="student-post-open" data-post-index="${index}">${t("login.common.openDetails", {}, "View details")}</button>
                 </div>
               </div>
             </article>
@@ -363,13 +396,13 @@
       async function loadPosts() {
         refreshBtn.disabled = true;
         refreshBtn.classList.add("is-loading");
-        renderEmptyPosts("جاري تحميل المنشورات...");
+        renderEmptyPosts(t("login.posts.loading", {}, "Loading posts..."));
 
         try {
           const response = await Api.get("/posts");
           renderPosts(getPostsArray(response));
         } catch (err) {
-          renderEmptyPosts("تعذر تحميل المنشورات حالياً.");
+          renderEmptyPosts(t("login.posts.loadFailed", {}, "Could not load posts currently."));
         } finally {
           refreshBtn.disabled = false;
           refreshBtn.classList.remove("is-loading");
@@ -381,7 +414,7 @@
         if (!post) return;
 
         const image = resolveMediaUrl(post.image);
-        const title = escapeHtml(post.title || "منشور بدون عنوان");
+        const title = escapeHtml(post.title || t("login.posts.untitled", {}, "Untitled post"));
         const date = escapeHtml(formatDate(post.created_at));
         const contentHtml = processPostMarkdown(post.content || "");
 
@@ -390,14 +423,14 @@
             <time class="student-post-date">${date}</time>
           </div>
           <article class="student-post-card student-post-detail login-post-detail">
-            ${image ? `<img src="${escapeHtml(image)}" class="student-post-cover" alt="${title}">` : ""}
+            ${image ? `<img src="${escapeAttr(image)}" class="student-post-cover" alt="${title}">` : ""}
             <div class="student-post-head">
               <div>
-                <div class="student-post-label">من الإدارة</div>
+                <div class="student-post-label">${t("login.common.fromManagement", {}, "From administration")}</div>
                 <h3 class="preview-title" id="login-post-modal-title">${title}</h3>
               </div>
             </div>
-            <div class="md-body">${contentHtml || '<p class="preview-placeholder">لا يوجد محتوى لهذا المنشور.</p>'}</div>
+            <div class="md-body">${contentHtml || `<p class="preview-placeholder">${t("login.common.noContent", {}, "This post has no content.")}</p>`}</div>
           </article>
         `;
         postModal.hidden = false;
@@ -412,7 +445,27 @@
         document.body.classList.remove("modal-open");
       }
 
+      function rerenderLocalizedState() {
+        I18n.apply(document);
+        renderLanguageSelect();
+        setLoginTheme(document.documentElement.dataset.theme || "light");
+        renderPosts(postsCache);
+      }
+
+      renderLanguageSelect();
       setLoginTheme(document.documentElement.dataset.theme || "light");
+
+      languageSelect?.addEventListener("change", async (event) => {
+        languageSelect.disabled = true;
+        await I18n.setLanguage(event.target.value);
+        languageSelect.disabled = false;
+      });
+
+      window.addEventListener("i18n:change", (event) => {
+        if (event.detail?.scope && event.detail.scope !== "login") return;
+        rerenderLocalizedState();
+      });
+
       themeToggle?.addEventListener("click", () => {
         setLoginTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
       });
@@ -421,7 +474,7 @@
         event.preventDefault();
         errorMsg.textContent = "";
         loginBtn.disabled = true;
-        loginBtn.querySelector("span").textContent = "جاري الدخول...";
+        if (loginBtnLabel) loginBtnLabel.textContent = t("login.form.submitting", {}, "Signing in...");
         loginBtn.classList.add("loading");
 
         const username = document.getElementById("username").value.trim();
@@ -431,9 +484,9 @@
           const user = await Auth.login(username, password);
           Router.redirectToDashboard(user.role_name);
         } catch (err) {
-          errorMsg.textContent = err.message || "فشل تسجيل الدخول. حاول مرة أخرى.";
+          errorMsg.textContent = err.message || t("login.form.error", {}, "Login failed. Please try again.");
           loginBtn.disabled = false;
-          loginBtn.querySelector("span").textContent = "دخول";
+          if (loginBtnLabel) loginBtnLabel.textContent = t("login.form.submit", {}, "Login");
           loginBtn.classList.remove("loading");
         }
       });
