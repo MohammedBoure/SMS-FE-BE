@@ -1,5 +1,13 @@
 # app.py
 
+from pathlib import Path
+import os
+import sys
+
+venv_python = Path(__file__).resolve().parent / ".venv" / "bin" / "python"
+if venv_python.exists() and Path(sys.executable).resolve() != venv_python.resolve():
+    os.execv(str(venv_python), [str(venv_python), str(Path(__file__).resolve()), *sys.argv[1:]])
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
