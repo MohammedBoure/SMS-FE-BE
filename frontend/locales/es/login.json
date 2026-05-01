@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "lang": "es",
+    "dir": "ltr",
+    "name": "Español",
+    "locale": "es-ES"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "Árabe",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "Inglés",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "Francés",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "Chino",
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "Español",
+      "dir": "ltr"
+    }
+  ],
+  "login": {
+    "documentTitle": "Inicio de sesión | Sistema de gestión escolar",
+    "language": {
+      "label": "Idioma",
+      "select": "Elegir idioma"
+    },
+    "theme": {
+      "light": "Modo claro",
+      "dark": "Modo oscuro"
+    },
+    "brand": {
+      "kicker": "Sistema de gestión escolar",
+      "title": "Sistema de gestión escolar"
+    },
+    "form": {
+      "title": "Iniciar sesión",
+      "subtitle": "Accede a tu espacio según los permisos de tu cuenta.",
+      "username": "Nombre de usuario",
+      "usernamePlaceholder": "Nombre de usuario",
+      "password": "Contraseña",
+      "submit": "Iniciar sesión",
+      "submitting": "Iniciando sesión...",
+      "error": "No se pudo iniciar sesión. Inténtalo de nuevo."
+    },
+    "footer": "Todos los derechos reservados © 2026 - Sistema de gestión escolar",
+    "posts": {
+      "kicker": "Anuncios escolares",
+      "title": "Últimas publicaciones",
+      "refresh": "Actualizar publicaciones",
+      "loading": "Cargando publicaciones...",
+      "empty": "Actualmente no hay publicaciones.",
+      "loadFailed": "No se pudieron cargar las publicaciones.",
+      "untitled": "Publicación sin título",
+      "openHint": "Abre la publicación para ver todos los detalles."
+    },
+    "common": {
+      "close": "Cerrar",
+      "file": "Archivo",
+      "download": "Descargar",
+      "unknownDate": "Fecha desconocida",
+      "fromManagement": "De administración",
+      "openDetails": "Ver detalles",
+      "noContent": "Esta publicación no tiene contenido."
+    }
+  }
+}

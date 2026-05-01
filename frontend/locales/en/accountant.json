@@ -24,6 +24,11 @@
       "code": "zh",
       "label": "Chinese",
       "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "Spanish",
+      "dir": "ltr"
     }
   ],
   "accountant": {

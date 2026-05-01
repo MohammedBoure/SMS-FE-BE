@@ -1,0 +1,238 @@
+{
+  "meta": {
+    "lang": "es",
+    "dir": "ltr",
+    "name": "Español",
+    "locale": "es-ES"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "Árabe",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "Inglés",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "Francés",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "Chino",
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "Español",
+      "dir": "ltr"
+    }
+  ],
+  "teacher": {
+    "documentTitle": "Panel del docente",
+    "brand": {
+      "welcome": "Bienvenido/a, docente {name}"
+    },
+    "language": {
+      "label": "Idioma",
+      "select": "Elegir idioma"
+    },
+    "auth": {
+      "logout": "Cerrar sesión"
+    },
+    "nav": {
+      "assignments": "Mis clases",
+      "schedule": "Horario",
+      "attendance": "Asistencia",
+      "grades": "Notas",
+      "resources": "Recursos",
+      "posts": "Publicaciones de administración",
+      "messages": "Mensajes",
+      "notifications": "Notificaciones"
+    },
+    "state": {
+      "loading": "Cargando datos...",
+      "errorPrefix": "Error:",
+      "unknownSection": "Sección desconocida",
+      "teacherProfileMissing": "Tu cuenta no está registrada como docente en la base de datos. Contacta con administración.",
+      "initFailed": "No se pudieron inicializar los datos del docente."
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "No especificado",
+      "updating": "Actualizando...",
+      "unavailable": "No disponible",
+      "unknownDate": "Fecha desconocida",
+      "userFallback": "Usuario #{id}",
+      "send": "Enviar",
+      "download": "Descargar",
+      "fromManagement": "De administración",
+      "openDetails": "Ver detalles",
+      "backToPosts": "Volver a publicaciones",
+      "noContent": "Esta publicación no tiene contenido.",
+      "file": "Archivo",
+      "save": "Guardar",
+      "action": "Acción",
+      "create": "Crear"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "present": "Presente",
+      "absent": "Ausente",
+      "late": "Tarde",
+      "paid": "Pagado",
+      "completed": "Pagado",
+      "unpaid": "No pagado",
+      "partial": "Pagado parcialmente",
+      "overdue": "Vencido",
+      "read": "Leído",
+      "unread": "No leído",
+      "student": "Estudiante",
+      "parent": "Padre/madre",
+      "teacher": "Docente",
+      "admin": "Administrador",
+      "receptionist": "Recepcionista",
+      "accountant": "Contable",
+      "exam": "Examen",
+      "homework": "Tarea"
+    },
+    "days": {
+      "Sunday": "Domingo",
+      "Monday": "Lunes",
+      "Tuesday": "Martes",
+      "Wednesday": "Miércoles",
+      "Thursday": "Jueves",
+      "Friday": "Viernes",
+      "Saturday": "Sábado"
+    },
+    "assignments": {
+      "title": "Clases asignadas",
+      "emptyTitle": "Mis clases y asignaturas",
+      "emptyText": "Aún no se te han asignado clases.",
+      "columns": {
+        "classLevel": "Clase (nivel)",
+        "subject": "Asignatura"
+      }
+    },
+    "schedule": {
+      "title": "Horario semanal",
+      "emptyTitle": "Horario",
+      "emptyText": "No hay sesiones programadas.",
+      "columns": {
+        "day": "Día",
+        "time": "Hora",
+        "class": "Clase",
+        "subject": "Asignatura",
+        "room": "Aula"
+      }
+    },
+    "attendance": {
+      "title": "Registro de asistencia y ausencias",
+      "emptyTitle": "Asistencia",
+      "noAssignments": "No hay clases disponibles para asistencia.",
+      "classSelect": "Clase",
+      "date": "Fecha",
+      "loadButton": "Cargar hoja de asistencia",
+      "emptyStudents": "No hay estudiantes en esta clase.",
+      "columns": {
+        "student": "Estudiante",
+        "status": "Estado"
+      }
+    },
+    "grades": {
+      "title": "Gestión de notas y evaluaciones",
+      "emptyTitle": "Notas y evaluaciones",
+      "noAssignments": "No hay asignaciones disponibles para ingresar notas.",
+      "assignmentSelect": "Clase y asignatura",
+      "loadAssessments": "Mostrar evaluaciones",
+      "createTitle": "Añadir nueva evaluación",
+      "titlePlaceholder": "Título de evaluación",
+      "maxGradePlaceholder": "Nota máxima",
+      "enterGrades": "Ingresar notas",
+      "emptyAssessments": "No se encontraron evaluaciones anteriores.",
+      "emptySheet": "No hay estudiantes disponibles para esta evaluación.",
+      "remarksPlaceholder": "Observaciones...",
+      "sheetTitle": "Hoja de ingreso de notas",
+      "assessmentsColumns": {
+        "title": "Título",
+        "type": "Tipo",
+        "maxGrade": "Nota máxima"
+      },
+      "sheetColumns": {
+        "student": "Estudiante",
+        "grade": "Nota",
+        "remarks": "Observaciones del docente"
+      }
+    },
+    "resources": {
+      "title": "Recursos educativos",
+      "emptyTitle": "Recursos educativos",
+      "noAssignments": "No hay asignaciones disponibles para subir recursos.",
+      "uploadTitle": "Subir nuevo archivo para la clase",
+      "titlePlaceholder": "Título de lección/archivo",
+      "types": {
+        "document": "Documento",
+        "video": "Video"
+      },
+      "uploadButton": "Subir recurso",
+      "selectHint": "Elige una clase para ver sus recursos..."
+    },
+    "notifications": {
+      "emptyTitle": "Notificaciones",
+      "emptyText": "No hay notificaciones nuevas.",
+      "title": "Incoming Notificaciones",
+      "unreadCount": "{count} notificación(es) sin leer",
+      "markAllRead": "Marcar todo como leído",
+      "markRead": "Marcar como leído",
+      "read": "Leído",
+      "unread": "No leído",
+      "defaultTitle": "Notificación"
+    },
+    "messages": {
+      "title": "Mensajes",
+      "subtitle": "Sigue tus conversaciones o busca otro usuario para contactar.",
+      "searchPlaceholder": "Buscar por nombre de usuario...",
+      "searchButton": "Buscar",
+      "conversations": "Conversaciones",
+      "selectPrompt": "Elige una conversación de la lista o busca un nuevo usuario.",
+      "emptyConversation": "La conversación aparecerá aquí.",
+      "inputPlaceholder": "Escribe tu mensaje...",
+      "minSearch": "Escribe al menos dos caracteres para buscar.",
+      "searching": "Buscando...",
+      "noResults": "No hay resultados coincidentes.",
+      "searchFailed": "Error en la búsqueda: {message}",
+      "loadingConversation": "Cargando conversación...",
+      "loadFailed": "No se pudieron cargar los mensajes: {message}",
+      "noMessages": "Aún no hay mensajes.",
+      "you": "Tú",
+      "roleFallback": "Usuario",
+      "sending": "Enviando...",
+      "sent": "Enviado",
+      "sendFailed": "Error al enviar: {message}",
+      "emptyList": "Aún no hay conversaciones."
+    },
+    "posts": {
+      "title": "Publicaciones de administración",
+      "emptySubtitle": "Aquí aparecerán los anuncios y contenidos publicados por administración.",
+      "listSubtitle": "Elige una publicación de la lista para ver todos los detalles.",
+      "emptyTitle": "No hay publicaciones actualmente",
+      "emptyText": "Las publicaciones de administración aparecerán aquí cuando estén disponibles.",
+      "untitled": "Publicación sin título",
+      "openHint": "Abre la publicación para ver sus detalles.",
+      "filePlaceholder": "Documento"
+    },
+    "actions": {
+      "notificationsUpdateFailed": "No se pudieron actualizar las notificaciones.",
+      "notificationUpdateFailed": "No se pudo actualizar la notificación.",
+      "attendanceSaved": "Asistencia guardada.",
+      "assessmentCreated": "Evaluación creada.",
+      "gradeSaved": "Nota guardada.",
+      "resourceUploaded": "Recurso subido."
+    }
+  }
+}

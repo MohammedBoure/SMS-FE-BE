@@ -25,6 +25,11 @@
       "code": "zh",
       "label": "Chinois",
       "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "Espagnol",
+      "dir": "ltr"
     }
   ],
   "parent": {

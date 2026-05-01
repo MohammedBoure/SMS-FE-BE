@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "lang": "es",
+    "dir": "ltr",
+    "name": "Español",
+    "locale": "es-ES"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "Árabe",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "Inglés",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "Francés",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "Chino",
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "Español",
+      "dir": "ltr"
+    }
+  ],
+  "parent": {
+    "documentTitle": "Panel de padres",
+    "brand": {
+      "welcome": "Bienvenido: {name}"
+    },
+    "language": {
+      "label": "Idioma",
+      "select": "Elegir idioma"
+    },
+    "auth": {
+      "logout": "Cerrar sesión"
+    },
+    "nav": {
+      "children": "Mis hijos",
+      "grades": "Notas",
+      "attendance": "Asistencia",
+      "fees": "Finanzas",
+      "posts": "Publicaciones de administración",
+      "messages": "Mensajes",
+      "notifications": "Notificaciones"
+    },
+    "state": {
+      "loading": "Cargando datos...",
+      "errorPrefix": "Error:",
+      "unknownSection": "Sección desconocida",
+      "parentProfileMissing": "Tu cuenta no está registrada como padre en la base de datos. Contacta con administración.",
+      "initFailed": "No se pudieron inicializar los datos del padre."
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "No especificado",
+      "updating": "Actualizando...",
+      "unavailable": "No disponible",
+      "unknownDate": "Fecha desconocida",
+      "userFallback": "Usuario #{id}",
+      "send": "Enviar",
+      "search": "Buscar",
+      "download": "Descargar",
+      "fromManagement": "De administración",
+      "openDetails": "Ver detalles",
+      "backToPosts": "Volver a publicaciones",
+      "noContent": "Esta publicación no tiene contenido.",
+      "file": "Archivo"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "present": "Presente",
+      "absent": "Ausente",
+      "late": "Tarde",
+      "paid": "Pagado",
+      "completed": "Pagado",
+      "unpaid": "No pagado",
+      "partial": "Pagado parcialmente",
+      "overdue": "Vencido",
+      "read": "Leído",
+      "unread": "No leído",
+      "student": "Estudiante",
+      "parent": "Padre/madre",
+      "teacher": "Docente",
+      "admin": "Administrador",
+      "receptionist": "Recepcionista",
+      "accountant": "Contable",
+      "exam": "Examen",
+      "homework": "Tarea"
+    },
+    "children": {
+      "title": "Mis hijos registrados",
+      "emptyTitle": "Mis hijos",
+      "emptyText": "Actualmente no hay hijos vinculados a tu cuenta. Contacta con administración.",
+      "columns": {
+        "name": "Nombre",
+        "classLevel": "Clase (nivel)",
+        "birthDate": "Fecha de nacimiento",
+        "status": "Estado"
+      }
+    },
+    "grades": {
+      "title": "Notas y evaluaciones",
+      "emptyTitle": "Notas y evaluaciones",
+      "emptyText": "Aún no se han registrado notas.",
+      "columns": {
+        "child": "Hijo/a",
+        "subject": "Asignatura",
+        "assessment": "Evaluación",
+        "grade": "Nota",
+        "teacher": "Docente"
+      }
+    },
+    "attendance": {
+      "title": "Registro de ausencias y retrasos",
+      "emptyTitle": "Registro de ausencias",
+      "emptyText": "Tus hijos tienen un expediente limpio. No se encontraron ausencias.",
+      "columns": {
+        "child": "Hijo/a",
+        "date": "Fecha",
+        "status": "Estado",
+        "justified": "¿Justificada?"
+      },
+      "justifiedYes": "Sí ({reason})",
+      "justifiedNo": "No"
+    },
+    "fees": {
+      "title": "Reclamaciones financieras y cuotas",
+      "emptyTitle": "Estado financiero",
+      "emptyText": "La cuenta está saldada. No se encontraron deudas vencidas.",
+      "columns": {
+        "child": "Hijo/a",
+        "feeType": "Tipo de cuota",
+        "amount": "Importe",
+        "dueDate": "Fecha de vencimiento",
+        "status": "Estado"
+      }
+    },
+    "notifications": {
+      "emptyTitle": "Notificaciones y alertas",
+      "emptyText": "La bandeja de notificaciones está vacía.",
+      "title": "Incoming Notificaciones",
+      "unreadCount": "{count} notificación(es) sin leer",
+      "markAllRead": "Marcar todo como leído",
+      "markRead": "Marcar como leído",
+      "read": "Leído",
+      "unread": "No leído",
+      "defaultTitle": "Notificación"
+    },
+    "messages": {
+      "title": "Mensajes",
+      "subtitle": "Sigue tus conversaciones o busca un nuevo usuario para contactar.",
+      "searchPlaceholder": "Buscar por nombre de usuario...",
+      "searchButton": "Buscar",
+      "conversations": "Conversaciones",
+      "selectPrompt": "Elige una conversación de la lista o busca un nuevo usuario.",
+      "emptyConversation": "La conversación aparecerá aquí.",
+      "inputPlaceholder": "Escribe tu mensaje...",
+      "minSearch": "Escribe al menos dos caracteres para buscar.",
+      "searching": "Buscando...",
+      "noResults": "No hay resultados coincidentes.",
+      "searchFailed": "Error en la búsqueda: {message}",
+      "loadingConversation": "Cargando conversación...",
+      "loadFailed": "No se pudieron cargar los mensajes: {message}",
+      "noMessages": "Aún no hay mensajes.",
+      "you": "Tú",
+      "roleFallback": "Usuario",
+      "sending": "Enviando...",
+      "sent": "Enviado",
+      "sendFailed": "Error al enviar: {message}",
+      "emptyList": "Aún no hay conversaciones."
+    },
+    "posts": {
+      "title": "Publicaciones de administración",
+      "emptySubtitle": "Aquí aparecerán los anuncios y contenidos publicados por administración.",
+      "listSubtitle": "Elige una publicación de la lista para ver todos los detalles.",
+      "emptyTitle": "No hay publicaciones actualmente",
+      "emptyText": "Las publicaciones de administración aparecerán aquí cuando estén disponibles.",
+      "untitled": "Publicación sin título",
+      "openHint": "Abre la publicación para ver sus detalles.",
+      "filePlaceholder": "Documento"
+    },
+    "actions": {
+      "notificationsUpdateFailed": "No se pudieron actualizar las notificaciones.",
+      "notificationUpdateFailed": "No se pudo actualizar la notificación."
+    },
+    "currency": {
+      "dzd": "DZD"
+    }
+  }
+}

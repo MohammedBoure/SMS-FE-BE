@@ -1,0 +1,295 @@
+{
+  "meta": {
+    "lang": "es",
+    "dir": "ltr",
+    "name": "Español",
+    "locale": "es-ES"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "Árabe",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "Inglés",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "Francés",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "Chino",
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "Español",
+      "dir": "ltr"
+    }
+  ],
+  "accountant": {
+    "documentTitle": "Sistema de contabilidad y finanzas",
+    "brand": {
+      "title": "Oficina de contabilidad y finanzas",
+      "userId": "ID: #{id}"
+    },
+    "language": {
+      "label": "Idioma",
+      "select": "Elegir idioma"
+    },
+    "auth": {
+      "logout": "Cerrar sesión"
+    },
+    "nav": {
+      "students": "Archivos de estudiantes",
+      "fees": "Cuotas y deudas",
+      "payments": "Pagos",
+      "transactions": "Libro diario",
+      "search": "Búsqueda y acciones",
+      "attendance": "Monitor de ausencias",
+      "messages": "Mensajes",
+      "notifications": "Notificaciones"
+    },
+    "state": {
+      "loading": "Cargando datos financieros...",
+      "errorPrefix": "Error:",
+      "unknownSection": "Sección desconocida"
+    },
+    "common": {
+      "actions": "Acciones",
+      "id": "ID",
+      "amount": "Importe",
+      "date": "Fecha",
+      "status": "Estado",
+      "type": "Tipo",
+      "student": "Estudiante",
+      "studentGuardian": "Estudiante / tutor",
+      "class": "Clase",
+      "notes": "Notas",
+      "phone": "Teléfono",
+      "none": "-",
+      "notSpecified": "No especificado",
+      "cancel": "Cancelar",
+      "send": "Enviar",
+      "search": "Buscar",
+      "loading": "Cargando...",
+      "updating": "Actualizando...",
+      "unavailable": "No disponible",
+      "read": "Leído",
+      "unread": "No leído",
+      "from": "De:",
+      "to": "Para:",
+      "general": "General",
+      "userFallback": "Usuario #{id}",
+      "studentFallback": "Estudiante #{id}",
+      "receipt": "Recibo #{id}",
+      "paidOn": "Pagado el: {date}"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "pageOf": "Página {page} de {total}"
+    },
+    "currency": {
+      "dzd": "DZD"
+    },
+    "status": {
+      "paid": "Pagado",
+      "unpaid": "No pagado",
+      "partial": "Pagado parcialmente",
+      "overdue": "Vencido",
+      "completed": "Completado",
+      "pending": "Pendiente",
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "student": "Estudiante",
+      "parent": "Padre/madre",
+      "teacher": "Docente",
+      "admin": "Administrador",
+      "receptionist": "Recepcionista",
+      "accountant": "Contable",
+      "income": "Ingreso",
+      "expense": "Gasto",
+      "absent": "Ausente",
+      "late": "Tarde",
+      "present": "Presente",
+      "justified": "Justificado",
+      "unjustified": "No justificado"
+    },
+    "students": {
+      "emptyTitle": "Estudiante Archivos financieros",
+      "emptyText": "No hay estudiantes registrados en el sistema.",
+      "title": "Buscar archivos financieros",
+      "searchPlaceholder": "Buscar en esta página por nombre o ID del estudiante...",
+      "columns": {
+        "id": "ID",
+        "fullName": "Nombre completo",
+        "class": "Clase",
+        "action": "Acción"
+      },
+      "financialFile": "Archivo financiero y pago"
+    },
+    "financeModal": {
+      "title": "Archivo financiero: {name}",
+      "addFeeTitle": "Añadir una reclamación financiera (cuota) para el estudiante",
+      "feeTypePlaceholder": "Tipo de cuota, por ejemplo: mensualidad, transporte...",
+      "feeAmountPlaceholder": "Importe",
+      "registerFee": "Registrar cuota",
+      "feesTitle": "Registro de cuotas y reclamaciones",
+      "paymentsTitle": "Pagos y recibos anteriores",
+      "noFees": "No hay cuotas vencidas ni registradas.",
+      "noPayments": "El estudiante aún no ha realizado pagos.",
+      "feeColumns": {
+        "type": "Tipo",
+        "amount": "Importe",
+        "due": "Fecha de vencimiento",
+        "status": "Estado",
+        "action": "Acción"
+      },
+      "pay": "Pagar",
+      "completed": "Completado"
+    },
+    "fees": {
+      "emptyTitle": "Cuotas y deudas",
+      "emptyText": "No hay cuotas registradas en el sistema.",
+      "title": "Registro completo de cuotas y deudas",
+      "columns": {
+        "feeId": "ID de cuota",
+        "student": "Estudiante",
+        "feeType": "Tipo de cuota",
+        "amount": "Importe",
+        "dueDate": "Fecha de vencimiento",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "sendWarning": "Enviar advertencia"
+    },
+    "payments": {
+      "emptyTitle": "Pagos recibidos",
+      "emptyText": "No hay pagos registrados.",
+      "title": "Archivo de recibos (pagos recibidos)",
+      "columns": {
+        "receipt": "Número de recibo",
+        "student": "Estudiante / tutor",
+        "amount": "Importe recibido",
+        "date": "Fecha de pago"
+      }
+    },
+    "transactions": {
+      "emptyTitle": "Registro de transacciones",
+      "emptyText": "El libro diario está vacío.",
+      "title": "Libro diario completo",
+      "columns": {
+        "id": "ID",
+        "amount": "Importe",
+        "route": "Ruta de pago (de/para)",
+        "type": "Tipo de movimiento",
+        "notes": "Descripción",
+        "date": "Fecha"
+      }
+    },
+    "search": {
+      "title": "Directorio de usuarios y acciones rápidas",
+      "placeholder": "Escribe para buscar en la base de datos...",
+      "serverSearch": "Buscar en servidor",
+      "notify": "Notificar",
+      "finance": "Finanzas",
+      "noUsers": "No se encontraron usuarios.",
+      "columns": {
+        "id": "ID",
+        "account": "Nombre / cuenta",
+        "type": "Tipo",
+        "phone": "Teléfono",
+        "actions": "Acciones"
+      }
+    },
+    "attendance": {
+      "title": "Monitor de asistencia y ausencias del estudiante",
+      "searchPlaceholder": "Buscar un estudiante en esta página...",
+      "viewButton": "Ver ausencias",
+      "noStudents": "No se encontraron estudiantes.",
+      "selectHint": "Selecciona un estudiante de la lista para ver aquí el registro de ausencias.",
+      "cleanRecord": "El expediente del estudiante está limpio. No hay ausencias registradas.",
+      "reportTitle": "Informe de ausencias",
+      "totalRecords": "Total de registros",
+      "unjustifiedAbsences": "Ausencias no justificadas",
+      "columns": {
+        "date": "Fecha",
+        "status": "Estado",
+        "justification": "Justificación",
+        "notes": "Notas"
+      }
+    },
+    "messagesTab": {
+      "title": "Mensajes",
+      "subtitle": "Sigue tus conversaciones o busca un usuario para contactar.",
+      "searchPlaceholder": "Buscar por nombre de usuario...",
+      "searchButton": "Buscar",
+      "conversations": "Conversaciones",
+      "selectPrompt": "Elige una conversación de la lista o busca un nuevo usuario.",
+      "emptyConversation": "La conversación aparecerá aquí.",
+      "inputPlaceholder": "Escribe tu mensaje...",
+      "minSearch": "Escribe al menos dos caracteres para buscar.",
+      "searching": "Buscando...",
+      "noResults": "No hay resultados coincidentes.",
+      "searchFailed": "Error en la búsqueda: {message}",
+      "loadingConversation": "Cargando conversación...",
+      "loadFailed": "No se pudieron cargar los mensajes: {message}",
+      "noMessages": "Aún no hay mensajes.",
+      "you": "Tú",
+      "userFallback": "Usuario #{id}",
+      "roleFallback": "Usuario",
+      "sending": "Enviando...",
+      "sent": "Enviado",
+      "sendFailed": "Error al enviar: {message}",
+      "emptyList": "Aún no hay conversaciones."
+    },
+    "notificationsTab": {
+      "title": "Notificaciones",
+      "empty": "No hay notificaciones nuevas.",
+      "unreadCount": "{count} notificación(es) sin leer",
+      "markAllRead": "Marcar todo como leído",
+      "markRead": "Marcar como leído",
+      "read": "Leído",
+      "unread": "No leído",
+      "defaultTitle": "Notificación",
+      "unknownDate": "Fecha desconocida"
+    },
+    "notificationModal": {
+      "title": "Enviar notificación a: {name}",
+      "titleLabel": "Título de notificación:",
+      "messageLabel": "Texto del mensaje:",
+      "defaultTitle": "Notificación de la oficina de finanzas",
+      "cancel": "Cancelar",
+      "submit": "Enviar notificación"
+    },
+    "actions": {
+      "searchMinLength": "Introduce al menos dos caracteres para buscar en el servidor.",
+      "loadingShort": "Cargando...",
+      "userNotStudent": "Este usuario no está vinculado a un estudiante registrado.",
+      "financeLoadFailed": "Error: no se pudieron cargar los datos financieros.",
+      "paymentPrompt": "El importe vencido es {amount}.\nIntroduce el importe recibido para registrar el pago:",
+      "invalidAmount": "Importe no válido.",
+      "recording": "Registrando...",
+      "paymentSuccess": "Pago registrado correctamente.\nNúmero de recibo: {receipt}",
+      "recordPaymentFailed": "Error al registrar el pago: {message}",
+      "defaultNotice": "Contacta con la oficina de finanzas para regularizar tu cuenta lo antes posible.",
+      "overdueReminder": "Recordatorio para pagar la cuota vencida \"{fee}\" por un importe de {amount}.",
+      "noLinkedUser": "No hay cuenta vinculada a este usuario.",
+      "selectStudent": "Selecciona un estudiante.",
+      "fetching": "Obteniendo...",
+      "attendanceLoadFailed": "No se pudieron cargar los datos.",
+      "feeCreateSuccess": "Cuota añadida correctamente.",
+      "feeCreateFailed": "No se pudo añadir la cuota.",
+      "notificationSendSuccess": "Notificación enviada correctamente.",
+      "notificationSendFailed": "No se pudo enviar la notificación.",
+      "notificationsUpdateFailed": "No se pudieron actualizar las notificaciones.",
+      "notificationUpdateFailed": "No se pudo actualizar la notificación."
+    }
+  }
+}

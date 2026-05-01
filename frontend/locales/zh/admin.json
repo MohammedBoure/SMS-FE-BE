@@ -25,6 +25,11 @@
       "code": "zh",
       "label": "中文",
       "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "西班牙语",
+      "dir": "ltr"
     }
   ],
   "admin": {

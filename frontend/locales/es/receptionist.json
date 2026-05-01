@@ -1,0 +1,335 @@
+{
+  "meta": {
+    "lang": "es",
+    "dir": "ltr",
+    "name": "Español",
+    "locale": "es-ES"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "Árabe",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "Inglés",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "Francés",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "Chino",
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "Español",
+      "dir": "ltr"
+    }
+  ],
+  "receptionist": {
+    "documentTitle": "Panel de recepción",
+    "brand": {
+      "title": "Oficina de recepción",
+      "welcome": "Bienvenido: {name}"
+    },
+    "language": {
+      "label": "Idioma",
+      "select": "Elegir idioma"
+    },
+    "auth": {
+      "logout": "Cerrar sesión"
+    },
+    "nav": {
+      "students": "Estudiantes",
+      "parents": "Padres",
+      "search": "Búsqueda global",
+      "finance": "Finanzas",
+      "posts": "Publicaciones",
+      "messages": "Mensajes",
+      "notifications": "Notificaciones"
+    },
+    "state": {
+      "loading": "Cargando...",
+      "errorPrefix": "Error:",
+      "initFailed": "No se pudieron inicializar los datos de recepción.",
+      "unknownSection": "Sección desconocida"
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "No especificado",
+      "unavailable": "No disponible",
+      "unknownDate": "Fecha desconocida",
+      "updating": "Actualizando...",
+      "loading": "Cargando...",
+      "saving": "Guardando...",
+      "actions": "Acciones",
+      "id": "ID",
+      "fullName": "Nombre completo",
+      "username": "Nombre de usuario",
+      "email": "Correo electrónico",
+      "phone": "Número de teléfono",
+      "address": "Dirección",
+      "status": "Estado",
+      "class": "Clase",
+      "parent": "Padre/madre",
+      "date": "Fecha",
+      "amount": "Importe",
+      "type": "Tipo",
+      "cancel": "Cancelar",
+      "saveChanges": "Guardar cambios",
+      "send": "Enviar",
+      "search": "Buscar",
+      "download": "Descargar",
+      "file": "Archivo",
+      "wordCount": "{words} palabras - {chars} caracteres",
+      "userFallback": "Usuario #{id}"
+    },
+    "roles": {
+      "student": "Estudiante",
+      "teacher": "Docente",
+      "parent": "Padre/madre",
+      "admin": "Administrador",
+      "receptionist": "Recepcionista",
+      "accountant": "Contable"
+    },
+    "status": {
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "suspended": "Suspendido",
+      "graduated": "Graduado",
+      "withdrawn": "Retirado",
+      "present": "Presente",
+      "absent": "Ausente",
+      "late": "Tarde",
+      "justified": "Justificado",
+      "unjustified": "No justificado",
+      "read": "Leído",
+      "unread": "No leído"
+    },
+    "students": {
+      "title": "Estudiante Gestión",
+      "registerTitle": "Registrar nuevo estudiante",
+      "searchPlaceholder": "Buscar por nombre o ID...",
+      "submit": "Registrar estudiante",
+      "selectParent": "Seleccionar padre...",
+      "selectClass": "Seleccionar clase...",
+      "placeholders": {
+        "fullName": "Nombre completo del estudiante",
+        "username": "Usuario de inicio de sesión",
+        "email": "Correo electrónico",
+        "phone": "Número de teléfono",
+        "address": "Dirección del estudiante",
+        "blood": "Grupo sanguíneo",
+        "medical": "Información médica"
+      },
+      "columns": {
+        "id": "ID",
+        "fullName": "Nombre completo",
+        "class": "Clase",
+        "status": "Estado",
+        "action": "Acción"
+      },
+      "viewDetails": "Ver detalles",
+      "edit": "Editar",
+      "noChanges": "No se modificó ningún dato.",
+      "missingUserId": "Este estudiante no tiene user_id, por lo que no se pueden editar los datos de la cuenta.",
+      "successCreate": "Estudiante registrado correctamente.",
+      "successUpdate": "Cambios guardados correctamente.",
+      "createFailed": "Error de registro: {message}",
+      "updateFailed": "Error al guardar cambios: {message}",
+      "loadDetailsFailed": "Error al cargar detalles: {message}",
+      "loadStudentFailed": "Error al cargar datos del estudiante: {message}"
+    },
+    "studentDetails": {
+      "title": "Archivo completo: {name}",
+      "studentId": "Estudiante ID:",
+      "loginUsername": "Usuario de inicio de sesión:",
+      "email": "Correo:",
+      "phone": "Teléfono:",
+      "address": "Dirección:",
+      "class": "Clase:",
+      "parent": "Padre:",
+      "parentPhone": "Teléfono del padre:",
+      "birthDate": "Fecha de nacimiento:",
+      "registrationDate": "Fecha de registro:",
+      "blood": "Grupo sanguíneo:",
+      "status": "Estado:",
+      "medical": "Información médica:",
+      "noMedical": "Sin información médica",
+      "attendanceTitle": "Registro de ausencias",
+      "gradesTitle": "Nota Informe",
+      "subject": "Asignatura",
+      "grade": "Nota",
+      "noAttendance": "No hay ausencias registradas.",
+      "noGrades": "Sin notas are registrado."
+    },
+    "studentEdit": {
+      "title": "Editar datos: {name}",
+      "accountTitle": "Datos de inicio de sesión (cuenta)",
+      "personalTitle": "Datos personales",
+      "academicTitle": "Datos académicos y médicos",
+      "newPassword": "Nueva contraseña",
+      "passwordPlaceholder": "Dejar vacío para mantener sin cambios",
+      "noClass": "Sin clase",
+      "noParent": "Sin padre"
+    },
+    "parents": {
+      "title": "Gestión de padres",
+      "registerTitle": "Registrar nuevo padre",
+      "submit": "Registrar padre",
+      "empty": "No parents are registrado.",
+      "fallback": "Padre/madre",
+      "successCreate": "Padre registrado correctamente.",
+      "createFailed": "Error de registro: {message}"
+    },
+    "finance": {
+      "title": "Finanzas and Pago Reception",
+      "studentIdPlaceholder": "Ingresar student ID...",
+      "searchFees": "Buscar cuotas",
+      "initialHint": "Introduce el ID del estudiante para buscar su estado financiero.",
+      "missingStudentId": "Introduce el ID del estudiante.",
+      "noFees": "No se encontraron cuotas vencidas.",
+      "receivePayment": "Recibir pago",
+      "confirmPayment": "¿Confirmas que recibiste {amount}?",
+      "paymentSuccess": "Pago registrado correctamente and receipt generated.",
+      "paymentFailed": "Pago error: {message}",
+      "searchFailed": "Error: {message}",
+      "columns": {
+        "type": "Tipo",
+        "amount": "Importe",
+        "date": "Fecha",
+        "action": "Acción"
+      }
+    },
+    "search": {
+      "title": "Búsqueda global del sistema",
+      "placeholder": "Buscar por nombre, usuario o correo...",
+      "minLength": "Introduce al menos dos caracteres para buscar.",
+      "searching": "Buscando...",
+      "noResults": "Sin resultados found.",
+      "failed": "Ocurrió un error: {message}",
+      "columns": {
+        "id": "ID",
+        "fullName": "Nombre completo",
+        "username": "Nombre de usuario",
+        "role": "Rol"
+      }
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "empty": "No hay notificaciones nuevas.",
+      "unreadCount": "{count} notificación(es) sin leer",
+      "markAllRead": "Marcar todo como leído",
+      "markRead": "Marcar como leído",
+      "read": "Leído",
+      "unread": "No leído",
+      "defaultTitle": "Notificación",
+      "updateFailed": "No se pudieron actualizar las notificaciones.",
+      "singleUpdateFailed": "No se pudo actualizar la notificación."
+    },
+    "messages": {
+      "title": "Mensajes",
+      "subtitle": "Sigue las conversaciones de recepción o busca un nuevo usuario para contactar.",
+      "searchPlaceholder": "Buscar por nombre de usuario...",
+      "searchButton": "Buscar",
+      "conversations": "Conversaciones",
+      "selectPrompt": "Elige una conversación de la lista o busca un nuevo usuario.",
+      "emptyConversation": "La conversación aparecerá aquí.",
+      "inputPlaceholder": "Escribe tu mensaje...",
+      "minSearch": "Escribe al menos dos caracteres para buscar.",
+      "searching": "Buscando...",
+      "noResults": "No hay resultados coincidentes.",
+      "searchFailed": "Error en la búsqueda: {message}",
+      "loadingConversation": "Cargando conversación...",
+      "loadFailed": "No se pudieron cargar los mensajes: {message}",
+      "noMessages": "Aún no hay mensajes.",
+      "you": "Tú",
+      "roleFallback": "Usuario",
+      "sending": "Enviando...",
+      "sent": "Enviado",
+      "sendFailed": "Error al enviar: {message}",
+      "emptyList": "Aún no hay conversaciones."
+    },
+    "posts": {
+      "dashboardTitle": "School Publicaciones Board",
+      "dashboardSubtitle": "Crea y gestiona publicaciones visibles para estudiantes, padres y docentes.",
+      "newPost": "Redactar nueva publicación",
+      "total": "Total de publicaciones",
+      "today": "Publicado hoy",
+      "withImage": "Con imagen de portada",
+      "textOnly": "Solo texto",
+      "searchLabel": "Buscar",
+      "searchPlaceholder": "Buscar publicaciones...",
+      "emptyTitle": "Aún no hay publicaciones",
+      "emptyText": "Puedes crear la primera publicación con el botón de nueva publicación.",
+      "untitled": "Publicación sin título",
+      "noSummary": "No summary disponible.",
+      "author": "Usuario #{id}",
+      "file": "Archivo",
+      "preview": "Vista previa",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "columns": {
+        "title": "Publicación title",
+        "author": "Autor",
+        "date": "Fecha de publicación",
+        "actions": "Acciones"
+      },
+      "editorNew": "Redactar nueva publicación",
+      "editorEdit": "Editar Publicación",
+      "back": "Volver a publicaciones",
+      "titlePlaceholder": "Publicación title",
+      "imagePlaceholder": "Opcional cover image URL",
+      "contentPlaceholder": "Escribe aquí el contenido de la publicación...",
+      "previewLabel": "Vista previa",
+      "previewTitle": "Publicación title",
+      "previewEmpty": "Empieza a escribir para ver la vista previa aquí...",
+      "fullPreview": "Vista previa completa",
+      "publish": "Publicar",
+      "saveChanges": "Guardar cambios",
+      "saving": "Guardando...",
+      "titleRequired": "Introduce el título de la publicación",
+      "contentRequired": "Introduce el contenido de la publicación",
+      "updated": "Publicación updated correctamente",
+      "created": "Publicación published correctamente",
+      "saveFailed": "No se pudo save post: {message}",
+      "confirmDelete": "¿Quieres eliminar permanentemente esta publicación?",
+      "deleted": "Publicación deleted correctamente",
+      "deleteFailed": "No se pudo delete post: {message}",
+      "noContent": "Sin contenido.",
+      "toolbar": {
+        "list": "Lista",
+        "quote": "Cita",
+        "table": "Tabla",
+        "link": "Enlace",
+        "image": "Imagen",
+        "download": "Descargar"
+      },
+      "prompts": {
+        "imageUrl": "Imagen URL:",
+        "imageAlt": "Texto alternativo:",
+        "imageDefault": "Imagen",
+        "linkUrl": "URL:",
+        "linkText": "Enlace text:",
+        "linkDefault": "Haz clic aquí",
+        "fileName": "Archivo name:",
+        "downloadUrl": "Descargar URL:",
+        "fileType": "Opcional file type:",
+        "fileSize": "Opcional size:"
+      },
+      "markdown": {
+        "table": "| First heading | Second heading |\n| --- | --- |\n| Data | Data |",
+        "downloadPrefix": "Descargar"
+      }
+    },
+    "currency": {
+      "dzd": "DZD"
+    }
+  }
+}

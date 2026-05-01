@@ -1,0 +1,1544 @@
+{
+  "meta": {
+    "lang": "es",
+    "dir": "ltr",
+    "name": "Español",
+    "locale": "es-ES"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "Árabe",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "Inglés",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "Francés",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "Chino",
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "Español",
+      "dir": "ltr"
+    }
+  ],
+  "admin": {
+    "documentTitle": "Panel de administración | Sistema escolar",
+    "brand": {
+      "title": "Administración",
+      "userId": "ID: #{id}"
+    },
+    "topbar": {
+      "overview": "Vista general",
+      "openMenu": "Abrir menú"
+    },
+    "theme": {
+      "toggle": "Cambiar tema",
+      "light": "Claro",
+      "dark": "Oscuro"
+    },
+    "language": {
+      "label": "Idioma",
+      "select": "Elegir idioma"
+    },
+    "session": {
+      "account": "Cuenta: {role}",
+      "logout": "Cerrar sesión"
+    },
+    "sidebar": {
+      "collapse": "Contraer barra lateral",
+      "expand": "Expandir barra lateral",
+      "collapseLabel": "Contraer menú",
+      "expandLabel": "Expandir menú",
+      "searchPlaceholder": "Búsqueda rápida...",
+      "noResults": "No hay resultados coincidentes"
+    },
+    "state": {
+      "loading": "Cargando datos...",
+      "errorPrefix": "Lo sentimos, ocurrió un error:"
+    },
+    "nav": {
+      "categories": {
+        "core": "Administración principal",
+        "academic": "Asuntos académicos",
+        "finance": "Finanzas y recursos",
+        "community": "Comunicación y comunidad"
+      },
+      "items": {
+        "users": "Gestión de usuarios",
+        "parents": "Padres",
+        "academic": "Vista académica",
+        "classes": "Clases y plazas",
+        "students": "Asuntos estudiantiles",
+        "teachers": "Equipo docente",
+        "programs": "Programas de estudio",
+        "enrollments": "Registros de inscripción",
+        "attendance": "Asistencia",
+        "schedules": "Horarios",
+        "assessments": "Evaluaciones y exámenes",
+        "grades": "Notas y resultados",
+        "finance": "Vista financiera",
+        "studentFees": "Cuotas y deudas",
+        "payments": "Registros de pago",
+        "transactions": "Libro diario",
+        "resources": "Biblioteca digital",
+        "conversations": "Conversaciones en vivo",
+        "notifications": "Notificaciones y alertas",
+        "posts": "Tablero de anuncios"
+      }
+    },
+    "sections": {
+      "users": "Gestión de usuarios",
+      "parents": "Gestión de padres",
+      "academic": "Vista general académica",
+      "classes": "Gestión de aulas y plazas",
+      "students": "Gestión de asuntos estudiantiles",
+      "teachers": "Gestión del equipo docente",
+      "programs": "Gestión de programas de estudio",
+      "enrollments": "Gestión de inscripciones",
+      "attendance": "Gestión de asistencia",
+      "schedules": "Gestión de horarios",
+      "assessments": "Gestión de evaluaciones y exámenes",
+      "grades": "Gestión de notas y resultados",
+      "finance": "Vista financiera",
+      "studentFees": "Gestión de cuotas y deudas",
+      "payments": "Pagos y cobros",
+      "transactions": "Libro diario",
+      "resources": "Biblioteca digital",
+      "conversations": "Conversaciones en vivo",
+      "notifications": "Notificaciones y alertas",
+      "posts": "Anuncios y publicaciones públicas"
+    },
+    "messages": {
+      "unknownSection": "Esta interfaz está en desarrollo o no está registrada.",
+      "loadFailed": "No se pudo conectar al servidor para obtener datos.",
+      "deleteConfirm": "¿Seguro que quieres eliminar permanentemente este registro?",
+      "deleteSuccess": "Eliminado correctamente.",
+      "deleteFailed": "Error al eliminar: {message}"
+    },
+    "actions": {
+      "search": "Buscar",
+      "reload": "Actualizar",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "view": "Ver",
+      "close": "Cerrar",
+      "print": "Imprimir",
+      "download": "Descargar",
+      "send": "Enviar",
+      "add": "Añadir",
+      "activate": "Activar",
+      "deactivate": "Desactivar"
+    },
+    "academic": {
+      "loading": "Recopilando y analizando datos académicos...",
+      "kpis": {
+        "totalStudents": "Total de estudiantes",
+        "teachingStaff": "Equipo docente",
+        "classes": "Clases",
+        "occupancyRate": "Tasa general de ocupación"
+      },
+      "quickActions": {
+        "title": "Acciones rápidas",
+        "students": "Gestionar estudiantes",
+        "attendance": "Registrar asistencia",
+        "schedule": "Horario",
+        "grades": "Ingresar notas"
+      },
+      "occupancy": {
+        "title": "Alerta de saturación (5 clases principales)",
+        "classColumn": "Clase",
+        "occupancyColumn": "Ocupación",
+        "label": "Ocupación: {current} / {capacity}",
+        "empty": "No hay datos de clases disponibles."
+      },
+      "attendance": {
+        "title": "Asistencia de hoy ({date})",
+        "choosePlaceholder": "-- Elige una clase para ver la asistencia de hoy --",
+        "check": "Comprobar",
+        "helper": "Elige una clase y pulsa Comprobar para ver las estadísticas de hoy.",
+        "chooseClassFirst": "Elige primero una clase.",
+        "loadingRecords": "Obteniendo registros...",
+        "empty": "Aún no se ha registrado asistencia para esta clase hoy.",
+        "rate": "Tasa de asistencia",
+        "present": "Presente:",
+        "absent": "Ausente:",
+        "late": "Tarde:",
+        "fetchFailed": "Error al obtener:"
+      },
+      "errors": {
+        "server": "Error de conexión con el servidor:"
+      }
+    },
+    "assessments": {
+      "types": {
+        "exam": "Examen",
+        "quiz": "Cuestionario",
+        "homework": "Tarea",
+        "examOfficial": "Examen oficial",
+        "quizShort": "Cuestionario corto"
+      },
+      "filters": {
+        "allTypes": "-- Todos los tipos de evaluación --",
+        "searchPlaceholder": "Buscar por nombre de evaluación..."
+      },
+      "actions": {
+        "reloadTitle": "Actualizar lista",
+        "refresh": "Actualizar",
+        "add": "Añadir New Evaluación",
+        "viewGradesTitle": "Ver notas del estudiante",
+        "grades": "Notas",
+        "editTitle": "Editar propiedades de evaluación",
+        "deleteTitle": "Eliminar evaluación permanentemente"
+      },
+      "form": {
+        "addTitle": "Añadir New Evaluación",
+        "editTitle": "Editar Evaluación",
+        "titleLabel": "Evaluación Título (Obligatorio)",
+        "titlePlaceholder": "Ejemplo: primer trabajo de matemáticas...",
+        "typeLabel": "Evaluación Tipo",
+        "maxGradeLabel": "Nota máxima",
+        "assignmentLabel": "Asignación de referencia (asignatura y docente)",
+        "loadingAssignments": "Cargando asignaciones...",
+        "assignmentHint": "Vincula esta evaluación con una asignatura y clase para registrar notas.",
+        "dueDateLabel": "Fecha de vencimiento",
+        "save": "Guardar Evaluación",
+        "chooseAssignment": "-- Elige la asignación de referencia --",
+        "assignmentFallback": "Ingresar Assignment ID"
+      },
+      "table": {
+        "empty": "No se encontraron evaluaciones coincidentes.",
+        "assignmentApplied": "Aplicado a la asignación: #{id}",
+        "points": "puntos",
+        "notSpecified": "No especificado",
+        "subject": "Asignatura",
+        "general": "General",
+        "classPrefix": "Clase:",
+        "total": "Total de evaluaciones mostradas: {count}",
+        "titleAndAssignment": "Evaluación y asignación",
+        "type": "Tipo",
+        "maxGrade": "Nota máxima",
+        "dueDate": "Fecha de vencimiento",
+        "actions": "Acciones"
+      },
+      "gradesModal": {
+        "title": "Evaluación Notas",
+        "studentId": "Estudiante #",
+        "fullName": "Full Nombre",
+        "grade": "Nota",
+        "remarks": "Docente Observaciones",
+        "close": "Cerrar ventana",
+        "titleWithName": "Notas: {title}",
+        "loading": "Obteniendo notas del servidor...",
+        "empty": "Aún no se han registrado notas para esta evaluación.",
+        "noRemarks": "Sin observaciones",
+        "fetchFailed": "No se pudieron obtener las notas: {message}"
+      },
+      "messages": {
+        "titleRequired": "Introduce el título de la evaluación.",
+        "assignmentRequired": "Elige la asignación de referencia.",
+        "updated": "Evaluación actualizada correctamente.",
+        "created": "Evaluación creada correctamente.",
+        "saveFailed": "Guardar falló: {message}",
+        "unexpected": "Error inesperado."
+      }
+    },
+    "attendanceTab": {
+      "loading": "Preparando panel de asistencia...",
+      "common": {
+        "general": "General"
+      },
+      "classCard": {
+        "title": "Registro Clase Asistencia",
+        "description": "Elige clase y fecha para revisar la lista y registrar estados.",
+        "chooseClass": "-- Elige la clase --",
+        "showSheet": "Mostrar hoja de asistencia"
+      },
+      "studentCard": {
+        "title": "Estudiante Ausencia Registro",
+        "description": "Buscar por nombre del estudiante para ver el registro y gestionar justificaciones.",
+        "searchPlaceholder": "Buscar por nombre del estudiante...",
+        "showRecord": "Show Individual Registro"
+      },
+      "results": {
+        "emptyPrompt": "Los datos aparecerán aquí después de buscar o elegir una clase."
+      },
+      "status": {
+        "present": "Presente",
+        "absent": "Ausente",
+        "late": "Tarde"
+      },
+      "search": {
+        "noResults": "Sin coincidencias results",
+        "idLabel": "ID: {id}"
+      },
+      "sheet": {
+        "reasonPlaceholder": "Motivo (si existe)...",
+        "saved": "Guardard",
+        "title": "Hoja de asistencia para: {date}",
+        "saveAll": "Guardar Entire Clase Sheet",
+        "studentName": "Estudiante Nombre",
+        "status": "Estado",
+        "notes": "Notas / justificación",
+        "singleAction": "Acción individual"
+      },
+      "record": {
+        "cleanTitle": "Estudiante record is clean!",
+        "cleanDescription": "No hay ausencias ni retrasos registrados para este estudiante.",
+        "justified": "Justificado",
+        "unjustified": "No justificado",
+        "editJustification": "Editar justification",
+        "deleteRecord": "Eliminar record",
+        "title": "Registro de ausencias y retrasos del estudiante #{id}",
+        "showStats": "Ver Estudiante Estadísticas",
+        "date": "Fecha",
+        "class": "Clase",
+        "status": "Estado",
+        "adminJustification": "Justificación administrativa",
+        "reason": "Motivo / notas",
+        "actions": "Acciones"
+      },
+      "justification": {
+        "title": "Editar Ausencia Justificación",
+        "statusLabel": "Justificación Estado:",
+        "justified": "Ausencia justificada",
+        "unjustified": "Ausencia no justificada",
+        "reasonLabel": "Notas / motivo de ausencia:",
+        "reasonPlaceholder": "Introduce los detalles de justificación...",
+        "save": "Guardar Changes"
+      },
+      "stats": {
+        "title": "Asistencia Estadísticas",
+        "loading": "Calculando estadísticas...",
+        "totalAbsences": "Total de ausencias",
+        "totalLates": "Total Tarde Arrivals",
+        "justifiedAbsences": "Ausencias justificadas",
+        "unjustifiedAbsences": "Ausencias no justificadas",
+        "fetchFailed": "No se pudieron obtener estadísticas. Inténtalo más tarde."
+      },
+      "messages": {
+        "chooseClassAndDate": "Elige primero una clase y una fecha.",
+        "loadingClassSheet": "Obteniendo lista del servidor...",
+        "noStudentsInClass": "Actualmente no hay estudiantes inscritos en esta clase.",
+        "loadClassSheetFailed": "Error al load list: {message}",
+        "recordSaved": "Registro guardado correctamente.",
+        "saveFailed": "Guardar falló: {message}",
+        "saving": "Guardando...",
+        "sheetSaved": "Asistencia sheet saved correctamente.",
+        "partialSaveFailed": "Ocurrió un error al guardar algunos registros. Revisa e inténtalo de nuevo.",
+        "chooseStudentFirst": "Elige primero un estudiante de la lista.",
+        "loadingStudentRecord": "Obteniendo expediente del estudiante...",
+        "loadStudentRecordFailed": "Error al load student record: {message}",
+        "justificationUpdated": "Estado de justificación actualizado correctamente.",
+        "updateFailed": "Update falló: {message}"
+      }
+    },
+    "classes": {
+      "common": {
+        "general": "General",
+        "noProgram": "No Programa",
+        "notSpecified": "No especificado"
+      },
+      "occupancy": {
+        "title": "Live Clase Occupancy",
+        "label": "Ocupación: {current} / {capacity}",
+        "empty": "No occupancy data is disponible. Crear classes and add students."
+      },
+      "actions": {
+        "create": "Crear Clase",
+        "editTitle": "Editar class",
+        "deleteTitle": "Eliminar class"
+      },
+      "table": {
+        "title": "Clase Structure Gestión",
+        "id": "Clase ID",
+        "name": "Academic Nombre",
+        "program": "Programa",
+        "level": "Nivel académico",
+        "ageGroup": "Grupo de edad",
+        "capacity": "Capacidad máxima",
+        "capacityValue": "{count} plazas",
+        "actions": "Gestión Acciones",
+        "empty": "Actualmente no hay clases registradas."
+      },
+      "form": {
+        "addTitle": "Añadir New Clase",
+        "editTitle": "Editar Clase Details",
+        "programLabel": "Programa",
+        "noProgramOption": "-- No Programa --",
+        "nameLabel": "Academic Clase Nombre *",
+        "namePlaceholder": "Ejemplo: Einstein Clase (A)",
+        "levelLabel": "Nivel académico",
+        "levelPlaceholder": "Ejemplo: primer año de secundaria",
+        "ageLabel": "Grupo de edad",
+        "agePlaceholder": "Ejemplo: 15-16",
+        "capacityLabel": "Maximum Capacity (Plazas)",
+        "capacityPlaceholder": "Ejemplo: 30",
+        "save": "Guardar Clase Details"
+      },
+      "messages": {
+        "occupancyLoadFailed": "No se pudieron cargar los datos de ocupación.",
+        "programsLoadFailed": "No se pudieron cargar los programas.",
+        "nameRequired": "Introduce el nombre de la clase.",
+        "updated": "Clase details updated correctamente.",
+        "created": "New class created correctamente.",
+        "saveFailed": "Error al save class details: {message}",
+        "unexpected": "Ocurrió un error inesperado."
+      }
+    },
+    "conversations": {
+      "toolbar": {
+        "title": "Buscar registros de comunicación",
+        "description": "Buscar cualquier usuario para revisar conversaciones y mensajes directos.",
+        "searchPlaceholder": "Buscar por usuario..."
+      },
+      "empty": {
+        "description": "Buscar usuario o mostrar la lista para abrir su bandeja de conversaciones.",
+        "showUsers": "Show Usuario List"
+      },
+      "users": {
+        "loading": "Cargando users...",
+        "loadFailed": "Error al load users: {message}",
+        "searching": "Buscando...",
+        "searchFailed": "Error en la búsqueda: {message}",
+        "empty": "Ningún usuario coincide con la búsqueda.",
+        "open": "Abrir conversaciones",
+        "table": {
+          "id": "ID",
+          "user": "Usuario",
+          "role": "Rol",
+          "action": "Acción"
+        }
+      },
+      "inbox": {
+        "userFallback": "Usuario #{id}",
+        "loading": "Obteniendo bandeja de entrada de {name}...",
+        "backToUsers": "Volver a la lista de usuarios",
+        "back": "Volver",
+        "title": "Bandeja de entrada: {name}",
+        "noPrevious": "No hay conversaciones anteriores.",
+        "loadFailed": "Error al fetch inbox: {message}"
+      },
+      "chat": {
+        "chooseConversation": "Elige una conversación de la lista para ver detalles",
+        "placeholder": "La conversación aparecerá aquí.",
+        "invalidContact": "No se pudo identificar al otro participante de la conversación.",
+        "conversationBetween": "Conversación entre:",
+        "loadingMessages": "Cargando messages...",
+        "emptyMessages": "No hay mensajes registrados.",
+        "messagesLoadFailed": "No se pudieron cargar los mensajes: {message}"
+      }
+    },
+    "enrollments": {
+      "status": {
+        "active": "Activo",
+        "completed": "Completado",
+        "dropped": "Abandonado"
+      },
+      "common": {
+        "notSpecified": "No especificado",
+        "general": "General"
+      },
+      "filters": {
+        "allStatuses": "-- Filtrar por estado (todos) --"
+      },
+      "actions": {
+        "reloadTitle": "Actualizar lista",
+        "refresh": "Actualizar",
+        "enrollStudent": "Enroll Estudiante in Programa",
+        "deleteEnrollmentTitle": "Cancelar y eliminar inscripción"
+      },
+      "form": {
+        "title": "Crear New Enrollment Registro",
+        "studentLabel": "Estudiante a inscribir *",
+        "loadingStudents": "Cargando students...",
+        "programLabel": "Programa *",
+        "loadingPrograms": "Cargando programs...",
+        "classLabel": "Clase / Group *",
+        "chooseProgramFirst": "-- Elige primero el programa --",
+        "groupLabel": "Group Nombre (Opcional)",
+        "groupPlaceholder": "Ejemplo: Group A, morning group...",
+        "notesLabel": "Notas administrativas (opcional)",
+        "notesPlaceholder": "Cualquier nota sobre esta inscripción...",
+        "confirm": "Confirmar inscripción",
+        "loading": "Cargando...",
+        "chooseStudent": "-- Elige el estudiante --",
+        "chooseProgram": "-- Elige el programa de estudio --",
+        "noClassesForProgram": "No hay clases disponibles para este programa",
+        "chooseClass": "-- Elige la clase --"
+      },
+      "table": {
+        "empty": "Ningún registro de inscripción coincide actualmente con tu búsqueda.",
+        "programFallback": "Programa #{id}",
+        "studentId": "Estudiante ID: #{id}",
+        "className": "Clase: {value}",
+        "groupName": "Grupo: {value}",
+        "total": "Registros mostrados: {count}",
+        "student": "Estudiante",
+        "programAndClass": "Programa and Clase",
+        "enrollmentDate": "Enrollment Fecha",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "messages": {
+        "filterFailed": "Filter falló: {message}",
+        "statusUpdated": "Enrollment status updated correctamente.",
+        "statusUpdateFailed": "Error al update status: {message}",
+        "deleteConfirm": "¿Seguro que quieres eliminar permanentemente esta inscripción?",
+        "deleteFailed": "Error al eliminar: {message}",
+        "loadDataFailed": "No se pudieron obtener los datos",
+        "programEndpointHint": "Asegúrate de que exista el endpoint /programs/",
+        "loadClassesFailed": "No se pudieron obtener las clases",
+        "requiredSelections": "Asegúrate de seleccionar estudiante, programa y clase.",
+        "created": "Enrollment record added correctamente.",
+        "duplicateHint": "Asegúrate de que el estudiante no esté inscrito dos veces en el mismo programa.",
+        "createFailed": "Enrollment falló: {message}"
+      }
+    },
+    "fees": {
+      "types": {
+        "tuition": "Matrícula",
+        "transport": "Transporte",
+        "activities": "Actividades",
+        "exam": "Examen Cuotas",
+        "other": "Otro"
+      },
+      "stats": {
+        "totalRemaining": "Deuda restante total",
+        "overdueCases": "Tarde Pago Cases",
+        "overdueRecord": "registros vencidos"
+      },
+      "actions": {
+        "add": "Añadir New Fee",
+        "refresh": "Actualizar",
+        "reminderTitle": "Recordatorio",
+        "paymentsTitle": "Pago history",
+        "editTitle": "Editar record"
+      },
+      "filters": {
+        "typeLabel": "Tipo:",
+        "all": "Todos",
+        "searchPlaceholder": "Búsqueda rápida por nombre o ID del estudiante...",
+        "overdueOnly": "Solo vencidos"
+      },
+      "form": {
+        "addTitle": "Añadir New Fee",
+        "editTitle": "Editar Fee",
+        "studentLabel": "Target Estudiante *",
+        "studentPlaceholder": "Buscar por nombre del estudiante...",
+        "enrollmentLabel": "Enrollment / Programa *",
+        "chooseStudentFirst": "-- Elige primero el estudiante --",
+        "typeLabel": "Tipo de cuota *",
+        "dueDateLabel": "Fecha de vencimiento *",
+        "amountLabel": "Total Importe (DZD) *",
+        "discountLabel": "Descuento / Grant (DZD)",
+        "save": "Guardar Registro",
+        "loadingEnrollments": "Cargando enrollments...",
+        "noActiveEnrollments": "Este estudiante no tiene inscripciones activas",
+        "chooseEnrollment": "-- Elegir inscripción --",
+        "programFallback": "Programa",
+        "enrollmentsLoadFailed": "No se pudieron cargar las inscripciones"
+      },
+      "table": {
+        "empty": "No hay registros financieros coincidentes.",
+        "studentFallback": "Estudiante #{id}",
+        "paidAmount": "Pagado: {amount} DZD",
+        "total": "Registros mostrados: {count}",
+        "student": "Estudiante",
+        "feeType": "Tipo de cuota",
+        "remainingAmount": "Remaining Importe",
+        "dueDate": "Fecha de vencimiento",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "status": {
+        "paid": "Pagado in full",
+        "overdue": "Vencido",
+        "pending": "Pendiente"
+      },
+      "search": {
+        "noResults": "Sin resultados",
+        "idLabel": "ID: {id}"
+      },
+      "reminder": {
+        "title": "Fee Pago Reminder",
+        "message": "Estimado estudiante, tienes una cuota pendiente de tipo ({feeType})."
+      },
+      "payments": {
+        "title": "Fee Pago History",
+        "transaction": "Transacción #",
+        "date": "Pago Fecha",
+        "amount": "Importe Pagado",
+        "receipt": "Recibo Number",
+        "close": "Cerrar historial",
+        "loading": "Obteniendo pagos...",
+        "empty": "No se han registrado pagos para esta cuota.",
+        "noReceipt": "Sin recibo",
+        "loadFailed": "Error al fetch payment history: {message}"
+      },
+      "messages": {
+        "processingBalances": "Procesando y calculando saldos de cuotas...",
+        "filterFailed": "Filter falló: {message}",
+        "overdueLoadFailed": "No se pudieron cargar registros vencidos: {message}",
+        "chooseStudentFirst": "Elige primero el estudiante.",
+        "chooseEnrollment": "Elige la inscripción del estudiante en el programa.",
+        "amountRequired": "Introduce un importe válido mayor que cero.",
+        "updated": "Updated correctamente.",
+        "created": "Cuota añadida correctamente.",
+        "saveFailed": "Guardar falló: {message}",
+        "searchFailed": "Error en la búsqueda:",
+        "reminderSent": "Notificación de recordatorio enviada correctamente.",
+        "reminderFailed": "No se pudo enviar la notificación de recordatorio."
+      }
+    },
+    "financeTab": {
+      "loading": "Recopilando datos contables...",
+      "stats": {
+        "totalCollected": "Total cobrado",
+        "paymentsCount": "De {count} pagos registrados",
+        "pendingFees": "Pendiente Cuotas",
+        "expectedCollection": "Importe esperado de cobro",
+        "overdueDebts": "Overdue Deudas",
+        "overdueCount": "{count} estudiantes requieren seguimiento"
+      },
+      "quickLinks": {
+        "payments": "Manage Pagos",
+        "fees": "Track Cuotas y deudas",
+        "transactions": "Libro diario de transacciones"
+      },
+      "recent": {
+        "title": "Tardest Ledger Activity",
+        "number": "Número",
+        "type": "Tipo",
+        "amount": "Importe",
+        "status": "Estado",
+        "empty": "No hay transacciones registradas."
+      },
+      "status": {
+        "completed": "Completado",
+        "pending": "Pendiente",
+        "cancelled": "Cancelado"
+      },
+      "messages": {
+        "loadFailed": "No se pudieron obtener datos financieros:"
+      }
+    },
+    "gradesTab": {
+      "loading": "Preparando panel de notas...",
+      "types": {
+        "exam": "Examen",
+        "quiz": "Cuestionario",
+        "homework": "Tarea"
+      },
+      "assessment": {
+        "optionLabel": "{title} (nota máxima: {max})",
+        "choose": "-- Elegir evaluación --",
+        "showGrades": "Show Notas List"
+      },
+      "assessmentCard": {
+        "title": "Notas de examen o evaluación",
+        "description": "Elige una evaluación para ver notas y estadísticas de éxito."
+      },
+      "studentCard": {
+        "title": "Estudiante Nota Informe",
+        "description": "Buscar estudiante para ver el expediente académico completo.",
+        "searchPlaceholder": "Buscar por nombre del estudiante...",
+        "showRecord": "Generate Nota Informe"
+      },
+      "results": {
+        "emptyPrompt": "Los datos y estadísticas aparecerán aquí después de buscar."
+      },
+      "search": {
+        "noResults": "Sin coincidencias results",
+        "idLabel": "ID: {id}"
+      },
+      "stats": {
+        "average": "Average Nota",
+        "highest": "Highest Nota",
+        "lowest": "Lowest Nota",
+        "gradedStudents": "Notad Estudiantes"
+      },
+      "quickForm": {
+        "title": "Ingresar Nota:",
+        "studentPlaceholder": "Buscar estudiante...",
+        "gradePlaceholder": "Nota",
+        "remarksPlaceholder": "Docente remarks (optional)"
+      },
+      "assessmentResults": {
+        "title": "Evaluación Estadísticas and Notas"
+      },
+      "table": {
+        "studentFallback": "Estudiante #{id}",
+        "noAssessmentGrades": "Aún no se han ingresado notas para esta evaluación.",
+        "id": "ID",
+        "studentName": "Estudiante Nombre",
+        "grade": "Nota",
+        "remarks": "Docente Observaciones",
+        "actions": "Acciones"
+      },
+      "studentRecord": {
+        "empty": "Aún no hay notas registradas en el expediente académico de este estudiante.",
+        "title": "Full Academic Informe: Estudiante #{id}",
+        "assessment": "Evaluación / Asignatura",
+        "type": "Tipo",
+        "programClass": "Programa / Clase",
+        "gradeValue": "Nota",
+        "remarks": "Observaciones"
+      },
+      "messages": {
+        "assessmentsLoadFailed": "No se pudo cargar la lista de evaluaciones.",
+        "searchFailed": "Error en la búsqueda:",
+        "chooseAssessmentFirst": "Elige primero una evaluación.",
+        "loadingAssessmentGrades": "Cargando grades and statistics...",
+        "assessmentLoadFailed": "Error al load assessment data: {message}",
+        "studentAndGradeRequired": "Elige un estudiante e introduce la nota.",
+        "gradeSaved": "Nota saved correctamente.",
+        "saveFailed": "Guardar falló: {message}",
+        "chooseStudentFirst": "Por favor choose a student first.",
+        "loadingStudentRecord": "Generando expediente académico...",
+        "studentRecordFailed": "Error al generate report: {message}"
+      }
+    },
+    "parentsTab": {
+      "common": {
+        "notAvailable": "No disponible",
+        "notSpecified": "No especificado"
+      },
+      "toolbar": {
+        "total": "Total de padres: {count}"
+      },
+      "actions": {
+        "linkUser": "Assign Usuario as Padre",
+        "viewChildren": "Ver Children",
+        "deleteRoleTitle": "Quitar rol"
+      },
+      "form": {
+        "title": "Assign New Padre",
+        "userLabel": "Elegir cuenta de usuario:",
+        "loadingUsers": "Cargando users...",
+        "hint": "Selecciona solo usuarios que puedan asignarse como cuentas de padres.",
+        "noUsers": "No hay usuarios registrados en el sistema",
+        "chooseUser": "-- Elegir usuario para asignar --",
+        "save": "Guardar Assignment"
+      },
+      "table": {
+        "empty": "Actualmente no hay padres registrados.",
+        "id": "ID",
+        "parent": "Padre/madre",
+        "parentDetails": "Padre Details",
+        "phone": "Teléfono Number",
+        "children": "Children (Estudiantes)",
+        "actions": "Acciones"
+      },
+      "messages": {
+        "loadUsersFailed": "No se pudieron obtener los datos",
+        "chooseUserFirst": "Elige primero un usuario de la lista.",
+        "assigned": "Usuario assigned as parent correctamente.",
+        "unexpected": "Error inesperado",
+        "addFailed": "Añadir falló: {message}",
+        "deleteConfirm": "¿Seguro que quieres quitar el rol de padre de esta cuenta?",
+        "loadingChildren": "Obteniendo datos...",
+        "loadChildrenFailed": "Error al fetch data: {message}"
+      },
+      "studentsModal": {
+        "title": "Padre Children",
+        "titleWithName": "Padre Children: {name}",
+        "empty": "Actualmente no hay hijos vinculados a esta cuenta.",
+        "className": "Clase: {value}",
+        "registered": "Registrado"
+      }
+    },
+    "notificationsTab": {
+      "stats": {
+        "totalSent": "Total de notificaciones enviadas",
+        "read": "Leído por usuarios",
+        "unread": "No leído / Pendiente"
+      },
+      "targets": {
+        "single": "Usuario individual",
+        "student": "Todos los estudiantes",
+        "teacher": "Todos los docentes",
+        "parent": "Todos los padres",
+        "all": "Todos los usuarios del sistema"
+      },
+      "form": {
+        "title": "Enviar nueva alerta o notificación",
+        "targetLabel": "Audiencia objetivo *",
+        "userSearchLabel": "Buscar usuario *",
+        "userSearchPlaceholder": "Escribe un nombre de usuario para buscar...",
+        "notificationTitleLabel": "Notificación Título *",
+        "titlePlaceholder": "Ejemplo: recordatorio de vencimiento de cuota...",
+        "messageLabel": "Mensaje Content *",
+        "messagePlaceholder": "Escribe aquí los detalles de la notificación...",
+        "clear": "Limpiar campos",
+        "send": "Enviar notificación"
+      },
+      "filters": {
+        "readStatus": "Leído Estado:",
+        "all": "Todos",
+        "readOnly": "Leído only",
+        "unreadOnly": "No leído",
+        "searchPlaceholder": "Buscar notificaciones (destinatario, título, contenido)..."
+      },
+      "actions": {
+        "cleanTitle": "Eliminar notificaciones leídas de más de 30 días",
+        "clean": "Limpiar registro (30 días)",
+        "refresh": "Actualizar",
+        "removeTitle": "Eliminar notificación",
+        "remove": "Eliminar"
+      },
+      "table": {
+        "empty": "No hay notificaciones anteriores ni resultados coincidentes.",
+        "userFallback": "Usuario #{id}",
+        "displayed": "Resultados mostrados: {count} notificaciones",
+        "recipient": "Destinatario",
+        "titleContent": "Título and Content",
+        "deliveryStatus": "Delivery Estado",
+        "sentDate": "Fecha de envío",
+        "resolve": "Resolver"
+      },
+      "status": {
+        "read": "Leído",
+        "unread": "No leído"
+      },
+      "search": {
+        "noResults": "Sin resultados",
+        "userRoleFallback": "Usuario"
+      },
+      "messages": {
+        "userSearchFailed": "Usuario search falló:",
+        "titleMessageRequired": "Introduce un título y el contenido de la notificación.",
+        "sending": "Enviando...",
+        "chooseTargetUser": "Busca y elige el usuario objetivo de la lista.",
+        "sentSingle": "Notificación enviada correctamente al usuario.",
+        "noUsersForTarget": "No se encontraron usuarios en {target}.",
+        "bulkConfirm": "Esta notificación masiva se enviará a {count} usuarios. ¿Continuar?",
+        "sentBulk": "Notificación enviada correctamente a {count} usuarios.",
+        "sendFailed": "Error al enviar: {message}",
+        "connectionHint": "Comprueba la conexión del servidor.",
+        "cleanConfirm": "¿Seguro que quieres limpiar el registro y eliminar notificaciones antiguas leídas? Esta acción no se puede deshacer.",
+        "cleanSuccess": "Se eliminaron las notificaciones antiguas y se actualizó el registro.",
+        "cleanFailed": "Error al clean log: {message}"
+      }
+    },
+    "paymentsTab": {
+      "feeTypes": {
+        "tuition": "Matrícula",
+        "transport": "Transporte",
+        "activities": "Actividades",
+        "exam": "Cuotas de examen",
+        "other": "Otro"
+      },
+      "summary": {
+        "totalCollected": "Total de cobros mostrados"
+      },
+      "search": {
+        "placeholder": "Buscar por nombre del estudiante o número de recibo...",
+        "noResults": "Sin resultados",
+        "idLabel": "ID: {id}"
+      },
+      "actions": {
+        "reloadAll": "Actualizar todo",
+        "recordPayment": "Registro Pago",
+        "printReceiptTitle": "Imprimir receipt",
+        "print": "Imprimir",
+        "cancelPaymentTitle": "Cancelar pago"
+      },
+      "modal": {
+        "title": "Registro New Pago",
+        "studentStep": "1. Buscar estudiante objetivo *",
+        "studentPlaceholder": "Escribe el nombre del estudiante para buscar...",
+        "feeStep": "2. Elige la cuota a liquidar *",
+        "chooseFee": "-- Elegir cuota --",
+        "amountLabel": "Pagado amount *",
+        "receiptLabel": "Recibo number (optional)",
+        "installmentLabel": "Número de cuota",
+        "confirmPayment": "Confirm Pago"
+      },
+      "balance": {
+        "netAmount": "Importe neto de la cuota:",
+        "previousPayments": "Pagos anteriores:",
+        "remainingNow": "Restante a pagar ahora:"
+      },
+      "table": {
+        "empty": "No hay pagos registrados ni coincidentes con tu búsqueda.",
+        "studentFallback": "Estudiante #{id}",
+        "feeFallback": "Cuota #{id}",
+        "operation": "Operación",
+        "student": "Estudiante",
+        "feeType": "Tipo de cuota",
+        "amountPaid": "Importe Pagado",
+        "receipt": "Recibo Number",
+        "noReceipt": "Sin recibo",
+        "installment": "Cuota",
+        "installmentNumber": "Cuota {number}",
+        "date": "Fecha",
+        "actions": "Acciones",
+        "totalOperations": "Total de operaciones: {count}"
+      },
+      "fee": {
+        "loadingStudentFees": "Obteniendo deudas del estudiante...",
+        "noDebts": "Este estudiante no tiene deudas vencidas ni facturas pagables actualmente.",
+        "chooseFeeToPay": "-- Elegir cuota a pagar --",
+        "optionLabel": "#{id} - {type} - Importe: {amount}",
+        "loadFailed": "No se pudieron obtener las deudas del estudiante.",
+        "calculating": "Calculando...",
+        "fetchError": "Error al obtener datos"
+      },
+      "messages": {
+        "searchFailed": "Error en la búsqueda:",
+        "amountRequired": "Elige una cuota e introduce un importe válido mayor que cero.",
+        "saving": "Guardando...",
+        "success": "Pago recorded correctamente.",
+        "checkData": "Revisa los datos.",
+        "saveFailed": "Guardar falló: {message}"
+      },
+      "receipt": {
+        "documentTitle": "Recibo #{id}",
+        "schoolName": "Escuela Moderna",
+        "systemName": "Sistema de gestión escolar",
+        "cashReceipt": "Cash Recibo",
+        "receiptNumber": "Recibo Number: {value}",
+        "date": "Fecha:",
+        "reference": "Referencia:",
+        "studentName": "Estudiante Nombre:",
+        "targetFee": "Cuota objetivo:",
+        "installment": "Cuota:",
+        "paidAmount": "Pagado Importe:",
+        "receivedNote": "Se ha recibido el importe mostrado arriba.",
+        "thankYou": "Gracias por elegir nuestra escuela.",
+        "cashierSignature": "Firma del cajero"
+      }
+    },
+    "postsTab": {
+      "stats": {
+        "total": "Total de anuncios",
+        "today": "Publicado hoy",
+        "withCover": "Con imagen de portada",
+        "textOnly": "Solo texto"
+      },
+      "header": {
+        "title": "School Anuncios Board",
+        "description": "Gestiona anuncios y publicaciones dirigidos a estudiantes y padres."
+      },
+      "actions": {
+        "newPost": "Redactar nuevo anuncio",
+        "preview": "Vista previa",
+        "saveChanges": "Guardar Changes",
+        "publish": "Publicar anuncio"
+      },
+      "search": {
+        "placeholder": "Buscar anuncios..."
+      },
+      "empty": {
+        "title": "Aún no se han publicado anuncios",
+        "description": "Empieza escribiendo el primer anuncio para la comunidad escolar."
+      },
+      "table": {
+        "announcement": "Anuncio",
+        "title": "Announcement Título",
+        "author": "Autor",
+        "userFallback": "Usuario #{id}",
+        "publishDate": "Publish Fecha",
+        "actions": "Acciones"
+      },
+      "preview": {
+        "title": "Vista previa del anuncio"
+      },
+      "toolbar": {
+        "bold": "Negrita",
+        "italic": "Cursiva",
+        "strike": "Tachado",
+        "inlineCode": "Código en línea",
+        "list": "Lista",
+        "numbered": "Numerada",
+        "quote": "Cita",
+        "divider": "Separador",
+        "table": "Tabla",
+        "insertTable": "Insertar tabla",
+        "image": "Imagen",
+        "insertImage": "Insertar imagen",
+        "link": "Enlace",
+        "insertLink": "Insertar enlace",
+        "download": "Descargar",
+        "downloadLink": "Enlace de descarga",
+        "codeBlock": "Bloque de código",
+        "insertCode": "Insertar bloque de código",
+        "math": "Matemáticas",
+        "insertMath": "Ecuación matemática"
+      },
+      "editor": {
+        "editKicker": "Editar Publicación",
+        "newKicker": "New Publicación",
+        "editTitle": "Editar Announcement",
+        "newTitle": "Redactar nuevo anuncio",
+        "viewMode": "Ver Mode",
+        "modeWrite": "Redactar",
+        "modeSplit": "Dividido",
+        "modePreview": "Vista previa",
+        "fullscreen": "Pantalla completa",
+        "backToList": "Volver a la lista",
+        "titleLabel": "Announcement Título",
+        "titlePlaceholder": "Escribe un título claro...",
+        "coverLabel": "Cover Imagen",
+        "editorPane": "Editaror",
+        "lineColumn": "Línea {line} - columna {column}",
+        "contentPlaceholder": "Escribe aquí el contenido del anuncio...",
+        "livePreview": "Vista previa en vivo",
+        "ready": "Leídoy",
+        "coverAlt": "Portada",
+        "titleFallback": "Announcement Título",
+        "previewPlaceholder": "Empieza a escribir para ver la vista previa aquí...",
+        "wordCount": "{words} palabras - {chars} caracteres",
+        "empty": "Vacío",
+        "updated": "Actualizado"
+      },
+      "draft": {
+        "savedDraftFound": "Existe un borrador guardado para este anuncio.",
+        "restore": "Restaurar",
+        "dismiss": "Descartar",
+        "unsaved": "Cambios sin guardar",
+        "saved": "Borrador guardado",
+        "saveFailed": "No se pudo guardar el borrador",
+        "dismissed": "Borrador descartado"
+      },
+      "download": {
+        "token": "Descargar",
+        "button": "Descargar"
+      },
+      "tableBuilder": {
+        "defaultHeader": "Columna {index}",
+        "title": "Tabla Builder",
+        "columns": "Columnas",
+        "rows": "Filas",
+        "alignment": "Alineación de columna",
+        "markdownCode": "Código Markdown",
+        "previewHint": "Vista previa - edita encabezados directamente",
+        "insert": "Insertar en el editor",
+        "headerPlaceholder": "Encabezado",
+        "sampleCell": "Datos",
+        "align": {
+          "right": "Derecha",
+          "center": "Centro",
+          "left": "Izquierda"
+        }
+      },
+      "insert": {
+        "imageTitle": "Insert Imagen",
+        "imageUrl": "URL de imagen",
+        "altText": "Texto alternativo",
+        "altPlaceholder": "Descripción de imagen",
+        "imageDefaultAlt": "Imagen",
+        "linkTitle": "Insert Enlace",
+        "linkText": "Enlace text",
+        "linkDefaultText": "Haz clic aquí",
+        "url": "URL",
+        "downloadTitle": "Insert Descargar Enlace",
+        "fileName": "Archivo name",
+        "fileNamePlaceholder": "Libro de física - capítulo uno",
+        "fileType": "Archivo type (optional)",
+        "choose": "-- Elegir --",
+        "video": "Video",
+        "audio": "Audio",
+        "fileSize": "Tamaño (opcional)",
+        "sizePlaceholder": "Ejemplo: 2.4 MB",
+        "downloadUrl": "URL de descarga"
+      },
+      "messages": {
+        "tableInserted": "Tabla inserted",
+        "downloadRequired": "Completa al menos el nombre del archivo y el enlace.",
+        "titleRequired": "Introduce el título del anuncio.",
+        "contentRequired": "Introduce el contenido del anuncio.",
+        "saving": "Guardando...",
+        "updated": "Announcement updated correctamente.",
+        "published": "Announcement published correctamente.",
+        "saveFailed": "Error al guardar: {message}"
+      }
+    },
+    "programsTab": {
+      "search": {
+        "placeholder": "Buscar por nombre del programa..."
+      },
+      "actions": {
+        "reloadTitle": "Actualizar lista",
+        "add": "Añadir New Programa",
+        "editTitle": "Editar program",
+        "deleteTitle": "Eliminar program"
+      },
+      "form": {
+        "addTitle": "Añadir Programaa de estudio",
+        "editTitle": "Editar Programa",
+        "nameLabel": "Programa Nombre *",
+        "namePlaceholder": "Ejemplo: curso de apoyo en matemáticas, curso de idiomas...",
+        "typeLabel": "Programa Tipo *",
+        "typePlaceholder": "Ejemplo: curso, diploma, actividad de verano...",
+        "cashPriceLabel": "Precio al contado",
+        "installmentPriceLabel": "Precio por cuotas",
+        "save": "Guardar Programa"
+      },
+      "table": {
+        "empty": "Actualmente no hay programas de estudio registrados.",
+        "name": "Programa Nombre",
+        "type": "Tipo",
+        "cashPrice": "Precio al contado",
+        "installmentPrice": "Precio por cuotas",
+        "actions": "Acciones",
+        "total": "Total Programaas: {count}"
+      },
+      "messages": {
+        "minSearch": "Introduce al menos dos caracteres para buscar.",
+        "searchFailed": "Error en la búsqueda: {message}",
+        "required": "Introduce el nombre y tipo del programa académico.",
+        "updated": "Programa details updated correctamente.",
+        "created": "New program added correctamente.",
+        "saveFailed": "Guardar falló: {message}",
+        "unexpected": "Error inesperado"
+      }
+    },
+    "resourcesTab": {
+      "types": {
+        "pdf": "Libro / PDF",
+        "document": "Documento de texto",
+        "video": "Video",
+        "image": "Imagen",
+        "archive": "Archivo comprimido",
+        "file": "Archivo"
+      },
+      "stats": {
+        "totalFiles": "Total Subired Archivos",
+        "fileUnit": "archivos",
+        "librarySize": "Tamaño total de la biblioteca"
+      },
+      "search": {
+        "placeholder": "Buscar por título, descripción o docente..."
+      },
+      "actions": {
+        "uploadNew": "Subir New Archivo",
+        "downloadTitle": "Descargar archivo",
+        "deleteTitle": "Eliminar permanentemente"
+      },
+      "upload": {
+        "title": "Subir New Learning Recurso",
+        "titleLabel": "Archivo Título *",
+        "titlePlaceholder": "Ejemplo: resumen del primer capítulo...",
+        "typeLabel": "Archivo Tipo *",
+        "assignmentLabel": "Enlaceed assignment (optional)",
+        "noAssignment": "-- Sin enlace (archivo general) --",
+        "descriptionLabel": "Descripción breve (opcional)",
+        "descriptionPlaceholder": "Información adicional sobre el archivo...",
+        "chooseFile": "Haz clic para elegir el archivo (máx. 5 MB)",
+        "startUpload": "Iniciar carga",
+        "fileSelected": "Archivo seleccionado:",
+        "loadingAssignments": "Cargando asignaciones...",
+        "assignmentsLoadFailed": "No se pudieron obtener asignaciones; puedes dejarlo vacío"
+      },
+      "table": {
+        "empty": "La biblioteca está vacía o no hay resultados que coincidan.",
+        "generalFile": "General Archivo (Unlinked)",
+        "subjectFallback": "Asignatura",
+        "classFallback": "Clase",
+        "teacherLabel": "Docente:",
+        "notSpecified": "No especificado",
+        "fileDetails": "Archivo Nombre and Details",
+        "noDescription": "Sin descripción",
+        "academicLink": "Academic Enlace",
+        "type": "Tipo",
+        "size": "Tamaño",
+        "actions": "Acciones"
+      },
+      "messages": {
+        "uploading": "Subiendo...",
+        "fileRequired": "Elige un archivo para subir.",
+        "uploadSuccess": "Archivo subido correctamente y añadido a la biblioteca.",
+        "checkFile": "Comprueba tipo y tamaño del archivo.",
+        "uploadFailed": "Error al subir: {message}",
+        "preparingDownload": "Preparando archivo para descarga, espera...",
+        "downloadMissing": "No se pudo obtener el archivo del servidor. Puede estar eliminado o la ruta no es válida.",
+        "downloadFailed": "Error al descargar: {message}"
+      }
+    },
+    "schedulesTab": {
+      "cards": {
+        "classSchedule": "Clase Horario",
+        "teacherSchedule": "Docente Horario",
+        "chooseClass": "-- Elegir clase --",
+        "chooseTeacher": "-- Elegir docente --",
+        "show": "Mostrar"
+      },
+      "actions": {
+        "addSession": "Añadir sesión al horario",
+        "deleteSessionTitle": "Eliminar session"
+      },
+      "emptyPrompt": "Elige una clase o docente para mostrar el horario semanal aquí.",
+      "modal": {
+        "title": "Añadir New Session",
+        "classLabel": "Clase:",
+        "chooseClassFirst": "-- Elige primero la clase --",
+        "assignmentLabel": "Asignatura and teacher assignment:",
+        "chooseClass": "-- Elige la clase --",
+        "dayLabel": "Día:",
+        "roomLabel": "Aula:",
+        "roomPlaceholder": "Ejemplo: Room 101",
+        "startTimeLabel": "Hora de inicio:",
+        "endTimeLabel": "Hora de fin:",
+        "save": "Guardar Session"
+      },
+      "days": {
+        "Sunday": "Domingo",
+        "Monday": "Lunes",
+        "Tuesday": "Martes",
+        "Wednesday": "Miércoles",
+        "Thursday": "Jueves",
+        "Friday": "Viernes",
+        "Saturday": "Sábado"
+      },
+      "table": {
+        "emptySchedule": "Actualmente no hay sesiones registradas en este horario.",
+        "subjectFallback": "Asignatura",
+        "teacherFallback": "Docente",
+        "classFallback": "Clase",
+        "teacherPrefix": "Docente:",
+        "classPrefix": "Clase:",
+        "roomPrefix": "Aula:",
+        "notSpecified": "No especificado",
+        "emptyDay": "Vacío"
+      },
+      "assignments": {
+        "loading": "Cargando...",
+        "none": "No hay docentes asignados a esta clase",
+        "optionLabel": "Asignatura: {subject} | Docente: {teacher}",
+        "loadFailed": "Error al obtener datos"
+      },
+      "messages": {
+        "baseLoadFailed": "No se pudieron cargar los datos base del horario:",
+        "chooseFromList": "Elige primero de la lista.",
+        "loadingSchedule": "Cargando schedule...",
+        "loadFailed": "Error al load schedule: {message}",
+        "noData": "Sin datos",
+        "chooseAssignment": "Elige la asignatura y la asignación del docente.",
+        "created": "Sesión añadida correctamente al horario.",
+        "createFailed": "Añadir falló: {message}",
+        "timeConflictHint": "Asegúrate de que no haya conflicto horario.",
+        "deleteConfirm": "¿Seguro que quieres eliminar esta sesión del horario?"
+      }
+    },
+    "studentsTab": {
+      "search": {
+        "placeholder": "Buscar por nombre o ID..."
+      },
+      "actions": {
+        "add": "Registrar nuevo estudiante",
+        "reloadTitle": "Actualizar lista",
+        "viewProfile": "Ver Detailed Profile",
+        "changeStatus": "Change Estado"
+      },
+      "form": {
+        "title": "Registrar nuevo estudiante en el sistema",
+        "userLabel": "Enlaceed Usuario Account *",
+        "loadingAccounts": "Cargando accounts...",
+        "parentLabel": "Padre/madre",
+        "noParent": "-- Sin padre --",
+        "dobLabel": "Fecha of Birth",
+        "bloodLabel": "Grupo sanguíneo",
+        "notSpecified": "-- No especificado --",
+        "medicalLabel": "Notas médicas (opcional)",
+        "medicalPlaceholder": "Alergias, medicamentos, etc...",
+        "save": "Guardar Data",
+        "chooseUser": "-- Elegir user account --",
+        "loadFailed": "No se pudieron obtener los datos"
+      },
+      "table": {
+        "empty": "Sin coincidencias search results.",
+        "total": "Total Estudiantes: {count}",
+        "id": "ID",
+        "student": "Estudiante",
+        "account": "Cuenta: #{id}",
+        "class": "Clase",
+        "classFallback": "Not registrado in a class",
+        "dateOfBirth": "Fecha of Birth",
+        "status": "Estado",
+        "actions": "Acciones"
+      },
+      "status": {
+        "active": "Activo",
+        "inactive": "Desactivard"
+      },
+      "messages": {
+        "minSearch": "Introduce al menos dos caracteres para buscar.",
+        "searchFailed": "Error en la búsqueda: {message}",
+        "statusConfirm": "¿Seguro que quieres cambiar el estado de este estudiante a {status}?",
+        "statusFailed": "Error al change status: {message}",
+        "chooseUserFirst": "Por favor choose a user account first.",
+        "created": "Estudiante registrado correctamente.",
+        "createFailed": "Registration falló: {message}",
+        "loadingProfile": "Recopilando perfil del estudiante...",
+        "profileFailed": "Error al fetch student profile: {message}"
+      },
+      "profile": {
+        "studentId": "Estudiante ID: #{id}",
+        "tabs": {
+          "personal": "Personal",
+          "academic": "Académico",
+          "finance": "Finanzas"
+        },
+        "personal": {
+          "dateOfBirth": "Fecha of Birth:",
+          "bloodGroup": "Grupo sanguíneo:",
+          "medicalNotes": "Medical Notas:",
+          "none": "Ninguno"
+        },
+        "academic": {
+          "gradesTitle": "Nota Registro",
+          "assessment": "Evaluación",
+          "subject": "Asignatura",
+          "grade": "Nota",
+          "noGrades": "Sin registro de notas"
+        },
+        "finance": {
+          "paidTotal": "Total Pagado",
+          "remaining": "Remaining Importe"
+        }
+      }
+    },
+    "usersTab": {
+      "roles": {
+        "admin": "Administrador",
+        "receptionist": "Recepcionista",
+        "student": "Estudiante",
+        "parent": "Padre/madre",
+        "accountant": "Contable",
+        "teacher": "Docente"
+      },
+      "search": {
+        "placeholder": "Buscar usuarios (al menos dos caracteres)..."
+      },
+      "actions": {
+        "add": "Añadir New Usuario",
+        "reloadTitle": "Actualizar lista",
+        "disable": "Desactivar account",
+        "enable": "Activar account"
+      },
+      "table": {
+        "id": "ID",
+        "fullName": "Full Nombre",
+        "username": "Nombre de usuario",
+        "contact": "Contacto",
+        "status": "Estado",
+        "actions": "Acciones",
+        "empty": "No hay usuarios para mostrar.",
+        "roleId": "Rol ID: {id}"
+      },
+      "status": {
+        "active": "Activo",
+        "inactive": "Desactivard"
+      },
+      "form": {
+        "addTitle": "Añadir New Usuario",
+        "editTitle": "Editar Usuario",
+        "fullName": "Full Nombre *",
+        "role": "Rol *",
+        "selectRole": "Seleccionar Rol",
+        "username": "Usuario *",
+        "password": "Contraseña *",
+        "passwordPlaceholder": "Ingresar password",
+        "passwordHint": "Déjalo vacío si no quieres cambiarlo.",
+        "email": "Correo electrónico",
+        "phone": "Teléfono",
+        "address": "Dirección",
+        "activeAccount": "Activo account (can sign in)",
+        "save": "Guardar Data"
+      },
+      "messages": {
+        "loading": "Cargando...",
+        "refreshing": "Actualizaring...",
+        "searching": "Buscando...",
+        "loadFailed": "Error al load users: {message}",
+        "minSearch": "Introduce al menos dos caracteres para buscar.",
+        "searchFailed": "Error en la búsqueda: {message}",
+        "enableConfirm": "¿Quieres activar esta cuenta?",
+        "disableConfirm": "¿Quieres desactivar esta cuenta e impedir el inicio de sesión?",
+        "statusFailed": "Error al change status: {message}",
+        "deleteConfirm": "¿Seguro que quieres eliminar permanentemente este usuario? Esta acción no se puede deshacer.",
+        "required": "Por favor fill in all required fields: Full Nombre, Usuario, and Rol.",
+        "passwordRequired": "Proporciona una contraseña para el nuevo usuario.",
+        "updated": "Usuario updated correctamente.",
+        "created": "Usuario created correctamente.",
+        "duplicateHint": "Comprueba si hay nombres de usuario duplicados.",
+        "saveFailed": "Error al guardar datos: {message}"
+      }
+    },
+    "teachersTab": {
+      "search": {
+        "placeholder": "Buscar por nombre del docente o especialidad..."
+      },
+      "actions": {
+        "add": "Añadir New Docente",
+        "reloadTitle": "Actualizar lista",
+        "viewProfile": "Perfil y horario",
+        "profile": "Perfil",
+        "editTitle": "Editar specialty and date"
+      },
+      "form": {
+        "addTitle": "Añadir Equipo docente",
+        "addNewTitle": "Añadir New Docente",
+        "editTitle": "Editar Docente Data",
+        "userLabel": "Usuario Account *",
+        "loadingAccounts": "Cargando accounts...",
+        "chooseUser": "-- Elegir user account --",
+        "loadAccountsFailed": "No se pudieron cargar las cuentas",
+        "specialty": "Academic Especialidad",
+        "specialtyPlaceholder": "Ejemplo: Mathematics, Physics, Arabic...",
+        "hireDate": "Hire Fecha",
+        "save": "Guardar Data"
+      },
+      "table": {
+        "empty": "No hay docentes registrados o que coincidan con la búsqueda.",
+        "teacher": "Docente",
+        "userAccount": "Cuenta de usuario: #{id}",
+        "specialty": "Especialidad",
+        "hireDate": "Hire Fecha",
+        "actions": "Acciones",
+        "general": "General",
+        "total": "Total Docentes: {count}"
+      },
+      "days": {
+        "Sunday": "Domingo",
+        "Monday": "Lunes",
+        "Tuesday": "Martes",
+        "Wednesday": "Miércoles",
+        "Thursday": "Jueves",
+        "Friday": "Viernes",
+        "Saturday": "Sábado"
+      },
+      "profile": {
+        "classLabel": "Clase:",
+        "levelLabel": "Nivel:",
+        "specialtyLabel": "Especialidad:",
+        "hireLabel": "Contratado:",
+        "noAssignments": "Sin asignaciones are registrado.",
+        "emptySchedule": "El horario está vacío.",
+        "tabs": {
+          "assignments": "Clases and Assignments",
+          "schedule": "Horario"
+        }
+      },
+      "messages": {
+        "minSearch": "Introduce al menos dos caracteres para buscar.",
+        "searchFailed": "Error en la búsqueda: {message}",
+        "updated": "Docente data updated correctamente.",
+        "created": "Docente created correctamente.",
+        "chooseUser": "Por favor choose a user account.",
+        "checkData": "Comprueba los datos o una cuenta duplicada.",
+        "saveFailed": "Guardar falló: {message}",
+        "loadingProfile": "Cargando teacher profile and schedule...",
+        "profileFailed": "Error al fetch teacher details: {message}"
+      }
+    },
+    "transactionsTab": {
+      "summary": {
+        "completedVolume": "Completado Transfer Volume",
+        "pendingOperations": "Pendiente Operations"
+      },
+      "actions": {
+        "statement": "Extracto",
+        "newTransfer": "Nueva transferencia",
+        "refreshTable": "Actualizar Tabla",
+        "changeStatus": "Change Estado"
+      },
+      "filters": {
+        "label": "Filtro:",
+        "allTypes": "-- All Tipos --",
+        "allStatuses": "-- All Estadoes --",
+        "completedOnly": "Completado only",
+        "pendingOnly": "Pendiente only",
+        "cancelledOnly": "Cancelarado only"
+      },
+      "types": {
+        "payment": "Fee Pago",
+        "refund": "Reembolso",
+        "transfer": "Transferencia interna",
+        "adjustment": "Ajuste",
+        "salary": "Salario"
+      },
+      "statuses": {
+        "completed": "Completado",
+        "pending": "Pendiente",
+        "failed": "Error",
+        "cancelled": "Cancelado"
+      },
+      "table": {
+        "empty": "Sin coincidencias financial transfers.",
+        "transactionNumber": "Transacción Number",
+        "transferParties": "Partes de la transferencia",
+        "amount": "Importe",
+        "type": "Tipo",
+        "notes": "Notas",
+        "status": "Estado",
+        "actions": "Acciones",
+        "from": "De:",
+        "to": "Para:",
+        "userFallback": "Usuario #{id}"
+      },
+      "modal": {
+        "addTitle": "Registro New Financiero Transfer",
+        "fromLabel": "Remitente (de) *",
+        "toLabel": "Receptor (para) *",
+        "userSearchPlaceholder": "Buscar por usuario...",
+        "amountLabel": "Importe (DZD) *",
+        "typeLabel": "Operation Tipo *",
+        "notesLabel": "Notas / Operation Statement",
+        "notesPlaceholder": "Escribe el motivo de la transferencia...",
+        "execute": "Ejecutar transferencia",
+        "statusTitle": "Change Transfer Estado",
+        "newStatusLabel": "New Estado:",
+        "statusNotesLabel": "Motivo del cambio (opcional):",
+        "statusNotesPlaceholder": "Nota breve...",
+        "updateStatus": "Update Estado",
+        "statementTitle": "Extraer extracto de cuenta",
+        "statementSearchLabel": "Buscar usuario *",
+        "statementPlaceholder": "Nombre de estudiante o personal...",
+        "extractStatement": "Extraer extracto"
+      },
+      "search": {
+        "noResults": "Sin resultados"
+      },
+      "statement": {
+        "titleWithUser": "Extracto de cuenta: {user}",
+        "emptyForUser": "No hay movimientos financieros registrados para este usuario.",
+        "detailedTitle": "Detailed Financiero Statement",
+        "user": "Usuario:",
+        "netBalance": "Net Saldo (completed)",
+        "date": "Fecha",
+        "type": "Tipo",
+        "otherParty": "Otra parte",
+        "amount": "Importe",
+        "print": "Imprimir Statement"
+      },
+      "messages": {
+        "filterFailed": "Filter falló: {message}",
+        "searchFailed": "Error en la búsqueda:",
+        "requiredTransfer": "Por favor fill all fields and enter a valid amount.",
+        "transferCreated": "Financiero transfer recorded correctamente.",
+        "transferFailed": "Transfer execution falló: {message}",
+        "statusUpdated": "Estado de transferencia actualizado.",
+        "statusFailed": "Error al update status: {message}",
+        "selectUserFirst": "Selecciona primero el usuario.",
+        "loadingStatement": "Obteniendo and analyzing financial data...",
+        "statementFailed": "Error al extract statement: {message}"
+      }
+    }
+  },
+  "legacyText": {}
+}

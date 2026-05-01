@@ -24,6 +24,11 @@
       "code": "zh",
       "label": "الصينية",
       "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "الإسبانية",
+      "dir": "ltr"
     }
   ],
   "login": {
