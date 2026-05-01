@@ -9,12 +9,12 @@ AdminUI.renderConversationsTab = async function() {
 
     // 1. شريط البحث عن المستخدمين
     const headerHtml = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-right: 4px solid #3b82f6;">
+        <div class="admin-page-toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-right: 4px solid #3b82f6;">
             <div>
                 <h3 style="margin: 0; color: #1e40af;">بحث في سجلات التواصل</h3>
                 <p style="margin: 5px 0 0 0; color: #64748b; font-size: 0.9em;">ابحث عن أي مستخدم لاستعراض محادثاته وقراءة رسائله المباشرة.</p>
             </div>
-            <div style="display: flex; gap: 10px; align-items: center;">
+            <div class="admin-toolbar-search" style="display: flex; gap: 10px; align-items: center;">
                 <input type="text" id="conv-user-search" placeholder="ابحث باسم المستخدم..." style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; width: 250px;" onkeypress="if(event.key === 'Enter') AdminUI.searchChatUsers()">
                 <button onclick="AdminUI.searchChatUsers()" style="background: #3b82f6; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">
                     بحث 🔍
@@ -98,7 +98,7 @@ AdminUI.renderUserListForChat = function(users) {
     `).join("");
 
     container.innerHTML = `
-        <div style="background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden;">
+        <div class="admin-mobile-table" style="background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden;">
             <table style="width: 100%; border-collapse: collapse; text-align: right;">
                 <thead style="background: #f1f5f9; border-bottom: 2px solid #cbd5e1;">
                     <tr>
@@ -165,9 +165,9 @@ AdminUI.openUserInbox = async function(userId, userName) {
                     ⬅️ العودة لقائمة المستخدمين
                 </button>
             </div>
-            <div style="display: flex; gap: 20px; height: 600px;">
+            <div class="admin-conversation-layout" style="display: flex; gap: 20px; height: 600px;">
                 
-                <div style="width: 300px; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #e2e8f0;">
+                <div class="admin-conversation-contacts" style="width: 300px; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; border: 1px solid #e2e8f0;">
                     <div style="padding: 15px; background: #1e40af; color: white; font-weight: bold;">
                         صندوق الوارد: ${userName}
                     </div>
@@ -186,7 +186,7 @@ AdminUI.openUserInbox = async function(userId, userName) {
                     </div>
                 </div>
 
-                <div style="flex: 1; background: #f8fafc; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column; border: 1px solid #e2e8f0; overflow: hidden;">
+                <div class="admin-conversation-chat" style="flex: 1; background: #f8fafc; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; flex-direction: column; border: 1px solid #e2e8f0; overflow: hidden;">
                     <div id="chat-header" style="padding: 15px; background: white; border-bottom: 1px solid #cbd5e1; font-weight: bold; color: #0f172a;">
                         اختر محادثة من القائمة لعرض التفاصيل
                     </div>

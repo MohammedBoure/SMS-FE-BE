@@ -13,8 +13,8 @@ AdminUI.renderStudentsTab = function(response) {
 
     // 1. شريط الإجراءات والبحث العُلوي + هيكل النوافذ المنبثقة (Modals)
     main.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex-wrap: wrap; gap: 15px;">
-            <div style="display: flex; gap: 10px; flex: 1; min-width: 300px;">
+        <div class="admin-page-toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex-wrap: wrap; gap: 15px;">
+            <div class="admin-toolbar-search" style="display: flex; gap: 10px; flex: 1; min-width: 300px;">
                 <input type="text" id="student-search-input" placeholder="ابحث بالاسم أو المعرف..." 
                        style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; flex: 1; outline: none; font-size: 1rem;"
                        onkeypress="if(event.key === 'Enter') AdminUI.searchStudents()">
@@ -47,13 +47,6 @@ AdminUI.renderStudentsTab = function(response) {
                         <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: #334155;">حساب المستخدم المرتبط *</label>
                         <select id="modal-std-user" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; outline: none;">
                             <option value="">جاري تحميل الحسابات...</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: #334155;">الفصل الدراسي</label>
-                        <select id="modal-std-class" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none;">
-                            <option value="">-- بدون فصل حالياً --</option>
                         </select>
                     </div>
 
@@ -123,6 +116,7 @@ AdminUI._generateStudentsTableHtml = function(students, total) {
                 <span style="background: #f1f5f9; color: #334155; padding: 4px 8px; border-radius: 4px; font-size: 0.9em;">
                     ${this._escape(s.class_name || "غير مسجل بفصل")}
                 </span>
+                ${s.program_names ? `<div style="margin-top: 5px; color: #2563eb; font-size: 0.85em; font-weight: bold;">${this._escape(s.program_names)}</div>` : ""}
             </td>
             <td style="padding: 15px; direction: ltr; text-align: right; color: #475569;">${this._escape(s.date_of_birth || "-")}</td>
             <td style="padding: 15px;">
@@ -143,7 +137,7 @@ AdminUI._generateStudentsTableHtml = function(students, total) {
             <div style="padding: 12px 15px; background: #f8fafc; border-bottom: 2px solid #e2e8f0; font-size: 0.9em; color: #475569;">
                 إجمالي الطلاب: <strong style="color: #0f172a;">${total}</strong>
             </div>
-            <div style="overflow-x: auto;">
+            <div class="admin-mobile-table" style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; text-align: right;">
                     <thead style="background: #f8fafc; border-bottom: 2px solid #cbd5e1;">
                         <tr>
@@ -199,27 +193,21 @@ AdminUI.showAddStudentModal = async function() {
     modal.style.display = "flex";
     
     const userSelect = document.getElementById("modal-std-user");
-    const classSelect = document.getElementById("modal-std-class");
     const parentSelect = document.getElementById("modal-std-parent");
 
     userSelect.innerHTML = '<option value="">جاري التحميل...</option>';
     
     try {
-        const [usersRes, classesRes, parentsRes] = await Promise.all([
+        const [usersRes, parentsRes] = await Promise.all([
             Api.get("/users/"),
-            Api.get("/classes/"),
             Api.get("/parents/")
         ]);
 
         const users = usersRes.data || usersRes || [];
-        const classes = classesRes.data || classesRes || [];
         const parents = parentsRes.data || parentsRes || [];
 
         userSelect.innerHTML = '<option value="">-- اختر حساب المستخدم --</option>' + 
             users.map(u => `<option value="${u.id}">${this._escape(u.full_name)} (@${this._escape(u.username)})</option>`).join("");
-
-        classSelect.innerHTML = '<option value="">-- بدون فصل حالياً --</option>' + 
-            classes.map(c => `<option value="${c.class_id || c.id}">${this._escape(c.class_name)}</option>`).join("");
 
         parentSelect.innerHTML = '<option value="">-- بدون ولي أمر --</option>' + 
             parents.map(p => `<option value="${p.parent_id}">${this._escape(p.full_name)}</option>`).join("");
@@ -239,7 +227,7 @@ AdminUI.submitNewStudent = async function() {
 
     const payload = {
         user_id: parseInt(userId),
-        class_id: document.getElementById("modal-std-class").value ? parseInt(document.getElementById("modal-std-class").value) : null,
+        class_id: null,
         parent_id: document.getElementById("modal-std-parent").value ? parseInt(document.getElementById("modal-std-parent").value) : null,
         date_of_birth: document.getElementById("modal-std-dob").value || null,
         blood_group: document.getElementById("modal-std-blood").value || null,

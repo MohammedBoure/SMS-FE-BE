@@ -4,31 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>لوحة تحكم المدير | النظام المدرسي</title>
-  <link rel="stylesheet" href="../css/styles.css"> 
-  <link rel="stylesheet" href="../css/posts.css"> 
-  <style>
-    body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; color: #0f172a; display: flex; height: 100vh; }
-    .sidebar { width: 260px; background: #064e3b; color: white; display: flex; flex-direction: column; overflow-y: auto; }
-    .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-    .content-area { flex: 1; padding: 20px; overflow-y: auto; }
-    .spinner { border: 4px solid rgba(0,0,0,0.1); border-top: 4px solid #064e3b; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-  </style>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/posts.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
 </head>
-<body>
+<body class="admin-shell">
 
   <aside class="sidebar">
     <div class="sidebar-header" id="admin-header"></div>
     <nav class="sidebar-nav" id="admin-nav"></nav>
   </aside>
+  <div class="sidebar-backdrop" id="admin-sidebar-backdrop"></div>
 
   <main class="main-content">
     <header class="topbar">
+      <div class="topbar-title">
+        <button type="button" class="mobile-menu-btn" id="admin-menu-toggle" aria-label="Open menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       <h2 style="margin: 0;" id="section-title">نظرة عامة</h2>
-      <div>
+      </div>
+      <div class="topbar-actions">
         <span id="user-info" style="margin-left: 15px; color: #64748b;"></span>
         <button id="logout-btn" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">تسجيل الخروج</button>
       </div>

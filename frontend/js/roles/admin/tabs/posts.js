@@ -151,8 +151,8 @@ AdminUI.renderPostsTab = function(response) {
             const postJSON = JSON.stringify(p).replace(/'/g, "&#39;");
             return `
               <tr data-title="${(p.title??'').toLowerCase()}">
-                <td><span class="badge badge-blue">#${pid}</span></td>
-                <td>
+                <td data-label="ID"><span class="badge badge-blue">#${pid}</span></td>
+                <td data-label="الإعلان">
                   <div class="post-title-cell">
                     ${p.image
                         ? `<img src="${this._escape(p.image)}" class="post-thumb" alt="">`
@@ -163,9 +163,9 @@ AdminUI.renderPostsTab = function(response) {
                     </div>
                   </div>
                 </td>
-                <td><span class="badge badge-green">مستخدم #${p.user_id}</span></td>
-                <td><span style="font-size:.85rem; color:#64748b; direction:ltr; display:inline-block;">${date}</span></td>
-                <td>
+                <td data-label="الكاتب"><span class="badge badge-green">مستخدم #${p.user_id}</span></td>
+                <td data-label="تاريخ النشر"><span style="font-size:.85rem; color:#64748b; direction:ltr; display:inline-block;">${date}</span></td>
+                <td data-label="إجراءات">
                   <div class="tbl-actions">
                     <button class="tbl-btn tbl-btn-preview" onclick='AdminUI.previewPost(${postJSON})' title="معاينة">👁 معاينة</button>
                     <button class="tbl-btn tbl-btn-edit"    onclick='AdminUI.showPostEditor(${postJSON})' title="تعديل">✏️ تعديل</button>

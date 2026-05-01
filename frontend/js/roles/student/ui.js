@@ -44,6 +44,7 @@ const StudentUI = {
         <td><strong>${this._translateDay(s.day_of_week)}</strong></td>
         <td><span style="direction:ltr; display:inline-block;">${this._formatTime(s.start_time)} - ${this._formatTime(s.end_time)}</span></td>
         <td>${s.subject_name}</td>
+        <td>${this._escape(s.program_name || "-")} / ${this._escape(s.class_name || "-")}</td>
         <td>${s.teacher_name}</td>
         <td>${s.room_number || "غير محدد"}</td>
       </tr>
@@ -51,7 +52,7 @@ const StudentUI = {
     main.innerHTML = `
       <h2>الجدول الزمني الأسبوعي</h2>
       <table>
-        <thead><tr><th>اليوم</th><th>التوقيت</th><th>المادة</th><th>الأستاذ</th><th>القاعة</th></tr></thead>
+        <thead><tr><th>اليوم</th><th>التوقيت</th><th>المادة</th><th>البرنامج / الفوج</th><th>الأستاذ</th><th>القاعة</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     `;
@@ -68,6 +69,7 @@ const StudentUI = {
       <tr>
         <td>${a.subject_name}</td>
         <td>${a.title} (${a.type === 'exam' ? 'امتحان' : 'واجب'})</td>
+        <td>${this._escape(a.program_name || "-")} / ${this._escape(a.class_name || "-")}</td>
         <td><strong style="color:#e11d48;">${a.due_date || "غير محدد"}</strong></td>
         <td>${a.max_grade}</td>
         <td>${a.teacher_name}</td>
@@ -76,7 +78,7 @@ const StudentUI = {
     main.innerHTML = `
       <h2>الامتحانات والفروض القادمة</h2>
       <table>
-        <thead><tr><th>المادة</th><th>عنوان التقييم</th><th>تاريخ الإجراء</th><th>العلامة القصوى</th><th>الأستاذ</th></tr></thead>
+        <thead><tr><th>المادة</th><th>عنوان التقييم</th><th>البرنامج / الفوج</th><th>تاريخ الإجراء</th><th>العلامة القصوى</th><th>الأستاذ</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     `;
@@ -93,6 +95,7 @@ const StudentUI = {
       <tr>
         <td><strong>${g.subject_name}</strong></td>
         <td>${g.assessment_title} (${g.assessment_type === 'exam' ? 'امتحان' : 'واجب'})</td>
+        <td>${this._escape(g.program_name || "-")} / ${this._escape(g.class_name || "-")}</td>
         <td style="direction: ltr; text-align: right; font-weight: bold; color: ${g.grade_value >= (g.max_grade/2) ? 'green' : 'red'};">${g.grade_value} / ${g.max_grade}</td>
         <td>${g.teacher_name}</td>
         <td>${g.teacher_remarks || "-"}</td>
@@ -101,7 +104,7 @@ const StudentUI = {
     main.innerHTML = `
       <h2>كشف النقاط والعلامات</h2>
       <table>
-        <thead><tr><th>المادة</th><th>التقييم</th><th>العلامة</th><th>الأستاذ</th><th>ملاحظات</th></tr></thead>
+        <thead><tr><th>المادة</th><th>التقييم</th><th>البرنامج / الفوج</th><th>العلامة</th><th>الأستاذ</th><th>ملاحظات</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     `;
@@ -120,6 +123,7 @@ const StudentUI = {
       return `
       <tr>
         <td>${r.date}</td>
+        <td>${this._escape(r.class_name || "-")}</td>
         <td style="font-weight:bold; ${statusColor}">${statusAr}</td>
         <td>${r.is_justified ? 'نعم (' + (r.justification_reason || '') + ')' : 'لا'}</td>
       </tr>
@@ -128,7 +132,7 @@ const StudentUI = {
     main.innerHTML = `
       <h2>سجل الحضور والغياب</h2>
       <table>
-        <thead><tr><th>التاريخ</th><th>الحالة</th><th>مُبرر؟</th></tr></thead>
+        <thead><tr><th>التاريخ</th><th>الفوج</th><th>الحالة</th><th>مُبرر؟</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     `;
@@ -165,7 +169,7 @@ const StudentUI = {
     }
     const rows = fees.map(f => `
       <tr>
-        <td>${f.fee_type} ${f.program_name ? '('+f.program_name+')' : ''}</td>
+        <td>${f.fee_type} ${f.program_name ? '('+f.program_name+')' : ''} ${f.class_name ? '- '+f.class_name : ''}</td>
         <td>${f.amount_due} DZD</td>
         <td>${f.applied_discount} DZD</td>
         <td style="font-weight: bold; color: #0f172a;">${f.net_amount} DZD</td>

@@ -32,7 +32,15 @@ AdminUI.renderAcademicTab = async function() {
         const totalTeachers = teachers.length;
         const occupancy = occupancyRes.data || occupancyRes || [];
         const totalClasses = occupancy.length;
-        const getStudentCount = (cls) => Number(cls.student_count ?? cls.students_count ?? cls.current_occupancy ?? cls.occupied ?? cls.enrolled_count ?? 0) || 0;
+        const getStudentCount = (cls) => Number(
+            cls.current_student_count ??
+            cls.student_count ??
+            cls.students_count ??
+            cls.current_occupancy ??
+            cls.occupied ??
+            cls.enrolled_count ??
+            0
+        ) || 0;
         const getCapacity = (cls) => Number(cls.capacity ?? 0) || 0;
 
         // حساب معدل الإشغال العام في المدرسة
@@ -112,7 +120,10 @@ AdminUI.renderAcademicTab = async function() {
             const color = percent >= 95 ? '#ef4444' : (percent >= 80 ? '#f59e0b' : '#10b981');
             return `
             <tr style="border-bottom: 1px solid #f1f5f9;">
-                <td style="padding: 12px; font-weight: bold; color: #0f172a;">${this._escape(cls.class_name)}</td>
+                <td style="padding: 12px; font-weight: bold; color: #0f172a;">
+                    ${this._escape(cls.class_name)}
+                    ${cls.program_name ? `<div style="color:#2563eb; font-size:.85em; margin-top:3px;">${this._escape(cls.program_name)}</div>` : ""}
+                </td>
                 <td style="padding: 12px; text-align: left;">
                     <div style="display: flex; align-items: center; justify-content: flex-end; gap: 10px;">
                         <span style="font-size: 0.85em; font-weight: bold; color: #475569;">إشغال: ${studentCount} / ${capacity > 0 ? capacity : "∞"}</span>
@@ -129,7 +140,7 @@ AdminUI.renderAcademicTab = async function() {
         }
 
         // ب. خيارات الفصول لـ "مراقب الغياب السريع"
-        const classOptions = occupancy.map(c => `<option value="${c.class_id || c.id}">${this._escape(c.class_name)}</option>`).join("");
+        const classOptions = occupancy.map(c => `<option value="${c.class_id || c.id}">${this._escape((c.program_name ? c.program_name + " - " : "") + c.class_name)}</option>`).join("");
 
         const bottomWidgetsHtml = `
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">

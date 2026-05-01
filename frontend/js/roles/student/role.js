@@ -32,8 +32,20 @@ const StudentRole = {
         throw new Error("حسابك غير مسجل كطالب في قاعدة البيانات أو لم يتم تعيين قسم لك بعد. تواصل مع الإدارة.");
       }
 
-      this.studentId = studentProfile.id || studentProfile.student_id;
-      this.classId = studentProfile.class_id;
+      const studentId = studentProfile.id || studentProfile.student_id;
+      let fullStudentProfile = studentProfile;
+
+      if (studentId) {
+        try {
+          const details = await StudentServices.getStudentById(studentId);
+          fullStudentProfile = { ...studentProfile, ...(details || {}) };
+        } catch (detailsErr) {
+          console.warn("تعذر جلب تفاصيل الطالب الكاملة:", detailsErr);
+        }
+      }
+
+      this.studentId = fullStudentProfile.id || fullStudentProfile.student_id || studentId;
+      this.classId = fullStudentProfile.class_id || fullStudentProfile.legacy_class_id || studentProfile.class_id || null;
 
       console.log("✅ تم تحديد المعرفات بنجاح!", { studentId: this.studentId, classId: this.classId });
 
@@ -102,12 +114,12 @@ const StudentRole = {
     try {
       switch (section) {
         case "schedule": {
-          const schedule = await StudentServices.getMySchedule(this.classId);
+          const schedule = await StudentServices.getMySchedule(this.studentId);
           StudentUI.renderSchedule(schedule);
           break;
         }
         case "assessments": {
-          const assessments = await StudentServices.getMyAssessments(this.classId);
+          const assessments = await StudentServices.getMyAssessments(this.studentId);
           StudentUI.renderAssessments(assessments);
           break;
         }

@@ -41,7 +41,7 @@ const AdminRole = {
           await AdminUI.renderAcademicTab(); 
           break;
         case "classes": 
-          AdminUI.renderClassesTab(await AdminServices.getClasses()); 
+          await AdminUI.renderClassesTab(await AdminServices.getClasses());
           break;
         case "students": 
           AdminUI.renderStudentsTab(await AdminServices.getStudents()); 
@@ -68,7 +68,7 @@ const AdminRole = {
           await AdminUI.renderFinanceTab(); 
           break;
         case "studentFees": 
-          AdminUI.renderFeesTab(await AdminServices.getStudentFees()); 
+          await AdminUI.renderFeesTab(await AdminServices.getStudentFees());
           break;
         case "payments": 
           AdminUI.renderPaymentsTab(await AdminServices.getPayments()); 

@@ -56,6 +56,77 @@ const AdminUI = {
     
     document.getElementById("user-info").innerText = `حساب: ${session.role}`;
     document.getElementById("logout-btn").addEventListener("click", () => Auth.logout());
+    this.bindShellControls();
+    this.setupResponsiveTables();
+  },
+
+  bindShellControls() {
+    const toggle = document.getElementById("admin-menu-toggle");
+    const backdrop = document.getElementById("admin-sidebar-backdrop");
+    if (!toggle || toggle.dataset.bound === "true") return;
+
+    const setOpen = (open) => {
+      document.body.classList.toggle("sidebar-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+
+    toggle.addEventListener("click", () => {
+      setOpen(!document.body.classList.contains("sidebar-open"));
+    });
+
+    if (backdrop) {
+      backdrop.addEventListener("click", () => setOpen(false));
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setOpen(false);
+    });
+
+    toggle.dataset.bound = "true";
+  },
+
+  closeMobileSidebar() {
+    document.body.classList.remove("sidebar-open");
+    const toggle = document.getElementById("admin-menu-toggle");
+    if (toggle) toggle.setAttribute("aria-expanded", "false");
+  },
+
+  setupResponsiveTables() {
+    const main = document.getElementById("admin-main");
+    if (!main || main.dataset.responsiveTablesBound === "true") return;
+
+    const enhance = () => this.enhanceResponsiveTables(main);
+    const observer = new MutationObserver(enhance);
+    observer.observe(main, { childList: true, subtree: true });
+    main.dataset.responsiveTablesBound = "true";
+    requestAnimationFrame(enhance);
+  },
+
+  enhanceResponsiveTables(root = document) {
+    root.querySelectorAll("table").forEach(table => {
+      if (table.closest(".md-body, .tbl-mini-preview")) return;
+
+      const headers = Array.from(table.querySelectorAll("thead th"))
+        .map(th => th.textContent.replace(/\s+/g, " ").trim());
+      if (!headers.length) return;
+
+      table.classList.add("admin-auto-mobile-table");
+      table.querySelectorAll("tbody tr").forEach(row => {
+        Array.from(row.children).forEach((cell, index) => {
+          if (cell.tagName !== "TD") return;
+          if (cell.colSpan && cell.colSpan > 1) {
+            cell.classList.add("admin-empty-cell");
+            return;
+          }
+          if (!cell.getAttribute("data-label") && headers[index]) {
+            cell.setAttribute("data-label", headers[index]);
+          }
+          if (/إجراءات|الأبناء|Actions/i.test(headers[index] || "")) {
+            cell.classList.add("admin-actions-cell");
+          }
+        });
+      });
+    });
   },
 
   renderNav(activeSection) {
@@ -78,6 +149,7 @@ const AdminUI = {
 
     nav.querySelectorAll(".nav-btn").forEach(btn => {
         btn.addEventListener("click", () => {
+            this.closeMobileSidebar();
             window.location.hash = btn.dataset.section;
         });
     });

@@ -17,7 +17,10 @@ AdminUI.renderAttendanceTab = async function() {
         console.error("فشل في جلب الفصول", err);
     }
 
-    const classOptions = classes.map(c => `<option value="${c.class_id || c.id}">${this._escape(c.class_name)} (${this._escape(c.level || "عام")})</option>`).join("");
+    const classOptions = classes.map(c => {
+        const programLabel = c.program_name ? `${c.program_name} - ` : "";
+        return `<option value="${c.class_id || c.id}">${this._escape(programLabel + c.class_name)} (${this._escape(c.level || "عام")})</option>`;
+    }).join("");
     const today = new Date().toISOString().split('T')[0];
 
     // الهيكل الأساسي للصفحة
@@ -244,6 +247,7 @@ AdminUI.loadClassSheet = async function() {
 };
 
 AdminUI.saveSingleAttendance = async function(studentId, targetDate) {
+    const classId = document.getElementById("attendance-class-select")?.value || null;
     const status = document.getElementById(`status-${studentId}`).value;
     const reason = document.getElementById(`reason-${studentId}`).value.trim();
     const isJustified = reason.length > 0;
@@ -251,6 +255,7 @@ AdminUI.saveSingleAttendance = async function(studentId, targetDate) {
     try {
         await Api.post("/attendance/", {
             student_id: studentId,
+            class_id: classId ? parseInt(classId) : null,
             target_date: targetDate,
             status: status,
             is_justified: isJustified,
@@ -277,11 +282,13 @@ AdminUI.saveAllAttendance = async function(targetDate) {
 
     const promises = Array.from(rows).map(row => {
         const studentId = row.dataset.studentid;
+        const classId = document.getElementById("attendance-class-select")?.value || null;
         const status = document.getElementById(`status-${studentId}`).value;
         const reason = document.getElementById(`reason-${studentId}`).value.trim();
         
         return Api.post("/attendance/", {
             student_id: parseInt(studentId),
+            class_id: classId ? parseInt(classId) : null,
             target_date: targetDate,
             status: status,
             is_justified: reason.length > 0,
@@ -342,6 +349,7 @@ AdminUI.loadStudentAttendance = async function() {
             return `
             <tr style="border-bottom: 1px solid #e2e8f0; background: ${isAbsent && !r.is_justified ? '#fef2f2' : 'transparent'};">
                 <td style="padding: 15px; font-weight: bold; direction: ltr; text-align: right; color: #475569;">${this._escape(r.date || r.target_date)}</td>
+                <td style="padding: 15px; color: #334155;">${this._escape(r.class_name || "-")}</td>
                 <td style="padding: 15px; font-weight: bold; color: ${statusColor};">${statusLabel}</td>
                 <td style="padding: 15px;">
                     <span style="background: ${r.is_justified ? '#dcfce7' : '#fee2e2'}; color: ${r.is_justified ? '#166534' : '#991b1b'}; padding: 4px 10px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">
@@ -368,6 +376,7 @@ AdminUI.loadStudentAttendance = async function() {
                     <thead style="background: #f8fafc;">
                         <tr>
                             <th style="padding: 15px;">التاريخ</th>
+                            <th style="padding: 15px;">الفوج</th>
                             <th style="padding: 15px;">الحالة</th>
                             <th style="padding: 15px;">التبرير الإداري</th>
                             <th style="padding: 15px;">السبب / ملاحظات</th>

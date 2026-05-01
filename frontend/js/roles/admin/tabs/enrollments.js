@@ -10,8 +10,8 @@ AdminUI.renderEnrollmentsTab = function(response) {
 
     // 1. شريط الأدوات العُلوي
     main.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); gap: 15px; flex-wrap: wrap;">
-            <div style="display: flex; gap: 10px; flex: 1; min-width: 300px;">
+        <div class="admin-page-toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); gap: 15px; flex-wrap: wrap;">
+            <div class="admin-toolbar-search" style="display: flex; gap: 10px; flex: 1; min-width: 300px;">
                 <select id="enrollment-status-filter" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; background: #f8fafc; font-weight: bold; color: #334155;" onchange="AdminUI.filterEnrollments()">
                     <option value="">-- تصفية حسب الحالة (الكل) --</option>
                     <option value="active">🟢 نشط</option>
@@ -50,8 +50,15 @@ AdminUI.renderEnrollmentsTab = function(response) {
 
                 <div style="margin-top: 15px;">
                     <label style="display: block; margin-bottom: 6px; font-weight: bold; color: #334155;">البرنامج / الفصل الدراسي *</label>
-                    <select id="modal-enroll-program" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; background: #f8fafc;">
+                    <select id="modal-enroll-program" onchange="AdminUI.updateEnrollmentClassOptions(this.value)" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; background: #f8fafc;">
                         <option value="">جاري تحميل البرامج...</option>
+                    </select>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <label style="display: block; margin-bottom: 6px; font-weight: bold; color: #334155;">الفوج / القسم *</label>
+                    <select id="modal-enroll-class" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; background: #f8fafc;">
+                        <option value="">-- اختر البرنامج أولاً --</option>
                     </select>
                 </div>
 
@@ -100,7 +107,8 @@ AdminUI._generateEnrollmentsTableHtml = function(enrollments) {
             </td>
             <td style="padding: 15px;">
                 <div style="color: #0f172a; font-weight: bold;">${this._escape(e.program_name || "برنامج #" + e.program_id)}</div>
-                <div style="color: #0369a1; font-size: 0.85em; margin-top: 3px;">الفوج: ${this._escape(e.group_name || "عام")}</div>
+                <div style="color: #334155; font-size: 0.85em; margin-top: 3px;">الفوج: ${this._escape(e.class_name || "غير محدد")}</div>
+                <div style="color: #0369a1; font-size: 0.85em; margin-top: 3px;">المجموعة: ${this._escape(e.group_name || "عام")}</div>
             </td>
             <td style="padding: 15px; color: #475569; font-size: 0.9em; direction: ltr; text-align: right;">
                 ${this._escape(e.enrollment_date || "-")}
@@ -126,7 +134,7 @@ AdminUI._generateEnrollmentsTableHtml = function(enrollments) {
             <div style="padding: 12px 15px; background: #f8fafc; border-bottom: 2px solid #e2e8f0; font-size: 0.9em; color: #475569;">
                 إجمالي السجلات المعروضة: <strong style="color: #0f172a;">${enrollments.length}</strong>
             </div>
-            <div style="overflow-x: auto;">
+            <div class="admin-mobile-table" style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; text-align: right;">
                     <thead style="background: #f8fafc; border-bottom: 2px solid #cbd5e1;">
                         <tr>
@@ -200,37 +208,69 @@ AdminUI.showAddEnrollmentModal = async function() {
     
     const studentSelect = document.getElementById("modal-enroll-student");
     const programSelect = document.getElementById("modal-enroll-program");
+    const classSelect = document.getElementById("modal-enroll-class");
 
     studentSelect.innerHTML = '<option value="">جاري التحميل...</option>';
     programSelect.innerHTML = '<option value="">جاري التحميل...</option>';
+    classSelect.innerHTML = '<option value="">-- اختر البرنامج أولاً --</option>';
 
     try {
         // 💡 التعديل هنا: جلب البيانات من مسار البرامج الصحيح بدلاً من الفصول
-        const [studentsRes, programsRes] = await Promise.all([
+        const [studentsRes, programsRes, classesRes] = await Promise.all([
             Api.get("/students/"),
-            Api.get("/programs/") // تم تصحيح المسار ليتطابق مع جدول قاعدة البيانات
+            Api.get("/programs/"),
+            Api.get("/classes/")
         ]);
 
         const students = studentsRes.data || studentsRes || [];
         const programs = programsRes.data || programsRes || [];
+        const classes = classesRes.data || classesRes || [];
+        this._enrollmentClasses = classes;
 
         studentSelect.innerHTML = '<option value="">-- يرجى اختيار الطالب --</option>' + 
             students.map(s => `<option value="${s.student_id || s.id}">${this._escape(s.full_name || s.student_name)} (#${s.student_id || s.id})</option>`).join("");
 
         programSelect.innerHTML = '<option value="">-- يرجى اختيار البرنامج الدراسي --</option>' + 
             programs.map(p => `<option value="${p.id || p.program_id}">${this._escape(p.program_name)}</option>`).join("");
+        this.updateEnrollmentClassOptions("");
 
     } catch (err) {
         studentSelect.innerHTML = '<option value="">❌ فشل جلب البيانات</option>';
         programSelect.innerHTML = '<option value="">❌ تأكد من وجود مسار /programs/</option>';
+        classSelect.innerHTML = '<option value="">❌ فشل جلب الأفواج</option>';
         console.error(err);
     }
 };
+
+AdminUI.updateEnrollmentClassOptions = function(programId) {
+    const classSelect = document.getElementById("modal-enroll-class");
+    if (!classSelect) return;
+
+    const classes = this._enrollmentClasses || [];
+    const filtered = programId
+        ? classes.filter(c => String(c.program_id || "") === String(programId))
+        : [];
+
+    if (!programId) {
+        classSelect.innerHTML = '<option value="">-- اختر البرنامج أولاً --</option>';
+        return;
+    }
+
+    if (filtered.length === 0) {
+        classSelect.innerHTML = '<option value="">لا توجد أفواج لهذا البرنامج</option>';
+        return;
+    }
+
+    classSelect.innerHTML = '<option value="">-- يرجى اختيار الفوج --</option>' +
+        filtered.map(c => `<option value="${c.class_id || c.id}">${this._escape(c.class_name)} (${this._escape(c.level || "عام")})</option>`).join("");
+};
+
 AdminUI.closeEnrollmentModal = function() {
     document.getElementById("add-enrollment-modal").style.display = "none";
     // تفريغ الحقول
     document.getElementById("modal-enroll-student").value = "";
     document.getElementById("modal-enroll-program").value = "";
+    document.getElementById("modal-enroll-class").value = "";
     document.getElementById("modal-enroll-group").value = "";
     document.getElementById("modal-enroll-notes").value = "";
 };
@@ -238,11 +278,12 @@ AdminUI.closeEnrollmentModal = function() {
 AdminUI.submitNewEnrollment = async function() {
     const studentId = document.getElementById("modal-enroll-student").value;
     const programId = document.getElementById("modal-enroll-program").value;
+    const classId = document.getElementById("modal-enroll-class").value;
     const groupName = document.getElementById("modal-enroll-group").value.trim();
     const notes = document.getElementById("modal-enroll-notes").value.trim();
 
-    if (!studentId || !programId) {
-        alert("يرجى التأكد من اختيار الطالب والبرنامج الدراسي.");
+    if (!studentId || !programId || !classId) {
+        alert("يرجى التأكد من اختيار الطالب والبرنامج والفوج.");
         return;
     }
 
@@ -250,6 +291,7 @@ AdminUI.submitNewEnrollment = async function() {
         await Api.post("/enrollments/", {
             student_id: parseInt(studentId),
             program_id: parseInt(programId),
+            class_id: parseInt(classId),
             group_name: groupName || null,
             notes: notes || null,
             status: 'active',

@@ -16,11 +16,31 @@ AdminUI.renderClassesTab = async function(classesData) {
         console.error("فشل في جلب بيانات الإشغال:", err);
     }
 
+    let programs = [];
+    try {
+        const programsRes = await AdminServices.getPrograms();
+        programs = programsRes.data || programsRes || [];
+    } catch (err) {
+        console.error("فشل في جلب البرامج:", err);
+    }
+
+    const getCapacity = (cls) => Number(cls.capacity ?? 0) || 0;
+    const getStudentCount = (cls) => Number(
+        cls.current_student_count ??
+        cls.student_count ??
+        cls.students_count ??
+        cls.current_occupancy ??
+        cls.occupied ??
+        cls.enrolled_count ??
+        0
+    ) || 0;
+
     // 2. تصميم قسم الإحصائيات السريعة (مراقبة السعة لكل فصل)
     const occupancyCards = occupancy.map(cls => {
-        const capacity = cls.capacity || 0;
-        const studentCount = cls.student_count || 0;
+        const capacity = getCapacity(cls);
+        const studentCount = getStudentCount(cls);
         const percent = capacity > 0 ? Math.round((studentCount / capacity) * 100) : 0;
+        const progressWidth = Math.min(percent, 100);
         
         // تحديد اللون حسب نسبة الامتلاء
         const statusColor = percent >= 95 ? '#ef4444' : (percent >= 80 ? '#f59e0b' : '#10b981');
@@ -32,13 +52,14 @@ AdminUI.renderClassesTab = async function(classesData) {
                     <h4 style="margin: 0; color: #0f172a; font-size: 1.1em;">${this._escape(cls.class_name)}</h4>
                     <span style="font-size: 0.85em; color: #64748b; background: #f1f5f9; padding: 2px 8px; border-radius: 12px;">${this._escape(cls.level || "عام")}</span>
                 </div>
+                <div style="margin-top: 8px; color: #2563eb; font-size: 0.9em; font-weight: bold;">${this._escape(cls.program_name || "بدون برنامج")}</div>
                 <div style="margin-top: 15px;">
                     <div style="display: flex; justify-content: space-between; font-size: 0.9em; font-weight: bold; margin-bottom: 8px; color: #475569;">
                         <span>إشغال: ${studentCount} / ${capacity > 0 ? capacity : "∞"}</span>
                         <span style="color: ${statusColor};">${percent}%</span>
                     </div>
                     <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; overflow: hidden;">
-                        <div style="width: ${percent}%; height: 100%; background: ${statusColor}; transition: width 0.8s ease-in-out;"></div>
+                        <div style="width: ${progressWidth}%; height: 100%; background: ${statusColor}; transition: width 0.8s ease-in-out;"></div>
                     </div>
                 </div>
             </div>
@@ -47,6 +68,9 @@ AdminUI.renderClassesTab = async function(classesData) {
 
     // 3. استخراج قائمة الفصول لجدول التفاصيل
     const classesList = classesData.data || classesData || [];
+    const programOptions = programs.map(p =>
+        `<option value="${p.id || p.program_id}">${this._escape(p.program_name)}</option>`
+    ).join("");
 
     // 4. بناء الهيكل الرئيسي للصفحة مع النافذة المنبثقة (Modal) المدمجة
     main.innerHTML = `
@@ -77,6 +101,7 @@ AdminUI.renderClassesTab = async function(classesData) {
                         <tr>
                             <th style="padding: 15px; color: #475569;">رقم الفصل</th>
                             <th style="padding: 15px; color: #475569;">الاسم الأكاديمي</th>
+                            <th style="padding: 15px; color: #475569;">البرنامج</th>
                             <th style="padding: 15px; color: #475569;">المستوى الدراسي</th>
                             <th style="padding: 15px; color: #475569;">الفئة العمرية</th>
                             <th style="padding: 15px; color: #475569;">السعة القصوى</th>
@@ -88,6 +113,7 @@ AdminUI.renderClassesTab = async function(classesData) {
                             <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
                                 <td style="padding: 15px; font-weight: bold; color: #64748b;">#${c.class_id || c.id}</td>
                                 <td style="padding: 15px; font-weight: bold; color: #0f172a; font-size: 1.05em;">${this._escape(c.class_name)}</td>
+                                <td style="padding: 15px; color: #2563eb; font-weight: bold;">${this._escape(c.program_name || "-")}</td>
                                 <td style="padding: 15px; color: #334155;">${this._escape(c.level || "-")}</td>
                                 <td style="padding: 15px; color: #334155;">${this._escape(c.age_group || "-")}</td>
                                 <td style="padding: 15px;">
@@ -100,7 +126,7 @@ AdminUI.renderClassesTab = async function(classesData) {
                                     <button onclick="AdminRole.deleteItem('/classes', ${c.class_id || c.id}, 'classes')" title="حذف الفصل" style="background: #fef2f2; color: #dc2626; border: none; padding: 8px; border-radius: 6px; cursor: pointer; transition: 0.2s;">🗑️ حذف</button>
                                 </td>
                             </tr>
-                        `).join("") : `<tr><td colspan="6" style="text-align: center; padding: 30px; color: #64748b;">لا توجد فصول دراسية مسجلة حالياً.</td></tr>`}
+                        `).join("") : `<tr><td colspan="7" style="text-align: center; padding: 30px; color: #64748b;">لا توجد فصول دراسية مسجلة حالياً.</td></tr>`}
                     </tbody>
                 </table>
             </div>
@@ -115,6 +141,14 @@ AdminUI.renderClassesTab = async function(classesData) {
                 <input type="hidden" id="modal-class-id">
 
                 <div style="margin-top: 20px;">
+                    <label style="display: block; margin-bottom: 6px; font-weight: bold; color: #334155;">البرنامج</label>
+                    <select id="modal-class-program" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; box-sizing: border-box; background: #f8fafc;">
+                        <option value="">-- بدون برنامج --</option>
+                        ${programOptions}
+                    </select>
+                </div>
+
+                <div style="margin-top: 15px;">
                     <label style="display: block; margin-bottom: 6px; font-weight: bold; color: #334155;">اسم الفصل الأكاديمي *</label>
                     <input type="text" id="modal-class-name" placeholder="مثال: فصل أينشتاين (أ)" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; box-sizing: border-box;">
                 </div>
@@ -158,6 +192,7 @@ AdminUI.showClassModal = function(classData = null) {
 
     // تصفير الحقول دائماً
     document.getElementById("modal-class-id").value = "";
+    document.getElementById("modal-class-program").value = "";
     document.getElementById("modal-class-name").value = "";
     document.getElementById("modal-class-level").value = "";
     document.getElementById("modal-class-age").value = "";
@@ -167,6 +202,7 @@ AdminUI.showClassModal = function(classData = null) {
         // وضع التعديل (Edit Mode)
         title.innerHTML = "<span>✏️</span> تعديل بيانات الفصل";
         document.getElementById("modal-class-id").value = classData.id || classData.class_id;
+        document.getElementById("modal-class-program").value = classData.program_id || "";
         document.getElementById("modal-class-name").value = classData.class_name || "";
         document.getElementById("modal-class-level").value = classData.level || "";
         document.getElementById("modal-class-age").value = classData.age_group || "";
@@ -191,6 +227,7 @@ AdminUI.closeClassModal = function() {
  */
 AdminUI.submitClass = async function() {
     const id = document.getElementById("modal-class-id").value;
+    const programId = document.getElementById("modal-class-program").value;
     const className = document.getElementById("modal-class-name").value.trim();
     const level = document.getElementById("modal-class-level").value.trim();
     const ageGroup = document.getElementById("modal-class-age").value.trim();
@@ -204,6 +241,7 @@ AdminUI.submitClass = async function() {
 
     // تجهيز حزمة البيانات حسب ما يتطلبه الـ API
     const payload = {
+        program_id: programId ? parseInt(programId) : null,
         class_name: className,
         level: level || null,
         age_group: ageGroup || null,

@@ -4,7 +4,11 @@ const StudentServices = {
   async getStudentProfile(userId) {
     const response = await Api.get("/students/");
     const students = Array.isArray(response) ? response : (response?.data || []);
-    return students.find(s => s.user_id === userId);
+    return students.find(s => Number(s.user_id) === Number(userId));
+  },
+
+  async getStudentById(studentId) {
+    return await Api.get(`/students/${studentId}`);
   },
 
   async getMyGrades(studentId) {
@@ -15,15 +19,15 @@ const StudentServices = {
     return await Api.get(`/attendance/student/${studentId}`);
   },
 
-  async getMySchedule(classId) {
-    if (!classId) return [];
-    return await Api.get(`/schedules/class/${classId}`);
+  async getMySchedule(studentId) {
+    if (!studentId) return [];
+    return await Api.get(`/schedules/student/${studentId}`);
   },
 
-  async getMyAssessments(classId) {
-    if (!classId) return [];
+  async getMyAssessments(studentId) {
+    if (!studentId) return [];
     try {
-      return await Api.get(`/assessments/class/${classId}`);
+      return await Api.get(`/assessments/student/${studentId}`);
     } catch (e) {
       return []; 
     }

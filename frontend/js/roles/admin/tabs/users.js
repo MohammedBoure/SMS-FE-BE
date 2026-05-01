@@ -8,8 +8,8 @@ AdminUI.renderUsersTab = function(response) {
     
     // شريط الأدوات والنافذة المنبثقة
     main.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-            <div style="display: flex; gap: 10px; flex: 1;">
+        <div class="admin-page-toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+            <div class="admin-toolbar-search" style="display: flex; gap: 10px; flex: 1;">
                 <input type="text" id="user-search-input" placeholder="ابحث عن مستخدم (حرفين على الأقل)..." onkeyup="if(event.key === 'Enter') AdminUI.searchUsers()" style="padding: 10px; width: 300px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none;">
                 <button onclick="AdminUI.searchUsers()" style="background: #2563eb; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; transition: 0.2s;">🔍 بحث</button>
                 <button onclick="AdminUI.loadUsers()" style="background: #64748b; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; transition: 0.2s;" title="إعادة تحميل القائمة">🔄</button>
@@ -21,7 +21,7 @@ AdminUI.renderUsersTab = function(response) {
             </div>
         </div>
 
-        <div style="background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; min-height: 300px;">
+        <div class="admin-mobile-table" style="background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; min-height: 300px;">
             <table style="width: 100%; border-collapse: collapse; text-align: right;">
                 <thead style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
                     <tr>
@@ -34,7 +34,7 @@ AdminUI.renderUsersTab = function(response) {
                     </tr>
                 </thead>
                 <tbody id="users-table-body">
-                    <tr><td colspan="6" style="text-align: center; padding: 30px; color: #64748b;">جاري التحميل...</td></tr>
+                    <tr><td class="admin-empty-cell" colspan="6" style="text-align: center; padding: 30px; color: #64748b;">جاري التحميل...</td></tr>
                 </tbody>
             </table>
         </div>
@@ -51,8 +51,16 @@ AdminUI.renderUsersTab = function(response) {
                         <input type="text" id="modal-user-fullname" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;">
                     </div>
                     <div>
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em;">رقم الرتبة (Role ID) *</label>
-                        <input type="number" id="modal-user-role" placeholder="مثال: 1" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em;">الرتبة (Role) *</label>
+                        <select id="modal-user-role" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; background: white;">
+                            <option value="" disabled selected>Select Role</option>
+                            <option value="1">admin</option>
+                            <option value="2">receptionist</option>
+                            <option value="3">student</option>
+                            <option value="4">parent</option>
+                            <option value="5">accountant</option>
+                            <option value="6">teacher</option>
+                        </select>
                     </div>
                 </div>
 
@@ -109,7 +117,7 @@ AdminUI.populateUsersTable = function(response) {
     const users = response.data || response || [];
 
     if (!users || users.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 40px; color: #64748b;">لا يوجد مستخدمين لعرضهم.</td></tr>`;
+        tbody.innerHTML = `<tr><td class="admin-empty-cell" colspan="6" style="text-align:center; padding: 40px; color: #64748b;">لا يوجد مستخدمين لعرضهم.</td></tr>`;
         return;
     }
 
@@ -122,22 +130,22 @@ AdminUI.populateUsersTable = function(response) {
 
         return `
         <tr style="border-bottom: 1px solid #f1f5f9; transition: 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
-            <td style="padding: 12px 15px; color: #64748b; font-weight: bold;">#${this._escape(u.id)}</td>
-            <td style="padding: 12px 15px;">
+            <td data-label="الرقم" style="padding: 12px 15px; color: #64748b; font-weight: bold;">#${this._escape(u.id)}</td>
+            <td data-label="الاسم الكامل" style="padding: 12px 15px;">
                 <div style="font-weight: bold; color: #0f172a;">${this._escape(u.full_name)}</div>
                 <div style="font-size: 0.85em; color: #64748b;">رتبة ID: ${this._escape(u.role_id)}</div>
             </td>
-            <td style="padding: 12px 15px; color: #0369a1; font-weight: bold;">@${this._escape(u.username)}</td>
-            <td style="padding: 12px 15px; font-size: 0.9em; color: #475569;">
+            <td data-label="اسم المستخدم" style="padding: 12px 15px; color: #0369a1; font-weight: bold;">@${this._escape(u.username)}</td>
+            <td data-label="التواصل" style="padding: 12px 15px; font-size: 0.9em; color: #475569;">
                 <div>📞 ${this._escape(u.phone || '-')}</div>
                 <div>✉️ ${this._escape(u.email || '-')}</div>
             </td>
-            <td style="padding: 12px 15px;">
+            <td data-label="الحالة" style="padding: 12px 15px;">
                 <span style="background: ${statusColor}20; color: ${statusColor}; padding: 4px 10px; border-radius: 20px; font-size: 0.85em; font-weight: bold;">
                     ${statusText}
                 </span>
             </td>
-            <td style="padding: 12px 15px; text-align: center;">
+            <td class="admin-actions-cell" data-label="الإجراءات" style="padding: 12px 15px; text-align: center;">
                 <button onclick="AdminUI.toggleUserStatus(${u.id}, ${u.is_active})" title="${statusActionTitle}" style="background: none; border: none; cursor: pointer; font-size: 1.2em; margin: 0 3px;">${statusActionIcon}</button>
                 <button onclick='AdminUI.showUserModal(${JSON.stringify(u).replace(/'/g, "&apos;")})' title="تعديل" style="background: none; border: none; cursor: pointer; font-size: 1.2em; color: #eab308; margin: 0 3px;">✏️</button>
                 <button onclick="AdminUI.deleteUserItem(${u.id})" title="حذف" style="background: none; border: none; cursor: pointer; font-size: 1.2em; color: #ef4444; margin: 0 3px;">🗑️</button>
@@ -150,7 +158,7 @@ AdminUI.populateUsersTable = function(response) {
 
 AdminUI.loadUsers = async function() {
     try {
-        document.getElementById("users-table-body").innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px;">جاري التحديث... ⏳</td></tr>`;
+        document.getElementById("users-table-body").innerHTML = `<tr><td class="admin-empty-cell" colspan="6" style="text-align:center; padding: 20px;">جاري التحديث... ⏳</td></tr>`;
         const response = await Api.get("/users/");
         this.populateUsersTable(response);
     } catch (err) {
@@ -170,7 +178,7 @@ AdminUI.searchUsers = async function() {
     }
 
     try {
-        document.getElementById("users-table-body").innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 20px;">جاري البحث... 🔍</td></tr>`;
+        document.getElementById("users-table-body").innerHTML = `<tr><td class="admin-empty-cell" colspan="6" style="text-align:center; padding: 20px;">جاري البحث... 🔍</td></tr>`;
         const response = await Api.get(`/users/search?keyword=${encodeURIComponent(keyword)}`);
         this.populateUsersTable(response);
     } catch (err) {
@@ -202,14 +210,12 @@ AdminUI.deleteUserItem = async function(userId) {
     }
 };
 
-// --- دوال النافذة المنبثقة (Modal) ---
-
 AdminUI.showUserModal = function(user = null) {
     const modal = document.getElementById("user-modal");
     const title = document.getElementById("user-modal-title");
     const passHint = document.getElementById("password-hint");
     
-    // تصفير الحقول
+    // Reset all form fields
     document.getElementById("modal-user-id").value = "";
     document.getElementById("modal-user-fullname").value = "";
     document.getElementById("modal-user-username").value = "";
@@ -221,10 +227,10 @@ AdminUI.showUserModal = function(user = null) {
     document.getElementById("modal-user-active").checked = true;
 
     if (user) {
-        // وضع التعديل (Edit Mode)
-        title.innerText = "تعديل بيانات المستخدم";
-        passHint.style.display = "block"; // إظهار تلميح كلمة المرور
-        
+        // Edit Mode
+        title.innerText = "Edit User";
+        passHint.style.display = "block";
+
         document.getElementById("modal-user-id").value = user.id;
         document.getElementById("modal-user-fullname").value = user.full_name || "";
         document.getElementById("modal-user-username").value = user.username || "";
@@ -234,8 +240,8 @@ AdminUI.showUserModal = function(user = null) {
         document.getElementById("modal-user-address").value = user.address || "";
         document.getElementById("modal-user-active").checked = user.is_active;
     } else {
-        // وضع الإضافة (Add Mode)
-        title.innerText = "إضافة مستخدم جديد";
+        // Add Mode
+        title.innerText = "Add New User";
         passHint.style.display = "none";
     }
 
@@ -253,15 +259,15 @@ AdminUI.submitUser = async function() {
     const password = document.getElementById("modal-user-password").value;
     const roleId = document.getElementById("modal-user-role").value;
     
-    // التحقق من الحقول الإجبارية
+    // Validate required fields
     if (!fullName || !username || !roleId) {
-        alert("يرجى تعبئة الحقول الإجبارية (الاسم الكامل، اسم المستخدم، ورقم الرتبة).");
+        alert("Please fill in all required fields (Full Name, Username, and Role).");
         return;
     }
 
-    // إذا كانت إضافة جديدة، فكلمة المرور إجبارية
+    // Password is required for new users
     if (!id && !password) {
-        alert("يرجى إدخال كلمة المرور للمستخدم الجديد.");
+        alert("Please provide a password for the new user.");
         return;
     }
 
@@ -275,26 +281,23 @@ AdminUI.submitUser = async function() {
         is_active: document.getElementById("modal-user-active").checked
     };
 
-    // إضافة كلمة المرور للطلب فقط إذا تم إدخالها
     if (password) {
         payload.password = password;
     }
 
     try {
         if (id) {
-            // مسار التحديث
             await Api.put(`/users/${id}`, payload);
-            alert("تم تحديث بيانات المستخدم بنجاح.");
+            alert("User updated successfully.");
         } else {
-            // مسار الإنشاء
             await Api.post("/users/", payload);
-            alert("تم إنشاء المستخدم بنجاح.");
+            alert("User created successfully.");
         }
         
         this.closeUserModal();
-        this.loadUsers(); // تحديث الجدول
+        this.loadUsers();
 
     } catch (err) {
-        alert("حدث خطأ أثناء حفظ البيانات: " + (err.message || "تأكد من عدم تكرار اسم المستخدم."));
+        alert("Error saving data: " + (err.message || "Please check for duplicate usernames."));
     }
 };

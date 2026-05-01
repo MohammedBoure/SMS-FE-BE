@@ -58,8 +58,8 @@ AdminUI.renderFeesTab = async function(feesData) {
 
     // 5. شريط البحث والفلترة
     const filterBar = `
-        <div style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-            <div style="display: flex; align-items: center; gap: 8px;">
+        <div class="admin-page-toolbar" style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+            <div class="admin-mobile-stack" style="display: flex; align-items: center; gap: 8px;">
                 <label style="font-weight: bold; color: #334155;">النوع:</label>
                 <select id="fee-type-filter" onchange="AdminUI.filterFeesFromBackend()" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; font-weight: bold; outline: none;">
                     <option value="">الكل</option>
@@ -69,10 +69,10 @@ AdminUI.renderFeesTab = async function(feesData) {
                     <option value="exam">رسوم امتحانات</option>
                 </select>
             </div>
-            <div style="flex: 1; min-width: 250px;">
+            <div class="admin-toolbar-search" style="flex: 1; min-width: 250px;">
                 <input type="text" id="fee-search-input" placeholder="بحث سريع باسم أو رقم الطالب..." onkeyup="AdminUI.searchFeesLocal(this.value)" style="width: 100%; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-weight: bold; box-sizing: border-box;">
             </div>
-            <div style="display: flex; gap: 10px;">
+            <div class="admin-mobile-stack" style="display: flex; gap: 10px;">
                 <button onclick="AdminUI.loadOverdueOnly()" style="background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s;">⚠️ المتأخرات فقط</button>
                 <button onclick="AdminRole.loadSection('studentFees')" style="background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s;">🔄 تحديث</button>
             </div>
@@ -103,6 +103,13 @@ AdminUI.renderFeesTab = async function(feesData) {
                         <input type="hidden" id="modal-fee-student-id">
                         <div id="modal-fee-student-dropdown" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #cbd5e1; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); max-height: 150px; overflow-y: auto; z-index: 10; margin-top: 5px;"></div>
                     </div>
+                </div>
+
+                <div id="modal-fee-enrollment-section" style="margin-top: 15px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #334155;">التسجيل / البرنامج *</label>
+                    <select id="modal-fee-enrollment" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; background: #f8fafc;">
+                        <option value="">-- اختر الطالب أولاً --</option>
+                    </select>
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
@@ -150,7 +157,7 @@ AdminUI.renderFeesTab = async function(feesData) {
                     <button onclick="AdminUI.closePaymentsModal()" style="background: #f1f5f9; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; font-size: 1.2em; color: #64748b;">&times;</button>
                 </div>
                 
-                <div style="overflow-y: auto; flex: 1; margin-bottom: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+                <div class="admin-mobile-table" style="overflow-y: auto; flex: 1; margin-bottom: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
                     <table style="width: 100%; border-collapse: collapse; text-align: right;">
                         <thead style="background: #f8fafc; position: sticky; top: 0;">
                             <tr>
@@ -208,6 +215,7 @@ AdminUI._generateFeesTableHtml = function(fees) {
             <td style="padding: 15px;">
                 <div style="font-weight: bold; color: #0f172a; font-size: 1.05em;">${this._escape(f.student_name || "طالب #" + f.student_id)}</div>
                 <small style="color: #64748b;">ID: ${f.student_id}</small>
+                <div style="margin-top: 5px; color: #2563eb; font-size: 0.85em; font-weight: bold;">${this._escape(f.program_name || "-")} / ${this._escape(f.class_name || "-")}</div>
             </td>
             <td style="padding: 15px; font-weight: bold; color: #334155;">
                 ${typeLabels[f.fee_type] || f.fee_type}
@@ -239,7 +247,7 @@ AdminUI._generateFeesTableHtml = function(fees) {
             <div style="padding: 15px; background: #f8fafc; border-bottom: 2px solid #e2e8f0; font-size: 0.95em; color: #475569;">
                 إجمالي السجلات المعروضة: <strong style="color: #0f172a;">${fees.length}</strong>
             </div>
-            <div style="overflow-x: auto;">
+            <div class="admin-mobile-table" style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; text-align: right;">
                     <thead style="background: #f8fafc; border-bottom: 2px solid #cbd5e1;">
                         <tr>
@@ -305,10 +313,12 @@ AdminUI.showFeeModal = function(feeData = null) {
     const modal = document.getElementById("fee-modal");
     const title = document.getElementById("fee-modal-title");
     const studentSection = document.getElementById("modal-student-section");
+    const enrollmentSection = document.getElementById("modal-fee-enrollment-section");
 
     document.getElementById("modal-fee-id").value = "";
     document.getElementById("modal-fee-student-id").value = "";
     document.getElementById("modal-fee-student-search").value = "";
+    document.getElementById("modal-fee-enrollment").innerHTML = '<option value="">-- اختر الطالب أولاً --</option>';
     document.getElementById("modal-fee-type").value = "tuition";
     document.getElementById("modal-fee-amount").value = "0";
     document.getElementById("modal-fee-discount").value = "0";
@@ -322,9 +332,11 @@ AdminUI.showFeeModal = function(feeData = null) {
         document.getElementById("modal-fee-discount").value = feeData.applied_discount || 0;
         if (feeData.due_date) document.getElementById("modal-fee-due-date").value = feeData.due_date;
         studentSection.style.display = "none";
+        enrollmentSection.style.display = "none";
     } else {
         title.innerHTML = "<span>💰</span> إضافة رسم جديد";
         studentSection.style.display = "block";
+        enrollmentSection.style.display = "block";
     }
 
     modal.style.display = "flex";
@@ -337,6 +349,7 @@ AdminUI.closeFeeModal = function() {
 AdminUI.submitFee = async function() {
     const id = document.getElementById("modal-fee-id").value;
     const studentId = document.getElementById("modal-fee-student-id").value;
+    const enrollmentId = document.getElementById("modal-fee-enrollment").value;
     const type = document.getElementById("modal-fee-type").value;
     const amount = parseInt(document.getElementById("modal-fee-amount").value) || 0;
     const discount = parseInt(document.getElementById("modal-fee-discount").value) || 0;
@@ -344,6 +357,9 @@ AdminUI.submitFee = async function() {
 
     if (!id && !studentId) {
         this.showToast("❌ يرجى اختيار الطالب أولاً.", "error"); return;
+    }
+    if (!id && !enrollmentId) {
+        this.showToast("❌ يرجى اختيار تسجيل الطالب في برنامج.", "error"); return;
     }
     if (amount <= 0) {
         this.showToast("❌ يرجى إدخال مبلغ صحيح أكبر من الصفر.", "error"); return;
@@ -357,7 +373,12 @@ AdminUI.submitFee = async function() {
             this.showToast("✅ تم التحديث بنجاح.");
         } else {
             await Api.post("/student-fees/", {
-                student_id: parseInt(studentId), fee_type: type, amount_due: amount, applied_discount: discount, due_date: dueDate || null
+                student_id: parseInt(studentId),
+                enrollment_id: parseInt(enrollmentId),
+                fee_type: type,
+                amount_due: amount,
+                applied_discount: discount,
+                due_date: dueDate || null
             });
             this.showToast("✅ تمت إضافة الرسم بنجاح.");
         }
@@ -407,6 +428,34 @@ AdminUI.selectStudentForFee = function(id, name) {
     document.getElementById("modal-fee-student-search").value = name;
     document.getElementById("modal-fee-student-id").value = id;
     document.getElementById("modal-fee-student-dropdown").style.display = "none";
+    this.loadFeeEnrollmentsForStudent(id);
+};
+
+AdminUI.loadFeeEnrollmentsForStudent = async function(studentId) {
+    const select = document.getElementById("modal-fee-enrollment");
+    if (!select) return;
+
+    select.innerHTML = '<option value="">جاري تحميل التسجيلات...</option>';
+
+    try {
+        const response = await Api.get(`/enrollments/student/${studentId}`);
+        const enrollments = response.data || response || [];
+
+        if (enrollments.length === 0) {
+            select.innerHTML = '<option value="">لا توجد تسجيلات نشطة لهذا الطالب</option>';
+            return;
+        }
+
+        select.innerHTML = '<option value="">-- اختر التسجيل --</option>' + enrollments
+            .filter(e => !e.status || e.status === "active")
+            .map(e => {
+                const classLabel = e.class_name ? ` - ${e.class_name}` : "";
+                return `<option value="${e.enrollment_id || e.id}">${this._escape((e.program_name || "برنامج") + classLabel)}</option>`;
+            })
+            .join("");
+    } catch (err) {
+        select.innerHTML = '<option value="">تعذر تحميل التسجيلات</option>';
+    }
 };
 
 // ==========================================

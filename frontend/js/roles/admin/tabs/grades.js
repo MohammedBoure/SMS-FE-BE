@@ -23,13 +23,13 @@ AdminUI.renderGradesTab = async function() {
 
     // الهيكل الرئيسي للواجهة
     main.innerHTML = `
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-bottom: 20px;">
+        <div class="admin-responsive-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-bottom: 20px;">
             
             <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-top: 4px solid #991b1b;">
                 <h3 style="margin-top: 0; color: #991b1b; display: flex; align-items: center; gap: 8px;"><span>📝</span> درجات امتحان أو تقييم</h3>
                 <p style="color: #64748b; font-size: 0.9em; margin-bottom: 15px;">اختر التقييم لعرض درجات الطلاب وإحصائيات النجاح.</p>
                 
-                <div style="display: flex; gap: 10px;">
+                <div class="admin-mobile-stack" style="display: flex; gap: 10px;">
                     <select id="grades-assessment-select" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; flex: 1; outline: none; background: white;">
                         <option value="">-- اختر التقييم --</option>
                         ${assessmentOptions}
@@ -44,7 +44,7 @@ AdminUI.renderGradesTab = async function() {
                 <h3 style="margin-top: 0; color: #1e40af; display: flex; align-items: center; gap: 8px;"><span>🎓</span> كشف نقاط طالب</h3>
                 <p style="color: #64748b; font-size: 0.9em; margin-bottom: 15px;">ابحث عن الطالب لعرض سجله الأكاديمي الشامل.</p>
                 
-                <div style="display: flex; gap: 10px; position: relative;">
+                <div class="admin-mobile-stack" style="display: flex; gap: 10px; position: relative;">
                     <div style="position: relative; flex: 1;">
                         <input type="text" id="grades-student-search" placeholder="ابحث باسم الطالب..." 
                                style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; width: 100%; outline: none; box-sizing: border-box;"
@@ -152,7 +152,7 @@ AdminUI.loadAssessmentGrades = async function() {
 
         // لوحة الإحصائيات العلوية
         const statsHtml = `
-            <div style="display: flex; gap: 15px; margin-bottom: 20px; text-align: center;">
+            <div class="admin-mobile-stack" style="display: flex; gap: 15px; margin-bottom: 20px; text-align: center;">
                 <div style="flex: 1; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;">
                     <div style="font-size: 0.85em; color: #64748b; margin-bottom: 5px;">متوسط العلامات</div>
                     <div style="font-size: 1.5em; font-weight: bold; color: #0f172a;">${stats.average_grade ? stats.average_grade.toFixed(2) : '-'} / ${maxGrade}</div>
@@ -174,7 +174,7 @@ AdminUI.loadAssessmentGrades = async function() {
 
         // نموذج إضافة درجة سريعة
         const addFormHtml = `
-            <div style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; gap: 10px; align-items: center; position: relative;">
+            <div class="admin-mobile-stack" style="background: #f1f5f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; display: flex; gap: 10px; align-items: center; position: relative;">
                 <span style="font-weight: bold; color: #334155;">إدخال نقطة:</span>
                 
                 <div style="position: relative; flex: 1;">
@@ -213,18 +213,20 @@ AdminUI.loadAssessmentGrades = async function() {
             <h3 style="margin-top: 0; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">إحصائيات ودرجات التقييم</h3>
             ${statsHtml}
             ${addFormHtml}
-            <table style="width: 100%; border-collapse: collapse; text-align: right;">
-                <thead style="background: #f1f5f9;">
-                    <tr>
-                        <th style="padding: 12px;">المعرف</th>
-                        <th style="padding: 12px;">اسم الطالب</th>
-                        <th style="padding: 12px;">العلامة</th>
-                        <th style="padding: 12px;">ملاحظات الأستاذ</th>
-                        <th style="padding: 12px; text-align: left;">إجراءات</th>
-                    </tr>
-                </thead>
-                <tbody>${tableRows}</tbody>
-            </table>
+            <div class="admin-mobile-table">
+                <table style="width: 100%; border-collapse: collapse; text-align: right;">
+                    <thead style="background: #f1f5f9;">
+                        <tr>
+                            <th style="padding: 12px;">المعرف</th>
+                            <th style="padding: 12px;">اسم الطالب</th>
+                            <th style="padding: 12px;">العلامة</th>
+                            <th style="padding: 12px;">ملاحظات الأستاذ</th>
+                            <th style="padding: 12px; text-align: left;">إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>${tableRows}</tbody>
+                </table>
+            </div>
         `;
         
         // إخفاء القائمة المنسدلة للدرجة السريعة عند النقر خارجها
@@ -338,6 +340,7 @@ AdminUI.loadStudentRecord = async function() {
             <tr style="border-bottom: 1px solid #e2e8f0; transition: background 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
                 <td style="padding: 12px; font-weight: bold; color: #0f172a;">${this._escape(r.assessment_title)}</td>
                 <td style="padding: 12px;"><span style="background: #eff6ff; color: #1e40af; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;">${this._escape(r.assessment_type || 'امتحان')}</span></td>
+                <td style="padding: 12px;">${this._escape(r.program_name || "-")} / ${this._escape(r.class_name || "-")}</td>
                 <td style="padding: 12px;">
                     <span style="font-weight: bold; font-size: 1.1em;">${r.grade_value}</span> / ${r.max_grade || '?'}
                 </td>
@@ -347,12 +350,13 @@ AdminUI.loadStudentRecord = async function() {
 
         container.innerHTML = `
             <h3 style="margin-top: 0; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">الكشف الأكاديمي الشامل: الطالب #${studentId}</h3>
-            <div style="overflow-x: auto;">
+            <div class="admin-mobile-table" style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; text-align: right;">
                     <thead style="background: #f1f5f9;">
                         <tr>
                             <th style="padding: 12px;">التقييم / المادة</th>
                             <th style="padding: 12px;">النوع</th>
+                            <th style="padding: 12px;">البرنامج / الفوج</th>
                             <th style="padding: 12px;">العلامة المحصلة</th>
                             <th style="padding: 12px;">الملاحظات</th>
                         </tr>

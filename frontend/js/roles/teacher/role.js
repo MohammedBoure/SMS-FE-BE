@@ -138,9 +138,11 @@ const TeacherRole = {
 
       if (e.target.classList.contains("save-attendance-btn")) {
         const studentId = e.target.dataset.studentId;
+        const classId = document.getElementById("attendance-class-select")?.value || null;
         const selectElement = document.querySelector(`.attendance-status[data-student-id="${studentId}"]`);
         await TeacherServices.saveAttendance({
           student_id: studentId,
+          class_id: classId ? parseInt(classId) : null,
           target_date: selectElement.dataset.date,
           status: selectElement.value
         });

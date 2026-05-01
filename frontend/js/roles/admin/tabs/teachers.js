@@ -10,8 +10,8 @@ AdminUI.renderTeachersTab = function(teachersData) {
 
     // 1. شريط الإجراءات والبحث العُلوي + هيكل النوافذ المنبثقة
     main.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); gap: 15px; flex-wrap: wrap;">
-            <div style="display: flex; gap: 10px; flex: 1; min-width: 300px;">
+        <div class="admin-page-toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); gap: 15px; flex-wrap: wrap;">
+            <div class="admin-toolbar-search" style="display: flex; gap: 10px; flex: 1; min-width: 300px;">
                 <input type="text" id="teacher-search-input" placeholder="ابحث باسم المعلم أو التخصص..." 
                        style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; flex: 1; outline: none;"
                        onkeypress="if(event.key === 'Enter') AdminUI.searchTeachers()">
@@ -108,7 +108,7 @@ AdminUI._generateTeachersTableHtml = function(teachers) {
             <div style="padding: 12px 15px; background: #f8fafc; border-bottom: 2px solid #e2e8f0; font-size: 0.9em; color: #475569;">
                 إجمالي المعلمين: <strong style="color: #0f172a;">${teachers.length}</strong>
             </div>
-            <div style="overflow-x: auto;">
+            <div class="admin-mobile-table" style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; text-align: right;">
                     <thead style="background: #f8fafc; border-bottom: 2px solid #cbd5e1;">
                         <tr>

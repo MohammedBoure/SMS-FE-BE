@@ -33,7 +33,7 @@ AdminUI.renderNotificationsTab = function(response) {
 
     // 2. إحصائيات علوية
     const statsHtml = `
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
+        <div class="admin-responsive-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px;">
             <div style="background: white; padding: 22px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-right: 5px solid #f59e0b;">
                 <div style="color: #64748b; font-size: 0.9em; font-weight: bold;">إجمالي الإشعارات المرسلة</div>
                 <div style="font-size: 1.8em; font-weight: bold; color: #b45309; margin-top: 5px;">${totalSent}</div>
@@ -56,7 +56,7 @@ AdminUI.renderNotificationsTab = function(response) {
                 <span>📢</span> إرسال تنبيه أو إشعار جديد
             </h3>
             <form id="send-notification-form" onsubmit="AdminUI.handleSendNotification(event)">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
+                <div class="admin-responsive-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
                     <div>
                         <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #334155;">الجمهور المستهدف *</label>
                         <select id="notif-target" onchange="AdminUI.toggleNotifTargetInput()" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; background: #f8fafc; font-weight: bold;">
@@ -86,7 +86,7 @@ AdminUI.renderNotificationsTab = function(response) {
                     <textarea id="notif-message" required rows="4" placeholder="اكتب تفاصيل الإشعار هنا..." style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; outline: none; resize: vertical;"></textarea>
                 </div>
 
-                <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                <div class="admin-mobile-stack" style="display: flex; justify-content: flex-end; gap: 10px;">
                     <button type="button" onclick="document.getElementById('send-notification-form').reset(); AdminUI.toggleNotifTargetInput();" style="background: #f1f5f9; color: #475569; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">
                         تفريغ الحقول
                     </button>
@@ -100,8 +100,8 @@ AdminUI.renderNotificationsTab = function(response) {
 
     // 4. شريط البحث والفلترة المتقدم (جديد)
     const filterHtml = `
-        <div style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
-            <div style="display: flex; align-items: center; gap: 8px;">
+        <div class="admin-page-toolbar" style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+            <div class="admin-mobile-stack" style="display: flex; align-items: center; gap: 8px;">
                 <label style="font-weight: bold; color: #334155;">حالة القراءة:</label>
                 <select id="notif-status-filter" onchange="AdminUI.filterLocalNotifications()" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; font-weight: bold; outline: none;">
                     <option value="all">الكل</option>
@@ -109,10 +109,10 @@ AdminUI.renderNotificationsTab = function(response) {
                     <option value="unread">غير المقروءة ⏳</option>
                 </select>
             </div>
-            <div style="flex: 1; min-width: 250px;">
+            <div class="admin-toolbar-search" style="flex: 1; min-width: 250px;">
                 <input type="text" id="notif-search-input" placeholder="بحث في الإشعارات (المستلم، العنوان، المحتوى)..." onkeyup="AdminUI.filterLocalNotifications()" style="width: 100%; padding: 10px 15px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-weight: bold; box-sizing: border-box;">
             </div>
-            <div style="display: flex; gap: 10px;">
+            <div class="admin-mobile-stack" style="display: flex; gap: 10px;">
                 <button onclick="AdminUI.clearOldNotifications()" style="background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s;" title="إزالة الإشعارات التي مر عليها شهر">
                     🧹 تنظيف السجل (30 يوم)
                 </button>
@@ -177,7 +177,7 @@ AdminUI._generateNotificationsTableHtml = function(notifications) {
             <div style="padding: 15px 20px; background: #f8fafc; border-bottom: 2px solid #cbd5e1; font-weight: bold; color: #334155;">
                 النتائج المعروضة: ${notifications.length} إشعار
             </div>
-            <div style="overflow-x: auto;">
+            <div class="admin-mobile-table" style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; text-align: right;">
                     <thead style="background: #f8fafc; border-bottom: 2px solid #cbd5e1;">
                         <tr>

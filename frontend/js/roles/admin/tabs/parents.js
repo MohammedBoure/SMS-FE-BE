@@ -10,7 +10,7 @@ AdminUI.renderParentsTab = function(parentsData) {
 
     // 1. هيكل الصفحة العلوي والنوافذ المنبثقة
     main.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+        <div class="admin-page-toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
             <div>
                 <button onclick="AdminUI.showAddParentModal()" style="background: #0f172a; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: 0.2s;">
                     <span>➕</span> ربط مستخدم كولي أمر
@@ -68,20 +68,20 @@ AdminUI.renderParentsTab = function(parentsData) {
     } else {
         const rows = parents.map(p => `
             <tr style="border-bottom: 1px solid #f1f5f9; transition: 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
-                <td style="padding: 15px; font-weight: bold; color: #64748b;">#${p.parent_id}</td>
-                <td style="padding: 15px;">
+                <td data-label="المعرف" style="padding: 15px; font-weight: bold; color: #64748b;">#${p.parent_id}</td>
+                <td data-label="ولي الأمر" style="padding: 15px;">
                     <div style="font-weight: bold; color: #0f172a; font-size: 1.1em;">${this._escape(p.full_name)}</div>
                     <div style="color: #0369a1; font-size: 0.85em;">@${this._escape(p.username)}</div>
                 </td>
-                <td style="padding: 15px; direction: ltr; text-align: right; color: #475569;">📞 ${this._escape(p.phone || "غير متوفر")}</td>
-                <td style="padding: 15px; text-align: center;">
+                <td data-label="الهاتف" style="padding: 15px; direction: ltr; text-align: right; color: #475569;">📞 ${this._escape(p.phone || "غير متوفر")}</td>
+                <td class="admin-actions-cell" data-label="الأبناء" style="padding: 15px; text-align: center;">
                     <button onclick="AdminUI.viewParentStudents(${p.parent_id}, '${this._escape(p.full_name)}')" 
                             style="background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 0.9em; font-weight: bold; transition: 0.2s;"
                             onmouseover="this.style.background='#dbeafe'" onmouseout="this.style.background='#eff6ff'">
                         👁️ عرض الأبناء
                     </button>
                 </td>
-                <td style="padding: 15px; text-align: left;">
+                <td class="admin-actions-cell" data-label="إجراءات" style="padding: 15px; text-align: left;">
                     <button onclick="AdminUI.deleteParentItem(${p.parent_id})" 
                             style="background: #fef2f2; color: #ef4444; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-size: 1.2em; transition: 0.2s;" title="حذف الدور"
                             onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='#fef2f2'">
@@ -92,7 +92,7 @@ AdminUI.renderParentsTab = function(parentsData) {
         `).join("");
 
         tableContainer.innerHTML = `
-            <div style="background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden;">
+            <div class="admin-mobile-table" style="background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden;">
                 <table style="width: 100%; border-collapse: collapse; text-align: right;">
                     <thead style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
                         <tr>

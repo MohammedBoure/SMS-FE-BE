@@ -23,7 +23,7 @@ AdminUI.renderSchedulesTab = async function() {
         console.error("فشل جلب البيانات الأساسية للجداول:", err);
     }
 
-    const classOptions = classes.map(c => `<option value="${c.class_id || c.id}">${this._escape(c.class_name)}</option>`).join("");
+    const classOptions = classes.map(c => `<option value="${c.class_id || c.id}">${this._escape((c.program_name ? c.program_name + " - " : "") + c.class_name)}</option>`).join("");
     const teacherOptions = teachers.map(t => `<option value="${t.teacher_id}">${this._escape(t.full_name || t.teacher_name)}</option>`).join("");
 
     // 1. شريط التحكم والبحث + إضافة HTML للنافذة المنبثقة (Modal)

@@ -16,8 +16,8 @@ AdminUI.renderTransactionsTab = function(response) {
 
     // 2. شريط الإحصائيات والأدوات
     const headerHtml = `
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; background: white; padding: 22px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-right: 5px solid #8b5cf6; flex-wrap: wrap; gap: 15px;">
-            <div style="display: flex; gap: 30px;">
+        <div class="admin-page-toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; background: white; padding: 22px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-right: 5px solid #8b5cf6; flex-wrap: wrap; gap: 15px;">
+            <div class="admin-mobile-stack" style="display: flex; gap: 30px;">
                 <div>
                     <div style="color: #64748b; font-size: 0.9em; margin-bottom: 5px; font-weight: bold;">حجم التحويلات المكتملة</div>
                     <div style="font-size: 1.8em; font-weight: bold; color: #6d28d9;">${this._formatCurrency(completedVolume)}</div>
@@ -27,7 +27,7 @@ AdminUI.renderTransactionsTab = function(response) {
                     <div style="font-size: 1.8em; font-weight: bold; color: #f59e0b;">${pendingCount}</div>
                 </div>
             </div>
-            <div style="display: flex; gap: 10px;">
+            <div class="admin-mobile-stack" style="display: flex; gap: 10px;">
                 <button onclick="AdminUI.showUserStatementModal()" style="background: #f8fafc; color: #0f172a; border: 1px solid #cbd5e1; padding: 12px 18px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s; display: flex; align-items: center; gap: 5px;">
                     🧾 كشف حساب
                 </button>
@@ -40,8 +40,8 @@ AdminUI.renderTransactionsTab = function(response) {
 
     // 3. شريط الفلترة
     const filterHtml = `
-        <div style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; border: 1px solid #e2e8f0;">
-            <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+        <div class="admin-page-toolbar" style="background: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; gap: 15px; align-items: center; border: 1px solid #e2e8f0;">
+            <div class="admin-mobile-stack" style="display: flex; align-items: center; gap: 8px; flex: 1;">
                 <label style="font-weight: bold; color: #334155;">الفلترة:</label>
                 <select id="transaction-type-filter" onchange="AdminUI.filterTransactions()" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; font-weight: bold; outline: none; min-width: 180px;">
                     <option value="">-- جميع الأنواع --</option>
@@ -119,7 +119,7 @@ AdminUI.renderTransactionsTab = function(response) {
         `}).join("");
 
         tableHtml = `
-            <div style="background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #e2e8f0;">
+            <div class="admin-mobile-table" style="background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); overflow: hidden; border: 1px solid #e2e8f0;">
                 <table style="width: 100%; border-collapse: collapse; text-align: right;">
                     <thead style="background: #f8fafc; border-bottom: 2px solid #cbd5e1;">
                         <tr>
@@ -480,17 +480,19 @@ AdminUI.generateStatement = async function() {
                         <div style="font-size: 1.8em; font-weight: bold; color: ${totalBalance >= 0 ? '#166534' : '#991b1b'};">${this._formatCurrency(totalBalance)}</div>
                     </div>
                 </div>
-                <table style="width: 100%; border-collapse: collapse; text-align: right; font-size: 0.95em;">
-                    <thead style="background: #f8fafc;">
-                        <tr>
-                            <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; color: #334155;">التاريخ</th>
-                            <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; color: #334155;">النوع</th>
-                            <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; color: #334155;">الطرف الآخر</th>
-                            <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; text-align: left; color: #334155;">المبلغ</th>
-                        </tr>
-                    </thead>
-                    <tbody>${rows}</tbody>
-                </table>
+                <div class="admin-mobile-table">
+                    <table style="width: 100%; border-collapse: collapse; text-align: right; font-size: 0.95em;">
+                        <thead style="background: #f8fafc;">
+                            <tr>
+                                <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; color: #334155;">التاريخ</th>
+                                <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; color: #334155;">النوع</th>
+                                <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; color: #334155;">الطرف الآخر</th>
+                                <th style="padding: 12px; border-bottom: 2px solid #cbd5e1; text-align: left; color: #334155;">المبلغ</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>
+                </div>
                 <div style="margin-top: 20px; text-align: left;">
                     <button onclick="window.print()" style="background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-left: 10px;">🖨️ طباعة الكشف</button>
                     <button onclick="document.getElementById('statement-container').innerHTML=''" style="background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;">إغلاق</button>
