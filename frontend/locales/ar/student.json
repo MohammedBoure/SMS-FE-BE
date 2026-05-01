@@ -1,0 +1,218 @@
+{
+  "meta": {
+    "lang": "ar",
+    "dir": "rtl",
+    "locale": "ar-DZ"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "العربية",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    }
+  ],
+  "student": {
+    "documentTitle": "لوحة الطالب",
+    "brand": {
+      "welcome": "مرحبا بك: {name}"
+    },
+    "language": {
+      "label": "اللغة",
+      "select": "اختر اللغة"
+    },
+    "auth": {
+      "logout": "تسجيل خروج"
+    },
+    "nav": {
+      "schedule": "الجدول الزمني",
+      "assessments": "الامتحانات",
+      "grades": "العلامات",
+      "attendance": "الغياب",
+      "resources": "الدروس",
+      "posts": "منشورات الإدارة",
+      "messages": "المراسلة",
+      "fees": "المالية",
+      "notifications": "الإشعارات"
+    },
+    "state": {
+      "loading": "جاري جلب البيانات...",
+      "errorPrefix": "خطأ:",
+      "unknownSection": "قسم غير معروف",
+      "studentProfileMissing": "حسابك غير مسجل كطالب في قاعدة البيانات. تواصل مع الإدارة.",
+      "initFailed": "فشل في تهيئة بيانات الطالب."
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "غير محدد",
+      "updating": "جاري التحديث...",
+      "unavailable": "غير متاح",
+      "unknownDate": "تاريخ غير محدد",
+      "userFallback": "مستخدم #{id}",
+      "send": "إرسال",
+      "download": "تحميل",
+      "fromManagement": "من الإدارة",
+      "openDetails": "عرض التفاصيل",
+      "backToPosts": "الرجوع للمنشورات",
+      "noContent": "لا يوجد محتوى لهذا المنشور.",
+      "file": "ملف"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "present": "حاضر",
+      "absent": "غائب",
+      "late": "متأخر",
+      "paid": "مسدد",
+      "completed": "مسدد",
+      "unpaid": "غير مسدد",
+      "partial": "مدفوع جزئيا",
+      "overdue": "متأخر",
+      "read": "مقروء",
+      "unread": "غير مقروء",
+      "student": "طالب",
+      "parent": "ولي",
+      "teacher": "أستاذ",
+      "admin": "مدير",
+      "receptionist": "استقبال",
+      "accountant": "محاسب",
+      "exam": "امتحان",
+      "homework": "واجب"
+    },
+    "days": {
+      "Sunday": "الأحد",
+      "Monday": "الإثنين",
+      "Tuesday": "الثلاثاء",
+      "Wednesday": "الأربعاء",
+      "Thursday": "الخميس",
+      "Friday": "الجمعة",
+      "Saturday": "السبت"
+    },
+    "schedule": {
+      "title": "الجدول الزمني الأسبوعي",
+      "emptyTitle": "الجدول الزمني",
+      "emptyText": "لم يتم إعداد جدولك الزمني بعد.",
+      "columns": {
+        "day": "اليوم",
+        "time": "التوقيت",
+        "subject": "المادة",
+        "programClass": "البرنامج / الفوج",
+        "teacher": "الأستاذ",
+        "room": "القاعة"
+      }
+    },
+    "assessments": {
+      "title": "الامتحانات والفروض القادمة",
+      "emptyTitle": "الامتحانات والفروض القادمة",
+      "emptyText": "لا توجد امتحانات مبرمجة حاليا.",
+      "columns": {
+        "subject": "المادة",
+        "title": "التقييم",
+        "programClass": "البرنامج / الفوج",
+        "dueDate": "تاريخ الإجراء",
+        "maxGrade": "العلامة القصوى",
+        "teacher": "الأستاذ"
+      }
+    },
+    "grades": {
+      "title": "كشف النقاط والعلامات",
+      "emptyTitle": "كشف النقاط",
+      "emptyText": "لا توجد علامات مرصودة لك حتى الآن.",
+      "columns": {
+        "subject": "المادة",
+        "assessment": "التقييم",
+        "programClass": "البرنامج / الفوج",
+        "grade": "العلامة",
+        "teacher": "الأستاذ",
+        "remarks": "ملاحظات"
+      }
+    },
+    "attendance": {
+      "title": "سجل الحضور والغياب",
+      "emptyTitle": "سجل الغياب",
+      "emptyText": "سجلك نظيف، لا توجد غيابات.",
+      "columns": {
+        "date": "التاريخ",
+        "group": "الفوج",
+        "status": "الحالة",
+        "justified": "مبرر؟"
+      },
+      "justifiedYes": "نعم ({reason})",
+      "justifiedNo": "لا"
+    },
+    "resources": {
+      "title": "الدروس والموارد التعليمية",
+      "emptyTitle": "الدروس والموارد",
+      "emptyText": "لا توجد ملفات مرفوعة حاليا.",
+      "typeLabel": "النوع:",
+      "sizeLabel": "الحجم:"
+    },
+    "fees": {
+      "title": "الوضعية المالية والرسوم المستحقة",
+      "emptyTitle": "الوضعية المالية",
+      "emptyText": "لا توجد رسوم مسجلة عليك.",
+      "columns": {
+        "feeType": "نوع الرسم",
+        "amountDue": "المبلغ الإجمالي",
+        "discount": "الخصم",
+        "netAmount": "المبلغ الصافي",
+        "dueDate": "تاريخ الاستحقاق"
+      }
+    },
+    "notifications": {
+      "emptyTitle": "الإشعارات",
+      "emptyText": "لا توجد إشعارات جديدة.",
+      "title": "الإشعارات الواردة",
+      "unreadCount": "{count} إشعار غير مقروء",
+      "markAllRead": "تعيين الكل كمقروء",
+      "markRead": "تعيين كمقروء",
+      "read": "مقروء",
+      "unread": "غير مقروء",
+      "defaultTitle": "إشعار"
+    },
+    "posts": {
+      "title": "منشورات الإدارة",
+      "emptySubtitle": "الإعلانات والمحتوى المنشور من الإدارة يظهر هنا.",
+      "listSubtitle": "اختر منشورا من القائمة لعرض التفاصيل الكاملة.",
+      "emptyTitle": "لا توجد منشورات حاليا",
+      "emptyText": "ستظهر منشورات الإدارة هنا عند توفرها.",
+      "untitled": "منشور بدون عنوان",
+      "openHint": "اضغط لعرض تفاصيل المنشور.",
+      "filePlaceholder": "مستند"
+    },
+    "messages": {
+      "title": "المراسلة",
+      "subtitle": "تواصل مع الإدارة أو الأساتذة أو أي مستخدم متاح في النظام.",
+      "searchPlaceholder": "ابحث باسم المستخدم...",
+      "searchButton": "بحث",
+      "conversations": "المحادثات",
+      "selectPrompt": "اختر محادثة من القائمة أو ابحث عن مستخدم جديد.",
+      "emptyConversation": "المحادثة ستظهر هنا.",
+      "inputPlaceholder": "اكتب رسالتك...",
+      "minSearch": "اكتب حرفين على الأقل للبحث.",
+      "searching": "جاري البحث...",
+      "noResults": "لا توجد نتائج مطابقة.",
+      "searchFailed": "فشل البحث: {message}",
+      "loadingConversation": "جاري تحميل المحادثة...",
+      "loadFailed": "تعذر تحميل الرسائل: {message}",
+      "noMessages": "لا توجد رسائل بعد.",
+      "you": "أنت",
+      "roleFallback": "مستخدم",
+      "sending": "جاري الإرسال...",
+      "sent": "تم الإرسال",
+      "sendFailed": "فشل الإرسال: {message}",
+      "emptyList": "لا توجد محادثات بعد."
+    },
+    "actions": {
+      "notificationsUpdateFailed": "تعذر تحديث الإشعارات.",
+      "notificationUpdateFailed": "تعذر تحديث الإشعار."
+    },
+    "currency": {
+      "dzd": "دج"
+    }
+  }
+}

@@ -8,248 +8,416 @@ const StudentUI = {
 
   renderHeader(userProfile) {
     const header = document.getElementById("student-header");
+    const name = userProfile ? userProfile.full_name : "...";
+    const languages = window.I18n
+      ? I18n.getLanguages()
+      : [{ code: "ar", label: "Arabic", dir: "rtl" }, { code: "en", label: "English", dir: "ltr" }];
+    const activeLang = window.I18n ? I18n.currentLang : "ar";
+    const options = languages.map(lang => `
+      <option value="${this._escapeAttr(lang.code)}" dir="${this._escapeAttr(lang.dir || "auto")}" ${lang.code === activeLang ? "selected" : ""}>
+        ${this._escape(lang.label)}
+      </option>
+    `).join("");
+
     header.innerHTML = `
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
-        <h1>مرحباً: ${userProfile ? userProfile.full_name : '...'}</h1>
-        <button id="logout-btn">تسجيل خروج</button>
+      <div class="student-header-shell">
+        <h1>${this.t("student.brand.welcome", { name: this._escape(name) }, `Welcome: ${this._escape(name)}`)}</h1>
+        <div class="student-header-actions">
+          <label class="student-language-control">
+            <span>${this.t("student.language.label", {}, "Language")}</span>
+            <select id="student-language-select" aria-label="${this._escapeAttr(this.t("student.language.select", {}, "Choose language"))}">
+              ${options}
+            </select>
+          </label>
+          <button id="logout-btn">${this.t("student.auth.logout", {}, "Log out")}</button>
+        </div>
       </div>
     `;
-    document.getElementById("logout-btn").addEventListener("click", () => Auth.logout());
+
+    document.getElementById("logout-btn")?.addEventListener("click", () => Auth.logout());
+    const languageSelect = document.getElementById("student-language-select");
+    if (languageSelect && window.I18n) {
+      languageSelect.addEventListener("change", async (event) => {
+        languageSelect.disabled = true;
+        await I18n.setLanguage(event.target.value);
+        languageSelect.disabled = false;
+      });
+    }
   },
 
   renderNav(activeSection) {
     const nav = document.getElementById("student-nav");
-    nav.innerHTML = this.SECTIONS.map(s =>
-      `<button class="nav-btn${activeSection === s ? " active" : ""}" data-section="${s}">${this._translate(s)}</button>`
-    ).join("");
+    nav.innerHTML = this.SECTIONS.map(section => `
+      <button class="nav-btn${activeSection === section ? " active" : ""}" data-section="${this._escapeAttr(section)}">
+        ${this._translate(section)}
+      </button>
+    `).join("");
   },
 
   renderLoading() {
-    document.getElementById("student-main").innerHTML = "<h3>جاري التحميل...</h3>";
+    document.getElementById("student-main").innerHTML = `
+      <h3>${this.t("student.state.loading", {}, "Loading data...")}</h3>
+    `;
   },
 
   renderError(msg) {
-    document.getElementById("student-main").innerHTML = `<h3 style="color: red;">خطأ: ${msg}</h3>`;
+    document.getElementById("student-main").innerHTML = `
+      <h3 style="color: #ef4444;">
+        ${this.t("student.state.errorPrefix", {}, "Error:")} ${this._escape(msg)}
+      </h3>
+    `;
   },
 
   renderSchedule(scheduleData) {
-    const schedule = Array.isArray(scheduleData) ? scheduleData : (scheduleData?.data || []);
+    const schedule = this._toArray(scheduleData);
     const main = document.getElementById("student-main");
-    if (!schedule || schedule.length === 0) {
-      main.innerHTML = "<h2>الجدول الزمني</h2><p>لم يتم إعداد الجدول الزمني لقسمك بعد.</p>";
+
+    if (!schedule.length) {
+      main.innerHTML = this._emptySection(
+        "student.schedule.emptyTitle",
+        "Schedule",
+        "student.schedule.emptyText",
+        "Your schedule has not been prepared yet."
+      );
       return;
     }
-    const rows = schedule.map(s => `
+
+    const rows = schedule.map(item => `
       <tr>
-        <td><strong>${this._translateDay(s.day_of_week)}</strong></td>
-        <td><span style="direction:ltr; display:inline-block;">${this._formatTime(s.start_time)} - ${this._formatTime(s.end_time)}</span></td>
-        <td>${s.subject_name}</td>
-        <td>${this._escape(s.program_name || "-")} / ${this._escape(s.class_name || "-")}</td>
-        <td>${s.teacher_name}</td>
-        <td>${s.room_number || "غير محدد"}</td>
+        <td><strong>${this._translateDay(item.day_of_week)}</strong></td>
+        <td><span class="ltr-value">${this._formatTime(item.start_time)} - ${this._formatTime(item.end_time)}</span></td>
+        <td>${this._escape(item.subject_name)}</td>
+        <td>${this._escape(item.program_name || this.t("student.common.none", {}, "-"))} / ${this._escape(item.class_name || this.t("student.common.none", {}, "-"))}</td>
+        <td>${this._escape(item.teacher_name)}</td>
+        <td>${this._escape(item.room_number || this.t("student.common.notSpecified", {}, "Not specified"))}</td>
       </tr>
     `).join("");
+
     main.innerHTML = `
-      <h2>الجدول الزمني الأسبوعي</h2>
-      <table>
-        <thead><tr><th>اليوم</th><th>التوقيت</th><th>المادة</th><th>البرنامج / الفوج</th><th>الأستاذ</th><th>القاعة</th></tr></thead>
+      <h2>${this.t("student.schedule.title", {}, "Weekly Schedule")}</h2>
+      ${this._table(`
+        <thead>
+          <tr>
+            <th>${this.t("student.schedule.columns.day", {}, "Day")}</th>
+            <th>${this.t("student.schedule.columns.time", {}, "Time")}</th>
+            <th>${this.t("student.schedule.columns.subject", {}, "Subject")}</th>
+            <th>${this.t("student.schedule.columns.programClass", {}, "Program / Group")}</th>
+            <th>${this.t("student.schedule.columns.teacher", {}, "Teacher")}</th>
+            <th>${this.t("student.schedule.columns.room", {}, "Room")}</th>
+          </tr>
+        </thead>
         <tbody>${rows}</tbody>
-      </table>
+      `)}
     `;
   },
 
   renderAssessments(assessmentsData) {
-    const assessments = Array.isArray(assessmentsData) ? assessmentsData : (assessmentsData?.data || []);
+    const assessments = this._toArray(assessmentsData);
     const main = document.getElementById("student-main");
-    if (!assessments || assessments.length === 0) {
-      main.innerHTML = "<h2>الامتحانات والفروض القادمة</h2><p>لا توجد امتحانات مبرمجة حالياً.</p>";
-      return;
-    }
-    const rows = assessments.map(a => `
-      <tr>
-        <td>${a.subject_name}</td>
-        <td>${a.title} (${a.type === 'exam' ? 'امتحان' : 'واجب'})</td>
-        <td>${this._escape(a.program_name || "-")} / ${this._escape(a.class_name || "-")}</td>
-        <td><strong style="color:#e11d48;">${a.due_date || "غير محدد"}</strong></td>
-        <td>${a.max_grade}</td>
-        <td>${a.teacher_name}</td>
-      </tr>
-    `).join("");
-    main.innerHTML = `
-      <h2>الامتحانات والفروض القادمة</h2>
-      <table>
-        <thead><tr><th>المادة</th><th>عنوان التقييم</th><th>البرنامج / الفوج</th><th>تاريخ الإجراء</th><th>العلامة القصوى</th><th>الأستاذ</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
-  },
 
-  renderGrades(gradesData) {
-    const grades = Array.isArray(gradesData) ? gradesData : (gradesData?.data || []);
-    const main = document.getElementById("student-main");
-    if (!grades || grades.length === 0) {
-      main.innerHTML = "<h2>كشف النقاط</h2><p>لا توجد علامات مرصودة لك حتى الآن.</p>";
-      return;
-    }
-    const rows = grades.map(g => `
-      <tr>
-        <td><strong>${g.subject_name}</strong></td>
-        <td>${g.assessment_title} (${g.assessment_type === 'exam' ? 'امتحان' : 'واجب'})</td>
-        <td>${this._escape(g.program_name || "-")} / ${this._escape(g.class_name || "-")}</td>
-        <td style="direction: ltr; text-align: right; font-weight: bold; color: ${g.grade_value >= (g.max_grade/2) ? 'green' : 'red'};">${g.grade_value} / ${g.max_grade}</td>
-        <td>${g.teacher_name}</td>
-        <td>${g.teacher_remarks || "-"}</td>
-      </tr>
-    `).join("");
-    main.innerHTML = `
-      <h2>كشف النقاط والعلامات</h2>
-      <table>
-        <thead><tr><th>المادة</th><th>التقييم</th><th>البرنامج / الفوج</th><th>العلامة</th><th>الأستاذ</th><th>ملاحظات</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
-  },
-
-  renderAttendance(recordsData) {
-    const records = Array.isArray(recordsData) ? recordsData : (recordsData?.data || []);
-    const main = document.getElementById("student-main");
-    if (!records || records.length === 0) {
-      main.innerHTML = "<h2>سجل الغياب</h2><p>سجلك نظيف، لا يوجد غيابات.</p>";
-      return;
-    }
-    const rows = records.map(r => {
-      let statusAr = r.status === 'present' ? 'حاضر' : (r.status === 'absent' ? 'غائب' : 'متأخر');
-      let statusColor = r.status === 'absent' ? 'color: red;' : 'color: green;';
-      return `
-      <tr>
-        <td>${r.date}</td>
-        <td>${this._escape(r.class_name || "-")}</td>
-        <td style="font-weight:bold; ${statusColor}">${statusAr}</td>
-        <td>${r.is_justified ? 'نعم (' + (r.justification_reason || '') + ')' : 'لا'}</td>
-      </tr>
-    `;
-    }).join("");
-    main.innerHTML = `
-      <h2>سجل الحضور والغياب</h2>
-      <table>
-        <thead><tr><th>التاريخ</th><th>الفوج</th><th>الحالة</th><th>مُبرر؟</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
-  },
-
-  renderResources(resourcesData) {
-    const resources = Array.isArray(resourcesData) ? resourcesData : (resourcesData?.data || []);
-    const main = document.getElementById("student-main");
-    if (!resources || resources.length === 0) {
-      main.innerHTML = "<h2>الدروس والموارد</h2><p>لا توجد ملفات مرفوعة حالياً.</p>";
-      return;
-    }
-    const items = resources.map(r => `
-      <div style="background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 8px; border-right: 4px solid #0ea5e9; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center;">
-        <div>
-            <strong style="display:block; font-size:1.1rem; color: #0f172a;">${r.title}</strong>
-            <small style="color: #64748b;">النوع: ${r.resource_type} | الحجم: ${r.file_size_mb} MB</small>
-            ${r.description ? `<p style="margin: 5px 0 0 0; color: #475569; font-size: 0.95rem;">${r.description}</p>` : ''}
-        </div>
-        <div>
-            <a href="http://localhost:8000/resources/${r.id}/download" target="_blank" style="background: #0ea5e9; color: white; padding: 8px 15px; text-decoration: none; border-radius: 6px; font-weight: 600;">تحميل</a>
-        </div>
-      </div>
-    `).join("");
-    main.innerHTML = `<h2>الدروس والموارد التعليمية</h2><div>${items}</div>`;
-  },
-
-  renderFees(feesData) {
-    const fees = Array.isArray(feesData) ? feesData : (feesData?.data || []);
-    const main = document.getElementById("student-main");
-    if (!fees || fees.length === 0) {
-      main.innerHTML = "<h2>الوضعية المالية</h2><p>لا توجد رسوم مسجلة عليك.</p>";
-      return;
-    }
-    const rows = fees.map(f => `
-      <tr>
-        <td>${f.fee_type} ${f.program_name ? '('+f.program_name+')' : ''} ${f.class_name ? '- '+f.class_name : ''}</td>
-        <td>${f.amount_due} DZD</td>
-        <td>${f.applied_discount} DZD</td>
-        <td style="font-weight: bold; color: #0f172a;">${f.net_amount} DZD</td>
-        <td style="direction: ltr; text-align: right;">${f.due_date}</td>
-      </tr>
-    `).join("");
-    main.innerHTML = `
-      <h2>الوضعية المالية (الرسوم المستحقة)</h2>
-      <table>
-        <thead><tr><th>نوع الرسم (البرنامج)</th><th>المبلغ الإجمالي</th><th>الخصم</th><th>المبلغ الصافي</th><th>تاريخ الاستحقاق</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
-  },
-
-  renderNotifications(notificationsData) {
-    const notifications = Array.isArray(notificationsData) ? notificationsData : (notificationsData?.data || []);
-    const main = document.getElementById("student-main");
-    if (!notifications || notifications.length === 0) {
-      main.innerHTML = "<h2>الإشعارات</h2><p>لا توجد إشعارات جديدة.</p>";
+    if (!assessments.length) {
+      main.innerHTML = this._emptySection(
+        "student.assessments.emptyTitle",
+        "Upcoming Assessments",
+        "student.assessments.emptyText",
+        "There are no scheduled assessments currently."
+      );
       return;
     }
 
-    const unreadCount = notifications.filter(n => !this._isNotificationRead(n)).length;
-    const items = notifications.map(n => {
-      const date = n.created_at ? new Date(n.created_at).toLocaleString("ar-DZ") : "تاريخ غير محدد";
-      const isRead = this._isNotificationRead(n);
-      const notificationId = this._getNotificationId(n);
-      const action = isRead
-        ? `<span style="color:#16a34a; font-weight:700;">مقروء</span>`
-        : notificationId !== null
-          ? `<button type="button" class="student-mark-notification-read" data-notification-id="${this._escape(notificationId)}" style="background:#f59e0b; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">تعيين كمقروء</button>`
-          : `<span style="color:#64748b; font-weight:700;">غير متاح</span>`;
+    const rows = assessments.map(item => {
+      const type = this._translateStatus(item.type === "exam" ? "exam" : "homework");
 
       return `
-        <div style="background:#fff; padding:15px; margin-bottom:10px; border-radius:8px; border-right:4px solid ${isRead ? '#94a3b8' : '#f59e0b'}; box-shadow:0 2px 4px rgba(0,0,0,0.05); opacity:${isRead ? '.78' : '1'};">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:5px;">
-            <strong style="display:block; font-size:1.1rem;">${this._escape(n.title || "إشعار")}</strong>
-            <span style="white-space:nowrap; color:${isRead ? '#16a34a' : '#d97706'}; background:${isRead ? '#dcfce7' : '#fef3c7'}; border:1px solid ${isRead ? '#bbf7d0' : '#fde68a'}; padding:4px 10px; border-radius:999px; font-size:.85rem; font-weight:700;">${isRead ? 'مقروء' : 'غير مقروء'}</span>
-          </div>
-          <p style="margin:0; color:#475569;">${this._escape(n.message || "")}</p>
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:8px; flex-wrap:wrap;">
-            <small style="color:#94a3b8; direction:ltr; text-align:right;">${date}</small>
-            ${action}
-          </div>
-        </div>
+        <tr>
+          <td>${this._escape(item.subject_name)}</td>
+          <td>${this._escape(item.title)} <span class="muted-value">(${this._escape(type)})</span></td>
+          <td>${this._escape(item.program_name || this.t("student.common.none", {}, "-"))} / ${this._escape(item.class_name || this.t("student.common.none", {}, "-"))}</td>
+          <td><strong class="danger-value">${this._escape(item.due_date || this.t("student.common.notSpecified", {}, "Not specified"))}</strong></td>
+          <td>${this._escape(item.max_grade)}</td>
+          <td>${this._escape(item.teacher_name)}</td>
+        </tr>
       `;
     }).join("");
 
     main.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap;">
+      <h2>${this.t("student.assessments.title", {}, "Upcoming Assessments")}</h2>
+      ${this._table(`
+        <thead>
+          <tr>
+            <th>${this.t("student.assessments.columns.subject", {}, "Subject")}</th>
+            <th>${this.t("student.assessments.columns.title", {}, "Assessment")}</th>
+            <th>${this.t("student.assessments.columns.programClass", {}, "Program / Group")}</th>
+            <th>${this.t("student.assessments.columns.dueDate", {}, "Due date")}</th>
+            <th>${this.t("student.assessments.columns.maxGrade", {}, "Max grade")}</th>
+            <th>${this.t("student.assessments.columns.teacher", {}, "Teacher")}</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      `)}
+    `;
+  },
+
+  renderGrades(gradesData) {
+    const grades = this._toArray(gradesData);
+    const main = document.getElementById("student-main");
+    const align = this.start();
+
+    if (!grades.length) {
+      main.innerHTML = this._emptySection(
+        "student.grades.emptyTitle",
+        "Grades",
+        "student.grades.emptyText",
+        "No grades have been recorded for you yet."
+      );
+      return;
+    }
+
+    const rows = grades.map(item => {
+      const passed = Number(item.grade_value) >= (Number(item.max_grade) / 2);
+      const type = this._translateStatus(item.assessment_type === "exam" ? "exam" : "homework");
+
+      return `
+        <tr>
+          <td><strong>${this._escape(item.subject_name)}</strong></td>
+          <td>${this._escape(item.assessment_title)} <span class="muted-value">(${this._escape(type)})</span></td>
+          <td>${this._escape(item.program_name || this.t("student.common.none", {}, "-"))} / ${this._escape(item.class_name || this.t("student.common.none", {}, "-"))}</td>
+          <td style="direction: ltr; text-align: ${align}; font-weight: bold; color: ${passed ? '#059669' : '#dc2626'};">${this._escape(item.grade_value)} / ${this._escape(item.max_grade)}</td>
+          <td>${this._escape(item.teacher_name)}</td>
+          <td>${this._escape(item.teacher_remarks || this.t("student.common.none", {}, "-"))}</td>
+        </tr>
+      `;
+    }).join("");
+
+    main.innerHTML = `
+      <h2>${this.t("student.grades.title", {}, "Grades and Marks")}</h2>
+      ${this._table(`
+        <thead>
+          <tr>
+            <th>${this.t("student.grades.columns.subject", {}, "Subject")}</th>
+            <th>${this.t("student.grades.columns.assessment", {}, "Assessment")}</th>
+            <th>${this.t("student.grades.columns.programClass", {}, "Program / Group")}</th>
+            <th>${this.t("student.grades.columns.grade", {}, "Grade")}</th>
+            <th>${this.t("student.grades.columns.teacher", {}, "Teacher")}</th>
+            <th>${this.t("student.grades.columns.remarks", {}, "Remarks")}</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      `)}
+    `;
+  },
+
+  renderAttendance(recordsData) {
+    const records = this._toArray(recordsData);
+    const main = document.getElementById("student-main");
+
+    if (!records.length) {
+      main.innerHTML = this._emptySection(
+        "student.attendance.emptyTitle",
+        "Attendance Record",
+        "student.attendance.emptyText",
+        "Your attendance record is clean. No absences were found."
+      );
+      return;
+    }
+
+    const rows = records.map(record => {
+      const statusColor = record.status === "absent" ? "#dc2626" : (record.status === "late" ? "#d97706" : "#059669");
+      const justified = record.is_justified
+        ? this.t("student.attendance.justifiedYes", { reason: this._escape(record.justification_reason || "") }, "Yes ({reason})")
+        : this.t("student.attendance.justifiedNo", {}, "No");
+
+      return `
+        <tr>
+          <td>${this._escape(record.date)}</td>
+          <td>${this._escape(record.class_name || this.t("student.common.none", {}, "-"))}</td>
+          <td style="font-weight:bold; color:${statusColor};">${this._translateStatus(record.status)}</td>
+          <td>${justified}</td>
+        </tr>
+      `;
+    }).join("");
+
+    main.innerHTML = `
+      <h2>${this.t("student.attendance.title", {}, "Attendance and Absence Record")}</h2>
+      ${this._table(`
+        <thead>
+          <tr>
+            <th>${this.t("student.attendance.columns.date", {}, "Date")}</th>
+            <th>${this.t("student.attendance.columns.group", {}, "Group")}</th>
+            <th>${this.t("student.attendance.columns.status", {}, "Status")}</th>
+            <th>${this.t("student.attendance.columns.justified", {}, "Justified?")}</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      `)}
+    `;
+  },
+
+  renderResources(resourcesData) {
+    const resources = this._toArray(resourcesData);
+    const main = document.getElementById("student-main");
+    const start = this.start();
+
+    if (!resources.length) {
+      main.innerHTML = this._emptySection(
+        "student.resources.emptyTitle",
+        "Lessons and Resources",
+        "student.resources.emptyText",
+        "No uploaded files are available currently."
+      );
+      return;
+    }
+
+    const items = resources.map(resource => `
+      <article class="student-resource-card" style="border-${start}: 4px solid #0d9488;">
         <div>
-          <h2 style="margin:0;">الإشعارات</h2>
-          <small style="color:#64748b;">${unreadCount} إشعار غير مقروء</small>
+          <strong>${this._escape(resource.title)}</strong>
+          <small>
+            ${this.t("student.resources.typeLabel", {}, "Type:")} ${this._escape(resource.resource_type)}
+            <span aria-hidden="true"> - </span>
+            ${this.t("student.resources.sizeLabel", {}, "Size:")} ${this._escape(resource.file_size_mb)} MB
+          </small>
+          ${resource.description ? `<p>${this._escape(resource.description)}</p>` : ""}
         </div>
-        ${unreadCount > 0 ? '<button type="button" id="student-mark-all-notifications-read" style="background:#0f172a; color:white; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700;">تعيين الكل كمقروء</button>' : ''}
+        <a href="http://localhost:8000/resources/${this._escapeAttr(resource.id)}/download" target="_blank" rel="noopener noreferrer">
+          ${this.t("student.common.download", {}, "Download")}
+        </a>
+      </article>
+    `).join("");
+
+    main.innerHTML = `
+      <h2>${this.t("student.resources.title", {}, "Educational Lessons and Resources")}</h2>
+      <div class="student-resource-list">${items}</div>
+    `;
+  },
+
+  renderFees(feesData) {
+    const fees = this._toArray(feesData);
+    const main = document.getElementById("student-main");
+    const align = this.start();
+
+    if (!fees.length) {
+      main.innerHTML = this._emptySection(
+        "student.fees.emptyTitle",
+        "Financial Status",
+        "student.fees.emptyText",
+        "No fees are registered for you."
+      );
+      return;
+    }
+
+    const rows = fees.map(fee => {
+      const details = [
+        fee.program_name ? `(${this._escape(fee.program_name)})` : "",
+        fee.class_name ? `- ${this._escape(fee.class_name)}` : ""
+      ].filter(Boolean).join(" ");
+
+      return `
+        <tr>
+          <td>${this._escape(fee.fee_type)} ${details}</td>
+          <td>${this._formatCurrency(fee.amount_due)}</td>
+          <td>${this._formatCurrency(fee.applied_discount)}</td>
+          <td style="font-weight: bold; color: #0f172a;">${this._formatCurrency(fee.net_amount)}</td>
+          <td style="direction: ltr; text-align: ${align};">${this._escape(fee.due_date)}</td>
+        </tr>
+      `;
+    }).join("");
+
+    main.innerHTML = `
+      <h2>${this.t("student.fees.title", {}, "Financial Status and Due Fees")}</h2>
+      ${this._table(`
+        <thead>
+          <tr>
+            <th>${this.t("student.fees.columns.feeType", {}, "Fee type")}</th>
+            <th>${this.t("student.fees.columns.amountDue", {}, "Gross amount")}</th>
+            <th>${this.t("student.fees.columns.discount", {}, "Discount")}</th>
+            <th>${this.t("student.fees.columns.netAmount", {}, "Net amount")}</th>
+            <th>${this.t("student.fees.columns.dueDate", {}, "Due date")}</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      `)}
+    `;
+  },
+
+  renderNotifications(notificationsData) {
+    const notifications = this._toArray(notificationsData);
+    const main = document.getElementById("student-main");
+    const start = this.start();
+    const end = this.end();
+
+    if (!notifications.length) {
+      main.innerHTML = this._emptySection(
+        "student.notifications.emptyTitle",
+        "Notifications",
+        "student.notifications.emptyText",
+        "There are no new notifications."
+      );
+      return;
+    }
+
+    const unreadCount = notifications.filter(notification => !this._isNotificationRead(notification)).length;
+    const items = notifications.map(notification => {
+      const date = notification.created_at
+        ? this.formatDateTime(notification.created_at)
+        : this.t("student.common.unknownDate", {}, "Unknown date");
+      const isRead = this._isNotificationRead(notification);
+      const notificationId = this._getNotificationId(notification);
+      const action = isRead
+        ? `<span class="student-notification-action is-read">${this.t("student.notifications.read", {}, "Read")}</span>`
+        : notificationId !== null
+          ? `<button type="button" class="student-mark-notification-read" data-notification-id="${this._escapeAttr(notificationId)}">${this.t("student.notifications.markRead", {}, "Mark as read")}</button>`
+          : `<span class="student-notification-action">${this.t("student.common.unavailable", {}, "Unavailable")}</span>`;
+      const statusLabel = isRead
+        ? this.t("student.notifications.read", {}, "Read")
+        : this.t("student.notifications.unread", {}, "Unread");
+
+      return `
+        <article class="student-notification-card${isRead ? " is-read" : ""}" style="border-${start}: 4px solid ${isRead ? '#94a3b8' : '#d97706'};">
+          <div class="student-notification-title-row">
+            <strong>${this._escape(notification.title || this.t("student.notifications.defaultTitle", {}, "Notification"))}</strong>
+            <span>${statusLabel}</span>
+          </div>
+          <p>${this._escape(notification.message || "")}</p>
+          <div class="student-notification-footer">
+            <small style="direction:ltr; text-align:${end};">${date}</small>
+            ${action}
+          </div>
+        </article>
+      `;
+    }).join("");
+
+    main.innerHTML = `
+      <div class="student-section-topbar">
+        <div>
+          <h2>${this.t("student.notifications.title", {}, "Incoming Notifications")}</h2>
+          <small>${this.t("student.notifications.unreadCount", { count: unreadCount }, `${unreadCount} unread`)}</small>
+        </div>
+        ${unreadCount > 0 ? `<button type="button" id="student-mark-all-notifications-read">${this.t("student.notifications.markAllRead", {}, "Mark all as read")}</button>` : ""}
       </div>
-      <div>${items}</div>
+      <div class="student-notification-list">${items}</div>
     `;
   },
 
   renderPosts(postsData) {
-    const posts = Array.isArray(postsData) ? postsData : (postsData?.data || []);
+    const posts = this._toArray(postsData);
     const main = document.getElementById("student-main");
     const sortedPosts = [...posts].sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
     this._postsCache = sortedPosts;
 
-    if (!sortedPosts || sortedPosts.length === 0) {
+    if (!sortedPosts.length) {
       main.innerHTML = `
         <div class="posts-dashboard student-posts-dashboard">
           <div class="posts-header-bar">
             <div>
-              <h3>منشورات الإدارة</h3>
-              <p>الإعلانات والمحتوى المنشور من الإدارة يظهر هنا.</p>
+              <h3>${this.t("student.posts.title", {}, "Administration Posts")}</h3>
+              <p>${this.t("student.posts.emptySubtitle", {}, "Announcements and published content from administration will appear here.")}</p>
             </div>
           </div>
           <div class="posts-empty">
-            <div class="empty-icon">📭</div>
-            <h4>لا توجد منشورات حالياً</h4>
-            <p>ستظهر منشورات الإدارة هنا عند توفرها.</p>
+            <div class="empty-icon">${this.t("student.common.file", {}, "File")}</div>
+            <h4>${this.t("student.posts.emptyTitle", {}, "No posts currently")}</h4>
+            <p>${this.t("student.posts.emptyText", {}, "Administration posts will appear here when available.")}</p>
           </div>
         </div>
       `;
@@ -257,24 +425,25 @@ const StudentUI = {
     }
 
     const cards = sortedPosts.map((post, index) => {
-      const title = this._escape(post.title || "منشور بدون عنوان");
+      const title = this._escape(post.title || this.t("student.posts.untitled", {}, "Untitled post"));
       const date = this._formatPostDate(post.created_at);
-      const excerpt = this._escape(this._extractPostSnippet(post.content ?? ""));
+      const snippet = this._extractPostSnippet(post.content ?? "");
+      const excerpt = snippet ? this._escape(snippet) : "";
 
       return `
         <article class="student-post-list-card">
           ${post.image
-            ? `<img src="${this._escape(post.image)}" class="student-post-thumb" alt="${title}">`
-            : `<div class="student-post-thumb student-post-thumb-placeholder">📄</div>`}
+            ? `<img src="${this._escapeAttr(post.image)}" class="student-post-thumb" alt="${title}">`
+            : `<div class="student-post-thumb student-post-thumb-placeholder">${this.t("student.posts.filePlaceholder", {}, "Document")}</div>`}
           <div class="student-post-summary">
             <div>
-              <div class="student-post-label">من الإدارة</div>
+              <div class="student-post-label">${this.t("student.common.fromManagement", {}, "From administration")}</div>
               <h3 class="student-post-list-title">${title}</h3>
-              <p>${excerpt || "اضغط لعرض تفاصيل المنشور."}</p>
+              <p>${excerpt || this.t("student.posts.openHint", {}, "Open the post to view its details.")}</p>
             </div>
             <div class="student-post-list-actions">
               <time class="student-post-date">${date}</time>
-              <button type="button" class="student-post-open" data-post-index="${index}">عرض التفاصيل</button>
+              <button type="button" class="student-post-open" data-post-index="${index}">${this.t("student.common.openDetails", {}, "View details")}</button>
             </div>
           </div>
         </article>
@@ -285,13 +454,14 @@ const StudentUI = {
       <div class="posts-dashboard student-posts-dashboard">
         <div class="posts-header-bar">
           <div>
-            <h3>منشورات الإدارة</h3>
-            <p>اختر منشوراً من القائمة لعرض التفاصيل الكاملة.</p>
+            <h3>${this.t("student.posts.title", {}, "Administration Posts")}</h3>
+            <p>${this.t("student.posts.listSubtitle", {}, "Choose a post from the list to view the full details.")}</p>
           </div>
         </div>
         <div class="student-posts-list">${cards}</div>
       </div>
     `;
+
     main.querySelectorAll(".student-post-open").forEach(btn => {
       btn.addEventListener("click", () => this.renderPostDetails(Number(btn.dataset.postIndex)));
     });
@@ -306,25 +476,25 @@ const StudentUI = {
       return;
     }
 
-    const title = this._escape(post.title || "منشور بدون عنوان");
+    const title = this._escape(post.title || this.t("student.posts.untitled", {}, "Untitled post"));
     const date = this._formatPostDate(post.created_at);
     const contentHtml = this._processPostMarkdown(post.content ?? "");
 
     main.innerHTML = `
       <div class="posts-dashboard student-posts-dashboard">
         <div class="student-post-detail-topbar">
-          <button type="button" class="btn-secondary" id="student-posts-back">← الرجوع للمنشورات</button>
+          <button type="button" class="btn-secondary" id="student-posts-back">${this.t("student.common.backToPosts", {}, "Back to posts")}</button>
           <time class="student-post-date">${date}</time>
         </div>
         <article class="student-post-card student-post-detail">
-          ${post.image ? `<img src="${this._escape(post.image)}" class="student-post-cover" alt="${title}">` : ""}
+          ${post.image ? `<img src="${this._escapeAttr(post.image)}" class="student-post-cover" alt="${title}">` : ""}
           <div class="student-post-head">
             <div>
-              <div class="student-post-label">من الإدارة</div>
+              <div class="student-post-label">${this.t("student.common.fromManagement", {}, "From administration")}</div>
               <h3 class="preview-title">${title}</h3>
             </div>
           </div>
-          <div class="md-body">${contentHtml || '<p class="preview-placeholder">لا يوجد محتوى لهذا المنشور.</p>'}</div>
+          <div class="md-body">${contentHtml || `<p class="preview-placeholder">${this.t("student.common.noContent", {}, "This post has no content.")}</p>`}</div>
         </article>
       </div>
     `;
@@ -343,12 +513,12 @@ const StudentUI = {
       <section class="student-messages-dashboard">
         <div class="student-messages-header">
           <div>
-            <h2>المراسلة</h2>
-            <p>تواصل مع الإدارة أو الأساتذة أو أي مستخدم متاح في النظام.</p>
+            <h2>${this.t("student.messages.title", {}, "Messages")}</h2>
+            <p>${this.t("student.messages.subtitle", {}, "Contact administration, teachers, or any available user in the system.")}</p>
           </div>
           <div class="student-message-search">
-            <input type="text" id="student-message-user-search" placeholder="ابحث باسم المستخدم..." autocomplete="off">
-            <button type="button" id="student-message-search-btn">بحث</button>
+            <input type="text" id="student-message-user-search" placeholder="${this._escapeAttr(this.t("student.messages.searchPlaceholder", {}, "Search by user name..."))}" autocomplete="off">
+            <button type="button" id="student-message-search-btn">${this.t("student.messages.searchButton", {}, "Search")}</button>
           </div>
         </div>
 
@@ -356,23 +526,22 @@ const StudentUI = {
 
         <div class="student-messages-shell">
           <aside class="student-message-contacts">
-            <div class="student-message-panel-title">المحادثات</div>
+            <div class="student-message-panel-title">${this.t("student.messages.conversations", {}, "Conversations")}</div>
             <div id="student-message-contacts-list">
               ${this._renderMessageContacts(contacts)}
             </div>
           </aside>
 
           <section class="student-chat-panel">
-            <div id="student-chat-header" class="student-chat-header">اختر محادثة من القائمة أو ابحث عن مستخدم جديد.</div>
+            <div id="student-chat-header" class="student-chat-header">${this.t("student.messages.selectPrompt", {}, "Choose a conversation from the list or search for a new user.")}</div>
             <div id="student-chat-messages" class="student-chat-messages">
               <div class="student-chat-empty">
-                <div>💬</div>
-                <p>المحادثة ستظهر هنا.</p>
+                <p>${this.t("student.messages.emptyConversation", {}, "The conversation will appear here.")}</p>
               </div>
             </div>
             <form id="student-message-form" class="student-message-form" hidden>
-              <textarea id="student-message-input" rows="2" placeholder="اكتب رسالتك..." required></textarea>
-              <button type="submit">إرسال</button>
+              <textarea id="student-message-input" rows="2" placeholder="${this._escapeAttr(this.t("student.messages.inputPlaceholder", {}, "Write your message..."))}" required></textarea>
+              <button type="submit">${this.t("student.common.send", {}, "Send")}</button>
               <small id="student-message-status"></small>
             </form>
           </section>
@@ -390,28 +559,36 @@ const StudentUI = {
 
     if (!results) return;
     if (keyword.length < 2) {
-      results.innerHTML = `<div class="student-message-inline-note">اكتب حرفين على الأقل للبحث.</div>`;
+      results.innerHTML = `<div class="student-message-inline-note">${this.t("student.messages.minSearch", {}, "Type at least two characters to search.")}</div>`;
       return;
     }
 
-    results.innerHTML = `<div class="student-message-inline-note">جاري البحث...</div>`;
+    results.innerHTML = `<div class="student-message-inline-note">${this.t("student.messages.searching", {}, "Searching...")}</div>`;
 
     try {
       const response = await StudentServices.searchUsers(keyword);
-      const users = (Array.isArray(response) ? response : (response?.data || []))
-        .filter(user => Number(user.id) !== this._currentUserId);
+      const users = this._toArray(response).filter(user => {
+        const userId = Number(user.id ?? user.user_id);
+        return userId && userId !== this._currentUserId;
+      });
 
-      if (users.length === 0) {
-        results.innerHTML = `<div class="student-message-inline-note">لا توجد نتائج مطابقة.</div>`;
+      if (!users.length) {
+        results.innerHTML = `<div class="student-message-inline-note">${this.t("student.messages.noResults", {}, "No matching results.")}</div>`;
         return;
       }
 
-      results.innerHTML = users.map(user => `
-        <button type="button" class="student-message-user-result" data-user-id="${user.id}" data-user-name="${this._escape(user.full_name || user.username || ('مستخدم #' + user.id))}">
-          <span>${this._escape(user.full_name || user.username || ('مستخدم #' + user.id))}</span>
-          <small>${this._escape(user.role_name || "مستخدم")}</small>
-        </button>
-      `).join("");
+      results.innerHTML = users.map(user => {
+        const userId = Number(user.id ?? user.user_id);
+        const name = user.full_name || user.username || this.t("student.common.userFallback", { id: userId }, `User #${userId}`);
+        const role = this._translateStatus(user.role_name || user.role || user.user_type || this.t("student.messages.roleFallback", {}, "User"));
+
+        return `
+          <button type="button" class="student-message-user-result" data-user-id="${userId}" data-user-name="${this._escapeAttr(name)}">
+            <span>${this._escape(name)}</span>
+            <small>${this._escape(role)}</small>
+          </button>
+        `;
+      }).join("");
 
       results.querySelectorAll(".student-message-user-result").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -420,7 +597,7 @@ const StudentUI = {
         });
       });
     } catch (err) {
-      results.innerHTML = `<div class="student-message-inline-note error">فشل البحث: ${this._escape(err.message)}</div>`;
+      results.innerHTML = `<div class="student-message-inline-note error">${this.t("student.messages.searchFailed", { message: this._escape(err.message) }, "Search failed.")}</div>`;
     }
   },
 
@@ -433,16 +610,17 @@ const StudentUI = {
     const status = document.getElementById("student-message-status");
 
     if (header) header.textContent = contactName;
-    if (messagesArea) messagesArea.innerHTML = `<div class="student-message-inline-note">جاري تحميل المحادثة...</div>`;
+    if (messagesArea) messagesArea.innerHTML = `<div class="student-message-inline-note">${this.t("student.messages.loadingConversation", {}, "Loading conversation...")}</div>`;
     if (form) form.hidden = false;
     if (status) status.textContent = "";
 
     try {
       const response = await StudentServices.getConversation(this._currentUserId, contactId);
-      const messages = Array.isArray(response) ? response : (response?.data || []);
-      this.renderMessageConversation(messages);
+      this.renderMessageConversation(this._toArray(response));
     } catch (err) {
-      if (messagesArea) messagesArea.innerHTML = `<div class="student-message-inline-note error">تعذر تحميل الرسائل: ${this._escape(err.message)}</div>`;
+      if (messagesArea) {
+        messagesArea.innerHTML = `<div class="student-message-inline-note error">${this.t("student.messages.loadFailed", { message: this._escape(err.message) }, "Could not load messages.")}</div>`;
+      }
     }
   },
 
@@ -452,20 +630,22 @@ const StudentUI = {
 
     const ordered = [...(messages || [])].sort((a, b) => new Date(a.created_at || a.timestamp || 0) - new Date(b.created_at || b.timestamp || 0));
 
-    if (ordered.length === 0) {
-      area.innerHTML = `<div class="student-chat-empty"><div>✉️</div><p>لا توجد رسائل بعد.</p></div>`;
+    if (!ordered.length) {
+      area.innerHTML = `<div class="student-chat-empty"><p>${this.t("student.messages.noMessages", {}, "No messages yet.")}</p></div>`;
       return;
     }
 
-    area.innerHTML = ordered.map(msg => {
-      const isMine = Number(msg.sender_id) === this._currentUserId;
-      const author = isMine ? "أنت" : (msg.sender_name || this._activeMessageContact?.name || "المستخدم");
-      const date = msg.created_at ? new Date(msg.created_at).toLocaleString("ar-DZ") : "";
+    area.innerHTML = ordered.map(message => {
+      const isMine = Number(message.sender_id) === this._currentUserId;
+      const author = isMine
+        ? this.t("student.messages.you", {}, "You")
+        : (message.sender_name || this._activeMessageContact?.name || this.t("student.messages.roleFallback", {}, "User"));
+      const date = message.created_at ? this.formatDateTime(message.created_at) : "";
 
       return `
         <div class="student-message-bubble${isMine ? " mine" : ""}">
           <div class="student-message-author">${this._escape(author)}</div>
-          <div>${this._escape(msg.content || "")}</div>
+          <div>${this._escape(message.content || "")}</div>
           <time>${date}</time>
         </div>
       `;
@@ -482,19 +662,19 @@ const StudentUI = {
     if (!this._activeMessageContact || !content) return;
 
     if (status) {
-      status.textContent = "جاري الإرسال...";
+      status.textContent = this.t("student.messages.sending", {}, "Sending...");
       status.className = "";
     }
 
     try {
       await StudentServices.sendMessage(this._currentUserId, this._activeMessageContact.id, content);
       input.value = "";
-      if (status) status.textContent = "تم الإرسال";
+      if (status) status.textContent = this.t("student.messages.sent", {}, "Sent");
       await this.openMessageConversation(this._activeMessageContact.id, this._activeMessageContact.name);
       this.refreshMessageContacts();
     } catch (err) {
       if (status) {
-        status.textContent = "فشل الإرسال: " + err.message;
+        status.textContent = this.t("student.messages.sendFailed", { message: err.message }, "Send failed.");
         status.className = "error";
       }
     }
@@ -512,31 +692,8 @@ const StudentUI = {
         this._bindMessageContactEvents();
       }
     } catch (err) {
-      console.warn("تعذر تحديث صندوق المحادثات:", err);
+      console.warn("Could not refresh student message inbox:", err);
     }
-  },
-
-  _getNotificationId(notification) {
-    const id = notification?.id ?? notification?.notification_id;
-    return id === undefined || id === null || id === "" ? null : id;
-  },
-
-  _isNotificationRead(notification) {
-    const value = notification?.is_read;
-    return value === true || value === 1 || value === "1" || value === "true";
-  },
-
-  _translate(str) {
-    const map = {
-      schedule: "الجدول الزمني", assessments: "الامتحانات", grades: "العلامات", 
-      attendance: "الغياب", resources: "الدروس", posts: "منشورات الإدارة", messages: "المراسلة", fees: "المالية", notifications: "الإشعارات"
-    };
-    return map[str] || str;
-  },
-
-  _translateDay(day) {
-    const map = { 'Sunday': 'الأحد', 'Monday': 'الإثنين', 'Tuesday': 'الثلاثاء', 'Wednesday': 'الأربعاء', 'Thursday': 'الخميس', 'Friday': 'الجمعة', 'Saturday': 'السبت' };
-    return map[day] || day;
   },
 
   _bindMessageEvents() {
@@ -562,18 +719,19 @@ const StudentUI = {
   },
 
   _buildMessageContacts(inboxData, userId) {
-    const messages = Array.isArray(inboxData) ? inboxData : (inboxData?.data || []);
+    const messages = this._toArray(inboxData);
     const contacts = new Map();
+    const currentUserId = Number(userId);
 
     messages.forEach(message => {
       const senderId = Number(message.sender_id);
       const receiverId = Number(message.receiver_id);
-      const contactId = senderId === Number(userId) ? receiverId : senderId;
-      if (!contactId || contactId === Number(userId)) return;
+      const contactId = senderId === currentUserId ? receiverId : senderId;
+      if (!contactId || contactId === currentUserId) return;
 
-      const contactName = senderId === Number(userId)
-        ? (message.receiver_name || `مستخدم #${contactId}`)
-        : (message.sender_name || `مستخدم #${contactId}`);
+      const contactName = senderId === currentUserId
+        ? (message.receiver_name || message.receiver_full_name || message.receiver_username || this.t("student.common.userFallback", { id: contactId }, `User #${contactId}`))
+        : (message.sender_name || message.sender_full_name || message.sender_username || this.t("student.common.userFallback", { id: contactId }, `User #${contactId}`));
       const createdAt = message.created_at || message.timestamp || "";
       const existing = contacts.get(contactId);
 
@@ -591,42 +749,45 @@ const StudentUI = {
   },
 
   _renderMessageContacts(contacts) {
-    if (!contacts || contacts.length === 0) {
-      return `<div class="student-message-empty-list">لا توجد محادثات بعد.</div>`;
+    if (!contacts || !contacts.length) {
+      return `<div class="student-message-empty-list">${this.t("student.messages.emptyList", {}, "No conversations yet.")}</div>`;
     }
 
-    return contacts.map(contact => `
-      <button type="button" class="student-message-contact" data-contact-id="${contact.id}" data-contact-name="${this._escape(contact.name)}">
-        <span>${this._escape(contact.name)}</span>
-        <small>${this._escape(contact.last_message || "...")}</small>
-      </button>
-    `).join("");
+    return contacts.map(contact => {
+      const activeClass = Number(contact.id) === this._activeMessageContact?.id ? " active" : "";
+
+      return `
+        <button type="button" class="student-message-contact${activeClass}" data-contact-id="${contact.id}" data-contact-name="${this._escapeAttr(contact.name)}">
+          <span>${this._escape(contact.name)}</span>
+          <small>${this._escape(contact.last_message || "...")}</small>
+        </button>
+      `;
+    }).join("");
   },
 
   _processPostMarkdown(raw) {
     if (!raw) return "";
 
-    let source = String(raw).replace(
-      /\[تحميل:\s*([^\]|]+?)(?:\|([^\]|]*?))?(?:\|([^\]]*?))?\]\(([^)]+)\)/g,
-      (_, name, type, size, url) => {
-        const safeUrl = this._escape(url.trim());
-        const safeName = this._escape(name.trim());
-        const ext = safeUrl.split(".").pop()?.split("?")[0];
-        const icon = this._getFileIcon(ext);
-        const meta = [type, size].map(part => part?.trim()).filter(Boolean).join(" · ");
+    const downloadWords = ["\\u062a\\u062d\\u0645\\u064a\\u0644", "Download"];
+    const downloadPattern = new RegExp(`\\[(?:${downloadWords.join("|")}):\\s*([^\\]|]+?)(?:\\|([^\\]|]*?))?(?:\\|([^\\]]*?))?\\]\\(([^)]+)\\)`, "g");
+    let source = String(raw).replace(downloadPattern, (_, name, type, size, url) => {
+      const safeUrl = this._escapeAttr(url.trim());
+      const safeName = this._escape(name.trim());
+      const ext = safeUrl.split(".").pop()?.split("?")[0];
+      const icon = this._getFileIcon(ext);
+      const meta = [type, size].map(part => part?.trim()).filter(Boolean).join(" - ");
 
-        return `
-          <a href="${safeUrl}" target="_blank" class="dl-card" rel="noopener noreferrer">
-            <span class="dl-card-icon">${icon}</span>
-            <span class="dl-card-info">
-              <span class="dl-card-name">${safeName}</span>
-              ${meta ? `<span class="dl-card-meta">${this._escape(meta)}</span>` : ""}
-            </span>
-            <span class="dl-card-btn">تحميل</span>
-          </a>
-        `;
-      }
-    );
+      return `
+        <a href="${safeUrl}" target="_blank" class="dl-card" rel="noopener noreferrer">
+          <span class="dl-card-icon">${icon}</span>
+          <span class="dl-card-info">
+            <span class="dl-card-name">${safeName}</span>
+            ${meta ? `<span class="dl-card-meta">${this._escape(meta)}</span>` : ""}
+          </span>
+          <span class="dl-card-btn">${this.t("student.common.download", {}, "Download")}</span>
+        </a>
+      `;
+    });
 
     let html = (typeof marked !== "undefined")
       ? marked.parse(source, { gfm: true, breaks: true, tables: true })
@@ -660,12 +821,54 @@ const StudentUI = {
     }
   },
 
-  _formatPostDate(value) {
-    if (!value) return "تاريخ غير محدد";
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "تاريخ غير محدد";
+  _emptySection(titleKey, titleFallback, textKey, textFallback) {
+    return `
+      <h2>${this.t(titleKey, {}, titleFallback)}</h2>
+      <p>${this.t(textKey, {}, textFallback)}</p>
+    `;
+  },
 
-    return date.toLocaleDateString("ar-DZ", {
+  _table(content) {
+    return `<div class="student-table-wrap"><table>${content}</table></div>`;
+  },
+
+  _toArray(value) {
+    return Array.isArray(value) ? value : (value?.data || []);
+  },
+
+  _getNotificationId(notification) {
+    const id = notification?.id ?? notification?.notification_id;
+    return id === undefined || id === null || id === "" ? null : id;
+  },
+
+  _isNotificationRead(notification) {
+    const value = notification?.is_read;
+    return value === true || value === 1 || value === "1" || value === "true";
+  },
+
+  _translate(section) {
+    return this.t(`student.nav.${section}`, {}, section);
+  },
+
+  _translateDay(day) {
+    const raw = String(day || "").trim();
+    if (!raw) return this.t("student.common.notSpecified", {}, "Not specified");
+    return this.t(`student.days.${raw}`, {}, raw);
+  },
+
+  _translateStatus(status) {
+    const raw = String(status || "").trim();
+    if (!raw) return this.t("student.common.notSpecified", {}, "Not specified");
+    const normalized = raw.toLowerCase().replace(/\s+/g, "_");
+    return this.t(`student.status.${normalized}`, {}, raw);
+  },
+
+  _formatPostDate(value) {
+    if (!value) return this.t("student.common.unknownDate", {}, "Unknown date");
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return this.t("student.common.unknownDate", {}, "Unknown date");
+
+    return date.toLocaleDateString(this.locale(), {
       year: "numeric",
       month: "long",
       day: "numeric"
@@ -702,17 +905,67 @@ const StudentUI = {
   },
 
   _getFileIcon(ext) {
-    const icons = { pdf: "📄", doc: "📝", docx: "📝", xls: "📊", xlsx: "📊", ppt: "📑", pptx: "📑", zip: "🗜️", rar: "🗜️", mp4: "🎬", mp3: "🎵", png: "🖼️", jpg: "🖼️", jpeg: "🖼️" };
-    return icons[ext?.toLowerCase()] || "📎";
+    return ext ? ext.toUpperCase().slice(0, 4) : this.t("student.common.file", {}, "File");
+  },
+
+  _formatCurrency(amount) {
+    const number = Number(amount);
+    const safeAmount = Number.isFinite(number) ? number : 0;
+    return `${safeAmount.toLocaleString(this.locale())} ${this.t("student.currency.dzd", {}, "DZD")}`;
+  },
+
+  formatDateTime(value) {
+    if (!value) return this.t("student.common.unknownDate", {}, "Unknown date");
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value);
+    return date.toLocaleString(this.locale());
+  },
+
+  locale() {
+    return window.I18n ? I18n.get("meta.locale", this.isRtl() ? "ar-DZ" : "en-US") : "ar-DZ";
+  },
+
+  dir() {
+    return window.I18n ? I18n.get("meta.dir", "rtl") : "rtl";
+  },
+
+  isRtl() {
+    return this.dir() === "rtl";
+  },
+
+  start() {
+    return this.isRtl() ? "right" : "left";
+  },
+
+  end() {
+    return this.isRtl() ? "left" : "right";
+  },
+
+  t(key, params = {}, fallback = "") {
+    return window.I18n ? I18n.t(key, params, fallback || key) : (fallback || key);
+  },
+
+  _formatValue(value) {
+    return value === null || value === undefined || value === ""
+      ? this.t("student.common.none", {}, "-")
+      : value;
   },
 
   _escape(value) {
-    return String(value ?? "").replace(/[&<>"']/g, char => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    }[char]));
+    return String(this._formatValue(value))
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  },
+
+  _escapeAttr(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 };

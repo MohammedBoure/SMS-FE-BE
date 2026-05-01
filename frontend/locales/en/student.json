@@ -1,0 +1,218 @@
+{
+  "meta": {
+    "lang": "en",
+    "dir": "ltr",
+    "locale": "en-US"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "Arabic",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    }
+  ],
+  "student": {
+    "documentTitle": "Student Dashboard",
+    "brand": {
+      "welcome": "Welcome: {name}"
+    },
+    "language": {
+      "label": "Language",
+      "select": "Choose language"
+    },
+    "auth": {
+      "logout": "Log out"
+    },
+    "nav": {
+      "schedule": "Schedule",
+      "assessments": "Assessments",
+      "grades": "Grades",
+      "attendance": "Attendance",
+      "resources": "Resources",
+      "posts": "Administration Posts",
+      "messages": "Messages",
+      "fees": "Finance",
+      "notifications": "Notifications"
+    },
+    "state": {
+      "loading": "Loading data...",
+      "errorPrefix": "Error:",
+      "unknownSection": "Unknown section",
+      "studentProfileMissing": "Your account is not registered as a student in the database. Please contact administration.",
+      "initFailed": "Failed to initialize student data."
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "Not specified",
+      "updating": "Updating...",
+      "unavailable": "Unavailable",
+      "unknownDate": "Unknown date",
+      "userFallback": "User #{id}",
+      "send": "Send",
+      "download": "Download",
+      "fromManagement": "From administration",
+      "openDetails": "View details",
+      "backToPosts": "Back to posts",
+      "noContent": "This post has no content.",
+      "file": "File"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "present": "Present",
+      "absent": "Absent",
+      "late": "Late",
+      "paid": "Paid",
+      "completed": "Paid",
+      "unpaid": "Unpaid",
+      "partial": "Partially paid",
+      "overdue": "Overdue",
+      "read": "Read",
+      "unread": "Unread",
+      "student": "Student",
+      "parent": "Parent",
+      "teacher": "Teacher",
+      "admin": "Admin",
+      "receptionist": "Receptionist",
+      "accountant": "Accountant",
+      "exam": "Exam",
+      "homework": "Homework"
+    },
+    "days": {
+      "Sunday": "Sunday",
+      "Monday": "Monday",
+      "Tuesday": "Tuesday",
+      "Wednesday": "Wednesday",
+      "Thursday": "Thursday",
+      "Friday": "Friday",
+      "Saturday": "Saturday"
+    },
+    "schedule": {
+      "title": "Weekly Schedule",
+      "emptyTitle": "Schedule",
+      "emptyText": "Your schedule has not been prepared yet.",
+      "columns": {
+        "day": "Day",
+        "time": "Time",
+        "subject": "Subject",
+        "programClass": "Program / Group",
+        "teacher": "Teacher",
+        "room": "Room"
+      }
+    },
+    "assessments": {
+      "title": "Upcoming Assessments",
+      "emptyTitle": "Upcoming Assessments",
+      "emptyText": "There are no scheduled assessments currently.",
+      "columns": {
+        "subject": "Subject",
+        "title": "Assessment",
+        "programClass": "Program / Group",
+        "dueDate": "Due date",
+        "maxGrade": "Max grade",
+        "teacher": "Teacher"
+      }
+    },
+    "grades": {
+      "title": "Grades and Marks",
+      "emptyTitle": "Grades",
+      "emptyText": "No grades have been recorded for you yet.",
+      "columns": {
+        "subject": "Subject",
+        "assessment": "Assessment",
+        "programClass": "Program / Group",
+        "grade": "Grade",
+        "teacher": "Teacher",
+        "remarks": "Remarks"
+      }
+    },
+    "attendance": {
+      "title": "Attendance and Absence Record",
+      "emptyTitle": "Attendance Record",
+      "emptyText": "Your attendance record is clean. No absences were found.",
+      "columns": {
+        "date": "Date",
+        "group": "Group",
+        "status": "Status",
+        "justified": "Justified?"
+      },
+      "justifiedYes": "Yes ({reason})",
+      "justifiedNo": "No"
+    },
+    "resources": {
+      "title": "Educational Lessons and Resources",
+      "emptyTitle": "Lessons and Resources",
+      "emptyText": "No uploaded files are available currently.",
+      "typeLabel": "Type:",
+      "sizeLabel": "Size:"
+    },
+    "fees": {
+      "title": "Financial Status and Due Fees",
+      "emptyTitle": "Financial Status",
+      "emptyText": "No fees are registered for you.",
+      "columns": {
+        "feeType": "Fee type",
+        "amountDue": "Gross amount",
+        "discount": "Discount",
+        "netAmount": "Net amount",
+        "dueDate": "Due date"
+      }
+    },
+    "notifications": {
+      "emptyTitle": "Notifications",
+      "emptyText": "There are no new notifications.",
+      "title": "Incoming Notifications",
+      "unreadCount": "{count} unread notification(s)",
+      "markAllRead": "Mark all as read",
+      "markRead": "Mark as read",
+      "read": "Read",
+      "unread": "Unread",
+      "defaultTitle": "Notification"
+    },
+    "posts": {
+      "title": "Administration Posts",
+      "emptySubtitle": "Announcements and content published by administration will appear here.",
+      "listSubtitle": "Choose a post from the list to view the full details.",
+      "emptyTitle": "No posts currently",
+      "emptyText": "Administration posts will appear here when available.",
+      "untitled": "Untitled post",
+      "openHint": "Open the post to view its details.",
+      "filePlaceholder": "Document"
+    },
+    "messages": {
+      "title": "Messages",
+      "subtitle": "Contact administration, teachers, or any available user in the system.",
+      "searchPlaceholder": "Search by user name...",
+      "searchButton": "Search",
+      "conversations": "Conversations",
+      "selectPrompt": "Choose a conversation from the list or search for a new user.",
+      "emptyConversation": "The conversation will appear here.",
+      "inputPlaceholder": "Write your message...",
+      "minSearch": "Type at least two characters to search.",
+      "searching": "Searching...",
+      "noResults": "No matching results.",
+      "searchFailed": "Search failed: {message}",
+      "loadingConversation": "Loading conversation...",
+      "loadFailed": "Could not load messages: {message}",
+      "noMessages": "No messages yet.",
+      "you": "You",
+      "roleFallback": "User",
+      "sending": "Sending...",
+      "sent": "Sent",
+      "sendFailed": "Send failed: {message}",
+      "emptyList": "No conversations yet."
+    },
+    "actions": {
+      "notificationsUpdateFailed": "Could not update notifications.",
+      "notificationUpdateFailed": "Could not update the notification."
+    },
+    "currency": {
+      "dzd": "DZD"
+    }
+  }
+}

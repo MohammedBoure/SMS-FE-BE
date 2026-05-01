@@ -69,9 +69,16 @@
 
 html { scroll-behavior: smooth; }
 
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
 body {
   font-family: 'Tajawal', sans-serif;
-  direction: rtl;
+  direction: inherit;
   background: var(--bg);
   color: var(--text-primary);
   min-height: 100vh;
@@ -161,6 +168,12 @@ body {
   transition: transform var(--t);
 }
 
+[dir="ltr"] .nav-btn::before {
+  right: auto;
+  left: 0;
+  border-radius: 0 2px 2px 0;
+}
+
 .nav-btn:hover {
   background: rgba(255,255,255,0.06);
   color: #e2e8f0;
@@ -176,14 +189,8 @@ body {
   transform: translateY(-50%) scaleY(1);
 }
 
-/* Nav icon (data-icon attribute driven) */
 .nav-btn::after {
-  content: attr(data-icon);
-  font-size: 1.1rem;
-  order: -1; /* icon first in RTL */
-  min-width: 20px;
-  text-align: center;
-  flex-shrink: 0;
+  content: none;
 }
 
 /* ==========================================================================
@@ -215,6 +222,7 @@ body {
   align-items: center;
   width: 100%;
   padding: 0 !important; /* override inline style */
+  gap: 1rem;
 }
 
 /* Welcome text */
@@ -249,8 +257,7 @@ body {
 }
 
 #logout-btn::before {
-  content: '⏻';
-  font-size: 0.95rem;
+  content: none;
 }
 
 #logout-btn:hover {
@@ -259,6 +266,39 @@ body {
   color: #fff;
   box-shadow: 0 4px 12px rgba(244,63,94,0.25);
   transform: translateY(-1px);
+}
+
+.student-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.student-language-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.student-language-control select {
+  min-height: 38px;
+  border: 1px solid var(--border-dark);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--text-primary);
+  padding: 0 0.65rem;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.student-language-control option {
+  color: var(--text-primary);
+  background: var(--surface);
 }
 
 /* ==========================================================================
@@ -299,6 +339,11 @@ body {
   border-radius: 2px;
 }
 
+[dir="ltr"] #student-main h2::after {
+  right: auto;
+  left: 0;
+}
+
 /* Empty state paragraphs */
 #student-main > p,
 #student-main h2 + p {
@@ -313,6 +358,31 @@ body {
   color: var(--text-muted);
   font-weight: 400;
   padding: 2rem 0;
+}
+
+.student-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--r-lg);
+}
+
+.ltr-value {
+  direction: ltr;
+  display: inline-block;
+  unicode-bidi: plaintext;
+}
+
+.muted-value {
+  color: var(--text-muted);
+  font-size: 0.85em;
+}
+
+.danger-value {
+  color: var(--rose) !important;
+  background: rgba(244,63,94,0.08);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--r-sm);
+  display: inline-block;
 }
 
 /* ==========================================================================
@@ -343,6 +413,14 @@ thead th {
   letter-spacing: 0.03em;
   text-align: right;
   white-space: nowrap;
+}
+
+[dir="ltr"] thead th,
+[dir="ltr"] tbody td,
+[dir="ltr"] .nav-btn,
+[dir="ltr"] .student-message-contact,
+[dir="ltr"] .student-message-user-result {
+  text-align: left;
 }
 
 thead th:first-child  { border-radius: 0 var(--r-lg) 0 0; }
@@ -378,7 +456,8 @@ tbody tr:nth-child(even):hover { background: var(--surface-hover); }
 
 /* Grade coloring — override inline styles from JS for better look */
 td[style*="color: green"],
-td[style*="color:green"] {
+td[style*="color:green"],
+td[style*="#059669"] {
   color: var(--emerald) !important;
   background: rgba(16,185,129,0.07);
   border-radius: var(--r-sm);
@@ -386,7 +465,8 @@ td[style*="color:green"] {
 }
 
 td[style*="color: red"],
-td[style*="color:red"] {
+td[style*="color:red"],
+td[style*="#dc2626"] {
   color: var(--rose) !important;
   background: rgba(244,63,94,0.07);
   border-radius: var(--r-sm);
@@ -405,6 +485,155 @@ td strong[style*="#e11d48"] {
 /* ==========================================================================
    Resource Cards  (renderResources)
    ========================================================================== */
+.student-resource-list,
+.student-notification-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.student-resource-card,
+.student-notification-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1.1rem 1.4rem;
+  box-shadow: var(--shadow-sm);
+  animation: fade-in 0.35s ease both;
+}
+
+.student-resource-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: box-shadow var(--t), transform var(--t);
+}
+
+.student-resource-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+
+.student-resource-card strong,
+.student-notification-card strong {
+  display: block;
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+.student-resource-card small,
+.student-notification-card small {
+  display: block;
+  color: var(--text-light);
+  font-size: 0.78rem;
+}
+
+.student-resource-card p,
+.student-notification-card p {
+  margin: 0.3rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.93rem;
+}
+
+.student-resource-card a,
+.student-notification-card button,
+#student-mark-all-notifications-read {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  border: 0;
+  border-radius: var(--r);
+  padding: 0.55rem 1rem;
+  background: var(--teal);
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--t-fast), box-shadow var(--t-fast), transform var(--t-fast);
+  white-space: nowrap;
+}
+
+.student-resource-card a:hover,
+.student-notification-card button:hover,
+#student-mark-all-notifications-read:hover {
+  background: var(--teal-light);
+  box-shadow: 0 4px 12px rgba(13,148,136,0.28);
+  transform: translateY(-1px);
+}
+
+.student-section-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.student-section-topbar h2 {
+  margin: 0 !important;
+}
+
+.student-section-topbar h2::after {
+  display: none;
+}
+
+.student-section-topbar small {
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.student-notification-card {
+  opacity: 1;
+}
+
+.student-notification-card.is-read {
+  opacity: 0.78;
+}
+
+.student-notification-title-row,
+.student-notification-footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.85rem;
+}
+
+.student-notification-title-row span {
+  white-space: nowrap;
+  color: #d97706;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.student-notification-card.is-read .student-notification-title-row span {
+  color: #16a34a;
+  background: #dcfce7;
+  border-color: #bbf7d0;
+}
+
+.student-notification-footer {
+  align-items: center;
+  margin-top: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.student-notification-action {
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.student-notification-action.is-read {
+  color: #16a34a;
+}
+
 #student-main > div > div[style*="border-right"] {
   background: var(--surface) !important;
   border: 1px solid var(--border) !important;
@@ -859,6 +1088,25 @@ td strong[style*="#e11d48"] {
     font-size: 0.92rem;
   }
 
+  .student-header-actions {
+    gap: 0.4rem;
+  }
+
+  .student-language-control span {
+    display: none;
+  }
+
+  .student-language-control select {
+    min-height: 34px;
+    padding: 0 0.45rem;
+    font-size: 0.78rem;
+  }
+
+  #logout-btn {
+    padding: 0.42rem 0.7rem;
+    font-size: 0.78rem;
+  }
+
   /* Tables: horizontal scroll */
   table {
     display: block;
@@ -912,6 +1160,19 @@ td strong[style*="#e11d48"] {
   }
 
   /* Resource/notification cards stack */
+  .student-resource-card,
+  .student-notification-title-row,
+  .student-notification-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .student-resource-card a,
+  .student-notification-card button,
+  #student-mark-all-notifications-read {
+    width: 100%;
+  }
+
   #student-main > div > div[style] {
     flex-direction: column !important;
     align-items: flex-start !important;

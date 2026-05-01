@@ -1,35 +1,40 @@
 // js/roles/student/role.js
 
 const StudentRole = {
-  currentSection: "schedule", 
+  currentSection: "schedule",
   studentId: null,
   classId: null,
+  userProfile: null,
 
   async init() {
     if (!Auth.requireAuth("student")) return;
+
+    if (window.I18n) {
+      await I18n.init({ scope: "student", defaultLang: "ar" });
+    }
+
     const session = Auth.getSession();
 
-    console.log("=== 🔍 بداية تشخيص بيانات الطالب ===");
-
     try {
-      const userProfile = await Api.get(`/users/${session.user_id}`);
-      StudentUI.renderHeader(userProfile);
+      this.userProfile = await Api.get(`/users/${session.user_id}`);
+      StudentUI.renderHeader(this.userProfile);
 
-      // استخراج قائمة الطلاب بشكل آمن ليدعم نظام الصفحات (Pagination)
       const studentsResponse = await Api.get("/students/");
       const studentsList = Array.isArray(studentsResponse) ? studentsResponse : (studentsResponse?.data || []);
+      const targetUserId = Number(session.user_id);
 
-      const targetUserId = parseInt(session.user_id);
-
-      // مطابقة ذكية: نبحث بـ user_id أو نطابق الاسم الكامل
-      const studentProfile = studentsList.find(s => 
-        (s.user_id && parseInt(s.user_id) === targetUserId) || 
-        (s.student_name && s.student_name === userProfile.full_name) ||
-        (s.full_name && s.full_name === userProfile.full_name)
+      const studentProfile = studentsList.find(student =>
+        (student.user_id && Number(student.user_id) === targetUserId) ||
+        (student.student_name && student.student_name === this.userProfile.full_name) ||
+        (student.full_name && student.full_name === this.userProfile.full_name)
       );
 
       if (!studentProfile) {
-        throw new Error("حسابك غير مسجل كطالب في قاعدة البيانات أو لم يتم تعيين قسم لك بعد. تواصل مع الإدارة.");
+        throw new Error(StudentUI.t(
+          "student.state.studentProfileMissing",
+          {},
+          "Your account is not registered as a student. Please contact administration."
+        ));
       }
 
       const studentId = studentProfile.id || studentProfile.student_id;
@@ -40,35 +45,54 @@ const StudentRole = {
           const details = await StudentServices.getStudentById(studentId);
           fullStudentProfile = { ...studentProfile, ...(details || {}) };
         } catch (detailsErr) {
-          console.warn("تعذر جلب تفاصيل الطالب الكاملة:", detailsErr);
+          console.warn("Could not load full student details:", detailsErr);
         }
       }
 
       this.studentId = fullStudentProfile.id || fullStudentProfile.student_id || studentId;
       this.classId = fullStudentProfile.class_id || fullStudentProfile.legacy_class_id || studentProfile.class_id || null;
 
-      console.log("✅ تم تحديد المعرفات بنجاح!", { studentId: this.studentId, classId: this.classId });
-
       this.bindNavEvents();
+      this.bindLanguageEvents();
       this.bindDynamicEvents();
       this.loadSection(this.currentSection);
-
     } catch (err) {
-      console.error("⚠️ تفاصيل الخطأ:", err);
-      StudentUI.renderError(err.message || "فشل في تهيئة بيانات الطالب.");
+      console.error("Student initialization failed:", err);
+      StudentUI.renderError(err.message || StudentUI.t(
+        "student.state.initFailed",
+        {},
+        "Failed to initialize student data."
+      ));
     }
   },
 
+  bindLanguageEvents() {
+    if (this._languageEventsBound) return;
+
+    window.addEventListener("i18n:change", (event) => {
+      if (event.detail?.scope && event.detail.scope !== "student") return;
+      StudentUI.renderHeader(this.userProfile);
+      this.loadSection(this.currentSection);
+    });
+
+    this._languageEventsBound = true;
+  },
+
   bindNavEvents() {
+    if (this._navEventsBound) return;
+
     const nav = document.getElementById("student-nav");
     nav.addEventListener("click", (e) => {
-      if (e.target.classList.contains("nav-btn")) {
-        this.loadSection(e.target.dataset.section);
-      }
+      const btn = e.target.closest(".nav-btn");
+      if (btn) this.loadSection(btn.dataset.section);
     });
+
+    this._navEventsBound = true;
   },
 
   bindDynamicEvents() {
+    if (this._dynamicEventsBound) return;
+
     const main = document.getElementById("student-main");
     if (!main) return;
 
@@ -77,14 +101,18 @@ const StudentRole = {
         const session = Auth.getSession();
         const originalText = e.target.textContent;
         e.target.disabled = true;
-        e.target.textContent = "جارٍ التحديث...";
+        e.target.textContent = StudentUI.t("student.common.updating", {}, "Updating...");
         try {
           await StudentServices.markAllNotificationsAsRead(session.user_id);
           await this.loadSection("notifications");
         } catch (err) {
           e.target.disabled = false;
           e.target.textContent = originalText;
-          alert(err.message || "تعذر تحديث الإشعارات.");
+          alert(err.message || StudentUI.t(
+            "student.actions.notificationsUpdateFailed",
+            {},
+            "Could not update notifications."
+          ));
         }
         return;
       }
@@ -93,17 +121,23 @@ const StudentRole = {
       if (markNotificationBtn) {
         const originalText = markNotificationBtn.textContent;
         markNotificationBtn.disabled = true;
-        markNotificationBtn.textContent = "جارٍ التحديث...";
+        markNotificationBtn.textContent = StudentUI.t("student.common.updating", {}, "Updating...");
         try {
           await StudentServices.markNotificationAsRead(markNotificationBtn.dataset.notificationId);
           await this.loadSection("notifications");
         } catch (err) {
           markNotificationBtn.disabled = false;
           markNotificationBtn.textContent = originalText;
-          alert(err.message || "تعذر تحديث الإشعار.");
+          alert(err.message || StudentUI.t(
+            "student.actions.notificationUpdateFailed",
+            {},
+            "Could not update the notification."
+          ));
         }
       }
     });
+
+    this._dynamicEventsBound = true;
   },
 
   async loadSection(section) {
@@ -161,10 +195,10 @@ const StudentRole = {
           break;
         }
         default:
-          StudentUI.renderError("قسم غير معروف");
+          StudentUI.renderError(StudentUI.t("student.state.unknownSection", {}, "Unknown section"));
       }
     } catch (err) {
-      console.error("خطأ في تحميل القسم:", err);
+      console.error("Could not load student section:", err);
       StudentUI.renderError(err.message);
     }
   }
