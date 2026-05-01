@@ -50,30 +50,30 @@ AdminUI.renderAcademicTab = async function() {
 
         // 1. بطاقات المؤشرات الرئيسية (Stats Cards) بتصميم عصري (Gradients)
         const statsHtml = `
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px;">
+            <div class="academic-kpi-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px;">
                 
-                <div style="background: linear-gradient(135deg, #eff6ff, #bfdbfe); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #93c5fd;">
-                    <div style="position: absolute; top: 10px; left: 15px; font-size: 3em; opacity: 0.2;">🎓</div>
-                    <h4 style="margin: 0 0 10px 0; color: #1e40af; font-size: 1em;">إجمالي الطلاب</h4>
-                    <div style="font-size: 2.5em; font-weight: 900; color: #1d4ed8;">${totalStudents}</div>
+                <div class="academic-kpi-card academic-kpi-blue" style="background: linear-gradient(135deg, #eff6ff, #bfdbfe); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #93c5fd;">
+                    <div class="academic-kpi-icon" style="position: absolute; top: 10px; left: 15px; font-size: 3em; opacity: 0.2;">🎓</div>
+                    <h4 class="academic-kpi-label" style="margin: 0 0 10px 0; color: #1e40af; font-size: 1em;">إجمالي الطلاب</h4>
+                    <div class="academic-kpi-value" style="font-size: 2.5em; font-weight: 900; color: #1d4ed8;">${totalStudents}</div>
                 </div>
 
-                <div style="background: linear-gradient(135deg, #f5f3ff, #ddd6fe); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #c4b5fd;">
-                    <div style="position: absolute; top: 10px; left: 15px; font-size: 3em; opacity: 0.2;">👨‍🏫</div>
-                    <h4 style="margin: 0 0 10px 0; color: #5b21b6; font-size: 1em;">الطاقم التعليمي</h4>
-                    <div style="font-size: 2.5em; font-weight: 900; color: #6d28d9;">${totalTeachers}</div>
+                <div class="academic-kpi-card academic-kpi-purple" style="background: linear-gradient(135deg, #f5f3ff, #ddd6fe); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #c4b5fd;">
+                    <div class="academic-kpi-icon" style="position: absolute; top: 10px; left: 15px; font-size: 3em; opacity: 0.2;">👨‍🏫</div>
+                    <h4 class="academic-kpi-label" style="margin: 0 0 10px 0; color: #5b21b6; font-size: 1em;">الطاقم التعليمي</h4>
+                    <div class="academic-kpi-value" style="font-size: 2.5em; font-weight: 900; color: #6d28d9;">${totalTeachers}</div>
                 </div>
 
-                <div style="background: linear-gradient(135deg, #ecfdf5, #a7f3d0); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #6ee7b7;">
-                    <div style="position: absolute; top: 10px; left: 15px; font-size: 3em; opacity: 0.2;">🏫</div>
-                    <h4 style="margin: 0 0 10px 0; color: #065f46; font-size: 1em;">الفصول الدراسية</h4>
-                    <div style="font-size: 2.5em; font-weight: 900; color: #047857;">${totalClasses}</div>
+                <div class="academic-kpi-card academic-kpi-green" style="background: linear-gradient(135deg, #ecfdf5, #a7f3d0); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #6ee7b7;">
+                    <div class="academic-kpi-icon" style="position: absolute; top: 10px; left: 15px; font-size: 3em; opacity: 0.2;">🏫</div>
+                    <h4 class="academic-kpi-label" style="margin: 0 0 10px 0; color: #065f46; font-size: 1em;">الفصول الدراسية</h4>
+                    <div class="academic-kpi-value" style="font-size: 2.5em; font-weight: 900; color: #047857;">${totalClasses}</div>
                 </div>
 
-                <div style="background: linear-gradient(135deg, #fff7ed, #fed7aa); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #fdba74;">
-                    <div style="position: absolute; top: 10px; left: 15px; font-size: 3em; opacity: 0.2;">📊</div>
-                    <h4 style="margin: 0 0 10px 0; color: #9a3412; font-size: 1em;">معدل الامتلاء العام</h4>
-                    <div style="font-size: 2.5em; font-weight: 900; color: ${globalOccupancyRate >= 90 ? '#dc2626' : '#c2410c'};">${globalOccupancyRate}%</div>
+                <div class="academic-kpi-card academic-kpi-amber" style="background: linear-gradient(135deg, #fff7ed, #fed7aa); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); position: relative; overflow: hidden; border: 1px solid #fdba74;">
+                    <div class="academic-kpi-icon" style="position: absolute; top: 10px; left: 15px; font-size: 3em; opacity: 0.2;">📊</div>
+                    <h4 class="academic-kpi-label" style="margin: 0 0 10px 0; color: #9a3412; font-size: 1em;">معدل الامتلاء العام</h4>
+                    <div class="academic-kpi-value" style="font-size: 2.5em; font-weight: 900; color: ${globalOccupancyRate >= 90 ? '#dc2626' : '#c2410c'};">${globalOccupancyRate}%</div>
                 </div>
 
             </div>

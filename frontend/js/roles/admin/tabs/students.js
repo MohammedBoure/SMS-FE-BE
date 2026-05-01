@@ -254,7 +254,7 @@ AdminUI.viewStudentProfile = async function(studentId) {
     const loadingDiv = document.createElement("div");
     loadingDiv.id = "profile-loading-overlay";
     loadingDiv.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(2px);";
-    loadingDiv.innerHTML = `<div style="background: white; padding: 25px; border-radius: 8px; text-align: center;">جاري تجميع ملف الطالب... ⏳</div>`;
+    loadingDiv.innerHTML = `<div class="student-profile-loading-card" style="background: white; padding: 25px; border-radius: 8px; text-align: center;">جاري تجميع ملف الطالب... ⏳</div>`;
     document.body.appendChild(loadingDiv);
 
     try {
@@ -279,12 +279,12 @@ AdminUI.viewStudentProfile = async function(studentId) {
         const balance = totalDue - totalPaid;
 
         const profileHtml = `
-            <div id="student-profile-modal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(3px);">
-                <div style="background: #f8fafc; width: 850px; border-radius: 12px; display: flex; flex-direction: column; max-height: 90vh; overflow: hidden; box-shadow: 0 20px 25px rgba(0,0,0,0.15);">
+            <div id="student-profile-modal" class="student-profile-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(3px);">
+                <div class="student-profile-dialog" style="background: #f8fafc; width: 850px; border-radius: 12px; display: flex; flex-direction: column; max-height: 90vh; overflow: hidden; box-shadow: 0 20px 25px rgba(0,0,0,0.15);">
                     
-                    <div style="background: white; padding: 20px 25px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+                    <div class="student-profile-header" style="background: white; padding: 20px 25px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
                         <div style="display: flex; align-items: center; gap: 15px;">
-                            <div style="width: 50px; height: 50px; background: #e0f2fe; color: #0284c7; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5em;">🎓</div>
+                            <div class="student-profile-avatar" style="width: 50px; height: 50px; background: #e0f2fe; color: #0284c7; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5em;">🎓</div>
                             <div>
                                 <h2 style="margin: 0; color: #0f172a;">${this._escape(student.full_name || student.student_name)}</h2>
                                 <small style="color: #64748b;">معرف الطالب: #${studentId}</small>
@@ -293,13 +293,13 @@ AdminUI.viewStudentProfile = async function(studentId) {
                         <button onclick="document.getElementById('student-profile-modal').remove()" style="background: #f1f5f9; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer;">&times;</button>
                     </div>
 
-                    <div style="display: flex; background: white; border-bottom: 2px solid #e2e8f0; padding: 0 20px;">
+                    <div class="student-profile-tabs" style="display: flex; background: white; border-bottom: 2px solid #e2e8f0; padding: 0 20px;">
                         <button onclick="AdminUI.switchProfileTab('personal')" class="prof-tab-btn active" data-tab="personal" style="padding: 15px; border: none; background: transparent; font-weight: bold; color: #2563eb; border-bottom: 3px solid #2563eb; cursor: pointer;">👤 شخصي</button>
                         <button onclick="AdminUI.switchProfileTab('academic')" class="prof-tab-btn" data-tab="academic" style="padding: 15px; border: none; background: transparent; font-weight: bold; color: #64748b; border-bottom: 3px solid transparent; cursor: pointer;">📚 أكاديمي</button>
                         <button onclick="AdminUI.switchProfileTab('finance')" class="prof-tab-btn" data-tab="finance" style="padding: 15px; border: none; background: transparent; font-weight: bold; color: #64748b; border-bottom: 3px solid transparent; cursor: pointer;">💳 مالي</button>
                     </div>
 
-                    <div style="padding: 25px; overflow-y: auto; flex: 1;">
+                    <div class="student-profile-body" style="padding: 25px; overflow-y: auto; flex: 1;">
                         <div id="prof-tab-personal" class="prof-tab-content">
                             <p><strong>تاريخ الميلاد:</strong> ${this._escape(student.date_of_birth || "-")}</p>
                             <p><strong>فصيلة الدم:</strong> <span style="color: #dc2626;">${this._escape(student.blood_group || "-")}</span></p>
@@ -318,10 +318,10 @@ AdminUI.viewStudentProfile = async function(studentId) {
 
                         <div id="prof-tab-finance" class="prof-tab-content" style="display: none;">
                             <div style="display: flex; gap: 15px; margin-bottom: 20px;">
-                                <div style="flex: 1; background: #ecfdf5; padding: 15px; border-radius: 8px; text-align: center;">
+                                <div class="student-profile-money-card is-paid" style="flex: 1; background: #ecfdf5; padding: 15px; border-radius: 8px; text-align: center;">
                                     <small>إجمالي المسدد</small><br><b>${this._formatCurrency(totalPaid)}</b>
                                 </div>
-                                <div style="flex: 1; background: #fef2f2; padding: 15px; border-radius: 8px; text-align: center;">
+                                <div class="student-profile-money-card is-due" style="flex: 1; background: #fef2f2; padding: 15px; border-radius: 8px; text-align: center;">
                                     <small>المبلغ المتبقي</small><br><b style="color: #dc2626;">${this._formatCurrency(balance)}</b>
                                 </div>
                             </div>
@@ -340,10 +340,16 @@ AdminUI.viewStudentProfile = async function(studentId) {
 
 AdminUI.switchProfileTab = function(tabName) {
     document.querySelectorAll('.prof-tab-content').forEach(c => c.style.display = 'none');
+    const activeColor = document.body.dataset.theme === "dark" ? "var(--primary-color)" : "#2563eb";
+    const mutedColor = document.body.dataset.theme === "dark" ? "var(--text-muted)" : "#64748b";
     document.querySelectorAll('.prof-tab-btn').forEach(b => {
-        b.style.color = '#64748b'; b.style.borderBottomColor = 'transparent';
+        b.classList.remove("active");
+        b.style.color = mutedColor;
+        b.style.borderBottomColor = 'transparent';
     });
     document.getElementById(`prof-tab-${tabName}`).style.display = 'block';
     const activeBtn = document.querySelector(`.prof-tab-btn[data-tab="${tabName}"]`);
-    activeBtn.style.color = '#2563eb'; activeBtn.style.borderBottomColor = '#2563eb';
+    activeBtn.classList.add("active");
+    activeBtn.style.color = activeColor;
+    activeBtn.style.borderBottomColor = activeColor;
 };

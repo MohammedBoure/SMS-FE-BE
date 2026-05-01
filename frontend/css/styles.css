@@ -819,7 +819,10 @@ body[data-theme="dark"] #admin-main [style*="background"][style*="#ecfdf5"] {
 
 body[data-theme="dark"] #admin-main [style*="background"][style*="#faf5ff"],
 body[data-theme="dark"] #admin-main [style*="background"][style*="#f3e8ff"],
-body[data-theme="dark"] #admin-main [style*="background"][style*="#ede9fe"] {
+body[data-theme="dark"] #admin-main [style*="background"][style*="#ede9fe"],
+body[data-theme="dark"] #admin-main [style*="background"][style*="#f5f3ff"],
+body[data-theme="dark"] #admin-main [style*="background"][style*="#ddd6fe"],
+body[data-theme="dark"] #admin-main [style*="background"][style*="#c4b5fd"] {
     background: rgba(196, 181, 253, 0.14) !important;
     color: #ddd6fe !important;
     border-color: rgba(196, 181, 253, 0.34) !important;
@@ -875,8 +878,24 @@ body[data-theme="dark"] #admin-main [style*="color:#064e3b"],
 body[data-theme="dark"] #admin-main [style*="color: #059669"],
 body[data-theme="dark"] #admin-main [style*="color:#059669"],
 body[data-theme="dark"] #admin-main [style*="color: #16a34a"],
-body[data-theme="dark"] #admin-main [style*="color:#16a34a"] {
+body[data-theme="dark"] #admin-main [style*="color:#16a34a"],
+body[data-theme="dark"] #admin-main [style*="color: #047857"],
+body[data-theme="dark"] #admin-main [style*="color:#047857"] {
     color: #bbf7d0 !important;
+}
+
+body[data-theme="dark"] #admin-main [style*="color: #5b21b6"],
+body[data-theme="dark"] #admin-main [style*="color:#5b21b6"],
+body[data-theme="dark"] #admin-main [style*="color: #6d28d9"],
+body[data-theme="dark"] #admin-main [style*="color:#6d28d9"] {
+    color: #ddd6fe !important;
+}
+
+body[data-theme="dark"] #admin-main [style*="color: #9a3412"],
+body[data-theme="dark"] #admin-main [style*="color:#9a3412"],
+body[data-theme="dark"] #admin-main [style*="color: #c2410c"],
+body[data-theme="dark"] #admin-main [style*="color:#c2410c"] {
+    color: #fed7aa !important;
 }
 
 #admin-main div[style*="overflow-x"] {
@@ -1390,6 +1409,202 @@ body[data-theme="dark"] table.admin-auto-mobile-table td::before {
 body[data-theme="dark"] .admin-mobile-table .admin-actions-cell,
 body[data-theme="dark"] table.admin-auto-mobile-table .admin-actions-cell {
     background: transparent !important;
+}
+
+.academic-kpi-card {
+    min-height: 150px;
+}
+
+body[data-theme="dark"] .academic-kpi-card {
+    box-shadow: var(--admin-shadow-soft) !important;
+}
+
+body[data-theme="dark"] .academic-kpi-blue {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.18), rgba(45, 212, 191, 0.10)) !important;
+    border-color: rgba(96, 165, 250, 0.34) !important;
+}
+
+body[data-theme="dark"] .academic-kpi-purple {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.18), rgba(96, 165, 250, 0.08)) !important;
+    border-color: rgba(167, 139, 250, 0.34) !important;
+}
+
+body[data-theme="dark"] .academic-kpi-green {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.16), rgba(45, 212, 191, 0.08)) !important;
+    border-color: rgba(74, 222, 128, 0.32) !important;
+}
+
+body[data-theme="dark"] .academic-kpi-amber {
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.16), rgba(251, 113, 133, 0.08)) !important;
+    border-color: rgba(251, 191, 36, 0.34) !important;
+}
+
+body[data-theme="dark"] .academic-kpi-label {
+    color: var(--text-muted) !important;
+}
+
+body[data-theme="dark"] .academic-kpi-blue .academic-kpi-value {
+    color: #bfdbfe !important;
+}
+
+body[data-theme="dark"] .academic-kpi-purple .academic-kpi-value {
+    color: #ddd6fe !important;
+}
+
+body[data-theme="dark"] .academic-kpi-green .academic-kpi-value {
+    color: #bbf7d0 !important;
+}
+
+body[data-theme="dark"] .academic-kpi-amber .academic-kpi-value {
+    color: #fed7aa !important;
+}
+
+body[data-theme="dark"] .academic-kpi-icon {
+    color: var(--text-main) !important;
+    opacity: 0.14 !important;
+}
+
+#student-profile-modal .student-profile-dialog {
+    color: var(--text-main);
+}
+
+body[data-theme="dark"] #profile-loading-overlay .student-profile-loading-card,
+body[data-theme="dark"] #student-profile-modal .student-profile-dialog {
+    background: var(--admin-surface-soft) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--admin-border) !important;
+    box-shadow: var(--admin-shadow) !important;
+}
+
+body[data-theme="dark"] #student-profile-modal .student-profile-header,
+body[data-theme="dark"] #student-profile-modal .student-profile-tabs {
+    background: var(--admin-surface) !important;
+    color: var(--text-main) !important;
+    border-color: var(--admin-border) !important;
+}
+
+body[data-theme="dark"] #student-profile-modal .student-profile-body {
+    background: var(--admin-surface-soft) !important;
+    color: var(--text-main) !important;
+}
+
+body[data-theme="dark"] #student-profile-modal .student-profile-avatar {
+    background: rgba(96, 165, 250, 0.14) !important;
+    color: #bfdbfe !important;
+}
+
+body[data-theme="dark"] #student-profile-modal [style*="background: white"],
+body[data-theme="dark"] #student-profile-modal [style*="background:white"],
+body[data-theme="dark"] #student-profile-modal [style*="background: #fff"],
+body[data-theme="dark"] #student-profile-modal [style*="background:#fff"],
+body[data-theme="dark"] #student-profile-modal [style*="background: #ffffff"],
+body[data-theme="dark"] #student-profile-modal [style*="background:#ffffff"] {
+    background: var(--admin-surface) !important;
+    color: var(--text-main) !important;
+    border-color: var(--admin-border) !important;
+}
+
+body[data-theme="dark"] #student-profile-modal [style*="background: #f8fafc"],
+body[data-theme="dark"] #student-profile-modal [style*="background:#f8fafc"],
+body[data-theme="dark"] #student-profile-modal [style*="background: #f1f5f9"],
+body[data-theme="dark"] #student-profile-modal [style*="background:#f1f5f9"] {
+    background: var(--admin-surface-soft) !important;
+    color: var(--text-main) !important;
+    border-color: var(--admin-border) !important;
+}
+
+body[data-theme="dark"] #student-profile-modal [style*="background: #ecfdf5"],
+body[data-theme="dark"] #student-profile-modal [style*="background:#ecfdf5"],
+body[data-theme="dark"] #student-profile-modal .student-profile-money-card.is-paid {
+    background: rgba(74, 222, 128, 0.14) !important;
+    color: #bbf7d0 !important;
+    border-color: rgba(74, 222, 128, 0.34) !important;
+}
+
+body[data-theme="dark"] #student-profile-modal [style*="background: #fef2f2"],
+body[data-theme="dark"] #student-profile-modal [style*="background:#fef2f2"],
+body[data-theme="dark"] #student-profile-modal .student-profile-money-card.is-due {
+    background: rgba(251, 113, 133, 0.14) !important;
+    color: #fecdd3 !important;
+    border-color: rgba(251, 113, 133, 0.36) !important;
+}
+
+body[data-theme="dark"] #student-profile-modal h2,
+body[data-theme="dark"] #student-profile-modal h4,
+body[data-theme="dark"] #student-profile-modal strong,
+body[data-theme="dark"] #student-profile-modal b {
+    color: var(--text-main) !important;
+}
+
+body[data-theme="dark"] #student-profile-modal small,
+body[data-theme="dark"] #student-profile-modal [style*="color: #64748b"],
+body[data-theme="dark"] #student-profile-modal [style*="color:#64748b"] {
+    color: var(--text-muted) !important;
+}
+
+body[data-theme="dark"] #student-profile-modal [style*="color: #0f172a"],
+body[data-theme="dark"] #student-profile-modal [style*="color:#0f172a"],
+body[data-theme="dark"] #student-profile-modal [style*="color: #334155"],
+body[data-theme="dark"] #student-profile-modal [style*="color:#334155"] {
+    color: var(--text-main) !important;
+}
+
+body[data-theme="dark"] #student-profile-modal [style*="color: #2563eb"],
+body[data-theme="dark"] #student-profile-modal [style*="color:#2563eb"],
+body[data-theme="dark"] #student-profile-modal .prof-tab-btn.active {
+    color: var(--primary-color) !important;
+    border-bottom-color: var(--primary-color) !important;
+}
+
+body[data-theme="dark"] #student-profile-modal [style*="color: #dc2626"],
+body[data-theme="dark"] #student-profile-modal [style*="color:#dc2626"] {
+    color: #fecdd3 !important;
+}
+
+body[data-theme="dark"] #student-profile-modal table,
+body[data-theme="dark"] #student-profile-modal thead,
+body[data-theme="dark"] #student-profile-modal tr,
+body[data-theme="dark"] #student-profile-modal th,
+body[data-theme="dark"] #student-profile-modal td {
+    background: transparent !important;
+    color: var(--text-main) !important;
+    border-color: var(--admin-border) !important;
+}
+
+body[data-theme="dark"] #student-profile-modal thead {
+    background: var(--admin-surface) !important;
+}
+
+@media (max-width: 720px) {
+    #student-profile-modal {
+        align-items: stretch !important;
+        padding: 12px !important;
+    }
+
+    #student-profile-modal .student-profile-dialog {
+        width: 100% !important;
+        max-height: calc(100dvh - 24px) !important;
+        border-radius: 10px !important;
+    }
+
+    #student-profile-modal .student-profile-header {
+        align-items: flex-start !important;
+        gap: 12px !important;
+    }
+
+    #student-profile-modal .student-profile-tabs {
+        overflow-x: auto !important;
+        padding: 0 8px !important;
+    }
+
+    #student-profile-modal .student-profile-tabs .prof-tab-btn {
+        flex: 0 0 auto !important;
+        white-space: nowrap !important;
+    }
+
+    #student-profile-modal .student-profile-body {
+        padding: 16px !important;
+    }
 }
 
 @media print {
