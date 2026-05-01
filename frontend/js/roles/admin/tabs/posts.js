@@ -117,6 +117,27 @@ function _processMD(raw) {
     return html;
 }
 
+AdminUI.typesetPostMath = function(container, attempt = 0) {
+    if (!container || typeof MathJax === "undefined") return;
+
+    if (MathJax.typesetPromise) {
+        if (MathJax.typesetClear) MathJax.typesetClear([container]);
+        MathJax.typesetPromise([container]).catch(() => {});
+        return;
+    }
+
+    if (MathJax.startup?.promise) {
+        MathJax.startup.promise
+            .then(() => this.typesetPostMath(container, attempt + 1))
+            .catch(() => {});
+        return;
+    }
+
+    if (attempt < 8) {
+        setTimeout(() => this.typesetPostMath(container, attempt + 1), 250);
+    }
+};
+
 AdminUI.renderPostsTab = function(response) {
     const main = this.prepareMain(this.t("admin.sections.posts", {}, "Announcements and Posts"));
     const posts = response?.data ?? response ?? [];
@@ -250,9 +271,7 @@ AdminUI.previewPost = function(post) {
       </div>`;
     overlay.addEventListener("click", e => { if (e.target === overlay) overlay.remove(); });
     document.body.appendChild(overlay);
-    if (typeof MathJax !== "undefined" && MathJax.typesetPromise) {
-        MathJax.typesetPromise([overlay]).catch(() => {});
-    }
+    this.typesetPostMath(overlay);
 };
 
 AdminUI.showPostEditor = function(post = null) {
@@ -687,7 +706,7 @@ AdminUI._modalInsertTable = function() {
           <div>
             <div class="tbl-ctrl-row">
               <label>${AdminUI.postsT("tableBuilder.columns", {}, "Columns")}</label>
-              <input type="range" min="2" max="7" value="${s.cols}" id="tbl-col-slider" oninput="AdminUI._tblUpdate()">
+              <input type="range" min="2" max="8" value="${s.cols}" id="tbl-col-slider" oninput="AdminUI._tblUpdate()">
               <span id="tbl-col-val">${s.cols}</span>
             </div>
             <div class="tbl-ctrl-row">
@@ -695,13 +714,13 @@ AdminUI._modalInsertTable = function() {
               <input type="range" min="1" max="10" value="${s.rows}" id="tbl-row-slider" oninput="AdminUI._tblUpdate()">
               <span id="tbl-row-val">${s.rows}</span>
             </div>
-            <div style="font-size:.78rem;font-weight:600;color:#475569;margin-bottom:6px;">${AdminUI.postsT("tableBuilder.alignment", {}, "Column Alignment")}</div>
+            <div class="tbl-section-label">${AdminUI.postsT("tableBuilder.alignment", {}, "Column Alignment")}</div>
             <div class="tbl-align-row" id="tbl-align-row"></div>
-            <div style="font-size:.78rem;font-weight:600;color:#475569;margin-bottom:6px;">${AdminUI.postsT("tableBuilder.markdownCode", {}, "Markdown Code")}</div>
+            <div class="tbl-section-label">${AdminUI.postsT("tableBuilder.markdownCode", {}, "Markdown Code")}</div>
             <div class="tbl-md-preview" id="tbl-md-out"></div>
           </div>
           <div>
-            <div style="font-size:.78rem;font-weight:600;color:#475569;margin-bottom:6px;">${AdminUI.postsT("tableBuilder.previewHint", {}, "Preview - edit headers directly")}</div>
+            <div class="tbl-section-label">${AdminUI.postsT("tableBuilder.previewHint", {}, "Preview - edit headers directly")}</div>
             <div class="tbl-mini-preview" id="tbl-mini-preview"></div>
           </div>
         </div>
@@ -709,7 +728,7 @@ AdminUI._modalInsertTable = function() {
       <div class="modal-footer">
         <button class="modal-btn-cancel" onclick="AdminUI._closeModal()">${AdminUI.t("admin.actions.cancel", {}, "Cancel")}</button>
         <button class="modal-btn-primary" onclick="AdminUI._doInsertTable()">${AdminUI.postsT("tableBuilder.insert", {}, "Insert in editor")}</button>
-      </div>`);
+      </div>`, { className: "table-builder-modal" });
     AdminUI._tblUpdate();
 };
 
@@ -739,7 +758,7 @@ AdminUI._tblUpdate = function() {
     const preview = document.getElementById("tbl-mini-preview");
     let ths = "";
     for (let c = 0; c < s.cols; c++) {
-        ths += `<th style="text-align:${s.aligns[c]}"><input value="${AdminUI._escape(s.headers[c] || "")}" placeholder="${AdminUI.postsT("tableBuilder.headerPlaceholder", {}, "Header")}" onchange="AdminUI._tblState.headers[${c}]=this.value;AdminUI._tblBuildMD()" style="text-align:${s.aligns[c]}"></th>`;
+        ths += `<th style="text-align:${s.aligns[c]}"><input value="${AdminUI._escape(s.headers[c] || "")}" placeholder="${AdminUI.postsT("tableBuilder.headerPlaceholder", {}, "Header")}" oninput="AdminUI._tblState.headers[${c}]=this.value;AdminUI._tblBuildMD()" style="text-align:${s.aligns[c]}"></th>`;
     }
     let trs = "";
     for (let r = 0; r < s.rows; r++) {
@@ -870,12 +889,14 @@ AdminUI._quickInsertMath = function() {
     AdminUI.insertMarkdown("$$\n", "\n$$");
 };
 
-AdminUI._openModal = function(content) {
+AdminUI._openModal = function(content, options = {}) {
     AdminUI._closeModal();
+    const extraClass = typeof options === "string" ? options : (options.className || "");
+    const modalClass = ["insert-modal", extraClass].filter(Boolean).join(" ");
     const overlay = document.createElement("div");
     overlay.className = "insert-modal-overlay";
     overlay.id = "editor-modal-overlay";
-    overlay.innerHTML = `<div class="insert-modal">${content}</div>`;
+    overlay.innerHTML = `<div class="${modalClass}" role="dialog" aria-modal="true">${content}</div>`;
     overlay.addEventListener("click", e => { if (e.target === overlay) AdminUI._closeModal(); });
     document.body.appendChild(overlay);
     overlay.querySelector("input, select, textarea, button")?.focus();
@@ -914,9 +935,7 @@ AdminUI.updatePostPreview = function() {
 
     bodyEl.innerHTML = _processMD(raw);
     if (stateEl) stateEl.textContent = this.postsT("editor.updated", {}, "Updated");
-    if (typeof MathJax !== "undefined" && MathJax.typesetPromise) {
-        MathJax.typesetPromise([bodyEl]).catch(() => {});
-    }
+    this.typesetPostMath(bodyEl);
 };
 
 AdminUI._updateWordCount = function() {

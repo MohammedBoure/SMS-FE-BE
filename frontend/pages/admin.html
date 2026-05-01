@@ -16,10 +16,22 @@
     })();
   </script>
   <link rel="stylesheet" href="../css/styles.css?v=admin-i18n-10">
-  <link rel="stylesheet" href="../css/posts.css">
+  <link rel="stylesheet" href="../css/posts.css?v=admin-posts-editor-1">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body class="admin-shell">
 
@@ -110,7 +122,7 @@
   <script src="../js/roles/admin/tabs/resources.js?v=resources-i18n-1"></script>
   <script src="../js/roles/admin/tabs/conversations.js?v=conversations-i18n-1"></script>
   <script src="../js/roles/admin/tabs/notifications.js?v=notifications-i18n-1"></script>
-  <script src="../js/roles/admin/tabs/posts.js?v=posts-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/posts.js?v=admin-posts-editor-1"></script>
   <script src="../js/roles/admin/tabs/programs.js?v=programs-i18n-1"></script>
 
   <script src="../js/roles/admin/role.js?v=admin-i18n-10"></script>
