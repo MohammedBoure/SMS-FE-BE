@@ -2,7 +2,8 @@
   "meta": {
     "lang": "fr",
     "dir": "ltr",
-    "locale": "fr-FR"
+    "locale": "fr-FR",
+    "name": "Français"
   },
   "languages": [
     {
@@ -12,7 +13,7 @@
     },
     {
       "code": "en",
-      "label": "English",
+      "label": "Anglais",
       "dir": "ltr"
     },
     {

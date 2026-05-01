@@ -2,17 +2,18 @@
   "meta": {
     "lang": "fr",
     "dir": "ltr",
-    "locale": "fr-FR"
+    "locale": "fr-FR",
+    "name": "Français"
   },
   "languages": [
     {
       "code": "ar",
-      "label": "Arabic",
+      "label": "Arabe",
       "dir": "rtl"
     },
     {
       "code": "en",
-      "label": "English",
+      "label": "Anglais",
       "dir": "ltr"
     },
     {
@@ -22,206 +23,206 @@
     }
   ],
   "teacher": {
-    "documentTitle": "Teacher Dashboard",
+    "documentTitle": "Tableau de bord enseignant",
     "brand": {
-      "welcome": "Welcome, teacher {name}"
+      "welcome": "Bienvenue, enseignant(e) {name}"
     },
     "language": {
-      "label": "Language",
-      "select": "Choose language"
+      "label": "Langue",
+      "select": "Choisir la langue"
     },
     "auth": {
-      "logout": "Log out"
+      "logout": "Déconnexion"
     },
     "nav": {
-      "assignments": "My Classes",
-      "schedule": "Schedule",
-      "attendance": "Attendance",
-      "grades": "Grades",
-      "resources": "Resources",
-      "posts": "Administration Posts",
+      "assignments": "Mes classes",
+      "schedule": "Emploi du temps",
+      "attendance": "Présence",
+      "grades": "Notes",
+      "resources": "Ressources",
+      "posts": "Publications de l'administration",
       "messages": "Messages",
       "notifications": "Notifications"
     },
     "state": {
-      "loading": "Loading data...",
-      "errorPrefix": "Error:",
-      "unknownSection": "Unknown section",
-      "teacherProfileMissing": "Your account is not registered as a teacher in the database. Please contact administration.",
-      "initFailed": "Failed to initialize teacher data."
+      "loading": "Chargement des données...",
+      "errorPrefix": "Erreur :",
+      "unknownSection": "Section inconnue",
+      "teacherProfileMissing": "Votre compte n'est pas enregistré comme enseignant dans la base de données. Veuillez contacter l'administration.",
+      "initFailed": "Échec de l'initialisation des données de l'enseignant."
     },
     "common": {
       "none": "-",
-      "notSpecified": "Not specified",
-      "updating": "Updating...",
-      "unavailable": "Unavailable",
-      "unknownDate": "Unknown date",
-      "userFallback": "User #{id}",
-      "send": "Send",
-      "download": "Download",
-      "fromManagement": "From administration",
-      "openDetails": "View details",
-      "backToPosts": "Back to posts",
-      "noContent": "This post has no content.",
-      "file": "File",
-      "save": "Save",
+      "notSpecified": "Non spécifié",
+      "updating": "Mise à jour...",
+      "unavailable": "Indisponible",
+      "unknownDate": "Date inconnue",
+      "userFallback": "Utilisateur #{id}",
+      "send": "Envoyer",
+      "download": "Télécharger",
+      "fromManagement": "De l'administration",
+      "openDetails": "Voir les détails",
+      "backToPosts": "Retour aux publications",
+      "noContent": "Cette publication ne contient aucun contenu.",
+      "file": "Fichier",
+      "save": "Enregistrer",
       "action": "Action",
-      "create": "Create"
+      "create": "Créer"
     },
     "status": {
-      "active": "Active",
-      "inactive": "Inactive",
-      "present": "Present",
+      "active": "Actif",
+      "inactive": "Inactif",
+      "present": "Présent",
       "absent": "Absent",
-      "late": "Late",
-      "paid": "Paid",
-      "completed": "Paid",
-      "unpaid": "Unpaid",
-      "partial": "Partially paid",
-      "overdue": "Overdue",
-      "read": "Read",
-      "unread": "Unread",
-      "student": "Student",
+      "late": "En retard",
+      "paid": "Payé",
+      "completed": "Payé",
+      "unpaid": "Non payé",
+      "partial": "Partiellement payé",
+      "overdue": "En retard",
+      "read": "Lu",
+      "unread": "Non lu",
+      "student": "Élève",
       "parent": "Parent",
-      "teacher": "Teacher",
-      "admin": "Admin",
-      "receptionist": "Receptionist",
-      "accountant": "Accountant",
-      "exam": "Exam",
-      "homework": "Homework"
+      "teacher": "Enseignant",
+      "admin": "Administrateur",
+      "receptionist": "Réceptionniste",
+      "accountant": "Comptable",
+      "exam": "Examen",
+      "homework": "Devoir"
     },
     "days": {
-      "Sunday": "Sunday",
-      "Monday": "Monday",
-      "Tuesday": "Tuesday",
-      "Wednesday": "Wednesday",
-      "Thursday": "Thursday",
-      "Friday": "Friday",
-      "Saturday": "Saturday"
+      "Sunday": "Dimanche",
+      "Monday": "Lundi",
+      "Tuesday": "Mardi",
+      "Wednesday": "Mercredi",
+      "Thursday": "Jeudi",
+      "Friday": "Vendredi",
+      "Saturday": "Samedi"
     },
     "assignments": {
-      "title": "Classes Assigned to You",
-      "emptyTitle": "My Classes and Subjects",
-      "emptyText": "No classes have been assigned to you yet.",
+      "title": "Classes qui vous sont attribuées",
+      "emptyTitle": "Mes classes et matières",
+      "emptyText": "Aucune classe ne vous a encore été attribuée.",
       "columns": {
-        "classLevel": "Class (level)",
-        "subject": "Subject"
+        "classLevel": "Classee (niveau)",
+        "subject": "Matière"
       }
     },
     "schedule": {
-      "title": "Weekly Schedule",
-      "emptyTitle": "Schedule",
-      "emptyText": "There are no scheduled sessions.",
+      "title": "Emploi du temps hebdomadaire",
+      "emptyTitle": "Emploi du temps",
+      "emptyText": "Aucune séance programmée.",
       "columns": {
-        "day": "Day",
-        "time": "Time",
-        "class": "Class",
-        "subject": "Subject",
-        "room": "Room"
+        "day": "Jour",
+        "time": "Horaire",
+        "class": "Classee",
+        "subject": "Matière",
+        "room": "Salle"
       }
     },
     "attendance": {
-      "title": "Attendance and Absence Entry",
-      "emptyTitle": "Attendance",
-      "noAssignments": "No classes are available for attendance.",
-      "classSelect": "Class",
+      "title": "Saisie des présences et absences",
+      "emptyTitle": "Présence",
+      "noAssignments": "Aucune classe disponible pour la présence.",
+      "classSelect": "Classee",
       "date": "Date",
-      "loadButton": "Load attendance sheet",
-      "emptyStudents": "There are no students in this class.",
+      "loadButton": "Charger la feuille de présence",
+      "emptyStudents": "Il n'y a aucun Élève dans cette classe.",
       "columns": {
-        "student": "Student",
-        "status": "Status"
+        "student": "Élève",
+        "status": "Statut"
       }
     },
     "grades": {
-      "title": "Grades and Assessments Management",
-      "emptyTitle": "Grades and Assessments",
-      "noAssignments": "No assignments are available for grade entry.",
-      "assignmentSelect": "Class and subject",
-      "loadAssessments": "Show assessments",
-      "createTitle": "Add a New Assessment",
-      "titlePlaceholder": "Assessment title",
-      "maxGradePlaceholder": "Max grade",
-      "enterGrades": "Enter grades",
-      "emptyAssessments": "No previous assessments were found.",
-      "emptySheet": "No students are available for this assessment.",
-      "remarksPlaceholder": "Remarks...",
-      "sheetTitle": "Grade Entry Sheet",
+      "title": "Gestion des notes et Évaluations",
+      "emptyTitle": "Notes et Évaluations",
+      "noAssignments": "Aucune affectation disponible pour la saisie des notes.",
+      "assignmentSelect": "Classee et matière",
+      "loadAssessments": "Afficher les Évaluations",
+      "createTitle": "Ajouter une nouvelle Évaluation",
+      "titlePlaceholder": "Titre de l'Évaluation",
+      "maxGradePlaceholder": "Note maximale",
+      "enterGrades": "Saisir les notes",
+      "emptyAssessments": "Aucune Évaluation précédente trouvée.",
+      "emptySheet": "Aucun Élève disponible pour cette Évaluation.",
+      "remarksPlaceholder": "Remarques...",
+      "sheetTitle": "Feuille de saisie des notes",
       "assessmentsColumns": {
-        "title": "Title",
+        "title": "Titre",
         "type": "Type",
-        "maxGrade": "Max grade"
+        "maxGrade": "Note maximale"
       },
       "sheetColumns": {
-        "student": "Student",
-        "grade": "Grade",
-        "remarks": "Teacher remarks"
+        "student": "Élève",
+        "grade": "Note",
+        "remarks": "Remarques de l'enseignant"
       }
     },
     "resources": {
-      "title": "Educational Resources",
-      "emptyTitle": "Educational Resources",
-      "noAssignments": "No assignments are available for uploading resources.",
-      "uploadTitle": "Upload a New File for the Class",
-      "titlePlaceholder": "Lesson/file title",
+      "title": "Ressources pédagogiques",
+      "emptyTitle": "Ressources pédagogiques",
+      "noAssignments": "Aucune affectation disponible pour tÉlèverser des ressources.",
+      "uploadTitle": "TÉlèverser un nouveau fichier pour la classe",
+      "titlePlaceholder": "Titre de la leçon/du fichier",
       "types": {
         "document": "Document",
-        "video": "Video"
+        "video": "Vidéo"
       },
-      "uploadButton": "Upload resource",
-      "selectHint": "Choose a class to view its resources..."
+      "uploadButton": "TÉlèverser la ressource",
+      "selectHint": "Choisissez une classe pour voir ses ressources..."
     },
     "notifications": {
       "emptyTitle": "Notifications",
-      "emptyText": "There are no new notifications.",
-      "title": "Incoming Notifications",
-      "unreadCount": "{count} unread notification(s)",
-      "markAllRead": "Mark all as read",
-      "markRead": "Mark as read",
-      "read": "Read",
-      "unread": "Unread",
+      "emptyText": "Il n'y a aucune nouvelle notification.",
+      "title": "Notifications reçues",
+      "unreadCount": "{count} notification(s) non lue(s)",
+      "markAllRead": "Tout marquer comme lu",
+      "markRead": "Marquer comme lu",
+      "read": "Lu",
+      "unread": "Non lu",
       "defaultTitle": "Notification"
     },
     "messages": {
       "title": "Messages",
-      "subtitle": "Follow your conversations or search for another user to contact.",
-      "searchPlaceholder": "Search by user name...",
-      "searchButton": "Search",
+      "subtitle": "Suivez vos conversations ou recherchez un autre utilisateur à contacter.",
+      "searchPlaceholder": "Rechercher par nom d'utilisateur...",
+      "searchButton": "Rechercher",
       "conversations": "Conversations",
-      "selectPrompt": "Choose a conversation from the list or search for a new user.",
-      "emptyConversation": "The conversation will appear here.",
-      "inputPlaceholder": "Write your message...",
-      "minSearch": "Type at least two characters to search.",
-      "searching": "Searching...",
-      "noResults": "No matching results.",
-      "searchFailed": "Search failed: {message}",
-      "loadingConversation": "Loading conversation...",
-      "loadFailed": "Could not load messages: {message}",
-      "noMessages": "No messages yet.",
-      "you": "You",
-      "roleFallback": "User",
-      "sending": "Sending...",
-      "sent": "Sent",
-      "sendFailed": "Send failed: {message}",
-      "emptyList": "No conversations yet."
+      "selectPrompt": "Choisissez une conversation dans la liste ou recherchez un nouvel utilisateur.",
+      "emptyConversation": "La conversation apparaîtra ici.",
+      "inputPlaceholder": "Écrivez votre message...",
+      "minSearch": "Saisissez au moins deux caractères pour rechercher.",
+      "searching": "Recherche...",
+      "noResults": "Aucun résultat correspondant.",
+      "searchFailed": "Recherche échouée : {message}",
+      "loadingConversation": "Chargement de la conversation...",
+      "loadFailed": "Impossible de charger les messages : {message}",
+      "noMessages": "Aucun message pour le moment.",
+      "you": "Vous",
+      "roleFallback": "Utilisateur",
+      "sending": "Envoi...",
+      "sent": "Envoyé",
+      "sendFailed": "Échec de l'envoi : {message}",
+      "emptyList": "Aucune conversation pour le moment."
     },
     "posts": {
-      "title": "Administration Posts",
-      "emptySubtitle": "Announcements and content published by administration will appear here.",
-      "listSubtitle": "Choose a post from the list to view the full details.",
-      "emptyTitle": "No posts currently",
-      "emptyText": "Administration posts will appear here when available.",
-      "untitled": "Untitled post",
-      "openHint": "Open the post to view its details.",
+      "title": "Publications de l'administration",
+      "emptySubtitle": "Les annonces et contenus publiés par l'administration apparaîtront ici.",
+      "listSubtitle": "Choisissez une publication dans la liste pour voir tous les détails.",
+      "emptyTitle": "Aucune publication actuellement",
+      "emptyText": "Les publications de l'administration apparaîtront ici lorsqu'elles seront disponibles.",
+      "untitled": "Publication sans titre",
+      "openHint": "Ouvrez la publication pour voir ses détails.",
       "filePlaceholder": "Document"
     },
     "actions": {
-      "notificationsUpdateFailed": "Could not update notifications.",
-      "notificationUpdateFailed": "Could not update the notification.",
-      "attendanceSaved": "Attendance saved.",
-      "assessmentCreated": "Assessment created.",
-      "gradeSaved": "Grade saved.",
-      "resourceUploaded": "Resource uploaded."
+      "notificationsUpdateFailed": "Impossible de mettre à jour les notifications.",
+      "notificationUpdateFailed": "Impossible de mettre à jour la notification.",
+      "attendanceSaved": "Présence enregistrée.",
+      "assessmentCreated": "Évaluation créée.",
+      "gradeSaved": "Note enregistrée.",
+      "resourceUploaded": "Ressource téléversée."
     }
   }
 }

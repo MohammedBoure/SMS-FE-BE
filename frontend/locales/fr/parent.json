@@ -2,17 +2,18 @@
   "meta": {
     "lang": "fr",
     "dir": "ltr",
-    "locale": "fr-FR"
+    "locale": "fr-FR",
+    "name": "Français"
   },
   "languages": [
     {
       "code": "ar",
-      "label": "Arabic",
+      "label": "Arabe",
       "dir": "rtl"
     },
     {
       "code": "en",
-      "label": "English",
+      "label": "Anglais",
       "dir": "ltr"
     },
     {
@@ -22,166 +23,166 @@
     }
   ],
   "parent": {
-    "documentTitle": "Parent Dashboard",
+    "documentTitle": "Tableau de bord parent",
     "brand": {
-      "welcome": "Welcome: {name}"
+      "welcome": "Bienvenue : {name}"
     },
     "language": {
-      "label": "Language",
-      "select": "Choose language"
+      "label": "Langue",
+      "select": "Choisir la langue"
     },
     "auth": {
-      "logout": "Log out"
+      "logout": "Déconnexion"
     },
     "nav": {
-      "children": "My Children",
-      "grades": "Grades",
-      "attendance": "Attendance",
-      "fees": "Finance",
-      "posts": "Administration Posts",
+      "children": "Mes enfants",
+      "grades": "Notes",
+      "attendance": "Présence",
+      "fees": "Finances",
+      "posts": "Publications de l'administration",
       "messages": "Messages",
       "notifications": "Notifications"
     },
     "state": {
-      "loading": "Loading data...",
-      "errorPrefix": "Error:",
-      "unknownSection": "Unknown section",
-      "parentProfileMissing": "Your account is not registered as a parent in the database. Please contact administration.",
-      "initFailed": "Failed to initialize parent data."
+      "loading": "Chargement des données...",
+      "errorPrefix": "Erreur :",
+      "unknownSection": "Section inconnue",
+      "parentProfileMissing": "Votre compte n'est pas enregistré comme parent dans la base de données. Veuillez contacter l'administration.",
+      "initFailed": "Échec de l'initialisation des données du parent."
     },
     "common": {
       "none": "-",
-      "notSpecified": "Not specified",
-      "updating": "Updating...",
-      "unavailable": "Unavailable",
-      "unknownDate": "Unknown date",
-      "userFallback": "User #{id}",
-      "send": "Send",
-      "search": "Search",
-      "download": "Download",
-      "fromManagement": "From administration",
-      "openDetails": "View details",
-      "backToPosts": "Back to posts",
-      "noContent": "This post has no content.",
-      "file": "File"
+      "notSpecified": "Non spécifié",
+      "updating": "Mise à jour...",
+      "unavailable": "Indisponible",
+      "unknownDate": "Date inconnue",
+      "userFallback": "Utilisateur #{id}",
+      "send": "Envoyer",
+      "search": "Rechercher",
+      "download": "Télécharger",
+      "fromManagement": "De l'administration",
+      "openDetails": "Voir les détails",
+      "backToPosts": "Retour aux publications",
+      "noContent": "Cette publication ne contient aucun contenu.",
+      "file": "Fichier"
     },
     "status": {
-      "active": "Active",
-      "inactive": "Inactive",
-      "present": "Present",
+      "active": "Actif",
+      "inactive": "Inactif",
+      "present": "Présent",
       "absent": "Absent",
-      "late": "Late",
-      "paid": "Paid",
-      "completed": "Paid",
-      "unpaid": "Unpaid",
-      "partial": "Partially paid",
-      "overdue": "Overdue",
-      "read": "Read",
-      "unread": "Unread",
-      "student": "Student",
+      "late": "En retard",
+      "paid": "Payé",
+      "completed": "Payé",
+      "unpaid": "Non payé",
+      "partial": "Partiellement payé",
+      "overdue": "En retard",
+      "read": "Lu",
+      "unread": "Non lu",
+      "student": "Élève",
       "parent": "Parent",
-      "teacher": "Teacher",
-      "admin": "Admin",
-      "receptionist": "Receptionist",
-      "accountant": "Accountant",
-      "exam": "Exam",
-      "homework": "Homework"
+      "teacher": "Enseignant",
+      "admin": "Administrateur",
+      "receptionist": "Réceptionniste",
+      "accountant": "Comptable",
+      "exam": "Examen",
+      "homework": "Devoir"
     },
     "children": {
-      "title": "My Registered Children",
-      "emptyTitle": "My Children",
-      "emptyText": "No children are currently linked to your account. Please contact administration.",
+      "title": "Mes enfants inscrits",
+      "emptyTitle": "Mes enfants",
+      "emptyText": "Aucun enfant n'est actuellement lié à votre compte. Veuillez contacter l'administration.",
       "columns": {
-        "name": "Name",
-        "classLevel": "Class (level)",
-        "birthDate": "Date of birth",
-        "status": "Status"
+        "name": "Nom",
+        "classLevel": "Classee (niveau)",
+        "birthDate": "Date de naissance",
+        "status": "Statut"
       }
     },
     "grades": {
-      "title": "Grades and Assessments",
-      "emptyTitle": "Grades and Assessments",
-      "emptyText": "No grades have been recorded yet.",
+      "title": "Notes et Évaluations",
+      "emptyTitle": "Notes et Évaluations",
+      "emptyText": "Aucune note n'a encore été enregistrée.",
       "columns": {
-        "child": "Child",
-        "subject": "Subject",
-        "assessment": "Assessment",
-        "grade": "Grade",
-        "teacher": "Teacher"
+        "child": "Enfant",
+        "subject": "Matière",
+        "assessment": "Évaluation",
+        "grade": "Note",
+        "teacher": "Enseignant"
       }
     },
     "attendance": {
-      "title": "Absence and Tardiness Record",
-      "emptyTitle": "Absence Record",
-      "emptyText": "Your children have a clean record. No absences were found.",
+      "title": "Registre des absences et retards",
+      "emptyTitle": "Registre des absences",
+      "emptyText": "Le dossier de vos enfants est vierge. Aucune absence n'a été trouvée.",
       "columns": {
-        "child": "Child",
+        "child": "Enfant",
         "date": "Date",
-        "status": "Status",
-        "justified": "Justified?"
+        "status": "Statut",
+        "justified": "Justifiée ?"
       },
-      "justifiedYes": "Yes ({reason})",
-      "justifiedNo": "No"
+      "justifiedYes": "Oui ({reason})",
+      "justifiedNo": "Non"
     },
     "fees": {
-      "title": "Financial Claims and Fees",
-      "emptyTitle": "Financial Status",
-      "emptyText": "The account is settled. No due debts were found.",
+      "title": "Créances et frais financiers",
+      "emptyTitle": "Situation financière",
+      "emptyText": "Le compte est soldé. Aucune dette exigible trouvée.",
       "columns": {
-        "child": "Child",
-        "feeType": "Fee type",
-        "amount": "Amount",
-        "dueDate": "Due date",
-        "status": "Status"
+        "child": "Enfant",
+        "feeType": "Type de frais",
+        "amount": "Montant",
+        "dueDate": "Date d'échéance",
+        "status": "Statut"
       }
     },
     "notifications": {
-      "emptyTitle": "Notifications and Alerts",
-      "emptyText": "The notifications inbox is empty.",
-      "title": "Incoming Notifications",
-      "unreadCount": "{count} unread notification(s)",
-      "markAllRead": "Mark all as read",
-      "markRead": "Mark as read",
-      "read": "Read",
-      "unread": "Unread",
+      "emptyTitle": "Notifications et alertes",
+      "emptyText": "La boîte des notifications est vide.",
+      "title": "Notifications reçues",
+      "unreadCount": "{count} notification(s) non lue(s)",
+      "markAllRead": "Tout marquer comme lu",
+      "markRead": "Marquer comme lu",
+      "read": "Lu",
+      "unread": "Non lu",
       "defaultTitle": "Notification"
     },
     "messages": {
       "title": "Messages",
-      "subtitle": "Follow your conversations or search for a new user to contact.",
-      "searchPlaceholder": "Search by user name...",
-      "searchButton": "Search",
+      "subtitle": "Suivez vos conversations ou recherchez un nouvel utilisateur à contacter.",
+      "searchPlaceholder": "Rechercher par nom d'utilisateur...",
+      "searchButton": "Rechercher",
       "conversations": "Conversations",
-      "selectPrompt": "Choose a conversation from the list or search for a new user.",
-      "emptyConversation": "The conversation will appear here.",
-      "inputPlaceholder": "Write your message...",
-      "minSearch": "Type at least two characters to search.",
-      "searching": "Searching...",
-      "noResults": "No matching results.",
-      "searchFailed": "Search failed: {message}",
-      "loadingConversation": "Loading conversation...",
-      "loadFailed": "Could not load messages: {message}",
-      "noMessages": "No messages yet.",
-      "you": "You",
-      "roleFallback": "User",
-      "sending": "Sending...",
-      "sent": "Sent",
-      "sendFailed": "Send failed: {message}",
-      "emptyList": "No conversations yet."
+      "selectPrompt": "Choisissez une conversation dans la liste ou recherchez un nouvel utilisateur.",
+      "emptyConversation": "La conversation apparaîtra ici.",
+      "inputPlaceholder": "Écrivez votre message...",
+      "minSearch": "Saisissez au moins deux caractères pour rechercher.",
+      "searching": "Recherche...",
+      "noResults": "Aucun résultat correspondant.",
+      "searchFailed": "Recherche échouée : {message}",
+      "loadingConversation": "Chargement de la conversation...",
+      "loadFailed": "Impossible de charger les messages : {message}",
+      "noMessages": "Aucun message pour le moment.",
+      "you": "Vous",
+      "roleFallback": "Utilisateur",
+      "sending": "Envoi...",
+      "sent": "Envoyé",
+      "sendFailed": "Échec de l'envoi : {message}",
+      "emptyList": "Aucune conversation pour le moment."
     },
     "posts": {
-      "title": "Administration Posts",
-      "emptySubtitle": "Announcements and content published by administration will appear here.",
-      "listSubtitle": "Choose a post from the list to view the full details.",
-      "emptyTitle": "No posts currently",
-      "emptyText": "Administration posts will appear here when available.",
-      "untitled": "Untitled post",
-      "openHint": "Open the post to view its details.",
+      "title": "Publications de l'administration",
+      "emptySubtitle": "Les annonces et contenus publiés par l'administration apparaîtront ici.",
+      "listSubtitle": "Choisissez une publication dans la liste pour voir tous les détails.",
+      "emptyTitle": "Aucune publication actuellement",
+      "emptyText": "Les publications de l'administration apparaîtront ici lorsqu'elles seront disponibles.",
+      "untitled": "Publication sans titre",
+      "openHint": "Ouvrez la publication pour voir ses détails.",
       "filePlaceholder": "Document"
     },
     "actions": {
-      "notificationsUpdateFailed": "Could not update notifications.",
-      "notificationUpdateFailed": "Could not update the notification."
+      "notificationsUpdateFailed": "Impossible de mettre à jour les notifications.",
+      "notificationUpdateFailed": "Impossible de mettre à jour la notification."
     },
     "currency": {
       "dzd": "DZD"
