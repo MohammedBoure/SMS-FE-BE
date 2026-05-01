@@ -1,0 +1,1261 @@
+2026-04-30 15:45:31,498 - root - INFO - Message sent:[6] From user #25 to #30
+2026-04-30 15:52:24,466 - root - INFO - ✅ Post créé : [2] 'Test' par l'utilisateur #2
+2026-04-30 17:42:08,307 - root - INFO - ✅ Notification envoyée à l'utilisateur #30 : 'الخلاص'
+2026-05-01 08:24:23,061 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:23,361 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:23,374 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:23,374 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:23,375 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:23,375 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 08:24:23,376 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 08:24:23,377 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 08:24:23,378 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:23,382 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 08:24:23,389 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:23,625 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:23,625 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:23,625 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:23,625 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:23,625 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:23,634 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:23,907 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:23,907 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:23,907 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:23,907 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:23,907 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:23,922 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:24,207 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:24,207 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:24,207 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:24,207 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:24,207 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:24,223 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:24,461 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:24,476 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:24,476 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:24,476 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:24,476 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:24,480 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:24,699 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:24,703 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:24,703 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:24,703 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:24,704 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:24,707 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:24,953 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:24,957 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:24,957 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:24,957 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:24,957 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:24,963 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:25,176 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:25,176 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:25,176 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:25,176 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:25,176 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:25,184 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:25,392 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:25,396 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:25,396 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:25,396 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:25,397 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:25,400 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:25,602 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:25,606 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:25,606 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:25,606 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:25,607 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:25,610 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:25,862 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:25,866 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:25,866 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:25,866 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:25,867 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:25,868 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 08:24:25,911 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 08:24:25,915 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 08:24:25,937 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 08:24:25,948 - SCHOOL_SYS - INFO - Running Indexes queries (13 total)…
+2026-05-01 08:24:25,970 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 08:24:27,524 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:27,808 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:27,808 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:27,808 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:27,808 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:27,808 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 08:24:27,808 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 08:24:27,823 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 08:24:27,824 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:27,826 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 08:24:27,830 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:28,126 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:28,147 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:28,149 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:28,152 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:28,154 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:28,160 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:28,423 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:28,423 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:28,423 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:28,423 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:28,423 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:28,437 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:28,674 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:28,684 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:28,684 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:28,684 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:28,684 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:28,691 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:28,925 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:28,925 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:28,940 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:28,942 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:28,943 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:28,948 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:29,194 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:29,197 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:29,198 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:29,198 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:29,199 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:29,201 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:29,442 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:29,446 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:29,446 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:29,446 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:29,447 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:29,449 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:29,734 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:29,737 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:29,737 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:29,738 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:29,738 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:29,740 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:29,941 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:29,945 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:29,946 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:29,946 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:29,947 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:29,950 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:30,195 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:30,198 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:30,199 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:30,199 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:30,200 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:30,202 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:24:30,406 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:24:30,410 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:24:30,410 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:24:30,410 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:24:30,411 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:24:30,412 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 08:24:30,434 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 08:24:30,437 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 08:24:30,462 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 08:24:30,470 - SCHOOL_SYS - INFO - Running Indexes queries (13 total)…
+2026-05-01 08:24:30,480 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 08:24:30,807 - asyncio - DEBUG - Using selector: SelectSelector
+2026-05-01 08:26:05,152 - root - INFO - Message sent:[7] From user #30 to #25
+2026-05-01 08:27:31,862 - root - INFO - ✅ Nouvelle présence : [17] Étudiant #3 -> present (2026-05-01)
+2026-05-01 08:27:31,870 - root - INFO - ✅ Nouvelle présence : [18] Étudiant #12 -> absent (2026-05-01)
+2026-05-01 08:27:31,871 - root - INFO - ✅ Nouvelle présence : [19] Étudiant #13 -> present (2026-05-01)
+2026-05-01 08:27:31,877 - root - INFO - ✅ Nouvelle présence : [20] Étudiant #10 -> present (2026-05-01)
+2026-05-01 08:43:13,511 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:13,862 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:13,862 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:13,862 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:13,862 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:13,862 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 08:43:13,862 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 08:43:13,862 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 08:43:13,873 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:13,876 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 08:43:13,882 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:14,078 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:14,078 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:14,078 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:14,078 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:14,078 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:14,078 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:14,279 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:14,295 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:14,295 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:14,295 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:14,295 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:14,301 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:14,495 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:14,495 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:14,495 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:14,495 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:14,495 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:14,504 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:14,779 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:14,783 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:14,784 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:14,784 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:14,784 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:14,787 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:14,994 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:14,994 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:14,994 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:14,994 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:14,994 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:15,011 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:15,264 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:15,267 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:15,268 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:15,268 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:15,269 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:15,271 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:15,465 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:15,469 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:15,470 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:15,470 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:15,471 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:15,473 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:15,689 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:15,692 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:15,693 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:15,693 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:15,694 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:15,697 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:15,912 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:15,916 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:15,916 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:15,916 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:15,917 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:15,920 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:16,118 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:16,122 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:16,123 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:16,123 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:16,124 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:16,125 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 08:43:16,158 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 08:43:16,161 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 08:43:16,173 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 08:43:16,185 - SCHOOL_SYS - INFO - Running Indexes queries (13 total)…
+2026-05-01 08:43:16,202 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 08:43:16,431 - asyncio - DEBUG - Using selector: SelectSelector
+2026-05-01 08:43:54,812 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:55,029 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:55,029 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:55,029 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:55,029 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:55,029 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 08:43:55,029 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 08:43:55,035 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 08:43:55,035 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:55,037 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 08:43:55,041 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:55,258 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:55,262 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:55,262 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:55,262 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:55,263 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:55,265 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:55,482 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:55,486 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:55,486 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:55,487 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:55,487 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:55,490 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:55,681 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:55,684 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:55,685 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:55,685 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:55,686 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:55,688 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:55,890 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:55,894 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:55,894 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:55,895 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:55,895 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:55,899 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:56,091 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:56,095 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:56,096 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:56,096 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:56,097 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:56,098 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:56,294 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:56,298 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:56,298 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:56,298 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:56,299 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:56,302 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:56,493 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:56,497 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:56,498 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:56,498 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:56,499 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:56,501 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:56,716 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:56,719 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:56,719 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:56,719 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:56,720 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:56,722 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:56,936 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:56,940 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:56,940 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:56,940 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:56,941 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:56,944 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:57,168 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:57,170 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:57,170 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:57,170 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:57,170 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:57,170 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 08:43:57,200 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 08:43:57,445 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 08:43:57,464 - SCHOOL_SYS - INFO - Running Indexes queries (13 total)…
+2026-05-01 08:43:57,578 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 08:43:59,095 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:59,317 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:59,320 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:59,321 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:59,321 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:59,321 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 08:43:59,321 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 08:43:59,322 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 08:43:59,323 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:59,325 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 08:43:59,331 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:59,525 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:59,530 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:59,530 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:59,530 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:59,531 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:59,533 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:59,739 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:59,742 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:59,743 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:59,743 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:59,744 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:59,747 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:43:59,941 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:43:59,945 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:43:59,945 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:43:59,946 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:43:59,947 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:43:59,949 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:00,147 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:00,151 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:00,151 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:00,151 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:00,152 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:00,154 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:00,360 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:00,364 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:00,365 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:00,365 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:00,365 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:00,368 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:00,566 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:00,570 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:00,570 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:00,570 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:00,571 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:00,573 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:00,773 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:00,776 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:00,777 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:00,777 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:00,778 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:00,781 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:00,982 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:00,985 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:00,986 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:00,986 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:00,986 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:00,989 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:01,178 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:01,178 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:01,178 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:01,178 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:01,178 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:01,196 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:01,395 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:01,395 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:01,395 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:01,395 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:01,411 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:01,414 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 08:44:01,436 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 08:44:01,444 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 08:44:01,463 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 08:44:01,479 - SCHOOL_SYS - INFO - Running Indexes queries (13 total)…
+2026-05-01 08:44:01,489 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 08:44:01,761 - asyncio - DEBUG - Using selector: SelectSelector
+2026-05-01 08:44:55,329 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:55,562 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:55,578 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:55,578 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:55,578 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:55,578 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 08:44:55,578 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 08:44:55,581 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 08:44:55,582 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:55,584 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 08:44:55,585 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:55,812 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:55,828 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:55,828 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:55,828 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:55,828 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:55,833 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:56,111 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:56,112 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:56,112 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:56,112 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:56,112 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:56,112 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:56,312 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:56,312 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:56,312 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:56,312 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:56,312 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:56,312 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:56,511 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:56,511 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:56,511 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:56,511 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:56,511 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:56,524 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:56,745 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:56,745 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:56,745 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:56,745 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:56,745 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:56,761 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:56,961 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:56,961 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:56,961 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:56,961 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:56,961 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:56,961 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:57,199 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:57,203 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:57,203 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:57,203 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:57,204 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:57,207 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:57,406 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:57,410 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:57,410 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:57,410 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:57,411 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:57,414 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:57,616 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:57,620 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:57,620 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:57,621 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:57,621 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:57,623 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 08:44:57,831 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 08:44:57,834 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 08:44:57,835 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 08:44:57,835 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 08:44:57,836 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 08:44:57,837 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 08:44:57,864 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 08:44:57,868 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 08:44:57,900 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 08:44:57,908 - SCHOOL_SYS - INFO - Running Indexes queries (13 total)…
+2026-05-01 08:44:57,918 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 08:44:57,921 - __main__ - INFO - ⏳ جاري توليد بيانات مدرسية واقعية ومتكاملة...
+2026-05-01 08:44:58,137 - __main__ - INFO - ✅ اكتملت عملية حقن البيانات بنجاح!
+2026-05-01 08:44:58,137 - __main__ - INFO - 📊 إحصائيات التوليد:
+2026-05-01 08:44:58,138 - __main__ - INFO -    - الأقسام: 3 | المواد: 6
+2026-05-01 08:44:58,138 - __main__ - INFO -    - الأساتذة: 6 | الأولياء: 15 | الطلاب: 45
+2026-05-01 08:44:58,138 - __main__ - INFO - 🔑 كلمة المرور الموحدة لجميع الحسابات المولدة هي: python
+2026-05-01 09:00:21,724 - root - INFO - ✅ Séance ajoutée : [25] Friday (08:00:00-09:00:00) en salle 1
+2026-05-01 09:04:03,991 - root - INFO - ✅ Programme ajouté : [2] اللغات (دورة)
+2026-05-01 09:06:02,753 - root - INFO - ✅ Inscription ajoutée : [46] Étudiant #32 -> Programme #2
+2026-05-01 09:06:13,466 - root - INFO - ✅ Inscription ajoutée : [47] Étudiant #18 -> Programme #2
+2026-05-01 09:35:38,936 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:39,184 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:39,197 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:39,197 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:39,197 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:39,198 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 09:35:39,198 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 09:35:39,199 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 09:35:39,200 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:39,204 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 09:35:39,208 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:39,407 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:39,410 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:39,411 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:39,411 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:39,412 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:39,414 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:39,609 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:39,612 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:39,612 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:39,612 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:39,613 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:39,615 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:39,813 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:39,816 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:39,817 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:39,817 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:39,817 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:39,819 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:40,011 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:40,014 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:40,014 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:40,014 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:40,015 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:40,018 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:40,208 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:40,212 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:40,212 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:40,212 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:40,213 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:40,215 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:40,410 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:40,414 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:40,414 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:40,415 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:40,415 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:40,418 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:40,607 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:40,611 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:40,611 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:40,611 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:40,612 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:40,614 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:40,820 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:40,823 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:40,824 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:40,824 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:40,824 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:40,826 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:41,017 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:41,020 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:41,021 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:41,021 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:41,022 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:41,024 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:41,233 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:41,233 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:41,233 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:41,248 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:41,248 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:41,248 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 09:35:41,275 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 09:35:41,275 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 09:35:41,304 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 09:35:41,304 - SCHOOL_SYS - WARNING - Views warning (safe to ignore for ALTER/INDEX): 1054 (42S22): Unknown column 'sf.enrollment_id' in 'on clause'
+2026-05-01 09:35:41,304 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-01 09:35:41,336 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 09:35:42,536 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:42,763 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:42,779 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:42,779 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:42,779 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:42,779 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 09:35:42,779 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 09:35:42,779 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 09:35:42,779 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:42,785 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 09:35:42,789 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:42,983 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:42,983 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:42,983 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:42,983 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:42,983 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:42,983 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:43,265 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:43,274 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:43,275 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:43,276 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:43,277 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:43,281 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:43,668 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:43,673 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:43,674 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:43,674 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:43,675 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:43,679 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:44,062 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:44,067 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:44,067 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:44,068 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:44,069 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:44,072 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:44,315 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:44,318 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:44,319 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:44,319 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:44,319 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:44,323 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:44,622 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:44,628 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:44,628 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:44,629 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:44,630 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:44,634 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:44,969 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:44,973 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:44,973 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:44,973 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:44,974 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:44,978 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:45,235 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:45,235 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:45,235 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:45,235 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:45,235 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:45,249 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:45,477 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:45,492 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:45,492 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:45,492 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:45,492 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:45,495 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:35:45,702 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:35:45,702 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:35:45,702 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:35:45,702 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:35:45,702 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:35:45,711 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 09:35:45,733 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 09:35:45,736 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 09:35:45,754 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 09:35:45,754 - SCHOOL_SYS - WARNING - Views warning (safe to ignore for ALTER/INDEX): 1054 (42S22): Unknown column 'sf.enrollment_id' in 'on clause'
+2026-05-01 09:35:45,754 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-01 09:35:45,771 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 09:35:46,041 - asyncio - DEBUG - Using selector: SelectSelector
+2026-05-01 09:41:07,511 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:07,705 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:07,708 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:07,709 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:07,709 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:07,709 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 09:41:07,709 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 09:41:07,710 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 09:41:07,711 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:07,715 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 09:41:07,719 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:07,911 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:07,915 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:07,915 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:07,915 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:07,916 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:07,917 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:08,117 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:08,120 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:08,120 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:08,120 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:08,121 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:08,123 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:08,316 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:08,319 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:08,319 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:08,320 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:08,320 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:08,322 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:08,512 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:08,515 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:08,515 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:08,516 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:08,516 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:08,519 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:08,718 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:08,722 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:08,722 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:08,722 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:08,723 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:08,725 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:08,914 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:08,918 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:08,918 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:08,918 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:08,919 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:08,921 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:09,114 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:09,117 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:09,117 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:09,117 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:09,118 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:09,120 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:09,313 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:09,313 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:09,313 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:09,313 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:09,313 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:09,323 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:09,498 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:09,514 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:09,514 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:09,514 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:09,514 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:09,520 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:09,724 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:09,728 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:09,728 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:09,728 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:09,729 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:09,730 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 09:41:09,742 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 09:41:09,963 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 09:41:09,966 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-01 09:41:10,138 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 09:41:11,371 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:11,587 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:11,591 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:11,591 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:11,591 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:11,592 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 09:41:11,592 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 09:41:11,593 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 09:41:11,593 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:11,595 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 09:41:11,599 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:11,818 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:11,818 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:11,818 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:11,818 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:11,818 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:11,827 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:12,027 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:12,027 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:12,027 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:12,027 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:12,027 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:12,027 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:12,210 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:12,226 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:12,226 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:12,226 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:12,226 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:12,226 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:12,412 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:12,428 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:12,428 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:12,428 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:12,428 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:12,428 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:12,627 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:12,639 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:12,639 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:12,640 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:12,640 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:12,643 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:12,883 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:12,891 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:12,892 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:12,892 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:12,893 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:12,896 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:13,087 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:13,087 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:13,087 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:13,087 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:13,087 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:13,100 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:13,281 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:13,297 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:13,297 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:13,297 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:13,297 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:13,304 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:13,592 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:13,596 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:13,597 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:13,597 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:13,598 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:13,600 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:13,804 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:13,808 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:13,808 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:13,808 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:13,809 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:13,810 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 09:41:13,829 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 09:41:13,834 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 09:41:13,862 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 09:41:13,871 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-01 09:41:13,880 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 09:41:14,200 - asyncio - DEBUG - Using selector: SelectSelector
+2026-05-01 09:41:36,037 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:36,238 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:36,238 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:36,238 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:36,238 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:36,238 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 09:41:36,238 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 09:41:36,238 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 09:41:36,238 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:36,249 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 09:41:36,254 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:37,659 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:37,864 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:37,868 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:37,868 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:37,869 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:37,869 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 09:41:37,869 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 09:41:37,871 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 09:41:37,871 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:37,874 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 09:41:37,878 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:37,888 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:38,074 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:38,078 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:38,078 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:38,078 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:38,079 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:38,082 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:38,087 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:38,092 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:38,092 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:38,092 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:38,093 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 09:41:38,093 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 09:41:38,094 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 09:41:38,095 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:38,097 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 09:41:38,103 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:38,327 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:38,330 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:38,330 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:38,331 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:38,331 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:38,333 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:38,363 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:38,366 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:38,367 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:38,367 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:38,368 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:38,370 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:38,549 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:38,553 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:38,553 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:38,554 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:38,554 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:38,556 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:38,567 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:38,571 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:38,571 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:38,571 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:38,572 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:38,575 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:38,785 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:38,789 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:38,789 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:38,789 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:38,790 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:38,794 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:38,795 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:38,798 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:38,798 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:38,798 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:38,799 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:38,802 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:38,998 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:39,002 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:39,002 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:39,002 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:39,003 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:39,006 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:39,033 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:39,036 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:39,036 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:39,037 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:39,037 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:39,042 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:39,212 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:39,215 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:39,215 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:39,216 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:39,216 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:39,220 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:39,257 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:39,259 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:39,259 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:39,259 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:39,259 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:39,265 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:39,435 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:39,438 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:39,439 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:39,439 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:39,439 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:39,442 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:39,475 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:39,478 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:39,478 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:39,479 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:39,479 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:39,482 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:39,636 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:39,636 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:39,636 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:39,636 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:39,636 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:39,654 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:39,692 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:39,704 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:39,704 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:39,704 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:39,705 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:39,707 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:39,857 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:39,861 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:39,861 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:39,861 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:39,862 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:39,865 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:39,921 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:39,936 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:39,936 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:39,936 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:39,937 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:39,940 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:40,065 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:40,068 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:40,069 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:40,070 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:40,070 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:40,073 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 09:41:40,152 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:40,155 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:40,155 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:40,155 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:40,156 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:40,159 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 09:41:40,175 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 09:41:40,175 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 09:41:40,207 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 09:41:40,222 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-01 09:41:40,238 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 09:41:40,272 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 09:41:40,274 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 09:41:40,274 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 09:41:40,274 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 09:41:40,274 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 09:41:40,280 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 09:41:40,304 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 09:41:40,305 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 09:41:40,316 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 09:41:40,324 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-01 09:41:40,333 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 09:41:40,335 - __main__ - INFO - â³ Ø¬Ø§Ø±ÙŠ ØªÙˆÙ„ÙŠØ¯ Ø¨ÙŠØ§Ù†Ø§Øª Ù…Ø¯Ø±Ø³ÙŠØ© ÙˆØ§Ù‚Ø¹ÙŠØ© ÙˆÙ…ØªÙƒØ§Ù…Ù„Ø©...
+2026-05-01 09:41:40,555 - asyncio - DEBUG - Using selector: SelectSelector
+2026-05-01 09:41:40,558 - __main__ - INFO - âœ… Ø§ÙƒØªÙ…Ù„Øª Ø¹Ù…Ù„ÙŠØ© Ø­Ù‚Ù† Ø§Ù„Ø¨ÙŠØ§Ù†Ø§Øª Ø¨Ù†Ø¬Ø§Ø­!
+2026-05-01 09:41:40,558 - __main__ - INFO - ðŸ“Š Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª Ø§Ù„ØªÙˆÙ„ÙŠØ¯:
+2026-05-01 09:41:40,558 - __main__ - INFO -    - Ø§Ù„Ø£Ù‚Ø³Ø§Ù…: 3 | Ø§Ù„Ù…ÙˆØ§Ø¯: 6
+2026-05-01 09:41:40,558 - __main__ - INFO -    - Ø§Ù„Ø£Ø³Ø§ØªØ°Ø©: 6 | Ø§Ù„Ø£ÙˆÙ„ÙŠØ§Ø¡: 15 | Ø§Ù„Ø·Ù„Ø§Ø¨: 45
+2026-05-01 09:41:40,558 - __main__ - INFO - ðŸ”‘ ÙƒÙ„Ù…Ø© Ø§Ù„Ù…Ø±ÙˆØ± Ø§Ù„Ù…ÙˆØ­Ø¯Ø© Ù„Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø­Ø³Ø§Ø¨Ø§Øª Ø§Ù„Ù…ÙˆÙ„Ø¯Ø© Ù‡ÙŠ: python
+2026-05-01 10:50:42,115 - root - INFO - ✅ Notification envoyée à l'utilisateur #29 : 'تذكير بسداد الرسوم 💳'
+2026-05-01 10:59:47,721 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 10:59:47,973 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 10:59:47,980 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 10:59:47,981 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:59:47,981 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:59:47,981 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 10:59:47,982 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 10:59:47,984 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 10:59:47,985 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:59:47,989 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 10:59:47,994 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 10:59:48,247 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 10:59:48,250 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 10:59:48,251 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:59:48,251 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:59:48,252 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:59:48,255 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 10:59:48,470 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 10:59:48,470 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 10:59:48,470 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:59:48,470 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:59:48,470 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:59:48,483 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 10:59:48,687 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 10:59:48,687 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 10:59:48,687 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:59:48,687 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:59:48,687 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:59:48,695 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 10:59:48,903 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 10:59:48,907 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 10:59:48,907 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:59:48,907 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:59:48,908 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:59:48,912 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 10:59:49,201 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 10:59:49,201 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 10:59:49,201 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:59:49,201 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:59:49,201 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:59:49,201 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 10:59:49,469 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 10:59:49,482 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 10:59:49,482 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:59:49,483 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:59:49,483 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:59:49,487 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 10:59:49,707 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 10:59:49,718 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 10:59:49,718 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:59:49,719 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:59:49,719 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:59:49,724 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 10:59:49,964 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 10:59:49,968 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 10:59:49,968 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:59:49,968 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:59:49,969 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:59:49,973 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 10:59:50,269 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 10:59:50,269 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 10:59:50,269 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:59:50,269 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:59:50,269 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:59:50,284 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 10:59:50,674 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 10:59:50,674 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 10:59:50,674 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 10:59:50,674 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 10:59:50,674 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 10:59:50,681 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 10:59:50,721 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 10:59:50,725 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 10:59:50,752 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 10:59:50,762 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-01 10:59:50,790 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 10:59:51,197 - asyncio - DEBUG - Using selector: SelectSelector
+2026-05-01 11:00:00,265 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:00,469 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:00,470 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:00,470 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:00,470 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:00,470 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 11:00:00,470 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 11:00:00,470 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 11:00:00,475 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:00,479 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 11:00:00,485 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:00,685 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:00,689 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:00,689 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:00,689 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:00,690 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:00,693 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:00,934 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:00,936 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:00,936 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:00,936 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:00,936 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:00,942 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:01,167 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:01,167 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:01,167 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:01,167 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:01,182 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:01,185 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:01,390 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:01,393 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:01,393 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:01,394 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:01,394 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:01,398 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:01,593 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:01,596 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:01,597 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:01,597 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:01,598 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:01,601 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:01,795 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:01,799 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:01,799 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:01,799 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:01,800 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:01,804 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:01,999 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:02,003 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:02,003 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:02,003 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:02,004 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:02,007 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:02,209 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:02,212 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:02,213 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:02,213 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:02,214 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:02,217 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:02,410 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:02,413 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:02,413 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:02,413 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:02,414 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:02,418 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:02,631 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:02,635 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:02,635 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:02,636 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:02,636 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:02,639 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 11:00:02,660 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 11:00:02,875 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 11:00:02,891 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-01 11:00:03,057 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 11:00:04,450 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:04,666 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:04,668 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:04,668 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:04,668 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:04,668 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 11:00:04,668 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 11:00:04,668 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 11:00:04,673 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:04,676 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 11:00:04,680 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:04,889 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:04,889 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:04,889 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:04,889 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:04,889 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:04,889 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:05,117 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:05,117 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:05,117 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:05,117 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:05,117 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:05,134 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:05,336 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:05,339 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:05,339 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:05,339 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:05,340 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:05,343 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:05,560 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:05,563 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:05,564 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:05,564 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:05,564 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:05,568 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:05,766 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:05,770 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:05,770 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:05,771 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:05,771 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:05,774 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:05,969 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:05,973 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:05,973 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:05,973 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:05,974 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:05,977 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:06,220 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:06,224 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:06,224 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:06,225 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:06,225 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:06,228 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:06,461 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:06,465 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:06,466 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:06,466 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:06,467 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:06,471 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:06,714 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:06,718 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:06,719 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:06,719 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:06,720 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:06,723 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:06,736 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:06,933 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:06,937 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:06,938 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:06,938 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:06,939 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:06,941 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 11:00:06,975 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 11:00:06,975 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:06,980 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:06,980 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:06,980 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:06,981 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-01 11:00:06,981 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-01 11:00:06,981 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 11:00:06,983 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-01 11:00:06,984 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:06,989 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-01 11:00:06,996 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:07,027 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 11:00:07,039 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-01 11:00:07,062 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 11:00:07,317 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:07,317 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:07,332 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:07,332 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:07,333 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:07,337 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:07,417 - asyncio - DEBUG - Using selector: SelectSelector
+2026-05-01 11:00:07,549 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:07,553 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:07,553 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:07,553 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:07,555 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:07,557 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:07,770 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:07,770 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:07,783 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:07,783 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:07,784 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:07,788 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:08,052 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:08,052 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:08,052 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:08,052 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:08,052 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:08,065 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:08,283 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:08,283 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:08,283 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:08,283 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:08,283 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:08,302 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:08,520 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:08,533 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:08,533 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:08,533 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:08,533 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:08,539 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:08,783 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:08,783 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:08,783 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:08,783 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:08,783 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:08,792 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:09,038 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:09,038 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:09,049 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:09,051 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:09,052 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:09,062 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:09,303 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:09,307 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:09,307 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:09,307 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:09,307 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:09,310 - mysql.connector - DEBUG - Building SSL context
+2026-05-01 11:00:09,517 - mysql.connector - DEBUG - Switching to SSL
+2026-05-01 11:00:09,522 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-01 11:00:09,522 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-01 11:00:09,522 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-01 11:00:09,523 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-01 11:00:09,525 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-01 11:00:09,550 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-01 11:00:09,556 - SCHOOL_SYS - WARNING - Schema warning (safe to ignore for ALTER/INDEX): 1050 (42S01): Table 'roles' already exists
+2026-05-01 11:00:09,592 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-01 11:00:09,600 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-01 11:00:09,613 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-01 11:00:09,616 - __main__ - INFO - Starting database seeding...
+2026-05-01 11:00:09,836 - __main__ - INFO - Database seeding completed successfully.

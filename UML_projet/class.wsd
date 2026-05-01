@@ -91,35 +91,17 @@ class SubjectsManager {
   + delete_subject(subject_id: Integer): Tuple
 }
 
-class StudentsManager {
-  - id: INT
-  - user_id: INT
-  - parent_id: INT
-  - class_id: INT
-  - date_of_birth: DATE
-  - registration_date: DATE
-  - blood_group: VARCHAR(5)
-  - medical_info: TEXT
-  - status: VARCHAR(20)
-  ..
-  + create_student(**kwargs): Integer
-  + search_students(keyword: String, limit: Integer,\n  offset: Integer): Dictionary
-  + get_all_students(status: String, class_id: Integer,\n  limit: Integer, offset: Integer): Dictionary
-  + get_student_by_id(student_id: Integer): Dictionary
-  + update_student(student_id: Integer, **kwargs): Boolean
-  + change_student_status(student_id: Integer,\n  status: String): Boolean
-  + delete_student(student_id: Integer, force: Boolean): Tuple
-}
 
 class ClassesManager {
   - id: INT
+  - program_id: INT
   - class_name: VARCHAR(50)
   - level: VARCHAR(50)
   - age_group: VARCHAR(50)
   - capacity: INT
   ..
-  + add_class(class_name: String, level: String,\n  age_group: String, capacity: Integer): Integer
-  + get_all_classes(level: String): List
+  + add_class(class_name: String, level: String,\n  age_group: String, capacity: Integer, program_id: Integer): Integer
+  + get_all_classes(level: String, program_id: Integer): List
   + get_class_by_id(class_id: Integer): Dictionary
   + get_classes_occupancy(): List
   + update_class(class_id: Integer, **kwargs): Boolean
@@ -146,15 +128,18 @@ class StudentEnrollmentsManager {
   - id: INT
   - student_id: INT
   - program_id: INT
+  - class_id: INT
   - group_name: VARCHAR(50)
   - enrollment_date: DATE
   - status: VARCHAR(50)
   - notes: TEXT
   ..
-  + create_enrollment(student_id: Integer, program_id: Integer,\n  group_name: String, enrollment_date: String,\n  status: String, notes: String): Integer
-  + get_all_enrollments(status: String): List
+  - _class_matches_program(cursor: Cursor, class_id: Integer, program_id: Integer): Boolean
+  + create_enrollment(student_id: Integer, program_id: Integer,\n  class_id: Integer, group_name: String, enrollment_date: String,\n  status: String, notes: String): Integer
+  + get_all_enrollments(status: String, program_id: Integer, class_id: Integer): List
   + get_student_enrollments(student_id: Integer): List
-  + get_program_enrollments(program_id: Integer,\n  status: String): List
+  + get_program_enrollments(program_id: Integer, status: String, class_id: Integer): List
+  + get_class_enrollments(class_id: Integer, status: String): List
   + update_enrollment(enrollment_id: Integer, **kwargs): Boolean
   + change_enrollment_status(enrollment_id: Integer,\n  status: String): Boolean
   + delete_enrollment(enrollment_id: Integer): Tuple
@@ -186,6 +171,7 @@ class AssessmentsManager {
   + create_assessment(title: String, type: String,\n  assignment_id: Integer, max_grade: Float,\n  due_date: String): Integer 
   + get_all_assessments(): List 
   + get_assessments_by_class(class_id: Integer): List 
+  + get_assessments_by_student(student_id: Integer): List
   + get_assessments_by_assignment(assignment_id: Integer): List 
   + get_assessment_by_id(assessment_id: Integer): Dictionary 
   + update_assessment(assessment_id: Integer, **kwargs): Boolean 
@@ -209,15 +195,17 @@ class GradesManager {
 class AttendanceManager {
   - id: INT
   - student_id: INT
+  - class_id: INT
   - date: DATE
   - status: VARCHAR
   - is_justified: BOOLEAN
   - justification_reason: TEXT
   ..
-  + save_attendance(student_id: Integer, target_date: String,\n  status: String, is_justified: Boolean,\n  justification_reason: String): Integer
+  - _student_has_active_class_enrollment(cursor: Cursor, student_id: Integer, class_id: Integer): Boolean
+  + save_attendance(student_id: Integer, target_date: String,\n  status: String, class_id: Integer, is_justified: Boolean,\n  justification_reason: String): Integer
   + get_class_attendance_sheet(class_id: Integer,\n  target_date: String): List
-  + get_student_attendance(student_id: Integer,\n  start_date: String, end_date: String): List
-  + get_attendance_statistics(student_id: Integer): Dictionary
+  + get_student_attendance(student_id: Integer,\n  start_date: String, end_date: String, class_id: Integer): List
+  + get_attendance_statistics(student_id: Integer, class_id: Integer): Dictionary
   + update_justification(attendance_id: Integer,\n  is_justified: Boolean, justification_reason: String): Boolean
   + delete_attendance(attendance_id: Integer): Tuple
 }
@@ -231,6 +219,7 @@ class SchedulesManager {
   - room_number: VARCHAR
   ..
   - _check_conflict(cursor: Cursor, assignment_id: Integer,\n  day_of_week: String, start_time: String,\n  end_time: String, room_number: String,\n  exclude_schedule_id: Integer): String
+  + get_student_schedule(student_id: Integer): List
   + add_schedule(assignment_id: Integer, day_of_week: String,\n  start_time: String, end_time: String,\n  room_number: String): Integer
   + get_class_schedule(class_id: Integer): List
   + get_teacher_schedule(teacher_id: Integer): List
@@ -277,24 +266,6 @@ class UserTransactionsManager {
   + delete_transaction(transaction_id: Integer): Tuple
 }
 
-class StudentFeesManager {
-  - id: INT
-  - student_id: INT
-  - program_id: INT
-  - fee_type: VARCHAR
-  - amount_due: INT
-  - applied_discount: INT
-  - due_date: DATE
-  - transaction_id: INT
-  ..
-  + create_fee(student_id: Integer, fee_type: String,\n  amount_due: Integer, program_id: Integer,\n  applied_discount: Integer, due_date: String,\n  transaction_id: Integer): Integer
-  + get_all_fees(fee_type: String): List
-  + get_student_fees(student_id: Integer): List
-  + get_overdue_fees(): List
-  + update_fee(fee_id: Integer, **kwargs): Boolean
-  + delete_fee(fee_id: Integer): Tuple
-}
-
 class PaymentsManager {
   - id: INT
   - fee_id: INT
@@ -312,7 +283,6 @@ class PaymentsManager {
   + update_payment(payment_id: Integer, **kwargs): Boolean
   + delete_payment(payment_id: Integer): Tuple
 }
-
 
 class MessagesManager {
   - id: INT
@@ -343,6 +313,48 @@ class PostsManager {
   + delete_post(post_id: Integer): Tuple
 }
 
+class StudentsManager {
+  - id: INT
+  - user_id: INT
+  - parent_id: INT
+  - class_id: INT
+  - date_of_birth: DATE
+  - registration_date: DATE
+  - blood_group: VARCHAR(5)
+  - medical_info: TEXT
+  - status: VARCHAR(20)
+  ..
+  - _enrollment_summary_join(): String
+  - _class_filter_sql(class_id: Integer, params: List): String
+  + create_student(user_id: Integer, parent_id: Integer, class_id: Integer,\n  date_of_birth: String, registration_date: String, blood_group: String,\n  medical_info: String, status: String): Integer
+  + search_students(keyword: String, limit: Integer, offset: Integer): Dictionary
+  + get_all_students(status: String, class_id: Integer,\n  limit: Integer, offset: Integer): Dictionary
+  + get_student_by_id(student_id: Integer): Dictionary
+  + update_student(student_id: Integer, **kwargs): Boolean
+  + change_student_status(student_id: Integer, status: String): Boolean
+  + delete_student(student_id: Integer, force: Boolean): Tuple
+}
+
+class StudentFeesManager {
+  - id: INT
+  - student_id: INT
+  - enrollment_id: INT
+  - program_id: INT
+  - fee_type: VARCHAR
+  - amount_due: INT
+  - applied_discount: INT
+  - due_date: DATE
+  - transaction_id: INT
+  ..
+  - _resolve_program_for_enrollment(cursor: Cursor, student_id: Integer,\n  enrollment_id: Integer, program_id: Integer): Tuple
+  + create_fee(student_id: Integer, fee_type: String, amount_due: Integer,\n  enrollment_id: Integer, program_id: Integer, applied_discount: Integer,\n  due_date: String, transaction_id: Integer): Integer
+  + get_all_fees(fee_type: String): List
+  + get_student_fees(student_id: Integer): List
+  + get_overdue_fees(): List
+  + update_fee(fee_id: Integer, **kwargs): Boolean
+  + delete_fee(fee_id: Integer): Tuple
+}
+
 class NotificationsManager {
   - id: INT
   - user_id: INT
@@ -368,10 +380,12 @@ ParentsManager "1" --> "1" UsersManager : user_id
 StudentsManager "1" --> "1" UsersManager : user_id
 StudentsManager "*" --> "1" ParentsManager : parent_id
 StudentsManager "*" --> "1" ClassesManager : class_id
+ClassesManager "*" --> "1" ProgramsManager : program_id
 TeachersManager "1" --> "1" UsersManager : user_id
 
 StudentEnrollmentsManager "*" --> "1" StudentsManager : student_id
 StudentEnrollmentsManager "*" --> "1" ProgramsManager : program_id
+StudentEnrollmentsManager "*" --> "1" ClassesManager : class_id
 
 TeacherAssignmentsManager "*" --> "1" TeachersManager : teacher_id
 TeacherAssignmentsManager "*" --> "1" SubjectsManager : subject_id
@@ -384,6 +398,7 @@ SchedulesManager "*" --> "1" TeacherAssignmentsManager : assignment_id
 GradesManager "*" --> "1" StudentsManager : student_id
 GradesManager "*" --> "1" AssessmentsManager : assessment_id
 
+AttendanceManager "*" --> "1" ClassesManager : class_id
 AttendanceManager "*" --> "1" StudentsManager : student_id
 
 UserTransactionsManager "*" --> "1" UsersManager : from_user_id
@@ -401,4 +416,5 @@ PostsManager "*" --> "1" UsersManager : user_id
 MessagesManager "*" --> "1" UsersManager : sender_id
 MessagesManager "*" --> "1" UsersManager : receiver_id
 
+ "*" --> "1" StudentEnrollmentsManager : enrollment_id
 @enduml

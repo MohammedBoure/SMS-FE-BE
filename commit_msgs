@@ -126,3 +126,11 @@ feat(admin): major overhaul of financial, resource, and notification modules
 -----
 
 Add read status actions for role notifications
+-----
+
+Refactor student enrollment structure and improve academic system UI
+
+- Refactored student enrollments to be organized around Programs and Classes
+- Updated and corrected Class Diagram to reflect new system architecture
+- Improved data flow in academic frontend for better consistency and performance
+- Enhanced admin mobile UI for better usability and responsiveness
