@@ -35,7 +35,7 @@ body {
   font-family: 'Cairo', sans-serif;
   background-color: var(--background);
   color: var(--text-main);
-  direction: rtl; /* دعم اللغة العربية */
+  direction: inherit;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -85,6 +85,32 @@ body {
   background-color: #e11d48;
   color: white;
   transform: translateY(-2px);
+}
+
+.parent-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.parent-language-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.parent-language-control select {
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-btn);
+  background: var(--surface);
+  color: var(--text-main);
+  padding: 0.45rem 0.8rem;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 /* ==========================================================================
@@ -149,6 +175,11 @@ body {
   padding-right: 1rem;
 }
 
+[dir="ltr"] #parent-main h2 {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
 /* خط تزييني بجانب العناوين */
 #parent-main h2::before {
   content: '';
@@ -159,6 +190,11 @@ body {
   width: 4px;
   background-color: var(--primary);
   border-radius: 4px;
+}
+
+[dir="ltr"] #parent-main h2::before {
+  right: auto;
+  left: 0;
 }
 
 #parent-main p {
@@ -187,6 +223,10 @@ thead th {
   border: none;
 }
 
+[dir="ltr"] thead th {
+  text-align: left;
+}
+
 tbody tr {
   background-color: var(--surface);
   box-shadow: var(--shadow-sm);
@@ -201,6 +241,9 @@ tbody tr:hover {
 /* تدوير زوايا الصفوف لتبدو كبطاقات منفصلة */
 tbody td:first-child { border-top-right-radius: var(--radius-card); border-bottom-right-radius: var(--radius-card); }
 tbody td:last-child { border-top-left-radius: var(--radius-card); border-bottom-left-radius: var(--radius-card); }
+
+[dir="ltr"] tbody td:first-child { border-top-right-radius: 0; border-bottom-right-radius: 0; border-top-left-radius: var(--radius-card); border-bottom-left-radius: var(--radius-card); }
+[dir="ltr"] tbody td:last-child { border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: var(--radius-card); border-bottom-right-radius: var(--radius-card); }
 
 td {
   padding: 1.25rem 1.5rem;
@@ -358,6 +401,10 @@ td {
   text-align: right;
 }
 
+[dir="ltr"] .parent-message-user-result {
+  text-align: left;
+}
+
 .parent-message-user-result span {
   font-weight: 800;
 }
@@ -413,6 +460,10 @@ td {
   cursor: pointer;
   font-family: inherit;
   text-align: right;
+}
+
+[dir="ltr"] .parent-message-contact {
+  text-align: left;
 }
 
 .parent-message-contact:hover,

@@ -8,49 +8,97 @@ const ParentUI = {
 
   renderHeader(userProfile) {
     const header = document.getElementById("parent-header");
+    const name = userProfile ? userProfile.full_name : "...";
+    const languages = window.I18n
+      ? I18n.getLanguages()
+      : [{ code: "ar", label: "Arabic", dir: "rtl" }, { code: "en", label: "English", dir: "ltr" }];
+    const activeLang = window.I18n ? I18n.currentLang : "ar";
+    const options = languages.map(lang => `
+      <option value="${this._escapeAttr(lang.code)}" dir="${this._escapeAttr(lang.dir || "auto")}" ${lang.code === activeLang ? "selected" : ""}>
+        ${this._escape(lang.label)}
+      </option>
+    `).join("");
+
     header.innerHTML = `
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
-        <h1 style="margin:0;">مرحباً بك: ${this._escape(userProfile ? userProfile.full_name : '...')}</h1>
-        <button id="logout-btn" style="background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">تسجيل خروج</button>
+      <div class="parent-header-shell">
+        <h1>${this.t("parent.brand.welcome", { name: this._escape(name) }, `Welcome: ${this._escape(name)}`)}</h1>
+        <div class="parent-header-actions">
+          <label class="parent-language-control">
+            <span>${this.t("parent.language.label", {}, "Language")}</span>
+            <select id="parent-language-select" aria-label="${this._escapeAttr(this.t("parent.language.select", {}, "Choose language"))}">
+              ${options}
+            </select>
+          </label>
+          <button id="logout-btn">${this.t("parent.auth.logout", {}, "Log out")}</button>
+        </div>
       </div>
     `;
-    document.getElementById("logout-btn").addEventListener("click", () => Auth.logout());
+
+    document.getElementById("logout-btn")?.addEventListener("click", () => Auth.logout());
+    const languageSelect = document.getElementById("parent-language-select");
+    if (languageSelect && window.I18n) {
+      languageSelect.addEventListener("change", async (event) => {
+        languageSelect.disabled = true;
+        await I18n.setLanguage(event.target.value);
+        languageSelect.disabled = false;
+      });
+    }
   },
 
   renderNav(activeSection) {
     const nav = document.getElementById("parent-nav");
-    nav.innerHTML = this.SECTIONS.map(s =>
-      `<button class="nav-btn${activeSection === s ? " active" : ""}" data-section="${s}" style="padding: 10px 15px; margin-left: 5px; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; background: ${activeSection === s ? '#e0f2fe' : 'white'};">${this._translate(s)}</button>`
-    ).join("");
+    nav.innerHTML = this.SECTIONS.map(section => `
+      <button class="nav-btn${activeSection === section ? " active" : ""}" data-section="${this._escapeAttr(section)}">
+        ${this._translate(section)}
+      </button>
+    `).join("");
   },
 
   renderLoading() {
-    document.getElementById("parent-main").innerHTML = "<h3 style='padding: 20px;'>جاري جلب البيانات...</h3>";
+    document.getElementById("parent-main").innerHTML = `<h3 style="padding: 20px;">${this.t("parent.state.loading", {}, "Loading data...")}</h3>`;
   },
 
   renderError(msg) {
-    document.getElementById("parent-main").innerHTML = `<h3 style="color: #ef4444; padding: 20px;">خطأ: ${this._escape(msg)}</h3>`;
+    document.getElementById("parent-main").innerHTML = `
+      <h3 style="color: #ef4444; padding: 20px;">
+        ${this.t("parent.state.errorPrefix", {}, "Error:")} ${this._escape(msg)}
+      </h3>
+    `;
   },
 
   renderChildren(children) {
     const main = document.getElementById("parent-main");
+    const align = this.start();
+
     if (!children || children.length === 0) {
-      main.innerHTML = "<h2>أبنائي</h2><p style='color: #64748b;'>لا يوجد أبناء مسجلين بحسابك حالياً. يرجى مراجعة الإدارة.</p>";
+      main.innerHTML = `
+        <h2>${this.t("parent.children.emptyTitle", {}, "My Children")}</h2>
+        <p style="color: #64748b;">${this.t("parent.children.emptyText", {}, "No children are currently linked to your account.")}</p>
+      `;
       return;
     }
+
     const rows = children.map(c => `
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px;"><strong>${this._escape(c.student_name || c.full_name)}</strong></td>
-        <td style="padding: 12px;">${this._escape(c.class_name)} (${this._escape(c.level)})</td>
-        <td style="padding: 12px; direction: ltr; text-align: right;">${this._escape(c.date_of_birth)}</td>
-        <td style="padding: 12px;"><span style="background: ${c.status === 'active' ? '#dcfce7' : '#f1f5f9'}; padding: 4px 8px; border-radius: 4px;">${c.status === 'active' ? 'نشط' : 'غير نشط'}</span></td>
+      <tr>
+        <td><strong>${this._escape(c.student_name || c.full_name)}</strong></td>
+        <td>${this._escape(c.class_name)} (${this._escape(c.level)})</td>
+        <td style="direction: ltr; text-align: ${align};">${this._escape(c.date_of_birth)}</td>
+        <td><span style="background: ${c.status === "active" ? '#dcfce7' : '#f1f5f9'}; padding: 4px 8px; border-radius: 4px;">${this._translateStatus(c.status)}</span></td>
       </tr>
     `).join("");
+
     main.innerHTML = `
-      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">أبنائي المسجلين</h2>
+      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">${this.t("parent.children.title", {}, "My Registered Children")}</h2>
       <div style="overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <table style="width: 100%; border-collapse: collapse; text-align: right;">
-          <thead style="background: #f1f5f9;"><tr><th style="padding:12px;">الاسم</th><th style="padding:12px;">القسم (المستوى)</th><th style="padding:12px;">تاريخ الميلاد</th><th style="padding:12px;">الحالة</th></tr></thead>
+        <table style="width: 100%; border-collapse: collapse; text-align: ${align};">
+          <thead style="background: #f1f5f9;">
+            <tr>
+              <th>${this.t("parent.children.columns.name", {}, "Name")}</th>
+              <th>${this.t("parent.children.columns.classLevel", {}, "Class (level)")}</th>
+              <th>${this.t("parent.children.columns.birthDate", {}, "Date of birth")}</th>
+              <th>${this.t("parent.children.columns.status", {}, "Status")}</th>
+            </tr>
+          </thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -59,24 +107,42 @@ const ParentUI = {
 
   renderGrades(grades) {
     const main = document.getElementById("parent-main");
+    const align = this.start();
+
     if (!grades || grades.length === 0) {
-      main.innerHTML = "<h2>العلامات والتقييمات</h2><p style='color: #64748b;'>لا توجد علامات مرصودة حتى الآن.</p>";
+      main.innerHTML = `
+        <h2>${this.t("parent.grades.emptyTitle", {}, "Grades and Assessments")}</h2>
+        <p style="color: #64748b;">${this.t("parent.grades.emptyText", {}, "No grades have been recorded yet.")}</p>
+      `;
       return;
     }
-    const rows = grades.map(g => `
-      <tr style="border-bottom: 1px solid #e2e8f0;">
-        <td style="padding: 12px;"><strong>${this._escape(g.child_name)}</strong></td>
-        <td style="padding: 12px;">${this._escape(g.subject_name)}</td>
-        <td style="padding: 12px;">${this._escape(g.assessment_title)} <span style="color:#64748b; font-size:0.85em;">(${g.assessment_type === 'exam' ? 'امتحان' : 'واجب'})</span></td>
-        <td style="padding: 12px; direction: ltr; text-align: right; font-weight: bold; color: #10b981;">${this._escape(g.grade_value)} / ${this._escape(g.max_grade)}</td>
-        <td style="padding: 12px;">${this._escape(g.teacher_name)}</td>
-      </tr>
-    `).join("");
+
+    const rows = grades.map(g => {
+      const assessmentType = this._translateStatus(g.assessment_type === "exam" ? "exam" : "homework");
+      return `
+        <tr>
+          <td><strong>${this._escape(g.child_name)}</strong></td>
+          <td>${this._escape(g.subject_name)}</td>
+          <td>${this._escape(g.assessment_title)} <span style="color:#64748b; font-size:0.85em;">(${this._escape(assessmentType)})</span></td>
+          <td style="direction: ltr; text-align: ${align}; font-weight: bold; color: #10b981;">${this._escape(g.grade_value)} / ${this._escape(g.max_grade)}</td>
+          <td>${this._escape(g.teacher_name)}</td>
+        </tr>
+      `;
+    }).join("");
+
     main.innerHTML = `
-      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">العلامات والتقييمات</h2>
+      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">${this.t("parent.grades.title", {}, "Grades and Assessments")}</h2>
       <div style="overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <table style="width: 100%; border-collapse: collapse; text-align: right;">
-          <thead style="background: #f1f5f9;"><tr><th style="padding:12px;">الابن</th><th style="padding:12px;">المادة</th><th style="padding:12px;">التقييم</th><th style="padding:12px;">العلامة</th><th style="padding:12px;">الأستاذ</th></tr></thead>
+        <table style="width: 100%; border-collapse: collapse; text-align: ${align};">
+          <thead style="background: #f1f5f9;">
+            <tr>
+              <th>${this.t("parent.grades.columns.child", {}, "Child")}</th>
+              <th>${this.t("parent.grades.columns.subject", {}, "Subject")}</th>
+              <th>${this.t("parent.grades.columns.assessment", {}, "Assessment")}</th>
+              <th>${this.t("parent.grades.columns.grade", {}, "Grade")}</th>
+              <th>${this.t("parent.grades.columns.teacher", {}, "Teacher")}</th>
+            </tr>
+          </thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -85,27 +151,44 @@ const ParentUI = {
 
   renderAttendance(records) {
     const main = document.getElementById("parent-main");
+    const align = this.start();
+
     if (!records || records.length === 0) {
-      main.innerHTML = "<h2>سجل الغياب</h2><p style='color: #64748b;'>سجل أبنائك نظيف، لا توجد غيابات.</p>";
+      main.innerHTML = `
+        <h2>${this.t("parent.attendance.emptyTitle", {}, "Absence Record")}</h2>
+        <p style="color: #64748b;">${this.t("parent.attendance.emptyText", {}, "No absences were found.")}</p>
+      `;
       return;
     }
+
     const rows = records.map(r => {
-      let statusAr = r.status === 'present' ? 'حاضر' : (r.status === 'absent' ? 'غائب' : 'متأخر');
-      let statusColor = r.status === 'absent' ? 'color: #ef4444;' : 'color: #f59e0b;';
+      const statusColor = r.status === "absent" ? "#ef4444" : (r.status === "present" ? "#10b981" : "#f59e0b");
+      const justification = r.is_justified
+        ? this.t("parent.attendance.justifiedYes", { reason: this._escape(r.justification_reason) }, "Yes")
+        : this.t("parent.attendance.justifiedNo", {}, "No");
+
       return `
-      <tr style="border-bottom: 1px solid #e2e8f0; background: ${r.status === 'absent' ? '#fef2f2' : 'transparent'};">
-        <td style="padding: 12px;"><strong>${this._escape(r.child_name)}</strong></td>
-        <td style="padding: 12px; direction: ltr; text-align: right; font-weight:bold;">${this._escape(r.date)}</td>
-        <td style="padding: 12px; font-weight:bold; ${statusColor}">${statusAr}</td>
-        <td style="padding: 12px;">${r.is_justified ? '✔️ نعم (' + this._escape(r.justification_reason) + ')' : '❌ لا'}</td>
-      </tr>
-    `;
+        <tr style="background: ${r.status === 'absent' ? '#fef2f2' : 'white'};">
+          <td><strong>${this._escape(r.child_name)}</strong></td>
+          <td style="direction: ltr; text-align: ${align}; font-weight:bold;">${this._escape(r.date)}</td>
+          <td style="font-weight:bold; color: ${statusColor};">${this._translateStatus(r.status)}</td>
+          <td>${justification}</td>
+        </tr>
+      `;
     }).join("");
+
     main.innerHTML = `
-      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">سجل الغياب والتأخر</h2>
+      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">${this.t("parent.attendance.title", {}, "Absence and Tardiness Record")}</h2>
       <div style="overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <table style="width: 100%; border-collapse: collapse; text-align: right;">
-          <thead style="background: #f1f5f9;"><tr><th style="padding:12px;">الابن</th><th style="padding:12px;">التاريخ</th><th style="padding:12px;">الحالة</th><th style="padding:12px;">مُبرر؟</th></tr></thead>
+        <table style="width: 100%; border-collapse: collapse; text-align: ${align};">
+          <thead style="background: #f1f5f9;">
+            <tr>
+              <th>${this.t("parent.attendance.columns.child", {}, "Child")}</th>
+              <th>${this.t("parent.attendance.columns.date", {}, "Date")}</th>
+              <th>${this.t("parent.attendance.columns.status", {}, "Status")}</th>
+              <th>${this.t("parent.attendance.columns.justified", {}, "Justified?")}</th>
+            </tr>
+          </thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -114,26 +197,44 @@ const ParentUI = {
 
   renderFees(fees) {
     const main = document.getElementById("parent-main");
+    const align = this.start();
+
     if (!fees || fees.length === 0) {
-      main.innerHTML = "<h2>الوضعية المالية</h2><p style='color: #64748b;'>الوضعية مسواة، لا توجد ديون مستحقة.</p>";
+      main.innerHTML = `
+        <h2>${this.t("parent.fees.emptyTitle", {}, "Financial Status")}</h2>
+        <p style="color: #64748b;">${this.t("parent.fees.emptyText", {}, "No due debts were found.")}</p>
+      `;
       return;
     }
+
     const rows = fees.map(f => {
-      const isPaid = f.status === 'paid' || f.status === 'completed';
+      const isPaid = f.status === "paid" || f.status === "completed";
+      const programName = f.program_name ? `<span style="color:#64748b;">(${this._escape(f.program_name)})</span>` : "";
+
       return `
-      <tr style="border-bottom: 1px solid #e2e8f0; background: ${isPaid ? 'transparent' : '#fef2f2'};">
-        <td style="padding: 12px;"><strong>${this._escape(f.child_name)}</strong></td>
-        <td style="padding: 12px;">${this._escape(f.fee_type)} ${f.program_name ? '<span style="color:#64748b;">('+this._escape(f.program_name)+')</span>' : ''}</td>
-        <td style="padding: 12px; font-weight: bold;">${this._escape(f.amount_due || f.net_amount)} دج</td>
-        <td style="padding: 12px; direction: ltr; text-align: right;">${this._escape(f.due_date)}</td>
-        <td style="padding: 12px; color: ${isPaid ? '#10b981' : '#ef4444'}; font-weight: bold;">${isPaid ? 'مسددة ✔️' : 'غير مسددة ❌'}</td>
-      </tr>
-    `}).join("");
+        <tr style="background: ${isPaid ? 'white' : '#fef2f2'};">
+          <td><strong>${this._escape(f.child_name)}</strong></td>
+          <td>${this._escape(f.fee_type)} ${programName}</td>
+          <td style="font-weight: bold;">${this._formatCurrency(f.amount_due || f.net_amount)}</td>
+          <td style="direction: ltr; text-align: ${align};">${this._escape(f.due_date)}</td>
+          <td style="color: ${isPaid ? '#10b981' : '#ef4444'}; font-weight: bold;">${this._translateStatus(f.status)}</td>
+        </tr>
+      `;
+    }).join("");
+
     main.innerHTML = `
-      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">المطالبات والرسوم المالية</h2>
+      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">${this.t("parent.fees.title", {}, "Financial Claims and Fees")}</h2>
       <div style="overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <table style="width: 100%; border-collapse: collapse; text-align: right;">
-          <thead style="background: #f1f5f9;"><tr><th style="padding:12px;">الابن</th><th style="padding:12px;">نوع الرسم</th><th style="padding:12px;">المبلغ</th><th style="padding:12px;">تاريخ الاستحقاق</th><th style="padding:12px;">الحالة</th></tr></thead>
+        <table style="width: 100%; border-collapse: collapse; text-align: ${align};">
+          <thead style="background: #f1f5f9;">
+            <tr>
+              <th>${this.t("parent.fees.columns.child", {}, "Child")}</th>
+              <th>${this.t("parent.fees.columns.feeType", {}, "Fee type")}</th>
+              <th>${this.t("parent.fees.columns.amount", {}, "Amount")}</th>
+              <th>${this.t("parent.fees.columns.dueDate", {}, "Due date")}</th>
+              <th>${this.t("parent.fees.columns.status", {}, "Status")}</th>
+            </tr>
+          </thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -142,43 +243,53 @@ const ParentUI = {
 
   renderNotifications(notifications) {
     const main = document.getElementById("parent-main");
+    const start = this.start();
+    const end = this.end();
+
     if (!notifications || notifications.length === 0) {
-      main.innerHTML = "<h2>الإشعارات والإنذارات</h2><p style='color: #64748b;'>صندوق الإشعارات فارغ.</p>";
+      main.innerHTML = `
+        <h2>${this.t("parent.notifications.emptyTitle", {}, "Notifications and Alerts")}</h2>
+        <p style="color: #64748b;">${this.t("parent.notifications.emptyText", {}, "The notifications inbox is empty.")}</p>
+      `;
       return;
     }
 
     const unreadCount = notifications.filter(n => !this._isNotificationRead(n)).length;
     const items = notifications.map(n => {
-      const dateStr = n.created_at ? new Date(n.created_at).toLocaleString("ar-DZ") : "تاريخ غير محدد";
+      const dateStr = n.created_at ? this.formatDateTime(n.created_at) : this.t("parent.common.unknownDate", {}, "Unknown date");
       const isRead = this._isNotificationRead(n);
       const notificationId = this._getNotificationId(n);
       const action = isRead
-        ? `<span style="color:#16a34a; font-weight:700;">مقروء</span>`
+        ? `<span style="color:#16a34a; font-weight:700;">${this.t("parent.notifications.read", {}, "Read")}</span>`
         : notificationId !== null
-          ? `<button type="button" class="parent-mark-notification-read" data-notification-id="${this._escape(notificationId)}" style="background:#eab308; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">تعيين كمقروء</button>`
-          : `<span style="color:#64748b; font-weight:700;">غير متاح</span>`;
+          ? `<button type="button" class="parent-mark-notification-read" data-notification-id="${this._escapeAttr(notificationId)}" style="background:#eab308; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-family: inherit;">${this.t("parent.notifications.markRead", {}, "Mark as read")}</button>`
+          : `<span style="color:#64748b; font-weight:700;">${this.t("parent.common.unavailable", {}, "Unavailable")}</span>`;
+      const statusLabel = isRead
+        ? this.t("parent.notifications.read", {}, "Read")
+        : this.t("parent.notifications.unread", {}, "Unread");
 
       return `
-      <div style="background: white; padding: 15px; margin-bottom: 15px; border-radius: 8px; border-right: 4px solid ${isRead ? '#94a3b8' : '#eab308'}; box-shadow: 0 2px 4px rgba(0,0,0,0.05); opacity:${isRead ? '.78' : '1'};">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:5px;">
-          <strong style="display:block; font-size:1.1rem; color: #0f172a;">${this._escape(n.title || "إشعار")}</strong>
-          <span style="white-space:nowrap; color:${isRead ? '#16a34a' : '#d97706'}; background:${isRead ? '#dcfce7' : '#fef3c7'}; border:1px solid ${isRead ? '#bbf7d0' : '#fde68a'}; padding:4px 10px; border-radius:999px; font-size:.85rem; font-weight:700;">${isRead ? 'مقروء' : 'غير مقروء'}</span>
+        <div style="background: white; padding: 15px; margin-bottom: 15px; border-radius: 8px; border-${start}: 4px solid ${isRead ? '#94a3b8' : '#eab308'}; box-shadow: 0 2px 4px rgba(0,0,0,0.05); opacity:${isRead ? '.78' : '1'};">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:5px;">
+            <strong style="display:block; font-size:1.1rem; color: #0f172a;">${this._escape(n.title || this.t("parent.notifications.defaultTitle", {}, "Notification"))}</strong>
+            <span style="white-space:nowrap; color:${isRead ? '#16a34a' : '#d97706'}; background:${isRead ? '#dcfce7' : '#fef3c7'}; border:1px solid ${isRead ? '#bbf7d0' : '#fde68a'}; padding:4px 10px; border-radius:999px; font-size:.85rem; font-weight:700;">${statusLabel}</span>
+          </div>
+          <p style="margin:0; color:#334155; line-height: 1.6;">${this._escape(n.message)}</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:10px; flex-wrap:wrap;">
+            <small style="color:#94a3b8; direction: ltr; text-align: ${end};">${dateStr}</small>
+            ${action}
+          </div>
         </div>
-        <p style="margin:0; color:#334155; line-height: 1.6;">${this._escape(n.message)}</p>
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:10px; flex-wrap:wrap;">
-          <small style="color:#94a3b8; direction: ltr; text-align: right;">${dateStr}</small>
-          ${action}
-        </div>
-      </div>
-    `}).join("");
+      `;
+    }).join("");
 
     main.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; border-bottom:2px solid #e2e8f0; padding-bottom:10px;">
         <div>
-          <h2 style="color:#1e293b; margin:0;">الإشعارات الواردة</h2>
-          <small style="color:#64748b;">${unreadCount} إشعار غير مقروء</small>
+          <h2 style="color:#1e293b; margin:0;">${this.t("parent.notifications.title", {}, "Incoming Notifications")}</h2>
+          <small style="color:#64748b;">${this.t("parent.notifications.unreadCount", { count: unreadCount }, `${unreadCount} unread`)}</small>
         </div>
-        ${unreadCount > 0 ? '<button type="button" id="parent-mark-all-notifications-read" style="background:#0f172a; color:white; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700;">تعيين الكل كمقروء</button>' : ''}
+        ${unreadCount > 0 ? `<button type="button" id="parent-mark-all-notifications-read" style="background:#0f172a; color:white; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700; font-family: inherit;">${this.t("parent.notifications.markAllRead", {}, "Mark all as read")}</button>` : ""}
       </div>
       <div>${items}</div>
     `;
@@ -194,12 +305,12 @@ const ParentUI = {
       <section class="parent-messages-dashboard">
         <div class="parent-messages-header">
           <div>
-            <h2>المراسلة</h2>
-            <p>تابع محادثاتك أو ابحث عن مستخدم جديد للتواصل معه.</p>
+            <h2>${this.t("parent.messages.title", {}, "Messages")}</h2>
+            <p>${this.t("parent.messages.subtitle", {}, "Follow your conversations or search for a new user to contact.")}</p>
           </div>
           <div class="parent-message-search">
-            <input type="text" id="parent-message-user-search" placeholder="ابحث باسم المستخدم..." autocomplete="off">
-            <button type="button" id="parent-message-search-btn">بحث</button>
+            <input type="text" id="parent-message-user-search" placeholder="${this._escapeAttr(this.t("parent.messages.searchPlaceholder", {}, "Search by user name..."))}" autocomplete="off">
+            <button type="button" id="parent-message-search-btn">${this.t("parent.messages.searchButton", {}, "Search")}</button>
           </div>
         </div>
 
@@ -207,22 +318,22 @@ const ParentUI = {
 
         <div class="parent-messages-shell">
           <aside class="parent-message-contacts">
-            <div class="parent-message-panel-title">المحادثات</div>
+            <div class="parent-message-panel-title">${this.t("parent.messages.conversations", {}, "Conversations")}</div>
             <div id="parent-message-contacts-list">
               ${this._renderMessageContacts(contacts)}
             </div>
           </aside>
 
           <section class="parent-chat-panel">
-            <div id="parent-chat-header" class="parent-chat-header">اختر محادثة من القائمة أو ابحث عن مستخدم جديد.</div>
+            <div id="parent-chat-header" class="parent-chat-header">${this.t("parent.messages.selectPrompt", {}, "Choose a conversation from the list or search for a new user.")}</div>
             <div id="parent-chat-messages" class="parent-chat-messages">
               <div class="parent-chat-empty">
-                <p>المحادثة ستظهر هنا.</p>
+                <p>${this.t("parent.messages.emptyConversation", {}, "The conversation will appear here.")}</p>
               </div>
             </div>
             <form id="parent-message-form" class="parent-message-form" hidden>
-              <textarea id="parent-message-input" rows="2" placeholder="اكتب رسالتك..." required></textarea>
-              <button type="submit">إرسال</button>
+              <textarea id="parent-message-input" rows="2" placeholder="${this._escapeAttr(this.t("parent.messages.inputPlaceholder", {}, "Write your message..."))}" required></textarea>
+              <button type="submit">${this.t("parent.common.send", {}, "Send")}</button>
               <small id="parent-message-status"></small>
             </form>
           </section>
@@ -240,11 +351,11 @@ const ParentUI = {
 
     if (!results) return;
     if (keyword.length < 2) {
-      results.innerHTML = `<div class="parent-message-inline-note">اكتب حرفين على الأقل للبحث.</div>`;
+      results.innerHTML = `<div class="parent-message-inline-note">${this.t("parent.messages.minSearch", {}, "Type at least two characters to search.")}</div>`;
       return;
     }
 
-    results.innerHTML = `<div class="parent-message-inline-note">جاري البحث...</div>`;
+    results.innerHTML = `<div class="parent-message-inline-note">${this.t("parent.messages.searching", {}, "Searching...")}</div>`;
 
     try {
       const response = await ParentServices.searchUsers(keyword);
@@ -255,17 +366,17 @@ const ParentUI = {
         });
 
       if (users.length === 0) {
-        results.innerHTML = `<div class="parent-message-inline-note">لا توجد نتائج مطابقة.</div>`;
+        results.innerHTML = `<div class="parent-message-inline-note">${this.t("parent.messages.noResults", {}, "No matching results.")}</div>`;
         return;
       }
 
       results.innerHTML = users.map(user => {
         const userId = Number(user.id ?? user.user_id);
-        const name = user.full_name || user.username || `مستخدم #${userId}`;
-        const role = user.role_name || user.role || user.user_type || "مستخدم";
+        const name = user.full_name || user.username || this.t("parent.common.userFallback", { id: userId }, `User #${userId}`);
+        const role = this._translateStatus(user.role_name || user.role || user.user_type || this.t("parent.messages.roleFallback", {}, "User"));
 
         return `
-          <button type="button" class="parent-message-user-result" data-user-id="${userId}" data-user-name="${this._escape(name)}">
+          <button type="button" class="parent-message-user-result" data-user-id="${userId}" data-user-name="${this._escapeAttr(name)}">
             <span>${this._escape(name)}</span>
             <small>${this._escape(role)}</small>
           </button>
@@ -279,7 +390,7 @@ const ParentUI = {
         });
       });
     } catch (err) {
-      results.innerHTML = `<div class="parent-message-inline-note error">فشل البحث: ${this._escape(err.message)}</div>`;
+      results.innerHTML = `<div class="parent-message-inline-note error">${this.t("parent.messages.searchFailed", { message: this._escape(err.message) }, "Search failed.")}</div>`;
     }
   },
 
@@ -292,7 +403,7 @@ const ParentUI = {
     const status = document.getElementById("parent-message-status");
 
     if (header) header.textContent = contactName;
-    if (messagesArea) messagesArea.innerHTML = `<div class="parent-message-inline-note">جاري تحميل المحادثة...</div>`;
+    if (messagesArea) messagesArea.innerHTML = `<div class="parent-message-inline-note">${this.t("parent.messages.loadingConversation", {}, "Loading conversation...")}</div>`;
     if (form) form.hidden = false;
     if (status) status.textContent = "";
 
@@ -301,7 +412,9 @@ const ParentUI = {
       const messages = Array.isArray(response) ? response : (response?.data || []);
       this.renderMessageConversation(messages);
     } catch (err) {
-      if (messagesArea) messagesArea.innerHTML = `<div class="parent-message-inline-note error">تعذر تحميل الرسائل: ${this._escape(err.message)}</div>`;
+      if (messagesArea) {
+        messagesArea.innerHTML = `<div class="parent-message-inline-note error">${this.t("parent.messages.loadFailed", { message: this._escape(err.message) }, "Could not load messages.")}</div>`;
+      }
     }
   },
 
@@ -312,14 +425,16 @@ const ParentUI = {
     const ordered = [...(messages || [])].sort((a, b) => new Date(a.created_at || a.timestamp || 0) - new Date(b.created_at || b.timestamp || 0));
 
     if (ordered.length === 0) {
-      area.innerHTML = `<div class="parent-chat-empty"><p>لا توجد رسائل بعد.</p></div>`;
+      area.innerHTML = `<div class="parent-chat-empty"><p>${this.t("parent.messages.noMessages", {}, "No messages yet.")}</p></div>`;
       return;
     }
 
     area.innerHTML = ordered.map(msg => {
       const isMine = Number(msg.sender_id) === this._currentUserId;
-      const author = isMine ? "أنت" : (msg.sender_name || this._activeMessageContact?.name || "المستخدم");
-      const date = msg.created_at ? new Date(msg.created_at).toLocaleString("ar-DZ") : "";
+      const author = isMine
+        ? this.t("parent.messages.you", {}, "You")
+        : (msg.sender_name || this._activeMessageContact?.name || this.t("parent.messages.roleFallback", {}, "User"));
+      const date = msg.created_at ? this.formatDateTime(msg.created_at) : "";
 
       return `
         <div class="parent-message-bubble${isMine ? " mine" : ""}">
@@ -341,19 +456,19 @@ const ParentUI = {
     if (!this._activeMessageContact || !content) return;
 
     if (status) {
-      status.textContent = "جاري الإرسال...";
+      status.textContent = this.t("parent.messages.sending", {}, "Sending...");
       status.className = "";
     }
 
     try {
       await ParentServices.sendMessage(this._currentUserId, this._activeMessageContact.id, content);
       input.value = "";
-      if (status) status.textContent = "تم الإرسال";
+      if (status) status.textContent = this.t("parent.messages.sent", {}, "Sent");
       await this.openMessageConversation(this._activeMessageContact.id, this._activeMessageContact.name);
       this.refreshMessageContacts();
     } catch (err) {
       if (status) {
-        status.textContent = "فشل الإرسال: " + err.message;
+        status.textContent = this.t("parent.messages.sendFailed", { message: err.message }, "Send failed.");
         status.className = "error";
       }
     }
@@ -371,7 +486,7 @@ const ParentUI = {
         this._bindMessageContactEvents();
       }
     } catch (err) {
-      console.warn("تعذر تحديث صندوق المحادثات:", err);
+      console.warn("Could not refresh parent message inbox:", err);
     }
   },
 
@@ -386,14 +501,14 @@ const ParentUI = {
         <div class="posts-dashboard student-posts-dashboard parent-posts-dashboard">
           <div class="posts-header-bar">
             <div>
-              <h3>منشورات الإدارة</h3>
-              <p>الإعلانات والمحتوى المنشور من الإدارة يظهر هنا.</p>
+              <h3>${this.t("parent.posts.title", {}, "Administration Posts")}</h3>
+              <p>${this.t("parent.posts.emptySubtitle", {}, "Announcements and content published by administration will appear here.")}</p>
             </div>
           </div>
           <div class="posts-empty">
-            <div class="empty-icon">📭</div>
-            <h4>لا توجد منشورات حالياً</h4>
-            <p>ستظهر منشورات الإدارة هنا عند توفرها.</p>
+            <div class="empty-icon">${this.t("parent.common.file", {}, "File")}</div>
+            <h4>${this.t("parent.posts.emptyTitle", {}, "No posts currently")}</h4>
+            <p>${this.t("parent.posts.emptyText", {}, "Administration posts will appear here when available.")}</p>
           </div>
         </div>
       `;
@@ -401,7 +516,7 @@ const ParentUI = {
     }
 
     const cards = sortedPosts.map((post, index) => {
-      const title = this._escape(post.title || "منشور بدون عنوان");
+      const title = this._escape(post.title || this.t("parent.posts.untitled", {}, "Untitled post"));
       const date = this._formatPostDate(post.created_at);
       const snippet = this._extractPostSnippet(post.content ?? "");
       const excerpt = snippet ? this._escape(snippet) : "";
@@ -409,17 +524,17 @@ const ParentUI = {
       return `
         <article class="student-post-list-card">
           ${post.image
-            ? `<img src="${this._escape(post.image)}" class="student-post-thumb" alt="${title}">`
-            : `<div class="student-post-thumb student-post-thumb-placeholder">📄</div>`}
+            ? `<img src="${this._escapeAttr(post.image)}" class="student-post-thumb" alt="${title}">`
+            : `<div class="student-post-thumb student-post-thumb-placeholder">${this.t("parent.posts.filePlaceholder", {}, "Document")}</div>`}
           <div class="student-post-summary">
             <div>
-              <div class="student-post-label">من الإدارة</div>
+              <div class="student-post-label">${this.t("parent.common.fromManagement", {}, "From administration")}</div>
               <h3 class="student-post-list-title">${title}</h3>
-              <p>${excerpt || "اضغط لعرض تفاصيل المنشور."}</p>
+              <p>${excerpt || this.t("parent.posts.openHint", {}, "Open the post to view its details.")}</p>
             </div>
             <div class="student-post-list-actions">
               <time class="student-post-date">${date}</time>
-              <button type="button" class="student-post-open" data-post-index="${index}">عرض التفاصيل</button>
+              <button type="button" class="student-post-open" data-post-index="${index}">${this.t("parent.common.openDetails", {}, "View details")}</button>
             </div>
           </div>
         </article>
@@ -430,8 +545,8 @@ const ParentUI = {
       <div class="posts-dashboard student-posts-dashboard parent-posts-dashboard">
         <div class="posts-header-bar">
           <div>
-            <h3>منشورات الإدارة</h3>
-            <p>اختر منشوراً من القائمة لعرض التفاصيل الكاملة.</p>
+            <h3>${this.t("parent.posts.title", {}, "Administration Posts")}</h3>
+            <p>${this.t("parent.posts.listSubtitle", {}, "Choose a post from the list to view the full details.")}</p>
           </div>
         </div>
         <div class="student-posts-list">${cards}</div>
@@ -451,25 +566,25 @@ const ParentUI = {
       return;
     }
 
-    const title = this._escape(post.title || "منشور بدون عنوان");
+    const title = this._escape(post.title || this.t("parent.posts.untitled", {}, "Untitled post"));
     const date = this._formatPostDate(post.created_at);
     const contentHtml = this._processPostMarkdown(post.content ?? "");
 
     main.innerHTML = `
       <div class="posts-dashboard student-posts-dashboard parent-posts-dashboard">
         <div class="student-post-detail-topbar">
-          <button type="button" class="btn-secondary" id="parent-posts-back">← الرجوع للمنشورات</button>
+          <button type="button" class="btn-secondary" id="parent-posts-back">${this.t("parent.common.backToPosts", {}, "Back to posts")}</button>
           <time class="student-post-date">${date}</time>
         </div>
         <article class="student-post-card student-post-detail">
-          ${post.image ? `<img src="${this._escape(post.image)}" class="student-post-cover" alt="${title}">` : ""}
+          ${post.image ? `<img src="${this._escapeAttr(post.image)}" class="student-post-cover" alt="${title}">` : ""}
           <div class="student-post-head">
             <div>
-              <div class="student-post-label">من الإدارة</div>
+              <div class="student-post-label">${this.t("parent.common.fromManagement", {}, "From administration")}</div>
               <h3 class="preview-title">${title}</h3>
             </div>
           </div>
-          <div class="md-body">${contentHtml || '<p class="preview-placeholder">لا يوجد محتوى لهذا المنشور.</p>'}</div>
+          <div class="md-body">${contentHtml || `<p class="preview-placeholder">${this.t("parent.common.noContent", {}, "This post has no content.")}</p>`}</div>
         </article>
       </div>
     `;
@@ -478,7 +593,6 @@ const ParentUI = {
     this._typesetMath(main);
   },
 
-  // === الدوال المساعدة (Helpers) ===
   _getNotificationId(notification) {
     const id = notification?.id ?? notification?.notification_id;
     return id === undefined || id === null || id === "" ? null : id;
@@ -489,12 +603,15 @@ const ParentUI = {
     return value === true || value === 1 || value === "1" || value === "true";
   },
 
-  _translate(str) {
-    const map = {
-      children: "أبنائي", grades: "العلامات", attendance: "الغياب", 
-      fees: "المالية", posts: "منشورات الإدارة", notifications: "الإشعارات", messages: "المراسلة"
-    };
-    return map[str] || str;
+  _translate(section) {
+    return this.t(`parent.nav.${section}`, {}, section);
+  },
+
+  _translateStatus(status) {
+    const raw = String(status || "").trim();
+    if (!raw) return this.t("parent.common.notSpecified", {}, "Not specified");
+    const normalized = raw.toLowerCase().replace(/\s+/g, "_");
+    return this.t(`parent.status.${normalized}`, {}, raw);
   },
 
   _bindMessageEvents() {
@@ -531,8 +648,8 @@ const ParentUI = {
       if (!contactId || contactId === currentUserId) return;
 
       const contactName = senderId === currentUserId
-        ? (message.receiver_name || message.receiver_full_name || message.receiver_username || `مستخدم #${contactId}`)
-        : (message.sender_name || message.sender_full_name || message.sender_username || `مستخدم #${contactId}`);
+        ? (message.receiver_name || message.receiver_full_name || message.receiver_username || this.t("parent.common.userFallback", { id: contactId }, `User #${contactId}`))
+        : (message.sender_name || message.sender_full_name || message.sender_username || this.t("parent.common.userFallback", { id: contactId }, `User #${contactId}`));
       const createdAt = message.created_at || message.timestamp || "";
       const existing = contacts.get(contactId);
 
@@ -551,14 +668,14 @@ const ParentUI = {
 
   _renderMessageContacts(contacts) {
     if (!contacts || contacts.length === 0) {
-      return `<div class="parent-message-empty-list">لا توجد محادثات بعد.</div>`;
+      return `<div class="parent-message-empty-list">${this.t("parent.messages.emptyList", {}, "No conversations yet.")}</div>`;
     }
 
     return contacts.map(contact => {
       const activeClass = Number(contact.id) === this._activeMessageContact?.id ? " active" : "";
 
       return `
-        <button type="button" class="parent-message-contact${activeClass}" data-contact-id="${contact.id}" data-contact-name="${this._escape(contact.name)}">
+        <button type="button" class="parent-message-contact${activeClass}" data-contact-id="${contact.id}" data-contact-name="${this._escapeAttr(contact.name)}">
           <span>${this._escape(contact.name)}</span>
           <small>${this._escape(contact.last_message || "...")}</small>
         </button>
@@ -569,27 +686,26 @@ const ParentUI = {
   _processPostMarkdown(raw) {
     if (!raw) return "";
 
-    let source = String(raw).replace(
-      /\[تحميل:\s*([^\]|]+?)(?:\|([^\]|]*?))?(?:\|([^\]]*?))?\]\(([^)]+)\)/g,
-      (_, name, type, size, url) => {
-        const safeUrl = this._escape(url.trim());
-        const safeName = this._escape(name.trim());
-        const ext = safeUrl.split(".").pop()?.split("?")[0];
-        const icon = this._getFileIcon(ext);
-        const meta = [type, size].map(part => part?.trim()).filter(Boolean).join(" · ");
+    const downloadWords = ["\\u062a\\u062d\\u0645\\u064a\\u0644", "Download"];
+    const downloadPattern = new RegExp(`\\[(?:${downloadWords.join("|")}):\\s*([^\\]|]+?)(?:\\|([^\\]|]*?))?(?:\\|([^\\]]*?))?\\]\\(([^)]+)\\)`, "g");
+    let source = String(raw).replace(downloadPattern, (_, name, type, size, url) => {
+      const safeUrl = this._escapeAttr(url.trim());
+      const safeName = this._escape(name.trim());
+      const ext = safeUrl.split(".").pop()?.split("?")[0];
+      const icon = this._getFileIcon(ext);
+      const meta = [type, size].map(part => part?.trim()).filter(Boolean).join(" - ");
 
-        return `
-          <a href="${safeUrl}" target="_blank" class="dl-card" rel="noopener noreferrer">
-            <span class="dl-card-icon">${icon}</span>
-            <span class="dl-card-info">
-              <span class="dl-card-name">${safeName}</span>
-              ${meta ? `<span class="dl-card-meta">${this._escape(meta)}</span>` : ""}
-            </span>
-            <span class="dl-card-btn">تحميل</span>
-          </a>
-        `;
-      }
-    );
+      return `
+        <a href="${safeUrl}" target="_blank" class="dl-card" rel="noopener noreferrer">
+          <span class="dl-card-icon">${icon}</span>
+          <span class="dl-card-info">
+            <span class="dl-card-name">${safeName}</span>
+            ${meta ? `<span class="dl-card-meta">${this._escape(meta)}</span>` : ""}
+          </span>
+          <span class="dl-card-btn">${this.t("parent.common.download", {}, "Download")}</span>
+        </a>
+      `;
+    });
 
     let html = (typeof marked !== "undefined")
       ? marked.parse(source, { gfm: true, breaks: true, tables: true })
@@ -603,6 +719,7 @@ const ParentUI = {
 
     return html;
   },
+
   _typesetMath(container, attempt = 0) {
     if (!container || typeof MathJax === "undefined") return;
 
@@ -621,17 +738,19 @@ const ParentUI = {
       setTimeout(() => this._typesetMath(container, attempt + 1), 250);
     }
   },
-  _formatPostDate(value) {
-    if (!value) return "تاريخ غير محدد";
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "تاريخ غير محدد";
 
-    return date.toLocaleDateString("ar-DZ", {
+  _formatPostDate(value) {
+    if (!value) return this.t("parent.common.unknownDate", {}, "Unknown date");
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return this.t("parent.common.unknownDate", {}, "Unknown date");
+
+    return date.toLocaleDateString(this.locale(), {
       year: "numeric",
       month: "long",
       day: "numeric"
     });
   },
+
   _extractPostSnippet(markdown, length = 140) {
     const text = String(markdown)
       .replace(/```[\s\S]*?```/g, " ")
@@ -643,14 +762,69 @@ const ParentUI = {
 
     return text.length > length ? `${text.slice(0, length).trim()}...` : text;
   },
+
   _getFileIcon(ext) {
-    const icons = { pdf: "📄", doc: "📝", docx: "📝", xls: "📊", xlsx: "📊", ppt: "📑", pptx: "📑", zip: "🗜️", rar: "🗜️", mp4: "🎬", mp3: "🎵", png: "🖼️", jpg: "🖼️", jpeg: "🖼️" };
-    return icons[ext?.toLowerCase()] || "📎";
+    return ext ? ext.toUpperCase().slice(0, 4) : this.t("parent.common.file", {}, "File");
   },
-  _formatValue(value) { 
-    return value === null || value === undefined || value === "" ? "-" : value; 
+
+  _formatCurrency(amount) {
+    const number = Number(amount);
+    const safeAmount = Number.isFinite(number) ? number : 0;
+    return `${safeAmount.toLocaleString(this.locale())} ${this.t("parent.currency.dzd", {}, "DZD")}`;
   },
+
+  formatDateTime(value) {
+    if (!value) return this.t("parent.common.unknownDate", {}, "Unknown date");
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value);
+    return date.toLocaleString(this.locale());
+  },
+
+  locale() {
+    return window.I18n ? I18n.get("meta.locale", this.isRtl() ? "ar-DZ" : "en-US") : "ar-DZ";
+  },
+
+  dir() {
+    return window.I18n ? I18n.get("meta.dir", "rtl") : "rtl";
+  },
+
+  isRtl() {
+    return this.dir() === "rtl";
+  },
+
+  start() {
+    return this.isRtl() ? "right" : "left";
+  },
+
+  end() {
+    return this.isRtl() ? "left" : "right";
+  },
+
+  t(key, params = {}, fallback = "") {
+    return window.I18n ? I18n.t(key, params, fallback || key) : (fallback || key);
+  },
+
+  _formatValue(value) {
+    return value === null || value === undefined || value === ""
+      ? this.t("parent.common.none", {}, "-")
+      : value;
+  },
+
   _escape(value) {
-    return String(this._formatValue(value)).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    return String(this._formatValue(value))
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  },
+
+  _escapeAttr(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 };

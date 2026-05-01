@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "lang": "ar",
+    "dir": "rtl",
+    "locale": "ar-DZ"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "العربية",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    }
+  ],
+  "parent": {
+    "documentTitle": "لوحة ولي الأمر",
+    "brand": {
+      "welcome": "مرحبا بك: {name}"
+    },
+    "language": {
+      "label": "اللغة",
+      "select": "اختر اللغة"
+    },
+    "auth": {
+      "logout": "تسجيل خروج"
+    },
+    "nav": {
+      "children": "أبنائي",
+      "grades": "العلامات",
+      "attendance": "الغياب",
+      "fees": "المالية",
+      "posts": "منشورات الإدارة",
+      "messages": "المراسلة",
+      "notifications": "الإشعارات"
+    },
+    "state": {
+      "loading": "جاري جلب البيانات...",
+      "errorPrefix": "خطأ:",
+      "unknownSection": "قسم غير معروف",
+      "parentProfileMissing": "حسابك غير مسجل كولي أمر في قاعدة البيانات. تواصل مع الإدارة.",
+      "initFailed": "فشل في تهيئة بيانات ولي الأمر."
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "غير محدد",
+      "updating": "جاري التحديث...",
+      "unavailable": "غير متاح",
+      "unknownDate": "تاريخ غير محدد",
+      "userFallback": "مستخدم #{id}",
+      "send": "إرسال",
+      "search": "بحث",
+      "download": "تحميل",
+      "fromManagement": "من الإدارة",
+      "openDetails": "عرض التفاصيل",
+      "backToPosts": "الرجوع للمنشورات",
+      "noContent": "لا يوجد محتوى لهذا المنشور.",
+      "file": "ملف"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "present": "حاضر",
+      "absent": "غائب",
+      "late": "متأخر",
+      "paid": "مسددة",
+      "completed": "مسددة",
+      "unpaid": "غير مسددة",
+      "partial": "مدفوعة جزئيا",
+      "overdue": "متأخرة",
+      "read": "مقروء",
+      "unread": "غير مقروء",
+      "student": "طالب",
+      "parent": "ولي",
+      "teacher": "أستاذ",
+      "admin": "مدير",
+      "receptionist": "استقبال",
+      "accountant": "محاسب",
+      "exam": "امتحان",
+      "homework": "واجب"
+    },
+    "children": {
+      "title": "أبنائي المسجلون",
+      "emptyTitle": "أبنائي",
+      "emptyText": "لا يوجد أبناء مسجلون بحسابك حاليا. يرجى مراجعة الإدارة.",
+      "columns": {
+        "name": "الاسم",
+        "classLevel": "القسم (المستوى)",
+        "birthDate": "تاريخ الميلاد",
+        "status": "الحالة"
+      }
+    },
+    "grades": {
+      "title": "العلامات والتقييمات",
+      "emptyTitle": "العلامات والتقييمات",
+      "emptyText": "لا توجد علامات مرصودة حتى الآن.",
+      "columns": {
+        "child": "الابن",
+        "subject": "المادة",
+        "assessment": "التقييم",
+        "grade": "العلامة",
+        "teacher": "الأستاذ"
+      }
+    },
+    "attendance": {
+      "title": "سجل الغياب والتأخر",
+      "emptyTitle": "سجل الغياب",
+      "emptyText": "سجل أبنائك نظيف، لا توجد غيابات.",
+      "columns": {
+        "child": "الابن",
+        "date": "التاريخ",
+        "status": "الحالة",
+        "justified": "مبرر؟"
+      },
+      "justifiedYes": "نعم ({reason})",
+      "justifiedNo": "لا"
+    },
+    "fees": {
+      "title": "المطالبات والرسوم المالية",
+      "emptyTitle": "الوضعية المالية",
+      "emptyText": "الوضعية مسواة، لا توجد ديون مستحقة.",
+      "columns": {
+        "child": "الابن",
+        "feeType": "نوع الرسم",
+        "amount": "المبلغ",
+        "dueDate": "تاريخ الاستحقاق",
+        "status": "الحالة"
+      }
+    },
+    "notifications": {
+      "emptyTitle": "الإشعارات والإنذارات",
+      "emptyText": "صندوق الإشعارات فارغ.",
+      "title": "الإشعارات الواردة",
+      "unreadCount": "{count} إشعار غير مقروء",
+      "markAllRead": "تعيين الكل كمقروء",
+      "markRead": "تعيين كمقروء",
+      "read": "مقروء",
+      "unread": "غير مقروء",
+      "defaultTitle": "إشعار"
+    },
+    "messages": {
+      "title": "المراسلة",
+      "subtitle": "تابع محادثاتك أو ابحث عن مستخدم جديد للتواصل معه.",
+      "searchPlaceholder": "ابحث باسم المستخدم...",
+      "searchButton": "بحث",
+      "conversations": "المحادثات",
+      "selectPrompt": "اختر محادثة من القائمة أو ابحث عن مستخدم جديد.",
+      "emptyConversation": "المحادثة ستظهر هنا.",
+      "inputPlaceholder": "اكتب رسالتك...",
+      "minSearch": "اكتب حرفين على الأقل للبحث.",
+      "searching": "جاري البحث...",
+      "noResults": "لا توجد نتائج مطابقة.",
+      "searchFailed": "فشل البحث: {message}",
+      "loadingConversation": "جاري تحميل المحادثة...",
+      "loadFailed": "تعذر تحميل الرسائل: {message}",
+      "noMessages": "لا توجد رسائل بعد.",
+      "you": "أنت",
+      "roleFallback": "مستخدم",
+      "sending": "جاري الإرسال...",
+      "sent": "تم الإرسال",
+      "sendFailed": "فشل الإرسال: {message}",
+      "emptyList": "لا توجد محادثات بعد."
+    },
+    "posts": {
+      "title": "منشورات الإدارة",
+      "emptySubtitle": "الإعلانات والمحتوى المنشور من الإدارة يظهر هنا.",
+      "listSubtitle": "اختر منشورا من القائمة لعرض التفاصيل الكاملة.",
+      "emptyTitle": "لا توجد منشورات حاليا",
+      "emptyText": "ستظهر منشورات الإدارة هنا عند توفرها.",
+      "untitled": "منشور بدون عنوان",
+      "openHint": "اضغط لعرض تفاصيل المنشور.",
+      "filePlaceholder": "مستند"
+    },
+    "actions": {
+      "notificationsUpdateFailed": "تعذر تحديث الإشعارات.",
+      "notificationUpdateFailed": "تعذر تحديث الإشعار."
+    },
+    "currency": {
+      "dzd": "دج"
+    }
+  }
+}

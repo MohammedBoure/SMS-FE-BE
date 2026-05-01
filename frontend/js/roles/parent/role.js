@@ -3,48 +3,69 @@
 const ParentRole = {
   currentSection: "children",
   parentId: null,
-  myChildren: [], 
+  myChildren: [],
+  userProfile: null,
 
   async init() {
     if (!Auth.requireAuth("parent")) return;
+
+    if (window.I18n) {
+      await I18n.init({ scope: "parent", defaultLang: "ar" });
+    }
+
     const session = Auth.getSession();
 
     try {
-      const userProfile = await Api.get(`/users/${session.user_id}`);
-      ParentUI.renderHeader(userProfile);
+      this.userProfile = await Api.get(`/users/${session.user_id}`);
+      ParentUI.renderHeader(this.userProfile);
 
       const parentProfile = await ParentServices.getParentProfile(session.user_id);
       if (!parentProfile) {
-        throw new Error("حسابك غير مسجل كولي أمر في قاعدة البيانات. تواصل مع الإدارة.");
+        throw new Error(ParentUI.t("parent.state.parentProfileMissing", {}, "Your account is not registered as a parent."));
       }
-      
+
       this.parentId = parentProfile.id || parentProfile.parent_id;
 
-      // استخراج المصفوفة بأمان
       const childrenRes = await ParentServices.getMyChildren(this.parentId);
       this.myChildren = Array.isArray(childrenRes) ? childrenRes : (childrenRes.data || []);
 
       this.bindNavEvents();
+      this.bindLanguageEvents();
       this.bindDynamicEvents();
       this.loadSection(this.currentSection);
-
     } catch (err) {
       console.error(err);
-      ParentUI.renderError(err.message || "فشل في تهيئة بيانات ولي الأمر.");
+      ParentUI.renderError(err.message || ParentUI.t("parent.state.initFailed", {}, "Failed to initialize parent data."));
     }
   },
 
+  bindLanguageEvents() {
+    if (this._languageEventsBound) return;
+
+    window.addEventListener("i18n:change", (event) => {
+      if (event.detail?.scope && event.detail.scope !== "parent") return;
+      ParentUI.renderHeader(this.userProfile);
+      this.loadSection(this.currentSection);
+    });
+
+    this._languageEventsBound = true;
+  },
+
   bindNavEvents() {
+    if (this._navEventsBound) return;
+
     const nav = document.getElementById("parent-nav");
     nav.addEventListener("click", (e) => {
       const btn = e.target.closest(".nav-btn");
-      if (btn) {
-        this.loadSection(btn.dataset.section);
-      }
+      if (btn) this.loadSection(btn.dataset.section);
     });
+
+    this._navEventsBound = true;
   },
 
   bindDynamicEvents() {
+    if (this._dynamicEventsBound) return;
+
     const main = document.getElementById("parent-main");
     if (!main) return;
 
@@ -53,14 +74,14 @@ const ParentRole = {
         const session = Auth.getSession();
         const originalText = e.target.textContent;
         e.target.disabled = true;
-        e.target.textContent = "جارٍ التحديث...";
+        e.target.textContent = ParentUI.t("parent.common.updating", {}, "Updating...");
         try {
           await ParentServices.markAllNotificationsAsRead(session.user_id);
           await this.loadSection("notifications");
         } catch (err) {
           e.target.disabled = false;
           e.target.textContent = originalText;
-          alert(err.message || "تعذر تحديث الإشعارات.");
+          alert(err.message || ParentUI.t("parent.actions.notificationsUpdateFailed", {}, "Could not update notifications."));
         }
         return;
       }
@@ -69,17 +90,19 @@ const ParentRole = {
       if (markNotificationBtn) {
         const originalText = markNotificationBtn.textContent;
         markNotificationBtn.disabled = true;
-        markNotificationBtn.textContent = "جارٍ التحديث...";
+        markNotificationBtn.textContent = ParentUI.t("parent.common.updating", {}, "Updating...");
         try {
           await ParentServices.markNotificationAsRead(markNotificationBtn.dataset.notificationId);
           await this.loadSection("notifications");
         } catch (err) {
           markNotificationBtn.disabled = false;
           markNotificationBtn.textContent = originalText;
-          alert(err.message || "تعذر تحديث الإشعار.");
+          alert(err.message || ParentUI.t("parent.actions.notificationUpdateFailed", {}, "Could not update the notification."));
         }
       }
     });
+
+    this._dynamicEventsBound = true;
   },
 
   async loadSection(section) {
@@ -95,10 +118,10 @@ const ParentRole = {
 
         case "grades": {
           let allGrades = [];
-          for (let child of this.myChildren) {
+          for (const child of this.myChildren) {
             const res = await ParentServices.getChildGrades(child.student_id || child.id);
             const grades = Array.isArray(res) ? res : (res.data || []);
-            grades.forEach(g => g.child_name = child.student_name || child.full_name);
+            grades.forEach(g => { g.child_name = child.student_name || child.full_name; });
             allGrades = allGrades.concat(grades);
           }
           ParentUI.renderGrades(allGrades);
@@ -107,10 +130,10 @@ const ParentRole = {
 
         case "attendance": {
           let allAttendance = [];
-          for (let child of this.myChildren) {
+          for (const child of this.myChildren) {
             const res = await ParentServices.getChildAttendance(child.student_id || child.id);
             const records = Array.isArray(res) ? res : (res.data || []);
-            records.forEach(r => r.child_name = child.student_name || child.full_name);
+            records.forEach(r => { r.child_name = child.student_name || child.full_name; });
             allAttendance = allAttendance.concat(records);
           }
           ParentUI.renderAttendance(allAttendance);
@@ -119,10 +142,10 @@ const ParentRole = {
 
         case "fees": {
           let allFees = [];
-          for (let child of this.myChildren) {
+          for (const child of this.myChildren) {
             const res = await ParentServices.getChildFees(child.student_id || child.id);
             const fees = Array.isArray(res) ? res : (res.data || []);
-            fees.forEach(f => f.child_name = child.student_name || child.full_name);
+            fees.forEach(f => { f.child_name = child.student_name || child.full_name; });
             allFees = allFees.concat(fees);
           }
           ParentUI.renderFees(allFees);
@@ -151,7 +174,7 @@ const ParentRole = {
         }
 
         default:
-          ParentUI.renderError("قسم غير معروف");
+          ParentUI.renderError(ParentUI.t("parent.state.unknownSection", {}, "Unknown section"));
       }
     } catch (err) {
       ParentUI.renderError(err.message);
