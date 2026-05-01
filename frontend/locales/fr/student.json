@@ -1,8 +1,8 @@
 {
   "meta": {
-    "lang": "en",
+    "lang": "fr",
     "dir": "ltr",
-    "locale": "en-US"
+    "locale": "fr-FR"
   },
   "languages": [
     {
@@ -21,10 +21,10 @@
       "dir": "ltr"
     }
   ],
-  "teacher": {
-    "documentTitle": "Teacher Dashboard",
+  "student": {
+    "documentTitle": "Student Dashboard",
     "brand": {
-      "welcome": "Welcome, teacher {name}"
+      "welcome": "Welcome: {name}"
     },
     "language": {
       "label": "Language",
@@ -34,21 +34,22 @@
       "logout": "Log out"
     },
     "nav": {
-      "assignments": "My Classes",
       "schedule": "Schedule",
-      "attendance": "Attendance",
+      "assessments": "Assessments",
       "grades": "Grades",
+      "attendance": "Attendance",
       "resources": "Resources",
       "posts": "Administration Posts",
       "messages": "Messages",
+      "fees": "Finance",
       "notifications": "Notifications"
     },
     "state": {
       "loading": "Loading data...",
       "errorPrefix": "Error:",
       "unknownSection": "Unknown section",
-      "teacherProfileMissing": "Your account is not registered as a teacher in the database. Please contact administration.",
-      "initFailed": "Failed to initialize teacher data."
+      "studentProfileMissing": "Your account is not registered as a student in the database. Please contact administration.",
+      "initFailed": "Failed to initialize student data."
     },
     "common": {
       "none": "-",
@@ -63,10 +64,7 @@
       "openDetails": "View details",
       "backToPosts": "Back to posts",
       "noContent": "This post has no content.",
-      "file": "File",
-      "save": "Save",
-      "action": "Action",
-      "create": "Create"
+      "file": "File"
     },
     "status": {
       "active": "Active",
@@ -99,77 +97,76 @@
       "Friday": "Friday",
       "Saturday": "Saturday"
     },
-    "assignments": {
-      "title": "Classes Assigned to You",
-      "emptyTitle": "My Classes and Subjects",
-      "emptyText": "No classes have been assigned to you yet.",
-      "columns": {
-        "classLevel": "Class (level)",
-        "subject": "Subject"
-      }
-    },
     "schedule": {
       "title": "Weekly Schedule",
       "emptyTitle": "Schedule",
-      "emptyText": "There are no scheduled sessions.",
+      "emptyText": "Your schedule has not been prepared yet.",
       "columns": {
         "day": "Day",
         "time": "Time",
-        "class": "Class",
         "subject": "Subject",
+        "programClass": "Program / Group",
+        "teacher": "Teacher",
         "room": "Room"
       }
     },
-    "attendance": {
-      "title": "Attendance and Absence Entry",
-      "emptyTitle": "Attendance",
-      "noAssignments": "No classes are available for attendance.",
-      "classSelect": "Class",
-      "date": "Date",
-      "loadButton": "Load attendance sheet",
-      "emptyStudents": "There are no students in this class.",
+    "assessments": {
+      "title": "Upcoming Assessments",
+      "emptyTitle": "Upcoming Assessments",
+      "emptyText": "There are no scheduled assessments currently.",
       "columns": {
-        "student": "Student",
-        "status": "Status"
+        "subject": "Subject",
+        "title": "Assessment",
+        "programClass": "Program / Group",
+        "dueDate": "Due date",
+        "maxGrade": "Max grade",
+        "teacher": "Teacher"
       }
     },
     "grades": {
-      "title": "Grades and Assessments Management",
-      "emptyTitle": "Grades and Assessments",
-      "noAssignments": "No assignments are available for grade entry.",
-      "assignmentSelect": "Class and subject",
-      "loadAssessments": "Show assessments",
-      "createTitle": "Add a New Assessment",
-      "titlePlaceholder": "Assessment title",
-      "maxGradePlaceholder": "Max grade",
-      "enterGrades": "Enter grades",
-      "emptyAssessments": "No previous assessments were found.",
-      "emptySheet": "No students are available for this assessment.",
-      "remarksPlaceholder": "Remarks...",
-      "sheetTitle": "Grade Entry Sheet",
-      "assessmentsColumns": {
-        "title": "Title",
-        "type": "Type",
-        "maxGrade": "Max grade"
-      },
-      "sheetColumns": {
-        "student": "Student",
+      "title": "Grades and Marks",
+      "emptyTitle": "Grades",
+      "emptyText": "No grades have been recorded for you yet.",
+      "columns": {
+        "subject": "Subject",
+        "assessment": "Assessment",
+        "programClass": "Program / Group",
         "grade": "Grade",
-        "remarks": "Teacher remarks"
+        "teacher": "Teacher",
+        "remarks": "Remarks"
       }
     },
-    "resources": {
-      "title": "Educational Resources",
-      "emptyTitle": "Educational Resources",
-      "noAssignments": "No assignments are available for uploading resources.",
-      "uploadTitle": "Upload a New File for the Class",
-      "titlePlaceholder": "Lesson/file title",
-      "types": {
-        "document": "Document",
-        "video": "Video"
+    "attendance": {
+      "title": "Attendance and Absence Record",
+      "emptyTitle": "Attendance Record",
+      "emptyText": "Your attendance record is clean. No absences were found.",
+      "columns": {
+        "date": "Date",
+        "group": "Group",
+        "status": "Status",
+        "justified": "Justified?"
       },
-      "uploadButton": "Upload resource",
-      "selectHint": "Choose a class to view its resources..."
+      "justifiedYes": "Yes ({reason})",
+      "justifiedNo": "No"
+    },
+    "resources": {
+      "title": "Educational Lessons and Resources",
+      "emptyTitle": "Lessons and Resources",
+      "emptyText": "No uploaded files are available currently.",
+      "typeLabel": "Type:",
+      "sizeLabel": "Size:"
+    },
+    "fees": {
+      "title": "Financial Status and Due Fees",
+      "emptyTitle": "Financial Status",
+      "emptyText": "No fees are registered for you.",
+      "columns": {
+        "feeType": "Fee type",
+        "amountDue": "Gross amount",
+        "discount": "Discount",
+        "netAmount": "Net amount",
+        "dueDate": "Due date"
+      }
     },
     "notifications": {
       "emptyTitle": "Notifications",
@@ -182,9 +179,19 @@
       "unread": "Unread",
       "defaultTitle": "Notification"
     },
+    "posts": {
+      "title": "Administration Posts",
+      "emptySubtitle": "Announcements and content published by administration will appear here.",
+      "listSubtitle": "Choose a post from the list to view the full details.",
+      "emptyTitle": "No posts currently",
+      "emptyText": "Administration posts will appear here when available.",
+      "untitled": "Untitled post",
+      "openHint": "Open the post to view its details.",
+      "filePlaceholder": "Document"
+    },
     "messages": {
       "title": "Messages",
-      "subtitle": "Follow your conversations or search for another user to contact.",
+      "subtitle": "Contact administration, teachers, or any available user in the system.",
       "searchPlaceholder": "Search by user name...",
       "searchButton": "Search",
       "conversations": "Conversations",
@@ -205,23 +212,12 @@
       "sendFailed": "Send failed: {message}",
       "emptyList": "No conversations yet."
     },
-    "posts": {
-      "title": "Administration Posts",
-      "emptySubtitle": "Announcements and content published by administration will appear here.",
-      "listSubtitle": "Choose a post from the list to view the full details.",
-      "emptyTitle": "No posts currently",
-      "emptyText": "Administration posts will appear here when available.",
-      "untitled": "Untitled post",
-      "openHint": "Open the post to view its details.",
-      "filePlaceholder": "Document"
-    },
     "actions": {
       "notificationsUpdateFailed": "Could not update notifications.",
-      "notificationUpdateFailed": "Could not update the notification.",
-      "attendanceSaved": "Attendance saved.",
-      "assessmentCreated": "Assessment created.",
-      "gradeSaved": "Grade saved.",
-      "resourceUploaded": "Resource uploaded."
+      "notificationUpdateFailed": "Could not update the notification."
+    },
+    "currency": {
+      "dzd": "DZD"
     }
   }
 }

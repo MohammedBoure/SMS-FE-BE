@@ -6,7 +6,12 @@
   },
   "languages": [
     { "code": "ar", "label": "العربية", "dir": "rtl" },
-    { "code": "en", "label": "English", "dir": "ltr" }
+    { "code": "en", "label": "English", "dir": "ltr" },
+    {
+      "code": "fr",
+      "label": "Français",
+      "dir": "ltr"
+    }
   ],
   "admin": {
     "documentTitle": "لوحة تحكم المدير | النظام المدرسي",
