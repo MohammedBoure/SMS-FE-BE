@@ -6,8 +6,18 @@
   <title>Receptionist Dashboard</title>
   <meta name="theme-color" content="#0f766e" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2" />
-  <link rel="stylesheet" href="../css/receptionist.css?v=receptionist-i18n-1">
-  <link rel="stylesheet" href="../css/posts.css?v=receptionist-i18n-1">
+  <script>
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem("receptionist-theme");
+        var theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0b1220" : "#0f766e");
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../css/receptionist.css?v=receptionist-theme-1">
+  <link rel="stylesheet" href="../css/posts.css?v=receptionist-theme-1">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
@@ -24,7 +34,7 @@
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
-<body>
+<body class="receptionist-shell">
   <div id="receptionist-app">
     <header id="receptionist-header"></header>
     <nav id="receptionist-nav"></nav>
@@ -37,16 +47,16 @@
   <script src="../js/core/router.js"></script>
   <script src="../js/core/i18n.js?v=receptionist-i18n-1"></script>
   <script src="../js/roles/receptionist/services.js?v=receptionist-i18n-1"></script>
-  <script src="../js/roles/receptionist/ui.js?v=receptionist-i18n-1"></script>
-  <script src="../js/roles/receptionist/tabs/students.js?v=receptionist-i18n-1"></script>
-  <script src="../js/roles/receptionist/tabs/parents.js?v=receptionist-i18n-1"></script>
-  <script src="../js/roles/receptionist/tabs/finance.js?v=receptionist-i18n-1"></script>
-  <script src="../js/roles/receptionist/tabs/search.js?v=receptionist-i18n-1"></script>
-  <script src="../js/roles/receptionist/tabs/notifications.js?v=receptionist-i18n-1"></script>
-  <script src="../js/roles/receptionist/tabs/posts.js?v=receptionist-i18n-1"></script>
-  <script src="../js/roles/receptionist/tabs/messages.js?v=receptionist-i18n-1"></script>
+  <script src="../js/roles/receptionist/ui.js?v=receptionist-theme-1"></script>
+  <script src="../js/roles/receptionist/tabs/students.js?v=receptionist-theme-1"></script>
+  <script src="../js/roles/receptionist/tabs/parents.js?v=receptionist-theme-1"></script>
+  <script src="../js/roles/receptionist/tabs/finance.js?v=receptionist-theme-1"></script>
+  <script src="../js/roles/receptionist/tabs/search.js?v=receptionist-theme-1"></script>
+  <script src="../js/roles/receptionist/tabs/notifications.js?v=receptionist-theme-1"></script>
+  <script src="../js/roles/receptionist/tabs/posts.js?v=receptionist-theme-1"></script>
+  <script src="../js/roles/receptionist/tabs/messages.js?v=receptionist-theme-1"></script>
 
-  <script src="../js/roles/receptionist/role.js?v=receptionist-i18n-1"></script>
+  <script src="../js/roles/receptionist/role.js?v=receptionist-theme-1"></script>
   <script>
     ReceptionistRole.init();
   </script>

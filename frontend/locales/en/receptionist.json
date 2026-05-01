@@ -46,6 +46,10 @@
       "label": "Language",
       "select": "Choose language"
     },
+    "theme": {
+      "light": "Light",
+      "dark": "Dark"
+    },
     "auth": {
       "logout": "Log out"
     },

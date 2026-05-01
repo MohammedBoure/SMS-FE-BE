@@ -47,6 +47,10 @@
       "label": "Idioma",
       "select": "Elegir idioma"
     },
+    "theme": {
+      "light": "Claro",
+      "dark": "Oscuro"
+    },
     "auth": {
       "logout": "Cerrar sesión"
     },

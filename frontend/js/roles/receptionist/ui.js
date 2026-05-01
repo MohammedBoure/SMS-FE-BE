@@ -19,7 +19,11 @@ const ReceptionistUI = {
     header.innerHTML = `
       <div>
         <div class="receptionist-brand">
-          <h1>${this.t("receptionist.brand.title", {}, "Reception Office")} | ${this.t("receptionist.brand.welcome", { name: this._escape(name) }, `Welcome: ${this._escape(name)}`)}</h1>
+          <div class="receptionist-brand-mark" aria-hidden="true">R</div>
+          <div class="receptionist-brand-copy">
+            <h1>${this.t("receptionist.brand.title", {}, "Reception Office")}</h1>
+            <small>${this.t("receptionist.brand.welcome", { name: this._escape(name) }, `Welcome: ${this._escape(name)}`)}</small>
+          </div>
         </div>
         <div class="receptionist-header-actions">
           <label class="receptionist-language-control">
@@ -28,12 +32,17 @@ const ReceptionistUI = {
               ${options}
             </select>
           </label>
+          <button type="button" class="receptionist-theme-toggle" id="receptionist-theme-toggle" aria-pressed="false">
+            <span class="receptionist-theme-indicator" aria-hidden="true"></span>
+            <span class="receptionist-theme-label">${this.t("receptionist.theme.light", {}, "Light")}</span>
+          </button>
           <button id="logout-btn">${this.t("receptionist.auth.logout", {}, "Log out")}</button>
         </div>
       </div>
     `;
 
     document.getElementById("logout-btn")?.addEventListener("click", () => Auth.logout());
+    this.initTheme();
     const languageSelect = document.getElementById("receptionist-language-select");
     if (languageSelect && window.I18n) {
       languageSelect.addEventListener("change", async (event) => {
@@ -41,6 +50,41 @@ const ReceptionistUI = {
         await I18n.setLanguage(event.target.value);
         languageSelect.disabled = false;
       });
+    }
+  },
+
+  initTheme() {
+    const stored = localStorage.getItem("receptionist-theme");
+    const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    this.applyTheme(stored || document.documentElement.dataset.theme || preferred);
+
+    const toggle = document.getElementById("receptionist-theme-toggle");
+    if (!toggle || toggle.dataset.bound === "true") return;
+
+    toggle.addEventListener("click", () => {
+      const current = document.body.dataset.theme === "dark" ? "dark" : "light";
+      this.applyTheme(current === "dark" ? "light" : "dark");
+    });
+    toggle.dataset.bound = "true";
+  },
+
+  applyTheme(theme) {
+    const nextTheme = theme === "dark" ? "dark" : "light";
+    document.documentElement.dataset.theme = nextTheme;
+    document.body.dataset.theme = nextTheme;
+    localStorage.setItem("receptionist-theme", nextTheme);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
+
+    const toggle = document.getElementById("receptionist-theme-toggle");
+    if (!toggle) return;
+
+    const isDark = nextTheme === "dark";
+    toggle.setAttribute("aria-pressed", isDark ? "true" : "false");
+    const label = toggle.querySelector(".receptionist-theme-label");
+    if (label) {
+      label.textContent = isDark
+        ? this.t("receptionist.theme.dark", {}, "Dark")
+        : this.t("receptionist.theme.light", {}, "Light");
     }
   },
 
