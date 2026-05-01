@@ -61,9 +61,9 @@ AdminUI.renderNotificationsTab = function(response) {
                         <label style="display: block; margin-bottom: 8px; font-weight: bold; color: #334155;">الجمهور المستهدف *</label>
                         <select id="notif-target" onchange="AdminUI.toggleNotifTargetInput()" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; background: #f8fafc; font-weight: bold;">
                             <option value="single">مستخدم فردي (بواسطة الاسم)</option>
-                            <option value="student">جميع الطلاب 🎓</option>
-                            <option value="teacher">جميع الأساتذة 👨‍🏫</option>
-                            <option value="parent">جميع أولياء الأمور 👨‍👩‍👧</option>
+                            <option value="student">جميع الطلاب</option>
+                            <option value="teacher">جميع الأساتذة</option>
+                            <option value="parent">جميع أولياء الأمور</option>
                             <option value="all">جميع مستخدمي النظام 🌐</option>
                         </select>
                     </div>

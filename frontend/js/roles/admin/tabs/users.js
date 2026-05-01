@@ -137,8 +137,8 @@ AdminUI.populateUsersTable = function(response) {
             </td>
             <td data-label="اسم المستخدم" style="padding: 12px 15px; color: #0369a1; font-weight: bold;">@${this._escape(u.username)}</td>
             <td data-label="التواصل" style="padding: 12px 15px; font-size: 0.9em; color: #475569;">
-                <div>📞 ${this._escape(u.phone || '-')}</div>
-                <div>✉️ ${this._escape(u.email || '-')}</div>
+                <div class="admin-contact-line">${this.icon("phone", "inline-svg-icon")}<span>${this._escape(u.phone || '-')}</span></div>
+                <div class="admin-contact-line">${this.icon("mail", "inline-svg-icon")}<span>${this._escape(u.email || '-')}</span></div>
             </td>
             <td data-label="الحالة" style="padding: 12px 15px;">
                 <span style="background: ${statusColor}20; color: ${statusColor}; padding: 4px 10px; border-radius: 20px; font-size: 0.85em; font-weight: bold;">

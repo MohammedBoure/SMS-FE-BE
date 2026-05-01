@@ -1,14 +1,4 @@
 // frontend/js/roles/admin/tabs/posts.js
-// ═══════════════════════════════════════════════════════════════════════════════
-//  واجهة إدارة الإعلانات والمنشورات — نسخة احترافية متكاملة
-//  الميزات: Markdown + LaTeX + جداول + روابط تحميل + معاينة حية + شريط أدوات متقدم
-// ═══════════════════════════════════════════════════════════════════════════════
-
-
-
-// ═══════════════════════════════════════════════════
-//  دوال مساعدة خاصة بالوحدة
-// ═══════════════════════════════════════════════════
 
 function _showToast(msg, type = 'success') {
     let t = document.querySelector('.post-toast');
@@ -294,46 +284,71 @@ AdminUI.showPostEditor = function(post = null) {
         tbHtml += `</div>`;
     }
 
+    const savedMode = localStorage.getItem('admin-post-editor-mode') || 'split';
+
     main.innerHTML = `
-      <div class="post-editor-page">
+      <div class="post-editor-page" data-editor-mode="${savedMode}">
 
         <div class="editor-topbar">
-          <h2>${isEdit ? '✏️ تعديل الإعلان' : '✍️ كتابة إعلان جديد'}</h2>
+          <div class="editor-title-block">
+            <span class="editor-kicker">${isEdit ? 'تعديل منشور' : 'منشور جديد'}</span>
+            <h2>${isEdit ? 'تعديل الإعلان' : 'كتابة إعلان جديد'}</h2>
+          </div>
           <div class="editor-topbar-actions">
+            <div class="editor-mode-switch" role="group" aria-label="طريقة العرض">
+              <button type="button" class="editor-mode-btn" data-mode="write" onclick="AdminUI.setPostEditorMode('write')">كتابة</button>
+              <button type="button" class="editor-mode-btn" data-mode="split" onclick="AdminUI.setPostEditorMode('split')">تقسيم</button>
+              <button type="button" class="editor-mode-btn" data-mode="preview" onclick="AdminUI.setPostEditorMode('preview')">معاينة</button>
+            </div>
+            <button class="btn-secondary editor-fullscreen-btn" onclick="AdminUI.togglePostEditorFullscreen()" title="ملء الشاشة">⛶</button>
             <button class="btn-secondary" onclick="AdminRole.loadSection('posts')">← العودة للقائمة</button>
           </div>
         </div>
 
-        <div class="editor-meta-row">
-          <input type="text" id="editor-title" class="editor-input editor-input-title"
-                 placeholder="عنوان الإعلان..." value="${titleVal}"
-                 oninput="AdminUI.updatePostPreview()">
-          <input type="url" id="editor-image-url" class="editor-input"
-                 placeholder="🖼 رابط صورة الغلاف (اختياري)"
-                 value="${imageVal}" oninput="AdminUI.updatePostPreview()">
+        <div class="editor-draft-banner" id="editor-draft-banner" hidden>
+          <span>توجد مسودة محفوظة لهذا الإعلان.</span>
+          <div>
+            <button type="button" onclick="AdminUI.restorePostDraft()">استعادة</button>
+            <button type="button" onclick="AdminUI.clearPostDraft()">تجاهل</button>
+          </div>
         </div>
 
-        <div class="editor-toolbar">${tbHtml}</div>
+        <div class="editor-meta-row">
+          <label class="editor-field editor-field-title">
+            <span>عنوان الإعلان</span>
+            <input type="text" id="editor-title" class="editor-input editor-input-title"
+                   placeholder="اكتب عنوانا واضحا..." value="${titleVal}"
+                   oninput="AdminUI.updatePostPreview()">
+          </label>
+          <label class="editor-field">
+            <span>صورة الغلاف</span>
+            <input type="url" id="editor-image-url" class="editor-input"
+                   placeholder="https://example.com/cover.jpg"
+                   value="${imageVal}" oninput="AdminUI.updatePostPreview()">
+          </label>
+        </div>
+
+        <div class="editor-toolbar-shell">
+          <div class="editor-toolbar">${tbHtml}</div>
+        </div>
 
         <div class="editor-body">
-          <!-- لوح الكتابة -->
-          <div class="editor-pane">
-            <div class="editor-pane-label">✏️ المحرر</div>
+          <div class="editor-pane editor-write-pane">
+            <div class="editor-pane-label">
+              <span>المحرر</span>
+              <span id="editor-cursor-info">سطر 1 · عمود 1</span>
+            </div>
             <textarea id="editor-content" class="editor-textarea"
-              placeholder="اكتب محتوى الإعلان هنا...
-              
-يدعم Markdown الكامل:
-- **نص عريض** أو *مائل*
-- # عناوين
-- جداول | عمود 1 | عمود 2 |
-- [تحميل: اسم_الملف | PDF | 2 MB](https://example.com/file.pdf)
-- معادلات: $E = mc^2$ أو $$\\sum_{i=0}^{n} x_i$$"
+              placeholder="اكتب محتوى الإعلان هنا..."
+              spellcheck="true"
               oninput="AdminUI.updatePostPreview(); AdminUI._updateWordCount()"></textarea>
           </div>
 
-          <!-- لوح المعاينة -->
           <div class="editor-pane editor-preview-pane">
-            <div class="editor-pane-label">👁 المعاينة المباشرة</div>
+            <div class="editor-pane-label">
+              <span>المعاينة المباشرة</span>
+              <span id="editor-preview-state">جاهزة</span>
+            </div>
             <div class="preview-inner">
               <img id="preview-cover-image" class="preview-cover" alt="غلاف">
               <div class="preview-title" id="preview-title">عنوان الإعلان</div>
@@ -345,24 +360,264 @@ AdminUI.showPostEditor = function(post = null) {
         </div>
 
         <div class="editor-footer">
-          <span class="editor-word-count" id="word-count">0 كلمة</span>
+          <div class="editor-footer-meta">
+            <span class="editor-word-count" id="word-count">0 كلمة</span>
+            <span class="editor-draft-status" id="editor-draft-status">جاهز</span>
+          </div>
           <div class="editor-footer-actions">
             <button class="btn-secondary" onclick="AdminRole.loadSection('posts')">إلغاء</button>
             <button class="btn-save" id="save-post-btn" onclick="AdminUI.savePost(${postId})">
-              ${isEdit ? '💾 حفظ التعديلات' : '🚀 نشر الإعلان'}
+              ${isEdit ? 'حفظ التعديلات' : 'نشر الإعلان'}
             </button>
           </div>
         </div>
 
       </div>`;
 
-    // تعبئة محتوى التعديل
-    if (isEdit) {
-        setTimeout(() => {
-            const ta = document.getElementById('editor-content');
-            if (ta) { ta.value = post.content ?? ''; AdminUI.updatePostPreview(); AdminUI._updateWordCount(); }
-        }, 60);
+    requestAnimationFrame(() => {
+        const ta = document.getElementById('editor-content');
+        if (ta && isEdit) ta.value = post.content ?? '';
+        AdminUI.initPostEditorControls(postId);
+        AdminUI.setPostEditorMode(savedMode);
+        AdminUI.updatePostPreview();
+        AdminUI._updateWordCount();
+        AdminUI.updateEditorCursorInfo();
+    });
+};
+
+AdminUI.initPostEditorControls = function(postId) {
+    const page = document.querySelector('.post-editor-page');
+    const titleInput = document.getElementById('editor-title');
+    const imageInput = document.getElementById('editor-image-url');
+    const textArea = document.getElementById('editor-content');
+    if (!page || !titleInput || !imageInput || !textArea) return;
+
+    page.dataset.draftKey = AdminUI.getPostDraftKey(postId);
+    page.dataset.postId = postId ?? '';
+
+    const draft = AdminUI.readPostDraft();
+    const hasDraft = draft && [draft.title, draft.image, draft.content].some(value => String(value || '').trim());
+    const differsFromCurrent = hasDraft && (
+        draft.title !== titleInput.value ||
+        draft.image !== imageInput.value ||
+        draft.content !== textArea.value
+    );
+    const banner = document.getElementById('editor-draft-banner');
+    if (banner) banner.hidden = !differsFromCurrent;
+
+    const scheduleDraft = () => {
+        AdminUI.updateEditorCursorInfo();
+        const status = document.getElementById('editor-draft-status');
+        if (status) status.textContent = 'تغييرات غير محفوظة';
+        clearTimeout(AdminUI._postDraftTimer);
+        AdminUI._postDraftTimer = setTimeout(() => AdminUI.savePostDraft(), 450);
+    };
+
+    [titleInput, imageInput, textArea].forEach(el => {
+        el.addEventListener('input', scheduleDraft);
+    });
+
+    textArea.addEventListener('keydown', (event) => AdminUI.handlePostEditorKeydown(event, postId));
+    textArea.addEventListener('keyup', () => AdminUI.updateEditorCursorInfo());
+    textArea.addEventListener('click', () => AdminUI.updateEditorCursorInfo());
+    textArea.addEventListener('select', () => AdminUI.updateEditorCursorInfo());
+};
+
+AdminUI.getPostDraftKey = function(postId) {
+    return `admin-post-editor-draft-${postId ?? 'new'}`;
+};
+
+AdminUI.readPostDraft = function() {
+    const page = document.querySelector('.post-editor-page');
+    const key = page?.dataset?.draftKey;
+    if (!key) return null;
+    try {
+        return JSON.parse(localStorage.getItem(key) || 'null');
+    } catch (err) {
+        return null;
     }
+};
+
+AdminUI.savePostDraft = function() {
+    const page = document.querySelector('.post-editor-page');
+    const key = page?.dataset?.draftKey;
+    if (!key) return;
+
+    const draft = {
+        title: document.getElementById('editor-title')?.value || '',
+        image: document.getElementById('editor-image-url')?.value || '',
+        content: document.getElementById('editor-content')?.value || '',
+        updatedAt: new Date().toISOString()
+    };
+
+    try {
+        localStorage.setItem(key, JSON.stringify(draft));
+        const status = document.getElementById('editor-draft-status');
+        if (status) status.textContent = 'تم حفظ المسودة';
+    } catch (err) {
+        const status = document.getElementById('editor-draft-status');
+        if (status) status.textContent = 'تعذر حفظ المسودة';
+    }
+};
+
+AdminUI.restorePostDraft = function() {
+    const draft = AdminUI.readPostDraft();
+    if (!draft) return;
+
+    const titleInput = document.getElementById('editor-title');
+    const imageInput = document.getElementById('editor-image-url');
+    const textArea = document.getElementById('editor-content');
+
+    if (titleInput) titleInput.value = draft.title || '';
+    if (imageInput) imageInput.value = draft.image || '';
+    if (textArea) textArea.value = draft.content || '';
+
+    const banner = document.getElementById('editor-draft-banner');
+    if (banner) banner.hidden = true;
+    AdminUI.updatePostPreview();
+    AdminUI._updateWordCount();
+    AdminUI.updateEditorCursorInfo();
+    AdminUI.savePostDraft();
+};
+
+AdminUI.clearPostDraft = function(silent = false) {
+    const page = document.querySelector('.post-editor-page');
+    const key = page?.dataset?.draftKey;
+    if (key) localStorage.removeItem(key);
+    const banner = document.getElementById('editor-draft-banner');
+    if (banner) banner.hidden = true;
+    const status = document.getElementById('editor-draft-status');
+    if (status) status.textContent = 'جاهز';
+    if (!silent) _showToast('تم تجاهل المسودة', 'success');
+};
+
+AdminUI.handlePostEditorKeydown = function(event, postId) {
+    const key = event.key.toLowerCase();
+    const isMod = event.ctrlKey || event.metaKey;
+
+    if (event.key === 'Enter' && AdminUI.continueEditorList()) {
+        event.preventDefault();
+        return;
+    }
+
+    if (event.key === 'Tab') {
+        event.preventDefault();
+        AdminUI.indentEditorSelection(event.shiftKey);
+        return;
+    }
+
+    if (!isMod) return;
+
+    if (key === 'b') {
+        event.preventDefault();
+        AdminUI.insertMarkdown('**', '**');
+    } else if (key === 'i') {
+        event.preventDefault();
+        AdminUI.insertMarkdown('*', '*');
+    } else if (key === 'k') {
+        event.preventDefault();
+        AdminUI._modalInsertLink();
+    } else if (key === 's') {
+        event.preventDefault();
+        AdminUI.savePost(postId);
+    }
+};
+
+AdminUI.continueEditorList = function() {
+    const ta = document.getElementById('editor-content');
+    if (!ta || ta.selectionStart !== ta.selectionEnd) return false;
+
+    const start = ta.selectionStart;
+    const value = ta.value;
+    const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+    const line = value.slice(lineStart, start);
+    const match = line.match(/^(\s*)([-*+]|\d+\.|>)\s+(.*)$/);
+    if (!match) return false;
+
+    const [, spaces, marker, rest] = match;
+    if (!rest.trim()) {
+        ta.value = value.slice(0, lineStart) + value.slice(start);
+        ta.setSelectionRange(lineStart, lineStart);
+        AdminUI.updatePostPreview();
+        AdminUI._updateWordCount();
+        AdminUI.updateEditorCursorInfo();
+        AdminUI.savePostDraft();
+        return true;
+    }
+
+    const nextMarker = /^\d+\.$/.test(marker)
+        ? `${parseInt(marker, 10) + 1}.`
+        : marker;
+    const insertion = `\n${spaces}${nextMarker} `;
+    ta.value = value.slice(0, start) + insertion + value.slice(start);
+    const nextPos = start + insertion.length;
+    ta.setSelectionRange(nextPos, nextPos);
+    AdminUI.updatePostPreview();
+    AdminUI._updateWordCount();
+    AdminUI.updateEditorCursorInfo();
+    AdminUI.savePostDraft();
+    return true;
+};
+
+AdminUI.indentEditorSelection = function(outdent = false) {
+    const ta = document.getElementById('editor-content');
+    if (!ta) return;
+
+    const start = ta.selectionStart;
+    const end = ta.selectionEnd;
+    const value = ta.value;
+    const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+    const selected = value.slice(lineStart, end);
+    const lines = selected.split('\n');
+    const indent = '    ';
+    const nextLines = lines.map(line => {
+        if (!outdent) return indent + line;
+        return line.startsWith(indent) ? line.slice(indent.length) : line.replace(/^\s{1,3}/, '');
+    });
+    const next = nextLines.join('\n');
+
+    ta.value = value.slice(0, lineStart) + next + value.slice(end);
+    ta.focus();
+    ta.selectionStart = lineStart;
+    ta.selectionEnd = lineStart + next.length;
+    AdminUI.updatePostPreview();
+    AdminUI._updateWordCount();
+    AdminUI.updateEditorCursorInfo();
+    AdminUI.savePostDraft();
+};
+
+AdminUI.setPostEditorMode = function(mode) {
+    const page = document.querySelector('.post-editor-page');
+    if (!page) return;
+
+    const nextMode = ['write', 'split', 'preview'].includes(mode) ? mode : 'split';
+    page.dataset.editorMode = nextMode;
+    localStorage.setItem('admin-post-editor-mode', nextMode);
+
+    document.querySelectorAll('.editor-mode-btn').forEach(btn => {
+        const isActive = btn.dataset.mode === nextMode;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+};
+
+AdminUI.togglePostEditorFullscreen = function() {
+    const page = document.querySelector('.post-editor-page');
+    if (!page) return;
+    const isFullscreen = page.classList.toggle('editor-fullscreen');
+    document.body.classList.toggle('post-editor-fullscreen', isFullscreen);
+};
+
+AdminUI.updateEditorCursorInfo = function() {
+    const ta = document.getElementById('editor-content');
+    const info = document.getElementById('editor-cursor-info');
+    if (!ta || !info) return;
+
+    const before = ta.value.slice(0, ta.selectionStart);
+    const lines = before.split('\n');
+    const line = lines.length;
+    const column = lines[lines.length - 1].length + 1;
+    info.textContent = `سطر ${line} · عمود ${column}`;
 };
 
 // ═══════════════════════════════════════════════════
@@ -375,9 +630,14 @@ AdminUI.insertMarkdown = function(startTag, endTag) {
     const sel = ta.value.substring(s, e);
     ta.value = ta.value.substring(0, s) + startTag + sel + endTag + ta.value.substring(e);
     ta.focus();
-    ta.selectionStart = ta.selectionEnd = s + startTag.length + sel.length + endTag.length;
+    const innerStart = s + startTag.length;
+    const innerEnd = innerStart + sel.length;
+    if (endTag) ta.setSelectionRange(innerStart, innerEnd);
+    else ta.setSelectionRange(innerEnd, innerEnd);
     AdminUI.updatePostPreview();
     AdminUI._updateWordCount();
+    AdminUI.updateEditorCursorInfo();
+    AdminUI.savePostDraft();
 };
 
 // ═══════════════════════════════════════════════════
@@ -635,15 +895,18 @@ AdminUI.updatePostPreview = function() {
 
     // المحتوى
     const bodyEl = document.getElementById('preview-body');
+    const stateEl = document.getElementById('editor-preview-state');
     if (!bodyEl) return;
 
     const raw = contentInput.value;
     if (!raw.trim()) {
         bodyEl.innerHTML = '<p class="preview-placeholder">ابدأ الكتابة لرؤية المعاينة هنا...</p>';
+        if (stateEl) stateEl.textContent = 'فارغة';
         return;
     }
 
     bodyEl.innerHTML = _processMD(raw);
+    if (stateEl) stateEl.textContent = 'محدثة';
 
     // MathJax
     if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
@@ -687,6 +950,7 @@ AdminUI.savePost = async function(postId) {
             _showToast('🚀 تم نشر الإعلان بنجاح', 'success');
         }
 
+        AdminUI.clearPostDraft(true);
         setTimeout(() => AdminRole.loadSection('posts'), 900);
 
     } catch (err) {

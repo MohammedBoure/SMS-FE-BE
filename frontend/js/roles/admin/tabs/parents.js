@@ -73,7 +73,9 @@ AdminUI.renderParentsTab = function(parentsData) {
                     <div style="font-weight: bold; color: #0f172a; font-size: 1.1em;">${this._escape(p.full_name)}</div>
                     <div style="color: #0369a1; font-size: 0.85em;">@${this._escape(p.username)}</div>
                 </td>
-                <td data-label="الهاتف" style="padding: 15px; direction: ltr; text-align: right; color: #475569;">📞 ${this._escape(p.phone || "غير متوفر")}</td>
+                <td data-label="الهاتف" style="padding: 15px; direction: ltr; text-align: right; color: #475569;">
+                    <span class="admin-contact-line">${this.icon("phone", "inline-svg-icon")}<span>${this._escape(p.phone || "غير متوفر")}</span></span>
+                </td>
                 <td class="admin-actions-cell" data-label="الأبناء" style="padding: 15px; text-align: center;">
                     <button onclick="AdminUI.viewParentStudents(${p.parent_id}, '${this._escape(p.full_name)}')" 
                             style="background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 0.9em; font-weight: bold; transition: 0.2s;"

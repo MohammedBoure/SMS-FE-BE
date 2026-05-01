@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>لوحة تحكم المدير | النظام المدرسي</title>
+  <script>
+    (function () {
+      try {
+        var savedTheme = localStorage.getItem("admin-theme");
+        var theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {}
+    })();
+  </script>
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/posts.css">
 
@@ -14,6 +23,16 @@
 
   <aside class="sidebar">
     <div class="sidebar-header" id="admin-header"></div>
+    <div class="sidebar-utility">
+      <button type="button" class="sidebar-collapse-btn" id="admin-sidebar-collapse" aria-label="تصغير الشريط الجانبي" aria-pressed="false" title="تصغير الشريط الجانبي">
+        <span class="sidebar-collapse-icon"></span>
+        <span class="sidebar-collapse-label">تصغير القائمة</span>
+      </button>
+      <div class="sidebar-search">
+        <span aria-hidden="true"></span>
+        <input type="search" id="admin-nav-search" placeholder="بحث سريع..." autocomplete="off">
+      </div>
+    </div>
     <nav class="sidebar-nav" id="admin-nav"></nav>
   </aside>
   <div class="sidebar-backdrop" id="admin-sidebar-backdrop"></div>
@@ -29,6 +48,10 @@
       <h2 style="margin: 0;" id="section-title">نظرة عامة</h2>
       </div>
       <div class="topbar-actions">
+        <button type="button" class="theme-toggle-btn" id="admin-theme-toggle" aria-label="تبديل الثيم" aria-pressed="false" title="تبديل الثيم">
+          <span class="theme-toggle-icon" aria-hidden="true"></span>
+          <span class="theme-toggle-label">فاتح</span>
+        </button>
         <span id="user-info" style="margin-left: 15px; color: #64748b;"></span>
         <button id="logout-btn" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">تسجيل الخروج</button>
       </div>

@@ -62,9 +62,9 @@ AdminUI.renderResourcesTab = function(response) {
                             <select id="res-type" required style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; outline: none; background: #f8fafc; font-weight: bold;">
                                 <option value="pdf">كتاب / PDF 📕</option>
                                 <option value="document">مستند نصي 📄</option>
-                                <option value="video">مقطع فيديو 🎬</option>
-                                <option value="image">صورة توضيحية 🖼️</option>
-                                <option value="archive">ملف مضغوط 📦</option>
+                                <option value="video">مقطع فيديو</option>
+                                <option value="image">صورة توضيحية</option>
+                                <option value="archive">ملف مضغوط</option>
                             </select>
                         </div>
                         <div>
@@ -220,7 +220,7 @@ AdminUI.showUploadModal = async function() {
         const response = await Api.get("/assignments/");
         const assignments = response.data || response || [];
         assignSelect.innerHTML = '<option value="">-- بدون ارتباط (ملف عام) --</option>' + 
-            assignments.map(a => `<option value="${a.id || a.assignment_id}">📚 ${this._escape(a.subject_name || "مادة")} - 🏫 ${this._escape(a.class_name || "قسم")}</option>`).join("");
+            assignments.map(a => `<option value="${a.id || a.assignment_id}">${this._escape(a.subject_name || "مادة")} - ${this._escape(a.class_name || "قسم")}</option>`).join("");
     } catch (err) {
         assignSelect.innerHTML = '<option value="">-- تعذر جلب التكليفات، يمكنك تركه فارغاً --</option>';
     }

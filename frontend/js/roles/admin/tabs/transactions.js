@@ -206,7 +206,7 @@ AdminUI.renderTransactionsTab = function(response) {
                     <select id="modal-status-select" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; background: #f8fafc; font-weight: bold;">
                         <option value="completed">✅ مكتمل (Completed)</option>
                         <option value="pending">⏳ معلق (Pending)</option>
-                        <option value="cancelled">🚫 إلغاء (Cancelled)</option>
+                        <option value="cancelled">إلغاء (Cancelled)</option>
                     </select>
                 </div>
 
