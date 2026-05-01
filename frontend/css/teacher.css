@@ -70,9 +70,16 @@
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
 body {
   font-family: 'Tajawal', sans-serif;
-  direction: rtl;
+  direction: inherit;
   background: var(--bg);
   color: var(--txt-1);
   min-height: 100vh;
@@ -154,6 +161,10 @@ body {
   border-radius: 0 !important;
 }
 
+[dir="ltr"] .nav-btn {
+  text-align: left;
+}
+
 /* Active indicator */
 .nav-btn::after {
   content: '';
@@ -164,6 +175,12 @@ body {
   background: var(--sb-accent);
   transform: scaleY(0);
   transition: transform var(--t);
+}
+
+[dir="ltr"] .nav-btn::after {
+  right: auto;
+  left: 0;
+  border-radius: 0 2px 2px 0;
 }
 
 .nav-btn .nav-icon {
@@ -219,6 +236,7 @@ body {
   padding: 0 !important;
   background: transparent !important;
   color: inherit !important;
+  gap: 1rem;
 }
 
 #teacher-header h1 {
@@ -251,7 +269,7 @@ body {
   transition: var(--t);
 }
 
-#logout-btn::before { content: '⏻'; }
+#logout-btn::before { content: none; }
 
 #logout-btn:hover {
   background: var(--rose) !important;
@@ -259,6 +277,39 @@ body {
   color: #fff !important;
   box-shadow: 0 4px 12px rgba(244,63,94,.25);
   transform: translateY(-1px);
+}
+
+.teacher-header-actions {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+}
+
+.teacher-language-control {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  color: var(--txt-3);
+  font-size: .86rem;
+  font-weight: 800;
+}
+
+.teacher-language-control select {
+  min-height: 38px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--txt-1);
+  padding: 0 .65rem;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.teacher-language-control option {
+  color: var(--txt-1);
+  background: var(--surface);
 }
 
 /* ==========================================================================
@@ -297,6 +348,11 @@ body {
   border-radius: 2px;
 }
 
+[dir="ltr"] #teacher-main h2::after {
+  right: auto;
+  left: 0;
+}
+
 #teacher-main h3 {
   font-size: 1.05rem;
   font-weight: 700;
@@ -307,6 +363,18 @@ body {
 #teacher-main p { color: var(--txt-3); font-size: .95rem; }
 
 hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+.teacher-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--r-lg);
+}
+
+.ltr-value {
+  direction: ltr;
+  display: inline-block;
+  unicode-bidi: plaintext;
+}
 
 /* ==========================================================================
    Tables (shared)
@@ -339,6 +407,13 @@ thead th {
   text-align: right;
   white-space: nowrap;
   background: transparent !important;
+}
+
+[dir="ltr"] thead th,
+[dir="ltr"] tbody td,
+[dir="ltr"] .teacher-message-contact,
+[dir="ltr"] .teacher-message-user-result {
+  text-align: left;
 }
 
 /* Override inline thead row style */
@@ -377,7 +452,7 @@ input[type="file"] {
   padding: .55rem .9rem;
   outline: none;
   transition: border-color var(--tf), box-shadow var(--tf);
-  direction: rtl;
+  direction: inherit;
 }
 
 select:focus,
@@ -485,6 +560,11 @@ button:active { transform: translateY(0); box-shadow: none; }
   align-items: flex-end;
 }
 
+.teacher-panel h3 {
+  flex: 1 1 100%;
+  margin-bottom: .25rem !important;
+}
+
 /* Generic toolbar divs (attendance controls) */
 #teacher-main > div[style*="margin-bottom"] {
   display: flex;
@@ -520,6 +600,110 @@ button:active { transform: translateY(0); box-shadow: none; }
 #assessments-list-container,
 #resources-list-container {
   animation: fadeUp .3s ease both;
+}
+
+.teacher-notification-list {
+  display: grid;
+  gap: .9rem;
+}
+
+.teacher-section-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.teacher-section-topbar h2 {
+  margin: 0 !important;
+}
+
+.teacher-section-topbar h2::after {
+  display: none;
+}
+
+.teacher-section-topbar small {
+  color: var(--txt-3);
+  font-weight: 700;
+}
+
+.teacher-notification-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1rem 1.15rem;
+  box-shadow: var(--sh-sm);
+  opacity: 1;
+  animation: fadeUp .3s ease both;
+}
+
+.teacher-notification-card.is-read {
+  opacity: .78;
+}
+
+.teacher-notification-title-row,
+.teacher-notification-footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .85rem;
+}
+
+.teacher-notification-card strong {
+  display: block;
+  color: var(--txt-1);
+  font-size: 1rem;
+}
+
+.teacher-notification-card p {
+  margin: .35rem 0 0;
+  color: var(--txt-2);
+  line-height: 1.7;
+}
+
+.teacher-notification-title-row span {
+  white-space: nowrap;
+  color: #d97706;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+  padding: .2rem .6rem;
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.teacher-notification-card.is-read .teacher-notification-title-row span {
+  color: #16a34a;
+  background: #dcfce7;
+  border-color: #bbf7d0;
+}
+
+.teacher-notification-footer {
+  align-items: center;
+  margin-top: .8rem;
+  flex-wrap: wrap;
+}
+
+.teacher-notification-card small {
+  color: var(--txt-4);
+  font-size: .78rem;
+}
+
+.teacher-notification-card button,
+#teacher-mark-all-notifications-read {
+  min-height: 38px;
+  box-shadow: 0 2px 8px rgba(79,70,229,.2);
+}
+
+.teacher-notification-action {
+  color: var(--txt-3);
+  font-weight: 800;
+}
+
+.teacher-notification-action.is-read {
+  color: #16a34a;
 }
 
 /* ==========================================================================
@@ -856,6 +1040,25 @@ button:active { transform: translateY(0); box-shadow: none; }
   #teacher-header { padding: 0 1rem; }
   #teacher-header h1 { font-size: .88rem; }
 
+  .teacher-header-actions {
+    gap: .4rem;
+  }
+
+  .teacher-language-control span {
+    display: none;
+  }
+
+  .teacher-language-control select {
+    min-height: 34px;
+    padding: 0 .45rem;
+    font-size: .78rem;
+  }
+
+  #logout-btn {
+    padding: .42rem .7rem;
+    font-size: .78rem;
+  }
+
   /* Scrollable tables on mobile */
   table {
     display: block;
@@ -911,6 +1114,17 @@ button:active { transform: translateY(0); box-shadow: none; }
 
   .teacher-message-form {
     grid-template-columns: 1fr;
+  }
+
+  .teacher-notification-title-row,
+  .teacher-notification-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .teacher-notification-card button,
+  #teacher-mark-all-notifications-read {
+    width: 100%;
   }
 
   #teacher-main h2 { font-size: 1.3rem; margin-bottom: 1rem; }

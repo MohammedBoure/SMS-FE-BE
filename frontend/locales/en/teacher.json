@@ -1,0 +1,222 @@
+{
+  "meta": {
+    "lang": "en",
+    "dir": "ltr",
+    "locale": "en-US"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "Arabic",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    }
+  ],
+  "teacher": {
+    "documentTitle": "Teacher Dashboard",
+    "brand": {
+      "welcome": "Welcome, teacher {name}"
+    },
+    "language": {
+      "label": "Language",
+      "select": "Choose language"
+    },
+    "auth": {
+      "logout": "Log out"
+    },
+    "nav": {
+      "assignments": "My Classes",
+      "schedule": "Schedule",
+      "attendance": "Attendance",
+      "grades": "Grades",
+      "resources": "Resources",
+      "posts": "Administration Posts",
+      "messages": "Messages",
+      "notifications": "Notifications"
+    },
+    "state": {
+      "loading": "Loading data...",
+      "errorPrefix": "Error:",
+      "unknownSection": "Unknown section",
+      "teacherProfileMissing": "Your account is not registered as a teacher in the database. Please contact administration.",
+      "initFailed": "Failed to initialize teacher data."
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "Not specified",
+      "updating": "Updating...",
+      "unavailable": "Unavailable",
+      "unknownDate": "Unknown date",
+      "userFallback": "User #{id}",
+      "send": "Send",
+      "download": "Download",
+      "fromManagement": "From administration",
+      "openDetails": "View details",
+      "backToPosts": "Back to posts",
+      "noContent": "This post has no content.",
+      "file": "File",
+      "save": "Save",
+      "action": "Action",
+      "create": "Create"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "present": "Present",
+      "absent": "Absent",
+      "late": "Late",
+      "paid": "Paid",
+      "completed": "Paid",
+      "unpaid": "Unpaid",
+      "partial": "Partially paid",
+      "overdue": "Overdue",
+      "read": "Read",
+      "unread": "Unread",
+      "student": "Student",
+      "parent": "Parent",
+      "teacher": "Teacher",
+      "admin": "Admin",
+      "receptionist": "Receptionist",
+      "accountant": "Accountant",
+      "exam": "Exam",
+      "homework": "Homework"
+    },
+    "days": {
+      "Sunday": "Sunday",
+      "Monday": "Monday",
+      "Tuesday": "Tuesday",
+      "Wednesday": "Wednesday",
+      "Thursday": "Thursday",
+      "Friday": "Friday",
+      "Saturday": "Saturday"
+    },
+    "assignments": {
+      "title": "Classes Assigned to You",
+      "emptyTitle": "My Classes and Subjects",
+      "emptyText": "No classes have been assigned to you yet.",
+      "columns": {
+        "classLevel": "Class (level)",
+        "subject": "Subject"
+      }
+    },
+    "schedule": {
+      "title": "Weekly Schedule",
+      "emptyTitle": "Schedule",
+      "emptyText": "There are no scheduled sessions.",
+      "columns": {
+        "day": "Day",
+        "time": "Time",
+        "class": "Class",
+        "subject": "Subject",
+        "room": "Room"
+      }
+    },
+    "attendance": {
+      "title": "Attendance and Absence Entry",
+      "emptyTitle": "Attendance",
+      "noAssignments": "No classes are available for attendance.",
+      "classSelect": "Class",
+      "date": "Date",
+      "loadButton": "Load attendance sheet",
+      "emptyStudents": "There are no students in this class.",
+      "columns": {
+        "student": "Student",
+        "status": "Status"
+      }
+    },
+    "grades": {
+      "title": "Grades and Assessments Management",
+      "emptyTitle": "Grades and Assessments",
+      "noAssignments": "No assignments are available for grade entry.",
+      "assignmentSelect": "Class and subject",
+      "loadAssessments": "Show assessments",
+      "createTitle": "Add a New Assessment",
+      "titlePlaceholder": "Assessment title",
+      "maxGradePlaceholder": "Max grade",
+      "enterGrades": "Enter grades",
+      "emptyAssessments": "No previous assessments were found.",
+      "emptySheet": "No students are available for this assessment.",
+      "remarksPlaceholder": "Remarks...",
+      "sheetTitle": "Grade Entry Sheet",
+      "assessmentsColumns": {
+        "title": "Title",
+        "type": "Type",
+        "maxGrade": "Max grade"
+      },
+      "sheetColumns": {
+        "student": "Student",
+        "grade": "Grade",
+        "remarks": "Teacher remarks"
+      }
+    },
+    "resources": {
+      "title": "Educational Resources",
+      "emptyTitle": "Educational Resources",
+      "noAssignments": "No assignments are available for uploading resources.",
+      "uploadTitle": "Upload a New File for the Class",
+      "titlePlaceholder": "Lesson/file title",
+      "types": {
+        "document": "Document",
+        "video": "Video"
+      },
+      "uploadButton": "Upload resource",
+      "selectHint": "Choose a class to view its resources..."
+    },
+    "notifications": {
+      "emptyTitle": "Notifications",
+      "emptyText": "There are no new notifications.",
+      "title": "Incoming Notifications",
+      "unreadCount": "{count} unread notification(s)",
+      "markAllRead": "Mark all as read",
+      "markRead": "Mark as read",
+      "read": "Read",
+      "unread": "Unread",
+      "defaultTitle": "Notification"
+    },
+    "messages": {
+      "title": "Messages",
+      "subtitle": "Follow your conversations or search for another user to contact.",
+      "searchPlaceholder": "Search by user name...",
+      "searchButton": "Search",
+      "conversations": "Conversations",
+      "selectPrompt": "Choose a conversation from the list or search for a new user.",
+      "emptyConversation": "The conversation will appear here.",
+      "inputPlaceholder": "Write your message...",
+      "minSearch": "Type at least two characters to search.",
+      "searching": "Searching...",
+      "noResults": "No matching results.",
+      "searchFailed": "Search failed: {message}",
+      "loadingConversation": "Loading conversation...",
+      "loadFailed": "Could not load messages: {message}",
+      "noMessages": "No messages yet.",
+      "you": "You",
+      "roleFallback": "User",
+      "sending": "Sending...",
+      "sent": "Sent",
+      "sendFailed": "Send failed: {message}",
+      "emptyList": "No conversations yet."
+    },
+    "posts": {
+      "title": "Administration Posts",
+      "emptySubtitle": "Announcements and content published by administration will appear here.",
+      "listSubtitle": "Choose a post from the list to view the full details.",
+      "emptyTitle": "No posts currently",
+      "emptyText": "Administration posts will appear here when available.",
+      "untitled": "Untitled post",
+      "openHint": "Open the post to view its details.",
+      "filePlaceholder": "Document"
+    },
+    "actions": {
+      "notificationsUpdateFailed": "Could not update notifications.",
+      "notificationUpdateFailed": "Could not update the notification.",
+      "attendanceSaved": "Attendance saved.",
+      "assessmentCreated": "Assessment created.",
+      "gradeSaved": "Grade saved.",
+      "resourceUploaded": "Resource uploaded."
+    }
+  }
+}

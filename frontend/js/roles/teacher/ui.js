@@ -8,252 +8,425 @@ const TeacherUI = {
 
   renderHeader(session, teacherData) {
     const header = document.getElementById("teacher-header");
+    const name = teacherData ? teacherData.full_name : "...";
+    const languages = window.I18n
+      ? I18n.getLanguages()
+      : [{ code: "ar", label: "Arabic", dir: "rtl" }, { code: "en", label: "English", dir: "ltr" }];
+    const activeLang = window.I18n ? I18n.currentLang : "ar";
+    const options = languages.map(lang => `
+      <option value="${this._escapeAttr(lang.code)}" dir="${this._escapeAttr(lang.dir || "auto")}" ${lang.code === activeLang ? "selected" : ""}>
+        ${this._escape(lang.label)}
+      </option>
+    `).join("");
+
     header.innerHTML = `
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #2c3e50; color: white;">
-        <h1>مرحباً أستاذ(ة): ${teacherData ? teacherData.full_name : '...'}</h1>
-        <button id="logout-btn" style="padding: 5px 15px; background: #e74c3c; color: white; border: none; cursor: pointer;">تسجيل خروج</button>
+      <div class="teacher-header-shell">
+        <h1>${this.t("teacher.brand.welcome", { name: this._escape(name) }, `Welcome, teacher ${this._escape(name)}`)}</h1>
+        <div class="teacher-header-actions">
+          <label class="teacher-language-control">
+            <span>${this.t("teacher.language.label", {}, "Language")}</span>
+            <select id="teacher-language-select" aria-label="${this._escapeAttr(this.t("teacher.language.select", {}, "Choose language"))}">
+              ${options}
+            </select>
+          </label>
+          <button id="logout-btn">${this.t("teacher.auth.logout", {}, "Log out")}</button>
+        </div>
       </div>
     `;
-    document.getElementById("logout-btn").addEventListener("click", () => Auth.logout());
+
+    document.getElementById("logout-btn")?.addEventListener("click", () => Auth.logout());
+    const languageSelect = document.getElementById("teacher-language-select");
+    if (languageSelect && window.I18n) {
+      languageSelect.addEventListener("change", async (event) => {
+        languageSelect.disabled = true;
+        await I18n.setLanguage(event.target.value);
+        languageSelect.disabled = false;
+      });
+    }
   },
 
   renderNav(activeSection) {
     const nav = document.getElementById("teacher-nav");
-    nav.innerHTML = this.SECTIONS.map(s =>
-      `<button class="nav-btn${activeSection === s ? " active" : ""}" data-section="${s}" style="margin: 5px; padding: 10px;">${this._translate(s)}</button>`
-    ).join("");
+    nav.innerHTML = this.SECTIONS.map(section => `
+      <button class="nav-btn${activeSection === section ? " active" : ""}" data-section="${this._escapeAttr(section)}">
+        ${this._translate(section)}
+      </button>
+    `).join("");
   },
 
   renderLoading() {
-    document.getElementById("teacher-main").innerHTML = "<h3>جاري التحميل...</h3>";
+    document.getElementById("teacher-main").innerHTML = `
+      <h3>${this.t("teacher.state.loading", {}, "Loading data...")}</h3>
+    `;
   },
 
   renderError(msg) {
-    document.getElementById("teacher-main").innerHTML = `<h3 style="color: red;">خطأ: ${msg}</h3>`;
-  },
-
-  // 1. الأقسام والمواد
-  renderAssignments(assignments) {
-    const main = document.getElementById("teacher-main");
-    if (!assignments || assignments.length === 0) {
-      main.innerHTML = "<h2>أقسامي وموادي</h2><p>لم يتم إسناد أي أقسام لك بعد.</p>";
-      return;
-    }
-    const rows = assignments.map(a => `
-      <tr>
-        <td>${a.class_name} (${a.level})</td>
-        <td>${a.subject_name}</td>
-      </tr>
-    `).join("");
-    main.innerHTML = `
-      <h2>الأقسام المسندة إليك</h2>
-      <table border="1" width="100%" cellpadding="10">
-        <thead><tr style="background:#f2f2f2;"><th>القسم (المستوى)</th><th>المادة</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
-  },
-
-  // 2. الجدول الزمني
-  renderSchedule(schedule) {
-    const main = document.getElementById("teacher-main");
-    if (!schedule || schedule.length === 0) {
-      main.innerHTML = "<h2>الجدول الزمني</h2><p>لا يوجد حصص مبرمجة.</p>";
-      return;
-    }
-    const rows = schedule.map(s => `
-      <tr>
-        <td>${this._translateDay(s.day_of_week)}</td>
-        <td>${this._formatTime(s.start_time)} - ${this._formatTime(s.end_time)}</td>
-        <td>${s.class_name} (${s.level})</td>
-        <td>${s.subject_name}</td>
-        <td>${s.room_number || "غير محدد"}</td>
-      </tr>
-    `).join("");
-    main.innerHTML = `
-      <h2>الجدول الأسبوعي</h2>
-      <table border="1" width="100%" cellpadding="10">
-        <thead><tr style="background:#f2f2f2;"><th>اليوم</th><th>التوقيت</th><th>القسم</th><th>المادة</th><th>القاعة</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
-  },
-
-  // 3. الغياب
-  renderAttendance(assignments) {
-    const options = assignments.map(a => `<option value="${a.class_id}">${a.class_name}</option>`).join("");
-    const today = new Date().toISOString().split('T')[0];
-    
     document.getElementById("teacher-main").innerHTML = `
-      <h2>تسجيل الغياب والحضور</h2>
-      <div style="margin-bottom: 20px;">
-        <select id="attendance-class-select" style="padding: 5px;">${options}</select>
-        <input type="date" id="attendance-date" value="${today}" style="padding: 5px;" />
-        <button id="load-attendance-btn" style="padding: 5px 10px;">جلب قائمة المناداة</button>
+      <h3 style="color: #ef4444;">
+        ${this.t("teacher.state.errorPrefix", {}, "Error:")} ${this._escape(msg)}
+      </h3>
+    `;
+  },
+
+  renderAssignments(assignmentsData) {
+    const assignments = this._toArray(assignmentsData);
+    const main = document.getElementById("teacher-main");
+
+    if (!assignments.length) {
+      main.innerHTML = this._emptySection(
+        "teacher.assignments.emptyTitle",
+        "My Classes and Subjects",
+        "teacher.assignments.emptyText",
+        "No classes have been assigned to you yet."
+      );
+      return;
+    }
+
+    const rows = assignments.map(assignment => `
+      <tr>
+        <td>${this._escape(assignment.class_name)} (${this._escape(assignment.level)})</td>
+        <td>${this._escape(assignment.subject_name)}</td>
+      </tr>
+    `).join("");
+
+    main.innerHTML = `
+      <h2>${this.t("teacher.assignments.title", {}, "Classes Assigned to You")}</h2>
+      ${this._table(`
+        <thead>
+          <tr>
+            <th>${this.t("teacher.assignments.columns.classLevel", {}, "Class (level)")}</th>
+            <th>${this.t("teacher.assignments.columns.subject", {}, "Subject")}</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      `)}
+    `;
+  },
+
+  renderSchedule(scheduleData) {
+    const schedule = this._toArray(scheduleData);
+    const main = document.getElementById("teacher-main");
+
+    if (!schedule.length) {
+      main.innerHTML = this._emptySection(
+        "teacher.schedule.emptyTitle",
+        "Schedule",
+        "teacher.schedule.emptyText",
+        "There are no scheduled sessions."
+      );
+      return;
+    }
+
+    const rows = schedule.map(item => `
+      <tr>
+        <td><strong>${this._translateDay(item.day_of_week)}</strong></td>
+        <td><span class="ltr-value">${this._formatTime(item.start_time)} - ${this._formatTime(item.end_time)}</span></td>
+        <td>${this._escape(item.class_name)} (${this._escape(item.level)})</td>
+        <td>${this._escape(item.subject_name)}</td>
+        <td>${this._escape(item.room_number || this.t("teacher.common.notSpecified", {}, "Not specified"))}</td>
+      </tr>
+    `).join("");
+
+    main.innerHTML = `
+      <h2>${this.t("teacher.schedule.title", {}, "Weekly Schedule")}</h2>
+      ${this._table(`
+        <thead>
+          <tr>
+            <th>${this.t("teacher.schedule.columns.day", {}, "Day")}</th>
+            <th>${this.t("teacher.schedule.columns.time", {}, "Time")}</th>
+            <th>${this.t("teacher.schedule.columns.class", {}, "Class")}</th>
+            <th>${this.t("teacher.schedule.columns.subject", {}, "Subject")}</th>
+            <th>${this.t("teacher.schedule.columns.room", {}, "Room")}</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      `)}
+    `;
+  },
+
+  renderAttendance(assignmentsData) {
+    const assignments = this._toArray(assignmentsData);
+    const main = document.getElementById("teacher-main");
+
+    if (!assignments.length) {
+      main.innerHTML = this._emptySection(
+        "teacher.attendance.emptyTitle",
+        "Attendance",
+        "teacher.attendance.noAssignments",
+        "No classes are available for attendance."
+      );
+      return;
+    }
+
+    const options = assignments.map(assignment => `
+      <option value="${this._escapeAttr(assignment.class_id)}">${this._escape(assignment.class_name)}</option>
+    `).join("");
+    const today = new Date().toISOString().split("T")[0];
+
+    main.innerHTML = `
+      <h2>${this.t("teacher.attendance.title", {}, "Attendance and Absence Entry")}</h2>
+      <div class="teacher-panel teacher-toolbar">
+        <select id="attendance-class-select" aria-label="${this._escapeAttr(this.t("teacher.attendance.classSelect", {}, "Class"))}">
+          ${options}
+        </select>
+        <input type="date" id="attendance-date" value="${today}" aria-label="${this._escapeAttr(this.t("teacher.attendance.date", {}, "Date"))}" />
+        <button id="load-attendance-btn">${this.t("teacher.attendance.loadButton", {}, "Load attendance sheet")}</button>
       </div>
       <div id="attendance-sheet-container"></div>
     `;
   },
 
-  renderAttendanceSheet(students, date) {
+  renderAttendanceSheet(studentsData, date) {
+    const students = this._toArray(studentsData);
     const container = document.getElementById("attendance-sheet-container");
-    if (!students || students.length === 0) {
-      container.innerHTML = "<p>لا يوجد طلاب في هذا القسم.</p>";
+    if (!container) return;
+
+    if (!students.length) {
+      container.innerHTML = `<p>${this.t("teacher.attendance.emptyStudents", {}, "There are no students in this class.")}</p>`;
       return;
     }
-    const rows = students.map(s => `
+
+    const rows = students.map(student => `
       <tr>
-        <td>${s.student_name}</td>
+        <td>${this._escape(student.student_name)}</td>
         <td>
-          <select class="attendance-status" data-student-id="${s.student_id}" data-date="${date}">
-            <option value="present" ${s.status === 'present' ? 'selected' : ''}>حاضر</option>
-            <option value="absent" ${s.status === 'absent' ? 'selected' : ''}>غائب</option>
-            <option value="late" ${s.status === 'late' ? 'selected' : ''}>متأخر</option>
+          <select class="attendance-status" data-student-id="${this._escapeAttr(student.student_id)}" data-date="${this._escapeAttr(date)}">
+            <option value="present" ${student.status === "present" ? "selected" : ""}>${this._translateStatus("present")}</option>
+            <option value="absent" ${student.status === "absent" ? "selected" : ""}>${this._translateStatus("absent")}</option>
+            <option value="late" ${student.status === "late" ? "selected" : ""}>${this._translateStatus("late")}</option>
           </select>
         </td>
         <td>
-          <button class="save-attendance-btn" data-student-id="${s.student_id}">حفظ</button>
+          <button class="save-attendance-btn" data-student-id="${this._escapeAttr(student.student_id)}">${this.t("teacher.common.save", {}, "Save")}</button>
         </td>
       </tr>
     `).join("");
-    
-    container.innerHTML = `
-      <table border="1" width="100%" cellpadding="10">
-        <thead><tr style="background:#f2f2f2;"><th>الطالب</th><th>الحالة</th><th>إجراء</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
-    `;
+
+    container.innerHTML = this._table(`
+      <thead>
+        <tr>
+          <th>${this.t("teacher.attendance.columns.student", {}, "Student")}</th>
+          <th>${this.t("teacher.attendance.columns.status", {}, "Status")}</th>
+          <th>${this.t("teacher.common.action", {}, "Action")}</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    `);
   },
 
-  // 4. العلامات والتقييمات
-  renderGrades(assignments) {
-    const options = assignments.map(a => `<option value="${a.assignment_id}">${a.class_name} - ${a.subject_name}</option>`).join("");
-    document.getElementById("teacher-main").innerHTML = `
-      <h2>إدارة العلامات والتقييمات</h2>
-      <div style="margin-bottom: 20px;">
-        <select id="grades-assignment-select" style="padding: 5px;">${options}</select>
-        <button id="load-assessments-btn" style="padding: 5px 10px;">عرض التقييمات</button>
+  renderGrades(assignmentsData) {
+    const assignments = this._toArray(assignmentsData);
+    const main = document.getElementById("teacher-main");
+
+    if (!assignments.length) {
+      main.innerHTML = this._emptySection(
+        "teacher.grades.emptyTitle",
+        "Grades and Assessments",
+        "teacher.grades.noAssignments",
+        "No assignments are available for grade entry."
+      );
+      return;
+    }
+
+    const options = assignments.map(assignment => `
+      <option value="${this._escapeAttr(assignment.assignment_id)}">${this._escape(assignment.class_name)} - ${this._escape(assignment.subject_name)}</option>
+    `).join("");
+
+    main.innerHTML = `
+      <h2>${this.t("teacher.grades.title", {}, "Grades and Assessments Management")}</h2>
+      <div class="teacher-panel teacher-toolbar">
+        <select id="grades-assignment-select" aria-label="${this._escapeAttr(this.t("teacher.grades.assignmentSelect", {}, "Assignment"))}">
+          ${options}
+        </select>
+        <button id="load-assessments-btn">${this.t("teacher.grades.loadAssessments", {}, "Show assessments")}</button>
       </div>
       <hr/>
       <div id="assessments-list-container"></div>
-      <div id="grades-sheet-container" style="margin-top:20px;"></div>
+      <div id="grades-sheet-container"></div>
     `;
   },
 
-  renderAssessmentsList(assessments, assignmentId) {
+  renderAssessmentsList(assessmentsData, assignmentId) {
+    const assessments = this._toArray(assessmentsData);
     const container = document.getElementById("assessments-list-container");
+    if (!container) return;
+
     let html = `
-      <div style="background:#ecf0f1; padding: 10px; margin-bottom:15px;">
-        <h3>إضافة تقييم جديد (امتحان/واجب)</h3>
-        <input type="text" id="new-assess-title" placeholder="عنوان التقييم (مثال: الفرض الأول)" required/>
-        <select id="new-assess-type"><option value="exam">امتحان</option><option value="homework">واجب</option></select>
-        <input type="number" id="new-assess-max" placeholder="العلامة القصوى" value="20" />
-        <button id="create-assess-btn" data-assignment-id="${assignmentId}">إنشاء</button>
+      <div class="teacher-panel teacher-assessment-create">
+        <h3>${this.t("teacher.grades.createTitle", {}, "Add a New Assessment")}</h3>
+        <input type="text" id="new-assess-title" placeholder="${this._escapeAttr(this.t("teacher.grades.titlePlaceholder", {}, "Assessment title"))}" required/>
+        <select id="new-assess-type">
+          <option value="exam">${this._translateStatus("exam")}</option>
+          <option value="homework">${this._translateStatus("homework")}</option>
+        </select>
+        <input type="number" id="new-assess-max" placeholder="${this._escapeAttr(this.t("teacher.grades.maxGradePlaceholder", {}, "Max grade"))}" value="20" />
+        <button id="create-assess-btn" data-assignment-id="${this._escapeAttr(assignmentId)}">${this.t("teacher.common.create", {}, "Create")}</button>
       </div>
     `;
 
-    if (assessments && assessments.length > 0) {
-      const rows = assessments.map(a => `
+    if (assessments.length) {
+      const rows = assessments.map(assessment => `
         <tr>
-          <td>${a.title}</td>
-          <td>${a.type === 'exam' ? 'امتحان' : 'واجب'}</td>
-          <td>${a.max_grade}</td>
-          <td><button class="load-grades-btn" data-assessment-id="${a.id}">رصد العلامات</button></td>
+          <td>${this._escape(assessment.title)}</td>
+          <td>${this._translateStatus(assessment.type === "exam" ? "exam" : "homework")}</td>
+          <td>${this._escape(assessment.max_grade)}</td>
+          <td><button class="load-grades-btn" data-assessment-id="${this._escapeAttr(assessment.id)}">${this.t("teacher.grades.enterGrades", {}, "Enter grades")}</button></td>
         </tr>
       `).join("");
-      html += `<table border="1" width="100%" cellpadding="5"><thead><tr style="background:#f2f2f2;"><th>العنوان</th><th>النوع</th><th>العلامة القصوى</th><th>إجراء</th></tr></thead><tbody>${rows}</tbody></table>`;
+
+      html += this._table(`
+        <thead>
+          <tr>
+            <th>${this.t("teacher.grades.assessmentsColumns.title", {}, "Title")}</th>
+            <th>${this.t("teacher.grades.assessmentsColumns.type", {}, "Type")}</th>
+            <th>${this.t("teacher.grades.assessmentsColumns.maxGrade", {}, "Max grade")}</th>
+            <th>${this.t("teacher.common.action", {}, "Action")}</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      `);
     } else {
-      html += "<p>لا توجد تقييمات سابقة.</p>";
+      html += `<p>${this.t("teacher.grades.emptyAssessments", {}, "No previous assessments were found.")}</p>`;
     }
+
     container.innerHTML = html;
-    document.getElementById("grades-sheet-container").innerHTML = ""; // مسح جدول العلامات القديم
+    const gradesContainer = document.getElementById("grades-sheet-container");
+    if (gradesContainer) gradesContainer.innerHTML = "";
   },
 
-  renderGradesSheet(grades, assessmentId) {
+  renderGradesSheet(gradesData, assessmentId) {
+    const grades = this._toArray(gradesData);
     const container = document.getElementById("grades-sheet-container");
-    const rows = grades.map(g => `
+    if (!container) return;
+
+    if (!grades.length) {
+      container.innerHTML = `<p>${this.t("teacher.grades.emptySheet", {}, "No students are available for this assessment.")}</p>`;
+      return;
+    }
+
+    const rows = grades.map(grade => `
       <tr>
-        <td>${g.student_name}</td>
-        <td><input type="number" step="0.25" class="grade-input" data-student-id="${g.student_id}" value="${g.grade_value !== null ? g.grade_value : ''}" max="${g.max_grade}" /> / ${g.max_grade}</td>
-        <td><input type="text" class="remark-input" data-student-id="${g.student_id}" value="${g.teacher_remarks || ''}" placeholder="ملاحظات..." /></td>
-        <td><button class="save-grade-btn" data-student-id="${g.student_id}" data-assessment-id="${assessmentId}">حفظ</button></td>
+        <td>${this._escape(grade.student_name)}</td>
+        <td>
+          <input type="number" step="0.25" class="grade-input" data-student-id="${this._escapeAttr(grade.student_id)}" value="${this._escapeAttr(grade.grade_value !== null ? grade.grade_value : "")}" max="${this._escapeAttr(grade.max_grade)}" />
+          / ${this._escape(grade.max_grade)}
+        </td>
+        <td><input type="text" class="remark-input" data-student-id="${this._escapeAttr(grade.student_id)}" value="${this._escapeAttr(grade.teacher_remarks || "")}" placeholder="${this._escapeAttr(this.t("teacher.grades.remarksPlaceholder", {}, "Remarks..."))}" /></td>
+        <td><button class="save-grade-btn" data-student-id="${this._escapeAttr(grade.student_id)}" data-assessment-id="${this._escapeAttr(assessmentId)}">${this.t("teacher.common.save", {}, "Save")}</button></td>
       </tr>
     `).join("");
-    
+
     container.innerHTML = `
-      <h3>قائمة رصد العلامات</h3>
-      <table border="1" width="100%" cellpadding="5">
-        <thead><tr style="background:#f2f2f2;"><th>الطالب</th><th>العلامة</th><th>ملاحظات الأستاذ</th><th>إجراء</th></tr></thead>
+      <h3>${this.t("teacher.grades.sheetTitle", {}, "Grade Entry Sheet")}</h3>
+      ${this._table(`
+        <thead>
+          <tr>
+            <th>${this.t("teacher.grades.sheetColumns.student", {}, "Student")}</th>
+            <th>${this.t("teacher.grades.sheetColumns.grade", {}, "Grade")}</th>
+            <th>${this.t("teacher.grades.sheetColumns.remarks", {}, "Teacher remarks")}</th>
+            <th>${this.t("teacher.common.action", {}, "Action")}</th>
+          </tr>
+        </thead>
         <tbody>${rows}</tbody>
-      </table>
+      `)}
     `;
   },
 
-  // 5. الموارد (الملفات)
-  renderResources(assignments) {
-    const options = assignments.map(a => `<option value="${a.assignment_id}">${a.class_name} - ${a.subject_name}</option>`).join("");
-    document.getElementById("teacher-main").innerHTML = `
-      <h2>الموارد التعليمية</h2>
-      <div style="background:#ecf0f1; padding: 10px; margin-bottom:20px;">
-        <h3>رفع ملف جديد للقسم</h3>
+  renderResources(assignmentsData) {
+    const assignments = this._toArray(assignmentsData);
+    const main = document.getElementById("teacher-main");
+
+    if (!assignments.length) {
+      main.innerHTML = this._emptySection(
+        "teacher.resources.emptyTitle",
+        "Educational Resources",
+        "teacher.resources.noAssignments",
+        "No assignments are available for uploading resources."
+      );
+      return;
+    }
+
+    const options = assignments.map(assignment => `
+      <option value="${this._escapeAttr(assignment.assignment_id)}">${this._escape(assignment.class_name)} - ${this._escape(assignment.subject_name)}</option>
+    `).join("");
+
+    main.innerHTML = `
+      <h2>${this.t("teacher.resources.title", {}, "Educational Resources")}</h2>
+      <div class="teacher-panel teacher-resource-panel">
+        <h3>${this.t("teacher.resources.uploadTitle", {}, "Upload a New File for the Class")}</h3>
         <form id="upload-resource-form">
           <select id="resource-assignment-id" required>${options}</select>
-          <input type="text" id="resource-title" placeholder="عنوان الدرس/الملف" required />
-          <select id="resource-type"><option value="document">مستند</option><option value="video">فيديو</option></select>
+          <input type="text" id="resource-title" placeholder="${this._escapeAttr(this.t("teacher.resources.titlePlaceholder", {}, "Lesson/file title"))}" required />
+          <select id="resource-type">
+            <option value="document">${this.t("teacher.resources.types.document", {}, "Document")}</option>
+            <option value="video">${this.t("teacher.resources.types.video", {}, "Video")}</option>
+          </select>
           <input type="file" id="resource-file" required />
-          <button type="submit">رفع المورد</button>
+          <button type="submit">${this.t("teacher.resources.uploadButton", {}, "Upload resource")}</button>
         </form>
       </div>
       <div id="resources-list-container">
-        <p>اختر قسماً لعرض موارده...</p>
+        <p>${this.t("teacher.resources.selectHint", {}, "Choose a class to view its resources...")}</p>
       </div>
     `;
   },
 
   renderNotifications(notificationsData) {
-    const notifications = Array.isArray(notificationsData) ? notificationsData : (notificationsData?.data || []);
+    const notifications = this._toArray(notificationsData);
     const main = document.getElementById("teacher-main");
+    const start = this.start();
+    const end = this.end();
 
-    if (!notifications || notifications.length === 0) {
-      main.innerHTML = "<h2>الإشعارات</h2><p>لا توجد إشعارات جديدة.</p>";
+    if (!notifications.length) {
+      main.innerHTML = this._emptySection(
+        "teacher.notifications.emptyTitle",
+        "Notifications",
+        "teacher.notifications.emptyText",
+        "There are no new notifications."
+      );
       return;
     }
 
-    const unreadCount = notifications.filter(n => !this._isNotificationRead(n)).length;
-    const items = notifications.map(n => {
-      const date = n.created_at ? new Date(n.created_at).toLocaleString("ar-DZ") : "تاريخ غير محدد";
-      const isRead = this._isNotificationRead(n);
-      const notificationId = this._getNotificationId(n);
+    const unreadCount = notifications.filter(notification => !this._isNotificationRead(notification)).length;
+    const items = notifications.map(notification => {
+      const date = notification.created_at
+        ? this.formatDateTime(notification.created_at)
+        : this.t("teacher.common.unknownDate", {}, "Unknown date");
+      const isRead = this._isNotificationRead(notification);
+      const notificationId = this._getNotificationId(notification);
       const action = isRead
-        ? `<span style="color:#16a34a; font-weight:700;">مقروء</span>`
+        ? `<span class="teacher-notification-action is-read">${this.t("teacher.notifications.read", {}, "Read")}</span>`
         : notificationId !== null
-          ? `<button type="button" class="teacher-mark-notification-read" data-notification-id="${this._escape(notificationId)}" style="background:#4f46e5; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">تعيين كمقروء</button>`
-          : `<span style="color:#64748b; font-weight:700;">غير متاح</span>`;
+          ? `<button type="button" class="teacher-mark-notification-read" data-notification-id="${this._escapeAttr(notificationId)}">${this.t("teacher.notifications.markRead", {}, "Mark as read")}</button>`
+          : `<span class="teacher-notification-action">${this.t("teacher.common.unavailable", {}, "Unavailable")}</span>`;
+      const statusLabel = isRead
+        ? this.t("teacher.notifications.read", {}, "Read")
+        : this.t("teacher.notifications.unread", {}, "Unread");
 
       return `
-        <div style="background:#fff; padding:16px 18px; margin-bottom:12px; border-radius:12px; border-right:4px solid ${isRead ? '#94a3b8' : '#4f46e5'}; box-shadow:0 2px 8px rgba(15,23,42,.06); opacity:${isRead ? '.78' : '1'};">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:6px;">
-            <strong style="display:block; color:#0f172a; font-size:1.05rem;">${this._escape(n.title || "إشعار")}</strong>
-            <span style="white-space:nowrap; color:${isRead ? '#16a34a' : '#d97706'}; background:${isRead ? '#dcfce7' : '#fef3c7'}; border:1px solid ${isRead ? '#bbf7d0' : '#fde68a'}; padding:4px 10px; border-radius:999px; font-size:.85rem; font-weight:700;">${isRead ? 'مقروء' : 'غير مقروء'}</span>
+        <article class="teacher-notification-card${isRead ? " is-read" : ""}" style="border-${start}: 4px solid ${isRead ? '#94a3b8' : '#4f46e5'};">
+          <div class="teacher-notification-title-row">
+            <strong>${this._escape(notification.title || this.t("teacher.notifications.defaultTitle", {}, "Notification"))}</strong>
+            <span>${statusLabel}</span>
           </div>
-          <p style="margin:0; color:#334155; line-height:1.7;">${this._escape(n.message || "")}</p>
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:10px; flex-wrap:wrap;">
-            <small style="color:#94a3b8; direction:ltr; text-align:right;">${date}</small>
+          <p>${this._escape(notification.message || "")}</p>
+          <div class="teacher-notification-footer">
+            <small style="direction:ltr; text-align:${end};">${date}</small>
             ${action}
           </div>
-        </div>
+        </article>
       `;
     }).join("");
 
     main.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap;">
+      <div class="teacher-section-topbar">
         <div>
-          <h2 style="margin:0;">الإشعارات</h2>
-          <small style="color:#64748b;">${unreadCount} إشعار غير مقروء</small>
+          <h2>${this.t("teacher.notifications.title", {}, "Incoming Notifications")}</h2>
+          <small>${this.t("teacher.notifications.unreadCount", { count: unreadCount }, `${unreadCount} unread`)}</small>
         </div>
-        ${unreadCount > 0 ? '<button type="button" id="teacher-mark-all-notifications-read" style="background:#0f172a; color:white; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700;">تعيين الكل كمقروء</button>' : ''}
+        ${unreadCount > 0 ? `<button type="button" id="teacher-mark-all-notifications-read">${this.t("teacher.notifications.markAllRead", {}, "Mark all as read")}</button>` : ""}
       </div>
-      <div>${items}</div>
+      <div class="teacher-notification-list">${items}</div>
     `;
   },
 
@@ -267,12 +440,12 @@ const TeacherUI = {
       <section class="teacher-messages-dashboard">
         <div class="teacher-messages-header">
           <div>
-            <h2>المراسلة</h2>
-            <p>تابع محادثاتك أو ابحث عن طالب أو ولي أمر أو مستخدم آخر للتواصل معه.</p>
+            <h2>${this.t("teacher.messages.title", {}, "Messages")}</h2>
+            <p>${this.t("teacher.messages.subtitle", {}, "Follow your conversations or search for another user to contact.")}</p>
           </div>
           <div class="teacher-message-search">
-            <input type="text" id="teacher-message-user-search" placeholder="ابحث باسم المستخدم..." autocomplete="off">
-            <button type="button" id="teacher-message-search-btn">بحث</button>
+            <input type="text" id="teacher-message-user-search" placeholder="${this._escapeAttr(this.t("teacher.messages.searchPlaceholder", {}, "Search by user name..."))}" autocomplete="off">
+            <button type="button" id="teacher-message-search-btn">${this.t("teacher.messages.searchButton", {}, "Search")}</button>
           </div>
         </div>
 
@@ -280,22 +453,22 @@ const TeacherUI = {
 
         <div class="teacher-messages-shell">
           <aside class="teacher-message-contacts">
-            <div class="teacher-message-panel-title">المحادثات</div>
+            <div class="teacher-message-panel-title">${this.t("teacher.messages.conversations", {}, "Conversations")}</div>
             <div id="teacher-message-contacts-list">
               ${this._renderMessageContacts(contacts)}
             </div>
           </aside>
 
           <section class="teacher-chat-panel">
-            <div id="teacher-chat-header" class="teacher-chat-header">اختر محادثة من القائمة أو ابحث عن مستخدم جديد.</div>
+            <div id="teacher-chat-header" class="teacher-chat-header">${this.t("teacher.messages.selectPrompt", {}, "Choose a conversation from the list or search for a new user.")}</div>
             <div id="teacher-chat-messages" class="teacher-chat-messages">
               <div class="teacher-chat-empty">
-                <p>المحادثة ستظهر هنا.</p>
+                <p>${this.t("teacher.messages.emptyConversation", {}, "The conversation will appear here.")}</p>
               </div>
             </div>
             <form id="teacher-message-form" class="teacher-message-form" hidden>
-              <textarea id="teacher-message-input" rows="2" placeholder="اكتب رسالتك..." required></textarea>
-              <button type="submit">إرسال</button>
+              <textarea id="teacher-message-input" rows="2" placeholder="${this._escapeAttr(this.t("teacher.messages.inputPlaceholder", {}, "Write your message..."))}" required></textarea>
+              <button type="submit">${this.t("teacher.common.send", {}, "Send")}</button>
               <small id="teacher-message-status"></small>
             </form>
           </section>
@@ -313,32 +486,31 @@ const TeacherUI = {
 
     if (!results) return;
     if (keyword.length < 2) {
-      results.innerHTML = `<div class="teacher-message-inline-note">اكتب حرفين على الأقل للبحث.</div>`;
+      results.innerHTML = `<div class="teacher-message-inline-note">${this.t("teacher.messages.minSearch", {}, "Type at least two characters to search.")}</div>`;
       return;
     }
 
-    results.innerHTML = `<div class="teacher-message-inline-note">جاري البحث...</div>`;
+    results.innerHTML = `<div class="teacher-message-inline-note">${this.t("teacher.messages.searching", {}, "Searching...")}</div>`;
 
     try {
       const response = await TeacherServices.searchUsers(keyword);
-      const users = (Array.isArray(response) ? response : (response?.data || []))
-        .filter(user => {
-          const userId = Number(user.id ?? user.user_id);
-          return userId && userId !== this._currentUserId;
-        });
+      const users = this._toArray(response).filter(user => {
+        const userId = Number(user.id ?? user.user_id);
+        return userId && userId !== this._currentUserId;
+      });
 
-      if (users.length === 0) {
-        results.innerHTML = `<div class="teacher-message-inline-note">لا توجد نتائج مطابقة.</div>`;
+      if (!users.length) {
+        results.innerHTML = `<div class="teacher-message-inline-note">${this.t("teacher.messages.noResults", {}, "No matching results.")}</div>`;
         return;
       }
 
       results.innerHTML = users.map(user => {
         const userId = Number(user.id ?? user.user_id);
-        const name = user.full_name || user.username || `مستخدم #${userId}`;
-        const role = user.role_name || user.role || user.user_type || "مستخدم";
+        const name = user.full_name || user.username || this.t("teacher.common.userFallback", { id: userId }, `User #${userId}`);
+        const role = this._translateStatus(user.role_name || user.role || user.user_type || this.t("teacher.messages.roleFallback", {}, "User"));
 
         return `
-          <button type="button" class="teacher-message-user-result" data-user-id="${userId}" data-user-name="${this._escape(name)}">
+          <button type="button" class="teacher-message-user-result" data-user-id="${userId}" data-user-name="${this._escapeAttr(name)}">
             <span>${this._escape(name)}</span>
             <small>${this._escape(role)}</small>
           </button>
@@ -352,7 +524,7 @@ const TeacherUI = {
         });
       });
     } catch (err) {
-      results.innerHTML = `<div class="teacher-message-inline-note error">فشل البحث: ${this._escape(err.message)}</div>`;
+      results.innerHTML = `<div class="teacher-message-inline-note error">${this.t("teacher.messages.searchFailed", { message: this._escape(err.message) }, "Search failed.")}</div>`;
     }
   },
 
@@ -365,16 +537,17 @@ const TeacherUI = {
     const status = document.getElementById("teacher-message-status");
 
     if (header) header.textContent = contactName;
-    if (messagesArea) messagesArea.innerHTML = `<div class="teacher-message-inline-note">جاري تحميل المحادثة...</div>`;
+    if (messagesArea) messagesArea.innerHTML = `<div class="teacher-message-inline-note">${this.t("teacher.messages.loadingConversation", {}, "Loading conversation...")}</div>`;
     if (form) form.hidden = false;
     if (status) status.textContent = "";
 
     try {
       const response = await TeacherServices.getConversation(this._currentUserId, contactId);
-      const messages = Array.isArray(response) ? response : (response?.data || []);
-      this.renderMessageConversation(messages);
+      this.renderMessageConversation(this._toArray(response));
     } catch (err) {
-      if (messagesArea) messagesArea.innerHTML = `<div class="teacher-message-inline-note error">تعذر تحميل الرسائل: ${this._escape(err.message)}</div>`;
+      if (messagesArea) {
+        messagesArea.innerHTML = `<div class="teacher-message-inline-note error">${this.t("teacher.messages.loadFailed", { message: this._escape(err.message) }, "Could not load messages.")}</div>`;
+      }
     }
   },
 
@@ -384,20 +557,22 @@ const TeacherUI = {
 
     const ordered = [...(messages || [])].sort((a, b) => new Date(a.created_at || a.timestamp || 0) - new Date(b.created_at || b.timestamp || 0));
 
-    if (ordered.length === 0) {
-      area.innerHTML = `<div class="teacher-chat-empty"><p>لا توجد رسائل بعد.</p></div>`;
+    if (!ordered.length) {
+      area.innerHTML = `<div class="teacher-chat-empty"><p>${this.t("teacher.messages.noMessages", {}, "No messages yet.")}</p></div>`;
       return;
     }
 
-    area.innerHTML = ordered.map(msg => {
-      const isMine = Number(msg.sender_id) === this._currentUserId;
-      const author = isMine ? "أنت" : (msg.sender_name || this._activeMessageContact?.name || "المستخدم");
-      const date = msg.created_at ? new Date(msg.created_at).toLocaleString("ar-DZ") : "";
+    area.innerHTML = ordered.map(message => {
+      const isMine = Number(message.sender_id) === this._currentUserId;
+      const author = isMine
+        ? this.t("teacher.messages.you", {}, "You")
+        : (message.sender_name || this._activeMessageContact?.name || this.t("teacher.messages.roleFallback", {}, "User"));
+      const date = message.created_at ? this.formatDateTime(message.created_at) : "";
 
       return `
         <div class="teacher-message-bubble${isMine ? " mine" : ""}">
           <div class="teacher-message-author">${this._escape(author)}</div>
-          <div>${this._escape(msg.content || "")}</div>
+          <div>${this._escape(message.content || "")}</div>
           <time>${date}</time>
         </div>
       `;
@@ -414,19 +589,19 @@ const TeacherUI = {
     if (!this._activeMessageContact || !content) return;
 
     if (status) {
-      status.textContent = "جاري الإرسال...";
+      status.textContent = this.t("teacher.messages.sending", {}, "Sending...");
       status.className = "";
     }
 
     try {
       await TeacherServices.sendMessage(this._currentUserId, this._activeMessageContact.id, content);
       input.value = "";
-      if (status) status.textContent = "تم الإرسال";
+      if (status) status.textContent = this.t("teacher.messages.sent", {}, "Sent");
       await this.openMessageConversation(this._activeMessageContact.id, this._activeMessageContact.name);
       this.refreshMessageContacts();
     } catch (err) {
       if (status) {
-        status.textContent = "فشل الإرسال: " + err.message;
+        status.textContent = this.t("teacher.messages.sendFailed", { message: err.message }, "Send failed.");
         status.className = "error";
       }
     }
@@ -444,29 +619,29 @@ const TeacherUI = {
         this._bindMessageContactEvents();
       }
     } catch (err) {
-      console.warn("تعذر تحديث صندوق المحادثات:", err);
+      console.warn("Could not refresh teacher message inbox:", err);
     }
   },
 
   renderPosts(postsData) {
-    const posts = Array.isArray(postsData) ? postsData : (postsData?.data || []);
+    const posts = this._toArray(postsData);
     const main = document.getElementById("teacher-main");
     const sortedPosts = [...posts].sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0));
     this._postsCache = sortedPosts;
 
-    if (!sortedPosts || sortedPosts.length === 0) {
+    if (!sortedPosts.length) {
       main.innerHTML = `
         <div class="posts-dashboard student-posts-dashboard teacher-posts-dashboard">
           <div class="posts-header-bar">
             <div>
-              <h3>منشورات الإدارة</h3>
-              <p>الإعلانات والمحتوى المنشور من الإدارة يظهر هنا.</p>
+              <h3>${this.t("teacher.posts.title", {}, "Administration Posts")}</h3>
+              <p>${this.t("teacher.posts.emptySubtitle", {}, "Announcements and content published by administration will appear here.")}</p>
             </div>
           </div>
           <div class="posts-empty">
-            <div class="empty-icon">📭</div>
-            <h4>لا توجد منشورات حالياً</h4>
-            <p>ستظهر منشورات الإدارة هنا عند توفرها.</p>
+            <div class="empty-icon">${this.t("teacher.common.file", {}, "File")}</div>
+            <h4>${this.t("teacher.posts.emptyTitle", {}, "No posts currently")}</h4>
+            <p>${this.t("teacher.posts.emptyText", {}, "Administration posts will appear here when available.")}</p>
           </div>
         </div>
       `;
@@ -474,7 +649,7 @@ const TeacherUI = {
     }
 
     const cards = sortedPosts.map((post, index) => {
-      const title = this._escape(post.title || "منشور بدون عنوان");
+      const title = this._escape(post.title || this.t("teacher.posts.untitled", {}, "Untitled post"));
       const date = this._formatPostDate(post.created_at);
       const snippet = this._extractPostSnippet(post.content ?? "");
       const excerpt = snippet ? this._escape(snippet) : "";
@@ -482,17 +657,17 @@ const TeacherUI = {
       return `
         <article class="student-post-list-card">
           ${post.image
-            ? `<img src="${this._escape(post.image)}" class="student-post-thumb" alt="${title}">`
-            : `<div class="student-post-thumb student-post-thumb-placeholder">📄</div>`}
+            ? `<img src="${this._escapeAttr(post.image)}" class="student-post-thumb" alt="${title}">`
+            : `<div class="student-post-thumb student-post-thumb-placeholder">${this.t("teacher.posts.filePlaceholder", {}, "Document")}</div>`}
           <div class="student-post-summary">
             <div>
-              <div class="student-post-label">من الإدارة</div>
+              <div class="student-post-label">${this.t("teacher.common.fromManagement", {}, "From administration")}</div>
               <h3 class="student-post-list-title">${title}</h3>
-              <p>${excerpt || "اضغط لعرض تفاصيل المنشور."}</p>
+              <p>${excerpt || this.t("teacher.posts.openHint", {}, "Open the post to view its details.")}</p>
             </div>
             <div class="student-post-list-actions">
               <time class="student-post-date">${date}</time>
-              <button type="button" class="student-post-open" data-post-index="${index}">عرض التفاصيل</button>
+              <button type="button" class="student-post-open" data-post-index="${index}">${this.t("teacher.common.openDetails", {}, "View details")}</button>
             </div>
           </div>
         </article>
@@ -503,13 +678,14 @@ const TeacherUI = {
       <div class="posts-dashboard student-posts-dashboard teacher-posts-dashboard">
         <div class="posts-header-bar">
           <div>
-            <h3>منشورات الإدارة</h3>
-            <p>اختر منشوراً من القائمة لعرض التفاصيل الكاملة.</p>
+            <h3>${this.t("teacher.posts.title", {}, "Administration Posts")}</h3>
+            <p>${this.t("teacher.posts.listSubtitle", {}, "Choose a post from the list to view the full details.")}</p>
           </div>
         </div>
         <div class="student-posts-list">${cards}</div>
       </div>
     `;
+
     main.querySelectorAll(".student-post-open").forEach(btn => {
       btn.addEventListener("click", () => this.renderPostDetails(Number(btn.dataset.postIndex)));
     });
@@ -524,25 +700,25 @@ const TeacherUI = {
       return;
     }
 
-    const title = this._escape(post.title || "منشور بدون عنوان");
+    const title = this._escape(post.title || this.t("teacher.posts.untitled", {}, "Untitled post"));
     const date = this._formatPostDate(post.created_at);
     const contentHtml = this._processPostMarkdown(post.content ?? "");
 
     main.innerHTML = `
       <div class="posts-dashboard student-posts-dashboard teacher-posts-dashboard">
         <div class="student-post-detail-topbar">
-          <button type="button" class="btn-secondary" id="teacher-posts-back">← الرجوع للمنشورات</button>
+          <button type="button" class="btn-secondary" id="teacher-posts-back">${this.t("teacher.common.backToPosts", {}, "Back to posts")}</button>
           <time class="student-post-date">${date}</time>
         </div>
         <article class="student-post-card student-post-detail">
-          ${post.image ? `<img src="${this._escape(post.image)}" class="student-post-cover" alt="${title}">` : ""}
+          ${post.image ? `<img src="${this._escapeAttr(post.image)}" class="student-post-cover" alt="${title}">` : ""}
           <div class="student-post-head">
             <div>
-              <div class="student-post-label">من الإدارة</div>
+              <div class="student-post-label">${this.t("teacher.common.fromManagement", {}, "From administration")}</div>
               <h3 class="preview-title">${title}</h3>
             </div>
           </div>
-          <div class="md-body">${contentHtml || '<p class="preview-placeholder">لا يوجد محتوى لهذا المنشور.</p>'}</div>
+          <div class="md-body">${contentHtml || `<p class="preview-placeholder">${this.t("teacher.common.noContent", {}, "This post has no content.")}</p>`}</div>
         </article>
       </div>
     `;
@@ -551,24 +727,6 @@ const TeacherUI = {
     this._typesetMath(main);
   },
 
-  // دوال مساعدة
-  _getNotificationId(notification) {
-    const id = notification?.id ?? notification?.notification_id;
-    return id === undefined || id === null || id === "" ? null : id;
-  },
-
-  _isNotificationRead(notification) {
-    const value = notification?.is_read;
-    return value === true || value === 1 || value === "1" || value === "true";
-  },
-
-  _translate(str) {
-    const map = {
-      assignments: "أقسامي", schedule: "الجدول الزمني", attendance: "الغياب", 
-      grades: "العلامات", resources: "الموارد", posts: "منشورات الإدارة", messages: "المراسلة", notifications: "الإشعارات"
-    };
-    return map[str] || str;
-  },
   _bindMessageEvents() {
     document.getElementById("teacher-message-search-btn")?.addEventListener("click", () => this.searchMessageUsers());
     document.getElementById("teacher-message-user-search")?.addEventListener("keydown", (e) => {
@@ -592,7 +750,7 @@ const TeacherUI = {
   },
 
   _buildMessageContacts(inboxData, userId) {
-    const messages = Array.isArray(inboxData) ? inboxData : (inboxData?.data || []);
+    const messages = this._toArray(inboxData);
     const contacts = new Map();
     const currentUserId = Number(userId);
 
@@ -603,8 +761,8 @@ const TeacherUI = {
       if (!contactId || contactId === currentUserId) return;
 
       const contactName = senderId === currentUserId
-        ? (message.receiver_name || message.receiver_full_name || message.receiver_username || `مستخدم #${contactId}`)
-        : (message.sender_name || message.sender_full_name || message.sender_username || `مستخدم #${contactId}`);
+        ? (message.receiver_name || message.receiver_full_name || message.receiver_username || this.t("teacher.common.userFallback", { id: contactId }, `User #${contactId}`))
+        : (message.sender_name || message.sender_full_name || message.sender_username || this.t("teacher.common.userFallback", { id: contactId }, `User #${contactId}`));
       const createdAt = message.created_at || message.timestamp || "";
       const existing = contacts.get(contactId);
 
@@ -622,15 +780,15 @@ const TeacherUI = {
   },
 
   _renderMessageContacts(contacts) {
-    if (!contacts || contacts.length === 0) {
-      return `<div class="teacher-message-empty-list">لا توجد محادثات بعد.</div>`;
+    if (!contacts || !contacts.length) {
+      return `<div class="teacher-message-empty-list">${this.t("teacher.messages.emptyList", {}, "No conversations yet.")}</div>`;
     }
 
     return contacts.map(contact => {
       const activeClass = Number(contact.id) === this._activeMessageContact?.id ? " active" : "";
 
       return `
-        <button type="button" class="teacher-message-contact${activeClass}" data-contact-id="${contact.id}" data-contact-name="${this._escape(contact.name)}">
+        <button type="button" class="teacher-message-contact${activeClass}" data-contact-id="${contact.id}" data-contact-name="${this._escapeAttr(contact.name)}">
           <span>${this._escape(contact.name)}</span>
           <small>${this._escape(contact.last_message || "...")}</small>
         </button>
@@ -638,34 +796,29 @@ const TeacherUI = {
     }).join("");
   },
 
-  _translateDay(day) {
-    const map = { 'Sunday': 'الأحد', 'Monday': 'الإثنين', 'Tuesday': 'الثلاثاء', 'Wednesday': 'الأربعاء', 'Thursday': 'الخميس', 'Friday': 'الجمعة', 'Saturday': 'السبت' };
-    return map[day] || day;
-  },
   _processPostMarkdown(raw) {
     if (!raw) return "";
 
-    let source = String(raw).replace(
-      /\[تحميل:\s*([^\]|]+?)(?:\|([^\]|]*?))?(?:\|([^\]]*?))?\]\(([^)]+)\)/g,
-      (_, name, type, size, url) => {
-        const safeUrl = this._escape(url.trim());
-        const safeName = this._escape(name.trim());
-        const ext = safeUrl.split(".").pop()?.split("?")[0];
-        const icon = this._getFileIcon(ext);
-        const meta = [type, size].map(part => part?.trim()).filter(Boolean).join(" · ");
+    const downloadWords = ["\\u062a\\u062d\\u0645\\u064a\\u0644", "Download"];
+    const downloadPattern = new RegExp(`\\[(?:${downloadWords.join("|")}):\\s*([^\\]|]+?)(?:\\|([^\\]|]*?))?(?:\\|([^\\]]*?))?\\]\\(([^)]+)\\)`, "g");
+    let source = String(raw).replace(downloadPattern, (_, name, type, size, url) => {
+      const safeUrl = this._escapeAttr(url.trim());
+      const safeName = this._escape(name.trim());
+      const ext = safeUrl.split(".").pop()?.split("?")[0];
+      const icon = this._getFileIcon(ext);
+      const meta = [type, size].map(part => part?.trim()).filter(Boolean).join(" - ");
 
-        return `
-          <a href="${safeUrl}" target="_blank" class="dl-card" rel="noopener noreferrer">
-            <span class="dl-card-icon">${icon}</span>
-            <span class="dl-card-info">
-              <span class="dl-card-name">${safeName}</span>
-              ${meta ? `<span class="dl-card-meta">${this._escape(meta)}</span>` : ""}
-            </span>
-            <span class="dl-card-btn">تحميل</span>
-          </a>
-        `;
-      }
-    );
+      return `
+        <a href="${safeUrl}" target="_blank" class="dl-card" rel="noopener noreferrer">
+          <span class="dl-card-icon">${icon}</span>
+          <span class="dl-card-info">
+            <span class="dl-card-name">${safeName}</span>
+            ${meta ? `<span class="dl-card-meta">${this._escape(meta)}</span>` : ""}
+          </span>
+          <span class="dl-card-btn">${this.t("teacher.common.download", {}, "Download")}</span>
+        </a>
+      `;
+    });
 
     let html = (typeof marked !== "undefined")
       ? marked.parse(source, { gfm: true, breaks: true, tables: true })
@@ -679,6 +832,7 @@ const TeacherUI = {
 
     return html;
   },
+
   _typesetMath(container, attempt = 0) {
     if (!container || typeof MathJax === "undefined") return;
 
@@ -697,17 +851,61 @@ const TeacherUI = {
       setTimeout(() => this._typesetMath(container, attempt + 1), 250);
     }
   },
-  _formatPostDate(value) {
-    if (!value) return "تاريخ غير محدد";
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "تاريخ غير محدد";
 
-    return date.toLocaleDateString("ar-DZ", {
+  _emptySection(titleKey, titleFallback, textKey, textFallback) {
+    return `
+      <h2>${this.t(titleKey, {}, titleFallback)}</h2>
+      <p>${this.t(textKey, {}, textFallback)}</p>
+    `;
+  },
+
+  _table(content) {
+    return `<div class="teacher-table-wrap"><table>${content}</table></div>`;
+  },
+
+  _toArray(value) {
+    return Array.isArray(value) ? value : (value?.data || []);
+  },
+
+  _getNotificationId(notification) {
+    const id = notification?.id ?? notification?.notification_id;
+    return id === undefined || id === null || id === "" ? null : id;
+  },
+
+  _isNotificationRead(notification) {
+    const value = notification?.is_read;
+    return value === true || value === 1 || value === "1" || value === "true";
+  },
+
+  _translate(section) {
+    return this.t(`teacher.nav.${section}`, {}, section);
+  },
+
+  _translateDay(day) {
+    const raw = String(day || "").trim();
+    if (!raw) return this.t("teacher.common.notSpecified", {}, "Not specified");
+    return this.t(`teacher.days.${raw}`, {}, raw);
+  },
+
+  _translateStatus(status) {
+    const raw = String(status || "").trim();
+    if (!raw) return this.t("teacher.common.notSpecified", {}, "Not specified");
+    const normalized = raw.toLowerCase().replace(/\s+/g, "_");
+    return this.t(`teacher.status.${normalized}`, {}, raw);
+  },
+
+  _formatPostDate(value) {
+    if (!value) return this.t("teacher.common.unknownDate", {}, "Unknown date");
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return this.t("teacher.common.unknownDate", {}, "Unknown date");
+
+    return date.toLocaleDateString(this.locale(), {
       year: "numeric",
       month: "long",
       day: "numeric"
     });
   },
+
   _formatTime(value) {
     if (value === null || value === undefined || value === "") return "00:00";
 
@@ -724,6 +922,7 @@ const TeacherUI = {
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
   },
+
   _extractPostSnippet(markdown, length = 140) {
     const text = String(markdown)
       .replace(/```[\s\S]*?```/g, " ")
@@ -735,17 +934,63 @@ const TeacherUI = {
 
     return text.length > length ? `${text.slice(0, length).trim()}...` : text;
   },
+
   _getFileIcon(ext) {
-    const icons = { pdf: "📄", doc: "📝", docx: "📝", xls: "📊", xlsx: "📊", ppt: "📑", pptx: "📑", zip: "🗜️", rar: "🗜️", mp4: "🎬", mp3: "🎵", png: "🖼️", jpg: "🖼️", jpeg: "🖼️" };
-    return icons[ext?.toLowerCase()] || "📎";
+    return ext ? ext.toUpperCase().slice(0, 4) : this.t("teacher.common.file", {}, "File");
   },
+
+  formatDateTime(value) {
+    if (!value) return this.t("teacher.common.unknownDate", {}, "Unknown date");
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value);
+    return date.toLocaleString(this.locale());
+  },
+
+  locale() {
+    return window.I18n ? I18n.get("meta.locale", this.isRtl() ? "ar-DZ" : "en-US") : "ar-DZ";
+  },
+
+  dir() {
+    return window.I18n ? I18n.get("meta.dir", "rtl") : "rtl";
+  },
+
+  isRtl() {
+    return this.dir() === "rtl";
+  },
+
+  start() {
+    return this.isRtl() ? "right" : "left";
+  },
+
+  end() {
+    return this.isRtl() ? "left" : "right";
+  },
+
+  t(key, params = {}, fallback = "") {
+    return window.I18n ? I18n.t(key, params, fallback || key) : (fallback || key);
+  },
+
+  _formatValue(value) {
+    return value === null || value === undefined || value === ""
+      ? this.t("teacher.common.none", {}, "-")
+      : value;
+  },
+
   _escape(value) {
-    return String(value ?? "").replace(/[&<>"']/g, char => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    }[char]));
+    return String(this._formatValue(value))
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  },
+
+  _escapeAttr(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 };

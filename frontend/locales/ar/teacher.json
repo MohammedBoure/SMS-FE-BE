@@ -1,0 +1,222 @@
+{
+  "meta": {
+    "lang": "ar",
+    "dir": "rtl",
+    "locale": "ar-DZ"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "العربية",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    }
+  ],
+  "teacher": {
+    "documentTitle": "لوحة الأستاذ",
+    "brand": {
+      "welcome": "مرحبا، الأستاذ(ة) {name}"
+    },
+    "language": {
+      "label": "اللغة",
+      "select": "اختر اللغة"
+    },
+    "auth": {
+      "logout": "تسجيل خروج"
+    },
+    "nav": {
+      "assignments": "أقسامي",
+      "schedule": "الجدول الزمني",
+      "attendance": "الغياب",
+      "grades": "العلامات",
+      "resources": "الموارد",
+      "posts": "منشورات الإدارة",
+      "messages": "المراسلة",
+      "notifications": "الإشعارات"
+    },
+    "state": {
+      "loading": "جاري جلب البيانات...",
+      "errorPrefix": "خطأ:",
+      "unknownSection": "قسم غير معروف",
+      "teacherProfileMissing": "حسابك غير مسجل كأستاذ في قاعدة البيانات. تواصل مع الإدارة.",
+      "initFailed": "فشل في تهيئة بيانات الأستاذ."
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "غير محدد",
+      "updating": "جاري التحديث...",
+      "unavailable": "غير متاح",
+      "unknownDate": "تاريخ غير محدد",
+      "userFallback": "مستخدم #{id}",
+      "send": "إرسال",
+      "download": "تحميل",
+      "fromManagement": "من الإدارة",
+      "openDetails": "عرض التفاصيل",
+      "backToPosts": "الرجوع للمنشورات",
+      "noContent": "لا يوجد محتوى لهذا المنشور.",
+      "file": "ملف",
+      "save": "حفظ",
+      "action": "إجراء",
+      "create": "إنشاء"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "present": "حاضر",
+      "absent": "غائب",
+      "late": "متأخر",
+      "paid": "مسدد",
+      "completed": "مسدد",
+      "unpaid": "غير مسدد",
+      "partial": "مدفوع جزئيا",
+      "overdue": "متأخر",
+      "read": "مقروء",
+      "unread": "غير مقروء",
+      "student": "طالب",
+      "parent": "ولي",
+      "teacher": "أستاذ",
+      "admin": "مدير",
+      "receptionist": "استقبال",
+      "accountant": "محاسب",
+      "exam": "امتحان",
+      "homework": "واجب"
+    },
+    "days": {
+      "Sunday": "الأحد",
+      "Monday": "الإثنين",
+      "Tuesday": "الثلاثاء",
+      "Wednesday": "الأربعاء",
+      "Thursday": "الخميس",
+      "Friday": "الجمعة",
+      "Saturday": "السبت"
+    },
+    "assignments": {
+      "title": "الأقسام المسندة إليك",
+      "emptyTitle": "أقسامي وموادي",
+      "emptyText": "لم يتم إسناد أي أقسام لك بعد.",
+      "columns": {
+        "classLevel": "القسم (المستوى)",
+        "subject": "المادة"
+      }
+    },
+    "schedule": {
+      "title": "الجدول الأسبوعي",
+      "emptyTitle": "الجدول الزمني",
+      "emptyText": "لا توجد حصص مبرمجة.",
+      "columns": {
+        "day": "اليوم",
+        "time": "التوقيت",
+        "class": "القسم",
+        "subject": "المادة",
+        "room": "القاعة"
+      }
+    },
+    "attendance": {
+      "title": "تسجيل الغياب والحضور",
+      "emptyTitle": "تسجيل الغياب",
+      "noAssignments": "لا توجد أقسام متاحة لتسجيل الحضور.",
+      "classSelect": "القسم",
+      "date": "التاريخ",
+      "loadButton": "جلب قائمة المناداة",
+      "emptyStudents": "لا يوجد طلاب في هذا القسم.",
+      "columns": {
+        "student": "الطالب",
+        "status": "الحالة"
+      }
+    },
+    "grades": {
+      "title": "إدارة العلامات والتقييمات",
+      "emptyTitle": "العلامات والتقييمات",
+      "noAssignments": "لا توجد أقسام متاحة لرصد العلامات.",
+      "assignmentSelect": "القسم والمادة",
+      "loadAssessments": "عرض التقييمات",
+      "createTitle": "إضافة تقييم جديد",
+      "titlePlaceholder": "عنوان التقييم",
+      "maxGradePlaceholder": "العلامة القصوى",
+      "enterGrades": "رصد العلامات",
+      "emptyAssessments": "لا توجد تقييمات سابقة.",
+      "emptySheet": "لا يوجد طلاب متاحون لهذا التقييم.",
+      "remarksPlaceholder": "ملاحظات...",
+      "sheetTitle": "قائمة رصد العلامات",
+      "assessmentsColumns": {
+        "title": "العنوان",
+        "type": "النوع",
+        "maxGrade": "العلامة القصوى"
+      },
+      "sheetColumns": {
+        "student": "الطالب",
+        "grade": "العلامة",
+        "remarks": "ملاحظات الأستاذ"
+      }
+    },
+    "resources": {
+      "title": "الموارد التعليمية",
+      "emptyTitle": "الموارد التعليمية",
+      "noAssignments": "لا توجد أقسام متاحة لرفع الموارد.",
+      "uploadTitle": "رفع ملف جديد للقسم",
+      "titlePlaceholder": "عنوان الدرس/الملف",
+      "types": {
+        "document": "مستند",
+        "video": "فيديو"
+      },
+      "uploadButton": "رفع المورد",
+      "selectHint": "اختر قسما لعرض موارده..."
+    },
+    "notifications": {
+      "emptyTitle": "الإشعارات",
+      "emptyText": "لا توجد إشعارات جديدة.",
+      "title": "الإشعارات الواردة",
+      "unreadCount": "{count} إشعار غير مقروء",
+      "markAllRead": "تعيين الكل كمقروء",
+      "markRead": "تعيين كمقروء",
+      "read": "مقروء",
+      "unread": "غير مقروء",
+      "defaultTitle": "إشعار"
+    },
+    "messages": {
+      "title": "المراسلة",
+      "subtitle": "تابع محادثاتك أو ابحث عن مستخدم آخر للتواصل معه.",
+      "searchPlaceholder": "ابحث باسم المستخدم...",
+      "searchButton": "بحث",
+      "conversations": "المحادثات",
+      "selectPrompt": "اختر محادثة من القائمة أو ابحث عن مستخدم جديد.",
+      "emptyConversation": "المحادثة ستظهر هنا.",
+      "inputPlaceholder": "اكتب رسالتك...",
+      "minSearch": "اكتب حرفين على الأقل للبحث.",
+      "searching": "جاري البحث...",
+      "noResults": "لا توجد نتائج مطابقة.",
+      "searchFailed": "فشل البحث: {message}",
+      "loadingConversation": "جاري تحميل المحادثة...",
+      "loadFailed": "تعذر تحميل الرسائل: {message}",
+      "noMessages": "لا توجد رسائل بعد.",
+      "you": "أنت",
+      "roleFallback": "مستخدم",
+      "sending": "جاري الإرسال...",
+      "sent": "تم الإرسال",
+      "sendFailed": "فشل الإرسال: {message}",
+      "emptyList": "لا توجد محادثات بعد."
+    },
+    "posts": {
+      "title": "منشورات الإدارة",
+      "emptySubtitle": "الإعلانات والمحتوى المنشور من الإدارة يظهر هنا.",
+      "listSubtitle": "اختر منشورا من القائمة لعرض التفاصيل الكاملة.",
+      "emptyTitle": "لا توجد منشورات حاليا",
+      "emptyText": "ستظهر منشورات الإدارة هنا عند توفرها.",
+      "untitled": "منشور بدون عنوان",
+      "openHint": "اضغط لعرض تفاصيل المنشور.",
+      "filePlaceholder": "مستند"
+    },
+    "actions": {
+      "notificationsUpdateFailed": "تعذر تحديث الإشعارات.",
+      "notificationUpdateFailed": "تعذر تحديث الإشعار.",
+      "attendanceSaved": "تم حفظ الحضور.",
+      "assessmentCreated": "تم إنشاء التقييم.",
+      "gradeSaved": "تم رصد العلامة.",
+      "resourceUploaded": "تم رفع الملف."
+    }
+  }
+}

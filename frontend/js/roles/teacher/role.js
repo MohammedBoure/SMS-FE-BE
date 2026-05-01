@@ -4,47 +4,72 @@ const TeacherRole = {
   currentSection: "assignments",
   teacherId: null,
   myAssignments: [],
+  userProfile: null,
 
   async init() {
     if (!Auth.requireAuth("teacher")) return;
+
+    if (window.I18n) {
+      await I18n.init({ scope: "teacher", defaultLang: "ar" });
+    }
+
     const session = Auth.getSession();
 
     try {
-      // 1. جلب بيانات المستخدم الأساسية
-      const teacherUser = await Api.get(`/users/${session.user_id}`);
-      TeacherUI.renderHeader(session, teacherUser);
+      this.userProfile = await Api.get(`/users/${session.user_id}`);
+      TeacherUI.renderHeader(session, this.userProfile);
 
-      // 2. البحث عن رقم الأستاذ (teacher_id) المرتبط برقم المستخدم
-      const teachers = await Api.get('/teachers/');
-      const currentTeacher = teachers.find(t => t.user_id === session.user_id);
+      const response = await Api.get("/teachers/");
+      const teachers = Array.isArray(response) ? response : (response?.data || []);
+      const currentTeacher = teachers.find(teacher => Number(teacher.user_id) === Number(session.user_id));
 
       if (!currentTeacher) {
-        throw new Error("حسابك غير مسجل كأستاذ في قاعدة البيانات. تواصل مع الإدارة.");
+        throw new Error(TeacherUI.t(
+          "teacher.state.teacherProfileMissing",
+          {},
+          "Your account is not registered as a teacher. Please contact administration."
+        ));
       }
-      // حفظ المعرّف الحقيقي للأستاذ
-      this.teacherId = currentTeacher.teacher_id;
 
-      // 3. جلب الأقسام والمواد المسندة لهذا الأستاذ تحديداً
+      this.teacherId = currentTeacher.teacher_id || currentTeacher.id;
       this.myAssignments = await TeacherServices.getMyAssignments(this.teacherId);
 
       this.bindNavEvents();
-      this.loadSection(this.currentSection);
+      this.bindLanguageEvents();
       this.bindDynamicEvents();
-
+      this.loadSection(this.currentSection);
     } catch (err) {
-      console.error(err);
-      TeacherUI.renderError(err.message || "فشل في تهيئة بيانات الأستاذ.");
+      console.error("Teacher initialization failed:", err);
+      TeacherUI.renderError(err.message || TeacherUI.t(
+        "teacher.state.initFailed",
+        {},
+        "Failed to initialize teacher data."
+      ));
     }
   },
 
+  bindLanguageEvents() {
+    if (this._languageEventsBound) return;
+
+    window.addEventListener("i18n:change", (event) => {
+      if (event.detail?.scope && event.detail.scope !== "teacher") return;
+      TeacherUI.renderHeader(Auth.getSession(), this.userProfile);
+      this.loadSection(this.currentSection);
+    });
+
+    this._languageEventsBound = true;
+  },
+
   bindNavEvents() {
+    if (this._navEventsBound) return;
+
     const nav = document.getElementById("teacher-nav");
     nav.addEventListener("click", (e) => {
       const btn = e.target.closest(".nav-btn");
-      if (btn) {
-        this.loadSection(btn.dataset.section);
-      }
+      if (btn) this.loadSection(btn.dataset.section);
     });
+
+    this._navEventsBound = true;
   },
 
   async loadSection(section) {
@@ -57,36 +82,47 @@ const TeacherRole = {
         case "assignments":
           TeacherUI.renderAssignments(this.myAssignments);
           break;
-        case "schedule":
-          // نمرر teacherId الديناميكي الصحيح
+
+        case "schedule": {
           const schedule = await TeacherServices.getMySchedule(this.teacherId);
           TeacherUI.renderSchedule(schedule);
           break;
+        }
+
         case "attendance":
           TeacherUI.renderAttendance(this.myAssignments);
           break;
+
         case "grades":
           TeacherUI.renderGrades(this.myAssignments);
           break;
+
         case "resources":
           TeacherUI.renderResources(this.myAssignments);
           break;
-        case "posts":
+
+        case "posts": {
           const posts = await TeacherServices.getPosts();
           TeacherUI.renderPosts(posts);
           break;
-        case "messages":
+        }
+
+        case "messages": {
           const messageSession = Auth.getSession();
           const inbox = await TeacherServices.getMessagesInbox(messageSession.user_id);
           TeacherUI.renderMessages(inbox, messageSession.user_id);
           break;
-        case "notifications":
+        }
+
+        case "notifications": {
           const session = Auth.getSession();
           const notifications = await TeacherServices.getNotifications(session.user_id);
           TeacherUI.renderNotifications(notifications);
           break;
+        }
+
         default:
-          TeacherUI.renderError("قسم غير معروف");
+          TeacherUI.renderError(TeacherUI.t("teacher.state.unknownSection", {}, "Unknown section"));
       }
     } catch (err) {
       TeacherUI.renderError(err.message);
@@ -94,21 +130,28 @@ const TeacherRole = {
   },
 
   bindDynamicEvents() {
+    if (this._dynamicEventsBound) return;
+
     const main = document.getElementById("teacher-main");
+    if (!main) return;
 
     main.addEventListener("click", async (e) => {
       if (e.target.id === "teacher-mark-all-notifications-read") {
         const session = Auth.getSession();
         const originalText = e.target.textContent;
         e.target.disabled = true;
-        e.target.textContent = "جارٍ التحديث...";
+        e.target.textContent = TeacherUI.t("teacher.common.updating", {}, "Updating...");
         try {
           await TeacherServices.markAllNotificationsAsRead(session.user_id);
           await this.loadSection("notifications");
         } catch (err) {
           e.target.disabled = false;
           e.target.textContent = originalText;
-          alert(err.message || "تعذر تحديث الإشعارات.");
+          alert(err.message || TeacherUI.t(
+            "teacher.actions.notificationsUpdateFailed",
+            {},
+            "Could not update notifications."
+          ));
         }
         return;
       }
@@ -117,14 +160,18 @@ const TeacherRole = {
       if (markNotificationBtn) {
         const originalText = markNotificationBtn.textContent;
         markNotificationBtn.disabled = true;
-        markNotificationBtn.textContent = "جارٍ التحديث...";
+        markNotificationBtn.textContent = TeacherUI.t("teacher.common.updating", {}, "Updating...");
         try {
           await TeacherServices.markNotificationAsRead(markNotificationBtn.dataset.notificationId);
           await this.loadSection("notifications");
         } catch (err) {
           markNotificationBtn.disabled = false;
           markNotificationBtn.textContent = originalText;
-          alert(err.message || "تعذر تحديث الإشعار.");
+          alert(err.message || TeacherUI.t(
+            "teacher.actions.notificationUpdateFailed",
+            {},
+            "Could not update the notification."
+          ));
         }
         return;
       }
@@ -142,11 +189,11 @@ const TeacherRole = {
         const selectElement = document.querySelector(`.attendance-status[data-student-id="${studentId}"]`);
         await TeacherServices.saveAttendance({
           student_id: studentId,
-          class_id: classId ? parseInt(classId) : null,
+          class_id: classId ? parseInt(classId, 10) : null,
           target_date: selectElement.dataset.date,
           status: selectElement.value
         });
-        alert("تم حفظ الحضور!");
+        alert(TeacherUI.t("teacher.actions.attendanceSaved", {}, "Attendance saved."));
       }
 
       if (e.target.id === "load-assessments-btn") {
@@ -161,9 +208,9 @@ const TeacherRole = {
           title: document.getElementById("new-assess-title").value,
           type: document.getElementById("new-assess-type").value,
           max_grade: parseFloat(document.getElementById("new-assess-max").value),
-          assignment_id: parseInt(assignmentId)
+          assignment_id: parseInt(assignmentId, 10)
         });
-        alert("تم الإنشاء!");
+        alert(TeacherUI.t("teacher.actions.assessmentCreated", {}, "Assessment created."));
         document.getElementById("load-assessments-btn").click();
       }
 
@@ -177,12 +224,12 @@ const TeacherRole = {
         const studentId = e.target.dataset.studentId;
         const assessmentId = e.target.dataset.assessmentId;
         await TeacherServices.saveGrade({
-          student_id: parseInt(studentId),
-          assessment_id: parseInt(assessmentId),
+          student_id: parseInt(studentId, 10),
+          assessment_id: parseInt(assessmentId, 10),
           grade_value: parseFloat(document.querySelector(`.grade-input[data-student-id="${studentId}"]`).value),
           teacher_remarks: document.querySelector(`.remark-input[data-student-id="${studentId}"]`).value
         });
-        alert("تم رصد العلامة!");
+        alert(TeacherUI.t("teacher.actions.gradeSaved", {}, "Grade saved."));
       }
     });
 
@@ -196,9 +243,11 @@ const TeacherRole = {
         formData.append("file", document.getElementById("resource-file").files[0]);
 
         await TeacherServices.uploadResource(formData);
-        alert("تم رفع الملف!");
+        alert(TeacherUI.t("teacher.actions.resourceUploaded", {}, "Resource uploaded."));
         e.target.reset();
       }
     });
+
+    this._dynamicEventsBound = true;
   }
 };

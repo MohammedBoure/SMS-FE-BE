@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>لوحة الأستاذ — نظام إدارة المدرسة</title>
+  <title>Teacher Dashboard</title>
   <meta name="theme-color" content="#0f766e" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2" />
-  <link rel="stylesheet" href="../css/teacher.css?v=teacher-messages-1">
-  <link rel="stylesheet" href="../css/posts.css?v=teacher-posts-1">
+  <link rel="stylesheet" href="../css/teacher.css?v=teacher-i18n-1">
+  <link rel="stylesheet" href="../css/posts.css?v=teacher-i18n-1">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
@@ -35,56 +35,11 @@
   <script src="../js/core/api.js"></script>
   <script src="../js/core/auth.js"></script>
   <script src="../js/core/router.js"></script>
-  <script src="../js/roles/teacher/services.js?v=teacher-messages-1"></script>
-  <script src="../js/roles/teacher/ui.js?v=teacher-messages-1"></script>
-  <script src="../js/roles/teacher/role.js?v=teacher-messages-1"></script>
-
+  <script src="../js/core/i18n.js?v=teacher-i18n-1"></script>
+  <script src="../js/roles/teacher/services.js?v=teacher-i18n-1"></script>
+  <script src="../js/roles/teacher/ui.js?v=teacher-i18n-1"></script>
+  <script src="../js/roles/teacher/role.js?v=teacher-i18n-1"></script>
   <script>
-    /* ── Patch: inject nav icons & fix header inline styles ── */
-    const _ICONS = {
-      assignments:   '🏫',
-      schedule:      '🗓',
-      attendance:    '📋',
-      grades:        '🏆',
-      resources:     '📚',
-      posts:         '📰',
-      messages:      '✉',
-      notifications: '🔔',
-    };
-
-    /* Patch renderNav to add icon spans */
-    const _origNav = TeacherUI.renderNav.bind(TeacherUI);
-    TeacherUI.renderNav = function(activeSection) {
-      _origNav(activeSection);
-      document.querySelectorAll('#teacher-nav .nav-btn[data-section]').forEach(btn => {
-        const sec = btn.getAttribute('data-section');
-        if (!btn.querySelector('.nav-icon') && _ICONS[sec]) {
-          const icon = document.createElement('span');
-          icon.className = 'nav-icon';
-          icon.textContent = _ICONS[sec];
-          btn.prepend(icon);
-          /* remove inline margin/padding added by JS */
-          btn.style.cssText = '';
-        }
-      });
-    };
-
-    /* Patch renderHeader to strip inline background/color */
-    const _origHeader = TeacherUI.renderHeader.bind(TeacherUI);
-    TeacherUI.renderHeader = function(session, teacherData) {
-      _origHeader(session, teacherData);
-      const inner = document.querySelector('#teacher-header > div');
-      if (inner) inner.style.cssText = '';
-      const h1 = document.querySelector('#teacher-header h1');
-      if (h1) {
-        /* Wrap name in strong for colour accent */
-        h1.innerHTML = h1.innerHTML.replace(
-          /مرحباً أستاذ\(ة\):\s*(.+)/,
-          'مرحباً، الأستاذ(ة) <strong>$1</strong>'
-        );
-      }
-    };
-
     TeacherRole.init();
   </script>
 </body>
