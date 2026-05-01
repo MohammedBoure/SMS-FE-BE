@@ -1334,6 +1334,38 @@ body[data-theme="dark"] .quote-live-preview {
     border-color: var(--admin-border);
 }
 
+body[data-theme="dark"] .md-body table {
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-border);
+    box-shadow: none;
+}
+
+body[data-theme="dark"] .md-body thead {
+    background: #0f766e;
+    color: #f8fafc;
+}
+
+body[data-theme="dark"] .md-body thead th {
+    border-bottom: 1px solid rgba(255,255,255,.14);
+}
+
+body[data-theme="dark"] .md-body tbody tr:nth-child(odd) {
+    background: #111c2d;
+}
+
+body[data-theme="dark"] .md-body tbody tr:nth-child(even) {
+    background: #0f172a;
+}
+
+body[data-theme="dark"] .md-body tbody tr:hover {
+    background: rgba(45,212,191,.10);
+}
+
+body[data-theme="dark"] .md-body tbody td {
+    color: var(--text-main);
+    border-bottom-color: var(--admin-border);
+}
+
 body[data-theme="dark"] .tbl-section-label,
 body[data-theme="dark"] .tbl-ctrl-row label,
 body[data-theme="dark"] .tbl-col-align > span {
@@ -1352,6 +1384,10 @@ body[data-theme="dark"] .tbl-mini-preview {
 
 body[data-theme="dark"] .tbl-mini-preview tbody tr:nth-child(odd) {
     background: #0f172a;
+}
+
+body[data-theme="dark"] .tbl-mini-preview tbody tr:nth-child(even) {
+    background: var(--admin-surface);
 }
 
 body[data-theme="dark"] .tbl-mini-preview tbody td {
