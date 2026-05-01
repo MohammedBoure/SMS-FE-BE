@@ -18,24 +18,32 @@ const AccountantUI = {
     `).join("");
 
     header.innerHTML = `
-      <div style="background: linear-gradient(135deg, #064e3b 0%, #10b981 100%); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; gap: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); flex-wrap: wrap;">
-        <div>
-          <h1 style="margin: 0; font-size: 1.4rem;">${this.t("accountant.brand.title", {}, "Accounting and Finance Office")}</h1>
-          <small style="opacity: .82;">${this.t("accountant.brand.userId", { id: session.user_id }, `ID: #${session.user_id}`)}</small>
+      <div class="accountant-topbar">
+        <div class="accountant-brand">
+          <div class="accountant-brand-mark" aria-hidden="true">DZD</div>
+          <div>
+            <h1>${this.t("accountant.brand.title", {}, "Accounting and Finance Office")}</h1>
+            <small>${this.t("accountant.brand.userId", { id: session.user_id }, `ID: #${session.user_id}`)}</small>
+          </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-          <label style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; padding: 5px 10px;">
-            <span style="font-size: .86rem;">${this.t("accountant.language.label", {}, "Language")}</span>
-            <select id="accountant-language-select" aria-label="${this._escapeAttr(this.t("accountant.language.select", {}, "Choose language"))}" style="font-family: inherit; border: 0; border-radius: 999px; padding: 4px 8px; background: white; color: #064e3b; cursor: pointer;">
+        <div class="accountant-topbar-actions">
+          <label class="accountant-language-control">
+            <span>${this.t("accountant.language.label", {}, "Language")}</span>
+            <select id="accountant-language-select" aria-label="${this._escapeAttr(this.t("accountant.language.select", {}, "Choose language"))}">
               ${options}
             </select>
           </label>
-          <button id="logout-btn" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); padding: 7px 15px; border-radius: 20px; cursor: pointer; font-family: inherit;">${this.t("accountant.auth.logout", {}, "Log out")}</button>
+          <button type="button" class="accountant-theme-toggle" id="accountant-theme-toggle" aria-pressed="false">
+            <span class="accountant-theme-indicator" aria-hidden="true"></span>
+            <span class="accountant-theme-label">${this.t("accountant.theme.light", {}, "Light")}</span>
+          </button>
+          <button id="logout-btn" class="accountant-logout-btn">${this.t("accountant.auth.logout", {}, "Log out")}</button>
         </div>
       </div>
     `;
 
     document.getElementById("logout-btn")?.addEventListener("click", () => Auth.logout());
+    this.initTheme();
     const languageSelect = document.getElementById("accountant-language-select");
     if (languageSelect && window.I18n) {
       languageSelect.addEventListener("change", async (event) => {
@@ -46,14 +54,50 @@ const AccountantUI = {
     }
   },
 
+  initTheme() {
+    const stored = localStorage.getItem("accountant-theme");
+    const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    this.applyTheme(stored || document.documentElement.dataset.theme || preferred);
+
+    const toggle = document.getElementById("accountant-theme-toggle");
+    if (!toggle || toggle.dataset.bound === "true") return;
+
+    toggle.addEventListener("click", () => {
+      const current = document.body.dataset.theme === "dark" ? "dark" : "light";
+      this.applyTheme(current === "dark" ? "light" : "dark");
+    });
+    toggle.dataset.bound = "true";
+  },
+
+  applyTheme(theme) {
+    const nextTheme = theme === "dark" ? "dark" : "light";
+    document.documentElement.dataset.theme = nextTheme;
+    document.body.dataset.theme = nextTheme;
+    localStorage.setItem("accountant-theme", nextTheme);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
+
+    const toggle = document.getElementById("accountant-theme-toggle");
+    if (!toggle) return;
+
+    const isDark = nextTheme === "dark";
+    toggle.setAttribute("aria-pressed", isDark ? "true" : "false");
+    const label = toggle.querySelector(".accountant-theme-label");
+    if (label) {
+      label.textContent = isDark
+        ? this.t("accountant.theme.dark", {}, "Dark")
+        : this.t("accountant.theme.light", {}, "Light");
+    }
+  },
+
   renderNav(activeSection) {
     const nav = document.getElementById("accountant-nav");
-    nav.style.cssText = "background: white; padding: 10px 5%; display: flex; gap: 10px; border-bottom: 1px solid #e2e8f0; overflow-x: auto;";
+    nav.className = "accountant-nav";
+    nav.style.cssText = "";
 
     nav.innerHTML = this.SECTIONS.map(section => {
       const isActive = activeSection === section;
       return `
-        <button class="nav-btn" data-section="${section}" style="background: ${isActive ? '#dcfce7' : 'transparent'}; color: ${isActive ? '#166534' : '#64748b'}; border: 1px solid ${isActive ? '#22c55e' : 'transparent'}; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-family: inherit;">
+        <button class="nav-btn accountant-nav-btn${isActive ? " is-active" : ""}" data-section="${section}" aria-current="${isActive ? "page" : "false"}">
           ${this._translate(section)}
         </button>
       `;
@@ -78,11 +122,12 @@ const AccountantUI = {
 
     const overlay = document.createElement("div");
     overlay.id = "notification-modal";
+    overlay.className = "accountant-modal-overlay";
     overlay.style.cssText = `position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(4px); direction: ${this.dir()};`;
 
     overlay.innerHTML = `
-      <div style="background: white; width: 90%; max-width: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
-        <div style="background: #eab308; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+      <div class="accountant-modal-dialog accountant-notification-dialog" style="background: white; width: 90%; max-width: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+        <div class="accountant-modal-header accountant-modal-header-warning" style="background: #eab308; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
           <h3 style="margin: 0;">${this.t("accountant.notificationModal.title", { name: this._escape(userName) }, "Send notification")}</h3>
           <button id="close-notif-modal" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">&times;</button>
         </div>

@@ -71,9 +71,11 @@ AccountantUI.showStudentFinanceModal = function(student, fees, payments) {
 
   const overlay = document.createElement("div");
   overlay.id = "finance-modal";
+  overlay.className = "accountant-modal-overlay";
   overlay.style.cssText = `position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(4px); direction: ${this.dir()};`;
 
   const dialog = document.createElement("div");
+  dialog.className = "accountant-modal-dialog finance-modal-dialog";
   dialog.style.cssText = "background: white; width: 95%; max-width: 900px; max-height: 90vh; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);";
 
   const feesHtml = safeFees.length === 0
@@ -107,7 +109,7 @@ AccountantUI.showStudentFinanceModal = function(student, fees, payments) {
     `;
 
   dialog.innerHTML = `
-    <div style="background: #064e3b; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+    <div class="accountant-modal-header" style="background: #064e3b; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
       <h3 style="margin: 0;">${this.t("accountant.financeModal.title", { name: this._escape(name) }, `Financial file: ${this._escape(name)}`)}</h3>
       <button id="close-finance-modal" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">&times;</button>
     </div>

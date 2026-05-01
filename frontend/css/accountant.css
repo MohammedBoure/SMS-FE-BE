@@ -307,3 +307,612 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Accountant shell theme */
+body,
+:root {
+  --acc-bg: #f5f7fb;
+  --acc-surface: #ffffff;
+  --acc-surface-soft: #f8fafc;
+  --acc-surface-raised: #ffffff;
+  --acc-border: #dbe4ee;
+  --acc-border-strong: #cbd5e1;
+  --acc-text: #102033;
+  --acc-muted: #667085;
+  --acc-faint: #94a3b8;
+  --acc-primary: #0f766e;
+  --acc-primary-strong: #115e59;
+  --acc-primary-soft: #ecfdf5;
+  --acc-success-soft: #dcfce7;
+  --acc-success-text: #166534;
+  --acc-danger-soft: #fef2f2;
+  --acc-danger-text: #991b1b;
+  --acc-warning-soft: #fffbeb;
+  --acc-warning-text: #b45309;
+  --acc-info-soft: #eff6ff;
+  --acc-info-text: #1d4ed8;
+  --acc-shadow: 0 14px 36px rgba(16, 32, 51, .10);
+  --acc-shadow-soft: 0 8px 22px rgba(16, 32, 51, .07);
+  font-family: "Cairo", "Segoe UI", Tahoma, sans-serif;
+}
+
+body[data-theme="dark"],
+:root[data-theme="dark"] {
+  --acc-bg: #0b1220;
+  --acc-surface: #111827;
+  --acc-surface-soft: #172033;
+  --acc-surface-raised: #151f31;
+  --acc-border: #2a384c;
+  --acc-border-strong: #3a4b63;
+  --acc-text: #e5eefb;
+  --acc-muted: #a6b3c5;
+  --acc-faint: #7d8ba1;
+  --acc-primary: #2dd4bf;
+  --acc-primary-strong: #5eead4;
+  --acc-primary-soft: rgba(45, 212, 191, .12);
+  --acc-success-soft: rgba(74, 222, 128, .14);
+  --acc-success-text: #bbf7d0;
+  --acc-danger-soft: rgba(251, 113, 133, .14);
+  --acc-danger-text: #fecdd3;
+  --acc-warning-soft: rgba(251, 191, 36, .14);
+  --acc-warning-text: #fde68a;
+  --acc-info-soft: rgba(96, 165, 250, .14);
+  --acc-info-text: #bfdbfe;
+  --acc-shadow: 0 18px 46px rgba(0, 0, 0, .38);
+  --acc-shadow-soft: 0 10px 28px rgba(0, 0, 0, .26);
+}
+
+body.accountant-shell {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--acc-bg) !important;
+  color: var(--acc-text);
+}
+
+#accountant-app {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 8% -10%, color-mix(in srgb, var(--acc-primary) 12%, transparent), transparent 32rem),
+    var(--acc-bg);
+}
+
+.accountant-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 5%;
+  color: #ffffff;
+  background:
+    linear-gradient(135deg, rgba(6, 78, 59, .98), rgba(15, 118, 110, .94)),
+    #0f766e;
+  box-shadow: var(--acc-shadow);
+  flex-wrap: wrap;
+}
+
+body[data-theme="dark"] .accountant-topbar {
+  background:
+    linear-gradient(135deg, rgba(4, 47, 46, .98), rgba(13, 95, 88, .92)),
+    #042f2e;
+}
+
+.accountant-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.accountant-brand-mark {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .04em;
+  background: rgba(255, 255, 255, .16);
+  border: 1px solid rgba(255, 255, 255, .28);
+  color: #ffffff;
+  flex: 0 0 auto;
+}
+
+.accountant-brand h1 {
+  margin: 0;
+  font-size: clamp(1.08rem, 2vw, 1.42rem);
+  line-height: 1.25;
+}
+
+.accountant-brand small {
+  display: block;
+  margin-top: 3px;
+  color: rgba(255, 255, 255, .78);
+}
+
+.accountant-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.accountant-language-control,
+.accountant-theme-toggle,
+.accountant-logout-btn {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .34);
+  background: rgba(255, 255, 255, .14);
+  color: #ffffff;
+  padding: 6px 12px;
+  font: inherit;
+  font-weight: 700;
+}
+
+.accountant-language-control span,
+.accountant-theme-label {
+  font-size: .86rem;
+}
+
+.accountant-language-control select {
+  border: 0;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: #ffffff;
+  color: #064e3b;
+  font: inherit;
+  cursor: pointer;
+}
+
+.accountant-theme-toggle,
+.accountant-logout-btn {
+  cursor: pointer;
+}
+
+.accountant-theme-toggle:hover,
+.accountant-logout-btn:hover {
+  background: rgba(255, 255, 255, .22);
+}
+
+.accountant-theme-indicator {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  box-shadow: inset -5px -2px 0 rgba(255, 255, 255, .55);
+}
+
+body[data-theme="dark"] .accountant-theme-indicator {
+  box-shadow: inset 5px -2px 0 rgba(255, 255, 255, .78);
+}
+
+.accountant-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  gap: 8px;
+  padding: 10px 5%;
+  overflow-x: auto;
+  background: color-mix(in srgb, var(--acc-surface) 94%, transparent);
+  border-bottom: 1px solid var(--acc-border);
+  box-shadow: 0 1px 0 rgba(16, 32, 51, .04);
+  backdrop-filter: blur(14px);
+}
+
+.accountant-nav-btn {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--acc-muted);
+  padding: 9px 15px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .18s ease, color .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.accountant-nav-btn:hover {
+  background: var(--acc-primary-soft);
+  color: var(--acc-primary-strong);
+}
+
+.accountant-nav-btn.is-active {
+  background: var(--acc-primary-soft);
+  color: var(--acc-primary-strong);
+  border-color: color-mix(in srgb, var(--acc-primary) 38%, transparent);
+}
+
+#accountant-main {
+  flex: 1;
+  color: var(--acc-text);
+}
+
+#accountant-main h2,
+#accountant-main h3,
+#accountant-main h4,
+#accountant-main strong {
+  color: var(--acc-text);
+}
+
+#accountant-main h2 {
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+}
+
+#accountant-main p,
+#accountant-main small {
+  color: var(--acc-muted);
+}
+
+#accountant-main input,
+#accountant-main select,
+#accountant-main textarea,
+.accountant-message-search input,
+.accountant-message-form textarea {
+  background: var(--acc-surface) !important;
+  color: var(--acc-text) !important;
+  border-color: var(--acc-border) !important;
+}
+
+#accountant-main input::placeholder,
+#accountant-main textarea::placeholder {
+  color: var(--acc-faint);
+}
+
+#accountant-main input:focus,
+#accountant-main select:focus,
+#accountant-main textarea:focus {
+  border-color: var(--acc-primary) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--acc-primary) 18%, transparent) !important;
+}
+
+#accountant-main [style*="background: white"],
+#accountant-main [style*="background:white"],
+#accountant-main [style*="background: #fff"],
+#accountant-main [style*="background:#fff"],
+#accountant-main [style*="background: #ffffff"],
+#accountant-main [style*="background:#ffffff"],
+.accountant-messages-header,
+.accountant-message-user-result,
+.accountant-message-contacts,
+.accountant-chat-panel,
+.accountant-message-inline-note {
+  background: var(--acc-surface) !important;
+  color: var(--acc-text) !important;
+  border-color: var(--acc-border) !important;
+  box-shadow: var(--acc-shadow-soft) !important;
+}
+
+#accountant-main [style*="background: #f8fafc"],
+#accountant-main [style*="background:#f8fafc"],
+#accountant-main [style*="background: #f1f5f9"],
+#accountant-main [style*="background:#f1f5f9"],
+#accountant-main thead,
+.accountant-message-panel-title,
+.accountant-chat-header,
+.accountant-chat-messages,
+.accountant-message-form {
+  background: var(--acc-surface-soft) !important;
+  color: var(--acc-text) !important;
+  border-color: var(--acc-border) !important;
+}
+
+#accountant-main [style*="background: #fef2f2"],
+#accountant-main [style*="background:#fef2f2"],
+.accountant-message-inline-note.error {
+  background: var(--acc-danger-soft) !important;
+  color: var(--acc-danger-text) !important;
+  border-color: color-mix(in srgb, var(--acc-danger-text) 30%, transparent) !important;
+}
+
+#accountant-main [style*="background: #dcfce7"],
+#accountant-main [style*="background:#dcfce7"],
+#accountant-main [style*="background: #f0fdf4"],
+#accountant-main [style*="background:#f0fdf4"],
+#accountant-main [style*="background: #ecfdf5"],
+#accountant-main [style*="background:#ecfdf5"] {
+  background: var(--acc-success-soft) !important;
+  color: var(--acc-success-text) !important;
+  border-color: color-mix(in srgb, var(--acc-success-text) 28%, transparent) !important;
+}
+
+#accountant-main [style*="background: #fee2e2"],
+#accountant-main [style*="background:#fee2e2"] {
+  background: var(--acc-danger-soft) !important;
+  color: var(--acc-danger-text) !important;
+}
+
+#accountant-main [style*="background: #fef3c7"],
+#accountant-main [style*="background:#fef3c7"],
+#accountant-main [style*="background: #fffbeb"],
+#accountant-main [style*="background:#fffbeb"] {
+  background: var(--acc-warning-soft) !important;
+  color: var(--acc-warning-text) !important;
+}
+
+#accountant-main [style*="color: #064e3b"],
+#accountant-main [style*="color:#064e3b"],
+#accountant-main [style*="color: #065f46"],
+#accountant-main [style*="color:#065f46"],
+#accountant-main [style*="color: #10b981"],
+#accountant-main [style*="color:#10b981"],
+#accountant-main [style*="color: #166534"],
+#accountant-main [style*="color:#166534"] {
+  color: var(--acc-primary-strong) !important;
+}
+
+#accountant-main [style*="color: #0f172a"],
+#accountant-main [style*="color:#0f172a"],
+#accountant-main [style*="color: #1e293b"],
+#accountant-main [style*="color:#1e293b"],
+#accountant-main [style*="color: #334155"],
+#accountant-main [style*="color:#334155"],
+#accountant-main [style*="color: #475569"],
+#accountant-main [style*="color:#475569"] {
+  color: var(--acc-text) !important;
+}
+
+#accountant-main [style*="color: #64748b"],
+#accountant-main [style*="color:#64748b"],
+#accountant-main [style*="color: #94a3b8"],
+#accountant-main [style*="color:#94a3b8"] {
+  color: var(--acc-muted) !important;
+}
+
+#accountant-main [style*="color: #991b1b"],
+#accountant-main [style*="color:#991b1b"],
+#accountant-main [style*="color: #dc2626"],
+#accountant-main [style*="color:#dc2626"],
+#accountant-main [style*="color: #ef4444"],
+#accountant-main [style*="color:#ef4444"] {
+  color: var(--acc-danger-text) !important;
+}
+
+#accountant-main [style*="color: #d97706"],
+#accountant-main [style*="color:#d97706"],
+#accountant-main [style*="color: #b45309"],
+#accountant-main [style*="color:#b45309"] {
+  color: var(--acc-warning-text) !important;
+}
+
+#accountant-main table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  background: var(--acc-surface) !important;
+  color: var(--acc-text) !important;
+}
+
+#accountant-main thead,
+#accountant-main thead tr,
+#accountant-main th {
+  background: var(--acc-surface-soft) !important;
+  color: var(--acc-text) !important;
+  border-color: var(--acc-border) !important;
+}
+
+#accountant-main td,
+#accountant-main tr {
+  border-color: var(--acc-border) !important;
+}
+
+#accountant-main tbody tr:hover,
+.attendance-student-row:hover,
+.user-search-row:hover {
+  background: var(--acc-primary-soft) !important;
+}
+
+#accountant-main button:not(.nav-btn):not(.accountant-theme-toggle):not(.accountant-logout-btn),
+.accountant-message-search button,
+.accountant-message-form button {
+  border-radius: 8px !important;
+  font-weight: 800;
+}
+
+#accountant-main button[style*="background: #064e3b"],
+#accountant-main button[style*="background:#064e3b"],
+#accountant-main button[style*="background: #10b981"],
+#accountant-main button[style*="background:#10b981"],
+.accountant-message-search button,
+.accountant-message-form button {
+  background: linear-gradient(135deg, var(--acc-primary-strong), var(--acc-primary)) !important;
+  color: #ffffff !important;
+  box-shadow: 0 7px 16px color-mix(in srgb, var(--acc-primary) 24%, transparent) !important;
+}
+
+body[data-theme="dark"] #accountant-main button[style*="background: #064e3b"],
+body[data-theme="dark"] #accountant-main button[style*="background:#064e3b"],
+body[data-theme="dark"] #accountant-main button[style*="background: #10b981"],
+body[data-theme="dark"] #accountant-main button[style*="background:#10b981"],
+body[data-theme="dark"] .accountant-message-search button,
+body[data-theme="dark"] .accountant-message-form button {
+  color: #042f2e !important;
+}
+
+#accountant-main button[style*="background: #eab308"],
+#accountant-main button[style*="background:#eab308"] {
+  background: #d97706 !important;
+  color: #ffffff !important;
+}
+
+#accountant-main button[style*="background: #0f172a"],
+#accountant-main button[style*="background:#0f172a"] {
+  background: var(--acc-surface-soft) !important;
+  color: var(--acc-text) !important;
+  border: 1px solid var(--acc-border) !important;
+}
+
+.accountant-messages-dashboard {
+  color: var(--acc-text);
+}
+
+.accountant-messages-header,
+.accountant-message-contacts,
+.accountant-chat-panel {
+  border-radius: 12px;
+}
+
+.accountant-messages-header h2 {
+  color: var(--acc-primary-strong);
+}
+
+.accountant-message-contact {
+  color: var(--acc-text);
+  border-bottom-color: var(--acc-border);
+}
+
+.accountant-message-contact:hover,
+.accountant-message-contact.active {
+  background: var(--acc-primary-soft);
+}
+
+.accountant-message-contact span {
+  color: var(--acc-text);
+}
+
+.accountant-message-contact small,
+.accountant-message-user-result small {
+  color: var(--acc-muted);
+}
+
+.accountant-message-bubble {
+  background: var(--acc-info-soft);
+  color: var(--acc-info-text);
+  border-color: color-mix(in srgb, var(--acc-info-text) 28%, transparent);
+}
+
+.accountant-message-bubble.mine {
+  background: var(--acc-success-soft);
+  color: var(--acc-success-text);
+  border-color: color-mix(in srgb, var(--acc-success-text) 28%, transparent);
+}
+
+.accountant-modal-overlay {
+  background: rgba(15, 23, 42, .66) !important;
+  padding: 18px;
+}
+
+.accountant-modal-dialog,
+#notification-modal > div,
+#finance-modal > div {
+  background: var(--acc-surface) !important;
+  color: var(--acc-text) !important;
+  border: 1px solid var(--acc-border);
+  box-shadow: var(--acc-shadow) !important;
+}
+
+.accountant-modal-header {
+  background: linear-gradient(135deg, var(--acc-primary-strong), var(--acc-primary)) !important;
+  color: #ffffff !important;
+}
+
+.accountant-modal-header-warning {
+  background: linear-gradient(135deg, #b45309, #eab308) !important;
+}
+
+#notification-modal form,
+#finance-modal form {
+  color: var(--acc-text);
+}
+
+#notification-modal label,
+#finance-modal label {
+  color: var(--acc-muted) !important;
+}
+
+#notification-modal input,
+#notification-modal textarea,
+#finance-modal input,
+#finance-modal textarea,
+#finance-modal select {
+  background: var(--acc-surface-raised) !important;
+  color: var(--acc-text) !important;
+  border-color: var(--acc-border) !important;
+}
+
+#notification-modal [style*="background: #e2e8f0"],
+#notification-modal [style*="background:#e2e8f0"] {
+  background: var(--acc-surface-soft) !important;
+  color: var(--acc-text) !important;
+  border: 1px solid var(--acc-border) !important;
+}
+
+@media (max-width: 900px) {
+  #accountant-main [style*="grid-template-columns: 1fr 2fr"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .accountant-topbar {
+    padding: 16px;
+    align-items: stretch;
+  }
+
+  .accountant-brand,
+  .accountant-topbar-actions {
+    width: 100%;
+  }
+
+  .accountant-topbar-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .accountant-language-control,
+  .accountant-theme-toggle,
+  .accountant-logout-btn {
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .accountant-nav {
+    padding: 10px 14px;
+  }
+
+  #accountant-main {
+    padding-inline: 14px !important;
+  }
+
+  #accountant-main > h2 {
+    margin-top: 0;
+  }
+
+  #accountant-main table {
+    min-width: 620px;
+  }
+
+  #accountant-main [style*="display: flex"][style*="gap: 10px"] {
+    flex-direction: column;
+  }
+
+  #accountant-main [style*="min-width: 220px"],
+  #accountant-main [style*="min-width: 150px"] {
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  #accountant-main button {
+    min-height: 40px;
+  }
+
+  .accountant-modal-overlay {
+    padding: 10px;
+    align-items: stretch !important;
+  }
+
+  .accountant-modal-dialog,
+  #notification-modal > div,
+  #finance-modal > div {
+    width: 100% !important;
+    max-width: none !important;
+    max-height: calc(100dvh - 20px) !important;
+    border-radius: 12px !important;
+  }
+}
