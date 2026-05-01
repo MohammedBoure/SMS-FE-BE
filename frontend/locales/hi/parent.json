@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "lang": "hi",
+    "dir": "ltr",
+    "name": "हिन्दी",
+    "locale": "hi-IN"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "अरबी",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "अंग्रेज़ी",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "फ़्रेंच",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "चीनी",
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "स्पेनिश",
+      "dir": "ltr"
+    },
+    {
+      "code": "hi",
+      "label": "हिन्दी",
+      "dir": "ltr"
+    }
+  ],
+  "parent": {
+    "documentTitle": "अभिभावक डैशबोर्ड",
+    "brand": {
+      "welcome": "स्वागत है: {name}"
+    },
+    "language": {
+      "label": "भाषा",
+      "select": "भाषा चुनें"
+    },
+    "auth": {
+      "logout": "लॉग आउट"
+    },
+    "nav": {
+      "children": "मेरे बच्चे",
+      "grades": "अंक",
+      "attendance": "उपस्थिति",
+      "fees": "वित्त",
+      "posts": "प्रशासनिक पोस्ट",
+      "messages": "संदेश",
+      "notifications": "सूचनाएँ"
+    },
+    "state": {
+      "loading": "डेटा लोड हो रहा है...",
+      "errorPrefix": "त्रुटि:",
+      "unknownSection": "अज्ञात अनुभाग",
+      "parentProfileMissing": "आपका खाता डेटाबेस में अभिभावक के रूप में पंजीकृत नहीं है। कृपया प्रशासन से संपर्क करें।",
+      "initFailed": "अभिभावक डेटा आरंभ करना विफल।"
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "निर्दिष्ट नहीं",
+      "updating": "अपडेट हो रहा है...",
+      "unavailable": "उपलब्ध नहीं",
+      "unknownDate": "अज्ञात तारीख",
+      "userFallback": "उपयोगकर्ता #{id}",
+      "send": "भेजें",
+      "search": "खोजें",
+      "download": "डाउनलोड",
+      "fromManagement": "प्रशासन से",
+      "openDetails": "विवरण देखें",
+      "backToPosts": "पोस्ट पर वापस",
+      "noContent": "इस पोस्ट में कोई सामग्री नहीं है।",
+      "file": "फ़ाइल"
+    },
+    "status": {
+      "active": "सक्रिय",
+      "inactive": "निष्क्रिय",
+      "present": "उपस्थित",
+      "absent": "अनुपस्थित",
+      "late": "देर से",
+      "paid": "भुगतान किया गया",
+      "completed": "भुगतान किया गया",
+      "unpaid": "अवैतनिक",
+      "partial": "आंशिक भुगतान",
+      "overdue": "अतिदेय",
+      "read": "पढ़ा गया",
+      "unread": "अपठित",
+      "student": "विद्यार्थी",
+      "parent": "अभिभावक",
+      "teacher": "शिक्षक",
+      "admin": "प्रशासक",
+      "receptionist": "रिसेप्शनिस्ट",
+      "accountant": "लेखाकार",
+      "exam": "परीक्षा",
+      "homework": "गृहकार्य"
+    },
+    "children": {
+      "title": "मेरे पंजीकृत बच्चे",
+      "emptyTitle": "मेरे बच्चे",
+      "emptyText": "आपके खाते से वर्तमान में कोई बच्चा जुड़ा नहीं है। कृपया प्रशासन से संपर्क करें।",
+      "columns": {
+        "name": "नाम",
+        "classLevel": "कक्षा (स्तर)",
+        "birthDate": "जन्म तिथि",
+        "status": "स्थिति"
+      }
+    },
+    "grades": {
+      "title": "अंक और मूल्यांकन",
+      "emptyTitle": "अंक और मूल्यांकन",
+      "emptyText": "अभी कोई अंक दर्ज नहीं हुए हैं।",
+      "columns": {
+        "child": "बच्चा",
+        "subject": "विषय",
+        "assessment": "मूल्यांकन",
+        "grade": "अंक",
+        "teacher": "शिक्षक"
+      }
+    },
+    "attendance": {
+      "title": "अनुपस्थिति और देरी रिकॉर्ड",
+      "emptyTitle": "अनुपस्थिति रिकॉर्ड",
+      "emptyText": "आपके बच्चों का रिकॉर्ड साफ़ है। कोई अनुपस्थिति नहीं मिली।",
+      "columns": {
+        "child": "बच्चा",
+        "date": "तारीख",
+        "status": "स्थिति",
+        "justified": "न्यायोचित?"
+      },
+      "justifiedYes": "हाँ ({reason})",
+      "justifiedNo": "नहीं"
+    },
+    "fees": {
+      "title": "वित्तीय दावे और शुल्क",
+      "emptyTitle": "वित्तीय स्थिति",
+      "emptyText": "खाता निपटा हुआ है। कोई देय ऋण नहीं मिला।",
+      "columns": {
+        "child": "बच्चा",
+        "feeType": "शुल्क प्रकार",
+        "amount": "राशि",
+        "dueDate": "देय तारीख",
+        "status": "स्थिति"
+      }
+    },
+    "notifications": {
+      "emptyTitle": "सूचनाएँ और अलर्ट",
+      "emptyText": "सूचना इनबॉक्स खाली है।",
+      "title": "Incoming सूचनाएँ",
+      "unreadCount": "{count} अपठित सूचना(एँ)",
+      "markAllRead": "सबको पढ़ा हुआ चिह्नित करें",
+      "markRead": "पढ़ा हुआ चिह्नित करें",
+      "read": "पढ़ा गया",
+      "unread": "अपठित",
+      "defaultTitle": "सूचना"
+    },
+    "messages": {
+      "title": "संदेश",
+      "subtitle": "अपनी बातचीत देखें या संपर्क के लिए नया उपयोगकर्ता खोजें।",
+      "searchPlaceholder": "उपयोगकर्ता नाम से खोजें...",
+      "searchButton": "खोजें",
+      "conversations": "वार्तालाप",
+      "selectPrompt": "सूची से वार्तालाप चुनें या नया उपयोगकर्ता खोजें।",
+      "emptyConversation": "वार्तालाप यहाँ दिखाई देगा।",
+      "inputPlaceholder": "अपना संदेश लिखें...",
+      "minSearch": "खोजने के लिए कम से कम दो अक्षर लिखें।",
+      "searching": "खोज जारी है...",
+      "noResults": "कोई मेल खाता परिणाम नहीं।",
+      "searchFailed": "खोज विफल: {message}",
+      "loadingConversation": "वार्तालाप लोड हो रहा है...",
+      "loadFailed": "संदेश लोड नहीं हो सके: {message}",
+      "noMessages": "अभी कोई संदेश नहीं।",
+      "you": "आप",
+      "roleFallback": "उपयोगकर्ता",
+      "sending": "भेजा जा रहा है...",
+      "sent": "भेजा गया",
+      "sendFailed": "भेजना विफल: {message}",
+      "emptyList": "अभी कोई वार्तालाप नहीं।"
+    },
+    "posts": {
+      "title": "प्रशासनिक पोस्ट",
+      "emptySubtitle": "प्रशासन द्वारा प्रकाशित घोषणाएँ और सामग्री यहाँ दिखाई देंगी।",
+      "listSubtitle": "पूरा विवरण देखने के लिए सूची से पोस्ट चुनें।",
+      "emptyTitle": "वर्तमान में कोई पोस्ट नहीं",
+      "emptyText": "उपलब्ध होने पर प्रशासनिक पोस्ट यहाँ दिखाई देंगे।",
+      "untitled": "शीर्षकहीन पोस्ट",
+      "openHint": "विवरण देखने के लिए पोस्ट खोलें।",
+      "filePlaceholder": "दस्तावेज़"
+    },
+    "actions": {
+      "notificationsUpdateFailed": "सूचनाएँ अपडेट नहीं हो सकीं।",
+      "notificationUpdateFailed": "सूचना अपडेट नहीं हो सकी।"
+    },
+    "currency": {
+      "dzd": "DZD"
+    }
+  }
+}

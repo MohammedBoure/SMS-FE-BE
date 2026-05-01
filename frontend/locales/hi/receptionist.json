@@ -1,0 +1,340 @@
+{
+  "meta": {
+    "lang": "hi",
+    "dir": "ltr",
+    "name": "हिन्दी",
+    "locale": "hi-IN"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "अरबी",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "अंग्रेज़ी",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "फ़्रेंच",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "चीनी",
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "स्पेनिश",
+      "dir": "ltr"
+    },
+    {
+      "code": "hi",
+      "label": "हिन्दी",
+      "dir": "ltr"
+    }
+  ],
+  "receptionist": {
+    "documentTitle": "रिसेप्शन डैशबोर्ड",
+    "brand": {
+      "title": "रिसेप्शन कार्यालय",
+      "welcome": "स्वागत है: {name}"
+    },
+    "language": {
+      "label": "भाषा",
+      "select": "भाषा चुनें"
+    },
+    "auth": {
+      "logout": "लॉग आउट"
+    },
+    "nav": {
+      "students": "विद्यार्थी",
+      "parents": "अभिभावक",
+      "search": "वैश्विक खोज",
+      "finance": "वित्त",
+      "posts": "पोस्ट",
+      "messages": "संदेश",
+      "notifications": "सूचनाएँ"
+    },
+    "state": {
+      "loading": "लोड हो रहा है...",
+      "errorPrefix": "त्रुटि:",
+      "initFailed": "रिसेप्शन डेटा आरंभ करना विफल।",
+      "unknownSection": "अज्ञात अनुभाग"
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "निर्दिष्ट नहीं",
+      "unavailable": "उपलब्ध नहीं",
+      "unknownDate": "अज्ञात तारीख",
+      "updating": "अपडेट हो रहा है...",
+      "loading": "लोड हो रहा है...",
+      "saving": "सहेजा जा रहा है...",
+      "actions": "कार्रवाइयाँ",
+      "id": "ID",
+      "fullName": "पूरा नाम",
+      "username": "उपयोगकर्ता नाम",
+      "email": "ईमेल",
+      "phone": "फ़ोन नंबर",
+      "address": "पता",
+      "status": "स्थिति",
+      "class": "कक्षा",
+      "parent": "अभिभावक",
+      "date": "तारीख",
+      "amount": "राशि",
+      "type": "प्रकार",
+      "cancel": "रद्द करें",
+      "saveChanges": "बदलाव सहेजें",
+      "send": "भेजें",
+      "search": "खोजें",
+      "download": "डाउनलोड",
+      "file": "फ़ाइल",
+      "wordCount": "{words} शब्द - {chars} अक्षर",
+      "userFallback": "उपयोगकर्ता #{id}"
+    },
+    "roles": {
+      "student": "विद्यार्थी",
+      "teacher": "शिक्षक",
+      "parent": "अभिभावक",
+      "admin": "प्रशासक",
+      "receptionist": "रिसेप्शनिस्ट",
+      "accountant": "लेखाकार"
+    },
+    "status": {
+      "active": "सक्रिय",
+      "inactive": "निष्क्रिय",
+      "suspended": "निलंबित",
+      "graduated": "स्नातक",
+      "withdrawn": "निकाला गया",
+      "present": "उपस्थित",
+      "absent": "अनुपस्थित",
+      "late": "देर से",
+      "justified": "न्यायोचित",
+      "unjustified": "अन्यायोचित",
+      "read": "पढ़ा गया",
+      "unread": "अपठित"
+    },
+    "students": {
+      "title": "विद्यार्थी प्रबंधन",
+      "registerTitle": "नया विद्यार्थी पंजीकृत करें",
+      "searchPlaceholder": "नाम या ID से खोजें...",
+      "submit": "विद्यार्थी पंजीकृत करें",
+      "selectParent": "अभिभावक चुनें...",
+      "selectClass": "कक्षा चुनें...",
+      "placeholders": {
+        "fullName": "विद्यार्थी का पूरा नाम",
+        "username": "लॉगिन उपयोगकर्ता नाम",
+        "email": "ईमेल",
+        "phone": "फ़ोन नंबर",
+        "address": "विद्यार्थी का पता",
+        "blood": "रक्त समूह",
+        "medical": "चिकित्सा जानकारी"
+      },
+      "columns": {
+        "id": "ID",
+        "fullName": "पूरा नाम",
+        "class": "कक्षा",
+        "status": "स्थिति",
+        "action": "कार्रवाई"
+      },
+      "viewDetails": "विवरण देखें",
+      "edit": "संपादित करें",
+      "noChanges": "कोई डेटा नहीं बदला गया।",
+      "missingUserId": "इस विद्यार्थी के पास user_id नहीं है, इसलिए खाता डेटा संपादित नहीं हो सकता।",
+      "successCreate": "विद्यार्थी पंजीकृत सफलतापूर्वक.",
+      "successUpdate": "बदलाव सफलतापूर्वक सहेजे गए।",
+      "createFailed": "पंजीकरण त्रुटि: {message}",
+      "updateFailed": "बदलाव सहेजने में त्रुटि: {message}",
+      "loadDetailsFailed": "विवरण लोड करने में त्रुटि: {message}",
+      "loadStudentFailed": "विद्यार्थी डेटा लोड करने में त्रुटि: {message}"
+    },
+    "studentDetails": {
+      "title": "पूर्ण फ़ाइल: {name}",
+      "studentId": "विद्यार्थी ID:",
+      "loginUsername": "लॉगिन उपयोगकर्ता नाम:",
+      "email": "ईमेल:",
+      "phone": "फ़ोन:",
+      "address": "पता:",
+      "class": "कक्षा:",
+      "parent": "अभिभावक:",
+      "parentPhone": "अभिभावक फ़ोन:",
+      "birthDate": "जन्म तिथि:",
+      "registrationDate": "पंजीकरण तारीख:",
+      "blood": "रक्त समूह:",
+      "status": "स्थिति:",
+      "medical": "चिकित्सा जानकारी:",
+      "noMedical": "कोई चिकित्सा जानकारी नहीं",
+      "attendanceTitle": "अनुपस्थिति रिकॉर्ड",
+      "gradesTitle": "अंक रिपोर्ट",
+      "subject": "विषय",
+      "grade": "अंक",
+      "noAttendance": "कोई अनुपस्थिति पंजीकृत नहीं है।",
+      "noGrades": "कोई अंक नहीं are पंजीकृत."
+    },
+    "studentEdit": {
+      "title": "डेटा संपादित करें: {name}",
+      "accountTitle": "लॉगिन डेटा (खाता)",
+      "personalTitle": "व्यक्तिगत डेटा",
+      "academicTitle": "शैक्षणिक और चिकित्सा डेटा",
+      "newPassword": "नया पासवर्ड",
+      "passwordPlaceholder": "बिना बदलाव रखने के लिए खाली छोड़ें",
+      "noClass": "कोई कक्षा नहीं",
+      "noParent": "कोई अभिभावक नहीं"
+    },
+    "parents": {
+      "title": "अभिभावक प्रबंधन",
+      "registerTitle": "नया अभिभावक पंजीकृत करें",
+      "submit": "अभिभावक पंजीकृत करें",
+      "empty": "No parents are पंजीकृत.",
+      "fallback": "अभिभावक",
+      "successCreate": "अभिभावक पंजीकृत सफलतापूर्वक.",
+      "createFailed": "पंजीकरण त्रुटि: {message}"
+    },
+    "finance": {
+      "title": "वित्त and भुगतान Reception",
+      "studentIdPlaceholder": "दर्ज करें student ID...",
+      "searchFees": "शुल्क खोजें",
+      "initialHint": "वित्तीय स्थिति खोजने के लिए विद्यार्थी ID दर्ज करें।",
+      "missingStudentId": "कृपया विद्यार्थी ID दर्ज करें।",
+      "noFees": "कोई देय शुल्क नहीं मिला।",
+      "receivePayment": "भुगतान प्राप्त करें",
+      "confirmPayment": "क्या आपने {amount} प्राप्त किया है?",
+      "paymentSuccess": "भुगतान पंजीकृत सफलतापूर्वक and receipt generated.",
+      "paymentFailed": "भुगतान error: {message}",
+      "searchFailed": "त्रुटि: {message}",
+      "columns": {
+        "type": "प्रकार",
+        "amount": "राशि",
+        "date": "तारीख",
+        "action": "कार्रवाई"
+      }
+    },
+    "search": {
+      "title": "वैश्विक सिस्टम खोज",
+      "placeholder": "नाम, उपयोगकर्ता नाम या ईमेल से खोजें...",
+      "minLength": "कृपया खोजने के लिए कम से कम दो अक्षर दर्ज करें।",
+      "searching": "खोज जारी है...",
+      "noResults": "कोई परिणाम नहीं found.",
+      "failed": "एक त्रुटि हुई: {message}",
+      "columns": {
+        "id": "ID",
+        "fullName": "पूरा नाम",
+        "username": "उपयोगकर्ता नाम",
+        "role": "भूमिका"
+      }
+    },
+    "notifications": {
+      "title": "सूचनाएँ",
+      "empty": "कोई नई सूचना नहीं है।",
+      "unreadCount": "{count} अपठित सूचना(एँ)",
+      "markAllRead": "सबको पढ़ा हुआ चिह्नित करें",
+      "markRead": "पढ़ा हुआ चिह्नित करें",
+      "read": "पढ़ा गया",
+      "unread": "अपठित",
+      "defaultTitle": "सूचना",
+      "updateFailed": "सूचनाएँ अपडेट नहीं हो सकीं।",
+      "singleUpdateFailed": "सूचना अपडेट नहीं हो सकी।"
+    },
+    "messages": {
+      "title": "संदेश",
+      "subtitle": "रिसेप्शन बातचीत देखें या संपर्क के लिए नया उपयोगकर्ता खोजें।",
+      "searchPlaceholder": "उपयोगकर्ता नाम से खोजें...",
+      "searchButton": "खोजें",
+      "conversations": "वार्तालाप",
+      "selectPrompt": "सूची से वार्तालाप चुनें या नया उपयोगकर्ता खोजें।",
+      "emptyConversation": "वार्तालाप यहाँ दिखाई देगा।",
+      "inputPlaceholder": "अपना संदेश लिखें...",
+      "minSearch": "खोजने के लिए कम से कम दो अक्षर लिखें।",
+      "searching": "खोज जारी है...",
+      "noResults": "कोई मेल खाता परिणाम नहीं।",
+      "searchFailed": "खोज विफल: {message}",
+      "loadingConversation": "वार्तालाप लोड हो रहा है...",
+      "loadFailed": "संदेश लोड नहीं हो सके: {message}",
+      "noMessages": "अभी कोई संदेश नहीं।",
+      "you": "आप",
+      "roleFallback": "उपयोगकर्ता",
+      "sending": "भेजा जा रहा है...",
+      "sent": "भेजा गया",
+      "sendFailed": "भेजना विफल: {message}",
+      "emptyList": "अभी कोई वार्तालाप नहीं।"
+    },
+    "posts": {
+      "dashboardTitle": "School पोस्ट Board",
+      "dashboardSubtitle": "विद्यार्थियों, अभिभावकों और शिक्षकों को दिखने वाली पोस्ट बनाएँ और प्रबंधित करें।",
+      "newPost": "नई पोस्ट लिखें",
+      "total": "कुल पोस्ट",
+      "today": "आज प्रकाशित",
+      "withImage": "कवर छवि सहित",
+      "textOnly": "केवल पाठ",
+      "searchLabel": "खोजें",
+      "searchPlaceholder": "पोस्ट खोजें...",
+      "emptyTitle": "अभी कोई पोस्ट प्रकाशित नहीं",
+      "emptyText": "आप नई पोस्ट बटन से पहली पोस्ट बना सकते हैं।",
+      "untitled": "शीर्षकहीन पोस्ट",
+      "noSummary": "No summary उपलब्ध.",
+      "author": "उपयोगकर्ता #{id}",
+      "file": "फ़ाइल",
+      "preview": "पूर्वावलोकन",
+      "edit": "संपादित करें",
+      "delete": "हटाएँ",
+      "columns": {
+        "title": "पोस्ट title",
+        "author": "लेखक",
+        "date": "प्रकाशन तारीख",
+        "actions": "कार्रवाइयाँ"
+      },
+      "editorNew": "नई पोस्ट लिखें",
+      "editorEdit": "संपादित करें पोस्ट",
+      "back": "पोस्ट पर वापस",
+      "titlePlaceholder": "पोस्ट title",
+      "imagePlaceholder": "वैकल्पिक cover image URL",
+      "contentPlaceholder": "पोस्ट सामग्री यहाँ लिखें...",
+      "previewLabel": "पूर्वावलोकन",
+      "previewTitle": "पोस्ट title",
+      "previewEmpty": "पूर्वावलोकन देखने के लिए लिखना शुरू करें...",
+      "fullPreview": "पूर्ण पूर्वावलोकन",
+      "publish": "पोस्ट प्रकाशित करें",
+      "saveChanges": "बदलाव सहेजें",
+      "saving": "सहेजा जा रहा है...",
+      "titleRequired": "कृपया पोस्ट शीर्षक दर्ज करें",
+      "contentRequired": "कृपया पोस्ट सामग्री दर्ज करें",
+      "updated": "पोस्ट updated सफलतापूर्वक",
+      "created": "पोस्ट published सफलतापूर्वक",
+      "saveFailed": "save post नहीं हो सका: {message}",
+      "confirmDelete": "क्या आप यह पोस्ट स्थायी रूप से हटाना चाहते हैं?",
+      "deleted": "पोस्ट deleted सफलतापूर्वक",
+      "deleteFailed": "delete post नहीं हो सका: {message}",
+      "noContent": "कोई सामग्री नहीं।",
+      "toolbar": {
+        "list": "सूची",
+        "quote": "उद्धरण",
+        "table": "तालिका",
+        "link": "लिंक",
+        "image": "छवि",
+        "download": "डाउनलोड"
+      },
+      "prompts": {
+        "imageUrl": "छवि URL:",
+        "imageAlt": "वैकल्पिक पाठ:",
+        "imageDefault": "छवि",
+        "linkUrl": "URL:",
+        "linkText": "लिंक text:",
+        "linkDefault": "यहाँ क्लिक करें",
+        "fileName": "फ़ाइल name:",
+        "downloadUrl": "डाउनलोड URL:",
+        "fileType": "वैकल्पिक file type:",
+        "fileSize": "वैकल्पिक size:"
+      },
+      "markdown": {
+        "table": "| First heading | Second heading |\n| --- | --- |\n| Data | Data |",
+        "downloadPrefix": "डाउनलोड"
+      }
+    },
+    "currency": {
+      "dzd": "DZD"
+    }
+  }
+}

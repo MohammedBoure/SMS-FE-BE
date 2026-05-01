@@ -30,6 +30,11 @@
       "code": "es",
       "label": "西班牙语",
       "dir": "ltr"
+    },
+    {
+      "code": "hi",
+      "label": "印地语",
+      "dir": "ltr"
     }
   ],
   "receptionist": {

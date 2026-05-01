@@ -1,0 +1,243 @@
+{
+  "meta": {
+    "lang": "hi",
+    "dir": "ltr",
+    "name": "हिन्दी",
+    "locale": "hi-IN"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "अरबी",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "अंग्रेज़ी",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "फ़्रेंच",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "चीनी",
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "label": "स्पेनिश",
+      "dir": "ltr"
+    },
+    {
+      "code": "hi",
+      "label": "हिन्दी",
+      "dir": "ltr"
+    }
+  ],
+  "teacher": {
+    "documentTitle": "शिक्षक डैशबोर्ड",
+    "brand": {
+      "welcome": "स्वागत है, शिक्षक {name}"
+    },
+    "language": {
+      "label": "भाषा",
+      "select": "भाषा चुनें"
+    },
+    "auth": {
+      "logout": "लॉग आउट"
+    },
+    "nav": {
+      "assignments": "मेरी कक्षाएँ",
+      "schedule": "समय-सारिणी",
+      "attendance": "उपस्थिति",
+      "grades": "अंक",
+      "resources": "संसाधन",
+      "posts": "प्रशासनिक पोस्ट",
+      "messages": "संदेश",
+      "notifications": "सूचनाएँ"
+    },
+    "state": {
+      "loading": "डेटा लोड हो रहा है...",
+      "errorPrefix": "त्रुटि:",
+      "unknownSection": "अज्ञात अनुभाग",
+      "teacherProfileMissing": "आपका खाता डेटाबेस में शिक्षक के रूप में पंजीकृत नहीं है। कृपया प्रशासन से संपर्क करें।",
+      "initFailed": "शिक्षक डेटा आरंभ करना विफल।"
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "निर्दिष्ट नहीं",
+      "updating": "अपडेट हो रहा है...",
+      "unavailable": "उपलब्ध नहीं",
+      "unknownDate": "अज्ञात तारीख",
+      "userFallback": "उपयोगकर्ता #{id}",
+      "send": "भेजें",
+      "download": "डाउनलोड",
+      "fromManagement": "प्रशासन से",
+      "openDetails": "विवरण देखें",
+      "backToPosts": "पोस्ट पर वापस",
+      "noContent": "इस पोस्ट में कोई सामग्री नहीं है।",
+      "file": "फ़ाइल",
+      "save": "सहेजें",
+      "action": "कार्रवाई",
+      "create": "बनाएँ"
+    },
+    "status": {
+      "active": "सक्रिय",
+      "inactive": "निष्क्रिय",
+      "present": "उपस्थित",
+      "absent": "अनुपस्थित",
+      "late": "देर से",
+      "paid": "भुगतान किया गया",
+      "completed": "भुगतान किया गया",
+      "unpaid": "अवैतनिक",
+      "partial": "आंशिक भुगतान",
+      "overdue": "अतिदेय",
+      "read": "पढ़ा गया",
+      "unread": "अपठित",
+      "student": "विद्यार्थी",
+      "parent": "अभिभावक",
+      "teacher": "शिक्षक",
+      "admin": "प्रशासक",
+      "receptionist": "रिसेप्शनिस्ट",
+      "accountant": "लेखाकार",
+      "exam": "परीक्षा",
+      "homework": "गृहकार्य"
+    },
+    "days": {
+      "Sunday": "रविवार",
+      "Monday": "सोमवार",
+      "Tuesday": "मंगलवार",
+      "Wednesday": "बुधवार",
+      "Thursday": "गुरुवार",
+      "Friday": "शुक्रवार",
+      "Saturday": "शनिवार"
+    },
+    "assignments": {
+      "title": "आपको असाइन की गई कक्षाएँ",
+      "emptyTitle": "मेरी कक्षाएँ और विषय",
+      "emptyText": "आपको अभी कोई कक्षा असाइन नहीं हुई है।",
+      "columns": {
+        "classLevel": "कक्षा (स्तर)",
+        "subject": "विषय"
+      }
+    },
+    "schedule": {
+      "title": "साप्ताहिक समय-सारिणी",
+      "emptyTitle": "समय-सारिणी",
+      "emptyText": "कोई निर्धारित सत्र नहीं हैं।",
+      "columns": {
+        "day": "दिन",
+        "time": "समय",
+        "class": "कक्षा",
+        "subject": "विषय",
+        "room": "कक्ष"
+      }
+    },
+    "attendance": {
+      "title": "उपस्थिति और अनुपस्थिति प्रविष्टि",
+      "emptyTitle": "उपस्थिति",
+      "noAssignments": "उपस्थिति के लिए कोई कक्षा उपलब्ध नहीं।",
+      "classSelect": "कक्षा",
+      "date": "तारीख",
+      "loadButton": "उपस्थिति शीट लोड करें",
+      "emptyStudents": "इस कक्षा में कोई विद्यार्थी नहीं है।",
+      "columns": {
+        "student": "विद्यार्थी",
+        "status": "स्थिति"
+      }
+    },
+    "grades": {
+      "title": "अंक और मूल्यांकन प्रबंधन",
+      "emptyTitle": "अंक और मूल्यांकन",
+      "noAssignments": "अंक प्रविष्टि के लिए कोई असाइनमेंट उपलब्ध नहीं।",
+      "assignmentSelect": "कक्षा और विषय",
+      "loadAssessments": "मूल्यांकन दिखाएँ",
+      "createTitle": "नया मूल्यांकन जोड़ें",
+      "titlePlaceholder": "मूल्यांकन शीर्षक",
+      "maxGradePlaceholder": "अधिकतम अंक",
+      "enterGrades": "अंक दर्ज करें",
+      "emptyAssessments": "कोई पिछला मूल्यांकन नहीं मिला।",
+      "emptySheet": "इस मूल्यांकन के लिए कोई विद्यार्थी उपलब्ध नहीं।",
+      "remarksPlaceholder": "टिप्पणियाँ...",
+      "sheetTitle": "अंक प्रविष्टि शीट",
+      "assessmentsColumns": {
+        "title": "शीर्षक",
+        "type": "प्रकार",
+        "maxGrade": "अधिकतम अंक"
+      },
+      "sheetColumns": {
+        "student": "विद्यार्थी",
+        "grade": "अंक",
+        "remarks": "शिक्षक टिप्पणियाँ"
+      }
+    },
+    "resources": {
+      "title": "शैक्षणिक संसाधन",
+      "emptyTitle": "शैक्षणिक संसाधन",
+      "noAssignments": "संसाधन अपलोड करने के लिए कोई असाइनमेंट उपलब्ध नहीं।",
+      "uploadTitle": "कक्षा के लिए नई फ़ाइल अपलोड करें",
+      "titlePlaceholder": "पाठ/फ़ाइल शीर्षक",
+      "types": {
+        "document": "दस्तावेज़",
+        "video": "वीडियो"
+      },
+      "uploadButton": "संसाधन अपलोड करें",
+      "selectHint": "इसके संसाधन देखने के लिए कक्षा चुनें..."
+    },
+    "notifications": {
+      "emptyTitle": "सूचनाएँ",
+      "emptyText": "कोई नई सूचना नहीं है।",
+      "title": "Incoming सूचनाएँ",
+      "unreadCount": "{count} अपठित सूचना(एँ)",
+      "markAllRead": "सबको पढ़ा हुआ चिह्नित करें",
+      "markRead": "पढ़ा हुआ चिह्नित करें",
+      "read": "पढ़ा गया",
+      "unread": "अपठित",
+      "defaultTitle": "सूचना"
+    },
+    "messages": {
+      "title": "संदेश",
+      "subtitle": "अपनी बातचीत देखें या संपर्क के लिए दूसरा उपयोगकर्ता खोजें।",
+      "searchPlaceholder": "उपयोगकर्ता नाम से खोजें...",
+      "searchButton": "खोजें",
+      "conversations": "वार्तालाप",
+      "selectPrompt": "सूची से वार्तालाप चुनें या नया उपयोगकर्ता खोजें।",
+      "emptyConversation": "वार्तालाप यहाँ दिखाई देगा।",
+      "inputPlaceholder": "अपना संदेश लिखें...",
+      "minSearch": "खोजने के लिए कम से कम दो अक्षर लिखें।",
+      "searching": "खोज जारी है...",
+      "noResults": "कोई मेल खाता परिणाम नहीं।",
+      "searchFailed": "खोज विफल: {message}",
+      "loadingConversation": "वार्तालाप लोड हो रहा है...",
+      "loadFailed": "संदेश लोड नहीं हो सके: {message}",
+      "noMessages": "अभी कोई संदेश नहीं।",
+      "you": "आप",
+      "roleFallback": "उपयोगकर्ता",
+      "sending": "भेजा जा रहा है...",
+      "sent": "भेजा गया",
+      "sendFailed": "भेजना विफल: {message}",
+      "emptyList": "अभी कोई वार्तालाप नहीं।"
+    },
+    "posts": {
+      "title": "प्रशासनिक पोस्ट",
+      "emptySubtitle": "प्रशासन द्वारा प्रकाशित घोषणाएँ और सामग्री यहाँ दिखाई देंगी।",
+      "listSubtitle": "पूरा विवरण देखने के लिए सूची से पोस्ट चुनें।",
+      "emptyTitle": "वर्तमान में कोई पोस्ट नहीं",
+      "emptyText": "उपलब्ध होने पर प्रशासनिक पोस्ट यहाँ दिखाई देंगे।",
+      "untitled": "शीर्षकहीन पोस्ट",
+      "openHint": "विवरण देखने के लिए पोस्ट खोलें।",
+      "filePlaceholder": "दस्तावेज़"
+    },
+    "actions": {
+      "notificationsUpdateFailed": "सूचनाएँ अपडेट नहीं हो सकीं।",
+      "notificationUpdateFailed": "सूचना अपडेट नहीं हो सकी।",
+      "attendanceSaved": "उपस्थिति सहेजी गई।",
+      "assessmentCreated": "मूल्यांकन बनाया गया।",
+      "gradeSaved": "अंक सहेजे गए।",
+      "resourceUploaded": "संसाधन अपलोड हुआ।"
+    }
+  }
+}

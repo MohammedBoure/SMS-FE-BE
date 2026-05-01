@@ -30,6 +30,11 @@
       "code": "es",
       "label": "Español",
       "dir": "ltr"
+    },
+    {
+      "code": "hi",
+      "label": "Hindi",
+      "dir": "ltr"
     }
   ],
   "teacher": {

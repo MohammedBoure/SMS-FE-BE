@@ -29,6 +29,11 @@
       "code": "es",
       "label": "الإسبانية",
       "dir": "ltr"
+    },
+    {
+      "code": "hi",
+      "label": "الهندية",
+      "dir": "ltr"
     }
   ],
   "admin": {

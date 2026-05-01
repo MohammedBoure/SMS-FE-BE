@@ -29,6 +29,11 @@
       "code": "es",
       "label": "Spanish",
       "dir": "ltr"
+    },
+    {
+      "code": "hi",
+      "label": "Hindi",
+      "dir": "ltr"
     }
   ],
   "student": {
