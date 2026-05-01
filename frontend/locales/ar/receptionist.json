@@ -96,7 +96,8 @@
       "download": "تحميل",
       "file": "ملف",
       "wordCount": "{words} كلمة - {chars} حرف",
-      "userFallback": "مستخدم #{id}"
+      "userFallback": "مستخدم #{id}",
+      "password": "كلمة المرور"
     },
     "roles": {
       "student": "طالب",

@@ -96,7 +96,8 @@
       "download": "Download",
       "file": "File",
       "wordCount": "{words} words - {chars} characters",
-      "userFallback": "User #{id}"
+      "userFallback": "User #{id}",
+      "password": "Password"
     },
     "roles": {
       "student": "Student",

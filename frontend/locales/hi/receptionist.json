@@ -97,7 +97,8 @@
       "download": "डाउनलोड",
       "file": "फ़ाइल",
       "wordCount": "{words} शब्द - {chars} अक्षर",
-      "userFallback": "उपयोगकर्ता #{id}"
+      "userFallback": "उपयोगकर्ता #{id}",
+      "password": "पासवर्ड"
     },
     "roles": {
       "student": "विद्यार्थी",

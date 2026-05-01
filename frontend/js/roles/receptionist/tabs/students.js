@@ -38,6 +38,7 @@ ReceptionistUI.renderStudents = function(studentsData, classesList, parentsList)
       <form id="register-student-form">
         <input type="text" id="s-fullname" placeholder="${this._escapeAttr(this.t("receptionist.students.placeholders.fullName", {}, "Student full name"))}" required />
         <input type="text" id="s-username" placeholder="${this._escapeAttr(this.t("receptionist.students.placeholders.username", {}, "Login username"))}" required />
+        <input type="password" id="s-password" placeholder="${this._escapeAttr(this.t("receptionist.common.password", {}, "Password"))}" required minlength="6" autocomplete="new-password" />
         <input type="email" id="s-email" placeholder="${this._escapeAttr(this.t("receptionist.students.placeholders.email", {}, "Email"))}" />
         <input type="text" id="s-phone" placeholder="${this._escapeAttr(this.t("receptionist.students.placeholders.phone", {}, "Phone number"))}" />
         <input type="text" id="s-address" placeholder="${this._escapeAttr(this.t("receptionist.students.placeholders.address", {}, "Student address"))}" />

@@ -97,7 +97,8 @@
       "download": "下载",
       "file": "文件",
       "wordCount": "{words} 个词 - {chars} 个字符",
-      "userFallback": "用户 #{id}"
+      "userFallback": "用户 #{id}",
+      "password": "密码"
     },
     "roles": {
       "student": "学生",

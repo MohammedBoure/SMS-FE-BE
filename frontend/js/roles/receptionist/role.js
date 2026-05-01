@@ -233,7 +233,7 @@ const ReceptionistRole = {
         try {
           const userData = {
             username: document.getElementById("p-username").value,
-            password: "password123",
+            password: document.getElementById("p-password").value,
             full_name: document.getElementById("p-fullname").value,
             email: document.getElementById("p-email").value,
             phone: document.getElementById("p-phone").value,
@@ -254,7 +254,7 @@ const ReceptionistRole = {
         try {
           const userData = {
             username: document.getElementById("s-username").value,
-            password: "password123",
+            password: document.getElementById("s-password").value,
             full_name: document.getElementById("s-fullname").value,
             email: document.getElementById("s-email").value || null,
             phone: document.getElementById("s-phone").value || null,

@@ -11,6 +11,7 @@ ReceptionistUI.renderParents = function(parentsData) {
       <form id="register-parent-form">
         <input type="text" id="p-fullname" placeholder="${this._escapeAttr(this.t("receptionist.common.fullName", {}, "Full name"))}" required />
         <input type="text" id="p-username" placeholder="${this._escapeAttr(this.t("receptionist.common.username", {}, "Username"))}" required />
+        <input type="password" id="p-password" placeholder="${this._escapeAttr(this.t("receptionist.common.password", {}, "Password"))}" required minlength="6" autocomplete="new-password" />
         <input type="email" id="p-email" placeholder="${this._escapeAttr(this.t("receptionist.common.email", {}, "Email"))}" />
         <input type="text" id="p-phone" placeholder="${this._escapeAttr(this.t("receptionist.common.phone", {}, "Phone number"))}" required />
         <button type="submit">${this.t("receptionist.parents.submit", {}, "Register parent")}</button>
