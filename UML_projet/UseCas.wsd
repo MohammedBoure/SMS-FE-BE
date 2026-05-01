@@ -1,154 +1,212 @@
 @startuml SchoolManagementSystem_UseCase
 
-' ===================== إعدادات هندسة الخطوط والتخطيط =====================
+' Detailed compact use-case diagram for A4 landscape.
+' No visible packages; inheritance and shared hubs keep the diagram organized.
 left to right direction
-skinparam linetype polyline
-skinparam nodesep 30
-skinparam ranksep 80
-skinparam padding 5
-skinparam roundcorner 10
-skinparam shadowing false
+scale max 3508*2480
 
-skinparam usecase {
-    BorderColor #37474F
-    BackgroundColor #FFFFFF
-    ArrowColor #455A64
-    FontSize 11
-}
+skinparam dpi 300
+skinparam linetype polyline
+skinparam nodesep 4
+skinparam ranksep 8
+skinparam padding 1
+skinparam pageMargin 2
+skinparam shadowing false
+skinparam roundcorner 3
+skinparam backgroundColor #FFFFFF
+skinparam ArrowFontSize 6
+skinparam ArrowThickness 0.7
 
 skinparam actor {
-    BackgroundColor #F8F9FA
-    BorderColor #1565C0
-    FontSize 12
-    FontWeight bold
+  BackgroundColor #F8F9FA
+  BorderColor #1565C0
+  FontSize 8
+  FontStyle bold
 }
 
-skinparam package {
-    BorderColor #90A4AE
-    FontSize 12
-    FontWeight bold
+skinparam usecase {
+  BorderColor #37474F
+  BackgroundColor #FFFFFF
+  ArrowColor #455A64
+  FontSize 7
 }
 
-' ===================== الفاعلون (Actors) =====================
-actor "Administrator" as Admin #FFEBEE
-actor "Teacher" as Teacher
-actor "Parent" as Parent
-actor "Student" as Student
+' ===================== Actors =====================
+actor "Portal\nUser" as PortalUser
+actor "Staff\nUser" as StaffUser
+actor "Learner\nUser" as LearnerUser
+actor "Admin" as Admin
+actor "Receptionist" as Receptionist
 actor "Accountant" as Accountant
-actor "POS Cashier" as Cashier
-actor "Inventory Mgr" as InvManager
+actor "Teacher" as Teacher
+actor "Student" as Student
+actor "Parent" as Parent
 
-' ===================== وراثة الصلاحيات (Actor Inheritance) =====================
-' الأدمن يرث كل صلاحيات وحالات استخدام جميع الممثلين الآخرين
-Admin -|> Teacher
-Admin -|> Parent
-Admin -|> Student
-Admin -|> Accountant
-Admin -|> Cashier
-Admin -|> InvManager
-
-' ===================== 1. محرك الصلاحيات والنظام =====================
-package "⚙️ 1. System & Dynamic RBAC" #FFEBEE {
-    usecase "Create Infinite Roles" as UC_Roles
-    usecase "Configure Access Matrix" as UC_Matrix
-    usecase "Global Permission Verification" as UC_Verify
-    usecase "View System Logs" as UC_Logs
-
-    UC_Roles .down.> UC_Matrix : <<includes>>
-    UC_Verify .up.> UC_Matrix : <<evaluates>>
+' ===================== Shared access =====================
+together {
+  usecase "Account\naccess" as UC_Access
+  usecase "Sign in /\nout" as UC_Auth
+  usecase "Switch\nlanguage" as UC_Lang
+  usecase "Communication\ncenter" as UC_Communication
+  usecase "Send/read\nmessages" as UC_Messages
+  usecase "Read\nnotifications" as UC_ReadNotifications
+  usecase "Mark notifications\nread" as UC_MarkNotifications
 }
 
-' ===================== 2. الإعدادات والموارد البشرية =====================
-package "🛠️ 2. Core Config & HR" #CFD8DC {
-    usecase "Manage Branches & Years" as UC_Config
-    usecase "Manage All Users (Staff, Students, Parents)" as UC_HR
-    usecase "Manage Financial Policies" as UC_Policies
+' ===================== Main hubs =====================
+together {
+  usecase "People\nadmin" as UC_PeopleAdmin
+  usecase "Student\nreception" as UC_StudentReception
+  usecase "Academic\nadmin" as UC_AcademicAdmin
+  usecase "Academic\nactivities" as UC_AcademicActivities
+  usecase "Teaching\noperations" as UC_TeachingOps
+  usecase "Finance\nadmin" as UC_FinanceAdmin
+  usecase "Payment\noperations" as UC_PaymentOps
+  usecase "Accounting\noperations" as UC_AccountingOps
+  usecase "Learner\nmonitoring" as UC_LearnerMonitoring
+  usecase "Student\nself-service" as UC_StudentSelfService
+  usecase "Parent\nfollow-up" as UC_ParentFollowup
+  usecase "Posts\nboard" as UC_PostsBoard
 }
 
-' ===================== 3. الأكاديميات والعمليات =====================
-package "📚 3. Academics & Operations" #FFECB3 {
-    usecase "Manage Programs & Classes" as UC_Prog
-    usecase "Manage Enrollments" as UC_Enroll
-    usecase "Manage Schedules & Assignments" as UC_Sched
-    usecase "Record Attendance" as UC_Attend
-    usecase "Input Grades & Assessments" as UC_Grades
-    usecase "Manage Educational Resources" as UC_Res
+' ===================== People details =====================
+together {
+  usecase "Manage\nusers" as UC_ManageUsers
+  usecase "Manage\nparents" as UC_ManageParents
+  usecase "Manage\nstudents" as UC_ManageStudents
+  usecase "Manage\nteachers" as UC_ManageTeachers
+  usecase "Search users /\nstudents" as UC_SearchPeople
+  usecase "View\nstudent file" as UC_StudentFile
 }
 
-' ===================== 4. المالية =====================
-package "💰 4. Finance & Accounting" #C8E6C9 {
-    usecase "Manage Student Fees & Payments" as UC_Fees
-    usecase "Manage Payrolls & Expenses" as UC_FinOps
-    usecase "Manage External Obligations" as UC_Oblig
-    usecase "Process Daily Cash Handovers" as UC_CashHand
-    usecase "Manage User Wallets" as UC_Wallet
+' ===================== Academic details =====================
+together {
+  usecase "Academic\ndashboard" as UC_AcademicDashboard
+  usecase "Manage\nclasses" as UC_ManageClasses
+  usecase "Manage\nprograms" as UC_ManagePrograms
+  usecase "Manage\nenrollments" as UC_ManageEnrollments
+  usecase "Teacher\nassignments" as UC_TeacherAssignments
+  usecase "Schedules" as UC_Schedules
+  usecase "Attendance" as UC_Attendance
+  usecase "Assessments" as UC_Assessments
+  usecase "Grades" as UC_Grades
+  usecase "Resources" as UC_Resources
 }
 
-' ===================== 5. المخزون والمتجر (POS) =====================
-package "📦 5. Inventory & Store" #E0F7FA {
-    usecase "Process POS Purchase" as UC_POS
-    usecase "Manage Inventory Items & Logs" as UC_Inv
-    usecase "Record Daily Consumptions" as UC_Consump
+' ===================== Finance details =====================
+together {
+  usecase "Finance\ndashboard" as UC_FinanceDashboard
+  usecase "Manage/view\nfees" as UC_Fees
+  usecase "Record/view\npayments" as UC_Payments
+  usecase "View\ntransactions" as UC_Transactions
+  usecase "Send fee\nreminder" as UC_FeeReminder
 }
 
-' ===================== 6. المراسلات والإشعارات =====================
-package "💬 6. Communications" #FCE4EC {
-    usecase "Send/Receive Messages" as UC_Msg
-    usecase "Send Broadcast Notifications" as UC_Notif
+' ===================== Learner/community details =====================
+together {
+  usecase "View\nschedule" as UC_ViewSchedule
+  usecase "View\nassessments" as UC_ViewAssessments
+  usecase "View\ngrades" as UC_ViewGrades
+  usecase "View\nattendance" as UC_ViewAttendance
+  usecase "View\nresources" as UC_ViewResources
+  usecase "View\nfees" as UC_ViewFees
+  usecase "View\nchildren" as UC_ViewChildren
+  usecase "Read\nposts" as UC_ReadPosts
+  usecase "Manage\nposts" as UC_ManagePosts
+  usecase "Preview\nposts" as UC_PreviewPosts
 }
 
-' ===================== ربط الفاعلين (Connections) =====================
+' ===================== Actor inheritance =====================
+StaffUser --|> PortalUser
+LearnerUser --|> PortalUser
+Admin --|> StaffUser
+Receptionist --|> StaffUser
+Accountant --|> StaffUser
+Teacher --|> StaffUser
+Student --|> LearnerUser
+Parent --|> LearnerUser
 
-' --- Admin Only Actions (المهام الحصرية للأدمن بالإضافة لما ورثه) ---
-Admin --> UC_Roles
-Admin --> UC_Config
-Admin --> UC_HR
-Admin --> UC_Policies
-Admin --> UC_Logs
-Admin --> UC_Notif
+' ===================== Actor access =====================
+PortalUser --> UC_Access
+PortalUser --> UC_Communication
+LearnerUser --> UC_LearnerMonitoring
+Admin --> UC_PeopleAdmin
+Admin --> UC_AcademicAdmin
+Admin --> UC_FinanceAdmin
+Admin --> UC_PostsBoard
+Receptionist --> UC_StudentReception
+Receptionist --> UC_PaymentOps
+Receptionist --> UC_PostsBoard
+Accountant --> UC_AccountingOps
+Teacher --> UC_TeachingOps
+Teacher --> UC_ReadPosts
+Student --> UC_StudentSelfService
+Parent --> UC_ParentFollowup
 
-note right of Admin
-  **Super User / Unlimited Access:**
-  Admin inherits all use cases from all other actors
-  and has exclusive access to system config & RBAC.
-end note
+' ===================== Shared details =====================
+UC_Access ..> UC_Auth : <<include>>
+UC_Lang ..> UC_Access : <<extend>>
+UC_Communication ..> UC_Messages : <<include>>
+UC_Communication ..> UC_ReadNotifications : <<include>>
+UC_MarkNotifications ..> UC_ReadNotifications : <<extend>>
 
-' --- HR & Academic Users ---
-Teacher --> UC_Sched
-Teacher --> UC_Attend
-Teacher --> UC_Grades
-Teacher --> UC_Res
-Teacher --> UC_Msg
+' ===================== People details =====================
+UC_PeopleAdmin ..> UC_ManageUsers : <<include>>
+UC_PeopleAdmin ..> UC_ManageParents : <<include>>
+UC_PeopleAdmin ..> UC_ManageStudents : <<include>>
+UC_PeopleAdmin ..> UC_ManageTeachers : <<include>>
+UC_StudentReception ..> UC_ManageStudents : <<include>>
+UC_StudentReception ..> UC_ManageParents : <<include>>
+UC_SearchPeople ..> UC_StudentReception : <<extend>>
+UC_StudentFile ..> UC_StudentReception : <<extend>>
 
-' --- Clients (Students & Parents) ---
-Student --> UC_Res : "Download"
-Student --> UC_Grades : "View"
-Student --> UC_Msg : "Chat"
-Student --> UC_Wallet : "View Balance"
+' ===================== Academic details =====================
+UC_AcademicAdmin ..> UC_AcademicDashboard : <<include>>
+UC_AcademicAdmin ..> UC_ManageClasses : <<include>>
+UC_AcademicAdmin ..> UC_ManagePrograms : <<include>>
+UC_AcademicAdmin ..> UC_ManageEnrollments : <<include>>
+UC_AcademicAdmin ..> UC_AcademicActivities : <<include>>
+UC_TeachingOps ..> UC_AcademicActivities : <<include>>
+UC_AcademicActivities ..> UC_TeacherAssignments : <<include>>
+UC_AcademicActivities ..> UC_Schedules : <<include>>
+UC_AcademicActivities ..> UC_Attendance : <<include>>
+UC_AcademicActivities ..> UC_Assessments : <<include>>
+UC_AcademicActivities ..> UC_Grades : <<include>>
+UC_AcademicActivities ..> UC_Resources : <<include>>
 
-Parent --> UC_Fees : "View & Pay"
-Parent --> UC_Grades : "Monitor Children"
-Parent --> UC_Attend : "Monitor Children"
-Parent --> UC_Msg : "Chat with Teachers/Admin"
-Parent --> UC_Wallet : "View Balance / Top-up"
+' ===================== Finance details =====================
+UC_FinanceAdmin ..> UC_FinanceDashboard : <<include>>
+UC_FinanceAdmin ..> UC_PaymentOps : <<include>>
+UC_FinanceAdmin ..> UC_Transactions : <<include>>
+UC_PaymentOps ..> UC_Fees : <<include>>
+UC_PaymentOps ..> UC_Payments : <<include>>
+UC_FeeReminder ..> UC_Fees : <<extend>>
+UC_AccountingOps ..> UC_PaymentOps : <<include>>
+UC_AccountingOps ..> UC_Transactions : <<include>>
+UC_AccountingOps ..> UC_Attendance : <<include>>
+UC_SearchPeople ..> UC_AccountingOps : <<extend>>
 
-' --- Financial Users ---
-Accountant --> UC_Fees
-Accountant --> UC_FinOps
-Accountant --> UC_Oblig
-Accountant --> UC_CashHand
-Accountant --> UC_Wallet : "Manage All Wallets"
+' ===================== Learner/community details =====================
+UC_LearnerMonitoring ..> UC_ViewGrades : <<include>>
+UC_LearnerMonitoring ..> UC_ViewAttendance : <<include>>
+UC_LearnerMonitoring ..> UC_ViewFees : <<include>>
+UC_LearnerMonitoring ..> UC_ReadPosts : <<include>>
+UC_StudentSelfService ..> UC_ViewSchedule : <<include>>
+UC_StudentSelfService ..> UC_ViewAssessments : <<include>>
+UC_StudentSelfService ..> UC_ViewResources : <<include>>
+UC_ParentFollowup ..> UC_ViewChildren : <<include>>
+UC_ParentFollowup ..> UC_LearnerMonitoring : <<include>>
+UC_PostsBoard ..> UC_ReadPosts : <<include>>
+UC_PostsBoard ..> UC_ManagePosts : <<include>>
+UC_PreviewPosts ..> UC_ReadPosts : <<extend>>
 
-' --- Store & Inventory Users ---
-Cashier --> UC_POS
-Cashier --> UC_Wallet : "Process Top-ups"
-
-InvManager --> UC_Inv
-InvManager --> UC_Consump
-InvManager --> UC_POS : "Stock In/Out"
-
-' --- Universal Engine Rule ---
-note "ALL interactions across ALL modules\nare intercepted and validated by\nthe 'Global Permission Verification' engine." as N_Universal
-N_Universal .. UC_Verify
+' ===================== Workflow dependencies =====================
+UC_StudentFile ..> UC_ViewGrades : <<include>>
+UC_StudentFile ..> UC_ViewAttendance : <<include>>
+UC_Payments ..> UC_Fees : <<include>>
+UC_Assessments ..> UC_TeacherAssignments : <<include>>
+UC_Grades ..> UC_Assessments : <<include>>
+UC_Resources ..> UC_TeacherAssignments : <<include>>
+UC_Schedules ..> UC_TeacherAssignments : <<include>>
 
 @enduml

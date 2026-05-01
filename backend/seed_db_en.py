@@ -16,12 +16,12 @@ PASSWORD_HASH = hashlib.sha256(DEFAULT_PASSWORD.encode()).hexdigest()
 TODAY = date.today()
 
 ROOMS = [
-    "Salle 01",
-    "Salle 02",
-    "Salle 03",
-    "Laboratoire A",
-    "Laboratoire B",
-    "Atelier Numerique",
+    "Room 101",
+    "Room 102",
+    "Room 201",
+    "Science Lab A",
+    "Science Lab B",
+    "Digital Lab",
 ]
 
 SCHEDULE_SLOTS = [
@@ -43,136 +43,126 @@ SCHEDULE_SLOTS = [
 ]
 
 SUBJECTS = [
-    ("الرياضيات", "الجبر، الدوال، الاحتمالات، والهندسة التطبيقية."),
-    ("الفيزياء والكيمياء", "الميكانيك، الكهرباء، المادة والتحولات الكيميائية."),
-    ("علوم الطبيعة والحياة", "المناعة، الوراثة، الجيولوجيا، والمنهج التجريبي."),
-    ("اللغة الفرنسية", "فهم النصوص، التعبير الكتابي، والقواعد."),
-    ("اللغة الإنجليزية", "Reading, grammar, writing, and communication."),
-    ("اللغة العربية", "تحليل النصوص، البلاغة، والوضعيات الإدماجية."),
-    ("الإعلام الآلي", "الخوارزميات، الجداول، وأساسيات البرمجة."),
-    ("منهجية الدراسة", "تنظيم الوقت، المراجعة، واستراتيجيات حل التمارين."),
+    ("Mathematics", "Algebra, functions, probability, and applied geometry."),
+    ("Physics and Chemistry", "Mechanics, electricity, matter, and chemical reactions."),
+    ("Life and Earth Sciences", "Genetics, immunity, geology, and scientific reasoning."),
+    ("French Language", "Reading comprehension, writing, grammar, and oral practice."),
+    ("English Language", "Reading, grammar, writing, and communication."),
+    ("Arabic Language", "Text analysis, rhetoric, and structured writing."),
+    ("Computer Science", "Algorithms, spreadsheets, and programming foundations."),
+    ("Study Skills", "Planning, revision methods, and problem-solving strategies."),
 ]
 
 PROGRAMS = [
     {
         "key": "math",
-        "name": "برنامج الرياضيات المكثف",
-        "type": "دعم أكاديمي",
+        "name": "Intensive Mathematics Program",
+        "type": "Academic Support",
         "price_cash": 28000,
         "price_installments": 31000,
         "classes": [
-            ("فوج رياضيات A", "ثانوي", "15-18", 18),
-            ("فوج رياضيات B", "ثانوي", "15-18", 18),
+            ("Mathematics Group A", "High School", "15-18", 18),
+            ("Mathematics Group B", "High School", "15-18", 18),
         ],
-        "subjects": ["الرياضيات", "منهجية الدراسة"],
+        "subjects": ["Mathematics", "Study Skills"],
     },
     {
         "key": "languages",
-        "name": "برنامج اللغات الدولية",
-        "type": "لغات",
+        "name": "International Languages Program",
+        "type": "Languages",
         "price_cash": 24000,
         "price_installments": 27000,
         "classes": [
-            ("فوج لغات A", "متوسط/ثانوي", "13-18", 16),
-            ("فوج لغات B", "متوسط/ثانوي", "13-18", 16),
+            ("Languages Group A", "Middle/High School", "13-18", 16),
+            ("Languages Group B", "Middle/High School", "13-18", 16),
         ],
-        "subjects": ["اللغة الفرنسية", "اللغة الإنجليزية", "اللغة العربية"],
+        "subjects": ["French Language", "English Language", "Arabic Language"],
     },
     {
-        "key": "bac",
-        "name": "برنامج التحضير للبكالوريا",
-        "type": "تحضير امتحانات",
+        "key": "exam_prep",
+        "name": "National Exam Preparation Program",
+        "type": "Exam Preparation",
         "price_cash": 45000,
         "price_installments": 50000,
         "classes": [
-            ("فوج باك علوم A", "3 AS", "17-19", 20),
-            ("فوج باك رياضيات B", "3 AS", "17-19", 20),
+            ("Science Exam Prep Group A", "Final Year", "17-19", 20),
+            ("Mathematics Exam Prep Group B", "Final Year", "17-19", 20),
         ],
-        "subjects": ["الرياضيات", "الفيزياء والكيمياء", "علوم الطبيعة والحياة", "اللغة العربية"],
+        "subjects": ["Mathematics", "Physics and Chemistry", "Life and Earth Sciences", "Arabic Language"],
     },
     {
         "key": "science",
-        "name": "برنامج العلوم والتقنية",
-        "type": "تجارب وتطبيق",
+        "name": "Applied Science and Technology Program",
+        "type": "Lab and Practice",
         "price_cash": 32000,
         "price_installments": 36000,
         "classes": [
-            ("فوج علوم تطبيقية A", "ثانوي", "15-18", 16),
-            ("فوج تقنية ومخبر B", "ثانوي", "15-18", 16),
+            ("Applied Science Group A", "High School", "15-18", 16),
+            ("Technology Lab Group B", "High School", "15-18", 16),
         ],
-        "subjects": ["الفيزياء والكيمياء", "علوم الطبيعة والحياة", "الإعلام الآلي"],
+        "subjects": ["Physics and Chemistry", "Life and Earth Sciences", "Computer Science"],
     },
 ]
 
 TEACHERS = [
-    ("teacher.math.samira", "سميرة حداد", "الرياضيات", "0551001101"),
-    ("teacher.math.nabil", "نبيل منصوري", "الرياضيات", "0551001102"),
-    ("teacher.physics.amine", "أمين قاسمي", "الفيزياء والكيمياء", "0551001103"),
-    ("teacher.science.lina", "لينا بوشارب", "علوم الطبيعة والحياة", "0551001104"),
-    ("teacher.french.nadia", "نادية بن سالم", "اللغة الفرنسية", "0551001105"),
-    ("teacher.english.ilyes", "إلياس رحماني", "اللغة الإنجليزية", "0551001106"),
-    ("teacher.arabic.karim", "كريم بوخاري", "اللغة العربية", "0551001107"),
-    ("teacher.it.ryma", "ريمة عادل", "الإعلام الآلي", "0551001108"),
-    ("teacher.method.mourad", "مراد شريف", "منهجية الدراسة", "0551001109"),
+    ("teacher.math.samira.en", "Samira Haddad", "Mathematics", "0551001101"),
+    ("teacher.math.nabil.en", "Nabil Mansouri", "Mathematics", "0551001102"),
+    ("teacher.physics.amine.en", "Amine Kasmi", "Physics and Chemistry", "0551001103"),
+    ("teacher.science.lina.en", "Lina Bouchareb", "Life and Earth Sciences", "0551001104"),
+    ("teacher.french.nadia.en", "Nadia Bensalem", "French Language", "0551001105"),
+    ("teacher.english.ilyes.en", "Ilyes Rahmani", "English Language", "0551001106"),
+    ("teacher.arabic.karim.en", "Karim Boukhari", "Arabic Language", "0551001107"),
+    ("teacher.it.ryma.en", "Ryma Adel", "Computer Science", "0551001108"),
+    ("teacher.skills.mourad.en", "Mourad Cherif", "Study Skills", "0551001109"),
 ]
 
 PARENTS = [
-    ("parent.benali", "عبد القادر بن علي", "0552002101"),
-    ("parent.saidi", "فاطمة ساعدي", "0552002102"),
-    ("parent.mansouri", "مراد منصوري", "0552002103"),
-    ("parent.brahimi", "نوال براهيمي", "0552002104"),
-    ("parent.khelil", "يوسف خليل", "0552002105"),
-    ("parent.touati", "أسماء تواتي", "0552002106"),
-    ("parent.belhadj", "سعيد بلحاج", "0552002107"),
-    ("parent.hamdi", "مريم حمدي", "0552002108"),
-    ("parent.zerrouki", "كمال زروقي", "0552002109"),
-    ("parent.bennacer", "ليلى بن ناصر", "0552002110"),
-    ("parent.djabou", "سليم جابو", "0552002111"),
-    ("parent.aitali", "جميلة آيت علي", "0552002112"),
+    ("parent.benali.en", "Abdelkader Benali", "0552002101"),
+    ("parent.saidi.en", "Fatima Saidi", "0552002102"),
+    ("parent.mansouri.en", "Mourad Mansouri", "0552002103"),
+    ("parent.brahimi.en", "Nawal Brahimi", "0552002104"),
+    ("parent.khelil.en", "Youssef Khelil", "0552002105"),
+    ("parent.touati.en", "Asma Touati", "0552002106"),
+    ("parent.belhadj.en", "Said Belhadj", "0552002107"),
+    ("parent.hamdi.en", "Meriem Hamdi", "0552002108"),
+    ("parent.zerrouki.en", "Kamel Zerrouki", "0552002109"),
+    ("parent.bennacer.en", "Leila Bennacer", "0552002110"),
+    ("parent.djabou.en", "Salim Djabou", "0552002111"),
+    ("parent.aitali.en", "Djamila Ait Ali", "0552002112"),
 ]
 
 STUDENTS = [
-    ("student.amira.benali", "أميرة بن علي", "2009-02-14", "O+"),
-    ("student.yanis.saidi", "يانيس ساعدي", "2008-11-03", "A+"),
-    ("student.sarah.mansouri", "سارة منصوري", "2009-05-22", "B+"),
-    ("student.ilyes.brahimi", "إلياس براهيمي", "2008-08-17", "O-"),
-    ("student.rania.khelil", "رانيا خليل", "2010-01-11", "A-"),
-    ("student.mohamed.touati", "محمد تواتي", "2009-03-29", "AB+"),
-    ("student.lina.belhadj", "لينا بلحاج", "2008-12-07", "B-"),
-    ("student.anis.hamdi", "أنيس حمدي", "2009-07-19", "O+"),
-    ("student.chaima.zerrouki", "شيماء زروقي", "2008-04-05", "A+"),
-    ("student.zaki.bennacer", "زكي بن ناصر", "2009-09-25", "B+"),
-    ("student.manel.djabou", "منال جابو", "2008-06-13", "O+"),
-    ("student.nassim.aitali", "نسيم آيت علي", "2009-10-31", "A+"),
-    ("student.khadija.benali", "خديجة بن علي", "2010-02-18", "O+"),
-    ("student.walid.saidi", "وليد ساعدي", "2008-01-27", "AB-"),
-    ("student.imane.mansouri", "إيمان منصوري", "2009-12-09", "B+"),
-    ("student.aymen.brahimi", "أيمن براهيمي", "2008-03-16", "O+"),
-    ("student.meriem.khelil", "مريم خليل", "2009-06-04", "A-"),
-    ("student.karim.touati", "كريم تواتي", "2008-09-12", "B+"),
-    ("student.hiba.belhadj", "هبة بلحاج", "2010-04-21", "O-"),
-    ("student.adem.hamdi", "آدم حمدي", "2009-08-30", "A+"),
-    ("student.nour.zerrouki", "نور زروقي", "2008-05-26", "O+"),
-    ("student.amine.bennacer", "أمين بن ناصر", "2009-11-20", "B-"),
-    ("student.salma.djabou", "سلمى جابو", "2008-07-02", "A+"),
-    ("student.anas.aitali", "أنس آيت علي", "2009-01-23", "O+"),
-    ("student.yasmine.benali", "ياسمين بن علي", "2010-03-08", "AB+"),
-    ("student.riad.saidi", "رياض ساعدي", "2008-10-14", "B+"),
-    ("student.malak.mansouri", "ملاك منصوري", "2009-05-01", "A+"),
-    ("student.sofiane.brahimi", "سفيان براهيمي", "2008-12-28", "O+"),
-    ("student.ines.khelil", "إيناس خليل", "2009-07-07", "A-"),
-    ("student.islam.touati", "إسلام تواتي", "2008-02-02", "B+"),
-    ("student.sirine.belhadj", "سيرين بلحاج", "2010-06-15", "O+"),
-    ("student.fares.hamdi", "فارس حمدي", "2009-09-01", "AB+"),
-    ("student.houda.zerrouki", "هدى زروقي", "2008-04-22", "A+"),
-    ("student.rayane.bennacer", "ريان بن ناصر", "2009-10-10", "O-"),
-    ("student.marwa.djabou", "مروة جابو", "2008-08-08", "B+"),
-    ("student.bilal.aitali", "بلال آيت علي", "2009-12-24", "O+"),
+    ("student.amira.benali.en", "Amira Benali", "2009-02-14", "O+"),
+    ("student.yanis.saidi.en", "Yanis Saidi", "2008-11-03", "A+"),
+    ("student.sarah.mansouri.en", "Sarah Mansouri", "2009-05-22", "B+"),
+    ("student.ilyes.brahimi.en", "Ilyes Brahimi", "2008-08-17", "O-"),
+    ("student.rania.khelil.en", "Rania Khelil", "2010-01-11", "A-"),
+    ("student.mohamed.touati.en", "Mohamed Touati", "2009-03-29", "AB+"),
+    ("student.lina.belhadj.en", "Lina Belhadj", "2008-12-07", "B-"),
+    ("student.anis.hamdi.en", "Anis Hamdi", "2009-07-19", "O+"),
+    ("student.chaima.zerrouki.en", "Chaima Zerrouki", "2008-04-05", "A+"),
+    ("student.zaki.bennacer.en", "Zaki Bennacer", "2009-09-25", "B+"),
+    ("student.manel.djabou.en", "Manel Djabou", "2008-06-13", "O+"),
+    ("student.nassim.aitali.en", "Nassim Ait Ali", "2009-10-31", "A+"),
+    ("student.khadija.benali.en", "Khadija Benali", "2010-02-18", "O+"),
+    ("student.walid.saidi.en", "Walid Saidi", "2008-01-27", "AB-"),
+    ("student.imane.mansouri.en", "Imane Mansouri", "2009-12-09", "B+"),
+    ("student.aymen.brahimi.en", "Aymen Brahimi", "2008-03-16", "O+"),
+    ("student.meriem.khelil.en", "Meriem Khelil", "2009-06-04", "A-"),
+    ("student.karim.touati.en", "Karim Touati", "2008-09-12", "B+"),
+    ("student.hiba.belhadj.en", "Hiba Belhadj", "2010-04-21", "O-"),
+    ("student.adem.hamdi.en", "Adem Hamdi", "2009-08-30", "A+"),
+    ("student.nour.zerrouki.en", "Nour Zerrouki", "2008-05-26", "O+"),
+    ("student.amine.bennacer.en", "Amine Bennacer", "2009-11-20", "B-"),
+    ("student.salma.djabou.en", "Salma Djabou", "2008-07-02", "A+"),
+    ("student.anas.aitali.en", "Anas Ait Ali", "2009-01-23", "O+"),
+    ("student.yasmine.benali.en", "Yasmine Benali", "2010-03-08", "AB+"),
+    ("student.riad.saidi.en", "Riad Saidi", "2008-10-14", "B+"),
+    ("student.malak.mansouri.en", "Malak Mansouri", "2009-05-01", "A+"),
+    ("student.sofiane.brahimi.en", "Sofiane Brahimi", "2008-12-28", "O+"),
+    ("student.ines.khelil.en", "Ines Khelil", "2009-07-07", "A-"),
+    ("student.islam.touati.en", "Islam Touati", "2008-02-02", "B+"),
 ]
-
-
-def hash_password(password=DEFAULT_PASSWORD):
-    return hashlib.sha256(password.encode()).hexdigest()
 
 
 def insert_user(cursor, role_id, username, full_name, phone, email=None, address=None):
@@ -202,34 +192,33 @@ def get_or_create_public_author(cursor, roles):
     return insert_user(
         cursor,
         roles["admin"],
-        "admin.seed",
-        "إدارة الأكاديمية",
+        "admin.seed.en",
+        "Academy Administration",
         "0550000000",
-        "admin.seed@academy.local",
-        "مكتب الإدارة",
+        "admin.seed.en@academy.local",
+        "Administration Office",
     )
 
 
 def seed_staff_users(cursor, roles):
     staff = {}
-
     staff["reception"] = insert_user(
         cursor,
         roles["receptionist"],
-        "seed.reception",
-        "هدى مكتب الاستقبال",
+        "seed.reception.en",
+        "Huda Reception Officer",
         "0550001001",
-        "reception.seed@academy.local",
-        "مكتب الاستقبال",
+        "reception.seed.en@academy.local",
+        "Reception Desk",
     )
     staff["accountant"] = insert_user(
         cursor,
         roles["accountant"],
-        "seed.accounting",
-        "سليم المحاسب",
+        "seed.accounting.en",
+        "Salim Finance Officer",
         "0550001002",
-        "accounting.seed@academy.local",
-        "المكتب المالي",
+        "accounting.seed.en@academy.local",
+        "Finance Office",
     )
     return staff
 
@@ -302,7 +291,7 @@ def seed_teachers(cursor, roles, subject_ids):
             full_name,
             phone,
             f"{username}@academy.local",
-            "قاعة الأساتذة",
+            "Teachers Room",
         )
         cursor.execute(
             "INSERT INTO teachers (user_id, specialty, hire_date) VALUES (%s, %s, %s)",
@@ -331,7 +320,7 @@ def seed_parents(cursor, roles):
             full_name,
             phone,
             f"{username}@academy.local",
-            "الجزائر",
+            "Algiers",
         )
         cursor.execute("INSERT INTO parents (user_id) VALUES (%s)", (user_id,))
         parents.append({"id": cursor.lastrowid, "user_id": user_id, "full_name": full_name})
@@ -343,7 +332,7 @@ def choose_class_for_program(program, class_load):
 
 
 def planned_program_keys(index):
-    base_cycle = ["math", "languages", "bac", "science"]
+    base_cycle = ["math", "languages", "exam_prep", "science"]
     keys = [base_cycle[index % len(base_cycle)]]
 
     if index % 4 == 0 and "languages" not in keys:
@@ -352,8 +341,8 @@ def planned_program_keys(index):
         keys.append("math")
     if index % 7 == 0 and "science" not in keys:
         keys.append("science")
-    if index % 9 == 0 and "bac" not in keys:
-        keys.append("bac")
+    if index % 9 == 0 and "exam_prep" not in keys:
+        keys.append("exam_prep")
 
     return keys
 
@@ -372,7 +361,7 @@ def seed_students_enrollments_and_fees(cursor, roles, parents, programs, class_l
             full_name,
             f"056{1000000 + index}",
             f"{username}@academy.local",
-            "الجزائر",
+            "Algiers",
         )
         cursor.execute(
             """
@@ -387,7 +376,7 @@ def seed_students_enrollments_and_fees(cursor, roles, parents, programs, class_l
                 birth_date,
                 (TODAY - timedelta(days=35 + (index % 15))).isoformat(),
                 blood_group,
-                "لا توجد ملاحظات صحية خاصة",
+                "No specific medical notes",
             ),
         )
         student_id = cursor.lastrowid
@@ -419,7 +408,7 @@ def seed_students_enrollments_and_fees(cursor, roles, parents, programs, class_l
                     class_id,
                     class_name,
                     (TODAY - timedelta(days=30 + (index % 10))).isoformat(),
-                    "تسجيل تجريبي صحيح مرتبط بالبرنامج والفوج",
+                    "Valid seed enrollment linked to program and class",
                 ),
             )
             enrollment_id = cursor.lastrowid
@@ -448,7 +437,7 @@ def seed_students_enrollments_and_fees(cursor, roles, parents, programs, class_l
                     student_id,
                     enrollment_id,
                     program["id"],
-                    "اشتراك برنامج",
+                    "Program subscription",
                     program["price_cash"],
                     discount,
                     due_date.isoformat(),
@@ -472,7 +461,7 @@ def seed_students_enrollments_and_fees(cursor, roles, parents, programs, class_l
                         accountant_user_id,
                         paid_amount,
                         fee_id,
-                        f"دفع تجريبي لرسوم {program['name']}",
+                        f"Seed payment for {program['name']}",
                     ),
                 )
                 transaction_id = cursor.lastrowid
@@ -488,7 +477,7 @@ def seed_students_enrollments_and_fees(cursor, roles, parents, programs, class_l
                         transaction_id,
                         paid_amount,
                         1,
-                        f"REC-{TODAY.strftime('%Y%m')}-{fee_id:04d}",
+                        f"EN-REC-{TODAY.strftime('%Y%m')}-{fee_id:04d}",
                     ),
                 )
                 cursor.execute(
@@ -497,6 +486,20 @@ def seed_students_enrollments_and_fees(cursor, roles, parents, programs, class_l
                 )
 
     return students, enrollments, fees
+
+
+def public_resource_url(subject_name):
+    urls = {
+        "Mathematics": "https://www.khanacademy.org/math",
+        "Physics and Chemistry": "https://www.khanacademy.org/science/physics",
+        "Life and Earth Sciences": "https://www.khanacademy.org/science/biology",
+        "French Language": "https://apprendre.tv5monde.com/en",
+        "English Language": "https://learnenglish.britishcouncil.org/",
+        "Arabic Language": "https://www.aljazeera.net/encyclopedia",
+        "Computer Science": "https://www.w3schools.com/python/",
+        "Study Skills": "https://learningcenter.unc.edu/tips-and-tools/",
+    }
+    return urls.get(subject_name, "https://www.khanacademy.org/")
 
 
 def seed_assignments_schedules_resources(cursor, programs, subject_ids, teacher_by_subject):
@@ -561,28 +564,14 @@ def seed_assignments_schedules_resources(cursor, programs, subject_ids, teacher_
                     ) VALUES (%s, %s, 'link', %s, 0, %s)
                     """,
                     (
-                        f"ملخص {subject_name}",
-                        f"رابط دعم للمراجعة المنظمة في مادة {subject_name}.",
+                        f"{subject_name} Review Pack",
+                        f"A curated public resource for organized revision in {subject_name}.",
                         public_resource_url(subject_name),
                         assignment_id,
                     ),
                 )
 
     return assignments
-
-
-def public_resource_url(subject_name):
-    urls = {
-        "الرياضيات": "https://www.khanacademy.org/math",
-        "الفيزياء والكيمياء": "https://www.khanacademy.org/science/physics",
-        "علوم الطبيعة والحياة": "https://www.khanacademy.org/science/biology",
-        "اللغة الفرنسية": "https://apprendre.tv5monde.com/fr",
-        "اللغة الإنجليزية": "https://learnenglish.britishcouncil.org/",
-        "اللغة العربية": "https://www.aljazeera.net/encyclopedia",
-        "الإعلام الآلي": "https://www.w3schools.com/python/",
-        "منهجية الدراسة": "https://learningcenter.unc.edu/tips-and-tools/",
-    }
-    return urls.get(subject_name, "https://www.khanacademy.org/")
 
 
 def get_active_students_by_class(cursor):
@@ -617,7 +606,7 @@ def seed_assessments_grades_and_attendance(cursor, assignments):
             VALUES (%s, %s, 20, %s, %s)
             """,
             (
-                f"{'اختبار' if assessment_type == 'exam' else 'فرض'} {assignment['subject_name']}",
+                f"{assignment['subject_name']} {'Exam' if assessment_type == 'exam' else 'Quiz'}",
                 assessment_type,
                 assignment["id"],
                 (TODAY - timedelta(days=7 + (index % 20))).isoformat(),
@@ -629,13 +618,13 @@ def seed_assessments_grades_and_attendance(cursor, assignments):
             raw_grade = random.gauss(13.2, 3.1)
             grade = round(max(4.0, min(19.75, raw_grade)), 2)
             if grade >= 16:
-                remark = "ممتاز، أداء ثابت ومنظم"
+                remark = "Excellent, consistent and well-organized work"
             elif grade >= 12:
-                remark = "جيد، يحتاج فقط إلى تثبيت المكتسبات"
+                remark = "Good progress, continue practicing"
             elif grade >= 9:
-                remark = "متوسط، ينصح بتمارين إضافية"
+                remark = "Average result, additional exercises recommended"
             else:
-                remark = "يحتاج إلى متابعة فردية وخطة دعم"
+                remark = "Needs individual follow-up and a support plan"
 
             cursor.execute(
                 """
@@ -654,7 +643,7 @@ def seed_assessments_grades_and_attendance(cursor, assignments):
                     k=1,
                 )[0]
                 is_justified = status == "absent" and random.random() < 0.45
-                reason = "مبرر طبي موثق" if is_justified else None
+                reason = "Documented medical justification" if is_justified else None
                 cursor.execute(
                     """
                     INSERT INTO attendance (
@@ -667,12 +656,12 @@ def seed_assessments_grades_and_attendance(cursor, assignments):
 
 
 def seed_notifications(cursor):
-    cursor.execute("SELECT id, role_id FROM users")
+    cursor.execute("SELECT id FROM users")
     notifications = [
-        ("مرحبا بكم", "تم تفعيل السنة الدراسية الجديدة على المنصة."),
-        ("تذكير إداري", "يرجى التأكد من صحة أرقام الهاتف والبريد الإلكتروني."),
-        ("متابعة الحضور", "يمكنكم مراجعة الحضور والغياب من لوحة التحكم."),
-        ("رزنامة التقييمات", "تم نشر التقييمات القادمة حسب الفوج والبرنامج."),
+        ("Welcome", "The new academic term has been activated on the platform."),
+        ("Profile Reminder", "Please verify phone numbers and email addresses this week."),
+        ("Attendance Tracking", "Attendance records are now available from your dashboard."),
+        ("Assessment Calendar", "Upcoming assessments are published by program and class group."),
     ]
 
     for row in cursor.fetchall():
@@ -686,73 +675,73 @@ def seed_notifications(cursor):
 def seed_public_markdown_posts(cursor, author_user_id):
     posts = [
         {
-            "title": "خطة مراجعة عامة: كيف نستثمر الأسبوع الدراسي؟",
+            "title": "Weekly Study Plan: Turning Effort Into Progress",
             "image": "https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80",
-            "content": """# خطة مراجعة أسبوعية للطلاب
+            "content": """# Weekly Study Plan
 
-![طلاب يراجعون في مكتبة](https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80)
+![Students studying in a library](https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80)
 
-تساعد الخطة الأسبوعية على تحويل المراجعة من مجهود عشوائي إلى تقدم قابل للقياس. يمكنكم الاستفادة من دليل [Khan Academy](https://www.khanacademy.org/) للمراجعة حسب المادة.
+A clear weekly plan turns revision from random effort into measurable progress. Students may also use [Khan Academy](https://www.khanacademy.org/) for structured practice by topic.
 
-| اليوم | الهدف | مدة المراجعة | مخرج الجلسة |
+| Day | Main Goal | Duration | Output |
 |---|---:|---:|---|
-| الأحد | تثبيت درس جديد | 45 دقيقة | ملخص من 8 أسطر |
-| الثلاثاء | حل تمارين | 60 دقيقة | 10 تمارين مصححة |
-| الخميس | مراجعة أخطاء | 30 دقيقة | قائمة أخطاء متكررة |
+| Sunday | Review a new lesson | 45 min | 8-line summary |
+| Tuesday | Solve exercises | 60 min | 10 corrected tasks |
+| Thursday | Review mistakes | 30 min | Error checklist |
 
-نقيس التقدم بالعلاقة:
+Progress can be measured with:
 
 $$
-R = \\frac{\\text{عدد الجلسات المنجزة}}{\\text{عدد الجلسات المبرمجة}} \\times 100
+R = \\frac{\\text{completed sessions}}{\\text{planned sessions}} \\times 100
 $$
 
-عندما يكون $R \\ge 80\\%$ فهذا مؤشر جيد على انتظام المراجعة.""",
+When $R \\ge 80\\%$, the student is building a reliable study routine.""",
         },
         {
-            "title": "ورشة الرياضيات: من المعادلة إلى الفهم",
+            "title": "Mathematics Workshop: From Formula to Meaning",
             "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80",
-            "content": """# ورشة مفتوحة في الرياضيات
+            "content": """# Mathematics Workshop
 
-![لوح رياضيات](https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80)
+![Mathematics board](https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80)
 
-تنظم الأكاديمية ورشة عامة حول قراءة المعادلات التربيعية وفهم معنى المميز. يمكن للطلاب مراجعة الأساسيات من [Math is Fun](https://www.mathsisfun.com/algebra/quadratic-equation.html).
+This public workshop focuses on quadratic equations and the meaning of the discriminant. For extra practice, students can visit [Math is Fun](https://www.mathsisfun.com/algebra/quadratic-equation.html).
 
-| المفهوم | الصيغة | ماذا يخبرنا؟ |
+| Concept | Formula | Meaning |
 |---|---|---|
-| الشكل العام | $ax^2 + bx + c = 0$ | بنية المعادلة |
-| المميز | $\\Delta = b^2 - 4ac$ | عدد الحلول |
-| محور التناظر | $x = -\\frac{b}{2a}$ | تموضع رأس المنحنى |
+| General form | $ax^2 + bx + c = 0$ | Equation structure |
+| Discriminant | $\\Delta = b^2 - 4ac$ | Number of real solutions |
+| Axis of symmetry | $x = -\\frac{b}{2a}$ | Position of the vertex |
 
-إذا كان:
+If:
 
 $$
 \\Delta > 0
 $$
 
-فإن للمعادلة حلين حقيقيين مختلفين، وهذا مثال بسيط على تحويل الرمز الرياضي إلى قرار واضح.""",
+then the equation has two distinct real solutions.""",
         },
         {
-            "title": "إعلان عام: نادي العلوم واللغات",
+            "title": "Public Announcement: Science and Languages Club",
             "image": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80",
-            "content": """# نادي العلوم واللغات
+            "content": """# Science and Languages Club
 
-![تجربة علمية](https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80)
+![Science experiment](https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80)
 
-النادي فضاء مفتوح للتجريب، الحوار، وتعلم المصطلحات العلمية بلغات مختلفة. للمصطلحات الإنجليزية يمكن زيارة [British Council LearnEnglish](https://learnenglish.britishcouncil.org/).
+The club is an open space for experiments, discussion, and scientific vocabulary practice. For English vocabulary, learners can explore [British Council LearnEnglish](https://learnenglish.britishcouncil.org/).
 
-| النشاط | اللغة المستخدمة | مثال تطبيقي |
+| Activity | Language Focus | Example |
 |---|---|---|
-| تجربة السرعة | العربية + الإنجليزية | speed, distance, time |
-| عرض قصير | الفرنسية | présenter une expérience |
-| ملصق علمي | العربية | فرضية، ملاحظة، نتيجة |
+| Speed experiment | English vocabulary | speed, distance, time |
+| Short presentation | French communication | presenter une experience |
+| Scientific poster | Arabic terminology | hypothesis, observation, result |
 
-في تجربة السرعة نستعمل العلاقة:
+For speed experiments, students use:
 
 $$
 v = \\frac{d}{t}
 $$
 
-حيث $v$ السرعة، و$d$ المسافة، و$t$ الزمن. الهدف ليس حفظ القانون فقط، بل استعماله في وضعية حقيقية.""",
+where $v$ is speed, $d$ is distance, and $t$ is time. The goal is to use the formula in a real situation, not only memorize it.""",
         },
     ]
 
@@ -773,10 +762,10 @@ def seed_conversations_and_messages(cursor):
         return
 
     conversations = [
-        ("متابعة واجب الرياضيات", "individual"),
-        ("استفسار حول الحضور", "individual"),
-        ("تنسيق موعد دفع الرسوم", "individual"),
-        ("ملاحظات حول برنامج اللغات", "individual"),
+        ("Mathematics Homework Follow-up", "individual"),
+        ("Attendance Clarification", "individual"),
+        ("Payment Schedule Coordination", "individual"),
+        ("Languages Program Notes", "individual"),
     ]
     for title, conversation_type in conversations:
         cursor.execute(
@@ -785,12 +774,12 @@ def seed_conversations_and_messages(cursor):
         )
 
     messages = [
-        "السلام عليكم، هل يمكن تأكيد موعد الحصة القادمة؟",
-        "تم تحديث جدول الفوج على المنصة.",
-        "يرجى مراجعة ملاحظات التقييم الأخير.",
-        "شكرا لكم، تم استلام الإشعار.",
-        "هل يمكن إرسال رابط مورد المراجعة؟",
-        "تم تسجيل الدفعة الأولى بنجاح.",
+        "Hello, could you please confirm the next session time?",
+        "The group schedule has been updated on the platform.",
+        "Please review the notes from the latest assessment.",
+        "Thank you, the notification has been received.",
+        "Could you send the revision resource link?",
+        "The first installment has been recorded successfully.",
     ]
 
     for index in range(36):
@@ -812,7 +801,7 @@ def seed_database():
     try:
         with db.get_db_connection() as conn:
             cursor = conn.cursor(dictionary=True)
-            logger.info("Starting professional seed data generation...")
+            logger.info("Starting English seed data generation...")
 
             roles = get_roles(cursor)
             author_user_id = get_or_create_public_author(cursor, roles)
@@ -841,7 +830,7 @@ def seed_database():
             seed_conversations_and_messages(cursor)
 
             conn.commit()
-            logger.info("Seed completed successfully.")
+            logger.info("English seed completed successfully.")
             logger.info("Programs: %s", len(programs))
             logger.info("Classes: %s", sum(len(program["class_ids"]) for program in programs.values()))
             logger.info("Teachers: %s", len(teachers))
@@ -851,7 +840,7 @@ def seed_database():
             logger.info("Fees: %s", len(fees))
             logger.info("Default generated password: %s", DEFAULT_PASSWORD)
     except Exception as exc:
-        logger.error("Seed failed: %s", exc)
+        logger.error("English seed failed: %s", exc)
         raise
 
 

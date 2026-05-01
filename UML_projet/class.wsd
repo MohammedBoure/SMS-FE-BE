@@ -1,28 +1,31 @@
-@startuml SchoolManagementSystem_Optimized
+@startuml SchoolManagementSystem_A3
 
 ' ===================== إعدادات المساحة والضغط =====================
 ' تغيير محوري لاستغلال شاشات العرض (التي تكون عريضة) بشكل أفضل
-left to right direction 
+' A3 landscape at 300 dpi is about 4960 x 3508 px.
+left to right direction
+scale max 4960*3508
 
 skinparam dpi 300
 skinparam linetype ortho
 
 ' تقليل المسافات لإجبار العناصر على التقارب المدروس
-skinparam nodesep 30
-skinparam ranksep 60
-skinparam padding 4
+skinparam nodesep 8
+skinparam ranksep 18
+skinparam padding 1
+skinparam pageMargin 4
 
 skinparam classAttributeIconSize 0
 skinparam shadowing false
-skinparam roundcorner 8
+skinparam roundcorner 3
 skinparam backgroundColor #FFFFFF
 
 skinparam class {
   BorderColor #2C3E50
   ArrowColor #34495E
   BackgroundColor #FDFEFE
-  FontSize 13
-  AttributeFontSize 12
+  FontSize 9
+  AttributeFontSize 8
 }
 
 ' ===================== الكلاسات =====================
@@ -150,7 +153,6 @@ class TeacherAssignmentsManager {
   - teacher_id: INT
   - subject_id: INT
   - class_id: INT
-  - academic_year_id: INT
   ..
   + assign_teacher(teacher_id: Integer, subject_id: Integer,\n  class_id: Integer): Integer
   + get_all_assignments(): List
@@ -284,6 +286,23 @@ class PaymentsManager {
   + delete_payment(payment_id: Integer): Tuple
 }
 
+class ConversationsManager {
+  - id: INT
+  - title: VARCHAR(255)
+  - type: VARCHAR(20)
+  - created_at: TIMESTAMP
+  ..
+  + create_conversation(title: String, conv_type: String): Integer
+  + get_all_conversations(conv_type: String, limit: Integer): List
+  + get_conversation_by_id(conv_id: Integer): Dictionary
+  + search_conversations(keyword: String, conv_type: String): List
+  + get_recent_conversations(days: Integer, limit: Integer): List
+  + get_conversations_summary(): Dictionary
+  + update_conversation(conv_id: Integer, title: String,\n  conv_type: String): Boolean
+  + delete_conversation(conv_id: Integer): Tuple
+  + delete_old_conversations(days_old: Integer): Tuple
+}
+
 class MessagesManager {
   - id: INT
   - content: TEXT
@@ -365,6 +384,7 @@ class NotificationsManager {
   ..
   + create_notification(user_id: Integer, title: String,\n  message: String): Integer
   + create_bulk_notifications(user_ids: List, title: String,\n  message: String): Boolean
+  + get_all_notifications(limit: Integer): List
   + get_user_notifications(user_id: Integer,\n  unread_only: Boolean, limit: Integer): List
   + get_unread_count(user_id: Integer): Integer
   + mark_as_read(notification_id: Integer): Boolean
@@ -416,5 +436,5 @@ PostsManager "*" --> "1" UsersManager : user_id
 MessagesManager "*" --> "1" UsersManager : sender_id
 MessagesManager "*" --> "1" UsersManager : receiver_id
 
- "*" --> "1" StudentEnrollmentsManager : enrollment_id
+StudentFeesManager "*" --> "1" StudentEnrollmentsManager : enrollment_id
 @enduml

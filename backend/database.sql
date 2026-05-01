@@ -13,7 +13,7 @@ CREATE TABLE conversations (
 );
 
 -- 2. Advanced Permissions System Tables (Base)
-CREATE TABLE roles (
+CREATE TABLE IF NOT EXISTS roles (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) UNIQUE NOT NULL,
     CHECK (
