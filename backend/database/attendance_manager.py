@@ -1,132 +1,172 @@
-# database/managers/attendance_manager.py
+import logging
+from typing import Dict, List, Optional
 
 import mysql.connector
-import logging
-from typing import List, Dict, Optional
-from datetime import date
 
 
 class AttendanceManager:
-    """
-    مدير جدول attendance.
-    يُدير حضور وغياب الطلاب وتبريراتهم، مع ميزات مخصصة لقوائم المناداة اليومية والإحصائيات.
-    """
-
     def __init__(self, db_instance):
         self.db = db_instance
 
-    # ================================================================
-    # CREATE & UPDATE (Upsert Logic)
-    # ================================================================
+    @staticmethod
+    def _student_has_active_class_enrollment(cursor, student_id: int, class_id: int) -> bool:
+        if class_id is None:
+            return True
+        cursor.execute(
+            """
+            SELECT 1
+            FROM student_enrollments
+            WHERE student_id = %s
+              AND class_id = %s
+              AND status = 'active'
+            LIMIT 1
+            """,
+            (student_id, class_id)
+        )
+        return cursor.fetchone() is not None
 
     def save_attendance(self, student_id: int, target_date: str, status: str,
-                        is_justified: bool = False, justification_reason: str = None) -> Optional[int]:
-        """
-        تسجيل أو تحديث حضور الطالب في يوم معين.
-        إذا كان مسجلاً مسبقاً في هذا اليوم، سيتم تحديث حالته لتجنب التكرار.
-        الحالات المتوقعة (status): 'present', 'absent', 'late'.
-        """
+                        class_id: int = None, is_justified: bool = False,
+                        justification_reason: str = None) -> Optional[int]:
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
-                
-                # التحقق من وجود سجل في هذا اليوم
-                check_query = "SELECT id FROM attendance WHERE student_id = %s AND date = %s"
-                cursor.execute(check_query, (student_id, target_date))
+                if not self._student_has_active_class_enrollment(cursor, student_id, class_id):
+                    logging.warning(
+                        "Attendance blocked: student #%s is not actively enrolled in class #%s",
+                        student_id, class_id
+                    )
+                    return None
+
+                if class_id is None:
+                    check_query = """
+                        SELECT id
+                        FROM attendance
+                        WHERE student_id = %s
+                          AND date = %s
+                          AND class_id IS NULL
+                    """
+                    cursor.execute(check_query, (student_id, target_date))
+                else:
+                    check_query = """
+                        SELECT id
+                        FROM attendance
+                        WHERE student_id = %s
+                          AND date = %s
+                          AND class_id = %s
+                    """
+                    cursor.execute(check_query, (student_id, target_date, class_id))
                 existing = cursor.fetchone()
 
                 if existing:
-                    # تحديث السجل الموجود
                     attendance_id = existing[0]
                     update_query = """
-                        UPDATE attendance 
-                        SET status = %s, is_justified = %s, justification_reason = %s 
+                        UPDATE attendance
+                        SET status = %s, is_justified = %s, justification_reason = %s
                         WHERE id = %s
                     """
                     cursor.execute(update_query, (status, is_justified, justification_reason, attendance_id))
                     conn.commit()
-                    logging.info(f"✅ Présence mise à jour : [{attendance_id}] Étudiant #{student_id} -> {status} ({target_date})")
+                    logging.info(
+                        "Attendance updated: [%s] student #%s / class #%s -> %s (%s)",
+                        attendance_id, student_id, class_id, status, target_date
+                    )
                     return attendance_id
-                else:
-                    # إدخال سجل جديد
-                    insert_query = """
-                        INSERT INTO attendance (student_id, date, status, is_justified, justification_reason)
-                        VALUES (%s, %s, %s, %s, %s)
-                    """
-                    cursor.execute(insert_query, (student_id, target_date, status, is_justified, justification_reason))
-                    attendance_id = cursor.lastrowid
-                    conn.commit()
-                    logging.info(f"✅ Nouvelle présence : [{attendance_id}] Étudiant #{student_id} -> {status} ({target_date})")
-                    return attendance_id
+
+                insert_query = """
+                    INSERT INTO attendance (
+                        student_id, class_id, date, status, is_justified, justification_reason
+                    ) VALUES (%s, %s, %s, %s, %s, %s)
+                """
+                cursor.execute(
+                    insert_query,
+                    (student_id, class_id, target_date, status, is_justified, justification_reason)
+                )
+                attendance_id = cursor.lastrowid
+                conn.commit()
+                logging.info(
+                    "Attendance created: [%s] student #%s / class #%s -> %s (%s)",
+                    attendance_id, student_id, class_id, status, target_date
+                )
+                return attendance_id
 
         except mysql.connector.Error as e:
-            logging.error(f"❌ Erreur lors de l'enregistrement de la présence : {e}")
+            logging.error(f"Error saving attendance: {e}")
             return None
 
-    # ================================================================
-    # READ
-    # ================================================================
-
     def get_class_attendance_sheet(self, class_id: int, target_date: str) -> List[Dict]:
-        """
-        ميزة متقدمة: جلب 'ورقة المناداة' لقسم معين في يوم محدد.
-        تُعيد جميع طلاب القسم، وتُظهر حالتهم إذا سُجلت، أو None إذا لم تُسجل بعد.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
                 query = """
-                    SELECT 
-                        s.id AS student_id, u.full_name AS student_name,
-                        a.id AS attendance_id, a.date, a.status, 
-                        a.is_justified, a.justification_reason
-                    FROM students s
+                    SELECT
+                        se.id AS enrollment_id,
+                        se.program_id,
+                        se.class_id,
+                        s.id AS student_id,
+                        u.full_name AS student_name,
+                        a.id AS attendance_id,
+                        a.date,
+                        a.status,
+                        a.is_justified,
+                        a.justification_reason
+                    FROM student_enrollments se
+                    JOIN students s ON se.student_id = s.id
                     JOIN users u ON s.user_id = u.id
-                    LEFT JOIN attendance a ON s.id = a.student_id AND a.date = %s
-                    WHERE s.class_id = %s
+                    LEFT JOIN attendance a
+                        ON a.student_id = s.id
+                       AND a.class_id = se.class_id
+                       AND a.date = %s
+                    WHERE se.class_id = %s
+                      AND se.status = 'active'
                     ORDER BY u.full_name ASC
                 """
                 cursor.execute(query, (target_date, class_id))
                 return cursor.fetchall()
         except Exception as e:
-            logging.error(f"❌ Erreur feuille de présence (Classe #{class_id}) : {e}")
+            logging.error(f"Error fetching attendance sheet for class #{class_id}: {e}")
             return []
 
-    def get_student_attendance(self, student_id: int, 
-                               start_date: str = None, end_date: str = None) -> List[Dict]:
-        """
-        جلب السجل التفصيلي لغياب/حضور طالب معين (مع إمكانية التحديد بفترة زمنية).
-        """
+    def get_student_attendance(self, student_id: int, start_date: str = None,
+                               end_date: str = None, class_id: int = None) -> List[Dict]:
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
-                
-                query = "SELECT * FROM attendance WHERE student_id = %s"
+
+                query = """
+                    SELECT
+                        a.*,
+                        c.class_name,
+                        c.level
+                    FROM attendance a
+                    LEFT JOIN classes c ON a.class_id = c.id
+                    WHERE a.student_id = %s
+                """
                 params = [student_id]
 
+                if class_id:
+                    query += " AND a.class_id = %s"
+                    params.append(class_id)
                 if start_date:
-                    query += " AND date >= %s"
+                    query += " AND a.date >= %s"
                     params.append(start_date)
                 if end_date:
-                    query += " AND date <= %s"
+                    query += " AND a.date <= %s"
                     params.append(end_date)
 
-                query += " ORDER BY date DESC"
+                query += " ORDER BY a.date DESC, c.class_name ASC"
                 cursor.execute(query, tuple(params))
                 return cursor.fetchall()
         except Exception as e:
-            logging.error(f"❌ Erreur récupération présences (Étudiant #{student_id}) : {e}")
+            logging.error(f"Error fetching attendance for student #{student_id}: {e}")
             return []
 
-    def get_attendance_statistics(self, student_id: int) -> Dict:
-        """
-        إحصائيات الغياب والحضور لطالب معين (تُستخدم في لوحة تحكم الولي أو الطالب).
-        """
+    def get_attendance_statistics(self, student_id: int, class_id: int = None) -> Dict:
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor(dictionary=True)
                 query = """
-                    SELECT 
+                    SELECT
                         COUNT(id) AS total_sessions,
                         SUM(status = 'present') AS present_count,
                         SUM(status = 'absent') AS absent_count,
@@ -135,10 +175,14 @@ class AttendanceManager:
                     FROM attendance
                     WHERE student_id = %s
                 """
-                cursor.execute(query, (student_id,))
+                params = [student_id]
+                if class_id:
+                    query += " AND class_id = %s"
+                    params.append(class_id)
+
+                cursor.execute(query, tuple(params))
                 stats = cursor.fetchone()
-                
-                # التعامل مع القيم الفارغة في حال لم يكن للطالب أي سجلات
+
                 return {
                     'total_sessions': int(stats['total_sessions'] or 0),
                     'present_count': int(stats['present_count'] or 0),
@@ -147,45 +191,31 @@ class AttendanceManager:
                     'justified_absences': int(stats['justified_absences'] or 0),
                 }
         except Exception as e:
-            logging.error(f"❌ Erreur statistiques présence (Étudiant #{student_id}) : {e}")
+            logging.error(f"Error fetching attendance statistics for student #{student_id}: {e}")
             return {}
 
-    # ================================================================
-    # UPDATE
-    # ================================================================
-
-    def update_justification(self, attendance_id: int, is_justified: bool, 
+    def update_justification(self, attendance_id: int, is_justified: bool,
                              justification_reason: str = None) -> bool:
-        """
-        اختصار سريع لتحديث تبرير الغياب (مثلاً: إحضار شهادة طبية).
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
                 query = """
-                    UPDATE attendance 
-                    SET is_justified = %s, justification_reason = %s 
+                    UPDATE attendance
+                    SET is_justified = %s, justification_reason = %s
                     WHERE id = %s
                 """
                 cursor.execute(query, (is_justified, justification_reason, attendance_id))
                 conn.commit()
-                
+
                 updated = cursor.rowcount > 0
                 if updated:
-                    logging.info(f"✅ Justification mise à jour pour l'absence #{attendance_id}.")
+                    logging.info(f"Attendance justification updated for #{attendance_id}.")
                 return updated
         except mysql.connector.Error as e:
-            logging.error(f"❌ Erreur mise à jour justification #{attendance_id} : {e}")
+            logging.error(f"Error updating attendance justification #{attendance_id}: {e}")
             return False
 
-    # ================================================================
-    # DELETE
-    # ================================================================
-
     def delete_attendance(self, attendance_id: int) -> tuple:
-        """
-        حذف سجل حضور/غياب مُسجل بالخطأ.
-        """
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
@@ -193,9 +223,9 @@ class AttendanceManager:
                 conn.commit()
 
                 if cursor.rowcount > 0:
-                    logging.info(f"🗑️ Présence #{attendance_id} supprimée.")
-                    return True, "Enregistrement supprimé avec succès."
-                return False, "Enregistrement introuvable."
+                    logging.info(f"Attendance #{attendance_id} deleted.")
+                    return True, "Attendance record deleted successfully."
+                return False, "Attendance record not found."
         except mysql.connector.Error as e:
-            logging.error(f"❌ Erreur suppression présence #{attendance_id} : {e}")
-            return False, f"Erreur base de données : {e}"
+            logging.error(f"Error deleting attendance #{attendance_id}: {e}")
+            return False, f"Database error: {e}"

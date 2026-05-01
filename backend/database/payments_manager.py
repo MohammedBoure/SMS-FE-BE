@@ -68,11 +68,17 @@ class PaymentsManager:
                         p.id AS payment_id, p.amount_paid, p.payment_date, 
                         p.receipt_number, p.installment_number,
                         sf.fee_type,
+                        sf.enrollment_id,
+                        prog.program_name,
+                        c.class_name,
                         u.full_name AS student_name, u.phone
                     FROM payments p
                     JOIN student_fees sf ON p.fee_id = sf.id
                     JOIN students s ON sf.student_id = s.id
                     JOIN users u ON s.user_id = u.id
+                    LEFT JOIN student_enrollments se ON sf.enrollment_id = se.id
+                    LEFT JOIN programs prog ON prog.id = COALESCE(sf.program_id, se.program_id)
+                    LEFT JOIN classes c ON se.class_id = c.id
                     ORDER BY p.payment_date DESC
                 """
                 cursor.execute(query)
@@ -105,11 +111,14 @@ class PaymentsManager:
                 query = """
                     SELECT 
                         p.id AS payment_id, p.amount_paid, p.payment_date, p.receipt_number,
-                        sf.fee_type, sf.id AS fee_id,
-                        prog.program_name
+                        sf.fee_type, sf.id AS fee_id, sf.enrollment_id,
+                        prog.program_name,
+                        c.class_name
                     FROM payments p
                     JOIN student_fees sf ON p.fee_id = sf.id
-                    LEFT JOIN programs prog ON sf.program_id = prog.id
+                    LEFT JOIN student_enrollments se ON sf.enrollment_id = se.id
+                    LEFT JOIN programs prog ON prog.id = COALESCE(sf.program_id, se.program_id)
+                    LEFT JOIN classes c ON se.class_id = c.id
                     WHERE sf.student_id = %s
                     ORDER BY p.payment_date DESC
                 """

@@ -81,10 +81,12 @@ CORE_EDUCATION_TABLE_QUERIES = [
 
     """CREATE TABLE IF NOT EXISTS classes (
         id         INT PRIMARY KEY AUTO_INCREMENT,
+        program_id INT NULL,
         class_name VARCHAR(50) NOT NULL,
         level      VARCHAR(50),
         age_group  VARCHAR(50) NULL,
-        capacity   INT
+        capacity   INT,
+        FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE SET NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;""",
 
     """CREATE TABLE IF NOT EXISTS parents (
@@ -131,12 +133,14 @@ ENROLLMENT_ASSIGNMENT_TABLE_QUERIES = [
         id              INT PRIMARY KEY AUTO_INCREMENT,
         student_id      INT,
         program_id      INT,
+        class_id        INT NULL,
         group_name      VARCHAR(50),
         enrollment_date DATE,
         status          VARCHAR(50) DEFAULT 'active',
         notes           TEXT,
         FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
-        FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE CASCADE
+        FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE CASCADE,
+        FOREIGN KEY (class_id)   REFERENCES classes(id)  ON DELETE SET NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;""",
 
     """CREATE TABLE IF NOT EXISTS teacher_assignments (
@@ -187,11 +191,13 @@ ACADEMIC_OPERATIONS_TABLE_QUERIES = [
     """CREATE TABLE IF NOT EXISTS attendance (
         id                   INT PRIMARY KEY AUTO_INCREMENT,
         student_id           INT,
+        class_id             INT NULL,
         date                 DATE    NOT NULL,
         status               VARCHAR(20) NOT NULL,
         is_justified         BOOLEAN DEFAULT FALSE,
         justification_reason TEXT,
-        FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
+        FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+        FOREIGN KEY (class_id)   REFERENCES classes(id)  ON DELETE SET NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;""",
 
     """CREATE TABLE IF NOT EXISTS schedules (
@@ -225,6 +231,7 @@ FINANCIAL_TABLE_QUERIES = [
     """CREATE TABLE IF NOT EXISTS student_fees (
         id               INT PRIMARY KEY AUTO_INCREMENT,
         student_id       INT,
+        enrollment_id    INT NULL,
         program_id       INT,
         fee_type         VARCHAR(50) NOT NULL,
         amount_due       INT NOT NULL,
@@ -232,6 +239,7 @@ FINANCIAL_TABLE_QUERIES = [
         due_date         DATE,
         transaction_id   INT,
         FOREIGN KEY (student_id)     REFERENCES students(id)          ON DELETE CASCADE,
+        FOREIGN KEY (enrollment_id)  REFERENCES student_enrollments(id) ON DELETE SET NULL,
         FOREIGN KEY (program_id)     REFERENCES programs(id)          ON DELETE SET NULL,
         FOREIGN KEY (transaction_id) REFERENCES user_transactions(id) ON DELETE SET NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;""",

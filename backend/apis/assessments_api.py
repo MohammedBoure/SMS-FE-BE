@@ -42,6 +42,10 @@ def get_all_assessments(manager: AssessmentsManager = Depends(get_assessments_ma
 def get_assessments_by_class(class_id: int, manager: AssessmentsManager = Depends(get_assessments_manager)):
     return manager.get_assessments_by_class(class_id)
 
+@router.get("/student/{student_id}")
+def get_assessments_by_student(student_id: int, manager: AssessmentsManager = Depends(get_assessments_manager)):
+    return manager.get_assessments_by_student(student_id)
+
 @router.get("/assignment/{assignment_id}")
 def get_assessments_by_assignment(assignment_id: int, manager: AssessmentsManager = Depends(get_assessments_manager)):
     return manager.get_assessments_by_assignment(assignment_id)

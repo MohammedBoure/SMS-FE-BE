@@ -122,6 +122,35 @@ class AssessmentsManager:
             logging.error(f"❌ Erreur récupération évaluations pour la classe #{class_id} : {e}")
             return []
 
+    def get_assessments_by_student(self, student_id: int) -> List[Dict]:
+        try:
+            with self.db.get_db_connection() as conn:
+                cursor = conn.cursor(dictionary=True)
+                query = """
+                    SELECT DISTINCT
+                        a.id AS assessment_id, a.title, a.type, a.due_date, a.max_grade,
+                        sub.subject_name,
+                        c.id AS class_id, c.class_name, c.level,
+                        p.id AS program_id, p.program_name,
+                        u.full_name AS teacher_name
+                    FROM student_enrollments se
+                    JOIN classes c ON se.class_id = c.id
+                    JOIN programs p ON se.program_id = p.id
+                    JOIN teacher_assignments ta ON ta.class_id = se.class_id
+                    JOIN assessments a ON a.assignment_id = ta.id
+                    JOIN subjects sub ON ta.subject_id = sub.id
+                    JOIN teachers t ON ta.teacher_id = t.id
+                    JOIN users u ON t.user_id = u.id
+                    WHERE se.student_id = %s
+                      AND se.status = 'active'
+                    ORDER BY a.due_date ASC, c.class_name ASC
+                """
+                cursor.execute(query, (student_id,))
+                return cursor.fetchall()
+        except Exception as e:
+            logging.error(f"Error fetching assessments for student #{student_id}: {e}")
+            return []
+
     def get_assessments_by_assignment(self, assignment_id: int) -> List[Dict]:
         """
         جلب التقييمات الخاصة بتكليف معين لأستاذ معين (مفيد لواجهة إدارة علامات الأستاذ).

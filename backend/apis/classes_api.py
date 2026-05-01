@@ -8,12 +8,14 @@ from database import ClassesManager
 router = APIRouter(prefix="/classes", tags=["Classes"])
 
 class ClassCreate(BaseModel):
+    program_id: Optional[int] = None
     class_name: str
     level: Optional[str] = None
     age_group: Optional[str] = None
     capacity: Optional[int] = None
 
 class ClassUpdate(BaseModel):
+    program_id: Optional[int] = None
     class_name: Optional[str] = None
     level: Optional[str] = None
     age_group: Optional[str] = None
@@ -25,7 +27,8 @@ def add_class(data: ClassCreate, manager: ClassesManager = Depends(get_classes_m
         class_name=data.class_name,
         level=data.level,
         age_group=data.age_group,
-        capacity=data.capacity
+        capacity=data.capacity,
+        program_id=data.program_id
     )
     if not class_id:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Failed to create class.")
@@ -36,8 +39,8 @@ def get_classes_occupancy(manager: ClassesManager = Depends(get_classes_manager)
     return manager.get_classes_occupancy()
 
 @router.get("/")
-def get_all_classes(level: Optional[str] = None, manager: ClassesManager = Depends(get_classes_manager)):
-    return manager.get_all_classes(level=level)
+def get_all_classes(level: Optional[str] = None, program_id: Optional[int] = None, manager: ClassesManager = Depends(get_classes_manager)):
+    return manager.get_all_classes(level=level, program_id=program_id)
 
 @router.get("/{class_id}")
 def get_class(class_id: int, manager: ClassesManager = Depends(get_classes_manager)):

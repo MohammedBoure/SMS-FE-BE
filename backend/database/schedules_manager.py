@@ -17,6 +17,38 @@ class SchedulesManager:
     def __init__(self, db_instance):
         self.db = db_instance
 
+    def get_student_schedule(self, student_id: int) -> List[Dict]:
+        try:
+            with self.db.get_db_connection() as conn:
+                cursor = conn.cursor(dictionary=True)
+                query = """
+                    SELECT DISTINCT
+                        s.id AS schedule_id, s.day_of_week, s.start_time, s.end_time, s.room_number,
+                        sub.subject_name,
+                        c.id AS class_id, c.class_name, c.level,
+                        p.id AS program_id, p.program_name,
+                        u.full_name AS teacher_name
+                    FROM student_enrollments se
+                    JOIN classes c ON se.class_id = c.id
+                    JOIN programs p ON se.program_id = p.id
+                    JOIN teacher_assignments ta ON ta.class_id = se.class_id
+                    JOIN schedules s ON s.assignment_id = ta.id
+                    JOIN subjects sub ON ta.subject_id = sub.id
+                    JOIN teachers t ON ta.teacher_id = t.id
+                    JOIN users u ON t.user_id = u.id
+                    WHERE se.student_id = %s
+                      AND se.status = 'active'
+                    ORDER BY
+                        FIELD(s.day_of_week, 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
+                        s.start_time ASC,
+                        c.class_name ASC
+                """
+                cursor.execute(query, (student_id,))
+                return cursor.fetchall()
+        except Exception as e:
+            logging.error(f"Error fetching schedule for student #{student_id}: {e}")
+            return []
+
     # ================================================================
     # SMART CONFLICT CHECK
     # ================================================================

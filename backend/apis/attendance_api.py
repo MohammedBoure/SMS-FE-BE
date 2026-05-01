@@ -9,6 +9,7 @@ router = APIRouter(prefix="/attendance", tags=["Attendance"])
 
 class AttendanceSave(BaseModel):
     student_id: int
+    class_id: Optional[int] = None
     target_date: str
     status: str
     is_justified: bool = False
@@ -22,6 +23,7 @@ class JustificationUpdate(BaseModel):
 def save_attendance(data: AttendanceSave, manager: AttendanceManager = Depends(get_attendance_manager)):
     attendance_id = manager.save_attendance(
         student_id=data.student_id,
+        class_id=data.class_id,
         target_date=data.target_date,
         status=data.status,
         is_justified=data.is_justified,
@@ -36,12 +38,12 @@ def get_class_attendance_sheet(class_id: int, target_date: str, manager: Attenda
     return manager.get_class_attendance_sheet(class_id=class_id, target_date=target_date)
 
 @router.get("/student/{student_id}")
-def get_student_attendance(student_id: int, start_date: Optional[str] = None, end_date: Optional[str] = None, manager: AttendanceManager = Depends(get_attendance_manager)):
-    return manager.get_student_attendance(student_id=student_id, start_date=start_date, end_date=end_date)
+def get_student_attendance(student_id: int, start_date: Optional[str] = None, end_date: Optional[str] = None, class_id: Optional[int] = None, manager: AttendanceManager = Depends(get_attendance_manager)):
+    return manager.get_student_attendance(student_id=student_id, start_date=start_date, end_date=end_date, class_id=class_id)
 
 @router.get("/student/{student_id}/statistics")
-def get_attendance_statistics(student_id: int, manager: AttendanceManager = Depends(get_attendance_manager)):
-    return manager.get_attendance_statistics(student_id)
+def get_attendance_statistics(student_id: int, class_id: Optional[int] = None, manager: AttendanceManager = Depends(get_attendance_manager)):
+    return manager.get_attendance_statistics(student_id, class_id=class_id)
 
 @router.patch("/{attendance_id}/justification")
 def update_justification(attendance_id: int, data: JustificationUpdate, manager: AttendanceManager = Depends(get_attendance_manager)):

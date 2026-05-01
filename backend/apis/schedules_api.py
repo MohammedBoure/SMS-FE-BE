@@ -42,6 +42,10 @@ def get_class_schedule(class_id: int, manager: SchedulesManager = Depends(get_sc
 def get_teacher_schedule(teacher_id: int, manager: SchedulesManager = Depends(get_schedules_manager)):
     return manager.get_teacher_schedule(teacher_id)
 
+@router.get("/student/{student_id}")
+def get_student_schedule(student_id: int, manager: SchedulesManager = Depends(get_schedules_manager)):
+    return manager.get_student_schedule(student_id)
+
 @router.put("/{schedule_id}")
 def update_schedule(schedule_id: int, data: ScheduleUpdate, manager: SchedulesManager = Depends(get_schedules_manager)):
     update_data = {k: v for k, v in data.dict().items() if v is not None}

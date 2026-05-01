@@ -9,6 +9,7 @@ router = APIRouter(prefix="/student-fees", tags=["Student Fees"])
 
 class FeeCreate(BaseModel):
     student_id: int
+    enrollment_id: Optional[int] = None
     fee_type: str
     amount_due: int
     program_id: Optional[int] = None
@@ -17,6 +18,8 @@ class FeeCreate(BaseModel):
     transaction_id: Optional[int] = None
 
 class FeeUpdate(BaseModel):
+    enrollment_id: Optional[int] = None
+    program_id: Optional[int] = None
     fee_type: Optional[str] = None
     amount_due: Optional[int] = None
     applied_discount: Optional[int] = None
@@ -27,6 +30,7 @@ class FeeUpdate(BaseModel):
 def create_fee(data: FeeCreate, manager: StudentFeesManager = Depends(get_student_fees_manager)):
     fee_id = manager.create_fee(
         student_id=data.student_id,
+        enrollment_id=data.enrollment_id,
         fee_type=data.fee_type,
         amount_due=data.amount_due,
         program_id=data.program_id,

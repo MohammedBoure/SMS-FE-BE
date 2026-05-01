@@ -27,6 +27,36 @@ class GradesManager:
         try:
             with self.db.get_db_connection() as conn:
                 cursor = conn.cursor()
+                cursor.execute(
+                    """
+                    SELECT ta.class_id
+                    FROM assessments a
+                    JOIN teacher_assignments ta ON a.assignment_id = ta.id
+                    WHERE a.id = %s
+                    """,
+                    (assessment_id,)
+                )
+                assessment_class = cursor.fetchone()
+                if not assessment_class:
+                    return None
+
+                cursor.execute(
+                    """
+                    SELECT 1
+                    FROM student_enrollments
+                    WHERE student_id = %s
+                      AND class_id = %s
+                      AND status = 'active'
+                    LIMIT 1
+                    """,
+                    (student_id, assessment_class[0])
+                )
+                if not cursor.fetchone():
+                    logging.warning(
+                        "Grade blocked: student #%s is not enrolled in assessment class #%s",
+                        student_id, assessment_class[0]
+                    )
+                    return None
                 
                 # التحقق مما إذا كانت العلامة موجودة مسبقاً
                 check_query = "SELECT id FROM grades WHERE student_id = %s AND assessment_id = %s"
@@ -102,11 +132,19 @@ class GradesManager:
                         a.title AS assessment_title, a.type AS assessment_type, 
                         a.max_grade, a.due_date,
                         sub.subject_name,
+                        c.id AS class_id, c.class_name,
+                        p.program_name,
                         u.full_name AS teacher_name
                     FROM grades g
                     JOIN assessments a ON g.assessment_id = a.id
                     JOIN teacher_assignments ta ON a.assignment_id = ta.id
                     JOIN subjects sub ON ta.subject_id = sub.id
+                    JOIN classes c ON ta.class_id = c.id
+                    LEFT JOIN student_enrollments se
+                        ON se.student_id = g.student_id
+                       AND se.class_id = ta.class_id
+                       AND se.status = 'active'
+                    LEFT JOIN programs p ON se.program_id = p.id
                     JOIN teachers t ON ta.teacher_id = t.id
                     JOIN users u ON t.user_id = u.id
                     WHERE g.student_id = %s

@@ -10,6 +10,7 @@ router = APIRouter(prefix="/enrollments", tags=["Student Enrollments"])
 class EnrollmentCreate(BaseModel):
     student_id: int
     program_id: int
+    class_id: Optional[int] = None
     group_name: Optional[str] = None
     enrollment_date: Optional[str] = None
     status: str = 'active'
@@ -17,6 +18,7 @@ class EnrollmentCreate(BaseModel):
 
 class EnrollmentUpdate(BaseModel):
     program_id: Optional[int] = None
+    class_id: Optional[int] = None
     group_name: Optional[str] = None
     enrollment_date: Optional[str] = None
     status: Optional[str] = None
@@ -33,16 +35,20 @@ def create_enrollment(data: EnrollmentCreate, manager: StudentEnrollmentsManager
     return {"message": "Enrollment created successfully.", "enrollment_id": enrollment_id}
 
 @router.get("/")
-def get_all_enrollments(status: Optional[str] = None, manager: StudentEnrollmentsManager = Depends(get_student_enrollments_manager)):
-    return manager.get_all_enrollments(status=status)
+def get_all_enrollments(status: Optional[str] = None, program_id: Optional[int] = None, class_id: Optional[int] = None, manager: StudentEnrollmentsManager = Depends(get_student_enrollments_manager)):
+    return manager.get_all_enrollments(status=status, program_id=program_id, class_id=class_id)
 
 @router.get("/student/{student_id}")
 def get_student_enrollments(student_id: int, manager: StudentEnrollmentsManager = Depends(get_student_enrollments_manager)):
     return manager.get_student_enrollments(student_id)
 
 @router.get("/program/{program_id}")
-def get_program_enrollments(program_id: int, status: str = 'active', manager: StudentEnrollmentsManager = Depends(get_student_enrollments_manager)):
-    return manager.get_program_enrollments(program_id=program_id, status=status)
+def get_program_enrollments(program_id: int, status: str = 'active', class_id: Optional[int] = None, manager: StudentEnrollmentsManager = Depends(get_student_enrollments_manager)):
+    return manager.get_program_enrollments(program_id=program_id, status=status, class_id=class_id)
+
+@router.get("/class/{class_id}")
+def get_class_enrollments(class_id: int, status: str = 'active', manager: StudentEnrollmentsManager = Depends(get_student_enrollments_manager)):
+    return manager.get_class_enrollments(class_id=class_id, status=status)
 
 @router.put("/{enrollment_id}")
 def update_enrollment(enrollment_id: int, data: EnrollmentUpdate, manager: StudentEnrollmentsManager = Depends(get_student_enrollments_manager)):

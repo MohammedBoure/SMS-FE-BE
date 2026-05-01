@@ -65,10 +65,12 @@ CREATE TABLE programs (
 
 CREATE TABLE classes (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    program_id INT NULL,
     class_name VARCHAR(50) NOT NULL,
     level VARCHAR(50),
     age_group VARCHAR(50) NULL,
-    capacity INT
+    capacity INT,
+    FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE SET NULL
 );
 
 CREATE TABLE parents (
@@ -105,12 +107,14 @@ CREATE TABLE student_enrollments (
     id INT PRIMARY KEY AUTO_INCREMENT,
     student_id INT,
     program_id INT,
+    class_id INT NULL,
     group_name VARCHAR(50),
     enrollment_date DATE,
     status VARCHAR(50) DEFAULT 'active',
     notes TEXT,
     FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
-    FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE CASCADE
+    FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE CASCADE,
+    FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE SET NULL
 );
 
 CREATE TABLE teacher_assignments (
@@ -159,11 +163,13 @@ CREATE TABLE grades (
 CREATE TABLE attendance (
     id INT PRIMARY KEY AUTO_INCREMENT,
     student_id INT,
+    class_id INT NULL,
     date DATE NOT NULL,
     status VARCHAR(20) NOT NULL,
     is_justified BOOLEAN DEFAULT FALSE,
     justification_reason TEXT,
-    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
+    FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+    FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE SET NULL
 );
 
 CREATE TABLE schedules (
@@ -205,6 +211,7 @@ CREATE TABLE user_transactions (
 CREATE TABLE student_fees (
     id INT PRIMARY KEY AUTO_INCREMENT,
     student_id INT,
+    enrollment_id INT NULL,
     program_id INT,
     fee_type VARCHAR(50) NOT NULL,
     amount_due INT NOT NULL,
@@ -213,6 +220,7 @@ CREATE TABLE student_fees (
     transaction_id INT,
 
     FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+    FOREIGN KEY (enrollment_id) REFERENCES student_enrollments(id) ON DELETE SET NULL,
     FOREIGN KEY (program_id) REFERENCES programs(id) ON DELETE SET NULL,
     FOREIGN KEY (transaction_id) REFERENCES user_transactions(id) ON DELETE SET NULL
 );
@@ -242,8 +250,16 @@ CREATE TABLE notifications (
 
 
 CREATE INDEX idx_student_fees_student ON student_fees(student_id);
+CREATE INDEX idx_student_fees_enrollment ON student_fees(enrollment_id);
 CREATE INDEX idx_payments_fee ON payments(fee_id);
 CREATE INDEX idx_transactions_from ON user_transactions(from_user_id);
 CREATE INDEX idx_students_user ON students(user_id);
 CREATE INDEX idx_teacher_user ON teachers(user_id);
 CREATE INDEX idx_assignments_teacher ON teacher_assignments(teacher_id);
+CREATE INDEX idx_classes_program ON classes(program_id);
+CREATE INDEX idx_enrollments_student ON student_enrollments(student_id);
+CREATE INDEX idx_enrollments_class_status ON student_enrollments(class_id, status);
+CREATE INDEX idx_enrollments_program_class ON student_enrollments(program_id, class_id);
+CREATE INDEX idx_attendance_class ON attendance(class_id);
+CREATE INDEX idx_attendance_date ON attendance(date);
+CREATE INDEX idx_attendance_student_class_date ON attendance(student_id, class_id, date);
