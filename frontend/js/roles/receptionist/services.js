@@ -1,7 +1,6 @@
 // js/roles/receptionist/services.js
 
 const ReceptionistServices = {
-  // === البحث والعرض ===
   async searchUsers(keyword) {
     return await Api.get(`/users/search?keyword=${encodeURIComponent(keyword)}`);
   },
@@ -17,9 +16,6 @@ const ReceptionistServices = {
   async getClasses() {
     return await Api.get("/classes/");
   },
-
-  // === التسجيل (إنشاء حسابات) ===
-  // ملاحظة: يجب أن يكون للـ Receptionist صلاحية إنشاء مستخدمين في Backend
   async createUser(userData) {
     return await Api.post("/users/", userData);
   },
@@ -35,24 +31,18 @@ const ReceptionistServices = {
   async updateStudent(studentId, studentData) {
     return await Api.put(`/students/${studentId}`, studentData);
   },
-
-  // === المتابعة الأكاديمية ===
   async getStudentGrades(studentId) {
     return await Api.get(`/grades/student/${studentId}`);
   },
   async getStudentAttendance(studentId) {
     return await Api.get(`/attendance/student/${studentId}`);
   },
-
-  // === المالية ===
   async getStudentFees(studentId) {
     return await Api.get(`/student-fees/student/${studentId}`);
   },
   async processPayment(paymentData) {
     return await Api.post("/payments/", paymentData);
   },
-
-  // === الإشعارات ===
   async getNotifications(userId) {
     return await Api.get(`/notifications/user/${userId}`);
   },
@@ -62,8 +52,6 @@ const ReceptionistServices = {
   async markAllNotificationsAsRead(userId) {
     return await Api.patch(`/notifications/user/${userId}/read-all`);
   },
-
-  // === المنشورات ===
   async getPosts() {
     return await Api.get("/posts");
   },
@@ -76,8 +64,6 @@ const ReceptionistServices = {
   async deletePost(postId) {
     return await Api.delete(`/posts/${postId}`);
   },
-
-  // === المراسلة ===
   async getMessagesInbox(userId) {
     return await Api.get(`/messages/inbox/${userId}`);
   },

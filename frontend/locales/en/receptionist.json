@@ -1,0 +1,319 @@
+{
+  "meta": {
+    "lang": "en",
+    "dir": "ltr",
+    "locale": "en-US"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "Arabic",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    }
+  ],
+  "receptionist": {
+    "documentTitle": "Receptionist Dashboard",
+    "brand": {
+      "title": "Reception Office",
+      "welcome": "Welcome: {name}"
+    },
+    "language": {
+      "label": "Language",
+      "select": "Choose language"
+    },
+    "auth": {
+      "logout": "Log out"
+    },
+    "nav": {
+      "students": "Students",
+      "parents": "Parents",
+      "search": "Global Search",
+      "finance": "Finance",
+      "posts": "Posts",
+      "messages": "Messages",
+      "notifications": "Notifications"
+    },
+    "state": {
+      "loading": "Loading...",
+      "errorPrefix": "Error:",
+      "initFailed": "Failed to initialize receptionist data.",
+      "unknownSection": "Unknown section"
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "Not specified",
+      "unavailable": "Unavailable",
+      "unknownDate": "Unknown date",
+      "updating": "Updating...",
+      "loading": "Loading...",
+      "saving": "Saving...",
+      "actions": "Actions",
+      "id": "ID",
+      "fullName": "Full name",
+      "username": "Username",
+      "email": "Email",
+      "phone": "Phone number",
+      "address": "Address",
+      "status": "Status",
+      "class": "Class",
+      "parent": "Parent",
+      "date": "Date",
+      "amount": "Amount",
+      "type": "Type",
+      "cancel": "Cancel",
+      "saveChanges": "Save changes",
+      "send": "Send",
+      "search": "Search",
+      "download": "Download",
+      "file": "File",
+      "wordCount": "{words} words - {chars} characters",
+      "userFallback": "User #{id}"
+    },
+    "roles": {
+      "student": "Student",
+      "teacher": "Teacher",
+      "parent": "Parent",
+      "admin": "Admin",
+      "receptionist": "Receptionist",
+      "accountant": "Accountant"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "suspended": "Suspended",
+      "graduated": "Graduated",
+      "withdrawn": "Withdrawn",
+      "present": "Present",
+      "absent": "Absent",
+      "late": "Late",
+      "justified": "Justified",
+      "unjustified": "Unjustified",
+      "read": "Read",
+      "unread": "Unread"
+    },
+    "students": {
+      "title": "Student Management",
+      "registerTitle": "Register New Student",
+      "searchPlaceholder": "Search by name or ID...",
+      "submit": "Register student",
+      "selectParent": "Select parent...",
+      "selectClass": "Select class...",
+      "placeholders": {
+        "fullName": "Student full name",
+        "username": "Login username",
+        "email": "Email",
+        "phone": "Phone number",
+        "address": "Student address",
+        "blood": "Blood group",
+        "medical": "Medical information"
+      },
+      "columns": {
+        "id": "ID",
+        "fullName": "Full name",
+        "class": "Class",
+        "status": "Status",
+        "action": "Action"
+      },
+      "viewDetails": "View details",
+      "edit": "Edit",
+      "noChanges": "No data was changed.",
+      "missingUserId": "This student has no user_id, so account data cannot be edited.",
+      "successCreate": "Student registered successfully.",
+      "successUpdate": "Changes saved successfully.",
+      "createFailed": "Registration error: {message}",
+      "updateFailed": "Error saving changes: {message}",
+      "loadDetailsFailed": "Error loading details: {message}",
+      "loadStudentFailed": "Error loading student data: {message}"
+    },
+    "studentDetails": {
+      "title": "Complete file: {name}",
+      "studentId": "Student ID:",
+      "loginUsername": "Login username:",
+      "email": "Email:",
+      "phone": "Phone:",
+      "address": "Address:",
+      "class": "Class:",
+      "parent": "Parent:",
+      "parentPhone": "Parent phone:",
+      "birthDate": "Date of birth:",
+      "registrationDate": "Registration date:",
+      "blood": "Blood group:",
+      "status": "Status:",
+      "medical": "Medical information:",
+      "noMedical": "No medical information",
+      "attendanceTitle": "Absence Record",
+      "gradesTitle": "Grade Report",
+      "subject": "Subject",
+      "grade": "Grade",
+      "noAttendance": "No absences are registered.",
+      "noGrades": "No grades are registered."
+    },
+    "studentEdit": {
+      "title": "Edit data: {name}",
+      "accountTitle": "Login Data (Account)",
+      "personalTitle": "Personal Data",
+      "academicTitle": "Academic and Medical Data",
+      "newPassword": "New password",
+      "passwordPlaceholder": "Leave empty to keep unchanged",
+      "noClass": "No class",
+      "noParent": "No parent"
+    },
+    "parents": {
+      "title": "Parent Management",
+      "registerTitle": "Register New Parent",
+      "submit": "Register parent",
+      "empty": "No parents are registered.",
+      "fallback": "Parent",
+      "successCreate": "Parent registered successfully.",
+      "createFailed": "Registration error: {message}"
+    },
+    "finance": {
+      "title": "Finance and Payment Reception",
+      "studentIdPlaceholder": "Enter student ID...",
+      "searchFees": "Search fees",
+      "initialHint": "Enter the student ID to search their financial status.",
+      "missingStudentId": "Please enter the student ID.",
+      "noFees": "No due fees found.",
+      "receivePayment": "Receive payment",
+      "confirmPayment": "Are you sure you received {amount}?",
+      "paymentSuccess": "Payment registered successfully and receipt generated.",
+      "paymentFailed": "Payment error: {message}",
+      "searchFailed": "Error: {message}",
+      "columns": {
+        "type": "Type",
+        "amount": "Amount",
+        "date": "Date",
+        "action": "Action"
+      }
+    },
+    "search": {
+      "title": "Global System Search",
+      "placeholder": "Search by name, username, or email...",
+      "minLength": "Please enter at least two characters to search.",
+      "searching": "Searching...",
+      "noResults": "No results found.",
+      "failed": "An error occurred: {message}",
+      "columns": {
+        "id": "ID",
+        "fullName": "Full name",
+        "username": "Username",
+        "role": "Role"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "empty": "No new notifications.",
+      "unreadCount": "{count} unread notification(s)",
+      "markAllRead": "Mark all as read",
+      "markRead": "Mark as read",
+      "read": "Read",
+      "unread": "Unread",
+      "defaultTitle": "Notification",
+      "updateFailed": "Could not update notifications.",
+      "singleUpdateFailed": "Could not update the notification."
+    },
+    "messages": {
+      "title": "Messages",
+      "subtitle": "Follow reception conversations or search for a new user to contact.",
+      "searchPlaceholder": "Search by user name...",
+      "searchButton": "Search",
+      "conversations": "Conversations",
+      "selectPrompt": "Choose a conversation from the list or search for a new user.",
+      "emptyConversation": "The conversation will appear here.",
+      "inputPlaceholder": "Write your message...",
+      "minSearch": "Type at least two characters to search.",
+      "searching": "Searching...",
+      "noResults": "No matching results.",
+      "searchFailed": "Search failed: {message}",
+      "loadingConversation": "Loading conversation...",
+      "loadFailed": "Could not load messages: {message}",
+      "noMessages": "No messages yet.",
+      "you": "You",
+      "roleFallback": "User",
+      "sending": "Sending...",
+      "sent": "Sent",
+      "sendFailed": "Send failed: {message}",
+      "emptyList": "No conversations yet."
+    },
+    "posts": {
+      "dashboardTitle": "School Posts Board",
+      "dashboardSubtitle": "Create and manage posts shown to students, parents, and teachers.",
+      "newPost": "Write new post",
+      "total": "Total posts",
+      "today": "Published today",
+      "withImage": "With cover image",
+      "textOnly": "Text only",
+      "searchLabel": "Search",
+      "searchPlaceholder": "Search posts...",
+      "emptyTitle": "No posts published yet",
+      "emptyText": "You can create the first post using the write new post button.",
+      "untitled": "Untitled post",
+      "noSummary": "No summary available.",
+      "author": "User #{id}",
+      "file": "File",
+      "preview": "Preview",
+      "edit": "Edit",
+      "delete": "Delete",
+      "columns": {
+        "title": "Post title",
+        "author": "Author",
+        "date": "Publish date",
+        "actions": "Actions"
+      },
+      "editorNew": "Write New Post",
+      "editorEdit": "Edit Post",
+      "back": "Back to posts",
+      "titlePlaceholder": "Post title",
+      "imagePlaceholder": "Optional cover image URL",
+      "contentPlaceholder": "Write post content here...",
+      "previewLabel": "Preview",
+      "previewTitle": "Post title",
+      "previewEmpty": "Start writing to see the preview here...",
+      "fullPreview": "Full preview",
+      "publish": "Publish post",
+      "saveChanges": "Save changes",
+      "saving": "Saving...",
+      "titleRequired": "Please enter the post title",
+      "contentRequired": "Please enter the post content",
+      "updated": "Post updated successfully",
+      "created": "Post published successfully",
+      "saveFailed": "Could not save post: {message}",
+      "confirmDelete": "Do you want to permanently delete this post?",
+      "deleted": "Post deleted successfully",
+      "deleteFailed": "Could not delete post: {message}",
+      "noContent": "No content.",
+      "toolbar": {
+        "list": "List",
+        "quote": "Quote",
+        "table": "Table",
+        "link": "Link",
+        "image": "Image",
+        "download": "Download"
+      },
+      "prompts": {
+        "imageUrl": "Image URL:",
+        "imageAlt": "Alt text:",
+        "imageDefault": "Image",
+        "linkUrl": "URL:",
+        "linkText": "Link text:",
+        "linkDefault": "Click here",
+        "fileName": "File name:",
+        "downloadUrl": "Download URL:",
+        "fileType": "Optional file type:",
+        "fileSize": "Optional size:"
+      },
+      "markdown": {
+        "table": "| First heading | Second heading |\n| --- | --- |\n| Data | Data |\n",
+        "downloadPrefix": "Download"
+      }
+    },
+    "currency": {
+      "dzd": "DZD"
+    }
+  }
+}

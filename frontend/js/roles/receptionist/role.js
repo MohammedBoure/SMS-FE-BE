@@ -4,35 +4,56 @@ const ReceptionistRole = {
   currentSection: "students",
   classesList: [],
   parentsList: [],
+  userProfile: null,
 
   async init() {
     if (!Auth.requireAuth("receptionist")) return;
+
+    if (window.I18n) {
+      await I18n.init({ scope: "receptionist", defaultLang: "ar" });
+    }
+
     const session = Auth.getSession();
 
     try {
-      const userProfile = await Api.get(`/users/${session.user_id}`);
-      ReceptionistUI.renderHeader(userProfile);
+      this.userProfile = await Api.get(`/users/${session.user_id}`);
+      ReceptionistUI.renderHeader(this.userProfile);
 
       this.classesList = await ReceptionistServices.getClasses();
       this.parentsList = await ReceptionistServices.getParents();
 
       this.bindNavEvents();
+      this.bindLanguageEvents();
       this.loadSection(this.currentSection);
       this.bindDynamicEvents();
     } catch (err) {
       console.error(err);
-      ReceptionistUI.renderError("فشل في تهيئة بيانات موظف الاستقبال.");
+      ReceptionistUI.renderError(ReceptionistUI.t("receptionist.state.initFailed", {}, "Failed to initialize receptionist data."));
     }
   },
 
+  bindLanguageEvents() {
+    if (this._languageEventsBound) return;
+
+    window.addEventListener("i18n:change", (event) => {
+      if (event.detail?.scope && event.detail.scope !== "receptionist") return;
+      ReceptionistUI.renderHeader(this.userProfile);
+      this.loadSection(this.currentSection);
+    });
+
+    this._languageEventsBound = true;
+  },
+
   bindNavEvents() {
+    if (this._navEventsBound) return;
+
     const nav = document.getElementById("receptionist-nav");
     nav.addEventListener("click", (e) => {
       const btn = e.target.closest(".nav-btn");
-      if (btn) {
-        this.loadSection(btn.dataset.section);
-      }
+      if (btn) this.loadSection(btn.dataset.section);
     });
+
+    this._navEventsBound = true;
   },
 
   async loadSection(section) {
@@ -53,14 +74,12 @@ const ReceptionistRole = {
           ReceptionistUI.renderParents(parents);
           break;
         }
-        case "search": {
+        case "search":
           ReceptionistUI.renderSearch();
           break;
-        }
-        case "finance": {
+        case "finance":
           ReceptionistUI.renderFinanceDashboard();
           break;
-        }
         case "posts": {
           const posts = await ReceptionistServices.getPosts();
           ReceptionistUI.renderPosts(posts);
@@ -79,7 +98,7 @@ const ReceptionistRole = {
           break;
         }
         default:
-          ReceptionistUI.renderError("قسم غير معروف");
+          ReceptionistUI.renderError(ReceptionistUI.t("receptionist.state.unknownSection", {}, "Unknown section"));
       }
     } catch (err) {
       ReceptionistUI.renderError(err.message);
@@ -87,6 +106,7 @@ const ReceptionistRole = {
   },
 
   bindDynamicEvents() {
+    if (this._dynamicEventsBound) return;
     const main = document.getElementById("receptionist-main");
 
     main.addEventListener("click", async (e) => {
@@ -94,14 +114,14 @@ const ReceptionistRole = {
         const session = Auth.getSession();
         const originalText = e.target.textContent;
         e.target.disabled = true;
-        e.target.textContent = "جارٍ التحديث...";
+        e.target.textContent = ReceptionistUI.t("receptionist.common.updating", {}, "Updating...");
         try {
           await ReceptionistServices.markAllNotificationsAsRead(session.user_id);
           await this.loadSection("notifications");
         } catch (err) {
           e.target.disabled = false;
           e.target.textContent = originalText;
-          alert(err.message || "تعذر تحديث الإشعارات.");
+          alert(err.message || ReceptionistUI.t("receptionist.notifications.updateFailed", {}, "Could not update notifications."));
         }
         return;
       }
@@ -110,23 +130,24 @@ const ReceptionistRole = {
       if (markNotificationBtn) {
         const originalText = markNotificationBtn.textContent;
         markNotificationBtn.disabled = true;
-        markNotificationBtn.textContent = "جارٍ التحديث...";
+        markNotificationBtn.textContent = ReceptionistUI.t("receptionist.common.updating", {}, "Updating...");
         try {
           await ReceptionistServices.markNotificationAsRead(markNotificationBtn.dataset.notificationId);
           await this.loadSection("notifications");
         } catch (err) {
           markNotificationBtn.disabled = false;
           markNotificationBtn.textContent = originalText;
-          alert(err.message || "تعذر تحديث الإشعار.");
+          alert(err.message || ReceptionistUI.t("receptionist.notifications.singleUpdateFailed", {}, "Could not update the notification."));
         }
         return;
       }
 
       if (e.target.classList.contains("view-student-details-btn")) {
         const studentId = e.target.dataset.id;
+        const originalText = e.target.textContent;
         try {
           e.target.disabled = true;
-          e.target.textContent = "جاري التحميل...";
+          e.target.textContent = ReceptionistUI.t("receptionist.common.loading", {}, "Loading...");
 
           const [student, grades, attendance] = await Promise.all([
             ReceptionistServices.getStudent(studentId),
@@ -136,50 +157,55 @@ const ReceptionistRole = {
 
           ReceptionistUI.showStudentDetailsModal(studentId, student, grades, attendance);
         } catch (error) {
-          alert("خطأ في جلب التفاصيل: " + error.message);
+          alert(ReceptionistUI.t("receptionist.students.loadDetailsFailed", { message: error.message }, "Error loading details."));
         } finally {
           e.target.disabled = false;
-          e.target.textContent = "عرض التفاصيل";
+          e.target.textContent = originalText || ReceptionistUI.t("receptionist.students.viewDetails", {}, "View details");
         }
       }
 
       if (e.target.classList.contains("edit-student-btn")) {
         const studentId = e.target.dataset.id;
+        const originalText = e.target.textContent;
         try {
           e.target.disabled = true;
-          e.target.textContent = "جاري التحميل...";
+          e.target.textContent = ReceptionistUI.t("receptionist.common.loading", {}, "Loading...");
           const student = await ReceptionistServices.getStudent(studentId);
           ReceptionistUI.showStudentEditModal(student, this.classesList, this.parentsList);
         } catch (error) {
-          alert("خطأ في جلب بيانات الطالب: " + error.message);
+          alert(ReceptionistUI.t("receptionist.students.loadStudentFailed", { message: error.message }, "Error loading student data."));
         } finally {
           e.target.disabled = false;
-          e.target.textContent = "تعديل";
+          e.target.textContent = originalText || ReceptionistUI.t("receptionist.students.edit", {}, "Edit");
         }
       }
 
       if (e.target.id === "search-fees-btn") {
         const studentId = document.getElementById("finance-student-id").value;
-        if (!studentId) return alert("الرجاء إدخال رقم الطالب");
+        if (!studentId) {
+          alert(ReceptionistUI.t("receptionist.finance.missingStudentId", {}, "Please enter the student ID."));
+          return;
+        }
         try {
           const fees = await ReceptionistServices.getStudentFees(studentId);
           ReceptionistUI.renderStudentFeesList(fees);
         } catch (error) {
-          alert("خطأ: " + error.message);
+          alert(ReceptionistUI.t("receptionist.finance.searchFailed", { message: error.message }, "Error."));
         }
       }
 
       if (e.target.classList.contains("pay-fee-btn")) {
         const feeId = e.target.dataset.feeId;
         const amount = e.target.dataset.amount;
+        const formattedAmount = ReceptionistUI._formatCurrency(amount);
 
-        if (confirm(`هل أنت متأكد من استلام مبلغ ${amount} دج؟`)) {
+        if (confirm(ReceptionistUI.t("receptionist.finance.confirmPayment", { amount: formattedAmount }, `Are you sure you received ${formattedAmount}?`))) {
           try {
             await ReceptionistServices.processPayment({ fee_id: feeId, amount_paid: amount });
-            alert("تم تسجيل الدفعة بنجاح واستخراج الوصل!");
+            alert(ReceptionistUI.t("receptionist.finance.paymentSuccess", {}, "Payment registered successfully."));
             document.getElementById("search-fees-btn").click();
           } catch (error) {
-            alert("خطأ أثناء الدفع: " + error.message);
+            alert(ReceptionistUI.t("receptionist.finance.paymentFailed", { message: error.message }, "Payment error."));
           }
         }
       }
@@ -198,9 +224,7 @@ const ReceptionistRole = {
     });
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        ReceptionistUI.closeStudentDetailsModal();
-      }
+      if (e.key === "Escape") ReceptionistUI.closeStudentDetailsModal();
     });
 
     document.addEventListener("submit", async (e) => {
@@ -218,10 +242,10 @@ const ReceptionistRole = {
           const newUser = await ReceptionistServices.createUser(userData);
           await ReceptionistServices.createParent(newUser.user_id);
 
-          alert("تم تسجيل ولي الأمر بنجاح!");
+          alert(ReceptionistUI.t("receptionist.parents.successCreate", {}, "Parent registered successfully."));
           this.loadSection("parents");
         } catch (error) {
-          alert("خطأ في التسجيل: " + error.message);
+          alert(ReceptionistUI.t("receptionist.parents.createFailed", { message: error.message }, "Registration error."));
         }
       }
 
@@ -250,10 +274,10 @@ const ReceptionistRole = {
           };
           await ReceptionistServices.createStudent(studentData);
 
-          alert("تم تسجيل الطالب بنجاح!");
+          alert(ReceptionistUI.t("receptionist.students.successCreate", {}, "Student registered successfully."));
           this.loadSection("students");
         } catch (error) {
-          alert("خطأ في التسجيل: " + error.message);
+          alert(ReceptionistUI.t("receptionist.students.createFailed", { message: error.message }, "Registration error."));
         }
       }
 
@@ -265,21 +289,20 @@ const ReceptionistRole = {
 
         try {
           if (!userId) {
-            throw new Error("لا يوجد user_id لهذا الطالب، لا يمكن تعديل بيانات الحساب.");
+            throw new Error(ReceptionistUI.t("receptionist.students.missingUserId", {}, "This student has no user_id."));
           }
 
           const submitBtn = form.querySelector('button[type="submit"]');
           const originalText = submitBtn.textContent;
           submitBtn.disabled = true;
-          submitBtn.textContent = "جاري الحفظ...";
+          submitBtn.textContent = ReceptionistUI.t("receptionist.common.saving", {}, "Saving...");
 
           const current = await ReceptionistServices.getStudent(studentId);
-          
-          // تمت إضافة اسم المستخدم وكلمة المرور إلى بيانات التحديث
+
           const userData = this._changedPayload(current, {
             full_name: [["student_name", "full_name"], document.getElementById("edit-student-name").value],
             username: [["username"], document.getElementById("edit-student-username").value],
-            password: [["password"], document.getElementById("edit-student-password").value], // كلمة المرور
+            password: [["password"], document.getElementById("edit-student-password").value],
             email: [["email"], document.getElementById("edit-student-email").value],
             phone: [["phone", "student_phone"], document.getElementById("edit-student-phone").value],
             address: [["address"], document.getElementById("edit-student-address").value]
@@ -296,7 +319,7 @@ const ReceptionistRole = {
           });
 
           if (Object.keys(userData).length === 0 && Object.keys(studentData).length === 0) {
-            alert("لم يتم تغيير أي بيانات.");
+            alert(ReceptionistUI.t("receptionist.students.noChanges", {}, "No data was changed."));
             submitBtn.disabled = false;
             submitBtn.textContent = originalText;
             return;
@@ -317,20 +340,21 @@ const ReceptionistRole = {
             }
           }
 
-          alert("تم حفظ التعديلات بنجاح!");
+          alert(ReceptionistUI.t("receptionist.students.successUpdate", {}, "Changes saved successfully."));
           ReceptionistUI.closeStudentDetailsModal();
           this.loadSection("students");
-          
         } catch (error) {
-          alert("خطأ في حفظ التعديلات: " + error.message);
+          alert(ReceptionistUI.t("receptionist.students.updateFailed", { message: error.message }, "Error saving changes."));
           const submitBtn = form.querySelector('button[type="submit"]');
           if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.textContent = "حفظ التعديلات";
+            submitBtn.textContent = ReceptionistUI.t("receptionist.common.saveChanges", {}, "Save changes");
           }
         }
       }
     });
+
+    this._dynamicEventsBound = true;
   },
 
   _changedPayload(current, fields) {
@@ -339,22 +363,20 @@ const ReceptionistRole = {
     Object.entries(fields).forEach(([payloadKey, [currentKeys, nextValue]]) => {
       const rawNext = typeof nextValue === "string" ? nextValue.trim() : nextValue;
       const next = rawNext === "" ? null : rawNext;
-      
+
       const keys = Array.isArray(currentKeys) ? currentKeys : [currentKeys];
       let previousRaw = null;
-      for (let k of keys) {
-        if (current[k] !== undefined && current[k] !== null) {
-          previousRaw = current[k];
+      for (const key of keys) {
+        if (current[key] !== undefined && current[key] !== null) {
+          previousRaw = current[key];
           break;
         }
       }
-      
+
       const previous = previousRaw === null ? "" : String(previousRaw);
       const nextStr = next === null ? "" : String(next);
 
-      if (nextStr !== previous) {
-        payload[payloadKey] = next;
-      }
+      if (nextStr !== previous) payload[payloadKey] = next;
     });
 
     return payload;

@@ -10,14 +10,13 @@ ReceptionistUI.renderPosts = function(postsData) {
   const today = new Date().toDateString();
   const todayCount = sortedPosts.filter(post => post.created_at && new Date(post.created_at).toDateString() === today).length;
   const withImage = sortedPosts.filter(post => post.image).length;
+  const actionsAlign = this.end();
 
   this._postsCache = sortedPosts;
 
   const rows = sortedPosts.map((post, index) => {
     const postId = this._getPostId(post);
-    const date = post.created_at
-      ? new Date(post.created_at).toLocaleDateString("ar-DZ", { year: "numeric", month: "short", day: "numeric" })
-      : "-";
+    const date = post.created_at ? this.formatDate(post.created_at) : this.t("receptionist.common.none", {}, "-");
     const excerpt = this._extractPostSnippet(post.content || "");
 
     return `
@@ -27,20 +26,20 @@ ReceptionistUI.renderPosts = function(postsData) {
           <div class="post-title-cell">
             ${post.image
               ? `<img src="${this._escapeAttr(post.image)}" class="post-thumb" alt="">`
-              : `<div class="post-thumb-placeholder">ملف</div>`}
+              : `<div class="post-thumb-placeholder">${this.t("receptionist.posts.file", {}, "File")}</div>`}
             <div>
-              <div class="post-title-text" title="${this._escapeAttr(post.title || "")}">${this._escape(post.title || "منشور بدون عنوان")}</div>
-              <div class="post-excerpt">${this._escape(excerpt || "لا يوجد ملخص.")}</div>
+              <div class="post-title-text" title="${this._escapeAttr(post.title || "")}">${this._escape(post.title || this.t("receptionist.posts.untitled", {}, "Untitled post"))}</div>
+              <div class="post-excerpt">${this._escape(excerpt || this.t("receptionist.posts.noSummary", {}, "No summary available."))}</div>
             </div>
           </div>
         </td>
-        <td><span class="badge badge-green">مستخدم #${this._escape(post.user_id || "-")}</span></td>
+        <td><span class="badge badge-green">${this.t("receptionist.posts.author", { id: this._escape(post.user_id || "-") }, `User #${this._escape(post.user_id || "-")}`)}</span></td>
         <td><span class="post-date">${date}</span></td>
         <td>
           <div class="tbl-actions">
-            <button type="button" class="tbl-btn tbl-btn-preview" data-post-action="preview" data-post-index="${index}">معاينة</button>
-            <button type="button" class="tbl-btn tbl-btn-edit" data-post-action="edit" data-post-index="${index}">تعديل</button>
-            <button type="button" class="tbl-btn tbl-btn-delete" data-post-action="delete" data-post-index="${index}">حذف</button>
+            <button type="button" class="tbl-btn tbl-btn-preview" data-post-action="preview" data-post-index="${index}">${this.t("receptionist.posts.preview", {}, "Preview")}</button>
+            <button type="button" class="tbl-btn tbl-btn-edit" data-post-action="edit" data-post-index="${index}">${this.t("receptionist.posts.edit", {}, "Edit")}</button>
+            <button type="button" class="tbl-btn tbl-btn-delete" data-post-action="delete" data-post-index="${index}">${this.t("receptionist.posts.delete", {}, "Delete")}</button>
           </div>
         </td>
       </tr>
@@ -50,9 +49,9 @@ ReceptionistUI.renderPosts = function(postsData) {
   const listHtml = sortedPosts.length === 0
     ? `
       <div class="posts-empty">
-        <div class="empty-icon">منشورات</div>
-        <h4>لا توجد منشورات منشورة حتى الآن</h4>
-        <p>يمكنك إنشاء أول منشور من زر كتابة منشور جديد.</p>
+        <div class="empty-icon">${this.t("receptionist.posts.file", {}, "File")}</div>
+        <h4>${this.t("receptionist.posts.emptyTitle", {}, "No posts published yet")}</h4>
+        <p>${this.t("receptionist.posts.emptyText", {}, "You can create the first post using the write new post button.")}</p>
       </div>
     `
     : `
@@ -61,10 +60,10 @@ ReceptionistUI.renderPosts = function(postsData) {
           <thead>
             <tr>
               <th style="width:60px">ID</th>
-              <th>عنوان المنشور</th>
-              <th style="width:130px">الكاتب</th>
-              <th style="width:130px">تاريخ النشر</th>
-              <th style="width:210px; text-align:left">إجراءات</th>
+              <th>${this.t("receptionist.posts.columns.title", {}, "Post title")}</th>
+              <th style="width:130px">${this.t("receptionist.posts.columns.author", {}, "Author")}</th>
+              <th style="width:130px">${this.t("receptionist.posts.columns.date", {}, "Publish date")}</th>
+              <th style="width:210px; text-align:${actionsAlign}">${this.t("receptionist.posts.columns.actions", {}, "Actions")}</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
@@ -76,35 +75,35 @@ ReceptionistUI.renderPosts = function(postsData) {
     <div class="posts-dashboard receptionist-posts-dashboard">
       <div class="posts-header-bar">
         <div>
-          <h3>لوحة المنشورات المدرسية</h3>
-          <p>إنشاء وإدارة المنشورات التي تظهر للطلاب والأولياء والأساتذة.</p>
+          <h3>${this.t("receptionist.posts.dashboardTitle", {}, "School Posts Board")}</h3>
+          <p>${this.t("receptionist.posts.dashboardSubtitle", {}, "Create and manage posts shown to students, parents, and teachers.")}</p>
         </div>
-        <button type="button" class="btn-new-post" id="receptionist-new-post">كتابة منشور جديد</button>
+        <button type="button" class="btn-new-post" id="receptionist-new-post">${this.t("receptionist.posts.newPost", {}, "Write new post")}</button>
       </div>
 
       <div class="posts-stats-row">
         <div class="pstat-card" style="--pstat-color:#064e3b">
           <div class="pstat-num">${sortedPosts.length}</div>
-          <div class="pstat-lbl">إجمالي المنشورات</div>
+          <div class="pstat-lbl">${this.t("receptionist.posts.total", {}, "Total posts")}</div>
         </div>
         <div class="pstat-card" style="--pstat-color:#2563eb">
           <div class="pstat-num">${todayCount}</div>
-          <div class="pstat-lbl">نشر اليوم</div>
+          <div class="pstat-lbl">${this.t("receptionist.posts.today", {}, "Published today")}</div>
         </div>
         <div class="pstat-card" style="--pstat-color:#059669">
           <div class="pstat-num">${withImage}</div>
-          <div class="pstat-lbl">بصورة غلاف</div>
+          <div class="pstat-lbl">${this.t("receptionist.posts.withImage", {}, "With cover image")}</div>
         </div>
         <div class="pstat-card" style="--pstat-color:#d97706">
           <div class="pstat-num">${sortedPosts.length - withImage}</div>
-          <div class="pstat-lbl">نصي فقط</div>
+          <div class="pstat-lbl">${this.t("receptionist.posts.textOnly", {}, "Text only")}</div>
         </div>
       </div>
 
       <div class="posts-toolbar">
         <div class="posts-search-wrap">
-          <span class="search-icon">بحث</span>
-          <input class="posts-search" id="receptionist-posts-search" placeholder="البحث في المنشورات...">
+          <span class="search-icon">${this.t("receptionist.posts.searchLabel", {}, "Search")}</span>
+          <input class="posts-search" id="receptionist-posts-search" placeholder="${this._escapeAttr(this.t("receptionist.posts.searchPlaceholder", {}, "Search posts..."))}">
         </div>
       </div>
 
@@ -136,15 +135,15 @@ ReceptionistUI.showPostEditor = function(post = null) {
   main.innerHTML = `
     <div class="post-editor-page receptionist-post-editor">
       <div class="editor-topbar">
-        <h2>${isEdit ? "تعديل المنشور" : "كتابة منشور جديد"}</h2>
+        <h2>${isEdit ? this.t("receptionist.posts.editorEdit", {}, "Edit Post") : this.t("receptionist.posts.editorNew", {}, "Write New Post")}</h2>
         <div class="editor-topbar-actions">
-          <button type="button" class="btn-secondary" id="receptionist-posts-back">العودة للمنشورات</button>
+          <button type="button" class="btn-secondary" id="receptionist-posts-back">${this.t("receptionist.posts.back", {}, "Back to posts")}</button>
         </div>
       </div>
 
       <div class="editor-meta-row">
-        <input class="editor-input editor-input-title" id="editor-title" placeholder="عنوان المنشور" value="${this._escapeAttr(post?.title || "")}">
-        <input class="editor-input" id="editor-image-url" placeholder="رابط صورة الغلاف اختياري" value="${this._escapeAttr(post?.image || "")}">
+        <input class="editor-input editor-input-title" id="editor-title" placeholder="${this._escapeAttr(this.t("receptionist.posts.titlePlaceholder", {}, "Post title"))}" value="${this._escapeAttr(post?.title || "")}">
+        <input class="editor-input" id="editor-image-url" placeholder="${this._escapeAttr(this.t("receptionist.posts.imagePlaceholder", {}, "Optional cover image URL"))}" value="${this._escapeAttr(post?.image || "")}">
       </div>
 
       <div class="editor-toolbar" id="receptionist-post-toolbar">
@@ -161,12 +160,12 @@ ReceptionistUI.showPostEditor = function(post = null) {
         </div>
         <div class="tb-sep"></div>
         <div class="tb-group">
-          <button type="button" class="tb-btn" data-md-start="- ">قائمة</button>
-          <button type="button" class="tb-btn" data-md-start="> ">اقتباس</button>
-          <button type="button" class="tb-btn" data-editor-action="table">جدول</button>
-          <button type="button" class="tb-btn" data-editor-action="link">رابط</button>
-          <button type="button" class="tb-btn" data-editor-action="image">صورة</button>
-          <button type="button" class="tb-btn" data-editor-action="download">تحميل</button>
+          <button type="button" class="tb-btn" data-md-start="- ">${this.t("receptionist.posts.toolbar.list", {}, "List")}</button>
+          <button type="button" class="tb-btn" data-md-start="> ">${this.t("receptionist.posts.toolbar.quote", {}, "Quote")}</button>
+          <button type="button" class="tb-btn" data-editor-action="table">${this.t("receptionist.posts.toolbar.table", {}, "Table")}</button>
+          <button type="button" class="tb-btn" data-editor-action="link">${this.t("receptionist.posts.toolbar.link", {}, "Link")}</button>
+          <button type="button" class="tb-btn" data-editor-action="image">${this.t("receptionist.posts.toolbar.image", {}, "Image")}</button>
+          <button type="button" class="tb-btn" data-editor-action="download">${this.t("receptionist.posts.toolbar.download", {}, "Download")}</button>
           <button type="button" class="tb-btn" data-editor-action="math">LaTeX</button>
         </div>
       </div>
@@ -174,23 +173,23 @@ ReceptionistUI.showPostEditor = function(post = null) {
       <div class="editor-body">
         <div class="editor-pane">
           <div class="editor-pane-label">Markdown</div>
-          <textarea class="editor-textarea" id="editor-content" placeholder="اكتب محتوى المنشور هنا...">${this._escape(post?.content || "")}</textarea>
+          <textarea class="editor-textarea" id="editor-content" placeholder="${this._escapeAttr(this.t("receptionist.posts.contentPlaceholder", {}, "Write post content here..."))}">${this._escape(post?.content || "")}</textarea>
         </div>
         <div class="editor-pane editor-preview-pane">
-          <div class="editor-pane-label">المعاينة</div>
+          <div class="editor-pane-label">${this.t("receptionist.posts.previewLabel", {}, "Preview")}</div>
           <div class="preview-inner">
             <img class="preview-cover" id="preview-cover-image" alt="">
-            <div class="preview-title" id="preview-title">عنوان المنشور</div>
+            <div class="preview-title" id="preview-title">${this.t("receptionist.posts.previewTitle", {}, "Post title")}</div>
             <div class="md-body" id="preview-body"></div>
           </div>
         </div>
       </div>
 
       <div class="editor-footer">
-        <div class="editor-word-count" id="word-count">0 كلمة · 0 حرف</div>
+        <div class="editor-word-count" id="word-count">${this.t("receptionist.common.wordCount", { words: 0, chars: 0 }, "0 words - 0 characters")}</div>
         <div class="editor-footer-actions">
-          <button type="button" class="btn-secondary" id="receptionist-post-preview">معاينة كاملة</button>
-          <button type="button" class="btn-save" id="save-post-btn">${isEdit ? "حفظ التعديلات" : "نشر المنشور"}</button>
+          <button type="button" class="btn-secondary" id="receptionist-post-preview">${this.t("receptionist.posts.fullPreview", {}, "Full preview")}</button>
+          <button type="button" class="btn-save" id="save-post-btn">${isEdit ? this.t("receptionist.posts.saveChanges", {}, "Save changes") : this.t("receptionist.posts.publish", {}, "Publish post")}</button>
         </div>
       </div>
     </div>
@@ -233,18 +232,18 @@ ReceptionistUI.savePost = async function(postId = null) {
   const image = document.getElementById("editor-image-url")?.value?.trim() || null;
 
   if (!title) {
-    this._showPostToast("يرجى إدخال عنوان المنشور", "error");
+    this._showPostToast(this.t("receptionist.posts.titleRequired", {}, "Please enter the post title"), "error");
     return;
   }
   if (!content) {
-    this._showPostToast("يرجى إدخال محتوى المنشور", "error");
+    this._showPostToast(this.t("receptionist.posts.contentRequired", {}, "Please enter the post content"), "error");
     return;
   }
 
   const button = document.getElementById("save-post-btn");
   if (button) {
     button.disabled = true;
-    button.textContent = "جاري الحفظ...";
+    button.textContent = this.t("receptionist.posts.saving", {}, "Saving...");
   }
 
   try {
@@ -252,20 +251,20 @@ ReceptionistUI.savePost = async function(postId = null) {
 
     if (postId) {
       await ReceptionistServices.updatePost(postId, payload);
-      this._showPostToast("تم تحديث المنشور بنجاح", "success");
+      this._showPostToast(this.t("receptionist.posts.updated", {}, "Post updated successfully"), "success");
     } else {
       const session = Auth.getSession();
       payload.user_id = parseInt(session.user_id, 10);
       await ReceptionistServices.createPost(payload);
-      this._showPostToast("تم نشر المنشور بنجاح", "success");
+      this._showPostToast(this.t("receptionist.posts.created", {}, "Post published successfully"), "success");
     }
 
     setTimeout(() => ReceptionistRole.loadSection("posts"), 650);
   } catch (err) {
-    this._showPostToast("تعذر حفظ المنشور: " + err.message, "error");
+    this._showPostToast(this.t("receptionist.posts.saveFailed", { message: err.message }, "Could not save post."), "error");
     if (button) {
       button.disabled = false;
-      button.textContent = postId ? "حفظ التعديلات" : "نشر المنشور";
+      button.textContent = postId ? this.t("receptionist.posts.saveChanges", {}, "Save changes") : this.t("receptionist.posts.publish", {}, "Publish post");
     }
   }
 };
@@ -276,13 +275,13 @@ ReceptionistUI.previewPost = function(post) {
   overlay.innerHTML = `
     <div class="post-full-preview-inner">
       <div class="preview-modal-header">
-        <h4>معاينة المنشور</h4>
-        <button type="button" class="preview-modal-close" data-close-post-preview>×</button>
+        <h4>${this.t("receptionist.posts.fullPreview", {}, "Full preview")}</h4>
+        <button type="button" class="preview-modal-close" data-close-post-preview>x</button>
       </div>
       <div class="preview-modal-body">
         ${post.image ? `<img src="${this._escapeAttr(post.image)}" class="receptionist-post-preview-cover" alt="">` : ""}
-        <div class="preview-title">${this._escape(post.title || "منشور بدون عنوان")}</div>
-        <div class="md-body">${this._processPostMarkdown(post.content || "") || '<p class="preview-placeholder">لا يوجد محتوى.</p>'}</div>
+        <div class="preview-title">${this._escape(post.title || this.t("receptionist.posts.untitled", {}, "Untitled post"))}</div>
+        <div class="md-body">${this._processPostMarkdown(post.content || "") || `<p class="preview-placeholder">${this.t("receptionist.posts.noContent", {}, "No content.")}</p>`}</div>
       </div>
     </div>
   `;
@@ -296,14 +295,14 @@ ReceptionistUI.previewPost = function(post) {
 ReceptionistUI.deletePost = async function(post) {
   const postId = this._getPostId(post);
   if (!postId) return;
-  if (!confirm("هل تريد حذف هذا المنشور نهائيا؟")) return;
+  if (!confirm(this.t("receptionist.posts.confirmDelete", {}, "Do you want to permanently delete this post?"))) return;
 
   try {
     await ReceptionistServices.deletePost(postId);
-    this._showPostToast("تم حذف المنشور بنجاح", "success");
+    this._showPostToast(this.t("receptionist.posts.deleted", {}, "Post deleted successfully"), "success");
     await ReceptionistRole.loadSection("posts");
   } catch (err) {
-    this._showPostToast("تعذر حذف المنشور: " + err.message, "error");
+    this._showPostToast(this.t("receptionist.posts.deleteFailed", { message: err.message }, "Could not delete post."), "error");
   }
 };
 
@@ -323,7 +322,7 @@ ReceptionistUI.insertMarkdown = function(startTag, endTag = "") {
 
 ReceptionistUI._editorAction = function(action) {
   if (action === "table") {
-    this.insertMarkdown("\n| العنوان الأول | العنوان الثاني |\n| --- | --- |\n| بيانات | بيانات |\n", "");
+    this.insertMarkdown("\n" + this.t("receptionist.posts.markdown.table", {}, "| First heading | Second heading |\n| --- | --- |\n| Data | Data |\n"), "");
     return;
   }
   if (action === "math") {
@@ -331,28 +330,29 @@ ReceptionistUI._editorAction = function(action) {
     return;
   }
   if (action === "image") {
-    const url = prompt("رابط الصورة:");
+    const url = prompt(this.t("receptionist.posts.prompts.imageUrl", {}, "Image URL:"));
     if (!url) return;
-    const alt = prompt("النص البديل:", "صورة") || "صورة";
+    const alt = prompt(this.t("receptionist.posts.prompts.imageAlt", {}, "Alt text:"), this.t("receptionist.posts.prompts.imageDefault", {}, "Image")) || this.t("receptionist.posts.prompts.imageDefault", {}, "Image");
     this.insertMarkdown(`\n![${alt}](${url})\n`, "");
     return;
   }
   if (action === "link") {
-    const url = prompt("رابط URL:");
+    const url = prompt(this.t("receptionist.posts.prompts.linkUrl", {}, "URL:"));
     if (!url) return;
-    const text = prompt("نص الرابط:", "اضغط هنا") || "اضغط هنا";
+    const text = prompt(this.t("receptionist.posts.prompts.linkText", {}, "Link text:"), this.t("receptionist.posts.prompts.linkDefault", {}, "Click here")) || this.t("receptionist.posts.prompts.linkDefault", {}, "Click here");
     this.insertMarkdown(`[${text}](${url})`, "");
     return;
   }
   if (action === "download") {
-    const name = prompt("اسم الملف:");
+    const name = prompt(this.t("receptionist.posts.prompts.fileName", {}, "File name:"));
     if (!name) return;
-    const url = prompt("رابط التحميل:");
+    const url = prompt(this.t("receptionist.posts.prompts.downloadUrl", {}, "Download URL:"));
     if (!url) return;
-    const type = prompt("نوع الملف اختياري:", "") || "";
-    const size = prompt("الحجم اختياري:", "") || "";
+    const type = prompt(this.t("receptionist.posts.prompts.fileType", {}, "Optional file type:"), "") || "";
+    const size = prompt(this.t("receptionist.posts.prompts.fileSize", {}, "Optional size:"), "") || "";
     const meta = [type, size].filter(Boolean).join("|");
-    this.insertMarkdown(`\n[تحميل: ${name}${meta ? "|" + meta : ""}](${url})\n`, "");
+    const prefix = this.t("receptionist.posts.markdown.downloadPrefix", {}, "Download");
+    this.insertMarkdown(`\n[${prefix}: ${name}${meta ? "|" + meta : ""}](${url})\n`, "");
   }
 };
 
@@ -364,7 +364,7 @@ ReceptionistUI.updatePostPreview = function() {
   const image = document.getElementById("preview-cover-image");
   const body = document.getElementById("preview-body");
 
-  if (title) title.textContent = titleInput?.value || "عنوان المنشور";
+  if (title) title.textContent = titleInput?.value || this.t("receptionist.posts.previewTitle", {}, "Post title");
   if (image) {
     const src = imageInput?.value?.trim() || "";
     image.src = src;
@@ -375,7 +375,7 @@ ReceptionistUI.updatePostPreview = function() {
   const raw = contentInput?.value || "";
   body.innerHTML = raw.trim()
     ? this._processPostMarkdown(raw)
-    : '<p class="preview-placeholder">ابدأ الكتابة لرؤية المعاينة هنا...</p>';
+    : `<p class="preview-placeholder">${this.t("receptionist.posts.previewEmpty", {}, "Start writing to see the preview here...")}</p>`;
   this._typesetPostMath(body);
 };
 
@@ -389,24 +389,23 @@ ReceptionistUI._filterPosts = function(query) {
 ReceptionistUI._processPostMarkdown = function(raw) {
   if (!raw) return "";
 
-  let source = String(raw).replace(
-    /\[تحميل:\s*([^\]|]+?)(?:\|([^\]|]*?))?(?:\|([^\]]*?))?\]\(([^)]+)\)/g,
-    (_, name, type, size, url) => {
-      const safeUrl = this._escapeAttr(url.trim());
-      const safeName = this._escape(name.trim());
-      const meta = [type, size].map(part => part?.trim()).filter(Boolean).join(" · ");
-      return `
-        <a href="${safeUrl}" target="_blank" class="dl-card" rel="noopener noreferrer">
-          <span class="dl-card-icon">ملف</span>
-          <span class="dl-card-info">
-            <span class="dl-card-name">${safeName}</span>
-            ${meta ? `<span class="dl-card-meta">${this._escape(meta)}</span>` : ""}
-          </span>
-          <span class="dl-card-btn">تحميل</span>
-        </a>
-      `;
-    }
-  );
+  const prefixes = ["\\u062a\\u062d\\u0645\\u064a\\u0644", "Download"];
+  const downloadPattern = new RegExp(`\\[(?:${prefixes.join("|")}):\\s*([^\\]|]+?)(?:\\|([^\\]|]*?))?(?:\\|([^\\]]*?))?\\]\\(([^)]+)\\)`, "g");
+  let source = String(raw).replace(downloadPattern, (_, name, type, size, url) => {
+    const safeUrl = this._escapeAttr(url.trim());
+    const safeName = this._escape(name.trim());
+    const meta = [type, size].map(part => part?.trim()).filter(Boolean).join(" - ");
+    return `
+      <a href="${safeUrl}" target="_blank" class="dl-card" rel="noopener noreferrer">
+        <span class="dl-card-icon">${this.t("receptionist.common.file", {}, "File")}</span>
+        <span class="dl-card-info">
+          <span class="dl-card-name">${safeName}</span>
+          ${meta ? `<span class="dl-card-meta">${this._escape(meta)}</span>` : ""}
+        </span>
+        <span class="dl-card-btn">${this.t("receptionist.common.download", {}, "Download")}</span>
+      </a>
+    `;
+  });
 
   let html = (typeof marked !== "undefined")
     ? marked.parse(source, { gfm: true, breaks: true, tables: true })
@@ -447,7 +446,7 @@ ReceptionistUI._updateWordCount = function() {
 
   const trimmed = textarea.value.trim();
   const words = trimmed ? trimmed.split(/\s+/).length : 0;
-  counter.textContent = `${words} كلمة · ${textarea.value.length} حرف`;
+  counter.textContent = this.t("receptionist.common.wordCount", { words, chars: textarea.value.length }, `${words} words - ${textarea.value.length} characters`);
 };
 
 ReceptionistUI._extractPostSnippet = function(markdown, length = 95) {

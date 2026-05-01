@@ -13,12 +13,12 @@ ReceptionistUI.renderMessages = function(inboxData, userId) {
     <section class="receptionist-messages-dashboard">
       <div class="receptionist-messages-header">
         <div>
-          <h2>المراسلة</h2>
-          <p>تابع محادثات الاستقبال أو ابحث عن مستخدم جديد للتواصل معه.</p>
+          <h2>${this.t("receptionist.messages.title", {}, "Messages")}</h2>
+          <p>${this.t("receptionist.messages.subtitle", {}, "Follow reception conversations or search for a new user to contact.")}</p>
         </div>
         <div class="receptionist-message-search">
-          <input type="text" id="receptionist-message-user-search" placeholder="ابحث باسم المستخدم..." autocomplete="off">
-          <button type="button" id="receptionist-message-search-btn">بحث</button>
+          <input type="text" id="receptionist-message-user-search" placeholder="${this._escapeAttr(this.t("receptionist.messages.searchPlaceholder", {}, "Search by user name..."))}" autocomplete="off">
+          <button type="button" id="receptionist-message-search-btn">${this.t("receptionist.messages.searchButton", {}, "Search")}</button>
         </div>
       </div>
 
@@ -26,22 +26,22 @@ ReceptionistUI.renderMessages = function(inboxData, userId) {
 
       <div class="receptionist-messages-shell">
         <aside class="receptionist-message-contacts">
-          <div class="receptionist-message-panel-title">المحادثات</div>
+          <div class="receptionist-message-panel-title">${this.t("receptionist.messages.conversations", {}, "Conversations")}</div>
           <div id="receptionist-message-contacts-list">
             ${this._renderMessageContacts(contacts)}
           </div>
         </aside>
 
         <section class="receptionist-chat-panel">
-          <div id="receptionist-chat-header" class="receptionist-chat-header">اختر محادثة من القائمة أو ابحث عن مستخدم جديد.</div>
+          <div id="receptionist-chat-header" class="receptionist-chat-header">${this.t("receptionist.messages.selectPrompt", {}, "Choose a conversation from the list or search for a new user.")}</div>
           <div id="receptionist-chat-messages" class="receptionist-chat-messages">
             <div class="receptionist-chat-empty">
-              <p>المحادثة ستظهر هنا.</p>
+              <p>${this.t("receptionist.messages.emptyConversation", {}, "The conversation will appear here.")}</p>
             </div>
           </div>
           <form id="receptionist-message-form" class="receptionist-message-form" hidden>
-            <textarea id="receptionist-message-input" rows="2" placeholder="اكتب رسالتك..." required></textarea>
-            <button type="submit">إرسال</button>
+            <textarea id="receptionist-message-input" rows="2" placeholder="${this._escapeAttr(this.t("receptionist.messages.inputPlaceholder", {}, "Write your message..."))}" required></textarea>
+            <button type="submit">${this.t("receptionist.common.send", {}, "Send")}</button>
             <small id="receptionist-message-status"></small>
           </form>
         </section>
@@ -59,11 +59,11 @@ ReceptionistUI.searchMessageUsers = async function() {
 
   if (!results) return;
   if (keyword.length < 2) {
-    results.innerHTML = `<div class="receptionist-message-inline-note">اكتب حرفين على الأقل للبحث.</div>`;
+    results.innerHTML = `<div class="receptionist-message-inline-note">${this.t("receptionist.messages.minSearch", {}, "Type at least two characters to search.")}</div>`;
     return;
   }
 
-  results.innerHTML = `<div class="receptionist-message-inline-note">جاري البحث...</div>`;
+  results.innerHTML = `<div class="receptionist-message-inline-note">${this.t("receptionist.messages.searching", {}, "Searching...")}</div>`;
 
   try {
     const response = await ReceptionistServices.searchUsers(keyword);
@@ -74,14 +74,14 @@ ReceptionistUI.searchMessageUsers = async function() {
       });
 
     if (users.length === 0) {
-      results.innerHTML = `<div class="receptionist-message-inline-note">لا توجد نتائج مطابقة.</div>`;
+      results.innerHTML = `<div class="receptionist-message-inline-note">${this.t("receptionist.messages.noResults", {}, "No matching results.")}</div>`;
       return;
     }
 
     results.innerHTML = users.map(user => {
       const userId = Number(user.id ?? user.user_id);
-      const name = user.full_name || user.username || `مستخدم #${userId}`;
-      const role = user.role_name || user.role || user.user_type || "مستخدم";
+      const name = user.full_name || user.username || this.t("receptionist.common.userFallback", { id: userId }, `User #${userId}`);
+      const role = user.role_name || user.role || user.user_type || this.t("receptionist.messages.roleFallback", {}, "User");
 
       return `
         <button type="button" class="receptionist-message-user-result" data-user-id="${userId}" data-user-name="${this._escapeAttr(name)}">
@@ -98,7 +98,7 @@ ReceptionistUI.searchMessageUsers = async function() {
       });
     });
   } catch (err) {
-    results.innerHTML = `<div class="receptionist-message-inline-note error">فشل البحث: ${this._escape(err.message)}</div>`;
+    results.innerHTML = `<div class="receptionist-message-inline-note error">${this.t("receptionist.messages.searchFailed", { message: this._escape(err.message) }, "Search failed.")}</div>`;
   }
 };
 
@@ -111,7 +111,7 @@ ReceptionistUI.openMessageConversation = async function(contactId, contactName) 
   const status = document.getElementById("receptionist-message-status");
 
   if (header) header.textContent = contactName;
-  if (messagesArea) messagesArea.innerHTML = `<div class="receptionist-message-inline-note">جاري تحميل المحادثة...</div>`;
+  if (messagesArea) messagesArea.innerHTML = `<div class="receptionist-message-inline-note">${this.t("receptionist.messages.loadingConversation", {}, "Loading conversation...")}</div>`;
   if (form) form.hidden = false;
   if (status) status.textContent = "";
 
@@ -120,7 +120,9 @@ ReceptionistUI.openMessageConversation = async function(contactId, contactName) 
     const messages = Array.isArray(response) ? response : (response?.data || []);
     this.renderMessageConversation(messages);
   } catch (err) {
-    if (messagesArea) messagesArea.innerHTML = `<div class="receptionist-message-inline-note error">تعذر تحميل الرسائل: ${this._escape(err.message)}</div>`;
+    if (messagesArea) {
+      messagesArea.innerHTML = `<div class="receptionist-message-inline-note error">${this.t("receptionist.messages.loadFailed", { message: this._escape(err.message) }, "Could not load messages.")}</div>`;
+    }
   }
 };
 
@@ -131,14 +133,16 @@ ReceptionistUI.renderMessageConversation = function(messages) {
   const ordered = [...(messages || [])].sort((a, b) => new Date(a.created_at || a.timestamp || 0) - new Date(b.created_at || b.timestamp || 0));
 
   if (ordered.length === 0) {
-    area.innerHTML = `<div class="receptionist-chat-empty"><p>لا توجد رسائل بعد.</p></div>`;
+    area.innerHTML = `<div class="receptionist-chat-empty"><p>${this.t("receptionist.messages.noMessages", {}, "No messages yet.")}</p></div>`;
     return;
   }
 
   area.innerHTML = ordered.map(msg => {
     const isMine = Number(msg.sender_id) === this._currentUserId;
-    const author = isMine ? "أنت" : (msg.sender_name || this._activeMessageContact?.name || "المستخدم");
-    const date = msg.created_at ? new Date(msg.created_at).toLocaleString("ar-DZ") : "";
+    const author = isMine
+      ? this.t("receptionist.messages.you", {}, "You")
+      : (msg.sender_name || this._activeMessageContact?.name || this.t("receptionist.messages.roleFallback", {}, "User"));
+    const date = msg.created_at ? this.formatDateTime(msg.created_at) : "";
 
     return `
       <div class="receptionist-message-bubble${isMine ? " mine" : ""}">
@@ -160,19 +164,19 @@ ReceptionistUI.sendMessageToActiveContact = async function() {
   if (!this._activeMessageContact || !content) return;
 
   if (status) {
-    status.textContent = "جاري الإرسال...";
+    status.textContent = this.t("receptionist.messages.sending", {}, "Sending...");
     status.className = "";
   }
 
   try {
     await ReceptionistServices.sendMessage(this._currentUserId, this._activeMessageContact.id, content);
     input.value = "";
-    if (status) status.textContent = "تم الإرسال";
+    if (status) status.textContent = this.t("receptionist.messages.sent", {}, "Sent");
     await this.openMessageConversation(this._activeMessageContact.id, this._activeMessageContact.name);
     this.refreshMessageContacts();
   } catch (err) {
     if (status) {
-      status.textContent = "فشل الإرسال: " + err.message;
+      status.textContent = this.t("receptionist.messages.sendFailed", { message: err.message }, "Send failed.");
       status.className = "error";
     }
   }
@@ -190,7 +194,7 @@ ReceptionistUI.refreshMessageContacts = async function() {
       this._bindMessageContactEvents();
     }
   } catch (err) {
-    console.warn("تعذر تحديث صندوق المحادثات:", err);
+    console.warn("Could not refresh receptionist message inbox:", err);
   }
 };
 
@@ -228,8 +232,8 @@ ReceptionistUI._buildMessageContacts = function(inboxData, userId) {
     if (!contactId || contactId === currentUserId) return;
 
     const contactName = senderId === currentUserId
-      ? (message.receiver_name || message.receiver_full_name || message.receiver_username || `مستخدم #${contactId}`)
-      : (message.sender_name || message.sender_full_name || message.sender_username || `مستخدم #${contactId}`);
+      ? (message.receiver_name || message.receiver_full_name || message.receiver_username || this.t("receptionist.common.userFallback", { id: contactId }, `User #${contactId}`))
+      : (message.sender_name || message.sender_full_name || message.sender_username || this.t("receptionist.common.userFallback", { id: contactId }, `User #${contactId}`));
     const createdAt = message.created_at || message.timestamp || "";
     const existing = contacts.get(contactId);
 
@@ -248,7 +252,7 @@ ReceptionistUI._buildMessageContacts = function(inboxData, userId) {
 
 ReceptionistUI._renderMessageContacts = function(contacts) {
   if (!contacts || contacts.length === 0) {
-    return `<div class="receptionist-message-empty-list">لا توجد محادثات بعد.</div>`;
+    return `<div class="receptionist-message-empty-list">${this.t("receptionist.messages.emptyList", {}, "No conversations yet.")}</div>`;
   }
 
   return contacts.map(contact => {

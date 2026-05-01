@@ -5,38 +5,68 @@ const ReceptionistUI = {
 
   renderHeader(userProfile) {
     const header = document.getElementById("receptionist-header");
+    const name = userProfile ? userProfile.full_name : "...";
+    const languages = window.I18n
+      ? I18n.getLanguages()
+      : [{ code: "ar", label: "Arabic", dir: "rtl" }, { code: "en", label: "English", dir: "ltr" }];
+    const activeLang = window.I18n ? I18n.currentLang : "ar";
+    const options = languages.map(lang => `
+      <option value="${this._escapeAttr(lang.code)}" dir="${this._escapeAttr(lang.dir || "auto")}" ${lang.code === activeLang ? "selected" : ""}>
+        ${this._escape(lang.label)}
+      </option>
+    `).join("");
+
     header.innerHTML = `
       <div>
-        <h1>مكتب الاستقبال | مرحباً: ${this._escape(userProfile ? userProfile.full_name : "...")}</h1>
-        <button id="logout-btn">تسجيل خروج</button>
+        <div class="receptionist-brand">
+          <h1>${this.t("receptionist.brand.title", {}, "Reception Office")} | ${this.t("receptionist.brand.welcome", { name: this._escape(name) }, `Welcome: ${this._escape(name)}`)}</h1>
+        </div>
+        <div class="receptionist-header-actions">
+          <label class="receptionist-language-control">
+            <span>${this.t("receptionist.language.label", {}, "Language")}</span>
+            <select id="receptionist-language-select" aria-label="${this._escapeAttr(this.t("receptionist.language.select", {}, "Choose language"))}">
+              ${options}
+            </select>
+          </label>
+          <button id="logout-btn">${this.t("receptionist.auth.logout", {}, "Log out")}</button>
+        </div>
       </div>
     `;
-    document.getElementById("logout-btn").addEventListener("click", () => Auth.logout());
+
+    document.getElementById("logout-btn")?.addEventListener("click", () => Auth.logout());
+    const languageSelect = document.getElementById("receptionist-language-select");
+    if (languageSelect && window.I18n) {
+      languageSelect.addEventListener("change", async (event) => {
+        languageSelect.disabled = true;
+        await I18n.setLanguage(event.target.value);
+        languageSelect.disabled = false;
+      });
+    }
   },
 
   renderNav(activeSection) {
     const nav = document.getElementById("receptionist-nav");
-    nav.innerHTML = this.SECTIONS.map(s =>
-      `<button class="nav-btn${activeSection === s ? " active" : ""}" data-section="${s}">${this._translate(s)}</button>`
-    ).join("");
+    nav.innerHTML = this.SECTIONS.map(section => `
+      <button class="nav-btn${activeSection === section ? " active" : ""}" data-section="${this._escapeAttr(section)}">
+        ${this._translate(section)}
+      </button>
+    `).join("");
   },
 
   renderLoading() {
-    document.getElementById("receptionist-main").innerHTML = "<h3>جاري التحميل...</h3>";
+    document.getElementById("receptionist-main").innerHTML = `<h3>${this.t("receptionist.state.loading", {}, "Loading...")}</h3>`;
   },
 
   renderError(msg) {
-    document.getElementById("receptionist-main").innerHTML = `<h3 class="error-message">خطأ: ${this._escape(msg)}</h3>`;
+    document.getElementById("receptionist-main").innerHTML = `<h3 class="error-message">${this.t("receptionist.state.errorPrefix", {}, "Error:")} ${this._escape(msg)}</h3>`;
   },
 
-  // دالة عامة لإغلاق أي نافذة منبثقة (Modal)
   closeStudentDetailsModal() {
     const modal = document.getElementById("student-details-modal");
     if (modal) modal.remove();
     document.body.classList.remove("modal-open");
   },
 
-  // === الدوال المساعدة (Helpers) ===
   _getNotificationId(notification) {
     const id = notification?.id ?? notification?.notification_id;
     return id === undefined || id === null || id === "" ? null : id;
@@ -47,30 +77,87 @@ const ReceptionistUI = {
     return value === true || value === 1 || value === "1" || value === "true";
   },
 
-  _translate(str) {
-    const map = { students: "الطلاب", parents: "أولياء الأمور", search: "البحث الشامل", finance: "المالية", posts: "المنشورات", messages: "المراسلة", notifications: "الإشعارات" };
-    return map[str] || str;
+  _translate(section) {
+    return this.t(`receptionist.nav.${section}`, {}, section);
   },
 
   _translateRole(role) {
-    const map = { student: "طالب", teacher: "أستاذ", parent: "ولي أمر", admin: "مدير", receptionist: "استقبال", accountant: "محاسب" };
-    return map[role] || role;
+    const raw = String(role || "").trim();
+    if (!raw) return this.t("receptionist.common.notSpecified", {}, "Not specified");
+    return this.t(`receptionist.roles.${raw.toLowerCase()}`, {}, raw);
   },
 
   _statusLabel(status) {
-    const map = { active: "نشط", inactive: "غير نشط", suspended: "موقوف", graduated: "متخرج", withdrawn: "منسحب" };
-    return map[status] || status || "-";
+    const raw = String(status || "").trim();
+    if (!raw) return this.t("receptionist.common.none", {}, "-");
+    return this.t(`receptionist.status.${raw.toLowerCase()}`, {}, raw);
   },
 
-  _formatValue(value) { 
-    return value === null || value === undefined || value === "" ? "-" : value; 
+  _formatCurrency(amount) {
+    const number = Number(amount);
+    const safeAmount = Number.isFinite(number) ? number : 0;
+    return `${safeAmount.toLocaleString(this.locale())} ${this.t("receptionist.currency.dzd", {}, "DZD")}`;
+  },
+
+  formatDateTime(value) {
+    if (!value) return this.t("receptionist.common.unknownDate", {}, "Unknown date");
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value);
+    return date.toLocaleString(this.locale());
+  },
+
+  formatDate(value, options = { year: "numeric", month: "short", day: "numeric" }) {
+    if (!value) return this.t("receptionist.common.unknownDate", {}, "Unknown date");
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value);
+    return date.toLocaleDateString(this.locale(), options);
+  },
+
+  locale() {
+    return window.I18n ? I18n.get("meta.locale", this.isRtl() ? "ar-DZ" : "en-US") : "ar-DZ";
+  },
+
+  dir() {
+    return window.I18n ? I18n.get("meta.dir", "rtl") : "rtl";
+  },
+
+  isRtl() {
+    return this.dir() === "rtl";
+  },
+
+  start() {
+    return this.isRtl() ? "right" : "left";
+  },
+
+  end() {
+    return this.isRtl() ? "left" : "right";
+  },
+
+  t(key, params = {}, fallback = "") {
+    return window.I18n ? I18n.t(key, params, fallback || key) : (fallback || key);
+  },
+
+  _formatValue(value) {
+    return value === null || value === undefined || value === ""
+      ? this.t("receptionist.common.none", {}, "-")
+      : value;
   },
 
   _escape(value) {
-    return String(this._formatValue(value)).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    return String(this._formatValue(value))
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   },
 
   _escapeAttr(value) {
-    return String(value == null ? "" : value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 };

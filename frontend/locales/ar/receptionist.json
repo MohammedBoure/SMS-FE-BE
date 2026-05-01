@@ -1,0 +1,319 @@
+{
+  "meta": {
+    "lang": "ar",
+    "dir": "rtl",
+    "locale": "ar-DZ"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "العربية",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    }
+  ],
+  "receptionist": {
+    "documentTitle": "لوحة الاستقبال",
+    "brand": {
+      "title": "مكتب الاستقبال",
+      "welcome": "مرحبا: {name}"
+    },
+    "language": {
+      "label": "اللغة",
+      "select": "اختر اللغة"
+    },
+    "auth": {
+      "logout": "تسجيل خروج"
+    },
+    "nav": {
+      "students": "الطلاب",
+      "parents": "أولياء الأمور",
+      "search": "البحث الشامل",
+      "finance": "المالية",
+      "posts": "المنشورات",
+      "messages": "المراسلة",
+      "notifications": "الإشعارات"
+    },
+    "state": {
+      "loading": "جاري التحميل...",
+      "errorPrefix": "خطأ:",
+      "initFailed": "فشل في تهيئة بيانات موظف الاستقبال.",
+      "unknownSection": "قسم غير معروف"
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "غير محدد",
+      "unavailable": "غير متاح",
+      "unknownDate": "تاريخ غير محدد",
+      "updating": "جاري التحديث...",
+      "loading": "جاري التحميل...",
+      "saving": "جاري الحفظ...",
+      "actions": "إجراءات",
+      "id": "المعرف",
+      "fullName": "الاسم الكامل",
+      "username": "اسم المستخدم",
+      "email": "البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "address": "العنوان",
+      "status": "الحالة",
+      "class": "القسم",
+      "parent": "ولي الأمر",
+      "date": "التاريخ",
+      "amount": "المبلغ",
+      "type": "النوع",
+      "cancel": "إلغاء",
+      "saveChanges": "حفظ التعديلات",
+      "send": "إرسال",
+      "search": "بحث",
+      "download": "تحميل",
+      "file": "ملف",
+      "wordCount": "{words} كلمة - {chars} حرف",
+      "userFallback": "مستخدم #{id}"
+    },
+    "roles": {
+      "student": "طالب",
+      "teacher": "أستاذ",
+      "parent": "ولي أمر",
+      "admin": "مدير",
+      "receptionist": "استقبال",
+      "accountant": "محاسب"
+    },
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "suspended": "موقوف",
+      "graduated": "متخرج",
+      "withdrawn": "منسحب",
+      "present": "حاضر",
+      "absent": "غائب",
+      "late": "متأخر",
+      "justified": "مبرر",
+      "unjustified": "غير مبرر",
+      "read": "مقروء",
+      "unread": "غير مقروء"
+    },
+    "students": {
+      "title": "إدارة الطلاب",
+      "registerTitle": "تسجيل طالب جديد",
+      "searchPlaceholder": "ابحث بالاسم أو الرقم...",
+      "submit": "تسجيل الطالب",
+      "selectParent": "اختر ولي الأمر...",
+      "selectClass": "اختر القسم...",
+      "placeholders": {
+        "fullName": "الاسم الكامل للطالب",
+        "username": "اسم المستخدم للدخول",
+        "email": "البريد الإلكتروني",
+        "phone": "رقم الهاتف",
+        "address": "عنوان الطالب",
+        "blood": "زمرة الدم",
+        "medical": "معلومات طبية"
+      },
+      "columns": {
+        "id": "الرقم",
+        "fullName": "الاسم الكامل",
+        "class": "القسم",
+        "status": "الحالة",
+        "action": "إجراء"
+      },
+      "viewDetails": "عرض التفاصيل",
+      "edit": "تعديل",
+      "noChanges": "لم يتم تغيير أي بيانات.",
+      "missingUserId": "لا يوجد user_id لهذا الطالب، لا يمكن تعديل بيانات الحساب.",
+      "successCreate": "تم تسجيل الطالب بنجاح.",
+      "successUpdate": "تم حفظ التعديلات بنجاح.",
+      "createFailed": "خطأ في التسجيل: {message}",
+      "updateFailed": "خطأ في حفظ التعديلات: {message}",
+      "loadDetailsFailed": "خطأ في جلب التفاصيل: {message}",
+      "loadStudentFailed": "خطأ في جلب بيانات الطالب: {message}"
+    },
+    "studentDetails": {
+      "title": "الملف الشامل: {name}",
+      "studentId": "رقم الطالب:",
+      "loginUsername": "اسم المستخدم:",
+      "email": "البريد الإلكتروني:",
+      "phone": "الهاتف:",
+      "address": "العنوان:",
+      "class": "القسم:",
+      "parent": "ولي الأمر:",
+      "parentPhone": "هاتف الولي:",
+      "birthDate": "تاريخ الميلاد:",
+      "registrationDate": "تاريخ التسجيل:",
+      "blood": "زمرة الدم:",
+      "status": "الحالة:",
+      "medical": "معلومات طبية:",
+      "noMedical": "لا توجد معلومات طبية",
+      "attendanceTitle": "سجل الغيابات",
+      "gradesTitle": "كشف العلامات",
+      "subject": "المادة",
+      "grade": "العلامة",
+      "noAttendance": "لا توجد غيابات مسجلة.",
+      "noGrades": "لا توجد علامات مسجلة."
+    },
+    "studentEdit": {
+      "title": "تعديل بيانات: {name}",
+      "accountTitle": "بيانات الدخول (الحساب)",
+      "personalTitle": "البيانات الشخصية",
+      "academicTitle": "البيانات الأكاديمية والطبية",
+      "newPassword": "كلمة المرور الجديدة",
+      "passwordPlaceholder": "اتركها فارغة لعدم التغيير",
+      "noClass": "بدون قسم",
+      "noParent": "بدون ولي أمر"
+    },
+    "parents": {
+      "title": "إدارة أولياء الأمور",
+      "registerTitle": "تسجيل ولي أمر جديد",
+      "submit": "تسجيل الولي",
+      "empty": "لا يوجد أولياء مسجلون.",
+      "fallback": "ولي أمر",
+      "successCreate": "تم تسجيل ولي الأمر بنجاح.",
+      "createFailed": "خطأ في التسجيل: {message}"
+    },
+    "finance": {
+      "title": "المالية واستقبال الدفعات",
+      "studentIdPlaceholder": "أدخل رقم الطالب...",
+      "searchFees": "بحث عن الرسوم",
+      "initialHint": "أدخل رقم الطالب للبحث عن وضعيته المالية.",
+      "missingStudentId": "الرجاء إدخال رقم الطالب.",
+      "noFees": "لا توجد رسوم مستحقة.",
+      "receivePayment": "استلام الدفعة",
+      "confirmPayment": "هل أنت متأكد من استلام مبلغ {amount}؟",
+      "paymentSuccess": "تم تسجيل الدفعة بنجاح واستخراج الوصل.",
+      "paymentFailed": "خطأ أثناء الدفع: {message}",
+      "searchFailed": "خطأ: {message}",
+      "columns": {
+        "type": "النوع",
+        "amount": "المبلغ",
+        "date": "التاريخ",
+        "action": "إجراء"
+      }
+    },
+    "search": {
+      "title": "البحث الشامل في النظام",
+      "placeholder": "ابحث بالاسم، اسم المستخدم، أو البريد...",
+      "minLength": "الرجاء إدخال حرفين على الأقل للبحث.",
+      "searching": "جاري البحث...",
+      "noResults": "لم يتم العثور على أي نتائج.",
+      "failed": "حدث خطأ: {message}",
+      "columns": {
+        "id": "المعرف",
+        "fullName": "الاسم الكامل",
+        "username": "اسم المستخدم",
+        "role": "الدور"
+      }
+    },
+    "notifications": {
+      "title": "الإشعارات",
+      "empty": "لا توجد إشعارات جديدة.",
+      "unreadCount": "{count} إشعار غير مقروء",
+      "markAllRead": "تعيين الكل كمقروء",
+      "markRead": "تعيين كمقروء",
+      "read": "مقروء",
+      "unread": "غير مقروء",
+      "defaultTitle": "إشعار",
+      "updateFailed": "تعذر تحديث الإشعارات.",
+      "singleUpdateFailed": "تعذر تحديث الإشعار."
+    },
+    "messages": {
+      "title": "المراسلة",
+      "subtitle": "تابع محادثات الاستقبال أو ابحث عن مستخدم جديد للتواصل معه.",
+      "searchPlaceholder": "ابحث باسم المستخدم...",
+      "searchButton": "بحث",
+      "conversations": "المحادثات",
+      "selectPrompt": "اختر محادثة من القائمة أو ابحث عن مستخدم جديد.",
+      "emptyConversation": "المحادثة ستظهر هنا.",
+      "inputPlaceholder": "اكتب رسالتك...",
+      "minSearch": "اكتب حرفين على الأقل للبحث.",
+      "searching": "جاري البحث...",
+      "noResults": "لا توجد نتائج مطابقة.",
+      "searchFailed": "فشل البحث: {message}",
+      "loadingConversation": "جاري تحميل المحادثة...",
+      "loadFailed": "تعذر تحميل الرسائل: {message}",
+      "noMessages": "لا توجد رسائل بعد.",
+      "you": "أنت",
+      "roleFallback": "مستخدم",
+      "sending": "جاري الإرسال...",
+      "sent": "تم الإرسال",
+      "sendFailed": "فشل الإرسال: {message}",
+      "emptyList": "لا توجد محادثات بعد."
+    },
+    "posts": {
+      "dashboardTitle": "لوحة المنشورات المدرسية",
+      "dashboardSubtitle": "إنشاء وإدارة المنشورات التي تظهر للطلاب والأولياء والأساتذة.",
+      "newPost": "كتابة منشور جديد",
+      "total": "إجمالي المنشورات",
+      "today": "نشر اليوم",
+      "withImage": "بصورة غلاف",
+      "textOnly": "نصي فقط",
+      "searchLabel": "بحث",
+      "searchPlaceholder": "البحث في المنشورات...",
+      "emptyTitle": "لا توجد منشورات منشورة حتى الآن",
+      "emptyText": "يمكنك إنشاء أول منشور من زر كتابة منشور جديد.",
+      "untitled": "منشور بدون عنوان",
+      "noSummary": "لا يوجد ملخص.",
+      "author": "مستخدم #{id}",
+      "file": "ملف",
+      "preview": "معاينة",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "columns": {
+        "title": "عنوان المنشور",
+        "author": "الكاتب",
+        "date": "تاريخ النشر",
+        "actions": "إجراءات"
+      },
+      "editorNew": "كتابة منشور جديد",
+      "editorEdit": "تعديل المنشور",
+      "back": "العودة للمنشورات",
+      "titlePlaceholder": "عنوان المنشور",
+      "imagePlaceholder": "رابط صورة الغلاف اختياري",
+      "contentPlaceholder": "اكتب محتوى المنشور هنا...",
+      "previewLabel": "المعاينة",
+      "previewTitle": "عنوان المنشور",
+      "previewEmpty": "ابدأ الكتابة لرؤية المعاينة هنا...",
+      "fullPreview": "معاينة كاملة",
+      "publish": "نشر المنشور",
+      "saveChanges": "حفظ التعديلات",
+      "saving": "جاري الحفظ...",
+      "titleRequired": "يرجى إدخال عنوان المنشور",
+      "contentRequired": "يرجى إدخال محتوى المنشور",
+      "updated": "تم تحديث المنشور بنجاح",
+      "created": "تم نشر المنشور بنجاح",
+      "saveFailed": "تعذر حفظ المنشور: {message}",
+      "confirmDelete": "هل تريد حذف هذا المنشور نهائيا؟",
+      "deleted": "تم حذف المنشور بنجاح",
+      "deleteFailed": "تعذر حذف المنشور: {message}",
+      "noContent": "لا يوجد محتوى.",
+      "toolbar": {
+        "list": "قائمة",
+        "quote": "اقتباس",
+        "table": "جدول",
+        "link": "رابط",
+        "image": "صورة",
+        "download": "تحميل"
+      },
+      "prompts": {
+        "imageUrl": "رابط الصورة:",
+        "imageAlt": "النص البديل:",
+        "imageDefault": "صورة",
+        "linkUrl": "رابط URL:",
+        "linkText": "نص الرابط:",
+        "linkDefault": "اضغط هنا",
+        "fileName": "اسم الملف:",
+        "downloadUrl": "رابط التحميل:",
+        "fileType": "نوع الملف اختياري:",
+        "fileSize": "الحجم اختياري:"
+      },
+      "markdown": {
+        "table": "| العنوان الأول | العنوان الثاني |\n| --- | --- |\n| بيانات | بيانات |\n",
+        "downloadPrefix": "تحميل"
+      }
+    },
+    "currency": {
+      "dzd": "دج"
+    }
+  }
+}

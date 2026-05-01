@@ -34,7 +34,7 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
-  direction: rtl;
+  direction: inherit;
   color: var(--text);
   background:
     linear-gradient(180deg, rgba(37, 99, 235, 0.08), transparent 260px),
@@ -82,6 +82,38 @@ button {
   font-size: clamp(1.1rem, 2vw, 1.55rem);
   font-weight: 800;
   line-height: 1.35;
+}
+
+.receptionist-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.receptionist-language-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.84);
+  font-weight: 800;
+}
+
+.receptionist-language-control select {
+  min-height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: var(--radius-sm);
+  padding: 0 10px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.receptionist-language-control option {
+  color: var(--text);
+  background: #fff;
 }
 
 #logout-btn,
@@ -294,6 +326,11 @@ td {
   vertical-align: middle;
 }
 
+[dir="ltr"] th,
+[dir="ltr"] td {
+  text-align: left;
+}
+
 th {
   color: #fff;
   font-size: 0.95rem;
@@ -469,6 +506,10 @@ td:first-child {
 .ltr-value {
   direction: ltr;
   text-align: right;
+}
+
+[dir="ltr"] .ltr-value {
+  text-align: left;
 }
 
 body.modal-open {
@@ -697,6 +738,11 @@ body.modal-open {
   text-align: right;
 }
 
+[dir="ltr"] #receptionist-main .receptionist-message-user-result,
+[dir="ltr"] .receptionist-message-user-result {
+  text-align: left;
+}
+
 #receptionist-main .receptionist-message-user-result:hover,
 .receptionist-message-user-result:hover {
   background: var(--surface-muted) !important;
@@ -757,6 +803,11 @@ body.modal-open {
   border-radius: var(--radius-sm) !important;
   box-shadow: none !important;
   text-align: right;
+}
+
+[dir="ltr"] #receptionist-main .receptionist-message-contact,
+[dir="ltr"] .receptionist-message-contact {
+  text-align: left;
 }
 
 #receptionist-main .receptionist-message-contact:hover,
