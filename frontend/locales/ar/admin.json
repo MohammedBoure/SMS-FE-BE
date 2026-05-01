@@ -1,0 +1,1592 @@
+{
+  "meta": {
+    "lang": "ar",
+    "dir": "rtl",
+    "name": "العربية"
+  },
+  "languages": [
+    { "code": "ar", "label": "العربية", "dir": "rtl" },
+    { "code": "en", "label": "English", "dir": "ltr" }
+  ],
+  "admin": {
+    "documentTitle": "لوحة تحكم المدير | النظام المدرسي",
+    "brand": {
+      "title": "لوحة الإدارة",
+      "userId": "المعرف: #{id}"
+    },
+    "topbar": {
+      "overview": "نظرة عامة",
+      "openMenu": "فتح القائمة"
+    },
+    "theme": {
+      "toggle": "تبديل الثيم",
+      "light": "فاتح",
+      "dark": "داكن"
+    },
+    "language": {
+      "label": "اللغة",
+      "select": "اختيار اللغة"
+    },
+    "session": {
+      "account": "حساب: {role}",
+      "logout": "تسجيل الخروج"
+    },
+    "sidebar": {
+      "collapse": "تصغير الشريط الجانبي",
+      "expand": "توسيع الشريط الجانبي",
+      "collapseLabel": "تصغير القائمة",
+      "expandLabel": "توسيع القائمة",
+      "searchPlaceholder": "بحث سريع...",
+      "noResults": "لا توجد نتيجة مطابقة"
+    },
+    "state": {
+      "loading": "جاري تحميل البيانات...",
+      "errorPrefix": "عذراً، حدث خطأ:"
+    },
+    "nav": {
+      "categories": {
+        "core": "الإدارة الأساسية",
+        "academic": "الشؤون الأكاديمية",
+        "finance": "المالية والموارد",
+        "community": "التواصل والمجتمع"
+      },
+      "items": {
+        "users": "إدارة المستخدمين",
+        "parents": "أولياء الأمور",
+        "academic": "نظرة عامة (أكاديمي)",
+        "classes": "الفصول والمقاعد",
+        "students": "شؤون الطلاب",
+        "teachers": "الطاقم التعليمي",
+        "programs": "البرامج الدراسية",
+        "enrollments": "سجلات التسجيل",
+        "attendance": "الحضور والغياب",
+        "schedules": "الجداول الزمنية",
+        "assessments": "التقييمات والامتحانات",
+        "grades": "الدرجات والنتائج",
+        "finance": "نظرة عامة (مالية)",
+        "studentFees": "الرسوم والديون",
+        "payments": "سجل المدفوعات",
+        "transactions": "الدفتر اليومي",
+        "resources": "المكتبة الرقمية",
+        "conversations": "المحادثات المباشرة",
+        "notifications": "الإشعارات والتنبيهات",
+        "posts": "لوحة الإعلانات"
+      }
+    },
+    "sections": {
+      "users": "إدارة المستخدمين",
+      "parents": "إدارة أولياء الأمور",
+      "academic": "نظرة عامة على الشؤون الأكاديمية",
+      "classes": "إدارة الفصول والمقاعد",
+      "students": "إدارة شؤون الطلاب",
+      "teachers": "إدارة الطاقم التعليمي",
+      "programs": "إدارة البرامج الدراسية",
+      "enrollments": "إدارة سجلات التسجيل",
+      "attendance": "إدارة الحضور والغياب",
+      "schedules": "إدارة الجداول الزمنية",
+      "assessments": "إدارة التقييمات والامتحانات",
+      "grades": "إدارة الدرجات والنتائج",
+      "finance": "نظرة عامة على المالية",
+      "studentFees": "إدارة الرسوم والديون",
+      "payments": "سجل المدفوعات",
+      "transactions": "الدفتر اليومي",
+      "resources": "المكتبة الرقمية",
+      "conversations": "المحادثات المباشرة",
+      "notifications": "الإشعارات والتنبيهات",
+      "posts": "إدارة الإعلانات والمنشورات العامة"
+    },
+    "messages": {
+      "unknownSection": "هذه الواجهة قيد التطوير أو غير مسجلة.",
+      "loadFailed": "فشل الاتصال بالخادم لجلب البيانات.",
+      "deleteConfirm": "هل أنت متأكد من حذف هذا السجل بشكل نهائي؟",
+      "deleteSuccess": "تم الحذف بنجاح.",
+      "deleteFailed": "تعذر الحذف: {message}"
+    },
+    "actions": {
+      "search": "بحث",
+      "reload": "إعادة تحميل",
+      "save": "حفظ",
+      "cancel": "إلغاء",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "view": "عرض",
+      "close": "إغلاق",
+      "print": "طباعة",
+      "download": "تنزيل",
+      "send": "إرسال",
+      "add": "إضافة",
+      "activate": "تفعيل",
+      "deactivate": "تعطيل"
+    },
+    "academic": {
+      "loading": "جاري تجميع وتحليل البيانات الأكاديمية...",
+      "kpis": {
+        "totalStudents": "إجمالي الطلاب",
+        "teachingStaff": "الطاقم التعليمي",
+        "classes": "الفصول الدراسية",
+        "occupancyRate": "معدل الامتلاء العام"
+      },
+      "quickActions": {
+        "title": "الإجراءات السريعة",
+        "students": "إدارة الطلاب",
+        "attendance": "تسجيل الغياب",
+        "schedule": "الجدول الزمني",
+        "grades": "إدخال الدرجات"
+      },
+      "occupancy": {
+        "title": "تنبيه الاكتظاظ (أعلى 5 فصول)",
+        "classColumn": "الفصل",
+        "occupancyColumn": "الإشغال",
+        "label": "إشغال: {current} / {capacity}",
+        "empty": "لا توجد بيانات للفصول الدراسية."
+      },
+      "attendance": {
+        "title": "حضور اليوم ({date})",
+        "choosePlaceholder": "-- اختر فصلاً لمعرفة حضوره اليوم --",
+        "check": "تحقق",
+        "helper": "اختر الفصل واضغط تحقق لرؤية إحصائية اليوم فوراً.",
+        "chooseClassFirst": "يرجى اختيار الفصل أولاً.",
+        "loadingRecords": "جاري جلب السجلات...",
+        "empty": "لم يتم تسجيل غياب/حضور هذا الفصل لليوم بعد.",
+        "rate": "نسبة الحضور",
+        "present": "حاضر:",
+        "absent": "غائب:",
+        "late": "متأخر:",
+        "fetchFailed": "فشل الجلب:"
+      },
+      "errors": {
+        "server": "خطأ في الاتصال بالخادم:"
+      }
+    },
+    "assessments": {
+      "types": {
+        "exam": "امتحان",
+        "quiz": "اختبار",
+        "homework": "واجب",
+        "examOfficial": "امتحان رسمي",
+        "quizShort": "اختبار قصير"
+      },
+      "filters": {
+        "allTypes": "-- كل أنواع التقييمات --",
+        "searchPlaceholder": "ابحث باسم التقييم..."
+      },
+      "actions": {
+        "reloadTitle": "إعادة تحميل القائمة",
+        "refresh": "تحديث",
+        "add": "إضافة تقييم جديد",
+        "viewGradesTitle": "عرض درجات الطلاب",
+        "grades": "الدرجات",
+        "editTitle": "تعديل خصائص التقييم",
+        "deleteTitle": "حذف التقييم نهائياً"
+      },
+      "form": {
+        "addTitle": "إضافة تقييم جديد",
+        "editTitle": "تعديل التقييم",
+        "titleLabel": "عنوان التقييم (إجباري)",
+        "titlePlaceholder": "مثال: الفرض الأول في مادة الرياضيات...",
+        "typeLabel": "نوع التقييم",
+        "maxGradeLabel": "الدرجة القصوى",
+        "assignmentLabel": "التكليف المرجعي (المادة والأستاذ)",
+        "loadingAssignments": "جاري تحميل التكليفات...",
+        "assignmentHint": "يربط هذا التقييم بالمادة والفصل حتى يمكن رصد النقاط.",
+        "dueDateLabel": "تاريخ الاستحقاق",
+        "save": "حفظ التقييم",
+        "chooseAssignment": "-- يرجى اختيار التكليف المرجعي --",
+        "assignmentFallback": "أدخل رقم التكليف"
+      },
+      "table": {
+        "empty": "لا توجد تقييمات مطابقة للبحث حالياً.",
+        "assignmentApplied": "تطبيق على التكليف المرجعي: #{id}",
+        "points": "نقطة",
+        "notSpecified": "غير محدد",
+        "subject": "مادة",
+        "general": "عام",
+        "classPrefix": "فصل:",
+        "total": "إجمالي التقييمات المعروضة: {count}",
+        "titleAndAssignment": "عنوان التقييم والتكليف",
+        "type": "النوع",
+        "maxGrade": "الدرجة القصوى",
+        "dueDate": "تاريخ الاستحقاق",
+        "actions": "إجراءات"
+      },
+      "gradesModal": {
+        "title": "درجات التقييم",
+        "studentId": "# الطالب",
+        "fullName": "الاسم الكامل",
+        "grade": "العلامة المحصلة",
+        "remarks": "ملاحظات الأستاذ",
+        "close": "إغلاق النافذة",
+        "titleWithName": "درجات: {title}",
+        "loading": "جاري جلب بيانات الدرجات من السيرفر...",
+        "empty": "لا توجد درجات مرصودة لهذا التقييم حتى الآن.",
+        "noRemarks": "لا توجد ملاحظات",
+        "fetchFailed": "فشل جلب الدرجات: {message}"
+      },
+      "messages": {
+        "titleRequired": "يرجى إدخال عنوان التقييم.",
+        "assignmentRequired": "يرجى اختيار التكليف المرجعي.",
+        "updated": "تم تحديث بيانات التقييم بنجاح.",
+        "created": "تم إنشاء التقييم الجديد بنجاح.",
+        "saveFailed": "فشل الحفظ: {message}",
+        "unexpected": "حدث خطأ غير متوقع."
+      }
+    },
+    "attendanceTab": {
+      "loading": "جاري تجهيز لوحة الحضور...",
+      "common": {
+        "general": "عام"
+      },
+      "classCard": {
+        "title": "تسجيل حضور فصل",
+        "description": "اختر الفصل والتاريخ لاستعراض القائمة وتسجيل الحالات.",
+        "chooseClass": "-- يرجى اختيار الفصل --",
+        "showSheet": "عرض ورقة الحضور"
+      },
+      "studentCard": {
+        "title": "سجل غيابات طالب",
+        "description": "ابحث باسم الطالب لعرض سجله وإدارة تبريراته.",
+        "searchPlaceholder": "ابحث باسم الطالب...",
+        "showRecord": "عرض السجل الفردي"
+      },
+      "results": {
+        "emptyPrompt": "البيانات ستظهر هنا بعد إجراء البحث أو اختيار الفصل من الأعلى."
+      },
+      "status": {
+        "present": "حاضر",
+        "absent": "غائب",
+        "late": "متأخر"
+      },
+      "search": {
+        "noResults": "لا توجد نتائج مطابقة",
+        "idLabel": "رقم: {id}"
+      },
+      "sheet": {
+        "reasonPlaceholder": "سبب (إن وجد)...",
+        "saved": "تم الحفظ",
+        "title": "ورقة الحضور ليوم: {date}",
+        "saveAll": "حفظ ورقة الفصل بالكامل",
+        "studentName": "اسم الطالب",
+        "status": "الحالة",
+        "notes": "ملاحظات / تبرير",
+        "singleAction": "إجراء فردي"
+      },
+      "record": {
+        "cleanTitle": "سجل الطالب نظيف!",
+        "cleanDescription": "لا توجد أي غيابات أو تأخيرات مسجلة لهذا الطالب.",
+        "justified": "مبرر",
+        "unjustified": "غير مبرر",
+        "editJustification": "تعديل التبرير",
+        "deleteRecord": "حذف السجل",
+        "title": "سجل الغيابات والتأخيرات للطالب #{id}",
+        "showStats": "عرض إحصائيات الطالب",
+        "date": "التاريخ",
+        "class": "الفوج",
+        "status": "الحالة",
+        "adminJustification": "التبرير الإداري",
+        "reason": "السبب / ملاحظات",
+        "actions": "إجراءات"
+      },
+      "justification": {
+        "title": "تعديل تبرير الغياب",
+        "statusLabel": "حالة التبرير:",
+        "justified": "غياب مبرر",
+        "unjustified": "غياب غير مبرر",
+        "reasonLabel": "ملاحظات / سبب الغياب:",
+        "reasonPlaceholder": "أدخل تفاصيل التبرير...",
+        "save": "حفظ التعديلات"
+      },
+      "stats": {
+        "title": "إحصائيات المواظبة",
+        "loading": "جاري حساب الإحصائيات...",
+        "totalAbsences": "إجمالي الغيابات",
+        "totalLates": "إجمالي التأخيرات",
+        "justifiedAbsences": "غيابات مبررة",
+        "unjustifiedAbsences": "غيابات غير مبررة",
+        "fetchFailed": "تعذر جلب الإحصائيات، يرجى المحاولة لاحقاً."
+      },
+      "messages": {
+        "chooseClassAndDate": "يرجى اختيار الفصل والتاريخ أولاً.",
+        "loadingClassSheet": "جاري جلب القائمة من السيرفر...",
+        "noStudentsInClass": "لا يوجد طلاب مسجلين في هذا الفصل حالياً.",
+        "loadClassSheetFailed": "فشل تحميل القائمة: {message}",
+        "recordSaved": "تم حفظ السجل بنجاح.",
+        "saveFailed": "فشل الحفظ: {message}",
+        "saving": "جاري الحفظ...",
+        "sheetSaved": "تم حفظ ورقة الحضور للفصل بالكامل بنجاح.",
+        "partialSaveFailed": "حدث خطأ أثناء حفظ بعض السجلات. يرجى المراجعة والمحاولة مرة أخرى.",
+        "chooseStudentFirst": "يرجى اختيار طالب من القائمة أولاً.",
+        "loadingStudentRecord": "جاري جلب سجل الطالب...",
+        "loadStudentRecordFailed": "فشل تحميل سجل الطالب: {message}",
+        "justificationUpdated": "تم تحديث حالة التبرير بنجاح.",
+        "updateFailed": "فشل التحديث: {message}"
+      }
+    },
+    "classes": {
+      "common": {
+        "general": "عام",
+        "noProgram": "بدون برنامج",
+        "notSpecified": "غير محدد"
+      },
+      "occupancy": {
+        "title": "الرصد الحي لامتلاء الفصول",
+        "label": "إشغال: {current} / {capacity}",
+        "empty": "لا توجد بيانات إشغال متاحة. قم بإنشاء فصول وإضافة طلاب."
+      },
+      "actions": {
+        "create": "إنشاء فصل دراسي",
+        "editTitle": "تعديل الفصل",
+        "deleteTitle": "حذف الفصل"
+      },
+      "table": {
+        "title": "إدارة هيكلة الفصول",
+        "id": "رقم الفصل",
+        "name": "الاسم الأكاديمي",
+        "program": "البرنامج",
+        "level": "المستوى الدراسي",
+        "ageGroup": "الفئة العمرية",
+        "capacity": "السعة القصوى",
+        "capacityValue": "{count} مقعد",
+        "actions": "إجراءات الإدارة",
+        "empty": "لا توجد فصول دراسية مسجلة حاليا."
+      },
+      "form": {
+        "addTitle": "إضافة فصل جديد",
+        "editTitle": "تعديل بيانات الفصل",
+        "programLabel": "البرنامج",
+        "noProgramOption": "-- بدون برنامج --",
+        "nameLabel": "اسم الفصل الأكاديمي *",
+        "namePlaceholder": "مثال: فصل أينشتاين (أ)",
+        "levelLabel": "المستوى الدراسي",
+        "levelPlaceholder": "مثال: السنة الأولى ثانوي",
+        "ageLabel": "الفئة العمرية",
+        "agePlaceholder": "مثال: 15-16",
+        "capacityLabel": "السعة القصوى (مقاعد)",
+        "capacityPlaceholder": "مثال: 30",
+        "save": "حفظ بيانات الفصل"
+      },
+      "messages": {
+        "occupancyLoadFailed": "فشل تحميل بيانات الإشغال.",
+        "programsLoadFailed": "فشل تحميل البرامج.",
+        "nameRequired": "يرجى إدخال اسم الفصل الدراسي.",
+        "updated": "تم تحديث بيانات الفصل بنجاح.",
+        "created": "تم إنشاء الفصل الجديد بنجاح.",
+        "saveFailed": "فشل في حفظ بيانات الفصل: {message}",
+        "unexpected": "حدث خطأ غير متوقع."
+      }
+    },
+    "conversations": {
+      "toolbar": {
+        "title": "بحث في سجلات التواصل",
+        "description": "ابحث عن أي مستخدم لاستعراض محادثاته وقراءة رسائله المباشرة.",
+        "searchPlaceholder": "ابحث باسم المستخدم..."
+      },
+      "empty": {
+        "description": "قم بالبحث عن مستخدم أو عرض القائمة لفتح صندوق المحادثات الخاص به.",
+        "showUsers": "عرض قائمة المستخدمين"
+      },
+      "users": {
+        "loading": "جاري تحميل المستخدمين...",
+        "loadFailed": "فشل تحميل المستخدمين: {message}",
+        "searching": "جاري البحث...",
+        "searchFailed": "فشل البحث: {message}",
+        "empty": "لا يوجد مستخدمين مطابقين للبحث.",
+        "open": "فتح المحادثات",
+        "table": {
+          "id": "المعرف",
+          "user": "المستخدم",
+          "role": "الرتبة",
+          "action": "إجراء"
+        }
+      },
+      "inbox": {
+        "userFallback": "مستخدم #{id}",
+        "loading": "جاري جلب صندوق الرسائل لـ {name}...",
+        "backToUsers": "العودة لقائمة المستخدمين",
+        "back": "العودة",
+        "title": "صندوق الوارد: {name}",
+        "noPrevious": "لا توجد محادثات سابقة.",
+        "loadFailed": "فشل جلب صندوق الوارد: {message}"
+      },
+      "chat": {
+        "chooseConversation": "اختر محادثة من القائمة لعرض التفاصيل",
+        "placeholder": "المحادثة ستظهر هنا.",
+        "invalidContact": "تعذر تحديد طرف المحادثة.",
+        "conversationBetween": "محادثة بين:",
+        "loadingMessages": "جاري تحميل الرسائل...",
+        "emptyMessages": "لا توجد رسائل مسجلة.",
+        "messagesLoadFailed": "تعذر تحميل الرسائل: {message}"
+      }
+    },
+    "enrollments": {
+      "status": {
+        "active": "نشط",
+        "completed": "مكتمل",
+        "dropped": "منسحب"
+      },
+      "common": {
+        "notSpecified": "غير محدد",
+        "general": "عام"
+      },
+      "filters": {
+        "allStatuses": "-- تصفية حسب الحالة (الكل) --"
+      },
+      "actions": {
+        "reloadTitle": "إعادة تحميل القائمة",
+        "refresh": "تحديث",
+        "enrollStudent": "تسجيل طالب في برنامج",
+        "deleteEnrollmentTitle": "إلغاء وحذف التسجيل"
+      },
+      "form": {
+        "title": "إنشاء سجل التحاق جديد",
+        "studentLabel": "الطالب المراد تسجيله *",
+        "loadingStudents": "جاري تحميل الطلاب...",
+        "programLabel": "البرنامج *",
+        "loadingPrograms": "جاري تحميل البرامج...",
+        "classLabel": "الفوج / القسم *",
+        "chooseProgramFirst": "-- اختر البرنامج أولا --",
+        "groupLabel": "اسم الفوج / المجموعة (اختياري)",
+        "groupPlaceholder": "مثال: الفوج أ، المجموعة الصباحية...",
+        "notesLabel": "ملاحظات الإدارة (اختياري)",
+        "notesPlaceholder": "أي ملاحظات حول هذا التسجيل...",
+        "confirm": "تأكيد التسجيل",
+        "loading": "جاري التحميل...",
+        "chooseStudent": "-- يرجى اختيار الطالب --",
+        "chooseProgram": "-- يرجى اختيار البرنامج الدراسي --",
+        "noClassesForProgram": "لا توجد أفواج لهذا البرنامج",
+        "chooseClass": "-- يرجى اختيار الفوج --"
+      },
+      "table": {
+        "empty": "لا توجد سجلات تسجيل حالية تطابق بحثك.",
+        "programFallback": "برنامج #{id}",
+        "studentId": "طالب رقم: #{id}",
+        "className": "الفوج: {value}",
+        "groupName": "المجموعة: {value}",
+        "total": "إجمالي السجلات المعروضة: {count}",
+        "student": "الطالب",
+        "programAndClass": "البرنامج والفوج",
+        "enrollmentDate": "تاريخ التسجيل",
+        "status": "الحالة",
+        "actions": "إجراءات"
+      },
+      "messages": {
+        "filterFailed": "فشل الفلترة: {message}",
+        "statusUpdated": "تم تحديث حالة التسجيل بنجاح.",
+        "statusUpdateFailed": "فشل تحديث الحالة: {message}",
+        "deleteConfirm": "هل أنت متأكد من حذف سجل التسجيل هذا بشكل نهائي؟",
+        "deleteFailed": "تعذر الحذف: {message}",
+        "loadDataFailed": "فشل جلب البيانات",
+        "programEndpointHint": "تأكد من وجود مسار /programs/",
+        "loadClassesFailed": "فشل جلب الأفواج",
+        "requiredSelections": "يرجى التأكد من اختيار الطالب والبرنامج والفوج.",
+        "created": "تمت إضافة سجل التسجيل بنجاح.",
+        "duplicateHint": "تأكد من عدم تكرار تسجيل الطالب في نفس البرنامج.",
+        "createFailed": "فشل التسجيل: {message}"
+      }
+    },
+    "fees": {
+      "types": {
+        "tuition": "مصاريف دراسية",
+        "transport": "نقل مدرسي",
+        "activities": "أنشطة",
+        "exam": "رسوم امتحانات",
+        "other": "أخرى"
+      },
+      "stats": {
+        "totalRemaining": "إجمالي الديون المتبقية",
+        "overdueCases": "حالات تأخير الدفع",
+        "overdueRecord": "سجل متأخر"
+      },
+      "actions": {
+        "add": "إضافة رسم جديد",
+        "refresh": "تحديث",
+        "reminderTitle": "تذكير",
+        "paymentsTitle": "سجل الدفعات",
+        "editTitle": "تعديل السجل"
+      },
+      "filters": {
+        "typeLabel": "النوع:",
+        "all": "الكل",
+        "searchPlaceholder": "بحث سريع باسم أو رقم الطالب...",
+        "overdueOnly": "المتأخرات فقط"
+      },
+      "form": {
+        "addTitle": "إضافة رسم جديد",
+        "editTitle": "تعديل الرسم المالي",
+        "studentLabel": "الطالب المستهدف *",
+        "studentPlaceholder": "ابحث باسم الطالب...",
+        "enrollmentLabel": "التسجيل / البرنامج *",
+        "chooseStudentFirst": "-- اختر الطالب أولا --",
+        "typeLabel": "نوع الرسم *",
+        "dueDateLabel": "تاريخ الاستحقاق *",
+        "amountLabel": "المبلغ الإجمالي (دج) *",
+        "discountLabel": "تخفيض / منحة (دج)",
+        "save": "حفظ السجل",
+        "loadingEnrollments": "جاري تحميل التسجيلات...",
+        "noActiveEnrollments": "لا توجد تسجيلات نشطة لهذا الطالب",
+        "chooseEnrollment": "-- اختر التسجيل --",
+        "programFallback": "برنامج",
+        "enrollmentsLoadFailed": "تعذر تحميل التسجيلات"
+      },
+      "table": {
+        "empty": "لا توجد سجلات مالية مطابقة.",
+        "studentFallback": "طالب #{id}",
+        "paidAmount": "المدفوع: {amount} دج",
+        "total": "إجمالي السجلات المعروضة: {count}",
+        "student": "الطالب",
+        "feeType": "نوع الرسم",
+        "remainingAmount": "المبلغ المتبقي",
+        "dueDate": "تاريخ الاستحقاق",
+        "status": "الحالة",
+        "actions": "إجراءات"
+      },
+      "status": {
+        "paid": "مدفوع بالكامل",
+        "overdue": "متأخر",
+        "pending": "قيد الانتظار"
+      },
+      "search": {
+        "noResults": "لا توجد نتائج",
+        "idLabel": "ID: {id}"
+      },
+      "reminder": {
+        "title": "تذكير بسداد الرسوم",
+        "message": "عزيزي الطالب، توجد رسوم مستحقة من نوع ({feeType}) بانتظار السداد."
+      },
+      "payments": {
+        "title": "سجل دفعات الرسم المالي",
+        "transaction": "# العملية",
+        "date": "تاريخ الدفع",
+        "amount": "المبلغ المدفوع",
+        "receipt": "رقم الإيصال",
+        "close": "إغلاق السجل",
+        "loading": "جاري جلب الدفعات...",
+        "empty": "لم يتم تسجيل أي دفعات لهذا الرسم.",
+        "noReceipt": "بدون إيصال",
+        "loadFailed": "فشل جلب سجل الدفعات: {message}"
+      },
+      "messages": {
+        "processingBalances": "جاري معالجة وحساب أرصدة الديون...",
+        "filterFailed": "فشل الفلترة: {message}",
+        "overdueLoadFailed": "تعذر تحميل المتأخرات: {message}",
+        "chooseStudentFirst": "يرجى اختيار الطالب أولا.",
+        "chooseEnrollment": "يرجى اختيار تسجيل الطالب في برنامج.",
+        "amountRequired": "يرجى إدخال مبلغ صحيح أكبر من الصفر.",
+        "updated": "تم التحديث بنجاح.",
+        "created": "تمت إضافة الرسم بنجاح.",
+        "saveFailed": "فشل الحفظ: {message}",
+        "searchFailed": "فشل البحث:",
+        "reminderSent": "تم إرسال إشعار التذكير بنجاح.",
+        "reminderFailed": "فشل إرسال إشعار التذكير."
+      }
+    },
+    "financeTab": {
+      "loading": "جاري تجميع البيانات المحاسبية...",
+      "stats": {
+        "totalCollected": "إجمالي التحصيلات",
+        "paymentsCount": "من إجمالي {count} دفعة مسجلة",
+        "pendingFees": "الرسوم قيد الانتظار",
+        "expectedCollection": "مبالغ متوقعة التحصيل",
+        "overdueDebts": "الديون المتأخرة",
+        "overdueCount": "لدى {count} طالب يتطلب المتابعة"
+      },
+      "quickLinks": {
+        "payments": "إدارة المدفوعات",
+        "fees": "متابعة الرسوم والديون",
+        "transactions": "الدفتر اليومي للتحويلات"
+      },
+      "recent": {
+        "title": "أحدث العمليات في الدفتر اليومي",
+        "number": "الرقم",
+        "type": "النوع",
+        "amount": "المبلغ",
+        "status": "الحالة",
+        "empty": "لا توجد عمليات مسجلة."
+      },
+      "status": {
+        "completed": "مكتمل",
+        "pending": "معلق",
+        "cancelled": "ملغى"
+      },
+      "messages": {
+        "loadFailed": "خطأ في جلب البيانات المالية:"
+      }
+    },
+    "gradesTab": {
+      "loading": "جاري تجهيز لوحة الدرجات...",
+      "types": {
+        "exam": "امتحان",
+        "quiz": "اختبار",
+        "homework": "واجب"
+      },
+      "assessment": {
+        "optionLabel": "{title} (الدرجة القصوى: {max})",
+        "choose": "-- اختر التقييم --",
+        "showGrades": "عرض قائمة الدرجات"
+      },
+      "assessmentCard": {
+        "title": "درجات امتحان أو تقييم",
+        "description": "اختر التقييم لعرض درجات الطلاب وإحصائيات النجاح."
+      },
+      "studentCard": {
+        "title": "كشف نقاط طالب",
+        "description": "ابحث عن الطالب لعرض سجله الأكاديمي الشامل.",
+        "searchPlaceholder": "ابحث باسم الطالب...",
+        "showRecord": "استخراج كشف النقاط"
+      },
+      "results": {
+        "emptyPrompt": "البيانات والإحصائيات ستظهر هنا بعد إجراء البحث."
+      },
+      "search": {
+        "noResults": "لا توجد نتائج مطابقة",
+        "idLabel": "رقم: {id}"
+      },
+      "stats": {
+        "average": "متوسط العلامات",
+        "highest": "أعلى علامة",
+        "lowest": "أدنى علامة",
+        "gradedStudents": "الطلاب الممتحنين"
+      },
+      "quickForm": {
+        "title": "إدخال نقطة:",
+        "studentPlaceholder": "ابحث عن الطالب...",
+        "gradePlaceholder": "العلامة",
+        "remarksPlaceholder": "ملاحظات الأستاذ (اختياري)"
+      },
+      "assessmentResults": {
+        "title": "إحصائيات ودرجات التقييم"
+      },
+      "table": {
+        "studentFallback": "طالب #{id}",
+        "noAssessmentGrades": "لم يتم إدخال أي درجات لهذا التقييم بعد.",
+        "id": "المعرف",
+        "studentName": "اسم الطالب",
+        "grade": "العلامة",
+        "remarks": "ملاحظات الأستاذ",
+        "actions": "إجراءات"
+      },
+      "studentRecord": {
+        "empty": "لا توجد أي درجات مسجلة في السجل الأكاديمي لهذا الطالب حتى الآن.",
+        "title": "الكشف الأكاديمي الشامل: الطالب #{id}",
+        "assessment": "التقييم / المادة",
+        "type": "النوع",
+        "programClass": "البرنامج / الفوج",
+        "gradeValue": "العلامة المحصلة",
+        "remarks": "الملاحظات"
+      },
+      "messages": {
+        "assessmentsLoadFailed": "فشل في جلب قائمة التقييمات.",
+        "searchFailed": "فشل البحث:",
+        "chooseAssessmentFirst": "يرجى اختيار التقييم أولا.",
+        "loadingAssessmentGrades": "جاري تحميل الدرجات والإحصائيات...",
+        "assessmentLoadFailed": "فشل تحميل بيانات التقييم: {message}",
+        "studentAndGradeRequired": "يرجى اختيار الطالب وإدخال العلامة.",
+        "gradeSaved": "تم حفظ الدرجة بنجاح.",
+        "saveFailed": "فشل الحفظ: {message}",
+        "chooseStudentFirst": "يرجى اختيار الطالب أولا.",
+        "loadingStudentRecord": "جاري استخراج السجل الأكاديمي...",
+        "studentRecordFailed": "فشل استخراج الكشف: {message}"
+      }
+    },
+    "parentsTab": {
+      "common": {
+        "notAvailable": "غير متوفر",
+        "notSpecified": "غير محدد"
+      },
+      "toolbar": {
+        "total": "إجمالي أولياء الأمور: {count}"
+      },
+      "actions": {
+        "linkUser": "ربط مستخدم كولي أمر",
+        "viewChildren": "عرض الأبناء",
+        "deleteRoleTitle": "حذف الدور"
+      },
+      "form": {
+        "title": "ربط ولي أمر جديد",
+        "userLabel": "اختر المستخدم (الحساب):",
+        "loadingUsers": "جاري تحميل المستخدمين...",
+        "hint": "اختر الحساب الذي تريد تعيينه كولي أمر.",
+        "noUsers": "لا يوجد مستخدمين مسجلين في النظام",
+        "chooseUser": "-- اختر المستخدم الذي تريد تعيينه --",
+        "save": "حفظ الربط"
+      },
+      "table": {
+        "empty": "لا يوجد أولياء أمور مسجلين حاليا.",
+        "id": "المعرف",
+        "parent": "ولي الأمر",
+        "parentDetails": "بيانات ولي الأمر",
+        "phone": "رقم الهاتف",
+        "children": "الأبناء (الطلاب)",
+        "actions": "إجراءات"
+      },
+      "messages": {
+        "loadUsersFailed": "فشل جلب البيانات",
+        "chooseUserFirst": "يرجى اختيار مستخدم من القائمة أولا.",
+        "assigned": "تم تعيين المستخدم كولي أمر بنجاح.",
+        "unexpected": "حدث خطأ غير متوقع",
+        "addFailed": "فشل الإضافة: {message}",
+        "deleteConfirm": "هل أنت متأكد من إزالة دور ولي الأمر عن هذا الحساب؟",
+        "loadingChildren": "جاري جلب البيانات...",
+        "loadChildrenFailed": "فشل في جلب البيانات: {message}"
+      },
+      "studentsModal": {
+        "title": "أبناء ولي الأمر",
+        "titleWithName": "أبناء ولي الأمر: {name}",
+        "empty": "لا يوجد أبناء مرتبطين بهذا الحساب حاليا.",
+        "className": "الفصل: {value}",
+        "registered": "مسجل"
+      }
+    },
+    "notificationsTab": {
+      "stats": {
+        "totalSent": "إجمالي الإشعارات المرسلة",
+        "read": "تمت قراءتها من المستخدمين",
+        "unread": "غير مقروءة / قيد الانتظار"
+      },
+      "targets": {
+        "single": "مستخدم فردي",
+        "student": "جميع الطلاب",
+        "teacher": "جميع الأساتذة",
+        "parent": "جميع أولياء الأمور",
+        "all": "جميع مستخدمي النظام"
+      },
+      "form": {
+        "title": "إرسال تنبيه أو إشعار جديد",
+        "targetLabel": "الجمهور المستهدف *",
+        "userSearchLabel": "ابحث عن المستخدم *",
+        "userSearchPlaceholder": "اكتب اسم المستخدم للبحث...",
+        "notificationTitleLabel": "عنوان الإشعار *",
+        "titlePlaceholder": "مثال: تذكير بموعد استحقاق الرسوم...",
+        "messageLabel": "محتوى الرسالة *",
+        "messagePlaceholder": "اكتب تفاصيل الإشعار هنا...",
+        "clear": "تفريغ الحقول",
+        "send": "إرسال الإشعار"
+      },
+      "filters": {
+        "readStatus": "حالة القراءة:",
+        "all": "الكل",
+        "readOnly": "المقروءة فقط",
+        "unreadOnly": "غير المقروءة",
+        "searchPlaceholder": "بحث في الإشعارات (المستلم، العنوان، المحتوى)..."
+      },
+      "actions": {
+        "cleanTitle": "إزالة الإشعارات المقروءة الأقدم من 30 يوما",
+        "clean": "تنظيف السجل (30 يوم)",
+        "refresh": "تحديث",
+        "removeTitle": "إزالة الإشعار",
+        "remove": "إزالة"
+      },
+      "table": {
+        "empty": "لا توجد إشعارات سابقة أو مطابقة للبحث.",
+        "userFallback": "مستخدم #{id}",
+        "displayed": "النتائج المعروضة: {count} إشعار",
+        "recipient": "المستلم",
+        "titleContent": "العنوان والمحتوى",
+        "deliveryStatus": "حالة الاستلام",
+        "sentDate": "تاريخ الإرسال",
+        "resolve": "تسوية"
+      },
+      "status": {
+        "read": "مقروء",
+        "unread": "غير مقروء"
+      },
+      "search": {
+        "noResults": "لا توجد نتائج",
+        "userRoleFallback": "مستخدم"
+      },
+      "messages": {
+        "userSearchFailed": "فشل البحث عن المستخدم:",
+        "titleMessageRequired": "يرجى إدخال عنوان ومحتوى للإشعار.",
+        "sending": "جاري الإرسال...",
+        "chooseTargetUser": "يرجى البحث واختيار المستخدم المستهدف من القائمة.",
+        "sentSingle": "تم إرسال الإشعار للمستخدم بنجاح.",
+        "noUsersForTarget": "لا يوجد مستخدمين في {target}.",
+        "bulkConfirm": "سيتم إرسال هذا الإشعار الجماعي إلى {count} مستخدم. هل ترغب في المتابعة؟",
+        "sentBulk": "تم إرسال الإشعار بنجاح إلى {count} مستخدم.",
+        "sendFailed": "فشل الإرسال: {message}",
+        "connectionHint": "تأكد من الاتصال بالخادم.",
+        "cleanConfirm": "هل أنت متأكد من رغبتك في تنظيف السجل وإزالة الإشعارات المقروءة القديمة؟ لا يمكن التراجع.",
+        "cleanSuccess": "تم إزالة الإشعارات القديمة وتحديث السجل.",
+        "cleanFailed": "فشل في تنظيف السجل: {message}"
+      }
+    },
+    "paymentsTab": {
+      "feeTypes": {
+        "tuition": "مصاريف دراسية",
+        "transport": "نقل مدرسي",
+        "activities": "أنشطة",
+        "exam": "رسوم امتحانات",
+        "other": "أخرى"
+      },
+      "summary": {
+        "totalCollected": "إجمالي التحصيلات المعروضة"
+      },
+      "search": {
+        "placeholder": "بحث باسم الطالب أو رقم الإيصال...",
+        "noResults": "لا توجد نتائج",
+        "idLabel": "ID: {id}"
+      },
+      "actions": {
+        "reloadAll": "إعادة تحميل الكل",
+        "recordPayment": "تسجيل دفعة مالية",
+        "printReceiptTitle": "طباعة الإيصال",
+        "print": "طباعة",
+        "cancelPaymentTitle": "إلغاء الدفعة"
+      },
+      "modal": {
+        "title": "تسجيل دفعة مالية جديدة",
+        "studentStep": "1. ابحث عن الطالب المستهدف *",
+        "studentPlaceholder": "اكتب اسم الطالب للبحث...",
+        "feeStep": "2. اختر الرسم المراد تسديده *",
+        "chooseFee": "-- اختر الرسم المالي --",
+        "amountLabel": "المبلغ المدفوع *",
+        "receiptLabel": "رقم الإيصال (اختياري)",
+        "installmentLabel": "رقم القسط",
+        "confirmPayment": "تأكيد الدفع"
+      },
+      "balance": {
+        "netAmount": "المبلغ الصافي للرسم:",
+        "previousPayments": "المدفوعات السابقة:",
+        "remainingNow": "الباقي للدفع الآن:"
+      },
+      "table": {
+        "empty": "لا توجد مدفوعات مسجلة أو مطابقة لبحثك.",
+        "studentFallback": "طالب #{id}",
+        "feeFallback": "رسم #{id}",
+        "operation": "العملية",
+        "student": "الطالب",
+        "feeType": "نوع الرسم",
+        "amountPaid": "المبلغ المدفوع",
+        "receipt": "رقم الوصل",
+        "noReceipt": "بدون إيصال",
+        "installment": "القسط",
+        "installmentNumber": "القسط {number}",
+        "date": "التاريخ",
+        "actions": "إجراءات",
+        "totalOperations": "إجمالي العمليات: {count}"
+      },
+      "fee": {
+        "loadingStudentFees": "جاري جلب ديون الطالب...",
+        "noDebts": "هذا الطالب ليس لديه ديون أو فواتير مستحقة الدفع حاليا.",
+        "chooseFeeToPay": "-- اختر الرسم المالي المراد تسديده --",
+        "optionLabel": "#{id} - {type} - مبلغ: {amount}",
+        "loadFailed": "فشل جلب ديون الطالب.",
+        "calculating": "جاري الحساب...",
+        "fetchError": "خطأ في جلب البيانات"
+      },
+      "messages": {
+        "searchFailed": "فشل البحث:",
+        "amountRequired": "يرجى اختيار الرسم وإدخال مبلغ صحيح أكبر من الصفر.",
+        "saving": "جاري الحفظ...",
+        "success": "تم تسجيل الدفعة المالية بنجاح.",
+        "checkData": "يرجى التأكد من صحة البيانات.",
+        "saveFailed": "فشل الحفظ: {message}"
+      },
+      "receipt": {
+        "documentTitle": "إيصال #{id}",
+        "schoolName": "المدرسة الحديثة",
+        "systemName": "نظام الإدارة المدرسية",
+        "cashReceipt": "إيصال استلام نقدية",
+        "receiptNumber": "رقم الإيصال: {value}",
+        "date": "التاريخ:",
+        "reference": "الرقم المرجعي:",
+        "studentName": "اسم الطالب:",
+        "targetFee": "الرسم المستهدف:",
+        "installment": "القسط:",
+        "paidAmount": "المبلغ المدفوع:",
+        "receivedNote": "تم استلام المبلغ الموضح أعلاه.",
+        "thankYou": "شكرا لاختياركم مدرستنا.",
+        "cashierSignature": "توقيع أمين الصندوق"
+      }
+    },
+    "postsTab": {
+      "stats": {
+        "total": "إجمالي الإعلانات",
+        "today": "نشر اليوم",
+        "withCover": "بصورة غلاف",
+        "textOnly": "نصي فقط"
+      },
+      "header": {
+        "title": "لوحة الإعلانات المدرسية",
+        "description": "إدارة الإعلانات والمنشورات الموجهة للطلاب وأولياء الأمور."
+      },
+      "actions": {
+        "newPost": "كتابة إعلان جديد",
+        "preview": "معاينة",
+        "saveChanges": "حفظ التعديلات",
+        "publish": "نشر الإعلان"
+      },
+      "search": {
+        "placeholder": "البحث في الإعلانات..."
+      },
+      "empty": {
+        "title": "لا توجد إعلانات منشورة حتى الآن",
+        "description": "ابدأ بكتابة أول إعلان للمجتمع المدرسي."
+      },
+      "table": {
+        "announcement": "الإعلان",
+        "title": "عنوان الإعلان",
+        "author": "الكاتب",
+        "userFallback": "مستخدم #{id}",
+        "publishDate": "تاريخ النشر",
+        "actions": "إجراءات"
+      },
+      "preview": {
+        "title": "معاينة الإعلان"
+      },
+      "toolbar": {
+        "bold": "عريض",
+        "italic": "مائل",
+        "strike": "مشطوب",
+        "inlineCode": "كود مضمن",
+        "list": "قائمة",
+        "numbered": "مرقمة",
+        "quote": "اقتباس",
+        "divider": "فاصل",
+        "table": "جدول",
+        "insertTable": "إدراج جدول",
+        "image": "صورة",
+        "insertImage": "إدراج صورة",
+        "link": "رابط",
+        "insertLink": "إدراج رابط",
+        "download": "تحميل",
+        "downloadLink": "رابط تحميل",
+        "codeBlock": "كتلة كود",
+        "insertCode": "إدراج كتلة كود",
+        "math": "رياضيات",
+        "insertMath": "معادلة رياضية"
+      },
+      "editor": {
+        "editKicker": "تعديل منشور",
+        "newKicker": "منشور جديد",
+        "editTitle": "تعديل الإعلان",
+        "newTitle": "كتابة إعلان جديد",
+        "viewMode": "طريقة العرض",
+        "modeWrite": "كتابة",
+        "modeSplit": "تقسيم",
+        "modePreview": "معاينة",
+        "fullscreen": "ملء الشاشة",
+        "backToList": "العودة للقائمة",
+        "titleLabel": "عنوان الإعلان",
+        "titlePlaceholder": "اكتب عنوانا واضحا...",
+        "coverLabel": "صورة الغلاف",
+        "editorPane": "المحرر",
+        "lineColumn": "سطر {line} - عمود {column}",
+        "contentPlaceholder": "اكتب محتوى الإعلان هنا...",
+        "livePreview": "المعاينة المباشرة",
+        "ready": "جاهز",
+        "coverAlt": "غلاف",
+        "titleFallback": "عنوان الإعلان",
+        "previewPlaceholder": "ابدأ الكتابة لرؤية المعاينة هنا...",
+        "wordCount": "{words} كلمة - {chars} حرف",
+        "empty": "فارغة",
+        "updated": "محدثة"
+      },
+      "draft": {
+        "savedDraftFound": "توجد مسودة محفوظة لهذا الإعلان.",
+        "restore": "استعادة",
+        "dismiss": "تجاهل",
+        "unsaved": "تغييرات غير محفوظة",
+        "saved": "تم حفظ المسودة",
+        "saveFailed": "تعذر حفظ المسودة",
+        "dismissed": "تم تجاهل المسودة"
+      },
+      "download": {
+        "token": "تحميل",
+        "button": "تحميل"
+      },
+      "tableBuilder": {
+        "defaultHeader": "العنوان {index}",
+        "title": "منشئ الجداول",
+        "columns": "الأعمدة",
+        "rows": "الصفوف",
+        "alignment": "محاذاة الأعمدة",
+        "markdownCode": "كود Markdown",
+        "previewHint": "معاينة - عدل العناوين مباشرة",
+        "insert": "إدراج في المحرر",
+        "headerPlaceholder": "عنوان",
+        "sampleCell": "بيانات",
+        "align": {
+          "right": "يمين",
+          "center": "وسط",
+          "left": "يسار"
+        }
+      },
+      "insert": {
+        "imageTitle": "إدراج صورة",
+        "imageUrl": "رابط الصورة",
+        "altText": "نص بديل",
+        "altPlaceholder": "وصف الصورة",
+        "imageDefaultAlt": "صورة",
+        "linkTitle": "إدراج رابط",
+        "linkText": "نص الرابط",
+        "linkDefaultText": "اضغط هنا",
+        "url": "URL",
+        "downloadTitle": "إدراج رابط تحميل",
+        "fileName": "اسم الملف",
+        "fileNamePlaceholder": "كتاب الفيزياء - الفصل الأول",
+        "fileType": "نوع الملف (اختياري)",
+        "choose": "-- اختر --",
+        "video": "فيديو",
+        "audio": "صوت",
+        "fileSize": "الحجم (اختياري)",
+        "sizePlaceholder": "مثال: 2.4 MB",
+        "downloadUrl": "رابط التحميل"
+      },
+      "messages": {
+        "tableInserted": "تم إدراج الجدول",
+        "downloadRequired": "يرجى ملء اسم الملف والرابط على الأقل.",
+        "titleRequired": "يرجى إدخال عنوان الإعلان.",
+        "contentRequired": "يرجى إدخال محتوى الإعلان.",
+        "saving": "جاري الحفظ...",
+        "updated": "تم تحديث الإعلان بنجاح.",
+        "published": "تم نشر الإعلان بنجاح.",
+        "saveFailed": "خطأ أثناء الحفظ: {message}"
+      }
+    },
+    "programsTab": {
+      "search": {
+        "placeholder": "ابحث باسم البرنامج..."
+      },
+      "actions": {
+        "reloadTitle": "إعادة تحميل القائمة",
+        "add": "إضافة برنامج جديد",
+        "editTitle": "تعديل البرنامج",
+        "deleteTitle": "حذف البرنامج"
+      },
+      "form": {
+        "addTitle": "إضافة برنامج دراسي",
+        "editTitle": "تعديل البرنامج",
+        "nameLabel": "اسم البرنامج *",
+        "namePlaceholder": "مثال: دورة تقوية رياضيات، كورس لغات...",
+        "typeLabel": "نوع البرنامج *",
+        "typePlaceholder": "مثال: دورة، دبلوم، نشاط صيفي...",
+        "cashPriceLabel": "السعر نقدا",
+        "installmentPriceLabel": "السعر بالتقسيط",
+        "save": "حفظ البرنامج"
+      },
+      "table": {
+        "empty": "لا توجد برامج دراسية مسجلة حاليا.",
+        "name": "اسم البرنامج",
+        "type": "النوع",
+        "cashPrice": "السعر نقدا",
+        "installmentPrice": "السعر بالتقسيط",
+        "actions": "إجراءات",
+        "total": "إجمالي البرامج: {count}"
+      },
+      "messages": {
+        "minSearch": "يرجى إدخال حرفين على الأقل للبحث.",
+        "searchFailed": "فشل البحث: {message}",
+        "required": "يرجى إدخال اسم ونوع البرنامج الأكاديمي.",
+        "updated": "تم تحديث بيانات البرنامج بنجاح.",
+        "created": "تمت إضافة البرنامج الجديد بنجاح.",
+        "saveFailed": "فشل الحفظ: {message}",
+        "unexpected": "حدث خطأ غير متوقع"
+      }
+    },
+    "resourcesTab": {
+      "types": {
+        "pdf": "كتاب / PDF",
+        "document": "مستند نصي",
+        "video": "فيديو",
+        "image": "صورة",
+        "archive": "ملف مضغوط",
+        "file": "ملف"
+      },
+      "stats": {
+        "totalFiles": "إجمالي الملفات المرفوعة",
+        "fileUnit": "ملف",
+        "librarySize": "حجم المكتبة الإجمالي"
+      },
+      "search": {
+        "placeholder": "بحث بعنوان الملف، الوصف أو الأستاذ..."
+      },
+      "actions": {
+        "uploadNew": "رفع ملف جديد",
+        "downloadTitle": "تنزيل الملف",
+        "deleteTitle": "حذف نهائي"
+      },
+      "upload": {
+        "title": "رفع ملف تعليمي جديد",
+        "titleLabel": "عنوان الملف *",
+        "titlePlaceholder": "مثال: ملخص الفصل الأول...",
+        "typeLabel": "نوع الملف *",
+        "assignmentLabel": "التكليف المرتبط (اختياري)",
+        "noAssignment": "-- بدون ارتباط (ملف عام) --",
+        "descriptionLabel": "وصف قصير (اختياري)",
+        "descriptionPlaceholder": "معلومات إضافية حول الملف...",
+        "chooseFile": "انقر لاختيار الملف (الحد الأقصى 5MB)",
+        "startUpload": "بدء الرفع",
+        "fileSelected": "تم اختيار الملف:",
+        "loadingAssignments": "جاري تحميل التكليفات...",
+        "assignmentsLoadFailed": "تعذر جلب التكليفات، يمكنك تركه فارغا"
+      },
+      "table": {
+        "empty": "المكتبة فارغة أو لا توجد نتائج مطابقة لبحثك.",
+        "generalFile": "ملف عام (غير مرتبط)",
+        "subjectFallback": "مادة",
+        "classFallback": "قسم",
+        "teacherLabel": "الأستاذ:",
+        "notSpecified": "غير محدد",
+        "fileDetails": "اسم الملف والتفاصيل",
+        "noDescription": "بدون وصف",
+        "academicLink": "الارتباط الأكاديمي",
+        "type": "النوع",
+        "size": "الحجم",
+        "actions": "إجراءات"
+      },
+      "messages": {
+        "uploading": "جاري الرفع...",
+        "fileRequired": "الرجاء تحديد ملف للرفع.",
+        "uploadSuccess": "تم رفع الملف بنجاح وإضافته للمكتبة.",
+        "checkFile": "تأكد من نوع وحجم الملف.",
+        "uploadFailed": "فشل رفع الملف: {message}",
+        "preparingDownload": "جاري تحضير الملف للتنزيل، يرجى الانتظار...",
+        "downloadMissing": "تعذر جلب الملف من الخادم، قد يكون محذوفا أو المسار غير صالح.",
+        "downloadFailed": "فشل التنزيل: {message}"
+      }
+    },
+    "schedulesTab": {
+      "cards": {
+        "classSchedule": "جدول الفصل",
+        "teacherSchedule": "جدول المعلم",
+        "chooseClass": "-- اختر الفصل --",
+        "chooseTeacher": "-- اختر المعلم --",
+        "show": "عرض"
+      },
+      "actions": {
+        "addSession": "إضافة حصة للجدول",
+        "deleteSessionTitle": "حذف الحصة"
+      },
+      "emptyPrompt": "اختر فصلا أو معلما لعرض الجدول الأسبوعي هنا.",
+      "modal": {
+        "title": "إضافة حصة جديدة",
+        "classLabel": "الفصل:",
+        "chooseClassFirst": "-- اختر الفصل أولا --",
+        "assignmentLabel": "المادة والأستاذ (التكليف):",
+        "chooseClass": "-- يرجى اختيار الفصل --",
+        "dayLabel": "اليوم:",
+        "roomLabel": "القاعة:",
+        "roomPlaceholder": "مثال: قاعة 101",
+        "startTimeLabel": "وقت البدء:",
+        "endTimeLabel": "وقت الانتهاء:",
+        "save": "حفظ الحصة"
+      },
+      "days": {
+        "Sunday": "الأحد",
+        "Monday": "الإثنين",
+        "Tuesday": "الثلاثاء",
+        "Wednesday": "الأربعاء",
+        "Thursday": "الخميس",
+        "Friday": "الجمعة",
+        "Saturday": "السبت"
+      },
+      "table": {
+        "emptySchedule": "لا توجد حصص مسجلة في هذا الجدول حاليا.",
+        "subjectFallback": "مادة",
+        "teacherFallback": "أستاذ",
+        "classFallback": "فصل",
+        "teacherPrefix": "الأستاذ:",
+        "classPrefix": "الفصل:",
+        "roomPrefix": "القاعة:",
+        "notSpecified": "غير محدد",
+        "emptyDay": "فارغ"
+      },
+      "assignments": {
+        "loading": "جاري التحميل...",
+        "none": "لا يوجد أساتذة مكلفون بهذا الفصل",
+        "optionLabel": "المادة: {subject} | الأستاذ: {teacher}",
+        "loadFailed": "خطأ في جلب البيانات"
+      },
+      "messages": {
+        "baseLoadFailed": "فشل جلب البيانات الأساسية للجداول:",
+        "chooseFromList": "يرجى الاختيار من القائمة أولا.",
+        "loadingSchedule": "جاري تحميل الجدول...",
+        "loadFailed": "فشل تحميل الجدول: {message}",
+        "noData": "لا توجد بيانات",
+        "chooseAssignment": "يرجى اختيار المادة والأستاذ (التكليف).",
+        "created": "تمت إضافة الحصة للجدول بنجاح.",
+        "createFailed": "فشل الإضافة: {message}",
+        "timeConflictHint": "تأكد من عدم وجود تضارب في الوقت.",
+        "deleteConfirm": "هل أنت متأكد من حذف هذه الحصة من الجدول؟"
+      }
+    },
+    "studentsTab": {
+      "search": {
+        "placeholder": "ابحث بالاسم أو المعرف..."
+      },
+      "actions": {
+        "add": "تسجيل طالب جديد",
+        "reloadTitle": "إعادة تحميل القائمة",
+        "viewProfile": "عرض الملف التفصيلي",
+        "changeStatus": "تغيير الحالة"
+      },
+      "form": {
+        "title": "تسجيل طالب جديد في النظام",
+        "userLabel": "حساب المستخدم المرتبط *",
+        "loadingAccounts": "جاري تحميل الحسابات...",
+        "parentLabel": "ولي الأمر",
+        "noParent": "-- بدون ولي أمر --",
+        "dobLabel": "تاريخ الميلاد",
+        "bloodLabel": "فصيلة الدم",
+        "notSpecified": "-- غير محدد --",
+        "medicalLabel": "ملاحظات طبية (اختياري)",
+        "medicalPlaceholder": "حساسية، أدوية، إلخ...",
+        "save": "حفظ البيانات",
+        "chooseUser": "-- اختر حساب المستخدم --",
+        "loadFailed": "فشل جلب البيانات"
+      },
+      "table": {
+        "empty": "لا توجد نتائج مطابقة للبحث.",
+        "total": "إجمالي الطلاب: {count}",
+        "id": "المعرف",
+        "student": "الطالب",
+        "account": "حساب: #{id}",
+        "class": "الفصل",
+        "classFallback": "غير مسجل بفصل",
+        "dateOfBirth": "تاريخ الميلاد",
+        "status": "الحالة",
+        "actions": "إجراءات"
+      },
+      "status": {
+        "active": "نشط",
+        "inactive": "معطل"
+      },
+      "messages": {
+        "minSearch": "يرجى إدخال حرفين على الأقل للبحث.",
+        "searchFailed": "فشل البحث: {message}",
+        "statusConfirm": "هل أنت متأكد من تغيير حالة هذا الطالب إلى {status}؟",
+        "statusFailed": "فشل في تغيير الحالة: {message}",
+        "chooseUserFirst": "يرجى اختيار حساب مستخدم أولا.",
+        "created": "تم تسجيل الطالب بنجاح.",
+        "createFailed": "فشل التسجيل: {message}",
+        "loadingProfile": "جاري تجميع ملف الطالب...",
+        "profileFailed": "فشل جلب ملف الطالب: {message}"
+      },
+      "profile": {
+        "studentId": "معرف الطالب: #{id}",
+        "tabs": {
+          "personal": "شخصي",
+          "academic": "أكاديمي",
+          "finance": "مالي"
+        },
+        "personal": {
+          "dateOfBirth": "تاريخ الميلاد:",
+          "bloodGroup": "فصيلة الدم:",
+          "medicalNotes": "ملاحظات طبية:",
+          "none": "لا يوجد"
+        },
+        "academic": {
+          "gradesTitle": "سجل العلامات",
+          "assessment": "التقييم",
+          "subject": "المادة",
+          "grade": "العلامة",
+          "noGrades": "لا يوجد سجل درجات"
+        },
+        "finance": {
+          "paidTotal": "إجمالي المسدد",
+          "remaining": "المبلغ المتبقي"
+        }
+      }
+    },
+    "usersTab": {
+      "roles": {
+        "admin": "مدير",
+        "receptionist": "استقبال",
+        "student": "طالب",
+        "parent": "ولي أمر",
+        "accountant": "محاسب",
+        "teacher": "أستاذ"
+      },
+      "search": {
+        "placeholder": "ابحث عن مستخدم (حرفان على الأقل)..."
+      },
+      "actions": {
+        "add": "إضافة مستخدم جديد",
+        "reloadTitle": "إعادة تحميل القائمة",
+        "disable": "تعطيل الحساب",
+        "enable": "تفعيل الحساب"
+      },
+      "table": {
+        "id": "الرقم",
+        "fullName": "الاسم الكامل",
+        "username": "اسم المستخدم",
+        "contact": "التواصل",
+        "status": "الحالة",
+        "actions": "الإجراءات",
+        "empty": "لا يوجد مستخدمون لعرضهم.",
+        "roleId": "رتبة ID: {id}"
+      },
+      "status": {
+        "active": "نشط",
+        "inactive": "معطل"
+      },
+      "form": {
+        "addTitle": "إضافة مستخدم جديد",
+        "editTitle": "تعديل مستخدم",
+        "fullName": "الاسم الكامل *",
+        "role": "الرتبة *",
+        "selectRole": "اختر الرتبة",
+        "username": "اسم المستخدم *",
+        "password": "كلمة المرور *",
+        "passwordPlaceholder": "أدخل كلمة المرور",
+        "passwordHint": "اتركه فارغا إذا كنت لا تريد تغييره.",
+        "email": "البريد الإلكتروني",
+        "phone": "رقم الهاتف",
+        "address": "العنوان",
+        "activeAccount": "حساب نشط (يمكنه تسجيل الدخول)",
+        "save": "حفظ البيانات"
+      },
+      "messages": {
+        "loading": "جاري التحميل...",
+        "refreshing": "جاري التحديث...",
+        "searching": "جاري البحث...",
+        "loadFailed": "فشل تحميل المستخدمين: {message}",
+        "minSearch": "يرجى إدخال حرفين على الأقل للبحث.",
+        "searchFailed": "فشل البحث: {message}",
+        "enableConfirm": "هل تريد تفعيل هذا الحساب؟",
+        "disableConfirm": "هل تريد تعطيل هذا الحساب ومنعه من تسجيل الدخول؟",
+        "statusFailed": "فشل تغيير الحالة: {message}",
+        "deleteConfirm": "هل أنت متأكد من حذف هذا المستخدم بشكل نهائي؟ لا يمكن التراجع عن هذا الإجراء.",
+        "required": "يرجى ملء كل الحقول المطلوبة: الاسم الكامل، اسم المستخدم، والرتبة.",
+        "passwordRequired": "يرجى إدخال كلمة مرور للمستخدم الجديد.",
+        "updated": "تم تحديث المستخدم بنجاح.",
+        "created": "تم إنشاء المستخدم بنجاح.",
+        "duplicateHint": "يرجى التحقق من عدم تكرار اسم المستخدم.",
+        "saveFailed": "خطأ أثناء حفظ البيانات: {message}"
+      }
+    },
+    "teachersTab": {
+      "search": {
+        "placeholder": "ابحث باسم الأستاذ أو التخصص..."
+      },
+      "actions": {
+        "add": "إضافة أستاذ جديد",
+        "reloadTitle": "إعادة تحميل القائمة",
+        "viewProfile": "الملف والجدول الزمني",
+        "profile": "ملف",
+        "editTitle": "تعديل التخصص والتاريخ"
+      },
+      "form": {
+        "addTitle": "إضافة طاقم تعليمي",
+        "addNewTitle": "إضافة أستاذ جديد",
+        "editTitle": "تعديل بيانات الأستاذ",
+        "userLabel": "حساب المستخدم *",
+        "loadingAccounts": "جاري تحميل الحسابات...",
+        "chooseUser": "-- اختر حساب المستخدم --",
+        "loadAccountsFailed": "فشل تحميل الحسابات",
+        "specialty": "التخصص الأكاديمي",
+        "specialtyPlaceholder": "مثال: رياضيات، فيزياء، لغة عربية...",
+        "hireDate": "تاريخ التعيين",
+        "save": "حفظ البيانات"
+      },
+      "table": {
+        "empty": "لا يوجد أساتذة مسجلون حاليا أو لا توجد نتائج.",
+        "teacher": "الأستاذ",
+        "userAccount": "حساب مستخدم: #{id}",
+        "specialty": "التخصص",
+        "hireDate": "تاريخ التعيين",
+        "actions": "إجراءات",
+        "general": "عام",
+        "total": "إجمالي الأساتذة: {count}"
+      },
+      "days": {
+        "Sunday": "الأحد",
+        "Monday": "الإثنين",
+        "Tuesday": "الثلاثاء",
+        "Wednesday": "الأربعاء",
+        "Thursday": "الخميس",
+        "Friday": "الجمعة",
+        "Saturday": "السبت"
+      },
+      "profile": {
+        "classLabel": "الفصل:",
+        "levelLabel": "المستوى:",
+        "specialtyLabel": "تخصص:",
+        "hireLabel": "تعيين:",
+        "noAssignments": "لا توجد تكليفات مسجلة.",
+        "emptySchedule": "الجدول الزمني فارغ.",
+        "tabs": {
+          "assignments": "الفصول والتكليفات",
+          "schedule": "الجدول الزمني"
+        }
+      },
+      "messages": {
+        "minSearch": "يرجى إدخال حرفين على الأقل للبحث.",
+        "searchFailed": "فشل البحث: {message}",
+        "updated": "تم تحديث بيانات الأستاذ بنجاح.",
+        "created": "تم إنشاء الأستاذ بنجاح.",
+        "chooseUser": "يرجى اختيار حساب مستخدم.",
+        "checkData": "تأكد من صحة البيانات أو عدم تكرار الحساب.",
+        "saveFailed": "فشل الحفظ: {message}",
+        "loadingProfile": "جاري جلب ملف الأستاذ والجدول...",
+        "profileFailed": "فشل جلب تفاصيل الأستاذ: {message}"
+      }
+    },
+    "transactionsTab": {
+      "summary": {
+        "completedVolume": "حجم التحويلات المكتملة",
+        "pendingOperations": "عمليات معلقة"
+      },
+      "actions": {
+        "statement": "كشف حساب",
+        "newTransfer": "تحويل جديد",
+        "refreshTable": "تحديث الجدول",
+        "changeStatus": "تغيير الحالة"
+      },
+      "filters": {
+        "label": "الفلترة:",
+        "allTypes": "-- جميع الأنواع --",
+        "allStatuses": "-- كل الحالات --",
+        "completedOnly": "مكتملة فقط",
+        "pendingOnly": "معلقة فقط",
+        "cancelledOnly": "ملغاة فقط"
+      },
+      "types": {
+        "payment": "دفع رسوم",
+        "refund": "استرداد",
+        "transfer": "تحويل داخلي",
+        "adjustment": "تسوية",
+        "salary": "راتب"
+      },
+      "statuses": {
+        "completed": "مكتمل",
+        "pending": "معلق",
+        "failed": "فاشل",
+        "cancelled": "ملغى"
+      },
+      "table": {
+        "empty": "لا توجد تحويلات مالية مطابقة.",
+        "transactionNumber": "رقم العملية",
+        "transferParties": "أطراف التحويل",
+        "amount": "المبلغ",
+        "type": "النوع",
+        "notes": "الملاحظات",
+        "status": "الحالة",
+        "actions": "إجراءات",
+        "from": "من:",
+        "to": "إلى:",
+        "userFallback": "مستخدم #{id}"
+      },
+      "modal": {
+        "addTitle": "تسجيل تحويل مالي جديد",
+        "fromLabel": "المرسل (From) *",
+        "toLabel": "المستلم (To) *",
+        "userSearchPlaceholder": "ابحث باسم المستخدم...",
+        "amountLabel": "المبلغ (دج) *",
+        "typeLabel": "نوع العملية *",
+        "notesLabel": "ملاحظات / بيان العملية",
+        "notesPlaceholder": "اكتب سبب التحويل...",
+        "execute": "تنفيذ التحويل",
+        "statusTitle": "تغيير حالة التحويل",
+        "newStatusLabel": "الحالة الجديدة:",
+        "statusNotesLabel": "سبب التغيير (اختياري):",
+        "statusNotesPlaceholder": "ملاحظة قصيرة...",
+        "updateStatus": "تحديث الحالة",
+        "statementTitle": "استخراج كشف حساب",
+        "statementSearchLabel": "ابحث عن المستخدم *",
+        "statementPlaceholder": "اسم الطالب أو الموظف...",
+        "extractStatement": "استخراج الكشف"
+      },
+      "search": {
+        "noResults": "لا توجد نتائج"
+      },
+      "statement": {
+        "titleWithUser": "كشف حساب: {user}",
+        "emptyForUser": "لا توجد أي حركات مالية مسجلة لهذا المستخدم.",
+        "detailedTitle": "كشف حساب مالي تفصيلي",
+        "user": "المستخدم:",
+        "netBalance": "الرصيد الصافي (المكتمل)",
+        "date": "التاريخ",
+        "type": "النوع",
+        "otherParty": "الطرف الآخر",
+        "amount": "المبلغ",
+        "print": "طباعة الكشف"
+      },
+      "messages": {
+        "filterFailed": "فشل الفلترة: {message}",
+        "searchFailed": "فشل البحث:",
+        "requiredTransfer": "يرجى تعبئة جميع الحقول وإدخال مبلغ صحيح.",
+        "transferCreated": "تم تسجيل التحويل المالي بنجاح.",
+        "transferFailed": "فشل تنفيذ التحويل: {message}",
+        "statusUpdated": "تم تحديث حالة التحويل.",
+        "statusFailed": "فشل تحديث الحالة: {message}",
+        "selectUserFirst": "يرجى تحديد المستخدم أولا.",
+        "loadingStatement": "جاري جلب وتحليل البيانات المالية...",
+        "statementFailed": "فشل استخراج الكشف: {message}"
+      }
+    }
+  },
+  "legacyText": {
+    "نظرة عامة": "نظرة عامة",
+    "لوحة الإدارة": "لوحة الإدارة",
+    "تسجيل الخروج": "تسجيل الخروج",
+    "فاتح": "فاتح",
+    "داكن": "داكن",
+    "تصغير القائمة": "تصغير القائمة",
+    "توسيع القائمة": "توسيع القائمة",
+    "لا توجد نتيجة مطابقة": "لا توجد نتيجة مطابقة",
+    "جاري تحميل البيانات...": "جاري تحميل البيانات...",
+    "عذراً، حدث خطأ:": "عذراً، حدث خطأ:",
+    "إدارة المستخدمين": "إدارة المستخدمين",
+    "إدارة أولياء الأمور": "إدارة أولياء الأمور",
+    "نظرة عامة على الشؤون الأكاديمية": "نظرة عامة على الشؤون الأكاديمية",
+    "إدارة الفصول الدراسية والمقاعد": "إدارة الفصول الدراسية والمقاعد",
+    "إدارة شؤون الطلاب": "إدارة شؤون الطلاب",
+    "إدارة الطاقم التعليمي": "إدارة الطاقم التعليمي",
+    "إدارة البرامج الدراسية": "إدارة البرامج الدراسية",
+    "إدارة تسجيلات الطلاب": "إدارة تسجيلات الطلاب",
+    "إدارة سجلات الحضور والغياب": "إدارة سجلات الحضور والغياب",
+    "إدارة الجداول الزمنية": "إدارة الجداول الزمنية",
+    "إدارة التقييمات والامتحانات": "إدارة التقييمات والامتحانات",
+    "إدارة الرسوم والديون": "إدارة الرسوم والديون",
+    "سجل المدفوعات والتحصيلات": "سجل المدفوعات والتحصيلات",
+    "سجل التحويلات والدفتر اليومي": "سجل التحويلات والدفتر اليومي",
+    "المكتبة والموارد التعليمية": "المكتبة والموارد التعليمية",
+    "مراقبة المحادثات والرسائل المباشرة": "مراقبة المحادثات والرسائل المباشرة",
+    "إدارة التنبيهات والإشعارات": "إدارة التنبيهات والإشعارات",
+    "إدارة الإعلانات والمنشورات العامة": "إدارة الإعلانات والمنشورات العامة",
+    "أولياء الأمور": "أولياء الأمور",
+    "نظرة عامة (أكاديمي)": "نظرة عامة (أكاديمي)",
+    "الفصول والمقاعد": "الفصول والمقاعد",
+    "شؤون الطلاب": "شؤون الطلاب",
+    "الطاقم التعليمي": "الطاقم التعليمي",
+    "البرامج الدراسية": "البرامج الدراسية",
+    "سجلات التسجيل": "سجلات التسجيل",
+    "الحضور والغياب": "الحضور والغياب",
+    "الجداول الزمنية": "الجداول الزمنية",
+    "التقييمات والامتحانات": "التقييمات والامتحانات",
+    "الدرجات والنتائج": "الدرجات والنتائج",
+    "نظرة عامة (مالية)": "نظرة عامة (مالية)",
+    "الرسوم والديون": "الرسوم والديون",
+    "سجل المدفوعات": "سجل المدفوعات",
+    "الدفتر اليومي": "الدفتر اليومي",
+    "المكتبة الرقمية": "المكتبة الرقمية",
+    "المحادثات المباشرة": "المحادثات المباشرة",
+    "الإشعارات والتنبيهات": "الإشعارات والتنبيهات",
+    "لوحة الإعلانات": "لوحة الإعلانات",
+    "الإدارة الأساسية": "الإدارة الأساسية",
+    "الشؤون الأكاديمية": "الشؤون الأكاديمية",
+    "المالية والموارد": "المالية والموارد",
+    "التواصل والمجتمع": "التواصل والمجتمع",
+    "بحث": "بحث",
+    "إعادة تحميل": "إعادة تحميل",
+    "حفظ": "حفظ",
+    "إلغاء": "إلغاء",
+    "تعديل": "تعديل",
+    "حذف": "حذف",
+    "عرض": "عرض",
+    "إغلاق": "إغلاق",
+    "طباعة": "طباعة",
+    "تنزيل": "تنزيل",
+    "إرسال": "إرسال",
+    "إضافة": "إضافة",
+    "Edit User": "تعديل مستخدم",
+    "Add New User": "إضافة مستخدم جديد",
+    "Please fill in all required fields (Full Name, Username, and Role).": "يرجى ملء كل الحقول المطلوبة: الاسم الكامل، اسم المستخدم، والدور.",
+    "Please provide a password for the new user.": "يرجى إدخال كلمة مرور للمستخدم الجديد.",
+    "User updated successfully.": "تم تحديث المستخدم بنجاح.",
+    "User created successfully.": "تم إنشاء المستخدم بنجاح.",
+    "Error saving data:": "خطأ أثناء حفظ البيانات:",
+    "Please check for duplicate usernames.": "يرجى التحقق من عدم تكرار اسم المستخدم."
+  }
+}

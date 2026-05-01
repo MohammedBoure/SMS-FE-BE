@@ -1,33 +1,31 @@
 // frontend/js/roles/admin/tabs/students.js
 
-/**
- * واجهة إدارة الطلاب الشاملة
- * تشمل: عرض القائمة، البحث المتقدم، إدارة الحالة، إضافة طلاب، وعرض الملف التفصيلي
- */
-AdminUI.renderStudentsTab = function(response) {
-    const main = this.prepareMain("إدارة شؤون الطلاب");
-    
-    // استخراج البيانات (دعم الاستجابة المباشرة أو الكائن المحتوي على total)
-    const students = response.data || response || [];
-    const total = response.total || students.length;
+AdminUI.studentsT = function(key, params = {}, fallback = "") {
+    return this.t(`admin.studentsTab.${key}`, params, fallback);
+};
 
-    // 1. شريط الإجراءات والبحث العُلوي + هيكل النوافذ المنبثقة (Modals)
+AdminUI.renderStudentsTab = function(response) {
+    const main = this.prepareMain(this.t("admin.sections.students", {}, "Student Affairs Management"));
+    const payload = response || [];
+    const students = Array.isArray(payload.data) ? payload.data : (Array.isArray(payload) ? payload : []);
+    const total = payload.total !== undefined ? payload.total : students.length;
+
     main.innerHTML = `
-        <div class="admin-page-toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex-wrap: wrap; gap: 15px;">
-            <div class="admin-toolbar-search" style="display: flex; gap: 10px; flex: 1; min-width: 300px;">
-                <input type="text" id="student-search-input" placeholder="ابحث بالاسم أو المعرف..." 
-                       style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; flex: 1; outline: none; font-size: 1rem;"
+        <div class="admin-page-toolbar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: var(--admin-surface); padding: 15px; border-radius: 8px; box-shadow: var(--admin-shadow-soft); flex-wrap: wrap; gap: 15px;">
+            <div class="admin-toolbar-search" style="display: flex; gap: 10px; flex: 1; min-width: min(300px, 100%); flex-wrap: wrap;">
+                <input type="text" id="student-search-input" placeholder="${this.studentsT("search.placeholder", {}, "Search by name or ID...")}"
+                       style="padding: 10px; border: 1px solid var(--admin-border); border-radius: 6px; flex: 1 1 220px; outline: none; font-size: 1rem;"
                        onkeypress="if(event.key === 'Enter') AdminUI.searchStudents()">
-                <button onclick="AdminUI.searchStudents()" style="background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s;">
-                    بحث 🔍
+                <button onclick="AdminUI.searchStudents()" style="background: #2563eb; color: white; border: none; padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px;">
+                    ${this.icon("search", "inline-svg-icon")} ${this.t("admin.actions.search", {}, "Search")}
                 </button>
-                <button onclick="AdminRole.loadSection('students')" style="background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 10px; border-radius: 6px; cursor: pointer; transition: 0.2s;" title="إعادة تحميل القائمة">
-                    🔄
+                <button onclick="AdminRole.loadSection('students')" style="background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 10px; border-radius: 6px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center;" title="${this.studentsT("actions.reloadTitle", {}, "Reload list")}">
+                    ${this.icon("refresh", "inline-svg-icon")}
                 </button>
             </div>
             <div>
-                <button onclick="AdminUI.showAddStudentModal()" style="background: #0f172a; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: 0.2s;">
-                    ➕ تسجيل طالب جديد
+                <button onclick="AdminUI.showAddStudentModal()" style="background: #0f172a; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.2); transition: 0.2s; display: inline-flex; align-items: center; gap: 8px;">
+                    ${this.icon("graduation", "inline-svg-icon")} ${this.studentsT("actions.add", {}, "Register New Student")}
                 </button>
             </div>
         </div>
@@ -36,36 +34,36 @@ AdminUI.renderStudentsTab = function(response) {
             ${this._generateStudentsTableHtml(students, total)}
         </div>
 
-        <div id="add-student-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(2px);">
-            <div style="background: white; width: 600px; padding: 25px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); max-height: 90vh; overflow-y: auto;">
-                <h3 style="margin-top: 0; color: #0f172a; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; display: flex; align-items: center; gap: 8px;">
-                    <span>🎓</span> تسجيل طالب جديد في النظام
+        <div id="add-student-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(2px); padding: 16px;">
+            <div style="background: var(--admin-surface); width: min(620px, 100%); padding: 25px; border-radius: 12px; box-shadow: var(--admin-shadow); max-height: 90vh; overflow-y: auto;">
+                <h3 style="margin-top: 0; color: var(--text-main); border-bottom: 2px solid var(--admin-border); padding-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                    ${this.icon("graduation", "inline-svg-icon")} ${this.studentsT("form.title", {}, "Register New Student in the System")}
                 </h3>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
-                    <div style="grid-column: span 2;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: #334155;">حساب المستخدم المرتبط *</label>
-                        <select id="modal-std-user" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #f8fafc; outline: none;">
-                            <option value="">جاري تحميل الحسابات...</option>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 15px; margin-top: 20px;">
+                    <div style="grid-column: 1 / -1;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: var(--text-main);">${this.studentsT("form.userLabel", {}, "Linked User Account *")}</label>
+                        <select id="modal-std-user" style="width: 100%; padding: 10px; border: 1px solid var(--admin-border); border-radius: 6px; background: var(--admin-surface-soft); outline: none;">
+                            <option value="">${this.studentsT("form.loadingAccounts", {}, "Loading accounts...")}</option>
                         </select>
                     </div>
 
                     <div>
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: #334155;">ولي الأمر</label>
-                        <select id="modal-std-parent" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none;">
-                            <option value="">-- بدون ولي أمر --</option>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: var(--text-main);">${this.studentsT("form.parentLabel", {}, "Parent")}</label>
+                        <select id="modal-std-parent" style="width: 100%; padding: 10px; border: 1px solid var(--admin-border); border-radius: 6px; outline: none;">
+                            <option value="">${this.studentsT("form.noParent", {}, "-- No parent --")}</option>
                         </select>
                     </div>
 
                     <div>
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: #334155;">تاريخ الميلاد</label>
-                        <input type="date" id="modal-std-dob" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; box-sizing: border-box;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: var(--text-main);">${this.studentsT("form.dobLabel", {}, "Date of Birth")}</label>
+                        <input type="date" id="modal-std-dob" style="width: 100%; padding: 10px; border: 1px solid var(--admin-border); border-radius: 6px; outline: none; box-sizing: border-box;">
                     </div>
 
                     <div>
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: #334155;">فصيلة الدم</label>
-                        <select id="modal-std-blood" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none;">
-                            <option value="">-- غير محدد --</option>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: var(--text-main);">${this.studentsT("form.bloodLabel", {}, "Blood Group")}</label>
+                        <select id="modal-std-blood" style="width: 100%; padding: 10px; border: 1px solid var(--admin-border); border-radius: 6px; outline: none;">
+                            <option value="">${this.studentsT("form.notSpecified", {}, "-- Not specified --")}</option>
                             <option value="A+">A+</option><option value="A-">A-</option>
                             <option value="B+">B+</option><option value="B-">B-</option>
                             <option value="O+">O+</option><option value="O-">O-</option>
@@ -73,80 +71,84 @@ AdminUI.renderStudentsTab = function(response) {
                         </select>
                     </div>
 
-                    <div style="grid-column: span 2;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: #334155;">ملاحظات طبية (اختياري)</label>
-                        <textarea id="modal-std-medical" rows="2" placeholder="حساسية، أدوية، الخ..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
+                    <div style="grid-column: 1 / -1;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; color: var(--text-main);">${this.studentsT("form.medicalLabel", {}, "Medical notes (optional)")}</label>
+                        <textarea id="modal-std-medical" rows="2" placeholder="${this.studentsT("form.medicalPlaceholder", {}, "Allergies, medications, etc...")}" style="width: 100%; padding: 10px; border: 1px solid var(--admin-border); border-radius: 6px; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
                     </div>
                 </div>
 
-                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
-                    <button onclick="AdminUI.closeStudentModal()" style="padding: 10px 15px; border: none; background: #f1f5f9; color: #334155; border-radius: 6px; cursor: pointer; font-weight: bold;">إلغاء</button>
-                    <button onclick="AdminUI.submitNewStudent()" style="padding: 10px 15px; border: none; background: #0f172a; color: white; border-radius: 6px; cursor: pointer; font-weight: bold;">حفظ البيانات</button>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 25px; border-top: 1px solid var(--admin-border); padding-top: 15px; flex-wrap: wrap;">
+                    <button onclick="AdminUI.closeStudentModal()" style="padding: 10px 15px; border: none; background: #f1f5f9; color: #334155; border-radius: 6px; cursor: pointer; font-weight: bold;">${this.t("admin.actions.cancel", {}, "Cancel")}</button>
+                    <button onclick="AdminUI.submitNewStudent()" style="padding: 10px 15px; border: none; background: #0f172a; color: white; border-radius: 6px; cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; gap: 6px;">${this.icon("save", "inline-svg-icon")} ${this.studentsT("form.save", {}, "Save Data")}</button>
                 </div>
             </div>
         </div>
     `;
 };
 
-/**
- * توليد كود HTML للجدول (دالة مساعدة داخلياً)
- */
 AdminUI._generateStudentsTableHtml = function(students, total) {
-    if (students.length === 0) {
+    if (!students.length) {
         return `
-            <div style="text-align: center; padding: 50px; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                <span style="font-size: 4em; opacity: 0.5;">🎓</span>
-                <p style="color: #64748b; font-size: 1.1em; margin-top: 15px;">لا توجد نتائج مطابقة للبحث.</p>
+            <div style="text-align: center; padding: 50px; background: var(--admin-surface); border-radius: 8px; box-shadow: var(--admin-shadow-soft);">
+                <span style="display: inline-flex; opacity: 0.55;">${this.icon("graduation", "inline-svg-icon")}</span>
+                <p style="color: var(--text-muted); font-size: 1.1em; margin-top: 15px;">${this.studentsT("table.empty", {}, "No matching search results.")}</p>
             </div>`;
     }
 
-    const rows = students.map(s => {
-        const isActive = s.status === 'active';
-        const statusColor = isActive ? '#10b981' : '#ef4444';
-        const statusBg = isActive ? '#dcfce7' : '#fee2e2';
+    const rows = students.map(student => {
+        const id = student.student_id || student.id;
+        const isActive = student.status === "active";
+        const statusLabel = isActive
+            ? this.studentsT("status.active", {}, "Active")
+            : this.studentsT("status.inactive", {}, "Disabled");
+        const statusColor = isActive ? "#10b981" : "#ef4444";
+        const statusBg = isActive ? "#dcfce7" : "#fee2e2";
+        const currentStatus = JSON.stringify(student.status || "inactive");
 
         return `
-        <tr style="border-bottom: 1px solid #f1f5f9; transition: 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
-            <td style="padding: 15px; font-weight: bold; color: #64748b;">#${s.student_id || s.id}</td>
-            <td style="padding: 15px;">
-                <div style="font-weight: bold; color: #0f172a;">${this._escape(s.full_name || s.student_name)}</div>
-                <small style="color: #64748b;">حساب: #${s.user_id}</small>
-            </td>
-            <td style="padding: 15px;">
-                <span style="background: #f1f5f9; color: #334155; padding: 4px 8px; border-radius: 4px; font-size: 0.9em;">
-                    ${this._escape(s.class_name || "غير مسجل بفصل")}
-                </span>
-                ${s.program_names ? `<div style="margin-top: 5px; color: #2563eb; font-size: 0.85em; font-weight: bold;">${this._escape(s.program_names)}</div>` : ""}
-            </td>
-            <td style="padding: 15px; direction: ltr; text-align: right; color: #475569;">${this._escape(s.date_of_birth || "-")}</td>
-            <td style="padding: 15px;">
-                <span style="background: ${statusBg}; color: ${statusColor}; padding: 4px 10px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">
-                    ${isActive ? 'نشط' : 'معطل'}
-                </span>
-            </td>
-            <td style="padding: 15px; text-align: left; display: flex; gap: 5px; justify-content: flex-end;">
-                <button onclick="AdminUI.viewStudentProfile(${s.student_id || s.id})" title="عرض الملف التفصيلي" style="background: #eff6ff; color: #1d4ed8; border: none; padding: 8px; border-radius: 4px; cursor: pointer; transition: 0.2s;">👁️</button>
-                <button onclick="AdminUI.toggleStudentStatus(${s.student_id || s.id}, '${s.status}')" title="تغيير الحالة" style="background: #fffbeb; color: #d97706; border: none; padding: 8px; border-radius: 4px; cursor: pointer; transition: 0.2s;">⚙️</button>
-                <button onclick="AdminRole.deleteItem('/students', ${s.student_id || s.id}, 'students')" title="حذف" style="background: #fef2f2; color: #b91c1c; border: none; padding: 8px; border-radius: 4px; cursor: pointer; transition: 0.2s;">🗑️</button>
-            </td>
-        </tr>`;
+            <tr style="border-bottom: 1px solid var(--admin-border); transition: 0.2s;">
+                <td data-label="${this.studentsT("table.id", {}, "ID")}" style="padding: 15px; font-weight: bold; color: var(--text-muted);">#${id}</td>
+                <td data-label="${this.studentsT("table.student", {}, "Student")}" style="padding: 15px;">
+                    <div style="font-weight: bold; color: var(--text-main);">${this._escape(student.full_name || student.student_name || "-")}</div>
+                    <small style="color: var(--text-muted);">${this.studentsT("table.account", { id: student.user_id || "-" }, `Account: #${student.user_id || "-"}`)}</small>
+                </td>
+                <td data-label="${this.studentsT("table.class", {}, "Class")}" style="padding: 15px;">
+                    <span style="background: #f1f5f9; color: #334155; padding: 4px 8px; border-radius: 4px; font-size: 0.9em;">
+                        ${this._escape(student.class_name || this.studentsT("table.classFallback", {}, "Not registered in a class"))}
+                    </span>
+                    ${student.program_names ? `<div style="margin-top: 5px; color: #2563eb; font-size: 0.85em; font-weight: bold;">${this._escape(student.program_names)}</div>` : ""}
+                </td>
+                <td data-label="${this.studentsT("table.dateOfBirth", {}, "Date of Birth")}" style="padding: 15px; direction: ltr; text-align: right; color: var(--text-main);">${this._escape(student.date_of_birth || "-")}</td>
+                <td data-label="${this.studentsT("table.status", {}, "Status")}" style="padding: 15px;">
+                    <span style="background: ${statusBg}; color: ${statusColor}; padding: 4px 10px; border-radius: 12px; font-size: 0.85em; font-weight: bold;">
+                        ${statusLabel}
+                    </span>
+                </td>
+                <td class="admin-actions-cell" data-label="${this.studentsT("table.actions", {}, "Actions")}" style="padding: 15px; text-align: left;">
+                    <div style="display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap;">
+                        <button onclick="AdminUI.viewStudentProfile(${id})" title="${this.studentsT("actions.viewProfile", {}, "View Detailed Profile")}" style="background: #eff6ff; color: #1d4ed8; border: none; padding: 8px; border-radius: 4px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center;">${this.icon("eye", "inline-svg-icon")}</button>
+                        <button onclick='AdminUI.toggleStudentStatus(${id}, ${currentStatus})' title="${this.studentsT("actions.changeStatus", {}, "Change Status")}" style="background: #fffbeb; color: #d97706; border: none; padding: 8px; border-radius: 4px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center;">${this.icon("settings", "inline-svg-icon")}</button>
+                        <button onclick="AdminRole.deleteItem('/students', ${id}, 'students')" title="${this.t("admin.actions.delete", {}, "Delete")}" style="background: #fef2f2; color: #b91c1c; border: none; padding: 8px; border-radius: 4px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center;">${this.icon("trash", "inline-svg-icon")}</button>
+                    </div>
+                </td>
+            </tr>`;
     }).join("");
 
     return `
-        <div style="background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden;">
-            <div style="padding: 12px 15px; background: #f8fafc; border-bottom: 2px solid #e2e8f0; font-size: 0.9em; color: #475569;">
-                إجمالي الطلاب: <strong style="color: #0f172a;">${total}</strong>
+        <div style="background: var(--admin-surface); border-radius: 8px; box-shadow: var(--admin-shadow-soft); overflow: hidden;">
+            <div style="padding: 12px 15px; background: var(--admin-surface-soft); border-bottom: 2px solid var(--admin-border); font-size: 0.9em; color: var(--text-muted);">
+                ${this.studentsT("table.total", { count: total }, `Total Students: ${total}`)}
             </div>
             <div class="admin-mobile-table" style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; text-align: right;">
-                    <thead style="background: #f8fafc; border-bottom: 2px solid #cbd5e1;">
+                    <thead style="background: var(--admin-surface-soft); border-bottom: 2px solid var(--admin-border);">
                         <tr>
-                            <th style="padding: 15px; color: #334155;">المعرف</th>
-                            <th style="padding: 15px; color: #334155;">الطالب</th>
-                            <th style="padding: 15px; color: #334155;">الفصل</th>
-                            <th style="padding: 15px; color: #334155;">تاريخ الميلاد</th>
-                            <th style="padding: 15px; color: #334155;">الحالة</th>
-                            <th style="padding: 15px; color: #334155; text-align: left;">إجراءات</th>
+                            <th style="padding: 15px; color: var(--text-main);">${this.studentsT("table.id", {}, "ID")}</th>
+                            <th style="padding: 15px; color: var(--text-main);">${this.studentsT("table.student", {}, "Student")}</th>
+                            <th style="padding: 15px; color: var(--text-main);">${this.studentsT("table.class", {}, "Class")}</th>
+                            <th style="padding: 15px; color: var(--text-main);">${this.studentsT("table.dateOfBirth", {}, "Date of Birth")}</th>
+                            <th style="padding: 15px; color: var(--text-main);">${this.studentsT("table.status", {}, "Status")}</th>
+                            <th style="padding: 15px; color: var(--text-main); text-align: left;">${this.studentsT("table.actions", {}, "Actions")}</th>
                         </tr>
                     </thead>
                     <tbody>${rows}</tbody>
@@ -155,16 +157,13 @@ AdminUI._generateStudentsTableHtml = function(students, total) {
         </div>`;
 };
 
-// ==========================================
-// وظائف البحث والإضافة وإدارة الحالة
-// ==========================================
-
 AdminUI.searchStudents = async function() {
     const keyword = document.getElementById("student-search-input").value.trim();
     if (keyword.length > 0 && keyword.length < 2) {
-        alert("يرجى إدخال حرفين على الأقل للبحث.");
+        alert(this.studentsT("messages.minSearch", {}, "Please enter at least two characters to search."));
         return;
     }
+
     this.renderLoading();
     try {
         const url = keyword.length === 0 ? "/students/" : `/students/search?keyword=${encodeURIComponent(keyword)}`;
@@ -172,31 +171,34 @@ AdminUI.searchStudents = async function() {
         this.renderStudentsTab(response);
         if (keyword) document.getElementById("student-search-input").value = keyword;
     } catch (err) {
-        this.renderError("فشل البحث: " + err.message);
+        this.renderError(this.studentsT("messages.searchFailed", { message: err.message }, `Search failed: ${err.message}`));
     }
 };
 
 AdminUI.toggleStudentStatus = async function(studentId, currentStatus) {
-    const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
-    if (!confirm(`هل أنت متأكد من تغيير حالة هذا الطالب إلى ${newStatus === 'active' ? 'نشط' : 'معطل'}؟`)) return;
+    const newStatus = currentStatus === "active" ? "inactive" : "active";
+    const statusLabel = newStatus === "active"
+        ? this.studentsT("status.active", {}, "Active")
+        : this.studentsT("status.inactive", {}, "Disabled");
+
+    if (!confirm(this.studentsT("messages.statusConfirm", { status: statusLabel }, `Are you sure you want to change this student's status to ${statusLabel}?`))) return;
 
     try {
         await Api.patch(`/students/${studentId}/status`, { status: newStatus });
         AdminRole.loadSection("students");
     } catch (err) {
-        alert("فشل في تغيير الحالة: " + err.message);
+        alert(this.studentsT("messages.statusFailed", { message: err.message }, `Failed to change status: ${err.message}`));
     }
 };
 
 AdminUI.showAddStudentModal = async function() {
     const modal = document.getElementById("add-student-modal");
     modal.style.display = "flex";
-    
+
     const userSelect = document.getElementById("modal-std-user");
     const parentSelect = document.getElementById("modal-std-parent");
+    userSelect.innerHTML = `<option value="">${this.studentsT("form.loadingAccounts", {}, "Loading accounts...")}</option>`;
 
-    userSelect.innerHTML = '<option value="">جاري التحميل...</option>';
-    
     try {
         const [usersRes, parentsRes] = await Promise.all([
             Api.get("/users/"),
@@ -206,60 +208,58 @@ AdminUI.showAddStudentModal = async function() {
         const users = usersRes.data || usersRes || [];
         const parents = parentsRes.data || parentsRes || [];
 
-        userSelect.innerHTML = '<option value="">-- اختر حساب المستخدم --</option>' + 
-            users.map(u => `<option value="${u.id}">${this._escape(u.full_name)} (@${this._escape(u.username)})</option>`).join("");
+        userSelect.innerHTML = `<option value="">${this.studentsT("form.chooseUser", {}, "-- Choose user account --")}</option>` +
+            users.map(user => `<option value="${user.id}">${this._escape(user.full_name || "-")} (@${this._escape(user.username || "-")})</option>`).join("");
 
-        parentSelect.innerHTML = '<option value="">-- بدون ولي أمر --</option>' + 
-            parents.map(p => `<option value="${p.parent_id}">${this._escape(p.full_name)}</option>`).join("");
-
+        parentSelect.innerHTML = `<option value="">${this.studentsT("form.noParent", {}, "-- No parent --")}</option>` +
+            parents.map(parent => `<option value="${parent.parent_id || parent.id}">${this._escape(parent.full_name || "-")}</option>`).join("");
     } catch (err) {
-        userSelect.innerHTML = '<option value="">❌ فشل جلب البيانات</option>';
+        userSelect.innerHTML = `<option value="">${this.studentsT("form.loadFailed", {}, "Failed to fetch data")}</option>`;
     }
 };
 
 AdminUI.closeStudentModal = function() {
-    document.getElementById("add-student-modal").style.display = "none";
+    const modal = document.getElementById("add-student-modal");
+    if (modal) modal.style.display = "none";
 };
 
 AdminUI.submitNewStudent = async function() {
     const userId = document.getElementById("modal-std-user").value;
-    if (!userId) { alert("يرجى اختيار حساب مستخدم أولاً."); return; }
+    if (!userId) {
+        alert(this.studentsT("messages.chooseUserFirst", {}, "Please choose a user account first."));
+        return;
+    }
 
+    const parentId = document.getElementById("modal-std-parent").value;
     const payload = {
-        user_id: parseInt(userId),
+        user_id: parseInt(userId, 10),
         class_id: null,
-        parent_id: document.getElementById("modal-std-parent").value ? parseInt(document.getElementById("modal-std-parent").value) : null,
+        parent_id: parentId ? parseInt(parentId, 10) : null,
         date_of_birth: document.getElementById("modal-std-dob").value || null,
         blood_group: document.getElementById("modal-std-blood").value || null,
         medical_info: document.getElementById("modal-std-medical").value.trim() || null,
-        status: 'active'
+        status: "active"
     };
 
     try {
         await Api.post("/students/", payload);
-        alert("✅ تم تسجيل الطالب بنجاح.");
+        alert(this.studentsT("messages.created", {}, "Student registered successfully."));
         this.closeStudentModal();
         AdminRole.loadSection("students");
     } catch (err) {
-        alert("❌ فشل التسجيل: " + err.message);
+        alert(this.studentsT("messages.createFailed", { message: err.message }, `Registration failed: ${err.message}`));
     }
 };
 
-// ==========================================
-// وظائف الملف التفصيلي للطالب (View Profile)
-// ==========================================
-
 AdminUI.viewStudentProfile = async function(studentId) {
-    // إظهار نافذة تحميل مؤقتة
     const loadingDiv = document.createElement("div");
     loadingDiv.id = "profile-loading-overlay";
-    loadingDiv.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(2px);";
-    loadingDiv.innerHTML = `<div class="student-profile-loading-card" style="background: white; padding: 25px; border-radius: 8px; text-align: center;">جاري تجميع ملف الطالب... ⏳</div>`;
+    loadingDiv.style.cssText = "position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 2000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(2px); padding: 16px;";
+    loadingDiv.innerHTML = `<div class="student-profile-loading-card" style="background: var(--admin-surface); color: var(--text-main); padding: 25px; border-radius: 8px; text-align: center; box-shadow: var(--admin-shadow);">${this.studentsT("messages.loadingProfile", {}, "Collecting student profile...")}</div>`;
     document.body.appendChild(loadingDiv);
 
     try {
-        // جلب البيانات من كافة الـ APIs المرتبطة
-        const [student, grades, attendance, fees, payments] = await Promise.all([
+        const [studentResponse, gradesResponse, attendanceResponse, feesResponse, paymentsResponse] = await Promise.all([
             Api.get(`/students/${studentId}`),
             Api.get(`/grades/student/${studentId}`).catch(() => []),
             Api.get(`/attendance/student/${studentId}/statistics`).catch(() => ({})),
@@ -269,60 +269,82 @@ AdminUI.viewStudentProfile = async function(studentId) {
 
         document.getElementById("profile-loading-overlay").remove();
 
-        // معالجة الحسابات المالية
-        const feesData = fees.data || fees || [];
-        const paymentsData = payments.data || payments || [];
-        let totalDue = 0, totalPaid = 0;
-        
-        feesData.forEach(f => totalDue += (f.amount_due - (f.applied_discount || 0)));
-        paymentsData.forEach(p => totalPaid += p.amount_paid);
+        const student = studentResponse.data || studentResponse || {};
+        const unwrapArray = value => Array.isArray(value && value.data) ? value.data : (Array.isArray(value) ? value : []);
+        const gradesData = unwrapArray(gradesResponse);
+        const feesData = unwrapArray(feesResponse);
+        const paymentsData = unwrapArray(paymentsResponse);
+        void attendanceResponse;
+
+        let totalDue = 0;
+        let totalPaid = 0;
+        feesData.forEach(fee => {
+            totalDue += Number(fee.amount_due || 0) - Number(fee.applied_discount || 0);
+        });
+        paymentsData.forEach(payment => {
+            totalPaid += Number(payment.amount_paid || 0);
+        });
         const balance = totalDue - totalPaid;
 
+        const gradeRows = gradesData.map(grade => `
+            <tr>
+                <td style="padding: 8px;">${this._escape(grade.title || "-")}</td>
+                <td style="padding: 8px;">${this._escape(grade.subject_name || "-")}</td>
+                <td style="padding: 8px;"><b>${this._escape(grade.grade_value ?? "-")}</b> / ${this._escape(grade.max_grade ?? "-")}</td>
+            </tr>
+        `).join("") || `<tr><td colspan="3" style="padding: 16px; text-align:center;">${this.studentsT("profile.academic.noGrades", {}, "No grade record")}</td></tr>`;
+
         const profileHtml = `
-            <div id="student-profile-modal" class="student-profile-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(3px);">
-                <div class="student-profile-dialog" style="background: #f8fafc; width: 850px; border-radius: 12px; display: flex; flex-direction: column; max-height: 90vh; overflow: hidden; box-shadow: 0 20px 25px rgba(0,0,0,0.15);">
-                    
-                    <div class="student-profile-header" style="background: white; padding: 20px 25px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-                        <div style="display: flex; align-items: center; gap: 15px;">
-                            <div class="student-profile-avatar" style="width: 50px; height: 50px; background: #e0f2fe; color: #0284c7; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5em;">🎓</div>
-                            <div>
-                                <h2 style="margin: 0; color: #0f172a;">${this._escape(student.full_name || student.student_name)}</h2>
-                                <small style="color: #64748b;">معرف الطالب: #${studentId}</small>
+            <div id="student-profile-modal" class="student-profile-overlay" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1500; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(3px); padding: 16px;">
+                <div class="student-profile-dialog" style="background: var(--admin-surface-soft); width: min(850px, 100%); border-radius: 12px; display: flex; flex-direction: column; max-height: 90vh; overflow: hidden; box-shadow: var(--admin-shadow);">
+
+                    <div class="student-profile-header" style="background: var(--admin-surface); padding: 20px 25px; border-bottom: 1px solid var(--admin-border); display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+                        <div style="display: flex; align-items: center; gap: 15px; min-width: 0;">
+                            <div class="student-profile-avatar" style="width: 50px; height: 50px; background: #e0f2fe; color: #0284c7; border-radius: 50%; display: flex; justify-content: center; align-items: center; flex: 0 0 auto;">${this.icon("graduation", "inline-svg-icon")}</div>
+                            <div style="min-width: 0;">
+                                <h2 style="margin: 0; color: var(--text-main); overflow-wrap: anywhere;">${this._escape(student.full_name || student.student_name || "-")}</h2>
+                                <small style="color: var(--text-muted);">${this.studentsT("profile.studentId", { id: studentId }, `Student ID: #${studentId}`)}</small>
                             </div>
                         </div>
-                        <button onclick="document.getElementById('student-profile-modal').remove()" style="background: #f1f5f9; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer;">&times;</button>
+                        <button onclick="document.getElementById('student-profile-modal').remove()" style="background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; color: #334155;" aria-label="${this.t("admin.actions.close", {}, "Close")}">&times;</button>
                     </div>
 
-                    <div class="student-profile-tabs" style="display: flex; background: white; border-bottom: 2px solid #e2e8f0; padding: 0 20px;">
-                        <button onclick="AdminUI.switchProfileTab('personal')" class="prof-tab-btn active" data-tab="personal" style="padding: 15px; border: none; background: transparent; font-weight: bold; color: #2563eb; border-bottom: 3px solid #2563eb; cursor: pointer;">👤 شخصي</button>
-                        <button onclick="AdminUI.switchProfileTab('academic')" class="prof-tab-btn" data-tab="academic" style="padding: 15px; border: none; background: transparent; font-weight: bold; color: #64748b; border-bottom: 3px solid transparent; cursor: pointer;">📚 أكاديمي</button>
-                        <button onclick="AdminUI.switchProfileTab('finance')" class="prof-tab-btn" data-tab="finance" style="padding: 15px; border: none; background: transparent; font-weight: bold; color: #64748b; border-bottom: 3px solid transparent; cursor: pointer;">💳 مالي</button>
+                    <div class="student-profile-tabs" style="display: flex; background: var(--admin-surface); border-bottom: 2px solid var(--admin-border); padding: 0 20px; overflow-x: auto;">
+                        <button onclick="AdminUI.switchProfileTab('personal')" class="prof-tab-btn active" data-tab="personal" style="padding: 15px; border: none; background: transparent; font-weight: bold; color: #2563eb; border-bottom: 3px solid #2563eb; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;">${this.icon("users", "inline-svg-icon")} ${this.studentsT("profile.tabs.personal", {}, "Personal")}</button>
+                        <button onclick="AdminUI.switchProfileTab('academic')" class="prof-tab-btn" data-tab="academic" style="padding: 15px; border: none; background: transparent; font-weight: bold; color: #64748b; border-bottom: 3px solid transparent; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;">${this.icon("bookOpen", "inline-svg-icon")} ${this.studentsT("profile.tabs.academic", {}, "Academic")}</button>
+                        <button onclick="AdminUI.switchProfileTab('finance')" class="prof-tab-btn" data-tab="finance" style="padding: 15px; border: none; background: transparent; font-weight: bold; color: #64748b; border-bottom: 3px solid transparent; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;">${this.icon("card", "inline-svg-icon")} ${this.studentsT("profile.tabs.finance", {}, "Finance")}</button>
                     </div>
 
-                    <div class="student-profile-body" style="padding: 25px; overflow-y: auto; flex: 1;">
+                    <div class="student-profile-body" style="padding: 25px; overflow-y: auto; flex: 1; color: var(--text-main);">
                         <div id="prof-tab-personal" class="prof-tab-content">
-                            <p><strong>تاريخ الميلاد:</strong> ${this._escape(student.date_of_birth || "-")}</p>
-                            <p><strong>فصيلة الدم:</strong> <span style="color: #dc2626;">${this._escape(student.blood_group || "-")}</span></p>
-                            <p><strong>ملاحظات طبية:</strong> ${this._escape(student.medical_info || "لا يوجد")}</p>
+                            <p><strong>${this.studentsT("profile.personal.dateOfBirth", {}, "Date of Birth:")}</strong> ${this._escape(student.date_of_birth || "-")}</p>
+                            <p><strong>${this.studentsT("profile.personal.bloodGroup", {}, "Blood Group:")}</strong> <span style="color: #dc2626;">${this._escape(student.blood_group || "-")}</span></p>
+                            <p><strong>${this.studentsT("profile.personal.medicalNotes", {}, "Medical Notes:")}</strong> ${this._escape(student.medical_info || this.studentsT("profile.personal.none", {}, "None"))}</p>
                         </div>
 
                         <div id="prof-tab-academic" class="prof-tab-content" style="display: none;">
-                            <h4 style="margin-bottom: 10px;">سجل العلامات</h4>
-                            <table style="width: 100%; text-align: right; border-collapse: collapse;">
-                                <thead style="background: #f8fafc;"><tr><th style="padding: 10px;">التقييم</th><th style="padding: 10px;">المادة</th><th style="padding: 10px;">العلامة</th></tr></thead>
-                                <tbody>
-                                    ${(grades.data || grades).map(g => `<tr><td style="padding: 8px;">${g.title}</td><td style="padding: 8px;">${g.subject_name}</td><td style="padding: 8px;"><b>${g.grade_value}</b> / ${g.max_grade}</td></tr>`).join("") || "<tr><td colspan='3' style='text-align:center;'>لا يوجد سجل درجات</td></tr>"}
-                                </tbody>
-                            </table>
+                            <h4 style="margin-bottom: 10px; color: var(--text-main);">${this.studentsT("profile.academic.gradesTitle", {}, "Grade Record")}</h4>
+                            <div class="admin-mobile-table" style="overflow-x: auto;">
+                                <table style="width: 100%; text-align: right; border-collapse: collapse;">
+                                    <thead style="background: var(--admin-surface);">
+                                        <tr>
+                                            <th style="padding: 10px;">${this.studentsT("profile.academic.assessment", {}, "Assessment")}</th>
+                                            <th style="padding: 10px;">${this.studentsT("profile.academic.subject", {}, "Subject")}</th>
+                                            <th style="padding: 10px;">${this.studentsT("profile.academic.grade", {}, "Grade")}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>${gradeRows}</tbody>
+                                </table>
+                            </div>
                         </div>
 
                         <div id="prof-tab-finance" class="prof-tab-content" style="display: none;">
-                            <div style="display: flex; gap: 15px; margin-bottom: 20px;">
-                                <div class="student-profile-money-card is-paid" style="flex: 1; background: #ecfdf5; padding: 15px; border-radius: 8px; text-align: center;">
-                                    <small>إجمالي المسدد</small><br><b>${this._formatCurrency(totalPaid)}</b>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                                <div class="student-profile-money-card is-paid" style="background: #ecfdf5; padding: 15px; border-radius: 8px; text-align: center;">
+                                    <small>${this.studentsT("profile.finance.paidTotal", {}, "Total Paid")}</small><br><b>${this._formatCurrency(totalPaid)}</b>
                                 </div>
-                                <div class="student-profile-money-card is-due" style="flex: 1; background: #fef2f2; padding: 15px; border-radius: 8px; text-align: center;">
-                                    <small>المبلغ المتبقي</small><br><b style="color: #dc2626;">${this._formatCurrency(balance)}</b>
+                                <div class="student-profile-money-card is-due" style="background: #fef2f2; padding: 15px; border-radius: 8px; text-align: center;">
+                                    <small>${this.studentsT("profile.finance.remaining", {}, "Remaining Amount")}</small><br><b style="color: #dc2626;">${this._formatCurrency(balance)}</b>
                                 </div>
                             </div>
                         </div>
@@ -330,26 +352,33 @@ AdminUI.viewStudentProfile = async function(studentId) {
                 </div>
             </div>`;
 
-        document.body.insertAdjacentHTML('beforeend', profileHtml);
-
+        document.body.insertAdjacentHTML("beforeend", profileHtml);
     } catch (err) {
         document.getElementById("profile-loading-overlay")?.remove();
-        alert("فشل جلب ملف الطالب: " + err.message);
+        alert(this.studentsT("messages.profileFailed", { message: err.message }, `Failed to fetch student profile: ${err.message}`));
     }
 };
 
 AdminUI.switchProfileTab = function(tabName) {
-    document.querySelectorAll('.prof-tab-content').forEach(c => c.style.display = 'none');
+    document.querySelectorAll(".prof-tab-content").forEach(content => {
+        content.style.display = "none";
+    });
+
     const activeColor = document.body.dataset.theme === "dark" ? "var(--primary-color)" : "#2563eb";
     const mutedColor = document.body.dataset.theme === "dark" ? "var(--text-muted)" : "#64748b";
-    document.querySelectorAll('.prof-tab-btn').forEach(b => {
-        b.classList.remove("active");
-        b.style.color = mutedColor;
-        b.style.borderBottomColor = 'transparent';
+    document.querySelectorAll(".prof-tab-btn").forEach(button => {
+        button.classList.remove("active");
+        button.style.color = mutedColor;
+        button.style.borderBottomColor = "transparent";
     });
-    document.getElementById(`prof-tab-${tabName}`).style.display = 'block';
+
+    const content = document.getElementById(`prof-tab-${tabName}`);
+    if (content) content.style.display = "block";
+
     const activeBtn = document.querySelector(`.prof-tab-btn[data-tab="${tabName}"]`);
-    activeBtn.classList.add("active");
-    activeBtn.style.color = activeColor;
-    activeBtn.style.borderBottomColor = activeColor;
+    if (activeBtn) {
+        activeBtn.classList.add("active");
+        activeBtn.style.color = activeColor;
+        activeBtn.style.borderBottomColor = activeColor;
+    }
 };

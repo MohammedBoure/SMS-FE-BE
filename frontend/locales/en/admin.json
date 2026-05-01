@@ -1,0 +1,2033 @@
+{
+  "meta": {
+    "lang": "en",
+    "dir": "ltr",
+    "name": "English"
+  },
+  "languages": [
+    { "code": "ar", "label": "العربية", "dir": "rtl" },
+    { "code": "en", "label": "English", "dir": "ltr" }
+  ],
+  "admin": {
+    "documentTitle": "Admin Dashboard | School System",
+    "brand": {
+      "title": "Administration",
+      "userId": "ID: #{id}"
+    },
+    "topbar": {
+      "overview": "Overview",
+      "openMenu": "Open menu"
+    },
+    "theme": {
+      "toggle": "Toggle theme",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "language": {
+      "label": "Language",
+      "select": "Choose language"
+    },
+    "session": {
+      "account": "Account: {role}",
+      "logout": "Log out"
+    },
+    "sidebar": {
+      "collapse": "Collapse sidebar",
+      "expand": "Expand sidebar",
+      "collapseLabel": "Collapse menu",
+      "expandLabel": "Expand menu",
+      "searchPlaceholder": "Quick search...",
+      "noResults": "No matching result"
+    },
+    "state": {
+      "loading": "Loading data...",
+      "errorPrefix": "Sorry, an error occurred:"
+    },
+    "nav": {
+      "categories": {
+        "core": "Core Administration",
+        "academic": "Academic Affairs",
+        "finance": "Finance and Resources",
+        "community": "Communication and Community"
+      },
+      "items": {
+        "users": "User Management",
+        "parents": "Parents",
+        "academic": "Academic Overview",
+        "classes": "Classes and Seats",
+        "students": "Student Affairs",
+        "teachers": "Teaching Staff",
+        "programs": "Study Programs",
+        "enrollments": "Enrollment Records",
+        "attendance": "Attendance",
+        "schedules": "Schedules",
+        "assessments": "Assessments and Exams",
+        "grades": "Grades and Results",
+        "finance": "Financial Overview",
+        "studentFees": "Fees and Debts",
+        "payments": "Payment Records",
+        "transactions": "Daily Ledger",
+        "resources": "Digital Library",
+        "conversations": "Live Conversations",
+        "notifications": "Notifications and Alerts",
+        "posts": "Announcements Board"
+      }
+    },
+    "sections": {
+      "users": "User Management",
+      "parents": "Parent Management",
+      "academic": "Academic Affairs Overview",
+      "classes": "Classrooms and Seat Management",
+      "students": "Student Affairs Management",
+      "teachers": "Teaching Staff Management",
+      "programs": "Study Program Management",
+      "enrollments": "Enrollment Records Management",
+      "attendance": "Attendance Records Management",
+      "schedules": "Schedule Management",
+      "assessments": "Assessment and Exam Management",
+      "grades": "Grades and Results Management",
+      "finance": "Financial Overview",
+      "studentFees": "Fees and Debts Management",
+      "payments": "Payments and Collections",
+      "transactions": "Daily Ledger",
+      "resources": "Digital Library",
+      "conversations": "Live Conversations",
+      "notifications": "Notifications and Alerts",
+      "posts": "Announcements and Public Posts"
+    },
+    "messages": {
+      "unknownSection": "This interface is under development or is not registered.",
+      "loadFailed": "Failed to connect to the server to fetch data.",
+      "deleteConfirm": "Are you sure you want to permanently delete this record?",
+      "deleteSuccess": "Deleted successfully.",
+      "deleteFailed": "Delete failed: {message}"
+    },
+    "actions": {
+      "search": "Search",
+      "reload": "Reload",
+      "save": "Save",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "view": "View",
+      "close": "Close",
+      "print": "Print",
+      "download": "Download",
+      "send": "Send",
+      "add": "Add",
+      "activate": "Activate",
+      "deactivate": "Deactivate"
+    },
+    "academic": {
+      "loading": "Collecting and analyzing academic data...",
+      "kpis": {
+        "totalStudents": "Total Students",
+        "teachingStaff": "Teaching Staff",
+        "classes": "Classes",
+        "occupancyRate": "Overall Occupancy Rate"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "students": "Manage Students",
+        "attendance": "Record Attendance",
+        "schedule": "Schedule",
+        "grades": "Enter Grades"
+      },
+      "occupancy": {
+        "title": "Crowding Alert (Top 5 Classes)",
+        "classColumn": "Class",
+        "occupancyColumn": "Occupancy",
+        "label": "Occupancy: {current} / {capacity}",
+        "empty": "No class data is available."
+      },
+      "attendance": {
+        "title": "Today's Attendance ({date})",
+        "choosePlaceholder": "-- Choose a class to view today's attendance --",
+        "check": "Check",
+        "helper": "Choose a class and click Check to view today's statistics.",
+        "chooseClassFirst": "Please choose a class first.",
+        "loadingRecords": "Fetching records...",
+        "empty": "No attendance has been recorded for this class today yet.",
+        "rate": "Attendance Rate",
+        "present": "Present:",
+        "absent": "Absent:",
+        "late": "Late:",
+        "fetchFailed": "Fetch failed:"
+      },
+      "errors": {
+        "server": "Server connection error:"
+      }
+    },
+    "assessments": {
+      "types": {
+        "exam": "Exam",
+        "quiz": "Quiz",
+        "homework": "Homework",
+        "examOfficial": "Official Exam",
+        "quizShort": "Short Quiz"
+      },
+      "filters": {
+        "allTypes": "-- All assessment types --",
+        "searchPlaceholder": "Search by assessment name..."
+      },
+      "actions": {
+        "reloadTitle": "Reload list",
+        "refresh": "Refresh",
+        "add": "Add New Assessment",
+        "viewGradesTitle": "View student grades",
+        "grades": "Grades",
+        "editTitle": "Edit assessment properties",
+        "deleteTitle": "Delete assessment permanently"
+      },
+      "form": {
+        "addTitle": "Add New Assessment",
+        "editTitle": "Edit Assessment",
+        "titleLabel": "Assessment Title (Required)",
+        "titlePlaceholder": "Example: First math assignment...",
+        "typeLabel": "Assessment Type",
+        "maxGradeLabel": "Maximum Grade",
+        "assignmentLabel": "Reference Assignment (Subject and Teacher)",
+        "loadingAssignments": "Loading assignments...",
+        "assignmentHint": "Links this assessment to a subject and class so grades can be recorded.",
+        "dueDateLabel": "Due Date",
+        "save": "Save Assessment",
+        "chooseAssignment": "-- Please choose the reference assignment --",
+        "assignmentFallback": "Enter Assignment ID"
+      },
+      "table": {
+        "empty": "No matching assessments found.",
+        "assignmentApplied": "Applied to assignment: #{id}",
+        "points": "points",
+        "notSpecified": "Not specified",
+        "subject": "Subject",
+        "general": "General",
+        "classPrefix": "Class:",
+        "total": "Total assessments shown: {count}",
+        "titleAndAssignment": "Assessment and Assignment",
+        "type": "Type",
+        "maxGrade": "Maximum Grade",
+        "dueDate": "Due Date",
+        "actions": "Actions"
+      },
+      "gradesModal": {
+        "title": "Assessment Grades",
+        "studentId": "Student #",
+        "fullName": "Full Name",
+        "grade": "Grade",
+        "remarks": "Teacher Remarks",
+        "close": "Close Window",
+        "titleWithName": "Grades: {title}",
+        "loading": "Fetching grades from server...",
+        "empty": "No grades have been recorded for this assessment yet.",
+        "noRemarks": "No remarks",
+        "fetchFailed": "Failed to fetch grades: {message}"
+      },
+      "messages": {
+        "titleRequired": "Please enter the assessment title.",
+        "assignmentRequired": "Please choose the reference assignment.",
+        "updated": "Assessment updated successfully.",
+        "created": "Assessment created successfully.",
+        "saveFailed": "Save failed: {message}",
+        "unexpected": "Unexpected error."
+      }
+    },
+    "attendanceTab": {
+      "loading": "Preparing attendance panel...",
+      "common": {
+        "general": "General"
+      },
+      "classCard": {
+        "title": "Record Class Attendance",
+        "description": "Choose class and date to review the list and record statuses.",
+        "chooseClass": "-- Please choose the class --",
+        "showSheet": "Show Attendance Sheet"
+      },
+      "studentCard": {
+        "title": "Student Absence Record",
+        "description": "Search by student name to view the record and manage justifications.",
+        "searchPlaceholder": "Search by student name...",
+        "showRecord": "Show Individual Record"
+      },
+      "results": {
+        "emptyPrompt": "Data will appear here after searching or choosing a class above."
+      },
+      "status": {
+        "present": "Present",
+        "absent": "Absent",
+        "late": "Late"
+      },
+      "search": {
+        "noResults": "No matching results",
+        "idLabel": "ID: {id}"
+      },
+      "sheet": {
+        "reasonPlaceholder": "Reason (if any)...",
+        "saved": "Saved",
+        "title": "Attendance Sheet for: {date}",
+        "saveAll": "Save Entire Class Sheet",
+        "studentName": "Student Name",
+        "status": "Status",
+        "notes": "Notes / Justification",
+        "singleAction": "Single Action"
+      },
+      "record": {
+        "cleanTitle": "Student record is clean!",
+        "cleanDescription": "No absences or late arrivals are recorded for this student.",
+        "justified": "Justified",
+        "unjustified": "Unjustified",
+        "editJustification": "Edit justification",
+        "deleteRecord": "Delete record",
+        "title": "Absence and lateness record for student #{id}",
+        "showStats": "View Student Statistics",
+        "date": "Date",
+        "class": "Class",
+        "status": "Status",
+        "adminJustification": "Administrative Justification",
+        "reason": "Reason / Notes",
+        "actions": "Actions"
+      },
+      "justification": {
+        "title": "Edit Absence Justification",
+        "statusLabel": "Justification Status:",
+        "justified": "Justified Absence",
+        "unjustified": "Unjustified Absence",
+        "reasonLabel": "Notes / Absence Reason:",
+        "reasonPlaceholder": "Enter justification details...",
+        "save": "Save Changes"
+      },
+      "stats": {
+        "title": "Attendance Statistics",
+        "loading": "Calculating statistics...",
+        "totalAbsences": "Total Absences",
+        "totalLates": "Total Late Arrivals",
+        "justifiedAbsences": "Justified Absences",
+        "unjustifiedAbsences": "Unjustified Absences",
+        "fetchFailed": "Unable to fetch statistics. Please try again later."
+      },
+      "messages": {
+        "chooseClassAndDate": "Please choose a class and date first.",
+        "loadingClassSheet": "Fetching list from the server...",
+        "noStudentsInClass": "No students are currently enrolled in this class.",
+        "loadClassSheetFailed": "Failed to load list: {message}",
+        "recordSaved": "Record saved successfully.",
+        "saveFailed": "Save failed: {message}",
+        "saving": "Saving...",
+        "sheetSaved": "Attendance sheet saved successfully.",
+        "partialSaveFailed": "An error occurred while saving some records. Please review and try again.",
+        "chooseStudentFirst": "Please choose a student from the list first.",
+        "loadingStudentRecord": "Fetching student record...",
+        "loadStudentRecordFailed": "Failed to load student record: {message}",
+        "justificationUpdated": "Justification status updated successfully.",
+        "updateFailed": "Update failed: {message}"
+      }
+    },
+    "classes": {
+      "common": {
+        "general": "General",
+        "noProgram": "No Program",
+        "notSpecified": "Not specified"
+      },
+      "occupancy": {
+        "title": "Live Class Occupancy",
+        "label": "Occupancy: {current} / {capacity}",
+        "empty": "No occupancy data is available. Create classes and add students."
+      },
+      "actions": {
+        "create": "Create Class",
+        "editTitle": "Edit class",
+        "deleteTitle": "Delete class"
+      },
+      "table": {
+        "title": "Class Structure Management",
+        "id": "Class ID",
+        "name": "Academic Name",
+        "program": "Program",
+        "level": "Academic Level",
+        "ageGroup": "Age Group",
+        "capacity": "Maximum Capacity",
+        "capacityValue": "{count} seats",
+        "actions": "Management Actions",
+        "empty": "No classes are currently registered."
+      },
+      "form": {
+        "addTitle": "Add New Class",
+        "editTitle": "Edit Class Details",
+        "programLabel": "Program",
+        "noProgramOption": "-- No Program --",
+        "nameLabel": "Academic Class Name *",
+        "namePlaceholder": "Example: Einstein Class (A)",
+        "levelLabel": "Academic Level",
+        "levelPlaceholder": "Example: First Year Secondary",
+        "ageLabel": "Age Group",
+        "agePlaceholder": "Example: 15-16",
+        "capacityLabel": "Maximum Capacity (Seats)",
+        "capacityPlaceholder": "Example: 30",
+        "save": "Save Class Details"
+      },
+      "messages": {
+        "occupancyLoadFailed": "Failed to load occupancy data.",
+        "programsLoadFailed": "Failed to load programs.",
+        "nameRequired": "Please enter the class name.",
+        "updated": "Class details updated successfully.",
+        "created": "New class created successfully.",
+        "saveFailed": "Failed to save class details: {message}",
+        "unexpected": "An unexpected error occurred."
+      }
+    },
+    "conversations": {
+      "toolbar": {
+        "title": "Search Communication Records",
+        "description": "Search for any user to review conversations and direct messages.",
+        "searchPlaceholder": "Search by username..."
+      },
+      "empty": {
+        "description": "Search for a user or show the list to open their conversation inbox.",
+        "showUsers": "Show User List"
+      },
+      "users": {
+        "loading": "Loading users...",
+        "loadFailed": "Failed to load users: {message}",
+        "searching": "Searching...",
+        "searchFailed": "Search failed: {message}",
+        "empty": "No users match the search.",
+        "open": "Open Conversations",
+        "table": {
+          "id": "ID",
+          "user": "User",
+          "role": "Role",
+          "action": "Action"
+        }
+      },
+      "inbox": {
+        "userFallback": "User #{id}",
+        "loading": "Fetching inbox for {name}...",
+        "backToUsers": "Back to User List",
+        "back": "Back",
+        "title": "Inbox: {name}",
+        "noPrevious": "No previous conversations.",
+        "loadFailed": "Failed to fetch inbox: {message}"
+      },
+      "chat": {
+        "chooseConversation": "Choose a conversation from the list to view details",
+        "placeholder": "The conversation will appear here.",
+        "invalidContact": "Unable to identify the other conversation participant.",
+        "conversationBetween": "Conversation between:",
+        "loadingMessages": "Loading messages...",
+        "emptyMessages": "No messages recorded.",
+        "messagesLoadFailed": "Unable to load messages: {message}"
+      }
+    },
+    "enrollments": {
+      "status": {
+        "active": "Active",
+        "completed": "Completed",
+        "dropped": "Dropped"
+      },
+      "common": {
+        "notSpecified": "Not specified",
+        "general": "General"
+      },
+      "filters": {
+        "allStatuses": "-- Filter by status (All) --"
+      },
+      "actions": {
+        "reloadTitle": "Reload list",
+        "refresh": "Refresh",
+        "enrollStudent": "Enroll Student in Program",
+        "deleteEnrollmentTitle": "Cancel and delete enrollment"
+      },
+      "form": {
+        "title": "Create New Enrollment Record",
+        "studentLabel": "Student to Enroll *",
+        "loadingStudents": "Loading students...",
+        "programLabel": "Program *",
+        "loadingPrograms": "Loading programs...",
+        "classLabel": "Class / Group *",
+        "chooseProgramFirst": "-- Choose the program first --",
+        "groupLabel": "Group Name (Optional)",
+        "groupPlaceholder": "Example: Group A, morning group...",
+        "notesLabel": "Administrative Notes (Optional)",
+        "notesPlaceholder": "Any notes about this enrollment...",
+        "confirm": "Confirm Enrollment",
+        "loading": "Loading...",
+        "chooseStudent": "-- Please choose the student --",
+        "chooseProgram": "-- Please choose the study program --",
+        "noClassesForProgram": "No classes are available for this program",
+        "chooseClass": "-- Please choose the class --"
+      },
+      "table": {
+        "empty": "No enrollment records currently match your search.",
+        "programFallback": "Program #{id}",
+        "studentId": "Student ID: #{id}",
+        "className": "Class: {value}",
+        "groupName": "Group: {value}",
+        "total": "Displayed records: {count}",
+        "student": "Student",
+        "programAndClass": "Program and Class",
+        "enrollmentDate": "Enrollment Date",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "messages": {
+        "filterFailed": "Filter failed: {message}",
+        "statusUpdated": "Enrollment status updated successfully.",
+        "statusUpdateFailed": "Failed to update status: {message}",
+        "deleteConfirm": "Are you sure you want to permanently delete this enrollment record?",
+        "deleteFailed": "Delete failed: {message}",
+        "loadDataFailed": "Failed to fetch data",
+        "programEndpointHint": "Make sure the /programs/ endpoint exists",
+        "loadClassesFailed": "Failed to fetch classes",
+        "requiredSelections": "Please make sure student, program, and class are selected.",
+        "created": "Enrollment record added successfully.",
+        "duplicateHint": "Make sure the student is not enrolled in the same program twice.",
+        "createFailed": "Enrollment failed: {message}"
+      }
+    },
+    "fees": {
+      "types": {
+        "tuition": "Tuition",
+        "transport": "Transport",
+        "activities": "Activities",
+        "exam": "Exam Fees",
+        "other": "Other"
+      },
+      "stats": {
+        "totalRemaining": "Total Remaining Debt",
+        "overdueCases": "Late Payment Cases",
+        "overdueRecord": "late records"
+      },
+      "actions": {
+        "add": "Add New Fee",
+        "refresh": "Refresh",
+        "reminderTitle": "Reminder",
+        "paymentsTitle": "Payment history",
+        "editTitle": "Edit record"
+      },
+      "filters": {
+        "typeLabel": "Type:",
+        "all": "All",
+        "searchPlaceholder": "Quick search by student name or ID...",
+        "overdueOnly": "Overdue only"
+      },
+      "form": {
+        "addTitle": "Add New Fee",
+        "editTitle": "Edit Fee",
+        "studentLabel": "Target Student *",
+        "studentPlaceholder": "Search by student name...",
+        "enrollmentLabel": "Enrollment / Program *",
+        "chooseStudentFirst": "-- Choose the student first --",
+        "typeLabel": "Fee Type *",
+        "dueDateLabel": "Due Date *",
+        "amountLabel": "Total Amount (DZD) *",
+        "discountLabel": "Discount / Grant (DZD)",
+        "save": "Save Record",
+        "loadingEnrollments": "Loading enrollments...",
+        "noActiveEnrollments": "This student has no active enrollments",
+        "chooseEnrollment": "-- Choose enrollment --",
+        "programFallback": "Program",
+        "enrollmentsLoadFailed": "Unable to load enrollments"
+      },
+      "table": {
+        "empty": "No matching financial records.",
+        "studentFallback": "Student #{id}",
+        "paidAmount": "Paid: {amount} DZD",
+        "total": "Displayed records: {count}",
+        "student": "Student",
+        "feeType": "Fee Type",
+        "remainingAmount": "Remaining Amount",
+        "dueDate": "Due Date",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "paid": "Paid in full",
+        "overdue": "Overdue",
+        "pending": "Pending"
+      },
+      "search": {
+        "noResults": "No results",
+        "idLabel": "ID: {id}"
+      },
+      "reminder": {
+        "title": "Fee Payment Reminder",
+        "message": "Dear student, you have a due fee of type ({feeType}) awaiting payment."
+      },
+      "payments": {
+        "title": "Fee Payment History",
+        "transaction": "Transaction #",
+        "date": "Payment Date",
+        "amount": "Amount Paid",
+        "receipt": "Receipt Number",
+        "close": "Close History",
+        "loading": "Fetching payments...",
+        "empty": "No payments have been recorded for this fee.",
+        "noReceipt": "No receipt",
+        "loadFailed": "Failed to fetch payment history: {message}"
+      },
+      "messages": {
+        "processingBalances": "Processing and calculating fee balances...",
+        "filterFailed": "Filter failed: {message}",
+        "overdueLoadFailed": "Unable to load overdue records: {message}",
+        "chooseStudentFirst": "Please choose the student first.",
+        "chooseEnrollment": "Please choose the student's program enrollment.",
+        "amountRequired": "Please enter a valid amount greater than zero.",
+        "updated": "Updated successfully.",
+        "created": "Fee added successfully.",
+        "saveFailed": "Save failed: {message}",
+        "searchFailed": "Search failed:",
+        "reminderSent": "Reminder notification sent successfully.",
+        "reminderFailed": "Failed to send reminder notification."
+      }
+    },
+    "financeTab": {
+      "loading": "Collecting accounting data...",
+      "stats": {
+        "totalCollected": "Total Collections",
+        "paymentsCount": "From {count} recorded payments",
+        "pendingFees": "Pending Fees",
+        "expectedCollection": "Expected collection amount",
+        "overdueDebts": "Overdue Debts",
+        "overdueCount": "{count} students require follow-up"
+      },
+      "quickLinks": {
+        "payments": "Manage Payments",
+        "fees": "Track Fees and Debts",
+        "transactions": "Daily Transaction Ledger"
+      },
+      "recent": {
+        "title": "Latest Ledger Activity",
+        "number": "Number",
+        "type": "Type",
+        "amount": "Amount",
+        "status": "Status",
+        "empty": "No transactions recorded."
+      },
+      "status": {
+        "completed": "Completed",
+        "pending": "Pending",
+        "cancelled": "Cancelled"
+      },
+      "messages": {
+        "loadFailed": "Failed to fetch financial data:"
+      }
+    },
+    "gradesTab": {
+      "loading": "Preparing grades panel...",
+      "types": {
+        "exam": "Exam",
+        "quiz": "Quiz",
+        "homework": "Homework"
+      },
+      "assessment": {
+        "optionLabel": "{title} (Max grade: {max})",
+        "choose": "-- Choose assessment --",
+        "showGrades": "Show Grades List"
+      },
+      "assessmentCard": {
+        "title": "Exam or Assessment Grades",
+        "description": "Choose an assessment to view student grades and success statistics."
+      },
+      "studentCard": {
+        "title": "Student Grade Report",
+        "description": "Search for a student to view the full academic record.",
+        "searchPlaceholder": "Search by student name...",
+        "showRecord": "Generate Grade Report"
+      },
+      "results": {
+        "emptyPrompt": "Data and statistics will appear here after searching."
+      },
+      "search": {
+        "noResults": "No matching results",
+        "idLabel": "ID: {id}"
+      },
+      "stats": {
+        "average": "Average Grade",
+        "highest": "Highest Grade",
+        "lowest": "Lowest Grade",
+        "gradedStudents": "Graded Students"
+      },
+      "quickForm": {
+        "title": "Enter Grade:",
+        "studentPlaceholder": "Search for student...",
+        "gradePlaceholder": "Grade",
+        "remarksPlaceholder": "Teacher remarks (optional)"
+      },
+      "assessmentResults": {
+        "title": "Assessment Statistics and Grades"
+      },
+      "table": {
+        "studentFallback": "Student #{id}",
+        "noAssessmentGrades": "No grades have been entered for this assessment yet.",
+        "id": "ID",
+        "studentName": "Student Name",
+        "grade": "Grade",
+        "remarks": "Teacher Remarks",
+        "actions": "Actions"
+      },
+      "studentRecord": {
+        "empty": "No grades are recorded in this student's academic record yet.",
+        "title": "Full Academic Report: Student #{id}",
+        "assessment": "Assessment / Subject",
+        "type": "Type",
+        "programClass": "Program / Class",
+        "gradeValue": "Grade",
+        "remarks": "Remarks"
+      },
+      "messages": {
+        "assessmentsLoadFailed": "Failed to load assessments list.",
+        "searchFailed": "Search failed:",
+        "chooseAssessmentFirst": "Please choose an assessment first.",
+        "loadingAssessmentGrades": "Loading grades and statistics...",
+        "assessmentLoadFailed": "Failed to load assessment data: {message}",
+        "studentAndGradeRequired": "Please choose a student and enter the grade.",
+        "gradeSaved": "Grade saved successfully.",
+        "saveFailed": "Save failed: {message}",
+        "chooseStudentFirst": "Please choose a student first.",
+        "loadingStudentRecord": "Generating academic record...",
+        "studentRecordFailed": "Failed to generate report: {message}"
+      }
+    },
+    "parentsTab": {
+      "common": {
+        "notAvailable": "Not available",
+        "notSpecified": "Not specified"
+      },
+      "toolbar": {
+        "total": "Total parents: {count}"
+      },
+      "actions": {
+        "linkUser": "Assign User as Parent",
+        "viewChildren": "View Children",
+        "deleteRoleTitle": "Remove role"
+      },
+      "form": {
+        "title": "Assign New Parent",
+        "userLabel": "Choose user account:",
+        "loadingUsers": "Loading users...",
+        "hint": "Only users that can be assigned as parent accounts should be selected.",
+        "noUsers": "No users are registered in the system",
+        "chooseUser": "-- Choose the user to assign --",
+        "save": "Save Assignment"
+      },
+      "table": {
+        "empty": "No parents are currently registered.",
+        "id": "ID",
+        "parent": "Parent",
+        "parentDetails": "Parent Details",
+        "phone": "Phone Number",
+        "children": "Children (Students)",
+        "actions": "Actions"
+      },
+      "messages": {
+        "loadUsersFailed": "Failed to fetch data",
+        "chooseUserFirst": "Please choose a user from the list first.",
+        "assigned": "User assigned as parent successfully.",
+        "unexpected": "Unexpected error",
+        "addFailed": "Add failed: {message}",
+        "deleteConfirm": "Are you sure you want to remove the parent role from this account?",
+        "loadingChildren": "Fetching data...",
+        "loadChildrenFailed": "Failed to fetch data: {message}"
+      },
+      "studentsModal": {
+        "title": "Parent Children",
+        "titleWithName": "Parent Children: {name}",
+        "empty": "No children are linked to this account currently.",
+        "className": "Class: {value}",
+        "registered": "Registered"
+      }
+    },
+    "notificationsTab": {
+      "stats": {
+        "totalSent": "Total Sent Notifications",
+        "read": "Read by users",
+        "unread": "Unread / Pending"
+      },
+      "targets": {
+        "single": "Single user",
+        "student": "All students",
+        "teacher": "All teachers",
+        "parent": "All parents",
+        "all": "All system users"
+      },
+      "form": {
+        "title": "Send New Alert or Notification",
+        "targetLabel": "Target Audience *",
+        "userSearchLabel": "Search user *",
+        "userSearchPlaceholder": "Type a username to search...",
+        "notificationTitleLabel": "Notification Title *",
+        "titlePlaceholder": "Example: Fee due date reminder...",
+        "messageLabel": "Message Content *",
+        "messagePlaceholder": "Write notification details here...",
+        "clear": "Clear Fields",
+        "send": "Send Notification"
+      },
+      "filters": {
+        "readStatus": "Read Status:",
+        "all": "All",
+        "readOnly": "Read only",
+        "unreadOnly": "Unread",
+        "searchPlaceholder": "Search notifications (recipient, title, content)..."
+      },
+      "actions": {
+        "cleanTitle": "Remove read notifications older than 30 days",
+        "clean": "Clean Log (30 days)",
+        "refresh": "Refresh",
+        "removeTitle": "Remove notification",
+        "remove": "Remove"
+      },
+      "table": {
+        "empty": "No previous notifications or matching results.",
+        "userFallback": "User #{id}",
+        "displayed": "Displayed results: {count} notifications",
+        "recipient": "Recipient",
+        "titleContent": "Title and Content",
+        "deliveryStatus": "Delivery Status",
+        "sentDate": "Sent Date",
+        "resolve": "Resolve"
+      },
+      "status": {
+        "read": "Read",
+        "unread": "Unread"
+      },
+      "search": {
+        "noResults": "No results",
+        "userRoleFallback": "User"
+      },
+      "messages": {
+        "userSearchFailed": "User search failed:",
+        "titleMessageRequired": "Please enter a title and notification content.",
+        "sending": "Sending...",
+        "chooseTargetUser": "Please search and choose the target user from the list.",
+        "sentSingle": "Notification sent to the user successfully.",
+        "noUsersForTarget": "No users found in {target}.",
+        "bulkConfirm": "This bulk notification will be sent to {count} users. Continue?",
+        "sentBulk": "Notification sent successfully to {count} users.",
+        "sendFailed": "Send failed: {message}",
+        "connectionHint": "Check server connection.",
+        "cleanConfirm": "Are you sure you want to clean the log and remove old read notifications? This cannot be undone.",
+        "cleanSuccess": "Old notifications were removed and the log was updated.",
+        "cleanFailed": "Failed to clean log: {message}"
+      }
+    },
+    "paymentsTab": {
+      "feeTypes": {
+        "tuition": "Tuition",
+        "transport": "Transport",
+        "activities": "Activities",
+        "exam": "Exam fees",
+        "other": "Other"
+      },
+      "summary": {
+        "totalCollected": "Displayed collections total"
+      },
+      "search": {
+        "placeholder": "Search by student name or receipt number...",
+        "noResults": "No results",
+        "idLabel": "ID: {id}"
+      },
+      "actions": {
+        "reloadAll": "Reload all",
+        "recordPayment": "Record Payment",
+        "printReceiptTitle": "Print receipt",
+        "print": "Print",
+        "cancelPaymentTitle": "Cancel payment"
+      },
+      "modal": {
+        "title": "Record New Payment",
+        "studentStep": "1. Search for the target student *",
+        "studentPlaceholder": "Type student name to search...",
+        "feeStep": "2. Choose the fee to settle *",
+        "chooseFee": "-- Choose the fee --",
+        "amountLabel": "Paid amount *",
+        "receiptLabel": "Receipt number (optional)",
+        "installmentLabel": "Installment number",
+        "confirmPayment": "Confirm Payment"
+      },
+      "balance": {
+        "netAmount": "Net fee amount:",
+        "previousPayments": "Previous payments:",
+        "remainingNow": "Remaining to pay now:"
+      },
+      "table": {
+        "empty": "No payments are recorded or matching your search.",
+        "studentFallback": "Student #{id}",
+        "feeFallback": "Fee #{id}",
+        "operation": "Operation",
+        "student": "Student",
+        "feeType": "Fee Type",
+        "amountPaid": "Amount Paid",
+        "receipt": "Receipt Number",
+        "noReceipt": "No receipt",
+        "installment": "Installment",
+        "installmentNumber": "Installment {number}",
+        "date": "Date",
+        "actions": "Actions",
+        "totalOperations": "Total operations: {count}"
+      },
+      "fee": {
+        "loadingStudentFees": "Fetching student debts...",
+        "noDebts": "This student has no due debts or payable invoices currently.",
+        "chooseFeeToPay": "-- Choose the fee to pay --",
+        "optionLabel": "#{id} - {type} - Amount: {amount}",
+        "loadFailed": "Failed to fetch student debts.",
+        "calculating": "Calculating...",
+        "fetchError": "Error fetching data"
+      },
+      "messages": {
+        "searchFailed": "Search failed:",
+        "amountRequired": "Please choose a fee and enter a valid amount greater than zero.",
+        "saving": "Saving...",
+        "success": "Payment recorded successfully.",
+        "checkData": "Please check the data.",
+        "saveFailed": "Save failed: {message}"
+      },
+      "receipt": {
+        "documentTitle": "Receipt #{id}",
+        "schoolName": "Modern School",
+        "systemName": "School Management System",
+        "cashReceipt": "Cash Receipt",
+        "receiptNumber": "Receipt Number: {value}",
+        "date": "Date:",
+        "reference": "Reference:",
+        "studentName": "Student Name:",
+        "targetFee": "Target Fee:",
+        "installment": "Installment:",
+        "paidAmount": "Paid Amount:",
+        "receivedNote": "The amount shown above has been received.",
+        "thankYou": "Thank you for choosing our school.",
+        "cashierSignature": "Cashier Signature"
+      }
+    },
+    "postsTab": {
+      "stats": {
+        "total": "Total announcements",
+        "today": "Published today",
+        "withCover": "With cover image",
+        "textOnly": "Text only"
+      },
+      "header": {
+        "title": "School Announcements Board",
+        "description": "Manage announcements and posts addressed to students and parents."
+      },
+      "actions": {
+        "newPost": "Write New Announcement",
+        "preview": "Preview",
+        "saveChanges": "Save Changes",
+        "publish": "Publish Announcement"
+      },
+      "search": {
+        "placeholder": "Search announcements..."
+      },
+      "empty": {
+        "title": "No announcements have been published yet",
+        "description": "Start by writing the first announcement for the school community."
+      },
+      "table": {
+        "announcement": "Announcement",
+        "title": "Announcement Title",
+        "author": "Author",
+        "userFallback": "User #{id}",
+        "publishDate": "Publish Date",
+        "actions": "Actions"
+      },
+      "preview": {
+        "title": "Announcement Preview"
+      },
+      "toolbar": {
+        "bold": "Bold",
+        "italic": "Italic",
+        "strike": "Strikethrough",
+        "inlineCode": "Inline code",
+        "list": "List",
+        "numbered": "Numbered",
+        "quote": "Quote",
+        "divider": "Divider",
+        "table": "Table",
+        "insertTable": "Insert table",
+        "image": "Image",
+        "insertImage": "Insert image",
+        "link": "Link",
+        "insertLink": "Insert link",
+        "download": "Download",
+        "downloadLink": "Download link",
+        "codeBlock": "Code block",
+        "insertCode": "Insert code block",
+        "math": "Math",
+        "insertMath": "Math equation"
+      },
+      "editor": {
+        "editKicker": "Edit Post",
+        "newKicker": "New Post",
+        "editTitle": "Edit Announcement",
+        "newTitle": "Write New Announcement",
+        "viewMode": "View Mode",
+        "modeWrite": "Write",
+        "modeSplit": "Split",
+        "modePreview": "Preview",
+        "fullscreen": "Fullscreen",
+        "backToList": "Back to list",
+        "titleLabel": "Announcement Title",
+        "titlePlaceholder": "Write a clear title...",
+        "coverLabel": "Cover Image",
+        "editorPane": "Editor",
+        "lineColumn": "Line {line} - Column {column}",
+        "contentPlaceholder": "Write announcement content here...",
+        "livePreview": "Live Preview",
+        "ready": "Ready",
+        "coverAlt": "Cover",
+        "titleFallback": "Announcement Title",
+        "previewPlaceholder": "Start typing to see the preview here...",
+        "wordCount": "{words} words - {chars} characters",
+        "empty": "Empty",
+        "updated": "Updated"
+      },
+      "draft": {
+        "savedDraftFound": "A saved draft exists for this announcement.",
+        "restore": "Restore",
+        "dismiss": "Dismiss",
+        "unsaved": "Unsaved changes",
+        "saved": "Draft saved",
+        "saveFailed": "Unable to save draft",
+        "dismissed": "Draft dismissed"
+      },
+      "download": {
+        "token": "Download",
+        "button": "Download"
+      },
+      "tableBuilder": {
+        "defaultHeader": "Column {index}",
+        "title": "Table Builder",
+        "columns": "Columns",
+        "rows": "Rows",
+        "alignment": "Column Alignment",
+        "markdownCode": "Markdown Code",
+        "previewHint": "Preview - edit headers directly",
+        "insert": "Insert in editor",
+        "headerPlaceholder": "Header",
+        "sampleCell": "Data",
+        "align": {
+          "right": "Right",
+          "center": "Center",
+          "left": "Left"
+        }
+      },
+      "insert": {
+        "imageTitle": "Insert Image",
+        "imageUrl": "Image URL",
+        "altText": "Alternative text",
+        "altPlaceholder": "Image description",
+        "imageDefaultAlt": "Image",
+        "linkTitle": "Insert Link",
+        "linkText": "Link text",
+        "linkDefaultText": "Click here",
+        "url": "URL",
+        "downloadTitle": "Insert Download Link",
+        "fileName": "File name",
+        "fileNamePlaceholder": "Physics book - chapter one",
+        "fileType": "File type (optional)",
+        "choose": "-- Choose --",
+        "video": "Video",
+        "audio": "Audio",
+        "fileSize": "Size (optional)",
+        "sizePlaceholder": "Example: 2.4 MB",
+        "downloadUrl": "Download URL"
+      },
+      "messages": {
+        "tableInserted": "Table inserted",
+        "downloadRequired": "Please fill at least the file name and link.",
+        "titleRequired": "Please enter the announcement title.",
+        "contentRequired": "Please enter the announcement content.",
+        "saving": "Saving...",
+        "updated": "Announcement updated successfully.",
+        "published": "Announcement published successfully.",
+        "saveFailed": "Error while saving: {message}"
+      }
+    },
+    "programsTab": {
+      "search": {
+        "placeholder": "Search by program name..."
+      },
+      "actions": {
+        "reloadTitle": "Reload list",
+        "add": "Add New Program",
+        "editTitle": "Edit program",
+        "deleteTitle": "Delete program"
+      },
+      "form": {
+        "addTitle": "Add Study Program",
+        "editTitle": "Edit Program",
+        "nameLabel": "Program Name *",
+        "namePlaceholder": "Example: Math support course, language course...",
+        "typeLabel": "Program Type *",
+        "typePlaceholder": "Example: Course, diploma, summer activity...",
+        "cashPriceLabel": "Cash Price",
+        "installmentPriceLabel": "Installment Price",
+        "save": "Save Program"
+      },
+      "table": {
+        "empty": "No study programs are currently registered.",
+        "name": "Program Name",
+        "type": "Type",
+        "cashPrice": "Cash Price",
+        "installmentPrice": "Installment Price",
+        "actions": "Actions",
+        "total": "Total Programs: {count}"
+      },
+      "messages": {
+        "minSearch": "Please enter at least two characters to search.",
+        "searchFailed": "Search failed: {message}",
+        "required": "Please enter the academic program name and type.",
+        "updated": "Program details updated successfully.",
+        "created": "New program added successfully.",
+        "saveFailed": "Save failed: {message}",
+        "unexpected": "Unexpected error"
+      }
+    },
+    "resourcesTab": {
+      "types": {
+        "pdf": "Book / PDF",
+        "document": "Text Document",
+        "video": "Video",
+        "image": "Image",
+        "archive": "Archive",
+        "file": "File"
+      },
+      "stats": {
+        "totalFiles": "Total Uploaded Files",
+        "fileUnit": "files",
+        "librarySize": "Total Library Size"
+      },
+      "search": {
+        "placeholder": "Search by file title, description, or teacher..."
+      },
+      "actions": {
+        "uploadNew": "Upload New File",
+        "downloadTitle": "Download file",
+        "deleteTitle": "Permanent delete"
+      },
+      "upload": {
+        "title": "Upload New Learning Resource",
+        "titleLabel": "File Title *",
+        "titlePlaceholder": "Example: First chapter summary...",
+        "typeLabel": "File Type *",
+        "assignmentLabel": "Linked assignment (optional)",
+        "noAssignment": "-- No link (general file) --",
+        "descriptionLabel": "Short description (optional)",
+        "descriptionPlaceholder": "Additional information about the file...",
+        "chooseFile": "Click to choose the file (max 5MB)",
+        "startUpload": "Start Upload",
+        "fileSelected": "Selected file:",
+        "loadingAssignments": "Loading assignments...",
+        "assignmentsLoadFailed": "Unable to fetch assignments; you may leave it empty"
+      },
+      "table": {
+        "empty": "The library is empty or no results match your search.",
+        "generalFile": "General File (Unlinked)",
+        "subjectFallback": "Subject",
+        "classFallback": "Class",
+        "teacherLabel": "Teacher:",
+        "notSpecified": "Not specified",
+        "fileDetails": "File Name and Details",
+        "noDescription": "No description",
+        "academicLink": "Academic Link",
+        "type": "Type",
+        "size": "Size",
+        "actions": "Actions"
+      },
+      "messages": {
+        "uploading": "Uploading...",
+        "fileRequired": "Please choose a file to upload.",
+        "uploadSuccess": "File uploaded successfully and added to the library.",
+        "checkFile": "Check file type and size.",
+        "uploadFailed": "Upload failed: {message}",
+        "preparingDownload": "Preparing file for download, please wait...",
+        "downloadMissing": "Unable to fetch the file from the server. It may be deleted or the path is invalid.",
+        "downloadFailed": "Download failed: {message}"
+      }
+    },
+    "schedulesTab": {
+      "cards": {
+        "classSchedule": "Class Schedule",
+        "teacherSchedule": "Teacher Schedule",
+        "chooseClass": "-- Choose class --",
+        "chooseTeacher": "-- Choose teacher --",
+        "show": "Show"
+      },
+      "actions": {
+        "addSession": "Add Session to Schedule",
+        "deleteSessionTitle": "Delete session"
+      },
+      "emptyPrompt": "Choose a class or teacher to display the weekly schedule here.",
+      "modal": {
+        "title": "Add New Session",
+        "classLabel": "Class:",
+        "chooseClassFirst": "-- Choose class first --",
+        "assignmentLabel": "Subject and teacher assignment:",
+        "chooseClass": "-- Please choose the class --",
+        "dayLabel": "Day:",
+        "roomLabel": "Room:",
+        "roomPlaceholder": "Example: Room 101",
+        "startTimeLabel": "Start Time:",
+        "endTimeLabel": "End Time:",
+        "save": "Save Session"
+      },
+      "days": {
+        "Sunday": "Sunday",
+        "Monday": "Monday",
+        "Tuesday": "Tuesday",
+        "Wednesday": "Wednesday",
+        "Thursday": "Thursday",
+        "Friday": "Friday",
+        "Saturday": "Saturday"
+      },
+      "table": {
+        "emptySchedule": "No sessions are currently registered in this schedule.",
+        "subjectFallback": "Subject",
+        "teacherFallback": "Teacher",
+        "classFallback": "Class",
+        "teacherPrefix": "Teacher:",
+        "classPrefix": "Class:",
+        "roomPrefix": "Room:",
+        "notSpecified": "Not specified",
+        "emptyDay": "Empty"
+      },
+      "assignments": {
+        "loading": "Loading...",
+        "none": "No teachers are assigned to this class",
+        "optionLabel": "Subject: {subject} | Teacher: {teacher}",
+        "loadFailed": "Error fetching data"
+      },
+      "messages": {
+        "baseLoadFailed": "Failed to load schedule base data:",
+        "chooseFromList": "Please choose from the list first.",
+        "loadingSchedule": "Loading schedule...",
+        "loadFailed": "Failed to load schedule: {message}",
+        "noData": "No data",
+        "chooseAssignment": "Please choose the subject and teacher assignment.",
+        "created": "Session added to the schedule successfully.",
+        "createFailed": "Add failed: {message}",
+        "timeConflictHint": "Make sure there is no time conflict.",
+        "deleteConfirm": "Are you sure you want to delete this schedule session?"
+      }
+    },
+    "studentsTab": {
+      "search": {
+        "placeholder": "Search by name or ID..."
+      },
+      "actions": {
+        "add": "Register New Student",
+        "reloadTitle": "Reload list",
+        "viewProfile": "View Detailed Profile",
+        "changeStatus": "Change Status"
+      },
+      "form": {
+        "title": "Register New Student in the System",
+        "userLabel": "Linked User Account *",
+        "loadingAccounts": "Loading accounts...",
+        "parentLabel": "Parent",
+        "noParent": "-- No parent --",
+        "dobLabel": "Date of Birth",
+        "bloodLabel": "Blood Group",
+        "notSpecified": "-- Not specified --",
+        "medicalLabel": "Medical notes (optional)",
+        "medicalPlaceholder": "Allergies, medications, etc...",
+        "save": "Save Data",
+        "chooseUser": "-- Choose user account --",
+        "loadFailed": "Failed to fetch data"
+      },
+      "table": {
+        "empty": "No matching search results.",
+        "total": "Total Students: {count}",
+        "id": "ID",
+        "student": "Student",
+        "account": "Account: #{id}",
+        "class": "Class",
+        "classFallback": "Not registered in a class",
+        "dateOfBirth": "Date of Birth",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Disabled"
+      },
+      "messages": {
+        "minSearch": "Please enter at least two characters to search.",
+        "searchFailed": "Search failed: {message}",
+        "statusConfirm": "Are you sure you want to change this student's status to {status}?",
+        "statusFailed": "Failed to change status: {message}",
+        "chooseUserFirst": "Please choose a user account first.",
+        "created": "Student registered successfully.",
+        "createFailed": "Registration failed: {message}",
+        "loadingProfile": "Collecting student profile...",
+        "profileFailed": "Failed to fetch student profile: {message}"
+      },
+      "profile": {
+        "studentId": "Student ID: #{id}",
+        "tabs": {
+          "personal": "Personal",
+          "academic": "Academic",
+          "finance": "Finance"
+        },
+        "personal": {
+          "dateOfBirth": "Date of Birth:",
+          "bloodGroup": "Blood Group:",
+          "medicalNotes": "Medical Notes:",
+          "none": "None"
+        },
+        "academic": {
+          "gradesTitle": "Grade Record",
+          "assessment": "Assessment",
+          "subject": "Subject",
+          "grade": "Grade",
+          "noGrades": "No grade record"
+        },
+        "finance": {
+          "paidTotal": "Total Paid",
+          "remaining": "Remaining Amount"
+        }
+      }
+    },
+    "usersTab": {
+      "roles": {
+        "admin": "Admin",
+        "receptionist": "Receptionist",
+        "student": "Student",
+        "parent": "Parent",
+        "accountant": "Accountant",
+        "teacher": "Teacher"
+      },
+      "search": {
+        "placeholder": "Search users (at least two characters)..."
+      },
+      "actions": {
+        "add": "Add New User",
+        "reloadTitle": "Reload list",
+        "disable": "Disable account",
+        "enable": "Enable account"
+      },
+      "table": {
+        "id": "ID",
+        "fullName": "Full Name",
+        "username": "Username",
+        "contact": "Contact",
+        "status": "Status",
+        "actions": "Actions",
+        "empty": "No users to display.",
+        "roleId": "Role ID: {id}"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Disabled"
+      },
+      "form": {
+        "addTitle": "Add New User",
+        "editTitle": "Edit User",
+        "fullName": "Full Name *",
+        "role": "Role *",
+        "selectRole": "Select Role",
+        "username": "Username *",
+        "password": "Password *",
+        "passwordPlaceholder": "Enter password",
+        "passwordHint": "Leave it empty if you do not want to change it.",
+        "email": "Email",
+        "phone": "Phone",
+        "address": "Address",
+        "activeAccount": "Active account (can sign in)",
+        "save": "Save Data"
+      },
+      "messages": {
+        "loading": "Loading...",
+        "refreshing": "Refreshing...",
+        "searching": "Searching...",
+        "loadFailed": "Failed to load users: {message}",
+        "minSearch": "Please enter at least two characters to search.",
+        "searchFailed": "Search failed: {message}",
+        "enableConfirm": "Do you want to enable this account?",
+        "disableConfirm": "Do you want to disable this account and prevent sign-in?",
+        "statusFailed": "Failed to change status: {message}",
+        "deleteConfirm": "Are you sure you want to permanently delete this user? This action cannot be undone.",
+        "required": "Please fill in all required fields: Full Name, Username, and Role.",
+        "passwordRequired": "Please provide a password for the new user.",
+        "updated": "User updated successfully.",
+        "created": "User created successfully.",
+        "duplicateHint": "Please check for duplicate usernames.",
+        "saveFailed": "Error saving data: {message}"
+      }
+    },
+    "teachersTab": {
+      "search": {
+        "placeholder": "Search by teacher name or specialty..."
+      },
+      "actions": {
+        "add": "Add New Teacher",
+        "reloadTitle": "Reload list",
+        "viewProfile": "Profile and schedule",
+        "profile": "Profile",
+        "editTitle": "Edit specialty and date"
+      },
+      "form": {
+        "addTitle": "Add Teaching Staff",
+        "addNewTitle": "Add New Teacher",
+        "editTitle": "Edit Teacher Data",
+        "userLabel": "User Account *",
+        "loadingAccounts": "Loading accounts...",
+        "chooseUser": "-- Choose user account --",
+        "loadAccountsFailed": "Failed to load accounts",
+        "specialty": "Academic Specialty",
+        "specialtyPlaceholder": "Example: Mathematics, Physics, Arabic...",
+        "hireDate": "Hire Date",
+        "save": "Save Data"
+      },
+      "table": {
+        "empty": "No teachers are registered or matching your search.",
+        "teacher": "Teacher",
+        "userAccount": "User account: #{id}",
+        "specialty": "Specialty",
+        "hireDate": "Hire Date",
+        "actions": "Actions",
+        "general": "General",
+        "total": "Total Teachers: {count}"
+      },
+      "days": {
+        "Sunday": "Sunday",
+        "Monday": "Monday",
+        "Tuesday": "Tuesday",
+        "Wednesday": "Wednesday",
+        "Thursday": "Thursday",
+        "Friday": "Friday",
+        "Saturday": "Saturday"
+      },
+      "profile": {
+        "classLabel": "Class:",
+        "levelLabel": "Level:",
+        "specialtyLabel": "Specialty:",
+        "hireLabel": "Hired:",
+        "noAssignments": "No assignments are registered.",
+        "emptySchedule": "The schedule is empty.",
+        "tabs": {
+          "assignments": "Classes and Assignments",
+          "schedule": "Schedule"
+        }
+      },
+      "messages": {
+        "minSearch": "Please enter at least two characters to search.",
+        "searchFailed": "Search failed: {message}",
+        "updated": "Teacher data updated successfully.",
+        "created": "Teacher created successfully.",
+        "chooseUser": "Please choose a user account.",
+        "checkData": "Check the data or duplicate account.",
+        "saveFailed": "Save failed: {message}",
+        "loadingProfile": "Loading teacher profile and schedule...",
+        "profileFailed": "Failed to fetch teacher details: {message}"
+      }
+    },
+    "transactionsTab": {
+      "summary": {
+        "completedVolume": "Completed Transfer Volume",
+        "pendingOperations": "Pending Operations"
+      },
+      "actions": {
+        "statement": "Statement",
+        "newTransfer": "New Transfer",
+        "refreshTable": "Refresh Table",
+        "changeStatus": "Change Status"
+      },
+      "filters": {
+        "label": "Filter:",
+        "allTypes": "-- All Types --",
+        "allStatuses": "-- All Statuses --",
+        "completedOnly": "Completed only",
+        "pendingOnly": "Pending only",
+        "cancelledOnly": "Cancelled only"
+      },
+      "types": {
+        "payment": "Fee Payment",
+        "refund": "Refund",
+        "transfer": "Internal Transfer",
+        "adjustment": "Adjustment",
+        "salary": "Salary"
+      },
+      "statuses": {
+        "completed": "Completed",
+        "pending": "Pending",
+        "failed": "Failed",
+        "cancelled": "Cancelled"
+      },
+      "table": {
+        "empty": "No matching financial transfers.",
+        "transactionNumber": "Transaction Number",
+        "transferParties": "Transfer Parties",
+        "amount": "Amount",
+        "type": "Type",
+        "notes": "Notes",
+        "status": "Status",
+        "actions": "Actions",
+        "from": "From:",
+        "to": "To:",
+        "userFallback": "User #{id}"
+      },
+      "modal": {
+        "addTitle": "Record New Financial Transfer",
+        "fromLabel": "Sender (From) *",
+        "toLabel": "Receiver (To) *",
+        "userSearchPlaceholder": "Search by username...",
+        "amountLabel": "Amount (DZD) *",
+        "typeLabel": "Operation Type *",
+        "notesLabel": "Notes / Operation Statement",
+        "notesPlaceholder": "Write the transfer reason...",
+        "execute": "Execute Transfer",
+        "statusTitle": "Change Transfer Status",
+        "newStatusLabel": "New Status:",
+        "statusNotesLabel": "Reason for change (optional):",
+        "statusNotesPlaceholder": "Short note...",
+        "updateStatus": "Update Status",
+        "statementTitle": "Extract Account Statement",
+        "statementSearchLabel": "Search for user *",
+        "statementPlaceholder": "Student or staff name...",
+        "extractStatement": "Extract Statement"
+      },
+      "search": {
+        "noResults": "No results"
+      },
+      "statement": {
+        "titleWithUser": "Account Statement: {user}",
+        "emptyForUser": "No financial movements are recorded for this user.",
+        "detailedTitle": "Detailed Financial Statement",
+        "user": "User:",
+        "netBalance": "Net Balance (completed)",
+        "date": "Date",
+        "type": "Type",
+        "otherParty": "Other Party",
+        "amount": "Amount",
+        "print": "Print Statement"
+      },
+      "messages": {
+        "filterFailed": "Filter failed: {message}",
+        "searchFailed": "Search failed:",
+        "requiredTransfer": "Please fill all fields and enter a valid amount.",
+        "transferCreated": "Financial transfer recorded successfully.",
+        "transferFailed": "Transfer execution failed: {message}",
+        "statusUpdated": "Transfer status updated.",
+        "statusFailed": "Failed to update status: {message}",
+        "selectUserFirst": "Please select the user first.",
+        "loadingStatement": "Fetching and analyzing financial data...",
+        "statementFailed": "Failed to extract statement: {message}"
+      }
+    }
+  },
+  "legacyText": {
+    "نظرة عامة": "Overview",
+    "لوحة الإدارة": "Administration",
+    "تسجيل الخروج": "Log out",
+    "فاتح": "Light",
+    "داكن": "Dark",
+    "تصغير القائمة": "Collapse menu",
+    "توسيع القائمة": "Expand menu",
+    "لا توجد نتيجة مطابقة": "No matching result",
+    "جاري تحميل البيانات...": "Loading data...",
+    "عذراً، حدث خطأ:": "Sorry, an error occurred:",
+    "إدارة المستخدمين": "User Management",
+    "إدارة أولياء الأمور": "Parent Management",
+    "نظرة عامة على الشؤون الأكاديمية": "Academic Affairs Overview",
+    "إدارة الفصول الدراسية والمقاعد": "Classrooms and Seat Management",
+    "إدارة شؤون الطلاب": "Student Affairs Management",
+    "إدارة الطاقم التعليمي": "Teaching Staff Management",
+    "إدارة البرامج الدراسية": "Study Program Management",
+    "إدارة تسجيلات الطلاب": "Enrollment Management",
+    "إدارة سجلات الحضور والغياب": "Attendance Records Management",
+    "إدارة الجداول الزمنية": "Schedule Management",
+    "إدارة التقييمات والامتحانات": "Assessment and Exam Management",
+    "إدارة الرسوم والديون": "Fees and Debts Management",
+    "سجل المدفوعات والتحصيلات": "Payments and Collections",
+    "سجل التحويلات والدفتر اليومي": "Transactions and Daily Ledger",
+    "المكتبة والموارد التعليمية": "Library and Learning Resources",
+    "مراقبة المحادثات والرسائل المباشرة": "Conversation and Direct Message Monitoring",
+    "إدارة التنبيهات والإشعارات": "Notification and Alert Management",
+    "إدارة الإعلانات والمنشورات العامة": "Announcements and Public Posts",
+    "أولياء الأمور": "Parents",
+    "نظرة عامة (أكاديمي)": "Academic Overview",
+    "الفصول والمقاعد": "Classes and Seats",
+    "شؤون الطلاب": "Student Affairs",
+    "الطاقم التعليمي": "Teaching Staff",
+    "البرامج الدراسية": "Study Programs",
+    "سجلات التسجيل": "Enrollment Records",
+    "الحضور والغياب": "Attendance",
+    "الجداول الزمنية": "Schedules",
+    "التقييمات والامتحانات": "Assessments and Exams",
+    "الدرجات والنتائج": "Grades and Results",
+    "نظرة عامة (مالية)": "Financial Overview",
+    "الرسوم والديون": "Fees and Debts",
+    "سجل المدفوعات": "Payment Records",
+    "الدفتر اليومي": "Daily Ledger",
+    "المكتبة الرقمية": "Digital Library",
+    "المحادثات المباشرة": "Live Conversations",
+    "الإشعارات والتنبيهات": "Notifications and Alerts",
+    "لوحة الإعلانات": "Announcements Board",
+    "الإدارة الأساسية": "Core Administration",
+    "الشؤون الأكاديمية": "Academic Affairs",
+    "المالية والموارد": "Finance and Resources",
+    "التواصل والمجتمع": "Communication and Community",
+    "بحث": "Search",
+    "إعادة تحميل": "Reload",
+    "حفظ": "Save",
+    "إلغاء": "Cancel",
+    "تعديل": "Edit",
+    "حذف": "Delete",
+    "عرض": "View",
+    "إغلاق": "Close",
+    "طباعة": "Print",
+    "تنزيل": "Download",
+    "إرسال": "Send",
+    "إضافة": "Add",
+    "جاري تجميع وتحليل البيانات الأكاديمية...": "Collecting and analyzing academic data...",
+    "إجمالي الطلاب": "Total Students",
+    "الطاقم التعليمي": "Teaching Staff",
+    "الفصول الدراسية": "Classes",
+    "معدل الامتلاء العام": "Overall Occupancy Rate",
+    "الإجراءات السريعة": "Quick Actions",
+    "إدارة الطلاب": "Manage Students",
+    "تسجيل الغياب": "Record Attendance",
+    "الجدول الزمني": "Schedule",
+    "إدخال الدرجات": "Enter Grades",
+    "إشغال:": "Occupancy:",
+    "تنبيه الاكتظاظ": "Crowding Alert",
+    "أعلى 5 فصول": "Top 5 Classes",
+    "حضور اليوم": "Today's Attendance",
+    "اختر فصلاً لمعرفة حضوره اليوم": "Choose a class to view today's attendance",
+    "تحقق": "Check",
+    "اختر الفصل واضغط تحقق لرؤية إحصائية اليوم فوراً.": "Choose a class and click Check to view today's statistics.",
+    "خطأ في الاتصال بالخادم:": "Server connection error:",
+    "يرجى اختيار الفصل أولاً.": "Please choose a class first.",
+    "جاري جلب السجلات...": "Fetching records...",
+    "لم يتم تسجيل غياب/حضور هذا الفصل لليوم بعد.": "No attendance has been recorded for this class today yet.",
+    "نسبة الحضور": "Attendance Rate",
+    "حاضر:": "Present:",
+    "غائب:": "Absent:",
+    "متأخر:": "Late:",
+    "فشل الجلب:": "Fetch failed:",
+    "البرنامج": "Program",
+    "المستوى الدراسي": "Academic Level",
+    "الفئة العمرية": "Age Group",
+    "مقعد": "seat",
+    "غير محدد": "Not specified",
+    "عام": "General",
+    "بدون برنامج": "No Program",
+    "حدث خطأ غير متوقع.": "An unexpected error occurred.",
+    "جاري تجهيز لوحة الحضور...": "Preparing attendance panel...",
+    "اختيار الفصل والتاريخ": "Choose Class and Date",
+    "الفصل الدراسي": "Class",
+    "التاريخ": "Date",
+    "عرض الورقة": "Show Sheet",
+    "البحث عن سجل طالب": "Search Student Record",
+    "ابحث باسم الطالب...": "Search by student name...",
+    "مراقب الغياب السريع": "Quick Attendance Monitor",
+    "عرض إحصائيات الطالب": "View Student Statistics",
+    "تفاصيل التبرير": "Justification Details",
+    "أدخل تفاصيل التبرير": "Enter justification details",
+    "شهادة طبية، ظروف عائلية...": "Medical certificate, family circumstances...",
+    "لا توجد نتائج مطابقة": "No matching results",
+    "يرجى اختيار الفصل والتاريخ أولاً.": "Please choose a class and date first.",
+    "جاري جلب القائمة من السيرفر...": "Fetching list from the server...",
+    "لا يوجد طلاب مسجلين في هذا الفصل حالياً.": "No students are currently enrolled in this class.",
+    "ورقة الحضور ليوم:": "Attendance Sheet for:",
+    "اسم الطالب": "Student Name",
+    "الحالة": "Status",
+    "ملاحظات / تبرير": "Notes / Justification",
+    "إجراء فردي": "Single Action",
+    "حاضر": "Present",
+    "غائب": "Absent",
+    "متأخر": "Late",
+    "سبب (إن وجد)...": "Reason (if any)...",
+    "حفظ ورقة الفصل بالكامل": "Save Entire Class Sheet",
+    "فشل تحميل القائمة:": "Failed to load list:",
+    "تم الحفظ ✓": "Saved ✓",
+    "فشل الحفظ:": "Save failed:",
+    "جاري الحفظ...": "Saving...",
+    "حدث خطأ أثناء حفظ بعض السجلات. يرجى المراجعة والمحاولة مرة أخرى.": "An error occurred while saving some records. Please review and try again.",
+    "يرجى اختيار طالب من القائمة أو إدخال رقمه أولاً.": "Please choose a student from the list or enter their ID first.",
+    "جاري جلب سجل الطالب...": "Fetching student record...",
+    "سجل الغيابات والتأخيرات للطالب": "Absence and lateness record for student",
+    "التبرير الإداري": "Administrative Justification",
+    "السبب / ملاحظات": "Reason / Notes",
+    "لا توجد أي غيابات أو تأخيرات مسجلة لهذا الطالب.": "No absences or late arrivals are recorded for this student.",
+    "فشل تحميل سجل الطالب:": "Failed to load student record:",
+    "فشل التحديث:": "Update failed:",
+    "جاري حساب الإحصائيات...": "Calculating statistics...",
+    "إجمالي الغيابات": "Total Absences",
+    "إجمالي التأخيرات": "Total Late Arrivals",
+    "غيابات مبررة": "Justified Absences",
+    "غيابات غير مبررة": "Unjustified Absences",
+    "تعذر جلب الإحصائيات، يرجى المحاولة لاحقاً.": "Unable to fetch statistics. Please try again later.",
+    "تم حفظ السجل بنجاح.": "Record saved successfully.",
+    "إجمالي التقييمات المعروضة:": "Displayed Assessments:",
+    "عنوان التقييم والتكليف": "Assessment Title and Assignment",
+    "النوع": "Type",
+    "الدرجة القصوى": "Maximum Grade",
+    "تاريخ الاستحقاق": "Due Date",
+    "إجراءات": "Actions",
+    "ابحث باسم التقييم...": "Search by assessment name...",
+    "إضافة تقييم جديد": "Add New Assessment",
+    "تعديل التقييم": "Edit Assessment",
+    "عنوان التقييم": "Assessment Title",
+    "مثال: الفرض الأول في مادة الرياضيات...": "Example: First math assignment...",
+    "التكليف المرجعي": "Reference Assignment",
+    "يرجى اختيار التكليف المرجعي": "Please choose the reference assignment",
+    "جاري تحميل التكليفات...": "Loading assignments...",
+    "أدخل رقم التكليف": "Enter assignment ID",
+    "اختبار": "Quiz",
+    "امتحان": "Exam",
+    "واجب": "Assignment",
+    "لا توجد تقييمات مطابقة للبحث حالياً.": "No assessments currently match the search.",
+    "يرجى إدخال عنوان التقييم": "Please enter the assessment title",
+    "يرجى اختيار التكليف المرجعي للتقييم": "Please choose the reference assignment for the assessment",
+    "تم تحديث بيانات التقييم بنجاح.": "Assessment updated successfully.",
+    "تم إنشاء التقييم الجديد بنجاح.": "New assessment created successfully.",
+    "درجات:": "Grades:",
+    "جاري جلب بيانات الدرجات من السيرفر...": "Fetching grades from the server...",
+    "لا توجد درجات مرصودة لهذا التقييم حتى الآن.": "No grades have been recorded for this assessment yet.",
+    "فشل جلب الدرجات:": "Failed to fetch grades:",
+    "الطالب": "Student",
+    "الكل": "All",
+    "نشط": "Active",
+    "مكتمل": "Completed",
+    "منسحب": "Dropped",
+    "تحديث": "Refresh",
+    "يرجى اختيار الطالب": "Please choose the student",
+    "يرجى اختيار البرنامج الدراسي": "Please choose the study program",
+    "يرجى اختيار الفوج": "Please choose the class",
+    "اختر البرنامج أولاً": "Choose the program first",
+    "فشل جلب البيانات": "Failed to fetch data",
+    "فشل التسجيل:": "Enrollment failed:",
+    "المعرف": "ID",
+    "المستخدم": "User",
+    "الرتبة": "Role",
+    "إجراء": "Action",
+    "جاري البحث...": "Searching...",
+    "فشل البحث:": "Search failed:",
+    "لا يوجد مستخدمين مطابقين للبحث.": "No users match the search.",
+    "العودة": "Back",
+    "تاريخ الاستحقاق": "Due Date",
+    "الرقم": "Number",
+    "المبلغ": "Amount",
+    "العلامة": "Grade",
+    "ملاحظات الأستاذ": "Teacher Remarks",
+    "إدارة التنبيهات والإشعارات": "Notification Management",
+    "إجمالي الإشعارات المرسلة": "Total Sent Notifications",
+    "تمت قراءتها": "Read",
+    "استلمها المستخدم": "Received by user",
+    "غير مقروءة": "Unread",
+    "قيد الانتظار": "Pending",
+    "اكتب اسم المستخدم للبحث...": "Type a username to search...",
+    "مثال: تذكير بموعد استحقاق الرسوم...": "Example: Fee due date reminder...",
+    "اكتب تفاصيل الإشعار هنا...": "Write notification details here...",
+    "بحث في الإشعارات": "Search notifications",
+    "بحث في الإشعارات (المستلم، العنوان، المحتوى)...": "Search notifications (recipient, title, content)...",
+    "النتائج المعروضة:": "Displayed Results:",
+    "إشعار ID": "Notification ID",
+    "المستلم": "Recipient",
+    "العنوان والمحتوى": "Title and Content",
+    "حالة الاستلام": "Delivery Status",
+    "تاريخ الإرسال": "Sent Date",
+    "تسوية (إزالة)": "Resolve (Remove)",
+    "إرسال الإشعار": "Send Notification",
+    "إرسال الإشعار 🚀": "Send Notification 🚀",
+    "جاري الإرسال...": "Sending...",
+    "سيتم إرسال هذا الإشعار الجماعي إلى": "This bulk notification will be sent to",
+    "مستخدم. هل ترغب في المتابعة؟": "users. Do you want to continue?",
+    "هل أنت متأكد من رغبتك في تنظيف السجل وإزالة الإشعارات المقروءة القديمة؟": "Are you sure you want to clean the log and remove old read notifications?",
+    "لا يمكن التراجع": "This cannot be undone",
+    "تم إزالة الإشعارات القديمة وتحديث السجل.": "Old notifications were removed and the log was updated.",
+    "تم إرسال الإشعار بنجاح إلى": "Notification sent successfully to",
+    "تم إرسال الإشعار للمستخدم بنجاح.": "Notification sent to the user successfully.",
+    "فشل إرسال الإشعار للطالب.": "Failed to send notification to the student.",
+    "فشل الإرسال:": "Send failed:",
+    "لا يوجد مستخدمين في فئة": "No users found in category",
+    "لإرسال الإشعار إليهم.": "to send the notification to.",
+    "يرجى إدخال عنوان ومحتوى للإشعار.": "Please enter a title and notification content.",
+    "يرجى البحث واختيار المستخدم المستهدف من القائمة.": "Please search and choose the target user from the list.",
+    "تم إرسال إشعار التذكير للطالب بنجاح.": "Reminder notification sent to the student successfully.",
+    "فشل في تنظيف السجل:": "Failed to clean the log:",
+    "إدارة أولياء الأمور": "Parent Management",
+    "بيانات ولي الأمر": "Parent Details",
+    "رقم الهاتف": "Phone Number",
+    "الأبناء (الطلاب)": "Children (Students)",
+    "لا يوجد أولياء أمور مسجلين حالياً.": "No parents are currently registered.",
+    "اختر المستخدم الذي تريد تعيينه": "Choose the user to assign",
+    "جاري تحميل قائمة المستخدمين...": "Loading user list...",
+    "لا يوجد مستخدمين مسجلين في النظام": "No users are registered in the system",
+    "يرجى اختيار مستخدم من القائمة أولاً.": "Please choose a user from the list first.",
+    "تم تعيين المستخدم كولي أمر بنجاح.": "User assigned as parent successfully.",
+    "فشل الإضافة:": "Add failed:",
+    "هل أنت متأكد من إزالة دور ولي الأمر عن هذا الحساب؟": "Are you sure you want to remove the parent role from this account?",
+    "لن يتم حذف الحساب الأصلي للمستخدم": "The user's original account will not be deleted",
+    "أبناء ولي الأمر:": "Parent's Children:",
+    "لا يوجد أبناء مرتبطين بهذا الحساب حالياً.": "No children are linked to this account currently.",
+    "فشل في جلب البيانات:": "Failed to fetch data:",
+    "سجل المدفوعات والتحصيلات": "Payments and Collections",
+    "بحث باسم الطالب أو رقم الإيصال...": "Search by student name or receipt number...",
+    "تسجيل دفعة مالية": "Record Payment",
+    "إجمالي التحصيلات المعروضة": "Displayed Collections",
+    "إجمالي العمليات:": "Total Transactions:",
+    "العملية": "Transaction",
+    "المبلغ المدفوع": "Amount Paid",
+    "رقم الوصل": "Receipt Number",
+    "رقم القسط": "Installment Number",
+    "اكتب اسم الطالب للبحث...": "Type student name to search...",
+    "اختر الرسم المالي": "Choose Fee",
+    "اختر الرسم المالي المراد تسديده": "Choose the fee to pay",
+    "جاري جلب ديون الطالب...": "Fetching student debts...",
+    "هذا الطالب ليس لديه أي ديون أو فواتير مستحقة الدفع حالياً": "This student has no debts or due invoices currently",
+    "فشل جلب ديون الطالب.": "Failed to fetch student debts.",
+    "جاري الحساب...": "Calculating...",
+    "خطأ في جلب البيانات": "Error fetching data",
+    "تأكيد الدفع": "Confirm Payment",
+    "تم تسجيل الدفعة المالية بنجاح.": "Payment recorded successfully.",
+    "يرجى اختيار الرسم وإدخال مبلغ صحيح أكبر من الصفر.": "Please choose a fee and enter a valid amount greater than zero.",
+    "لا توجد مدفوعات مسجلة أو مطابقة لبحثك.": "No payments are recorded or matching your search.",
+    "إدارة الإعلانات والمنشورات العامة": "Announcements and Public Posts",
+    "كتابة إعلان جديد": "Write New Announcement",
+    "منشور جديد": "New Post",
+    "تعديل الإعلان": "Edit Announcement",
+    "تعديل منشور": "Edit Post",
+    "البحث في الإعلانات...": "Search announcements...",
+    "الكاتب": "Author",
+    "تاريخ النشر": "Publish Date",
+    "نشر الإعلان": "Publish Announcement",
+    "حفظ التعديلات": "Save Changes",
+    "معاينة": "Preview",
+    "ملء الشاشة": "Fullscreen",
+    "اكتب عنوانا واضحا...": "Write a clear title...",
+    "اكتب محتوى الإعلان هنا...": "Write the announcement content here...",
+    "ابدأ الكتابة لرؤية المعاينة هنا...": "Start typing to see the preview here...",
+    "تغييرات غير محفوظة": "Unsaved changes",
+    "تم حفظ المسودة": "Draft saved",
+    "تعذر حفظ المسودة": "Unable to save draft",
+    "جاهز": "Ready",
+    "سطر": "Line",
+    "عمود": "Column",
+    "عنوان": "Title",
+    "غلاف": "Cover",
+    "طريقة العرض": "View Mode",
+    "الإعلان": "Announcement",
+    "عنوان الإعلان": "Announcement Title",
+    "فارغة": "Empty",
+    "محدثة": "Updated",
+    "كلمة": "word",
+    "حرف": "character",
+    "جاري الحفظ...": "Saving...",
+    "تم نشر الإعلان بنجاح": "Announcement published successfully",
+    "تم تحديث الإعلان بنجاح": "Announcement updated successfully",
+    "خطأ أثناء الحفظ:": "Error while saving:",
+    "وصف الصورة": "Image description",
+    "كتاب الفيزياء — الفصل الأول": "Physics Book - Chapter One",
+    "مثال: 2.4 MB": "Example: 2.4 MB",
+    "لا توجد برامج دراسية مسجلة حالياً.": "No study programs are currently registered.",
+    "إدارة البرامج الدراسية": "Study Program Management",
+    "ابحث باسم البرنامج...": "Search by program name...",
+    "إضافة برنامج جديد": "Add New Program",
+    "إضافة برنامج دراسي": "Add Study Program",
+    "تعديل البرنامج": "Edit Program",
+    "اسم البرنامج": "Program Name",
+    "اسم البرنامج (إجباري)": "Program Name (Required)",
+    "نوع البرنامج": "Program Type",
+    "نوع البرنامج (إجباري)": "Program Type (Required)",
+    "السعر نقداً": "Cash Price",
+    "السعر (نقداً)": "Cash Price",
+    "السعر بالتقسيط": "Installment Price",
+    "السعر (بالتقسيط)": "Installment Price",
+    "حفظ البرنامج": "Save Program",
+    "مثال: دورة تقوية رياضيات، كورس لغات...": "Example: Math support course, language course...",
+    "مثال: دورة، دبلوم، نشاط صيفي...": "Example: Course, diploma, summer activity...",
+    "إجمالي البرامج:": "Total Programs:",
+    "لا توجد برامج دراسية مسجلة حالياً.": "No study programs are currently registered.",
+    "يرجى إدخال حرفين على الأقل للبحث.": "Please enter at least two characters to search.",
+    "يرجى إدخال اسم ونوع البرنامج الأكاديمي.": "Please enter the academic program name and type.",
+    "تم تحديث بيانات البرنامج بنجاح.": "Program details updated successfully.",
+    "تمت إضافة البرنامج الجديد بنجاح.": "New program added successfully.",
+    "إدارة المستخدمين": "User Management",
+    "ابحث عن مستخدم": "Search for a user",
+    "حرفين على الأقل": "at least two characters",
+    "إعادة تحميل القائمة": "Reload list",
+    "أدخل كلمة المرور": "Enter password",
+    "لا يوجد مستخدمين لعرضهم.": "No users to display.",
+    "الرقم": "Number",
+    "الاسم الكامل": "Full Name",
+    "اسم المستخدم": "Username",
+    "التواصل": "Contact",
+    "رتبة ID:": "Role ID:",
+    "الحساب نشط": "Account active",
+    "الحساب معطل": "Account disabled",
+    "تفعيل الحساب": "Activate account",
+    "تعطيل الحساب": "Disable account",
+    "جاري التحديث...": "Updating...",
+    "فشل تحميل المستخدمين:": "Failed to load users:",
+    "فشل تغيير الحالة:": "Failed to change status:",
+    "هل تريد تفعيل هذا الحساب؟": "Do you want to activate this account?",
+    "هل تريد تعطيل هذا الحساب ومنعه من الدخول؟": "Do you want to disable this account and block access?",
+    "هل أنت متأكد من حذف هذا المستخدم بشكل نهائي؟": "Are you sure you want to permanently delete this user?",
+    "هذا الإجراء لا يمكن التراجع عنه": "This action cannot be undone",
+    "إدارة شؤون الطلاب": "Student Affairs Management",
+    "ابحث بالاسم أو المعرف...": "Search by name or ID...",
+    "إجمالي الطلاب:": "Total Students:",
+    "المعرف": "ID",
+    "الفصل": "Class",
+    "تاريخ الميلاد": "Date of Birth",
+    "عرض الملف التفصيلي": "View Detailed Profile",
+    "تغيير الحالة": "Change Status",
+    "حساسية، أدوية، الخ...": "Allergies, medication, etc...",
+    "بدون ولي أمر": "No Parent",
+    "يرجى اختيار حساب مستخدم أولاً.": "Please choose a user account first.",
+    "تم تسجيل الطالب بنجاح.": "Student registered successfully.",
+    "فشل التسجيل:": "Registration failed:",
+    "جاري تجميع ملف الطالب...": "Collecting student profile...",
+    "فشل جلب ملف الطالب:": "Failed to fetch student profile:",
+    "هل أنت متأكد من تغيير حالة هذا الطالب إلى": "Are you sure you want to change this student's status to",
+    "معطل": "Disabled",
+    "إدارة الطاقم التعليمي": "Teaching Staff Management",
+    "ابحث باسم المعلم أو التخصص...": "Search by teacher name or specialty...",
+    "إجمالي المعلمين:": "Total Teachers:",
+    "المعلم": "Teacher",
+    "التخصص": "Specialty",
+    "تاريخ التعيين": "Hire Date",
+    "الملف والجدول الزمني": "Profile and Schedule",
+    "ملف": "Profile",
+    "تعديل التخصص والتاريخ": "Edit specialty and date",
+    "تعديل بيانات المعلم": "Edit Teacher Details",
+    "إضافة معلم جديد": "Add New Teacher",
+    "إضافة طاقم تعليمي": "Add Teaching Staff",
+    "حساب المستخدم": "User Account",
+    "حساب المستخدم (إجباري)": "User Account (Required)",
+    "جاري تحميل الحسابات...": "Loading accounts...",
+    "اختر حساب المستخدم": "Choose User Account",
+    "فشل جلب الحسابات": "Failed to fetch accounts",
+    "التخصص الأكاديمي": "Academic Specialty",
+    "مثال: رياضيات، فيزياء، لغة عربية...": "Example: Math, Physics, Arabic...",
+    "حفظ البيانات": "Save Data",
+    "يرجى اختيار حساب مستخدم.": "Please choose a user account.",
+    "تم تحديث بيانات المعلم بنجاح.": "Teacher details updated successfully.",
+    "تم إنشاء المعلم بنجاح.": "Teacher created successfully.",
+    "تأكد من صحة البيانات أو عدم تكرار الحساب.": "Check the data or make sure the account is not duplicated.",
+    "جاري جلب ملف المعلم والجدول...": "Fetching teacher profile and schedule...",
+    "فشل جلب تفاصيل المعلم:": "Failed to fetch teacher details:",
+    "لا يوجد معلمون مسجلون حالياً أو لم يتم العثور على نتائج.": "No teachers are registered currently or no results were found.",
+    "تخصص:": "Specialty:",
+    "تعيين:": "Hired:",
+    "الفصول والتكليفات": "Classes and Assignments",
+    "إدارة الجداول الزمنية": "Schedule Management",
+    "يرجى الاختيار من القائمة أولاً.": "Please choose from the list first.",
+    "جاري تحميل الجدول...": "Loading schedule...",
+    "فشل تحميل الجدول:": "Failed to load schedule:",
+    "لا توجد بيانات": "No data",
+    "لا توجد حصص مسجلة في هذا الجدول حالياً.": "No sessions are currently registered in this schedule.",
+    "الجدول الزمني فارغ.": "The schedule is empty.",
+    "يرجى اختيار الفصل": "Please choose the class",
+    "لا يوجد أساتذة مكلفين بهذا الفصل": "No teachers are assigned to this class",
+    "خطأ في جلب البيانات": "Error fetching data",
+    "يرجى اختيار المادة والأستاذ": "Please choose the subject and teacher",
+    "التكليف": "assignment",
+    "تمت إضافة الحصة للجدول بنجاح.": "Session added to the schedule successfully.",
+    "تأكد من عدم وجود تضارب في الوقت.": "Make sure there is no time conflict.",
+    "هل أنت متأكد من حذف هذه الحصة من الجدول؟": "Are you sure you want to delete this schedule session?",
+    "حذف الحصة": "Delete Session",
+    "مثال: قاعة 101": "Example: Room 101",
+    "المادة:": "Subject:",
+    "الأستاذ:": "Teacher:",
+    "قاعة:": "Room:",
+    "الأحد": "Sunday",
+    "الأثنين": "Monday",
+    "الثلاثاء": "Tuesday",
+    "الأربعاء": "Wednesday",
+    "الخميس": "Thursday",
+    "الجمعة": "Friday",
+    "السبت": "Saturday",
+    "المكتبة والموارد التعليمية": "Library and Learning Resources",
+    "بحث بعنوان الملف، الوصف أو الأستاذ...": "Search by file title, description, or teacher...",
+    "إجمالي الملفات المرفوعة": "Total Uploaded Files",
+    "ملف": "File",
+    "حجم المكتبة الإجمالي": "Total Library Size",
+    "رفع ملف جديد": "Upload New File",
+    "اسم الملف والتفاصيل": "File Name and Details",
+    "الارتباط الأكاديمي": "Academic Link",
+    "الحجم": "Size",
+    "مثال: ملخص الفصل الأول...": "Example: First chapter summary...",
+    "معلومات إضافية حول الملف...": "Additional information about the file...",
+    "تنزيل الملف": "Download File",
+    "حذف نهائي": "Permanent Delete",
+    "تم اختيار الملف:": "Selected file:",
+    "بدون ارتباط": "No Link",
+    "ملف عام": "General File",
+    "ملف عام (غير مرتبط)": "General File (Unlinked)",
+    "تعذر جلب التكليفات، يمكنك تركه فارغاً": "Unable to fetch assignments; you may leave it empty",
+    "بدء الرفع": "Start Upload",
+    "جاري الرفع...": "Uploading...",
+    "تم رفع الملف بنجاح وإضافته للمكتبة.": "File uploaded successfully and added to the library.",
+    "الرجاء تحديد ملف للرفع.": "Please choose a file to upload.",
+    "تأكد من نوع وحجم الملف.": "Check file type and size.",
+    "فشل رفع الملف:": "Upload failed:",
+    "تعذر جلب الملف من الخادم، قد يكون محذوفاً أو المسار غير صالح.": "Unable to fetch the file from the server. It may be deleted or the path is invalid.",
+    "جاري تحضير الملف للتنزيل، يرجى الانتظار...": "Preparing file for download, please wait...",
+    "المكتبة فارغة أو لا توجد نتائج مطابقة لبحثك.": "The library is empty or no results match your search.",
+    "سجل التحويلات والدفتر اليومي": "Transactions and Daily Ledger",
+    "حجم التحويلات المكتملة": "Completed Transfer Volume",
+    "عمليات معلقة": "Pending Operations",
+    "كشف حساب": "Statement",
+    "تحويل جديد": "New Transfer",
+    "الفلترة:": "Filter:",
+    "جميع الأنواع": "All Types",
+    "دفع رسوم": "Fee Payment",
+    "استرداد نقدي": "Cash Refund",
+    "تحويل داخلي": "Internal Transfer",
+    "تسوية إدارية": "Administrative Settlement",
+    "دفع راتب": "Salary Payment",
+    "كل الحالات": "All Statuses",
+    "مكتملة فقط": "Completed Only",
+    "معلقة فقط": "Pending Only",
+    "ملغاة فقط": "Cancelled Only",
+    "تحديث الجدول": "Refresh Table",
+    "رقم العملية": "Transaction Number",
+    "أطراف التحويل": "Transfer Parties",
+    "الملاحظات": "Notes",
+    "من:": "From:",
+    "إلى:": "To:",
+    "الحالة": "Status",
+    "ابحث باسم المستخدم...": "Search by username...",
+    "اكتب سبب التحويل...": "Write the transfer reason...",
+    "ملاحظة قصيرة...": "Short note...",
+    "اسم الطالب أو الموظف...": "Student or staff name...",
+    "جاري جلب وتحليل البيانات المالية...": "Fetching and analyzing financial data...",
+    "كشف حساب مالي تفصيلي": "Detailed Financial Statement",
+    "المستخدم:": "User:",
+    "الرصيد الصافي": "Net Balance",
+    "المكتمل": "completed",
+    "الطرف الآخر": "Other Party",
+    "طباعة الكشف": "Print Statement",
+    "لا توجد أي حركات مالية مسجلة لهذا المستخدم.": "No financial movements are recorded for this user.",
+    "فشل استخراج الكشف:": "Failed to extract statement:",
+    "تم تحديث حالة التحويل.": "Transfer status updated.",
+    "تم تسجيل التحويل المالي بنجاح.": "Financial transfer recorded successfully.",
+    "فشل تحديث الحالة:": "Failed to update status:",
+    "فشل تنفيذ التحويل:": "Transfer execution failed:",
+    "يرجى تحديد المستخدم أولاً.": "Please select the user first.",
+    "يرجى تعبئة جميع الحقول وإدخال مبلغ صحيح.": "Please fill all fields and enter a valid amount.",
+    "لا توجد تحويلات مالية مطابقة.": "No matching financial transfers.",
+    "دفع": "Payment",
+    "استرداد": "Refund",
+    "تحويل": "Transfer",
+    "تسوية": "Settlement",
+    "راتب": "Salary",
+    "معلق": "Pending",
+    "مكتمل": "Completed",
+    "ملغى": "Cancelled",
+    "فاشل": "Failed",
+    "جاري التحميل...": "Loading...",
+    "فشل في جلب قائمة التقييمات": "Failed to fetch assessment list",
+    "يرجى اختيار التقييم أولاً.": "Please choose an assessment first.",
+    "لم يتم إدخال أي درجات لهذا التقييم بعد.": "No grades have been entered for this assessment yet.",
+    "لا توجد نتائج": "No results",
+    "لا توجد ملاحظات": "No remarks",
+    "فشل في جلب الفصول": "Failed to fetch classes",
+    "فارغ": "Empty",
+    "رقم:": "ID:"
+  }
+}

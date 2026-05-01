@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة تحكم المدير | النظام المدرسي</title>
+  <title data-i18n="admin.documentTitle">لوحة تحكم المدير | النظام المدرسي</title>
   <meta name="theme-color" content="#0f766e">
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
   <script>
@@ -15,7 +15,7 @@
       } catch (e) {}
     })();
   </script>
-  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/styles.css?v=admin-i18n-10">
   <link rel="stylesheet" href="../css/posts.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
@@ -26,13 +26,13 @@
   <aside class="sidebar">
     <div class="sidebar-header" id="admin-header"></div>
     <div class="sidebar-utility">
-      <button type="button" class="sidebar-collapse-btn" id="admin-sidebar-collapse" aria-label="تصغير الشريط الجانبي" aria-pressed="false" title="تصغير الشريط الجانبي">
+      <button type="button" class="sidebar-collapse-btn" id="admin-sidebar-collapse" aria-label="تصغير الشريط الجانبي" aria-pressed="false" title="تصغير الشريط الجانبي" data-i18n-title="admin.sidebar.collapse" data-i18n-aria-label="admin.sidebar.collapse">
         <span class="sidebar-collapse-icon"></span>
-        <span class="sidebar-collapse-label">تصغير القائمة</span>
+        <span class="sidebar-collapse-label" data-i18n="admin.sidebar.collapseLabel">تصغير القائمة</span>
       </button>
       <div class="sidebar-search">
         <span aria-hidden="true"></span>
-        <input type="search" id="admin-nav-search" placeholder="بحث سريع..." autocomplete="off">
+        <input type="search" id="admin-nav-search" placeholder="بحث سريع..." autocomplete="off" data-i18n-placeholder="admin.sidebar.searchPlaceholder">
       </div>
     </div>
     <nav class="sidebar-nav" id="admin-nav"></nav>
@@ -42,20 +42,43 @@
   <main class="main-content">
     <header class="topbar">
       <div class="topbar-title">
-        <button type="button" class="mobile-menu-btn" id="admin-menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <button type="button" class="mobile-menu-btn" id="admin-menu-toggle" aria-label="فتح القائمة" aria-expanded="false" data-i18n-aria-label="admin.topbar.openMenu">
           <span></span>
           <span></span>
           <span></span>
         </button>
-      <h2 style="margin: 0;" id="section-title">نظرة عامة</h2>
+      <h2 style="margin: 0;" id="section-title" data-i18n="admin.topbar.overview">نظرة عامة</h2>
       </div>
       <div class="topbar-actions">
-        <button type="button" class="theme-toggle-btn" id="admin-theme-toggle" aria-label="تبديل الثيم" aria-pressed="false" title="تبديل الثيم">
+        <details class="language-menu-wrap" id="admin-language-menu-wrap">
+          <summary class="language-menu-button" id="admin-language-toggle" aria-haspopup="menu" aria-expanded="false" aria-label="Choose language" data-i18n-aria-label="admin.language.select" title="Choose language" data-i18n-title="admin.language.select">
+            <span class="language-menu-code">AR</span>
+            <span class="language-menu-label" data-i18n="admin.language.label">Language</span>
+            <span class="language-menu-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="language-menu-panel" id="admin-language-menu" role="menu">
+            <a class="language-menu-option is-active" role="menuitemradio" data-lang="ar" href="?lang=ar" aria-checked="true">
+              <span>العربية</span>
+              <span class="language-menu-code">AR</span>
+            </a>
+            <a class="language-menu-option" role="menuitemradio" data-lang="en" href="?lang=en" aria-checked="false">
+              <span>English</span>
+              <span class="language-menu-code">EN</span>
+            </a>
+          </div>
+        </details>
+        <label class="language-select-wrap" title="اختيار اللغة" data-i18n-title="admin.language.select">
+          <span data-i18n="admin.language.label">اللغة</span>
+          <select id="admin-language-select" aria-label="اختيار اللغة" data-i18n-aria-label="admin.language.select">
+            <option value="ar">العربية</option>
+          </select>
+        </label>
+        <button type="button" class="theme-toggle-btn" id="admin-theme-toggle" aria-label="تبديل الثيم" aria-pressed="false" title="تبديل الثيم" data-i18n-title="admin.theme.toggle" data-i18n-aria-label="admin.theme.toggle">
           <span class="theme-toggle-icon" aria-hidden="true"></span>
-          <span class="theme-toggle-label">فاتح</span>
+          <span class="theme-toggle-label" data-i18n="admin.theme.light">فاتح</span>
         </button>
         <span id="user-info" style="margin-left: 15px; color: #64748b;"></span>
-        <button id="logout-btn" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">تسجيل الخروج</button>
+        <button id="logout-btn" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;" data-i18n="admin.session.logout">تسجيل الخروج</button>
       </div>
     </header>
     <div class="content-area" id="admin-main"></div>
@@ -64,31 +87,33 @@
   <script src="../js/core/storage.js"></script>
   <script src="../js/core/api.js"></script>
   <script src="../js/core/auth.js"></script>
+  <script src="../js/core/i18n.js?v=admin-i18n-10"></script>
 
   <script src="../js/roles/admin/services.js"></script>
-  <script src="../js/roles/admin/ui.js"></script>
+  <script src="../js/roles/admin/ui.js?v=admin-i18n-10"></script>
 
-  <script src="../js/roles/admin/tabs/users.js"></script>
-  <script src="../js/roles/admin/tabs/parents.js"></script>
-  <script src="../js/roles/admin/tabs/academic.js?v=academic-occupancy-1"></script>
-  <script src="../js/roles/admin/tabs/classes.js"></script>
-  <script src="../js/roles/admin/tabs/students.js"></script>
-  <script src="../js/roles/admin/tabs/teachers.js"></script>
-  <script src="../js/roles/admin/tabs/enrollments.js"></script>
-  <script src="../js/roles/admin/tabs/attendance.js"></script>
-  <script src="../js/roles/admin/tabs/schedules.js"></script>
-  <script src="../js/roles/admin/tabs/assessments.js"></script> <script src="../js/roles/admin/tabs/grades.js"></script>
-  <script src="../js/roles/admin/tabs/finance.js"></script>
-  <script src="../js/roles/admin/tabs/fees.js"></script>
-  <script src="../js/roles/admin/tabs/payments.js"></script>
-  <script src="../js/roles/admin/tabs/transactions.js"></script>
-  <script src="../js/roles/admin/tabs/resources.js"></script>
-  <script src="../js/roles/admin/tabs/conversations.js?v=admin-conversations-1"></script>
-  <script src="../js/roles/admin/tabs/notifications.js"></script>
-  <script src="../js/roles/admin/tabs/posts.js"></script>
-  <script src="../js/roles/admin/tabs/programs.js"></script>
+  <script src="../js/roles/admin/tabs/users.js?v=users-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/parents.js?v=parents-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/academic.js?v=academic-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/classes.js?v=classes-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/students.js?v=students-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/teachers.js?v=teachers-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/enrollments.js?v=enrollments-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/attendance.js?v=attendance-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/schedules.js?v=schedules-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/assessments.js?v=assessments-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/grades.js?v=grades-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/finance.js?v=finance-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/fees.js?v=fees-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/payments.js?v=payments-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/transactions.js?v=transactions-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/resources.js?v=resources-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/conversations.js?v=conversations-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/notifications.js?v=notifications-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/posts.js?v=posts-i18n-1"></script>
+  <script src="../js/roles/admin/tabs/programs.js?v=programs-i18n-1"></script>
 
-  <script src="../js/roles/admin/role.js"></script>
+  <script src="../js/roles/admin/role.js?v=admin-i18n-10"></script>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => { AdminRole.init(); });

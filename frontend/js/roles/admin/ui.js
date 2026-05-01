@@ -7,43 +7,47 @@ const AdminUI = {
   // هيكل التنقل الشامل لجميع الأقسام الـ 19
   NAV_STRUCTURE: [
     { 
+      categoryKey: "admin.nav.categories.core",
       category: "الإدارة الأساسية", 
       items: [
-        { id: "users", label: "إدارة المستخدمين", icon: "users" },
-        { id: "parents", label: "أولياء الأمور", icon: "parents" }
+        { id: "users", labelKey: "admin.nav.items.users", label: "إدارة المستخدمين", icon: "users" },
+        { id: "parents", labelKey: "admin.nav.items.parents", label: "أولياء الأمور", icon: "parents" }
       ] 
     },
     { 
+      categoryKey: "admin.nav.categories.academic",
       category: "الشؤون الأكاديمية", 
       items: [
-        { id: "academic", label: "نظرة عامة (أكاديمي)", icon: "trending" },
-        { id: "classes", label: "الفصول والمقاعد", icon: "building" },
-        { id: "students", label: "شؤون الطلاب", icon: "graduation" },
-        { id: "teachers", label: "الطاقم التعليمي", icon: "teacher" },
-        { id: "programs", label: "البرامج الدراسية", icon: "bookOpen" },
-        { id: "enrollments", label: "سجلات التسجيل", icon: "files" },
-        { id: "attendance", label: "الحضور والغياب", icon: "clock" },
-        { id: "schedules", label: "الجداول الزمنية", icon: "calendar" },
-        { id: "assessments", label: "التقييمات والامتحانات", icon: "clipboard" },
-        { id: "grades", label: "الدرجات والنتائج", icon: "chart" }
+        { id: "academic", labelKey: "admin.nav.items.academic", label: "نظرة عامة (أكاديمي)", icon: "trending" },
+        { id: "classes", labelKey: "admin.nav.items.classes", label: "الفصول والمقاعد", icon: "building" },
+        { id: "students", labelKey: "admin.nav.items.students", label: "شؤون الطلاب", icon: "graduation" },
+        { id: "teachers", labelKey: "admin.nav.items.teachers", label: "الطاقم التعليمي", icon: "teacher" },
+        { id: "programs", labelKey: "admin.nav.items.programs", label: "البرامج الدراسية", icon: "bookOpen" },
+        { id: "enrollments", labelKey: "admin.nav.items.enrollments", label: "سجلات التسجيل", icon: "files" },
+        { id: "attendance", labelKey: "admin.nav.items.attendance", label: "الحضور والغياب", icon: "clock" },
+        { id: "schedules", labelKey: "admin.nav.items.schedules", label: "الجداول الزمنية", icon: "calendar" },
+        { id: "assessments", labelKey: "admin.nav.items.assessments", label: "التقييمات والامتحانات", icon: "clipboard" },
+        { id: "grades", labelKey: "admin.nav.items.grades", label: "الدرجات والنتائج", icon: "chart" }
       ] 
     },
     { 
+      categoryKey: "admin.nav.categories.finance",
       category: "المالية والموارد", 
       items: [
-        { id: "finance", label: "نظرة عامة (مالية)", icon: "finance" },
-        { id: "studentFees", label: "الرسوم والديون", icon: "receipt" },
-        { id: "payments", label: "سجل المدفوعات", icon: "card" },
-        { id: "transactions", label: "الدفتر اليومي", icon: "ledger" },
-        { id: "resources", label: "المكتبة الرقمية", icon: "bookOpen" }
+        { id: "finance", labelKey: "admin.nav.items.finance", label: "نظرة عامة (مالية)", icon: "finance" },
+        { id: "studentFees", labelKey: "admin.nav.items.studentFees", label: "الرسوم والديون", icon: "receipt" },
+        { id: "payments", labelKey: "admin.nav.items.payments", label: "سجل المدفوعات", icon: "card" },
+        { id: "transactions", labelKey: "admin.nav.items.transactions", label: "الدفتر اليومي", icon: "ledger" },
+        { id: "resources", labelKey: "admin.nav.items.resources", label: "المكتبة الرقمية", icon: "bookOpen" }
       ] 
     },
     { 
+      categoryKey: "admin.nav.categories.community",
       category: "التواصل والمجتمع", 
       items: [
-        { id: "conversations", label: "المحادثات المباشرة", icon: "message" },
-        { id: "notifications", label: "الإشعارات والتنبيهات", icon: "megaphone" },
-        { id: "posts", label: "لوحة الإعلانات", icon: "newspaper" }
+        { id: "conversations", labelKey: "admin.nav.items.conversations", label: "المحادثات المباشرة", icon: "message" },
+        { id: "notifications", labelKey: "admin.nav.items.notifications", label: "الإشعارات والتنبيهات", icon: "megaphone" },
+        { id: "posts", labelKey: "admin.nav.items.posts", label: "لوحة الإعلانات", icon: "newspaper" }
       ] 
     }
   ],
@@ -118,25 +122,75 @@ const AdminUI = {
     return `<svg class="${className}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${body}</svg>`;
   },
 
+  t(key, params = {}, fallback = "") {
+    return window.I18n ? I18n.t(key, params, fallback || key) : (fallback || key);
+  },
+
+  text(value, params = {}) {
+    return window.I18n ? I18n.text(value, params) : value;
+  },
+
+  localize(root = document) {
+    if (window.I18n) I18n.apply(root);
+  },
+
+  wrapLocalizedMethods(methodNames = []) {
+    if (!this._localizedMethodNames) {
+      this._localizedMethodNames = new Set();
+    }
+
+    methodNames.forEach(name => {
+      if (this._localizedMethodNames.has(name) || typeof this[name] !== "function") return;
+
+      const original = this[name];
+      this[name] = function(...args) {
+        const finalize = () => requestAnimationFrame(() => {
+          const main = document.getElementById("admin-main");
+          if (main) this.localize(main);
+        });
+
+        try {
+          const result = original.apply(this, args);
+          if (result && typeof result.finally === "function") {
+            return result.finally(finalize);
+          }
+          finalize();
+          return result;
+        } catch (err) {
+          finalize();
+          throw err;
+        }
+      };
+
+      this._localizedMethodNames.add(name);
+    });
+  },
+
   renderHeader(session) {
     const header = document.getElementById("admin-header");
     header.innerHTML = `
       <div class="admin-brand">
         <div class="admin-brand-mark">A</div>
         <div class="admin-brand-text">
-          <h2>لوحة الإدارة</h2>
-          <small>المعرف: #${session.user_id}</small>
+          <h2>${this.t("admin.brand.title", {}, "لوحة الإدارة")}</h2>
+          <small>${this.t("admin.brand.userId", { id: session.user_id }, `المعرف: #${session.user_id}`)}</small>
         </div>
       </div>
     `;
     
-    document.getElementById("user-info").innerText = `حساب: ${session.role}`;
-    document.getElementById("logout-btn").addEventListener("click", () => Auth.logout());
+    document.getElementById("user-info").innerText = this.t("admin.session.account", { role: session.role }, `حساب: ${session.role}`);
+    const logoutBtn = document.getElementById("logout-btn");
+    if (logoutBtn && logoutBtn.dataset.bound !== "true") {
+      logoutBtn.addEventListener("click", () => Auth.logout());
+      logoutBtn.dataset.bound = "true";
+    }
     this.initTheme();
+    this.bindLanguageControls();
     this.bindShellControls();
     this.bindSidebarTools();
     this.setupIconReplacement();
     this.setupResponsiveTables();
+    this.localize(document);
   },
 
   initTheme() {
@@ -168,7 +222,196 @@ const AdminUI = {
     const icon = btn.querySelector(".theme-toggle-icon");
     const label = btn.querySelector(".theme-toggle-label");
     if (icon) icon.innerHTML = this.icon(isDark ? "moon" : "sun", "theme-toggle-svg");
-    if (label) label.textContent = isDark ? "داكن" : "فاتح";
+    if (label) label.textContent = isDark
+      ? this.t("admin.theme.dark", {}, "داكن")
+      : this.t("admin.theme.light", {}, "فاتح");
+  },
+
+  bindLanguageControls() {
+    const toggle = document.getElementById("admin-language-toggle");
+    const menu = document.getElementById("admin-language-menu");
+    const wrap = document.getElementById("admin-language-menu-wrap");
+    if (toggle && menu && wrap) {
+      this.syncLanguageMenu(toggle, menu);
+
+      if (wrap.dataset.bound !== "true") {
+        if (wrap.tagName === "DETAILS") {
+          wrap.addEventListener("toggle", () => {
+            const isOpen = wrap.open;
+            wrap.classList.toggle("is-open", isOpen);
+            toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+          });
+        } else {
+          toggle.addEventListener("click", (event) => {
+            event.stopPropagation();
+            this.setLanguageMenuOpen(!wrap.classList.contains("is-open"));
+          });
+        }
+
+        menu.addEventListener("click", async (event) => {
+          const option = event.target.closest("[data-lang]");
+          if (!option) return;
+          event.preventDefault();
+          const nextLang = option.dataset.lang;
+          this.setLanguageMenuOpen(false);
+          await this.changeLanguage(nextLang);
+        });
+
+        menu.addEventListener("keydown", async (event) => {
+          if (event.key === "Escape") {
+            this.setLanguageMenuOpen(false);
+            toggle.focus();
+            return;
+          }
+          if (event.key !== "Enter" && event.key !== " ") return;
+          const option = event.target.closest("[data-lang]");
+          if (!option) return;
+          event.preventDefault();
+          this.setLanguageMenuOpen(false);
+          await this.changeLanguage(option.dataset.lang);
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!wrap.contains(event.target)) this.setLanguageMenuOpen(false);
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") this.setLanguageMenuOpen(false);
+        });
+
+        wrap.dataset.bound = "true";
+      }
+      return;
+    }
+
+    const select = document.getElementById("admin-language-select");
+    if (!select || !window.I18n) return;
+
+    this.syncLanguageSelect(select);
+
+    select.onchange = async (event) => {
+      const languageSelect = event.currentTarget;
+      await this.changeLanguage(languageSelect.value);
+      this.syncLanguageSelect(languageSelect);
+    };
+  },
+
+  async changeLanguage(nextLang) {
+    if (!nextLang || !window.I18n || nextLang === I18n.currentLang) {
+      this.syncLanguageControls();
+      return;
+    }
+
+    const toggle = document.getElementById("admin-language-toggle");
+    const select = document.getElementById("admin-language-select");
+    [toggle, select].filter(Boolean).forEach(el => {
+      el.disabled = true;
+      el.setAttribute("aria-busy", "true");
+    });
+
+    try {
+      await I18n.setLanguage(nextLang);
+    } catch (err) {
+      console.error("Unable to switch admin language:", err);
+    } finally {
+      [toggle, select].filter(Boolean).forEach(el => {
+        el.disabled = false;
+        el.removeAttribute("aria-busy");
+      });
+      this.syncLanguageControls();
+    }
+  },
+
+  syncLanguageControls() {
+    this.syncLanguageMenu();
+    this.syncLanguageSelect();
+  },
+
+  syncLanguageMenu(
+    toggle = document.getElementById("admin-language-toggle"),
+    menu = document.getElementById("admin-language-menu")
+  ) {
+    if (!toggle || !menu) return;
+
+    const fallbackLanguages = [
+      { code: "ar", label: "العربية", dir: "rtl" },
+      { code: "en", label: "English", dir: "ltr" }
+    ];
+    const languages = window.I18n ? I18n.getLanguages() : fallbackLanguages;
+    const activeLang = window.I18n ? I18n.currentLang : (localStorage.getItem("admin-language") || "ar");
+    const currentLang = languages.find(lang => lang.code === activeLang) || languages[0];
+    const code = (currentLang?.code || activeLang || "ar").toUpperCase();
+    const label = this.t("admin.language.label", {}, "Language");
+    const currentSignature = menu.dataset.signature || "";
+    const nextSignature = languages.map(lang => `${lang.code}:${lang.label}:${lang.dir || ""}`).join("|");
+
+    if (currentSignature !== nextSignature) {
+      menu.innerHTML = languages.map(lang => {
+        const langCode = this._escape(lang.code);
+        const langLabel = this._escape(lang.label);
+        const langDir = this._escape(lang.dir || "auto");
+        return `
+          <a class="language-menu-option" role="menuitemradio" data-lang="${langCode}" href="${this.languageHref(lang.code)}" dir="${langDir}" aria-checked="false">
+            <span>${langLabel}</span>
+            <span class="language-menu-code">${this._escape(lang.code.toUpperCase())}</span>
+          </a>`;
+      }).join("");
+      menu.dataset.signature = nextSignature;
+    }
+
+    const codeEl = toggle.querySelector(".language-menu-code");
+    const labelEl = toggle.querySelector(".language-menu-label");
+    if (codeEl) codeEl.textContent = code;
+    if (labelEl) labelEl.textContent = label;
+    menu.querySelectorAll("[data-lang]").forEach(option => {
+      option.setAttribute("href", this.languageHref(option.dataset.lang));
+      const isActive = option.dataset.lang === activeLang;
+      option.classList.toggle("is-active", isActive);
+      option.setAttribute("aria-checked", isActive ? "true" : "false");
+    });
+  },
+
+  setLanguageMenuOpen(open) {
+    const wrap = document.getElementById("admin-language-menu-wrap");
+    const toggle = document.getElementById("admin-language-toggle");
+    const menu = document.getElementById("admin-language-menu");
+    if (!wrap || !toggle || !menu) return;
+
+    if (wrap.tagName === "DETAILS") {
+      wrap.open = Boolean(open);
+    }
+    wrap.classList.toggle("is-open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    if ("hidden" in menu) menu.hidden = false;
+    if (open) {
+      const active = menu.querySelector(".language-menu-option.is-active") || menu.querySelector(".language-menu-option");
+      requestAnimationFrame(() => active?.focus());
+    }
+  },
+
+  languageHref(lang) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("lang", lang);
+    return url.href;
+  },
+
+  syncLanguageSelect(select = document.getElementById("admin-language-select")) {
+    if (!select || !window.I18n) return;
+
+    const languages = I18n.getLanguages();
+    const currentSignature = Array.from(select.options)
+      .map(option => `${option.value}:${option.textContent}`)
+      .join("");
+    const nextSignature = languages.map(lang => `${lang.code}:${lang.label}`).join("");
+
+    if (currentSignature !== nextSignature) {
+      select.innerHTML = languages
+        .map(lang => `<option value="${this._escape(lang.code)}" dir="${this._escape(lang.dir || "auto")}">${this._escape(lang.label)}</option>`)
+        .join("");
+    }
+
+    select.value = I18n.currentLang;
+    select.dir = I18n.get("meta.dir", "rtl");
   },
 
   bindShellControls() {
@@ -244,11 +487,16 @@ const AdminUI = {
 
     const isMini = document.body.classList.contains("sidebar-mini");
     collapseBtn.setAttribute("aria-pressed", isMini ? "true" : "false");
-    collapseBtn.setAttribute("title", isMini ? "توسيع الشريط الجانبي" : "تصغير الشريط الجانبي");
+    collapseBtn.setAttribute("title", isMini
+      ? this.t("admin.sidebar.expand", {}, "توسيع الشريط الجانبي")
+      : this.t("admin.sidebar.collapse", {}, "تصغير الشريط الجانبي"));
+    collapseBtn.setAttribute("aria-label", collapseBtn.getAttribute("title"));
     const icon = collapseBtn.querySelector(".sidebar-collapse-icon");
     if (icon) icon.innerHTML = this.icon(isMini ? "panelOpen" : "panelClose", "sidebar-tool-svg");
     const label = collapseBtn.querySelector(".sidebar-collapse-label");
-    if (label) label.textContent = isMini ? "توسيع القائمة" : "تصغير القائمة";
+    if (label) label.textContent = isMini
+      ? this.t("admin.sidebar.expandLabel", {}, "توسيع القائمة")
+      : this.t("admin.sidebar.collapseLabel", {}, "تصغير القائمة");
   },
 
   closeMobileSidebar() {
@@ -262,6 +510,7 @@ const AdminUI = {
     if (!main || main.dataset.responsiveTablesBound === "true") return;
 
     const enhance = () => {
+      this.localize(main);
       this.enhanceResponsiveTables(main);
       this.replaceEmojiIcons(main);
     };
@@ -367,29 +616,32 @@ const AdminUI = {
     let html = "";
 
     this.NAV_STRUCTURE.forEach(group => {
+      const groupLabel = this.t(group.categoryKey, {}, group.category);
       const hasActive = group.items.some(item => item.id === activeSection);
-      const isCollapsed = this.navCollapsedGroups.has(group.category) && !hasActive && !this.navSearchQuery;
+      const collapseKey = group.categoryKey || group.category;
+      const isCollapsed = this.navCollapsedGroups.has(collapseKey) && !hasActive && !this.navSearchQuery;
       html += `
-        <section class="nav-group${isCollapsed ? " is-collapsed" : ""}" data-group="${this._escape(group.category)}">
+        <section class="nav-group${isCollapsed ? " is-collapsed" : ""}" data-group="${this._escape(collapseKey)}" data-group-label="${this._escape(groupLabel)}">
           <button type="button" class="nav-category" aria-expanded="${isCollapsed ? "false" : "true"}">
-            <span class="nav-category-title">${group.category}</span>
+            <span class="nav-category-title">${groupLabel}</span>
             <span class="nav-category-count">${group.items.length}</span>
             <span class="nav-category-chevron" aria-hidden="true">⌄</span>
           </button>
           <div class="nav-group-items">`;
       group.items.forEach(item => {
+        const itemLabel = this.t(item.labelKey, {}, item.label);
         const isActive = activeSection === item.id ? " active" : "";
         html += `
-          <button class="nav-btn${isActive}" data-section="${item.id}" data-label="${this._escape(item.label)}" title="${this._escape(item.label)}" style="width: 100%; text-align: right; display: flex; align-items: center; gap: 10px; border: none; background: transparent; color: white; padding: 10px 20px; cursor: pointer; transition: 0.2s;">
+          <button class="nav-btn${isActive}" data-section="${item.id}" data-label="${this._escape(itemLabel)}" title="${this._escape(itemLabel)}" style="width: 100%; text-align: right; display: flex; align-items: center; gap: 10px; border: none; background: transparent; color: white; padding: 10px 20px; cursor: pointer; transition: 0.2s;">
             <span class="nav-icon">${this.icon(item.icon, "nav-icon-svg")}</span>
-            <span>${item.label}</span>
+            <span>${itemLabel}</span>
           </button>`;
       });
       html += `
           </div>
         </section>`;
     });
-    html += `<div class="nav-empty" id="admin-nav-empty" hidden>لا توجد نتيجة مطابقة</div>`;
+    html += `<div class="nav-empty" id="admin-nav-empty" hidden>${this.t("admin.sidebar.noResults", {}, "لا توجد نتيجة مطابقة")}</div>`;
 
     nav.innerHTML = html;
 
@@ -426,11 +678,11 @@ const AdminUI = {
     let visibleGroups = 0;
 
     nav.querySelectorAll(".nav-group").forEach(group => {
-      const groupTitle = this.normalizeNavText(group.dataset.group || "");
+      const groupTitle = this.normalizeNavText(group.dataset.groupLabel || group.dataset.group || "");
       let visibleItems = 0;
 
       group.querySelectorAll(".nav-btn").forEach(btn => {
-        const haystack = this.normalizeNavText(`${btn.dataset.label || ""} ${btn.dataset.section || ""} ${group.dataset.group || ""}`);
+        const haystack = this.normalizeNavText(`${btn.dataset.label || ""} ${btn.dataset.section || ""} ${group.dataset.groupLabel || group.dataset.group || ""}`);
         const matches = !query || haystack.includes(query) || groupTitle.includes(query);
         btn.hidden = !matches;
         if (matches) visibleItems += 1;
@@ -467,7 +719,15 @@ const AdminUI = {
 
   prepareMain(title) {
     const main = document.getElementById("admin-main");
-    document.getElementById("section-title").innerText = title;
+    const sectionKey = window.AdminRole?.currentSection
+      ? `admin.sections.${window.AdminRole.currentSection}`
+      : null;
+    const fallbackTitle = title && title.startsWith?.("admin.")
+      ? this.t(title, {}, title)
+      : this.text(title);
+    document.getElementById("section-title").innerText = sectionKey
+      ? this.t(sectionKey, {}, fallbackTitle)
+      : fallbackTitle;
     main.innerHTML = ""; 
     return main;
   },
@@ -476,7 +736,7 @@ const AdminUI = {
     document.getElementById("admin-main").innerHTML = `
       <div style="display: flex; justify-content: center; align-items: center; height: 300px; flex-direction: column; gap: 15px;">
         <div style="width: 40px; height: 40px; border: 4px solid #cbd5e1; border-top: 4px solid #064e3b; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-        <p style="color: #64748b; font-weight: bold;">جاري تحميل البيانات...</p>
+        <p style="color: #64748b; font-weight: bold;">${this.t("admin.state.loading", {}, "جاري تحميل البيانات...")}</p>
         <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
       </div>`;
   },
@@ -484,7 +744,7 @@ const AdminUI = {
   renderError(message) {
     document.getElementById("admin-main").innerHTML = `
       <div style="background: #fef2f2; color: #991b1b; padding: 20px; border-radius: 8px; border: 1px solid #fca5a5; margin-top: 20px;">
-        <strong>عذراً، حدث خطأ:</strong> ${message}
+        <strong>${this.t("admin.state.errorPrefix", {}, "عذراً، حدث خطأ:")}</strong> ${this.text(message)}
       </div>`;
   },
 
@@ -500,3 +760,5 @@ const AdminUI = {
     return new Intl.NumberFormat('ar-DZ', { style: 'currency', currency: 'DZD' }).format(amount);
   }
 };
+
+window.AdminUI = AdminUI;
