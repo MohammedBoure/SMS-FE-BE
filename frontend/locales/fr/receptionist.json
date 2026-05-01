@@ -20,6 +20,11 @@
       "code": "fr",
       "label": "Français",
       "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "Chinois",
+      "dir": "ltr"
     }
   ],
   "receptionist": {

@@ -1,0 +1,229 @@
+{
+  "meta": {
+    "lang": "zh",
+    "dir": "ltr",
+    "name": "中文",
+    "locale": "zh-CN"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "阿拉伯语",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "英语",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "法语",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "中文",
+      "dir": "ltr"
+    }
+  ],
+  "student": {
+    "documentTitle": "学生仪表盘",
+    "brand": {
+      "welcome": "欢迎：{name}"
+    },
+    "language": {
+      "label": "语言",
+      "select": "选择语言"
+    },
+    "auth": {
+      "logout": "退出登录"
+    },
+    "nav": {
+      "schedule": "课程表",
+      "assessments": "评估",
+      "grades": "成绩",
+      "attendance": "考勤",
+      "resources": "资源",
+      "posts": "管理发布",
+      "messages": "消息",
+      "fees": "财务",
+      "notifications": "通知"
+    },
+    "state": {
+      "loading": "正在加载数据...",
+      "errorPrefix": "错误：",
+      "unknownSection": "未知模块",
+      "studentProfileMissing": "您的账号未在数据库中登记为学生，请联系管理处。",
+      "initFailed": "初始化学生数据失败。"
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "未指定",
+      "updating": "正在更新...",
+      "unavailable": "不可用",
+      "unknownDate": "未知日期",
+      "userFallback": "用户 #{id}",
+      "send": "发送",
+      "download": "下载",
+      "fromManagement": "来自管理端",
+      "openDetails": "查看详情",
+      "backToPosts": "返回发布列表",
+      "noContent": "此发布没有内容。",
+      "file": "文件"
+    },
+    "status": {
+      "active": "启用",
+      "inactive": "停用",
+      "present": "出勤",
+      "absent": "缺勤",
+      "late": "迟到",
+      "paid": "已支付",
+      "completed": "已支付",
+      "unpaid": "未支付",
+      "partial": "部分支付",
+      "overdue": "逾期",
+      "read": "已读",
+      "unread": "未读",
+      "student": "学生",
+      "parent": "家长",
+      "teacher": "教师",
+      "admin": "管理员",
+      "receptionist": "接待员",
+      "accountant": "会计",
+      "exam": "考试",
+      "homework": "作业"
+    },
+    "days": {
+      "Sunday": "星期日",
+      "Monday": "星期一",
+      "Tuesday": "星期二",
+      "Wednesday": "星期三",
+      "Thursday": "星期四",
+      "Friday": "星期五",
+      "Saturday": "星期六"
+    },
+    "schedule": {
+      "title": "每周课程表",
+      "emptyTitle": "课程表",
+      "emptyText": "您的课程表尚未准备。",
+      "columns": {
+        "day": "星期",
+        "time": "时间",
+        "subject": "科目",
+        "programClass": "项目 / 小组",
+        "teacher": "教师",
+        "room": "教室"
+      }
+    },
+    "assessments": {
+      "title": "即将进行的评估",
+      "emptyTitle": "即将进行的评估",
+      "emptyText": "当前没有已安排的评估。",
+      "columns": {
+        "subject": "科目",
+        "title": "评估",
+        "programClass": "项目 / 小组",
+        "dueDate": "截止日期",
+        "maxGrade": "最高分",
+        "teacher": "教师"
+      }
+    },
+    "grades": {
+      "title": "成绩与分数",
+      "emptyTitle": "成绩",
+      "emptyText": "您还没有记录成绩。",
+      "columns": {
+        "subject": "科目",
+        "assessment": "评估",
+        "programClass": "项目 / 小组",
+        "grade": "成绩",
+        "teacher": "教师",
+        "remarks": "评语"
+      }
+    },
+    "attendance": {
+      "title": "考勤与缺勤记录",
+      "emptyTitle": "考勤记录",
+      "emptyText": "您的考勤记录良好，未发现缺勤。",
+      "columns": {
+        "date": "日期",
+        "group": "小组",
+        "status": "状态",
+        "justified": "是否已说明？"
+      },
+      "justifiedYes": "是（{reason}）",
+      "justifiedNo": "否"
+    },
+    "resources": {
+      "title": "教学课程与资源",
+      "emptyTitle": "课程与资源",
+      "emptyText": "当前没有可用上传文件。",
+      "typeLabel": "类型：",
+      "sizeLabel": "大小："
+    },
+    "fees": {
+      "title": "财务状态与到期费用",
+      "emptyTitle": "财务状态",
+      "emptyText": "没有为您登记费用。",
+      "columns": {
+        "feeType": "费用类型",
+        "amountDue": "总金额",
+        "discount": "折扣",
+        "netAmount": "净额",
+        "dueDate": "截止日期"
+      }
+    },
+    "notifications": {
+      "emptyTitle": "通知",
+      "emptyText": "没有新通知。",
+      "title": "收到的通知",
+      "unreadCount": "{count} 条未读通知",
+      "markAllRead": "全部标为已读",
+      "markRead": "标为已读",
+      "read": "已读",
+      "unread": "未读",
+      "defaultTitle": "通知"
+    },
+    "posts": {
+      "title": "管理发布",
+      "emptySubtitle": "管理端发布的公告和内容将显示在这里。",
+      "listSubtitle": "从列表中选择发布内容查看完整详情。",
+      "emptyTitle": "当前没有发布",
+      "emptyText": "有内容时，管理端发布将显示在这里。",
+      "untitled": "无标题发布",
+      "openHint": "打开发布内容以查看详情。",
+      "filePlaceholder": "文档"
+    },
+    "messages": {
+      "title": "消息",
+      "subtitle": "联系管理处、教师或系统中任何可用用户。",
+      "searchPlaceholder": "按用户名搜索...",
+      "searchButton": "搜索",
+      "conversations": "会话",
+      "selectPrompt": "从列表中选择会话，或搜索新用户。",
+      "emptyConversation": "会话将显示在这里。",
+      "inputPlaceholder": "输入您的消息...",
+      "minSearch": "至少输入两个字符进行搜索。",
+      "searching": "正在搜索...",
+      "noResults": "没有匹配结果。",
+      "searchFailed": "搜索失败：{message}",
+      "loadingConversation": "正在加载会话...",
+      "loadFailed": "无法加载消息：{message}",
+      "noMessages": "暂无消息。",
+      "you": "您",
+      "roleFallback": "用户",
+      "sending": "正在发送...",
+      "sent": "已发送",
+      "sendFailed": "发送失败：{message}",
+      "emptyList": "暂无会话。"
+    },
+    "actions": {
+      "notificationsUpdateFailed": "无法更新通知。",
+      "notificationUpdateFailed": "无法更新该通知。"
+    },
+    "currency": {
+      "dzd": "DZD"
+    }
+  }
+}

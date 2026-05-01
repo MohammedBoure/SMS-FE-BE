@@ -12,12 +12,17 @@
     },
     {
       "code": "en",
-      "label": "English",
+      "label": "الإنجليزية",
       "dir": "ltr"
     },
     {
       "code": "fr",
-      "label": "Français",
+      "label": "الفرنسية",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "الصينية",
       "dir": "ltr"
     }
   ],

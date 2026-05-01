@@ -1,0 +1,290 @@
+{
+  "meta": {
+    "lang": "zh",
+    "dir": "ltr",
+    "name": "中文",
+    "locale": "zh-CN"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "阿拉伯语",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "英语",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "法语",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "中文",
+      "dir": "ltr"
+    }
+  ],
+  "accountant": {
+    "documentTitle": "会计与财务系统",
+    "brand": {
+      "title": "会计与财务办公室",
+      "userId": "ID：#{id}"
+    },
+    "language": {
+      "label": "语言",
+      "select": "选择语言"
+    },
+    "auth": {
+      "logout": "退出登录"
+    },
+    "nav": {
+      "students": "学生档案",
+      "fees": "费用与欠款",
+      "payments": "付款",
+      "transactions": "日记账",
+      "search": "搜索与操作",
+      "attendance": "缺勤监控",
+      "messages": "消息",
+      "notifications": "通知"
+    },
+    "state": {
+      "loading": "正在加载财务数据...",
+      "errorPrefix": "错误：",
+      "unknownSection": "未知模块"
+    },
+    "common": {
+      "actions": "操作",
+      "id": "ID",
+      "amount": "金额",
+      "date": "日期",
+      "status": "状态",
+      "type": "类型",
+      "student": "学生",
+      "studentGuardian": "学生 / 监护人",
+      "class": "班级",
+      "notes": "备注",
+      "phone": "电话",
+      "none": "-",
+      "notSpecified": "未指定",
+      "cancel": "取消",
+      "send": "发送",
+      "search": "搜索",
+      "loading": "正在加载...",
+      "updating": "正在更新...",
+      "unavailable": "不可用",
+      "read": "已读",
+      "unread": "未读",
+      "from": "来自：",
+      "to": "至：",
+      "general": "通用",
+      "userFallback": "用户 #{id}",
+      "studentFallback": "学生 #{id}",
+      "receipt": "收据 #{id}",
+      "paidOn": "付款日期：{date}"
+    },
+    "pagination": {
+      "previous": "上一页",
+      "next": "下一页",
+      "pageOf": "第 {page} 页，共 {total} 页"
+    },
+    "currency": {
+      "dzd": "DZD"
+    },
+    "status": {
+      "paid": "已支付",
+      "unpaid": "未支付",
+      "partial": "部分支付",
+      "overdue": "逾期",
+      "completed": "已完成",
+      "pending": "待处理",
+      "active": "启用",
+      "inactive": "停用",
+      "student": "学生",
+      "parent": "家长",
+      "teacher": "教师",
+      "admin": "管理员",
+      "receptionist": "接待员",
+      "accountant": "会计",
+      "income": "收入",
+      "expense": "支出",
+      "absent": "缺勤",
+      "late": "迟到",
+      "present": "出勤",
+      "justified": "已说明理由",
+      "unjustified": "未说明理由"
+    },
+    "students": {
+      "emptyTitle": "学生 财务档案",
+      "emptyText": "系统中没有注册学生。",
+      "title": "搜索财务档案",
+      "searchPlaceholder": "在本页按学生姓名或 ID 搜索...",
+      "columns": {
+        "id": "ID",
+        "fullName": "全名",
+        "class": "班级",
+        "action": "操作"
+      },
+      "financialFile": "财务档案与付款"
+    },
+    "financeModal": {
+      "title": "财务档案：{name}",
+      "addFeeTitle": "为学生添加财务应收（费用）",
+      "feeTypePlaceholder": "费用类型，例如：月供、交通...",
+      "feeAmountPlaceholder": "金额",
+      "registerFee": "登记费用",
+      "feesTitle": "费用与应收记录",
+      "paymentsTitle": "历史付款与收据",
+      "noFees": "没有到期或已登记费用。",
+      "noPayments": "该学生尚未付款。",
+      "feeColumns": {
+        "type": "类型",
+        "amount": "金额",
+        "due": "截止日期",
+        "status": "状态",
+        "action": "操作"
+      },
+      "pay": "付款",
+      "completed": "已完成"
+    },
+    "fees": {
+      "emptyTitle": "费用与欠款",
+      "emptyText": "系统中没有登记费用。",
+      "title": "完整费用与欠款记录",
+      "columns": {
+        "feeId": "费用 ID",
+        "student": "学生",
+        "feeType": "费用类型",
+        "amount": "金额",
+        "dueDate": "截止日期",
+        "status": "状态",
+        "actions": "操作"
+      },
+      "sendWarning": "发送警告"
+    },
+    "payments": {
+      "emptyTitle": "已收付款",
+      "emptyText": "没有登记付款。",
+      "title": "收据归档（已收付款）",
+      "columns": {
+        "receipt": "收据编号",
+        "student": "学生 / 监护人",
+        "amount": "已收金额",
+        "date": "付款日期"
+      }
+    },
+    "transactions": {
+      "emptyTitle": "交易记录",
+      "emptyText": "日记账为空。",
+      "title": "完整日记账",
+      "columns": {
+        "id": "ID",
+        "amount": "金额",
+        "route": "付款路径（从/到）",
+        "type": "变动类型",
+        "notes": "描述",
+        "date": "日期"
+      }
+    },
+    "search": {
+      "title": "用户目录与快捷操作",
+      "placeholder": "输入以搜索数据库...",
+      "serverSearch": "搜索服务器",
+      "notify": "通知",
+      "finance": "财务",
+      "noUsers": "未找到用户。",
+      "columns": {
+        "id": "ID",
+        "account": "姓名 / 账号",
+        "type": "类型",
+        "phone": "电话",
+        "actions": "操作"
+      }
+    },
+    "attendance": {
+      "title": "学生考勤与缺勤监控",
+      "searchPlaceholder": "在本页搜索学生...",
+      "viewButton": "查看缺勤",
+      "noStudents": "未找到学生。",
+      "selectHint": "从列表中选择学生以在此查看缺勤记录。",
+      "cleanRecord": "该学生记录良好，没有登记缺勤。",
+      "reportTitle": "缺勤报告",
+      "totalRecords": "记录总数",
+      "unjustifiedAbsences": "未说明缺勤",
+      "columns": {
+        "date": "日期",
+        "status": "状态",
+        "justification": "说明",
+        "notes": "备注"
+      }
+    },
+    "messagesTab": {
+      "title": "消息",
+      "subtitle": "查看您的会话，或搜索用户进行联系。",
+      "searchPlaceholder": "按用户名搜索...",
+      "searchButton": "搜索",
+      "conversations": "会话",
+      "selectPrompt": "从列表中选择会话，或搜索新用户。",
+      "emptyConversation": "会话将显示在这里。",
+      "inputPlaceholder": "输入您的消息...",
+      "minSearch": "至少输入两个字符进行搜索。",
+      "searching": "正在搜索...",
+      "noResults": "没有匹配结果。",
+      "searchFailed": "搜索失败：{message}",
+      "loadingConversation": "正在加载会话...",
+      "loadFailed": "无法加载消息：{message}",
+      "noMessages": "暂无消息。",
+      "you": "您",
+      "userFallback": "用户 #{id}",
+      "roleFallback": "用户",
+      "sending": "正在发送...",
+      "sent": "已发送",
+      "sendFailed": "发送失败：{message}",
+      "emptyList": "暂无会话。"
+    },
+    "notificationsTab": {
+      "title": "通知",
+      "empty": "没有新通知。",
+      "unreadCount": "{count} 条未读通知",
+      "markAllRead": "全部标为已读",
+      "markRead": "标为已读",
+      "read": "已读",
+      "unread": "未读",
+      "defaultTitle": "通知",
+      "unknownDate": "未知日期"
+    },
+    "notificationModal": {
+      "title": "发送通知给：{name}",
+      "titleLabel": "通知标题：",
+      "messageLabel": "消息文本：",
+      "defaultTitle": "来自财务办公室的通知",
+      "cancel": "取消",
+      "submit": "发送通知"
+    },
+    "actions": {
+      "searchMinLength": "请至少输入两个字符搜索服务器。",
+      "loadingShort": "正在加载...",
+      "userNotStudent": "此用户未关联到已注册学生。",
+      "financeLoadFailed": "错误：无法加载财务数据。",
+      "paymentPrompt": "到期金额为 {amount}。\n请输入收到的金额以登记付款：",
+      "invalidAmount": "金额无效。",
+      "recording": "正在记录...",
+      "paymentSuccess": "付款登记成功。\n收据编号：{receipt}",
+      "recordPaymentFailed": "记录付款时出错：{message}",
+      "defaultNotice": "请尽快联系财务办公室结清您的账户。",
+      "overdueReminder": "提醒支付逾期费用“{fee}”，金额为 {amount}。",
+      "noLinkedUser": "没有账号关联到此用户。",
+      "selectStudent": "请选择学生。",
+      "fetching": "正在获取...",
+      "attendanceLoadFailed": "无法加载数据。",
+      "feeCreateSuccess": "费用添加成功。",
+      "feeCreateFailed": "添加费用失败。",
+      "notificationSendSuccess": "通知发送成功。",
+      "notificationSendFailed": "发送通知失败。",
+      "notificationsUpdateFailed": "无法更新通知。",
+      "notificationUpdateFailed": "无法更新该通知。"
+    }
+  }
+}

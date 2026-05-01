@@ -5,11 +5,24 @@
     "name": "العربية"
   },
   "languages": [
-    { "code": "ar", "label": "العربية", "dir": "rtl" },
-    { "code": "en", "label": "English", "dir": "ltr" },
+    {
+      "code": "ar",
+      "label": "العربية",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "الإنجليزية",
+      "dir": "ltr"
+    },
     {
       "code": "fr",
-      "label": "Français",
+      "label": "الفرنسية",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "الصينية",
       "dir": "ltr"
     }
   ],

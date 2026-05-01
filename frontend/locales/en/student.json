@@ -17,7 +17,12 @@
     },
     {
       "code": "fr",
-      "label": "Français",
+      "label": "French",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "Chinese",
       "dir": "ltr"
     }
   ],

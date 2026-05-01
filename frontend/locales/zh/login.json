@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "lang": "zh",
+    "dir": "ltr",
+    "name": "中文",
+    "locale": "zh-CN"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "阿拉伯语",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "英语",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "法语",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "中文",
+      "dir": "ltr"
+    }
+  ],
+  "login": {
+    "documentTitle": "登录 | 学校管理系统",
+    "language": {
+      "label": "语言",
+      "select": "选择语言"
+    },
+    "theme": {
+      "light": "浅色模式",
+      "dark": "深色模式"
+    },
+    "brand": {
+      "kicker": "学校管理系统",
+      "title": "学校管理系统"
+    },
+    "form": {
+      "title": "登录",
+      "subtitle": "根据您的账号权限进入工作区。",
+      "username": "用户名",
+      "usernamePlaceholder": "用户名",
+      "password": "密码",
+      "submit": "登录",
+      "submitting": "正在登录...",
+      "error": "登录失败，请重试。"
+    },
+    "footer": "版权所有 © 2026 - 学校管理系统",
+    "posts": {
+      "kicker": "学校公告",
+      "title": "最新发布",
+      "refresh": "刷新发布",
+      "loading": "正在加载发布...",
+      "empty": "当前没有已发布内容。",
+      "loadFailed": "当前无法加载发布内容。",
+      "untitled": "无标题发布",
+      "openHint": "打开发布内容以查看完整详情。"
+    },
+    "common": {
+      "close": "关闭",
+      "file": "文件",
+      "download": "下载",
+      "unknownDate": "未知日期",
+      "fromManagement": "来自管理端",
+      "openDetails": "查看详情",
+      "noContent": "此发布没有内容。"
+    }
+  }
+}

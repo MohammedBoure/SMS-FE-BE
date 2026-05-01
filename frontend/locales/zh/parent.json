@@ -1,0 +1,196 @@
+{
+  "meta": {
+    "lang": "zh",
+    "dir": "ltr",
+    "name": "中文",
+    "locale": "zh-CN"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "阿拉伯语",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "英语",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "法语",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "中文",
+      "dir": "ltr"
+    }
+  ],
+  "parent": {
+    "documentTitle": "家长仪表盘",
+    "brand": {
+      "welcome": "欢迎：{name}"
+    },
+    "language": {
+      "label": "语言",
+      "select": "选择语言"
+    },
+    "auth": {
+      "logout": "退出登录"
+    },
+    "nav": {
+      "children": "我的孩子",
+      "grades": "成绩",
+      "attendance": "考勤",
+      "fees": "财务",
+      "posts": "管理发布",
+      "messages": "消息",
+      "notifications": "通知"
+    },
+    "state": {
+      "loading": "正在加载数据...",
+      "errorPrefix": "错误：",
+      "unknownSection": "未知模块",
+      "parentProfileMissing": "您的账号未在数据库中登记为家长，请联系管理处。",
+      "initFailed": "初始化家长数据失败。"
+    },
+    "common": {
+      "none": "-",
+      "notSpecified": "未指定",
+      "updating": "正在更新...",
+      "unavailable": "不可用",
+      "unknownDate": "未知日期",
+      "userFallback": "用户 #{id}",
+      "send": "发送",
+      "search": "搜索",
+      "download": "下载",
+      "fromManagement": "来自管理端",
+      "openDetails": "查看详情",
+      "backToPosts": "返回发布列表",
+      "noContent": "此发布没有内容。",
+      "file": "文件"
+    },
+    "status": {
+      "active": "启用",
+      "inactive": "停用",
+      "present": "出勤",
+      "absent": "缺勤",
+      "late": "迟到",
+      "paid": "已支付",
+      "completed": "已支付",
+      "unpaid": "未支付",
+      "partial": "部分支付",
+      "overdue": "逾期",
+      "read": "已读",
+      "unread": "未读",
+      "student": "学生",
+      "parent": "家长",
+      "teacher": "教师",
+      "admin": "管理员",
+      "receptionist": "接待员",
+      "accountant": "会计",
+      "exam": "考试",
+      "homework": "作业"
+    },
+    "children": {
+      "title": "我已注册的孩子",
+      "emptyTitle": "我的孩子",
+      "emptyText": "当前没有孩子关联到您的账号，请联系管理处。",
+      "columns": {
+        "name": "姓名",
+        "classLevel": "班级（级别）",
+        "birthDate": "出生日期",
+        "status": "状态"
+      }
+    },
+    "grades": {
+      "title": "成绩与评估",
+      "emptyTitle": "成绩与评估",
+      "emptyText": "尚未记录成绩。",
+      "columns": {
+        "child": "孩子",
+        "subject": "科目",
+        "assessment": "评估",
+        "grade": "成绩",
+        "teacher": "教师"
+      }
+    },
+    "attendance": {
+      "title": "缺勤与迟到记录",
+      "emptyTitle": "缺勤记录",
+      "emptyText": "您的孩子记录良好，未发现缺勤。",
+      "columns": {
+        "child": "孩子",
+        "date": "日期",
+        "status": "状态",
+        "justified": "是否已说明？"
+      },
+      "justifiedYes": "是（{reason}）",
+      "justifiedNo": "否"
+    },
+    "fees": {
+      "title": "财务应收与费用",
+      "emptyTitle": "财务状态",
+      "emptyText": "账户已结清，没有到期欠款。",
+      "columns": {
+        "child": "孩子",
+        "feeType": "费用类型",
+        "amount": "金额",
+        "dueDate": "截止日期",
+        "status": "状态"
+      }
+    },
+    "notifications": {
+      "emptyTitle": "通知与提醒",
+      "emptyText": "通知收件箱为空。",
+      "title": "收到的通知",
+      "unreadCount": "{count} 条未读通知",
+      "markAllRead": "全部标为已读",
+      "markRead": "标为已读",
+      "read": "已读",
+      "unread": "未读",
+      "defaultTitle": "通知"
+    },
+    "messages": {
+      "title": "消息",
+      "subtitle": "查看您的会话，或搜索新用户进行联系。",
+      "searchPlaceholder": "按用户名搜索...",
+      "searchButton": "搜索",
+      "conversations": "会话",
+      "selectPrompt": "从列表中选择会话，或搜索新用户。",
+      "emptyConversation": "会话将显示在这里。",
+      "inputPlaceholder": "输入您的消息...",
+      "minSearch": "至少输入两个字符进行搜索。",
+      "searching": "正在搜索...",
+      "noResults": "没有匹配结果。",
+      "searchFailed": "搜索失败：{message}",
+      "loadingConversation": "正在加载会话...",
+      "loadFailed": "无法加载消息：{message}",
+      "noMessages": "暂无消息。",
+      "you": "您",
+      "roleFallback": "用户",
+      "sending": "正在发送...",
+      "sent": "已发送",
+      "sendFailed": "发送失败：{message}",
+      "emptyList": "暂无会话。"
+    },
+    "posts": {
+      "title": "管理发布",
+      "emptySubtitle": "管理端发布的公告和内容将显示在这里。",
+      "listSubtitle": "从列表中选择发布内容查看完整详情。",
+      "emptyTitle": "当前没有发布",
+      "emptyText": "有内容时，管理端发布将显示在这里。",
+      "untitled": "无标题发布",
+      "openHint": "打开发布内容以查看详情。",
+      "filePlaceholder": "文档"
+    },
+    "actions": {
+      "notificationsUpdateFailed": "无法更新通知。",
+      "notificationUpdateFailed": "无法更新该通知。"
+    },
+    "currency": {
+      "dzd": "DZD"
+    }
+  }
+}

@@ -1,0 +1,1539 @@
+{
+  "meta": {
+    "lang": "zh",
+    "dir": "ltr",
+    "name": "中文",
+    "locale": "zh-CN"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "阿拉伯语",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "英语",
+      "dir": "ltr"
+    },
+    {
+      "code": "fr",
+      "label": "法语",
+      "dir": "ltr"
+    },
+    {
+      "code": "zh",
+      "label": "中文",
+      "dir": "ltr"
+    }
+  ],
+  "admin": {
+    "documentTitle": "管理员仪表盘 | 学校系统",
+    "brand": {
+      "title": "管理",
+      "userId": "ID：#{id}"
+    },
+    "topbar": {
+      "overview": "概览",
+      "openMenu": "打开菜单"
+    },
+    "theme": {
+      "toggle": "切换主题",
+      "light": "浅色",
+      "dark": "深色"
+    },
+    "language": {
+      "label": "语言",
+      "select": "选择语言"
+    },
+    "session": {
+      "account": "账号：{role}",
+      "logout": "退出登录"
+    },
+    "sidebar": {
+      "collapse": "收起侧边栏",
+      "expand": "展开侧边栏",
+      "collapseLabel": "收起菜单",
+      "expandLabel": "展开菜单",
+      "searchPlaceholder": "快速搜索...",
+      "noResults": "没有匹配结果"
+    },
+    "state": {
+      "loading": "正在加载数据...",
+      "errorPrefix": "抱歉，发生错误："
+    },
+    "nav": {
+      "categories": {
+        "core": "核心管理",
+        "academic": "教务事务",
+        "finance": "财务与资源",
+        "community": "沟通与社区"
+      },
+      "items": {
+        "users": "用户管理",
+        "parents": "家长",
+        "academic": "教务概览",
+        "classes": "班级与座位",
+        "students": "学生事务",
+        "teachers": "教师团队",
+        "programs": "学习项目",
+        "enrollments": "报名记录",
+        "attendance": "考勤",
+        "schedules": "课程表",
+        "assessments": "评估与考试",
+        "grades": "成绩与结果",
+        "finance": "财务概览",
+        "studentFees": "费用与欠款",
+        "payments": "付款记录",
+        "transactions": "日记账",
+        "resources": "数字图书馆",
+        "conversations": "实时会话",
+        "notifications": "通知与提醒",
+        "posts": "公告栏"
+      }
+    },
+    "sections": {
+      "users": "用户管理",
+      "parents": "家长管理",
+      "academic": "教务事务概览",
+      "classes": "教室与座位管理",
+      "students": "学生事务管理",
+      "teachers": "教师团队管理",
+      "programs": "学习项目管理",
+      "enrollments": "报名记录管理",
+      "attendance": "考勤记录管理",
+      "schedules": "课程表管理",
+      "assessments": "评估与考试管理",
+      "grades": "成绩与结果管理",
+      "finance": "财务概览",
+      "studentFees": "费用与欠款管理",
+      "payments": "付款与收款",
+      "transactions": "日记账",
+      "resources": "数字图书馆",
+      "conversations": "实时会话",
+      "notifications": "通知与提醒",
+      "posts": "公告与公开发布"
+    },
+    "messages": {
+      "unknownSection": "此界面正在开发中或尚未注册。",
+      "loadFailed": "连接服务器获取数据失败。",
+      "deleteConfirm": "确定要永久删除此记录吗？",
+      "deleteSuccess": "删除成功。",
+      "deleteFailed": "删除失败：{message}"
+    },
+    "actions": {
+      "search": "搜索",
+      "reload": "刷新",
+      "save": "保存",
+      "cancel": "取消",
+      "edit": "编辑",
+      "delete": "删除",
+      "view": "查看",
+      "close": "关闭",
+      "print": "打印",
+      "download": "下载",
+      "send": "发送",
+      "add": "添加",
+      "activate": "启用",
+      "deactivate": "停用"
+    },
+    "academic": {
+      "loading": "正在收集并分析教务数据...",
+      "kpis": {
+        "totalStudents": "学生总数",
+        "teachingStaff": "教师团队",
+        "classes": "班级",
+        "occupancyRate": "总体占用率"
+      },
+      "quickActions": {
+        "title": "快捷操作",
+        "students": "管理学生",
+        "attendance": "记录考勤",
+        "schedule": "课程表",
+        "grades": "录入成绩"
+      },
+      "occupancy": {
+        "title": "拥挤预警（前 5 个班级）",
+        "classColumn": "班级",
+        "occupancyColumn": "占用情况",
+        "label": "占用：{current} / {capacity}",
+        "empty": "暂无班级数据。"
+      },
+      "attendance": {
+        "title": "今日考勤（{date}）",
+        "choosePlaceholder": "-- 选择班级查看今日考勤 --",
+        "check": "检查",
+        "helper": "选择班级并点击检查以查看今日统计。",
+        "chooseClassFirst": "请先选择班级。",
+        "loadingRecords": "正在获取记录...",
+        "empty": "该班级今天尚未记录考勤。",
+        "rate": "出勤率",
+        "present": "出勤:",
+        "absent": "缺勤:",
+        "late": "迟到:",
+        "fetchFailed": "获取失败："
+      },
+      "errors": {
+        "server": "服务器连接错误："
+      }
+    },
+    "assessments": {
+      "types": {
+        "exam": "考试",
+        "quiz": "测验",
+        "homework": "作业",
+        "examOfficial": "正式考试",
+        "quizShort": "小测验"
+      },
+      "filters": {
+        "allTypes": "-- 所有评估类型 --",
+        "searchPlaceholder": "按评估名称搜索..."
+      },
+      "actions": {
+        "reloadTitle": "刷新列表",
+        "refresh": "刷新",
+        "add": "添加 New 评估",
+        "viewGradesTitle": "查看学生成绩",
+        "grades": "成绩",
+        "editTitle": "编辑评估属性",
+        "deleteTitle": "永久删除评估"
+      },
+      "form": {
+        "addTitle": "添加 New 评估",
+        "editTitle": "编辑 评估",
+        "titleLabel": "评估 标题 (必填)",
+        "titlePlaceholder": "例如：第一次数学作业...",
+        "typeLabel": "评估 类型",
+        "maxGradeLabel": "最高分",
+        "assignmentLabel": "关联任务（科目和教师）",
+        "loadingAssignments": "正在加载任务...",
+        "assignmentHint": "将此评估关联到科目和班级，以便记录成绩。",
+        "dueDateLabel": "截止日期",
+        "save": "保存 评估",
+        "chooseAssignment": "-- 请选择关联任务 --",
+        "assignmentFallback": "输入 Assignment ID"
+      },
+      "table": {
+        "empty": "未找到匹配的评估。",
+        "assignmentApplied": "应用于任务：#{id}",
+        "points": "分",
+        "notSpecified": "未指定",
+        "subject": "科目",
+        "general": "通用",
+        "classPrefix": "班级:",
+        "total": "显示评估总数：{count}",
+        "titleAndAssignment": "评估与任务",
+        "type": "类型",
+        "maxGrade": "最高分",
+        "dueDate": "截止日期",
+        "actions": "操作"
+      },
+      "gradesModal": {
+        "title": "评估 成绩",
+        "studentId": "学生 #",
+        "fullName": "Full 姓名",
+        "grade": "成绩",
+        "remarks": "教师 评语",
+        "close": "关闭窗口",
+        "titleWithName": "成绩：{title}",
+        "loading": "正在从服务器获取成绩...",
+        "empty": "此评估尚未记录成绩。",
+        "noRemarks": "无备注",
+        "fetchFailed": "获取成绩失败：{message}"
+      },
+      "messages": {
+        "titleRequired": "请输入评估标题。",
+        "assignmentRequired": "请选择关联任务。",
+        "updated": "评估已成功更新。",
+        "created": "评估已成功创建。",
+        "saveFailed": "保存失败：{message}",
+        "unexpected": "意外错误。"
+      }
+    },
+    "attendanceTab": {
+      "loading": "正在准备考勤面板...",
+      "common": {
+        "general": "通用"
+      },
+      "classCard": {
+        "title": "记录 班级 考勤",
+        "description": "选择班级和日期以查看名单并记录状态。",
+        "chooseClass": "-- 请选择班级 --",
+        "showSheet": "显示考勤表"
+      },
+      "studentCard": {
+        "title": "学生 缺勤 记录",
+        "description": "按学生姓名搜索，以查看记录并管理说明。",
+        "searchPlaceholder": "按学生姓名搜索...",
+        "showRecord": "Show Individual 记录"
+      },
+      "results": {
+        "emptyPrompt": "搜索或选择上方班级后，数据会显示在这里。"
+      },
+      "status": {
+        "present": "出勤",
+        "absent": "缺勤",
+        "late": "迟到"
+      },
+      "search": {
+        "noResults": "没有匹配的 results",
+        "idLabel": "ID：{id}"
+      },
+      "sheet": {
+        "reasonPlaceholder": "原因（如有）...",
+        "saved": "保存d",
+        "title": "{date} 考勤表",
+        "saveAll": "保存 Entire 班级 Sheet",
+        "studentName": "学生 姓名",
+        "status": "状态",
+        "notes": "备注 / 说明",
+        "singleAction": "单项操作"
+      },
+      "record": {
+        "cleanTitle": "学生 record is clean!",
+        "cleanDescription": "该学生没有缺勤或迟到记录。",
+        "justified": "已说明理由",
+        "unjustified": "未说明理由",
+        "editJustification": "编辑 justification",
+        "deleteRecord": "删除 record",
+        "title": "学生 #{id} 的缺勤与迟到记录",
+        "showStats": "查看 学生 统计",
+        "date": "日期",
+        "class": "班级",
+        "status": "状态",
+        "adminJustification": "行政说明",
+        "reason": "原因 / 备注",
+        "actions": "操作"
+      },
+      "justification": {
+        "title": "编辑 缺勤 说明",
+        "statusLabel": "说明 状态:",
+        "justified": "已说明缺勤",
+        "unjustified": "未说明缺勤",
+        "reasonLabel": "备注 / 缺勤原因：",
+        "reasonPlaceholder": "输入说明详情...",
+        "save": "保存 Changes"
+      },
+      "stats": {
+        "title": "考勤 统计",
+        "loading": "正在计算统计...",
+        "totalAbsences": "缺勤总数",
+        "totalLates": "Total 迟到 Arrivals",
+        "justifiedAbsences": "已说明缺勤",
+        "unjustifiedAbsences": "未说明缺勤",
+        "fetchFailed": "无法获取统计，请稍后重试。"
+      },
+      "messages": {
+        "chooseClassAndDate": "请先选择班级和日期。",
+        "loadingClassSheet": "正在从服务器获取名单...",
+        "noStudentsInClass": "当前没有学生报名此班级。",
+        "loadClassSheetFailed": "load list失败：{message}",
+        "recordSaved": "记录保存成功。",
+        "saveFailed": "保存失败：{message}",
+        "saving": "正在保存...",
+        "sheetSaved": "考勤 sheet saved 成功.",
+        "partialSaveFailed": "保存部分记录时发生错误，请检查后重试。",
+        "chooseStudentFirst": "请先从列表中选择学生。",
+        "loadingStudentRecord": "正在获取学生记录...",
+        "loadStudentRecordFailed": "load student record失败：{message}",
+        "justificationUpdated": "说明状态已更新。",
+        "updateFailed": "Update失败：{message}"
+      }
+    },
+    "classes": {
+      "common": {
+        "general": "通用",
+        "noProgram": "No 项目",
+        "notSpecified": "未指定"
+      },
+      "occupancy": {
+        "title": "Live 班级 Occupancy",
+        "label": "占用：{current} / {capacity}",
+        "empty": "No occupancy data is 可用. 创建 classes and add students."
+      },
+      "actions": {
+        "create": "创建 班级",
+        "editTitle": "编辑 class",
+        "deleteTitle": "删除 class"
+      },
+      "table": {
+        "title": "班级 Structure 管理",
+        "id": "班级 ID",
+        "name": "Academic 姓名",
+        "program": "项目",
+        "level": "学业级别",
+        "ageGroup": "年龄组",
+        "capacity": "最大容量",
+        "capacityValue": "{count} 个座位",
+        "actions": "管理 操作",
+        "empty": "当前没有已注册班级。"
+      },
+      "form": {
+        "addTitle": "添加 New 班级",
+        "editTitle": "编辑 班级 Details",
+        "programLabel": "项目",
+        "noProgramOption": "-- No 项目 --",
+        "nameLabel": "Academic 班级 姓名 *",
+        "namePlaceholder": "例如: Einstein 班级 (A)",
+        "levelLabel": "学业级别",
+        "levelPlaceholder": "例如：高中一年级",
+        "ageLabel": "年龄组",
+        "agePlaceholder": "例如：15-16",
+        "capacityLabel": "Maximum Capacity (座位)",
+        "capacityPlaceholder": "例如：30",
+        "save": "保存 班级 Details"
+      },
+      "messages": {
+        "occupancyLoadFailed": "加载占用数据失败。",
+        "programsLoadFailed": "加载项目失败。",
+        "nameRequired": "请输入班级名称。",
+        "updated": "班级 details updated 成功.",
+        "created": "New class created 成功.",
+        "saveFailed": "save class details失败：{message}",
+        "unexpected": "发生意外错误。"
+      }
+    },
+    "conversations": {
+      "toolbar": {
+        "title": "搜索 Communication 记录",
+        "description": "搜索任意用户以查看会话和私信。",
+        "searchPlaceholder": "按用户名搜索..."
+      },
+      "empty": {
+        "description": "搜索用户或显示列表以打开其会话收件箱。",
+        "showUsers": "Show 用户 List"
+      },
+      "users": {
+        "loading": "正在加载 users...",
+        "loadFailed": "load users失败：{message}",
+        "searching": "正在搜索...",
+        "searchFailed": "搜索失败：{message}",
+        "empty": "没有用户符合搜索。",
+        "open": "打开会话",
+        "table": {
+          "id": "ID",
+          "user": "用户",
+          "role": "角色",
+          "action": "操作"
+        }
+      },
+      "inbox": {
+        "userFallback": "用户 #{id}",
+        "loading": "正在获取 {name} 的收件箱...",
+        "backToUsers": "返回用户列表",
+        "back": "返回",
+        "title": "收件箱：{name}",
+        "noPrevious": "没有历史会话。",
+        "loadFailed": "fetch inbox失败：{message}"
+      },
+      "chat": {
+        "chooseConversation": "从列表中选择会话查看详情",
+        "placeholder": "会话将显示在这里。",
+        "invalidContact": "无法识别会话中的另一位参与者。",
+        "conversationBetween": "会话双方：",
+        "loadingMessages": "正在加载 messages...",
+        "emptyMessages": "没有消息记录。",
+        "messagesLoadFailed": "无法加载消息：{message}"
+      }
+    },
+    "enrollments": {
+      "status": {
+        "active": "启用",
+        "completed": "已完成",
+        "dropped": "已退出"
+      },
+      "common": {
+        "notSpecified": "未指定",
+        "general": "通用"
+      },
+      "filters": {
+        "allStatuses": "-- 按状态筛选（全部） --"
+      },
+      "actions": {
+        "reloadTitle": "刷新列表",
+        "refresh": "刷新",
+        "enrollStudent": "Enroll 学生 in 项目",
+        "deleteEnrollmentTitle": "取消并删除报名"
+      },
+      "form": {
+        "title": "创建 New Enrollment 记录",
+        "studentLabel": "要报名的学生 *",
+        "loadingStudents": "正在加载 students...",
+        "programLabel": "项目 *",
+        "loadingPrograms": "正在加载 programs...",
+        "classLabel": "班级 / Group *",
+        "chooseProgramFirst": "-- 请先选择项目 --",
+        "groupLabel": "Group 姓名 (可选)",
+        "groupPlaceholder": "例如: Group A, morning group...",
+        "notesLabel": "行政备注（可选）",
+        "notesPlaceholder": "关于此报名的任何备注...",
+        "confirm": "确认报名",
+        "loading": "正在加载...",
+        "chooseStudent": "-- 请选择学生 --",
+        "chooseProgram": "-- 请选择学习项目 --",
+        "noClassesForProgram": "此项目没有可用班级",
+        "chooseClass": "-- 请选择班级 --"
+      },
+      "table": {
+        "empty": "当前没有报名记录符合搜索。",
+        "programFallback": "项目 #{id}",
+        "studentId": "学生 ID: #{id}",
+        "className": "班级: {value}",
+        "groupName": "小组：{value}",
+        "total": "显示记录：{count}",
+        "student": "学生",
+        "programAndClass": "项目 and 班级",
+        "enrollmentDate": "Enrollment 日期",
+        "status": "状态",
+        "actions": "操作"
+      },
+      "messages": {
+        "filterFailed": "Filter失败：{message}",
+        "statusUpdated": "Enrollment status updated 成功.",
+        "statusUpdateFailed": "update status失败：{message}",
+        "deleteConfirm": "确定要永久删除此报名记录吗？",
+        "deleteFailed": "删除失败：{message}",
+        "loadDataFailed": "获取数据失败",
+        "programEndpointHint": "请确认 /programs/ 接口存在",
+        "loadClassesFailed": "获取班级失败",
+        "requiredSelections": "请确认已选择学生、项目和班级。",
+        "created": "Enrollment record added 成功.",
+        "duplicateHint": "请确认学生没有重复报名同一项目。",
+        "createFailed": "Enrollment失败：{message}"
+      }
+    },
+    "fees": {
+      "types": {
+        "tuition": "学费",
+        "transport": "交通",
+        "activities": "活动",
+        "exam": "考试 费用",
+        "other": "其他"
+      },
+      "stats": {
+        "totalRemaining": "剩余欠款总额",
+        "overdueCases": "迟到 付款 Cases",
+        "overdueRecord": "逾期记录"
+      },
+      "actions": {
+        "add": "添加 New Fee",
+        "refresh": "刷新",
+        "reminderTitle": "提醒",
+        "paymentsTitle": "付款 history",
+        "editTitle": "编辑 record"
+      },
+      "filters": {
+        "typeLabel": "类型：",
+        "all": "全部",
+        "searchPlaceholder": "按学生姓名或 ID 快速搜索...",
+        "overdueOnly": "仅逾期"
+      },
+      "form": {
+        "addTitle": "添加 New Fee",
+        "editTitle": "编辑 Fee",
+        "studentLabel": "Target 学生 *",
+        "studentPlaceholder": "按学生姓名搜索...",
+        "enrollmentLabel": "Enrollment / 项目 *",
+        "chooseStudentFirst": "-- 请先选择学生 --",
+        "typeLabel": "费用类型 *",
+        "dueDateLabel": "截止日期 *",
+        "amountLabel": "Total 金额 (DZD) *",
+        "discountLabel": "折扣 / Grant (DZD)",
+        "save": "保存 记录",
+        "loadingEnrollments": "正在加载 enrollments...",
+        "noActiveEnrollments": "该学生没有有效报名",
+        "chooseEnrollment": "-- 选择报名 --",
+        "programFallback": "项目",
+        "enrollmentsLoadFailed": "无法加载报名"
+      },
+      "table": {
+        "empty": "没有匹配的财务记录。",
+        "studentFallback": "学生 #{id}",
+        "paidAmount": "已支付: {amount} DZD",
+        "total": "显示记录：{count}",
+        "student": "学生",
+        "feeType": "费用类型",
+        "remainingAmount": "Remaining 金额",
+        "dueDate": "截止日期",
+        "status": "状态",
+        "actions": "操作"
+      },
+      "status": {
+        "paid": "已支付 in full",
+        "overdue": "逾期",
+        "pending": "待处理"
+      },
+      "search": {
+        "noResults": "没有结果",
+        "idLabel": "ID：{id}"
+      },
+      "reminder": {
+        "title": "Fee 付款 Reminder",
+        "message": "亲爱的学生，您有一笔类型为（{feeType}）的费用待支付。"
+      },
+      "payments": {
+        "title": "Fee 付款 History",
+        "transaction": "交易 #",
+        "date": "付款 日期",
+        "amount": "金额 已支付",
+        "receipt": "收据 Number",
+        "close": "关闭历史",
+        "loading": "正在获取付款...",
+        "empty": "此费用尚未记录付款。",
+        "noReceipt": "无收据",
+        "loadFailed": "fetch payment history失败：{message}"
+      },
+      "messages": {
+        "processingBalances": "正在处理并计算费用余额...",
+        "filterFailed": "Filter失败：{message}",
+        "overdueLoadFailed": "无法加载逾期记录：{message}",
+        "chooseStudentFirst": "请先选择学生。",
+        "chooseEnrollment": "请选择该学生的项目报名。",
+        "amountRequired": "请输入大于零的有效金额。",
+        "updated": "Updated 成功.",
+        "created": "费用添加成功。",
+        "saveFailed": "保存失败：{message}",
+        "searchFailed": "搜索 失败:",
+        "reminderSent": "提醒通知发送成功。",
+        "reminderFailed": "发送提醒通知失败。"
+      }
+    },
+    "financeTab": {
+      "loading": "正在收集会计数据...",
+      "stats": {
+        "totalCollected": "收款总额",
+        "paymentsCount": "来自 {count} 笔已记录付款",
+        "pendingFees": "待处理 费用",
+        "expectedCollection": "预计收款金额",
+        "overdueDebts": "Overdue 欠款",
+        "overdueCount": "{count} 名学生需要跟进"
+      },
+      "quickLinks": {
+        "payments": "Manage 付款",
+        "fees": "Track 费用与欠款",
+        "transactions": "每日交易台账"
+      },
+      "recent": {
+        "title": "迟到st Ledger Activity",
+        "number": "编号",
+        "type": "类型",
+        "amount": "金额",
+        "status": "状态",
+        "empty": "没有交易记录。"
+      },
+      "status": {
+        "completed": "已完成",
+        "pending": "待处理",
+        "cancelled": "已取消"
+      },
+      "messages": {
+        "loadFailed": "获取财务数据失败："
+      }
+    },
+    "gradesTab": {
+      "loading": "正在准备成绩面板...",
+      "types": {
+        "exam": "考试",
+        "quiz": "测验",
+        "homework": "作业"
+      },
+      "assessment": {
+        "optionLabel": "{title}（最高分：{max}）",
+        "choose": "-- 选择评估 --",
+        "showGrades": "Show 成绩 List"
+      },
+      "assessmentCard": {
+        "title": "考试或评估成绩",
+        "description": "选择评估以查看学生成绩和通过统计。"
+      },
+      "studentCard": {
+        "title": "学生 成绩 报告",
+        "description": "搜索学生以查看完整教务记录。",
+        "searchPlaceholder": "按学生姓名搜索...",
+        "showRecord": "Generate 成绩 报告"
+      },
+      "results": {
+        "emptyPrompt": "搜索后数据和统计会显示在这里。"
+      },
+      "search": {
+        "noResults": "没有匹配的 results",
+        "idLabel": "ID：{id}"
+      },
+      "stats": {
+        "average": "Average 成绩",
+        "highest": "Highest 成绩",
+        "lowest": "Lowest 成绩",
+        "gradedStudents": "成绩d 学生"
+      },
+      "quickForm": {
+        "title": "输入 成绩:",
+        "studentPlaceholder": "搜索学生...",
+        "gradePlaceholder": "成绩",
+        "remarksPlaceholder": "教师 remarks (optional)"
+      },
+      "assessmentResults": {
+        "title": "评估 统计 and 成绩"
+      },
+      "table": {
+        "studentFallback": "学生 #{id}",
+        "noAssessmentGrades": "此评估尚未录入成绩。",
+        "id": "ID",
+        "studentName": "学生 姓名",
+        "grade": "成绩",
+        "remarks": "教师 评语",
+        "actions": "操作"
+      },
+      "studentRecord": {
+        "empty": "该学生的教务记录中尚无成绩。",
+        "title": "Full Academic 报告: 学生 #{id}",
+        "assessment": "评估 / 科目",
+        "type": "类型",
+        "programClass": "项目 / 班级",
+        "gradeValue": "成绩",
+        "remarks": "评语"
+      },
+      "messages": {
+        "assessmentsLoadFailed": "加载评估列表失败。",
+        "searchFailed": "搜索 失败:",
+        "chooseAssessmentFirst": "请先选择评估。",
+        "loadingAssessmentGrades": "正在加载 grades and statistics...",
+        "assessmentLoadFailed": "load assessment data失败：{message}",
+        "studentAndGradeRequired": "请选择学生并输入成绩。",
+        "gradeSaved": "成绩 saved 成功.",
+        "saveFailed": "保存失败：{message}",
+        "chooseStudentFirst": "请 choose a student first.",
+        "loadingStudentRecord": "正在生成教务记录...",
+        "studentRecordFailed": "generate report失败：{message}"
+      }
+    },
+    "parentsTab": {
+      "common": {
+        "notAvailable": "不可用",
+        "notSpecified": "未指定"
+      },
+      "toolbar": {
+        "total": "家长总数：{count}"
+      },
+      "actions": {
+        "linkUser": "Assign 用户 as 家长",
+        "viewChildren": "查看 Children",
+        "deleteRoleTitle": "移除角色"
+      },
+      "form": {
+        "title": "Assign New 家长",
+        "userLabel": "选择用户账号：",
+        "loadingUsers": "正在加载 users...",
+        "hint": "只能选择可分配为家长账号的用户。",
+        "noUsers": "系统中没有注册用户",
+        "chooseUser": "-- 选择要分配的用户 --",
+        "save": "保存 Assignment"
+      },
+      "table": {
+        "empty": "当前没有已注册家长。",
+        "id": "ID",
+        "parent": "家长",
+        "parentDetails": "家长 Details",
+        "phone": "电话 Number",
+        "children": "Children (学生)",
+        "actions": "操作"
+      },
+      "messages": {
+        "loadUsersFailed": "获取数据失败",
+        "chooseUserFirst": "请先从列表中选择用户。",
+        "assigned": "用户 assigned as parent 成功.",
+        "unexpected": "意外错误",
+        "addFailed": "添加失败：{message}",
+        "deleteConfirm": "确定要从此账号移除家长角色吗？",
+        "loadingChildren": "正在获取数据...",
+        "loadChildrenFailed": "fetch data失败：{message}"
+      },
+      "studentsModal": {
+        "title": "家长 Children",
+        "titleWithName": "家长 Children: {name}",
+        "empty": "当前没有孩子关联到此账号。",
+        "className": "班级: {value}",
+        "registered": "已注册"
+      }
+    },
+    "notificationsTab": {
+      "stats": {
+        "totalSent": "已发送通知总数",
+        "read": "用户已读",
+        "unread": "未读 / 待处理"
+      },
+      "targets": {
+        "single": "单个用户",
+        "student": "所有学生",
+        "teacher": "所有教师",
+        "parent": "所有家长",
+        "all": "所有系统用户"
+      },
+      "form": {
+        "title": "发送新提醒或通知",
+        "targetLabel": "目标对象 *",
+        "userSearchLabel": "搜索 user *",
+        "userSearchPlaceholder": "输入用户名搜索...",
+        "notificationTitleLabel": "通知 标题 *",
+        "titlePlaceholder": "例如：费用截止日期提醒...",
+        "messageLabel": "消息 Content *",
+        "messagePlaceholder": "在此输入通知详情...",
+        "clear": "清空字段",
+        "send": "发送通知"
+      },
+      "filters": {
+        "readStatus": "已读 状态:",
+        "all": "全部",
+        "readOnly": "已读 only",
+        "unreadOnly": "未读",
+        "searchPlaceholder": "搜索 notifications (recipient, title, content)..."
+      },
+      "actions": {
+        "cleanTitle": "移除 30 天前的已读通知",
+        "clean": "清理日志（30 天）",
+        "refresh": "刷新",
+        "removeTitle": "移除通知",
+        "remove": "移除"
+      },
+      "table": {
+        "empty": "没有历史通知或匹配结果。",
+        "userFallback": "用户 #{id}",
+        "displayed": "显示结果：{count} 条通知",
+        "recipient": "接收人",
+        "titleContent": "标题 and Content",
+        "deliveryStatus": "Delivery 状态",
+        "sentDate": "发送日期",
+        "resolve": "处理"
+      },
+      "status": {
+        "read": "已读",
+        "unread": "未读"
+      },
+      "search": {
+        "noResults": "没有结果",
+        "userRoleFallback": "用户"
+      },
+      "messages": {
+        "userSearchFailed": "用户 search 失败:",
+        "titleMessageRequired": "请输入标题和通知内容。",
+        "sending": "正在发送...",
+        "chooseTargetUser": "请搜索并从列表中选择目标用户。",
+        "sentSingle": "通知已成功发送给用户。",
+        "noUsersForTarget": "在 {target} 中未找到用户。",
+        "bulkConfirm": "此批量通知将发送给 {count} 个用户。继续吗？",
+        "sentBulk": "通知已成功发送给 {count} 个用户。",
+        "sendFailed": "发送失败：{message}",
+        "connectionHint": "请检查服务器连接。",
+        "cleanConfirm": "确定要清理日志并移除旧的已读通知吗？此操作无法撤销。",
+        "cleanSuccess": "旧通知已移除，日志已更新。",
+        "cleanFailed": "clean log失败：{message}"
+      }
+    },
+    "paymentsTab": {
+      "feeTypes": {
+        "tuition": "学费",
+        "transport": "交通",
+        "activities": "活动",
+        "exam": "考试费用",
+        "other": "其他"
+      },
+      "summary": {
+        "totalCollected": "显示的收款总额"
+      },
+      "search": {
+        "placeholder": "按学生姓名或收据编号搜索...",
+        "noResults": "没有结果",
+        "idLabel": "ID：{id}"
+      },
+      "actions": {
+        "reloadAll": "全部刷新",
+        "recordPayment": "记录 付款",
+        "printReceiptTitle": "打印 receipt",
+        "print": "打印",
+        "cancelPaymentTitle": "取消付款"
+      },
+      "modal": {
+        "title": "记录 New 付款",
+        "studentStep": "1. 搜索目标学生 *",
+        "studentPlaceholder": "输入学生姓名搜索...",
+        "feeStep": "2. 选择要结算的费用 *",
+        "chooseFee": "-- 选择费用 --",
+        "amountLabel": "已支付 amount *",
+        "receiptLabel": "收据 number (optional)",
+        "installmentLabel": "分期编号",
+        "confirmPayment": "Confirm 付款"
+      },
+      "balance": {
+        "netAmount": "费用净额：",
+        "previousPayments": "历史付款：",
+        "remainingNow": "当前待付："
+      },
+      "table": {
+        "empty": "没有付款记录或匹配结果。",
+        "studentFallback": "学生 #{id}",
+        "feeFallback": "费用 #{id}",
+        "operation": "操作",
+        "student": "学生",
+        "feeType": "费用类型",
+        "amountPaid": "金额 已支付",
+        "receipt": "收据 Number",
+        "noReceipt": "无收据",
+        "installment": "分期",
+        "installmentNumber": "第 {number} 期",
+        "date": "日期",
+        "actions": "操作",
+        "totalOperations": "操作总数：{count}"
+      },
+      "fee": {
+        "loadingStudentFees": "正在获取学生欠款...",
+        "noDebts": "该学生当前没有到期欠款或可付款账单。",
+        "chooseFeeToPay": "-- 选择要支付的费用 --",
+        "optionLabel": "#{id} - {type} - 金额: {amount}",
+        "loadFailed": "获取学生欠款失败。",
+        "calculating": "正在计算...",
+        "fetchError": "获取数据时出错"
+      },
+      "messages": {
+        "searchFailed": "搜索 失败:",
+        "amountRequired": "请选择费用并输入大于零的有效金额。",
+        "saving": "正在保存...",
+        "success": "付款 recorded 成功.",
+        "checkData": "请检查数据。",
+        "saveFailed": "保存失败：{message}"
+      },
+      "receipt": {
+        "documentTitle": "收据 #{id}",
+        "schoolName": "现代学校",
+        "systemName": "学校管理系统",
+        "cashReceipt": "Cash 收据",
+        "receiptNumber": "收据 Number: {value}",
+        "date": "日期：",
+        "reference": "参考：",
+        "studentName": "学生 姓名:",
+        "targetFee": "目标费用：",
+        "installment": "分期：",
+        "paidAmount": "已支付 金额:",
+        "receivedNote": "上方金额已收取。",
+        "thankYou": "感谢您选择我们的学校。",
+        "cashierSignature": "收银员签名"
+      }
+    },
+    "postsTab": {
+      "stats": {
+        "total": "公告总数",
+        "today": "今日发布",
+        "withCover": "含封面图",
+        "textOnly": "仅文本"
+      },
+      "header": {
+        "title": "School 公告 Board",
+        "description": "管理面向学生和家长的公告与发布。"
+      },
+      "actions": {
+        "newPost": "撰写新公告",
+        "preview": "预览",
+        "saveChanges": "保存 Changes",
+        "publish": "Publish 公告"
+      },
+      "search": {
+        "placeholder": "搜索 announcements..."
+      },
+      "empty": {
+        "title": "尚未发布公告",
+        "description": "从为学校社区撰写第一条公告开始。"
+      },
+      "table": {
+        "announcement": "公告",
+        "title": "公告 标题",
+        "author": "作者",
+        "userFallback": "用户 #{id}",
+        "publishDate": "Publish 日期",
+        "actions": "操作"
+      },
+      "preview": {
+        "title": "公告 Preview"
+      },
+      "toolbar": {
+        "bold": "加粗",
+        "italic": "斜体",
+        "strike": "删除线",
+        "inlineCode": "行内代码",
+        "list": "列表",
+        "numbered": "编号列表",
+        "quote": "引用",
+        "divider": "分隔线",
+        "table": "表格",
+        "insertTable": "插入表格",
+        "image": "图片",
+        "insertImage": "插入图片",
+        "link": "链接",
+        "insertLink": "插入链接",
+        "download": "下载",
+        "downloadLink": "下载链接",
+        "codeBlock": "代码块",
+        "insertCode": "插入代码块",
+        "math": "数学",
+        "insertMath": "数学公式"
+      },
+      "editor": {
+        "editKicker": "编辑 发布",
+        "newKicker": "New 发布",
+        "editTitle": "编辑 公告",
+        "newTitle": "撰写新公告",
+        "viewMode": "查看 Mode",
+        "modeWrite": "撰写",
+        "modeSplit": "分屏",
+        "modePreview": "预览",
+        "fullscreen": "全屏",
+        "backToList": "返回列表",
+        "titleLabel": "公告 标题",
+        "titlePlaceholder": "输入清晰标题...",
+        "coverLabel": "Cover 图片",
+        "editorPane": "编辑or",
+        "lineColumn": "第 {line} 行 - 第 {column} 列",
+        "contentPlaceholder": "在此输入公告内容...",
+        "livePreview": "实时预览",
+        "ready": "已读y",
+        "coverAlt": "封面",
+        "titleFallback": "公告 标题",
+        "previewPlaceholder": "开始输入后在此查看预览...",
+        "wordCount": "{words} 个词 - {chars} 个字符",
+        "empty": "空",
+        "updated": "已更新"
+      },
+      "draft": {
+        "savedDraftFound": "此公告存在已保存草稿。",
+        "restore": "恢复",
+        "dismiss": "忽略",
+        "unsaved": "未保存的更改",
+        "saved": "草稿已保存",
+        "saveFailed": "无法保存草稿",
+        "dismissed": "草稿已忽略"
+      },
+      "download": {
+        "token": "下载",
+        "button": "下载"
+      },
+      "tableBuilder": {
+        "defaultHeader": "第 {index} 列",
+        "title": "表格 Builder",
+        "columns": "列",
+        "rows": "行",
+        "alignment": "列对齐",
+        "markdownCode": "Markdown 代码",
+        "previewHint": "预览 - 可直接编辑表头",
+        "insert": "插入编辑器",
+        "headerPlaceholder": "表头",
+        "sampleCell": "数据",
+        "align": {
+          "right": "右对齐",
+          "center": "居中",
+          "left": "左对齐"
+        }
+      },
+      "insert": {
+        "imageTitle": "Insert 图片",
+        "imageUrl": "图片 URL",
+        "altText": "替代文本",
+        "altPlaceholder": "图片说明",
+        "imageDefaultAlt": "图片",
+        "linkTitle": "Insert 链接",
+        "linkText": "链接 text",
+        "linkDefaultText": "点击这里",
+        "url": "URL",
+        "downloadTitle": "Insert 下载 链接",
+        "fileName": "文件 name",
+        "fileNamePlaceholder": "物理书 - 第一章",
+        "fileType": "文件 type (optional)",
+        "choose": "-- 选择 --",
+        "video": "视频",
+        "audio": "音频",
+        "fileSize": "大小（可选）",
+        "sizePlaceholder": "例如：2.4 MB",
+        "downloadUrl": "下载 URL"
+      },
+      "messages": {
+        "tableInserted": "表格 inserted",
+        "downloadRequired": "请至少填写文件名和链接。",
+        "titleRequired": "请输入公告标题。",
+        "contentRequired": "请输入公告内容。",
+        "saving": "正在保存...",
+        "updated": "公告 updated 成功.",
+        "published": "公告 published 成功.",
+        "saveFailed": "保存时出错：{message}"
+      }
+    },
+    "programsTab": {
+      "search": {
+        "placeholder": "按项目名称搜索..."
+      },
+      "actions": {
+        "reloadTitle": "刷新列表",
+        "add": "添加 New 项目",
+        "editTitle": "编辑 program",
+        "deleteTitle": "删除 program"
+      },
+      "form": {
+        "addTitle": "添加 学习项目",
+        "editTitle": "编辑 项目",
+        "nameLabel": "项目 姓名 *",
+        "namePlaceholder": "例如：数学辅导课、语言课程...",
+        "typeLabel": "项目 类型 *",
+        "typePlaceholder": "例如：课程、文凭、暑期活动...",
+        "cashPriceLabel": "现金价格",
+        "installmentPriceLabel": "分期价格",
+        "save": "保存 项目"
+      },
+      "table": {
+        "empty": "当前没有注册学习项目。",
+        "name": "项目 姓名",
+        "type": "类型",
+        "cashPrice": "现金价格",
+        "installmentPrice": "分期价格",
+        "actions": "操作",
+        "total": "Total 项目: {count}"
+      },
+      "messages": {
+        "minSearch": "请至少输入两个字符进行搜索。",
+        "searchFailed": "搜索失败：{message}",
+        "required": "请输入教务项目名称和类型。",
+        "updated": "项目 details updated 成功.",
+        "created": "New program added 成功.",
+        "saveFailed": "保存失败：{message}",
+        "unexpected": "意外错误"
+      }
+    },
+    "resourcesTab": {
+      "types": {
+        "pdf": "书籍 / PDF",
+        "document": "文本文档",
+        "video": "视频",
+        "image": "图片",
+        "archive": "归档",
+        "file": "文件"
+      },
+      "stats": {
+        "totalFiles": "Total 上传ed 文件s",
+        "fileUnit": "文件",
+        "librarySize": "图书馆总大小"
+      },
+      "search": {
+        "placeholder": "按文件标题、描述或教师搜索..."
+      },
+      "actions": {
+        "uploadNew": "上传 New 文件",
+        "downloadTitle": "下载文件",
+        "deleteTitle": "永久删除"
+      },
+      "upload": {
+        "title": "上传 New Learning 资源",
+        "titleLabel": "文件 标题 *",
+        "titlePlaceholder": "例如：第一章摘要...",
+        "typeLabel": "文件 类型 *",
+        "assignmentLabel": "链接ed assignment (optional)",
+        "noAssignment": "-- 无关联（通用文件） --",
+        "descriptionLabel": "简短说明（可选）",
+        "descriptionPlaceholder": "关于文件的附加信息...",
+        "chooseFile": "点击选择文件（最大 5MB）",
+        "startUpload": "开始上传",
+        "fileSelected": "已选文件：",
+        "loadingAssignments": "正在加载任务...",
+        "assignmentsLoadFailed": "无法获取任务，可留空"
+      },
+      "table": {
+        "empty": "图书馆为空或没有匹配搜索的结果。",
+        "generalFile": "通用 文件 (Unlinked)",
+        "subjectFallback": "科目",
+        "classFallback": "班级",
+        "teacherLabel": "教师:",
+        "notSpecified": "未指定",
+        "fileDetails": "文件 姓名 and Details",
+        "noDescription": "无说明",
+        "academicLink": "Academic 链接",
+        "type": "类型",
+        "size": "大小",
+        "actions": "操作"
+      },
+      "messages": {
+        "uploading": "正在上传...",
+        "fileRequired": "请选择要上传的文件。",
+        "uploadSuccess": "文件上传成功并已加入图书馆。",
+        "checkFile": "请检查文件类型和大小。",
+        "uploadFailed": "上传失败：{message}",
+        "preparingDownload": "正在准备下载文件，请稍候...",
+        "downloadMissing": "无法从服务器获取文件。文件可能已删除或路径无效。",
+        "downloadFailed": "下载失败：{message}"
+      }
+    },
+    "schedulesTab": {
+      "cards": {
+        "classSchedule": "班级 课程表",
+        "teacherSchedule": "教师 课程表",
+        "chooseClass": "-- 选择班级 --",
+        "chooseTeacher": "-- 选择教师 --",
+        "show": "显示"
+      },
+      "actions": {
+        "addSession": "将课程加入课程表",
+        "deleteSessionTitle": "删除 session"
+      },
+      "emptyPrompt": "选择班级或教师以在此显示每周课程表。",
+      "modal": {
+        "title": "添加 New Session",
+        "classLabel": "班级:",
+        "chooseClassFirst": "-- 请先选择班级 --",
+        "assignmentLabel": "科目 and teacher assignment:",
+        "chooseClass": "-- 请选择班级 --",
+        "dayLabel": "星期：",
+        "roomLabel": "教室：",
+        "roomPlaceholder": "例如: Room 101",
+        "startTimeLabel": "开始时间：",
+        "endTimeLabel": "结束时间：",
+        "save": "保存 Session"
+      },
+      "days": {
+        "Sunday": "星期日",
+        "Monday": "星期一",
+        "Tuesday": "星期二",
+        "Wednesday": "星期三",
+        "Thursday": "星期四",
+        "Friday": "星期五",
+        "Saturday": "星期六"
+      },
+      "table": {
+        "emptySchedule": "此课程表当前没有登记课程。",
+        "subjectFallback": "科目",
+        "teacherFallback": "教师",
+        "classFallback": "班级",
+        "teacherPrefix": "教师:",
+        "classPrefix": "班级:",
+        "roomPrefix": "教室：",
+        "notSpecified": "未指定",
+        "emptyDay": "空"
+      },
+      "assignments": {
+        "loading": "正在加载...",
+        "none": "此班级没有分配教师",
+        "optionLabel": "科目: {subject} | 教师: {teacher}",
+        "loadFailed": "获取数据时出错"
+      },
+      "messages": {
+        "baseLoadFailed": "加载课程表基础数据失败：",
+        "chooseFromList": "请先从列表中选择。",
+        "loadingSchedule": "正在加载 schedule...",
+        "loadFailed": "load schedule失败：{message}",
+        "noData": "无数据",
+        "chooseAssignment": "请选择科目和教师分配。",
+        "created": "课程已成功加入课程表。",
+        "createFailed": "添加失败：{message}",
+        "timeConflictHint": "请确认没有时间冲突。",
+        "deleteConfirm": "确定要删除此课程表课程吗？"
+      }
+    },
+    "studentsTab": {
+      "search": {
+        "placeholder": "按姓名或 ID 搜索..."
+      },
+      "actions": {
+        "add": "登记新学生",
+        "reloadTitle": "刷新列表",
+        "viewProfile": "查看 Detailed Profile",
+        "changeStatus": "Change 状态"
+      },
+      "form": {
+        "title": "在系统中登记新学生",
+        "userLabel": "链接ed 用户 Account *",
+        "loadingAccounts": "正在加载 accounts...",
+        "parentLabel": "家长",
+        "noParent": "-- 无家长 --",
+        "dobLabel": "日期 of Birth",
+        "bloodLabel": "血型",
+        "notSpecified": "-- 未指定 --",
+        "medicalLabel": "医疗备注（可选）",
+        "medicalPlaceholder": "过敏、药物等...",
+        "save": "保存 Data",
+        "chooseUser": "-- 选择 user account --",
+        "loadFailed": "获取数据失败"
+      },
+      "table": {
+        "empty": "没有匹配的 search results.",
+        "total": "Total 学生: {count}",
+        "id": "ID",
+        "student": "学生",
+        "account": "账号：#{id}",
+        "class": "班级",
+        "classFallback": "Not 已注册 in a class",
+        "dateOfBirth": "日期 of Birth",
+        "status": "状态",
+        "actions": "操作"
+      },
+      "status": {
+        "active": "启用",
+        "inactive": "停用d"
+      },
+      "messages": {
+        "minSearch": "请至少输入两个字符进行搜索。",
+        "searchFailed": "搜索失败：{message}",
+        "statusConfirm": "确定要将此学生状态改为 {status} 吗？",
+        "statusFailed": "change status失败：{message}",
+        "chooseUserFirst": "请 choose a user account first.",
+        "created": "学生 已注册 成功.",
+        "createFailed": "Registration失败：{message}",
+        "loadingProfile": "正在收集学生档案...",
+        "profileFailed": "fetch student profile失败：{message}"
+      },
+      "profile": {
+        "studentId": "学生 ID: #{id}",
+        "tabs": {
+          "personal": "个人",
+          "academic": "教务",
+          "finance": "财务"
+        },
+        "personal": {
+          "dateOfBirth": "日期 of Birth:",
+          "bloodGroup": "血型：",
+          "medicalNotes": "Medical 备注:",
+          "none": "无"
+        },
+        "academic": {
+          "gradesTitle": "成绩 记录",
+          "assessment": "评估",
+          "subject": "科目",
+          "grade": "成绩",
+          "noGrades": "无成绩记录"
+        },
+        "finance": {
+          "paidTotal": "Total 已支付",
+          "remaining": "Remaining 金额"
+        }
+      }
+    },
+    "usersTab": {
+      "roles": {
+        "admin": "管理员",
+        "receptionist": "接待员",
+        "student": "学生",
+        "parent": "家长",
+        "accountant": "会计",
+        "teacher": "教师"
+      },
+      "search": {
+        "placeholder": "搜索 users (at least two characters)..."
+      },
+      "actions": {
+        "add": "添加 New 用户",
+        "reloadTitle": "刷新列表",
+        "disable": "停用 account",
+        "enable": "启用 account"
+      },
+      "table": {
+        "id": "ID",
+        "fullName": "Full 姓名",
+        "username": "用户名",
+        "contact": "联系方式",
+        "status": "状态",
+        "actions": "操作",
+        "empty": "没有可显示的用户。",
+        "roleId": "角色 ID: {id}"
+      },
+      "status": {
+        "active": "启用",
+        "inactive": "停用d"
+      },
+      "form": {
+        "addTitle": "添加 New 用户",
+        "editTitle": "编辑 用户",
+        "fullName": "Full 姓名 *",
+        "role": "角色 *",
+        "selectRole": "选择 角色",
+        "username": "用户名 *",
+        "password": "密码 *",
+        "passwordPlaceholder": "输入 password",
+        "passwordHint": "如果不想更改，请留空。",
+        "email": "电子邮件",
+        "phone": "电话",
+        "address": "地址",
+        "activeAccount": "启用 account (can sign in)",
+        "save": "保存 Data"
+      },
+      "messages": {
+        "loading": "正在加载...",
+        "refreshing": "刷新ing...",
+        "searching": "正在搜索...",
+        "loadFailed": "load users失败：{message}",
+        "minSearch": "请至少输入两个字符进行搜索。",
+        "searchFailed": "搜索失败：{message}",
+        "enableConfirm": "要启用此账号吗？",
+        "disableConfirm": "要停用此账号并阻止登录吗？",
+        "statusFailed": "change status失败：{message}",
+        "deleteConfirm": "确定要永久删除此用户吗？此操作无法撤销。",
+        "required": "请 fill in all required fields: Full 姓名, 用户名, and 角色.",
+        "passwordRequired": "请为新用户提供密码。",
+        "updated": "用户 updated 成功.",
+        "created": "用户 created 成功.",
+        "duplicateHint": "请检查是否有重复用户名。",
+        "saveFailed": "保存数据时出错：{message}"
+      }
+    },
+    "teachersTab": {
+      "search": {
+        "placeholder": "按教师姓名或专业搜索..."
+      },
+      "actions": {
+        "add": "添加 New 教师",
+        "reloadTitle": "刷新列表",
+        "viewProfile": "档案与课程表",
+        "profile": "档案",
+        "editTitle": "编辑 specialty and date"
+      },
+      "form": {
+        "addTitle": "添加 教师团队",
+        "addNewTitle": "添加 New 教师",
+        "editTitle": "编辑 教师 Data",
+        "userLabel": "用户 Account *",
+        "loadingAccounts": "正在加载 accounts...",
+        "chooseUser": "-- 选择 user account --",
+        "loadAccountsFailed": "加载账号失败",
+        "specialty": "Academic 专业",
+        "specialtyPlaceholder": "例如: Mathematics, Physics, Arabic...",
+        "hireDate": "Hire 日期",
+        "save": "保存 Data"
+      },
+      "table": {
+        "empty": "没有已登记或匹配搜索的教师。",
+        "teacher": "教师",
+        "userAccount": "用户账号: #{id}",
+        "specialty": "专业",
+        "hireDate": "Hire 日期",
+        "actions": "操作",
+        "general": "通用",
+        "total": "Total 教师: {count}"
+      },
+      "days": {
+        "Sunday": "星期日",
+        "Monday": "星期一",
+        "Tuesday": "星期二",
+        "Wednesday": "星期三",
+        "Thursday": "星期四",
+        "Friday": "星期五",
+        "Saturday": "星期六"
+      },
+      "profile": {
+        "classLabel": "班级:",
+        "levelLabel": "级别：",
+        "specialtyLabel": "专业:",
+        "hireLabel": "入职：",
+        "noAssignments": "没有任务 are 已注册.",
+        "emptySchedule": "课程表为空。",
+        "tabs": {
+          "assignments": "班级 and Assignments",
+          "schedule": "课程表"
+        }
+      },
+      "messages": {
+        "minSearch": "请至少输入两个字符进行搜索。",
+        "searchFailed": "搜索失败：{message}",
+        "updated": "教师 data updated 成功.",
+        "created": "教师 created 成功.",
+        "chooseUser": "请 choose a user account.",
+        "checkData": "请检查数据或重复账号。",
+        "saveFailed": "保存失败：{message}",
+        "loadingProfile": "正在加载 teacher profile and schedule...",
+        "profileFailed": "fetch teacher details失败：{message}"
+      }
+    },
+    "transactionsTab": {
+      "summary": {
+        "completedVolume": "已完成 Transfer Volume",
+        "pendingOperations": "待处理 Operations"
+      },
+      "actions": {
+        "statement": "对账单",
+        "newTransfer": "新转账",
+        "refreshTable": "刷新 表格",
+        "changeStatus": "Change 状态"
+      },
+      "filters": {
+        "label": "筛选：",
+        "allTypes": "-- All 类型s --",
+        "allStatuses": "-- All 状态es --",
+        "completedOnly": "已完成 only",
+        "pendingOnly": "待处理 only",
+        "cancelledOnly": "已取消 only"
+      },
+      "types": {
+        "payment": "Fee 付款",
+        "refund": "退款",
+        "transfer": "内部转账",
+        "adjustment": "调整",
+        "salary": "工资"
+      },
+      "statuses": {
+        "completed": "已完成",
+        "pending": "待处理",
+        "failed": "失败",
+        "cancelled": "已取消"
+      },
+      "table": {
+        "empty": "没有匹配的 financial transfers.",
+        "transactionNumber": "交易 Number",
+        "transferParties": "转账双方",
+        "amount": "金额",
+        "type": "类型",
+        "notes": "备注",
+        "status": "状态",
+        "actions": "操作",
+        "from": "来自：",
+        "to": "至：",
+        "userFallback": "用户 #{id}"
+      },
+      "modal": {
+        "addTitle": "记录 New 财务 Transfer",
+        "fromLabel": "发送方（从）*",
+        "toLabel": "接收方（到）*",
+        "userSearchPlaceholder": "按用户名搜索...",
+        "amountLabel": "金额 (DZD) *",
+        "typeLabel": "Operation 类型 *",
+        "notesLabel": "备注 / Operation Statement",
+        "notesPlaceholder": "填写转账原因...",
+        "execute": "执行转账",
+        "statusTitle": "Change Transfer 状态",
+        "newStatusLabel": "New 状态:",
+        "statusNotesLabel": "更改原因（可选）：",
+        "statusNotesPlaceholder": "简短备注...",
+        "updateStatus": "Update 状态",
+        "statementTitle": "提取账户对账单",
+        "statementSearchLabel": "搜索用户 *",
+        "statementPlaceholder": "学生或员工姓名...",
+        "extractStatement": "提取对账单"
+      },
+      "search": {
+        "noResults": "没有结果"
+      },
+      "statement": {
+        "titleWithUser": "账户对账单：{user}",
+        "emptyForUser": "此用户没有记录任何财务流水。",
+        "detailedTitle": "Detailed 财务 Statement",
+        "user": "用户:",
+        "netBalance": "Net 余额 (completed)",
+        "date": "日期",
+        "type": "类型",
+        "otherParty": "另一方",
+        "amount": "金额",
+        "print": "打印 Statement"
+      },
+      "messages": {
+        "filterFailed": "Filter失败：{message}",
+        "searchFailed": "搜索 失败:",
+        "requiredTransfer": "请 fill all fields and enter a valid amount.",
+        "transferCreated": "财务 transfer recorded 成功.",
+        "transferFailed": "Transfer execution失败：{message}",
+        "statusUpdated": "转账状态已更新。",
+        "statusFailed": "update status失败：{message}",
+        "selectUserFirst": "请先选择用户。",
+        "loadingStatement": "正在获取 and analyzing financial data...",
+        "statementFailed": "extract statement失败：{message}"
+      }
+    }
+  },
+  "legacyText": {}
+}
