@@ -6,13 +6,11 @@
   <title>Login | School Management System</title>
   <meta name="theme-color" content="#0f766e" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2" />
+  <script src="../js/core/preferences.js?v=global-prefs-1"></script>
   <script>
     (function () {
       try {
-        var savedTheme = localStorage.getItem("login-theme");
-        var theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-        document.documentElement.dataset.theme = theme;
-        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0b1220" : "#0f766e");
+        window.AppPreferences && AppPreferences.initTheme("login");
       } catch (e) {}
     })();
   </script>
@@ -178,7 +176,7 @@
   <script src="../js/core/api.js"></script>
   <script src="../js/core/auth.js"></script>
   <script src="../js/core/router.js"></script>
-  <script src="../js/core/i18n.js?v=login-i18n-1"></script>
+  <script src="../js/core/i18n.js?v=global-prefs-1"></script>
   <script>
     (async function () {
       if (Auth.isAuthenticated()) {
@@ -224,11 +222,16 @@
       }
 
       function setLoginTheme(theme) {
-        const nextTheme = theme === "dark" ? "dark" : "light";
-        document.documentElement.dataset.theme = nextTheme;
-        document.body.dataset.theme = nextTheme;
-        localStorage.setItem("login-theme", nextTheme);
-        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
+        const nextTheme = window.AppPreferences
+          ? AppPreferences.applyTheme(theme, { scope: "login", persist: true })
+          : (theme === "dark" ? "dark" : "light");
+        if (!window.AppPreferences) {
+          document.documentElement.dataset.theme = nextTheme;
+          document.body.dataset.theme = nextTheme;
+          localStorage.setItem("sms-theme", nextTheme);
+          localStorage.setItem("login-theme", nextTheme);
+          document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
+        }
         themeToggle?.setAttribute("aria-pressed", String(nextTheme === "dark"));
         if (themeLabel) {
           themeLabel.textContent = nextTheme === "dark"

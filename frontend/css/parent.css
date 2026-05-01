@@ -25,6 +25,21 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+:root[data-theme="dark"] {
+  --primary: #2dd4bf;
+  --primary-hover: #5eead4;
+  --primary-light: rgba(45, 212, 191, 0.14);
+  --secondary: #e5eefb;
+  --background: #0b1220;
+  --surface: #111827;
+  --text-main: #e5eefb;
+  --text-muted: #a6b3c5;
+  --border-light: #2a384c;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+  --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.28);
+  --shadow-hover: 0 18px 38px rgba(0, 0, 0, 0.34);
+}
+
 * {
   margin: 0;
   padding: 0;

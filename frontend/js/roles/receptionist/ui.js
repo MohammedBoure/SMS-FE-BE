@@ -54,7 +54,9 @@ const ReceptionistUI = {
   },
 
   initTheme() {
-    const stored = localStorage.getItem("receptionist-theme");
+    const stored = window.AppPreferences
+      ? AppPreferences.getTheme("receptionist", document.documentElement.dataset.theme)
+      : (localStorage.getItem("sms-theme") || localStorage.getItem("receptionist-theme"));
     const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     this.applyTheme(stored || document.documentElement.dataset.theme || preferred);
 
@@ -69,11 +71,16 @@ const ReceptionistUI = {
   },
 
   applyTheme(theme) {
-    const nextTheme = theme === "dark" ? "dark" : "light";
-    document.documentElement.dataset.theme = nextTheme;
-    document.body.dataset.theme = nextTheme;
-    localStorage.setItem("receptionist-theme", nextTheme);
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
+    const nextTheme = window.AppPreferences
+      ? AppPreferences.applyTheme(theme, { scope: "receptionist", persist: true })
+      : (theme === "dark" ? "dark" : "light");
+    if (!window.AppPreferences) {
+      document.documentElement.dataset.theme = nextTheme;
+      document.body.dataset.theme = nextTheme;
+      localStorage.setItem("sms-theme", nextTheme);
+      localStorage.setItem("receptionist-theme", nextTheme);
+      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
+    }
 
     const toggle = document.getElementById("receptionist-theme-toggle");
     if (!toggle) return;

@@ -6,13 +6,11 @@
   <title>Accounting and Finance System</title>
   <meta name="theme-color" content="#0f766e" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2" />
+  <script src="../js/core/preferences.js?v=global-prefs-1"></script>
   <script>
     (function () {
       try {
-        var savedTheme = localStorage.getItem("accountant-theme");
-        var theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-        document.documentElement.dataset.theme = theme;
-        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0b1220" : "#0f766e");
+        window.AppPreferences && AppPreferences.initTheme("accountant");
       } catch (e) {}
     })();
   </script>
@@ -29,10 +27,10 @@
   <script src="../js/core/api.js"></script>
   <script src="../js/core/auth.js"></script>
   <script src="../js/core/router.js"></script>
-  <script src="../js/core/i18n.js?v=accountant-i18n-1"></script>
+  <script src="../js/core/i18n.js?v=global-prefs-1"></script>
 
   <script src="../js/roles/accountant/services.js?v=accountant-i18n-1"></script>
-  <script src="../js/roles/accountant/ui.js?v=accountant-theme-1"></script>
+  <script src="../js/roles/accountant/ui.js?v=global-prefs-1"></script>
   
   <script src="../js/roles/accountant/tabs/students.js?v=accountant-theme-1"></script>
   <script src="../js/roles/accountant/tabs/fees.js?v=accountant-theme-1"></script>

@@ -6,7 +6,15 @@
   <title>Parent Dashboard</title>
   <meta name="theme-color" content="#0f766e" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2" />
-  <link rel="stylesheet" href="../css/parent.css?v=parent-i18n-1">
+  <script src="../js/core/preferences.js?v=global-prefs-1"></script>
+  <script>
+    (function () {
+      try {
+        window.AppPreferences && AppPreferences.initTheme("parent");
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../css/parent.css?v=global-prefs-1">
   <link rel="stylesheet" href="../css/posts.css?v=parent-i18n-1">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
@@ -35,7 +43,7 @@
   <script src="../js/core/api.js"></script>
   <script src="../js/core/auth.js"></script>
   <script src="../js/core/router.js"></script>
-  <script src="../js/core/i18n.js?v=parent-i18n-1"></script>
+  <script src="../js/core/i18n.js?v=global-prefs-1"></script>
   <script src="../js/roles/parent/services.js?v=parent-i18n-1"></script>
   <script src="../js/roles/parent/ui.js?v=parent-i18n-1"></script>
   <script src="../js/roles/parent/role.js?v=parent-i18n-1"></script>

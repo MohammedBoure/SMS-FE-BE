@@ -14,7 +14,7 @@ const I18n = {
 
     const query = new URLSearchParams(window.location.search);
     const urlLang = query.get(`${this.scope}_lang`) || query.get("lang");
-    const stored = localStorage.getItem(`${this.scope}-language`);
+    const stored = this.getStoredLanguage();
     const lang = urlLang || stored || options.lang || this.defaultLang;
     await this.setLanguage(lang, { silent: true });
     this.bindDialogLocalization();
@@ -42,7 +42,7 @@ const I18n = {
       }
     }
 
-    localStorage.setItem(`${this.scope}-language`, this.currentLang);
+    this.persistLanguage(this.currentLang);
     this.supportedLanguages = this.translations.languages || this.supportedLanguages;
     this.legacyKeys = Object.keys(this.translations.legacyText || {})
       .filter(Boolean)
@@ -57,6 +57,24 @@ const I18n = {
     }
 
     return this.currentLang;
+  },
+
+  getStoredLanguage() {
+    if (window.AppPreferences) {
+      return AppPreferences.getLanguage(this.scope, "");
+    }
+
+    return localStorage.getItem("sms-language") || localStorage.getItem(`${this.scope}-language`);
+  },
+
+  persistLanguage(lang) {
+    if (window.AppPreferences) {
+      AppPreferences.setLanguage(lang, this.scope);
+      return;
+    }
+
+    localStorage.setItem("sms-language", lang);
+    localStorage.setItem(`${this.scope}-language`, lang);
   },
 
   async load(lang) {

@@ -194,7 +194,9 @@ const AdminUI = {
   },
 
   initTheme() {
-    const stored = localStorage.getItem("admin-theme");
+    const stored = window.AppPreferences
+      ? AppPreferences.getTheme("admin", document.documentElement.dataset.theme)
+      : (localStorage.getItem("sms-theme") || localStorage.getItem("admin-theme"));
     const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     this.applyTheme(stored || document.documentElement.dataset.theme || preferred);
 
@@ -209,10 +211,15 @@ const AdminUI = {
   },
 
   applyTheme(theme) {
-    const nextTheme = theme === "dark" ? "dark" : "light";
-    document.documentElement.dataset.theme = nextTheme;
-    document.body.dataset.theme = nextTheme;
-    localStorage.setItem("admin-theme", nextTheme);
+    const nextTheme = window.AppPreferences
+      ? AppPreferences.applyTheme(theme, { scope: "admin", persist: true })
+      : (theme === "dark" ? "dark" : "light");
+    if (!window.AppPreferences) {
+      document.documentElement.dataset.theme = nextTheme;
+      document.body.dataset.theme = nextTheme;
+      localStorage.setItem("sms-theme", nextTheme);
+      localStorage.setItem("admin-theme", nextTheme);
+    }
 
     const btn = document.getElementById("admin-theme-toggle");
     if (!btn) return;

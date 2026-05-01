@@ -55,7 +55,9 @@ const AccountantUI = {
   },
 
   initTheme() {
-    const stored = localStorage.getItem("accountant-theme");
+    const stored = window.AppPreferences
+      ? AppPreferences.getTheme("accountant", document.documentElement.dataset.theme)
+      : (localStorage.getItem("sms-theme") || localStorage.getItem("accountant-theme"));
     const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     this.applyTheme(stored || document.documentElement.dataset.theme || preferred);
 
@@ -70,11 +72,16 @@ const AccountantUI = {
   },
 
   applyTheme(theme) {
-    const nextTheme = theme === "dark" ? "dark" : "light";
-    document.documentElement.dataset.theme = nextTheme;
-    document.body.dataset.theme = nextTheme;
-    localStorage.setItem("accountant-theme", nextTheme);
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
+    const nextTheme = window.AppPreferences
+      ? AppPreferences.applyTheme(theme, { scope: "accountant", persist: true })
+      : (theme === "dark" ? "dark" : "light");
+    if (!window.AppPreferences) {
+      document.documentElement.dataset.theme = nextTheme;
+      document.body.dataset.theme = nextTheme;
+      localStorage.setItem("sms-theme", nextTheme);
+      localStorage.setItem("accountant-theme", nextTheme);
+      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
+    }
 
     const toggle = document.getElementById("accountant-theme-toggle");
     if (!toggle) return;

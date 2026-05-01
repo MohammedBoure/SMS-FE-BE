@@ -6,12 +6,11 @@
   <title data-i18n="admin.documentTitle">لوحة تحكم المدير | النظام المدرسي</title>
   <meta name="theme-color" content="#0f766e">
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2">
+  <script src="../js/core/preferences.js?v=global-prefs-1"></script>
   <script>
     (function () {
       try {
-        var savedTheme = localStorage.getItem("admin-theme");
-        var theme = savedTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-        document.documentElement.dataset.theme = theme;
+        window.AppPreferences && AppPreferences.initTheme("admin");
       } catch (e) {}
     })();
   </script>
@@ -99,10 +98,10 @@
   <script src="../js/core/storage.js"></script>
   <script src="../js/core/api.js"></script>
   <script src="../js/core/auth.js"></script>
-  <script src="../js/core/i18n.js?v=admin-i18n-10"></script>
+  <script src="../js/core/i18n.js?v=global-prefs-1"></script>
 
   <script src="../js/roles/admin/services.js"></script>
-  <script src="../js/roles/admin/ui.js?v=admin-i18n-10"></script>
+  <script src="../js/roles/admin/ui.js?v=global-prefs-1"></script>
 
   <script src="../js/roles/admin/tabs/users.js?v=users-i18n-1"></script>
   <script src="../js/roles/admin/tabs/parents.js?v=parents-fix-1"></script>
