@@ -7,80 +7,119 @@ const AccountantUI = {
 
   renderHeader(session) {
     const header = document.getElementById("accountant-header");
+    const languages = window.I18n
+      ? I18n.getLanguages()
+      : [{ code: "ar", label: "Arabic", dir: "rtl" }, { code: "en", label: "English", dir: "ltr" }];
+    const activeLang = window.I18n ? I18n.currentLang : "ar";
+    const options = languages.map(lang => `
+      <option value="${this._escapeAttr(lang.code)}" dir="${this._escapeAttr(lang.dir || "auto")}" ${lang.code === activeLang ? "selected" : ""}>
+        ${this._escape(lang.label)}
+      </option>
+    `).join("");
+
     header.innerHTML = `
-      <div style="background: linear-gradient(135deg, #064e3b 0%, #10b981 100%); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
-        <h1 style="margin: 0; font-size: 1.4rem;">مكتب المحاسبة والمالية</h1>
-        <button id="logout-btn" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); padding: 5px 15px; border-radius: 20px; cursor: pointer;">تسجيل خروج</button>
+      <div style="background: linear-gradient(135deg, #064e3b 0%, #10b981 100%); color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; gap: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); flex-wrap: wrap;">
+        <div>
+          <h1 style="margin: 0; font-size: 1.4rem;">${this.t("accountant.brand.title", {}, "Accounting and Finance Office")}</h1>
+          <small style="opacity: .82;">${this.t("accountant.brand.userId", { id: session.user_id }, `ID: #${session.user_id}`)}</small>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <label style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.16); border: 1px solid rgba(255,255,255,0.32); border-radius: 999px; padding: 5px 10px;">
+            <span style="font-size: .86rem;">${this.t("accountant.language.label", {}, "Language")}</span>
+            <select id="accountant-language-select" aria-label="${this._escapeAttr(this.t("accountant.language.select", {}, "Choose language"))}" style="font-family: inherit; border: 0; border-radius: 999px; padding: 4px 8px; background: white; color: #064e3b; cursor: pointer;">
+              ${options}
+            </select>
+          </label>
+          <button id="logout-btn" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4); padding: 7px 15px; border-radius: 20px; cursor: pointer; font-family: inherit;">${this.t("accountant.auth.logout", {}, "Log out")}</button>
+        </div>
       </div>
     `;
-    document.getElementById("logout-btn").addEventListener("click", () => Auth.logout());
+
+    document.getElementById("logout-btn")?.addEventListener("click", () => Auth.logout());
+    const languageSelect = document.getElementById("accountant-language-select");
+    if (languageSelect && window.I18n) {
+      languageSelect.addEventListener("change", async (event) => {
+        languageSelect.disabled = true;
+        await I18n.setLanguage(event.target.value);
+        languageSelect.disabled = false;
+      });
+    }
   },
 
   renderNav(activeSection) {
     const nav = document.getElementById("accountant-nav");
     nav.style.cssText = "background: white; padding: 10px 5%; display: flex; gap: 10px; border-bottom: 1px solid #e2e8f0; overflow-x: auto;";
-    
-    nav.innerHTML = this.SECTIONS.map(s => {
-      const isActive = activeSection === s;
-      return `<button class="nav-btn" data-section="${s}" style="background: ${isActive ? '#dcfce7' : 'transparent'}; color: ${isActive ? '#166534' : '#64748b'}; border: 1px solid ${isActive ? '#22c55e' : 'transparent'}; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.2s;">${this._translate(s)}</button>`;
+
+    nav.innerHTML = this.SECTIONS.map(section => {
+      const isActive = activeSection === section;
+      return `
+        <button class="nav-btn" data-section="${section}" style="background: ${isActive ? '#dcfce7' : 'transparent'}; color: ${isActive ? '#166534' : '#64748b'}; border: 1px solid ${isActive ? '#22c55e' : 'transparent'}; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-family: inherit;">
+          ${this._translate(section)}
+        </button>
+      `;
     }).join("");
   },
 
   renderLoading() {
-    document.getElementById("accountant-main").innerHTML = "<h3 style='padding: 20px 5%; color: #10b981;'>جاري تحميل البيانات المالية...</h3>";
+    document.getElementById("accountant-main").innerHTML = `<h3 style="padding: 20px 5%; color: #10b981;">${this.t("accountant.state.loading", {}, "Loading financial data...")}</h3>`;
   },
 
   renderError(msg) {
-    document.getElementById("accountant-main").innerHTML = `<h3 style="padding: 20px 5%; color: #ef4444;">خطأ: ${this._escape(msg)}</h3>`;
+    document.getElementById("accountant-main").innerHTML = `
+      <h3 style="padding: 20px 5%; color: #ef4444;">
+        ${this.t("accountant.state.errorPrefix", {}, "Error:")} ${this._escape(msg)}
+      </h3>
+    `;
   },
 
-  // === نافذة إرسال الإشعارات والإنذارات ===
   showNotificationModal(userId, userName, contextMessage = "") {
     const existing = document.getElementById("notification-modal");
     if (existing) existing.remove();
 
     const overlay = document.createElement("div");
     overlay.id = "notification-modal";
-    overlay.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(4px); direction: rtl;";
+    overlay.style.cssText = `position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(4px); direction: ${this.dir()};`;
 
     overlay.innerHTML = `
       <div style="background: white; width: 90%; max-width: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
-        <div style="background: #eab308; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
-          <h3 style="margin: 0;">إرسال إشعار إلى: ${this._escape(userName)}</h3>
+        <div style="background: #eab308; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+          <h3 style="margin: 0;">${this.t("accountant.notificationModal.title", { name: this._escape(userName) }, "Send notification")}</h3>
           <button id="close-notif-modal" style="background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">&times;</button>
         </div>
         <form id="send-notification-form" data-user-id="${this._escapeAttr(userId)}" style="padding: 20px;">
-          <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #475569;">عنوان الإشعار:</label>
-          <input type="text" id="notif-title" required value="إشعار من الإدارة المالية" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 15px; box-sizing: border-box;" />
-          
-          <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #475569;">نص الرسالة:</label>
+          <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #475569;">${this.t("accountant.notificationModal.titleLabel", {}, "Notification title:")}</label>
+          <input type="text" id="notif-title" required value="${this._escapeAttr(this.t("accountant.notificationModal.defaultTitle", {}, "Notification from the finance office"))}" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 15px; box-sizing: border-box;" />
+
+          <label style="display: block; margin-bottom: 5px; font-weight: bold; color: #475569;">${this.t("accountant.notificationModal.messageLabel", {}, "Message text:")}</label>
           <textarea id="notif-message" required rows="4" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; margin-bottom: 20px; box-sizing: border-box; font-family: inherit;">${this._escape(contextMessage)}</textarea>
-          
-          <div style="display: flex; justify-content: flex-end; gap: 10px;">
-            <button type="button" id="cancel-notif" style="padding: 10px 15px; background: #e2e8f0; border: none; border-radius: 6px; cursor: pointer;">إلغاء</button>
-            <button type="submit" style="padding: 10px 20px; background: #eab308; color: white; font-weight: bold; border: none; border-radius: 6px; cursor: pointer;">إرسال الإشعار</button>
+
+          <div style="display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap;">
+            <button type="button" id="cancel-notif" style="padding: 10px 15px; background: #e2e8f0; border: none; border-radius: 6px; cursor: pointer; font-family: inherit;">${this.t("accountant.notificationModal.cancel", {}, "Cancel")}</button>
+            <button type="submit" style="padding: 10px 20px; background: #eab308; color: white; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; font-family: inherit;">${this.t("accountant.notificationModal.submit", {}, "Send notification")}</button>
           </div>
         </form>
       </div>
     `;
 
     document.body.appendChild(overlay);
-
     document.getElementById("close-notif-modal").onclick = () => overlay.remove();
     document.getElementById("cancel-notif").onclick = () => overlay.remove();
-    overlay.onclick = (e) => { if(e.target === overlay) overlay.remove(); };
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
   },
 
-  // === الدوال المساعدة للواجهة ===
   renderPagination(page, total, limit, section) {
     const totalPages = Math.ceil(total / limit) || 1;
-    if (totalPages <= 1) return ""; // لا داعي للأزرار إذا كانت صفحة واحدة
+    if (totalPages <= 1) return "";
+
+    const previousDisabled = page <= 1;
+    const nextDisabled = page >= totalPages;
+    const buttonBase = "padding: 8px 15px; background: #064e3b; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-family: inherit;";
 
     return `
-      <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 20px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <button class="pagination-btn" data-action="prev" data-section="${section}" data-page="${page - 1}" ${page <= 1 ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''} style="padding: 8px 15px; background: #064e3b; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">السابق</button>
-        <span style="font-weight: bold; color: #334155;">صفحة ${page} من ${totalPages}</span>
-        <button class="pagination-btn" data-action="next" data-section="${section}" data-page="${page + 1}" ${page >= totalPages ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''} style="padding: 8px 15px; background: #064e3b; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">التالي</button>
+      <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 20px; padding: 15px; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex-wrap: wrap;">
+        <button class="pagination-btn" data-action="prev" data-section="${this._escapeAttr(section)}" data-page="${page - 1}" ${previousDisabled ? "disabled" : ""} style="${buttonBase} ${previousDisabled ? 'opacity:.5; cursor:not-allowed;' : ''}">${this.t("accountant.pagination.previous", {}, "Previous")}</button>
+        <span style="font-weight: bold; color: #334155;">${this.t("accountant.pagination.pageOf", { page, total: totalPages }, `Page ${page} of ${totalPages}`)}</span>
+        <button class="pagination-btn" data-action="next" data-section="${this._escapeAttr(section)}" data-page="${page + 1}" ${nextDisabled ? "disabled" : ""} style="${buttonBase} ${nextDisabled ? 'opacity:.5; cursor:not-allowed;' : ''}">${this.t("accountant.pagination.next", {}, "Next")}</button>
       </div>
     `;
   },
@@ -95,12 +134,12 @@ const AccountantUI = {
       <section class="accountant-messages-dashboard">
         <div class="accountant-messages-header">
           <div>
-            <h2>المراسلة</h2>
-            <p>تابع محادثاتك أو ابحث عن مستخدم للتواصل معه.</p>
+            <h2>${this.t("accountant.messagesTab.title", {}, "Messages")}</h2>
+            <p>${this.t("accountant.messagesTab.subtitle", {}, "Follow your conversations or search for a user to contact.")}</p>
           </div>
           <div class="accountant-message-search">
-            <input type="text" id="accountant-message-user-search" placeholder="ابحث باسم المستخدم..." autocomplete="off">
-            <button type="button" id="accountant-message-search-btn">بحث</button>
+            <input type="text" id="accountant-message-user-search" placeholder="${this._escapeAttr(this.t("accountant.messagesTab.searchPlaceholder", {}, "Search by user name..."))}" autocomplete="off">
+            <button type="button" id="accountant-message-search-btn">${this.t("accountant.messagesTab.searchButton", {}, "Search")}</button>
           </div>
         </div>
 
@@ -108,22 +147,22 @@ const AccountantUI = {
 
         <div class="accountant-messages-shell">
           <aside class="accountant-message-contacts">
-            <div class="accountant-message-panel-title">المحادثات</div>
+            <div class="accountant-message-panel-title">${this.t("accountant.messagesTab.conversations", {}, "Conversations")}</div>
             <div id="accountant-message-contacts-list">
               ${this._renderMessageContacts(contacts)}
             </div>
           </aside>
 
           <section class="accountant-chat-panel">
-            <div id="accountant-chat-header" class="accountant-chat-header">اختر محادثة من القائمة أو ابحث عن مستخدم جديد.</div>
+            <div id="accountant-chat-header" class="accountant-chat-header">${this.t("accountant.messagesTab.selectPrompt", {}, "Choose a conversation from the list or search for a new user.")}</div>
             <div id="accountant-chat-messages" class="accountant-chat-messages">
               <div class="accountant-chat-empty">
-                <p>المحادثة ستظهر هنا.</p>
+                <p>${this.t("accountant.messagesTab.emptyConversation", {}, "The conversation will appear here.")}</p>
               </div>
             </div>
             <form id="accountant-message-form" class="accountant-message-form" hidden>
-              <textarea id="accountant-message-input" rows="2" placeholder="اكتب رسالتك..." required></textarea>
-              <button type="submit">إرسال</button>
+              <textarea id="accountant-message-input" rows="2" placeholder="${this._escapeAttr(this.t("accountant.messagesTab.inputPlaceholder", {}, "Write your message..."))}" required></textarea>
+              <button type="submit">${this.t("accountant.common.send", {}, "Send")}</button>
               <small id="accountant-message-status"></small>
             </form>
           </section>
@@ -141,11 +180,11 @@ const AccountantUI = {
 
     if (!results) return;
     if (keyword.length < 2) {
-      results.innerHTML = `<div class="accountant-message-inline-note">اكتب حرفين على الأقل للبحث.</div>`;
+      results.innerHTML = `<div class="accountant-message-inline-note">${this.t("accountant.messagesTab.minSearch", {}, "Type at least two characters to search.")}</div>`;
       return;
     }
 
-    results.innerHTML = `<div class="accountant-message-inline-note">جاري البحث...</div>`;
+    results.innerHTML = `<div class="accountant-message-inline-note">${this.t("accountant.messagesTab.searching", {}, "Searching...")}</div>`;
 
     try {
       const response = await AccountantServices.searchUsers(keyword);
@@ -156,14 +195,14 @@ const AccountantUI = {
         });
 
       if (users.length === 0) {
-        results.innerHTML = `<div class="accountant-message-inline-note">لا توجد نتائج مطابقة.</div>`;
+        results.innerHTML = `<div class="accountant-message-inline-note">${this.t("accountant.messagesTab.noResults", {}, "No matching results.")}</div>`;
         return;
       }
 
       results.innerHTML = users.map(user => {
         const userId = Number(user.id ?? user.user_id);
-        const name = user.full_name || user.username || `مستخدم #${userId}`;
-        const role = user.role_name || user.role || user.user_type || "مستخدم";
+        const name = user.full_name || user.username || this.t("accountant.messagesTab.userFallback", { id: userId }, `User #${userId}`);
+        const role = this._translateStatus(user.role_name || user.role || user.user_type || this.t("accountant.messagesTab.roleFallback", {}, "User"));
 
         return `
           <button type="button" class="accountant-message-user-result" data-user-id="${userId}" data-user-name="${this._escapeAttr(name)}">
@@ -180,7 +219,7 @@ const AccountantUI = {
         });
       });
     } catch (err) {
-      results.innerHTML = `<div class="accountant-message-inline-note error">فشل البحث: ${this._escape(err.message)}</div>`;
+      results.innerHTML = `<div class="accountant-message-inline-note error">${this.t("accountant.messagesTab.searchFailed", { message: this._escape(err.message) }, "Search failed.")}</div>`;
     }
   },
 
@@ -193,7 +232,7 @@ const AccountantUI = {
     const status = document.getElementById("accountant-message-status");
 
     if (header) header.textContent = contactName;
-    if (messagesArea) messagesArea.innerHTML = `<div class="accountant-message-inline-note">جاري تحميل المحادثة...</div>`;
+    if (messagesArea) messagesArea.innerHTML = `<div class="accountant-message-inline-note">${this.t("accountant.messagesTab.loadingConversation", {}, "Loading conversation...")}</div>`;
     if (form) form.hidden = false;
     if (status) status.textContent = "";
 
@@ -202,7 +241,9 @@ const AccountantUI = {
       const messages = Array.isArray(response) ? response : (response?.data || []);
       this.renderMessageConversation(messages);
     } catch (err) {
-      if (messagesArea) messagesArea.innerHTML = `<div class="accountant-message-inline-note error">تعذر تحميل الرسائل: ${this._escape(err.message)}</div>`;
+      if (messagesArea) {
+        messagesArea.innerHTML = `<div class="accountant-message-inline-note error">${this.t("accountant.messagesTab.loadFailed", { message: this._escape(err.message) }, "Could not load messages.")}</div>`;
+      }
     }
   },
 
@@ -213,14 +254,16 @@ const AccountantUI = {
     const ordered = [...(messages || [])].sort((a, b) => new Date(a.created_at || a.timestamp || 0) - new Date(b.created_at || b.timestamp || 0));
 
     if (ordered.length === 0) {
-      area.innerHTML = `<div class="accountant-chat-empty"><p>لا توجد رسائل بعد.</p></div>`;
+      area.innerHTML = `<div class="accountant-chat-empty"><p>${this.t("accountant.messagesTab.noMessages", {}, "No messages yet.")}</p></div>`;
       return;
     }
 
     area.innerHTML = ordered.map(msg => {
       const isMine = Number(msg.sender_id) === this._currentUserId;
-      const author = isMine ? "أنت" : (msg.sender_name || this._activeMessageContact?.name || "المستخدم");
-      const date = msg.created_at ? new Date(msg.created_at).toLocaleString("ar-DZ") : "";
+      const author = isMine
+        ? this.t("accountant.messagesTab.you", {}, "You")
+        : (msg.sender_name || this._activeMessageContact?.name || this.t("accountant.messagesTab.roleFallback", {}, "User"));
+      const date = msg.created_at ? this.formatDateTime(msg.created_at) : "";
 
       return `
         <div class="accountant-message-bubble${isMine ? " mine" : ""}">
@@ -242,19 +285,19 @@ const AccountantUI = {
     if (!this._activeMessageContact || !content) return;
 
     if (status) {
-      status.textContent = "جاري الإرسال...";
+      status.textContent = this.t("accountant.messagesTab.sending", {}, "Sending...");
       status.className = "";
     }
 
     try {
       await AccountantServices.sendMessage(this._currentUserId, this._activeMessageContact.id, content);
       input.value = "";
-      if (status) status.textContent = "تم الإرسال";
+      if (status) status.textContent = this.t("accountant.messagesTab.sent", {}, "Sent");
       await this.openMessageConversation(this._activeMessageContact.id, this._activeMessageContact.name);
       this.refreshMessageContacts();
     } catch (err) {
       if (status) {
-        status.textContent = "فشل الإرسال: " + err.message;
+        status.textContent = this.t("accountant.messagesTab.sendFailed", { message: err.message }, "Send failed.");
         status.className = "error";
       }
     }
@@ -272,7 +315,7 @@ const AccountantUI = {
         this._bindMessageContactEvents();
       }
     } catch (err) {
-      console.warn("تعذر تحديث صندوق المحادثات:", err);
+      console.warn("Could not refresh accountant message inbox:", err);
     }
   },
 
@@ -281,30 +324,38 @@ const AccountantUI = {
     const main = document.getElementById("accountant-main");
 
     if (!notifications || notifications.length === 0) {
-      main.innerHTML = "<h2 style='padding:20px 5%; color:#1e293b;'>الإشعارات</h2><p style='padding:0 5%; color:#64748b;'>لا توجد إشعارات جديدة.</p>";
+      main.innerHTML = `
+        <h2 style="padding:20px 5%; color:#1e293b;">${this.t("accountant.notificationsTab.title", {}, "Notifications")}</h2>
+        <p style="padding:0 5%; color:#64748b;">${this.t("accountant.notificationsTab.empty", {}, "No new notifications.")}</p>
+      `;
       return;
     }
 
     const unreadCount = notifications.filter(n => !this._isNotificationRead(n)).length;
     const items = notifications.map(n => {
-      const date = n.created_at ? new Date(n.created_at).toLocaleString("ar-DZ") : "تاريخ غير محدد";
+      const date = n.created_at
+        ? this.formatDateTime(n.created_at)
+        : this.t("accountant.notificationsTab.unknownDate", {}, "Unknown date");
       const isRead = this._isNotificationRead(n);
       const notificationId = this._getNotificationId(n);
       const action = isRead
-        ? `<span style="color:#16a34a; font-weight:700;">مقروء</span>`
+        ? `<span style="color:#16a34a; font-weight:700;">${this.t("accountant.notificationsTab.read", {}, "Read")}</span>`
         : notificationId !== null
-          ? `<button type="button" class="accountant-mark-notification-read" data-notification-id="${this._escapeAttr(notificationId)}" style="background:#10b981; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer;">تعيين كمقروء</button>`
-          : `<span style="color:#64748b; font-weight:700;">غير متاح</span>`;
+          ? `<button type="button" class="accountant-mark-notification-read" data-notification-id="${this._escapeAttr(notificationId)}" style="background:#10b981; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-family: inherit;">${this.t("accountant.notificationsTab.markRead", {}, "Mark as read")}</button>`
+          : `<span style="color:#64748b; font-weight:700;">${this.t("accountant.common.unavailable", {}, "Unavailable")}</span>`;
+      const statusLabel = isRead
+        ? this.t("accountant.notificationsTab.read", {}, "Read")
+        : this.t("accountant.notificationsTab.unread", {}, "Unread");
 
       return `
-        <div style="background:#fff; padding:15px 18px; margin-bottom:12px; border-radius:8px; border-right:4px solid ${isRead ? '#94a3b8' : '#10b981'}; box-shadow:0 2px 4px rgba(0,0,0,0.05); opacity:${isRead ? '.78' : '1'};">
+        <div style="background:#fff; padding:15px 18px; margin-bottom:12px; border-radius:8px; border-${this.start()}:4px solid ${isRead ? '#94a3b8' : '#10b981'}; box-shadow:0 2px 4px rgba(0,0,0,0.05); opacity:${isRead ? '.78' : '1'};">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:6px;">
-            <strong style="display:block; color:#0f172a; font-size:1.05rem;">${this._escape(n.title || "إشعار")}</strong>
-            <span style="white-space:nowrap; color:${isRead ? '#16a34a' : '#d97706'}; background:${isRead ? '#dcfce7' : '#fef3c7'}; border:1px solid ${isRead ? '#bbf7d0' : '#fde68a'}; padding:4px 10px; border-radius:999px; font-size:.85rem; font-weight:700;">${isRead ? 'مقروء' : 'غير مقروء'}</span>
+            <strong style="display:block; color:#0f172a; font-size:1.05rem;">${this._escape(n.title || this.t("accountant.notificationsTab.defaultTitle", {}, "Notification"))}</strong>
+            <span style="white-space:nowrap; color:${isRead ? '#16a34a' : '#d97706'}; background:${isRead ? '#dcfce7' : '#fef3c7'}; border:1px solid ${isRead ? '#bbf7d0' : '#fde68a'}; padding:4px 10px; border-radius:999px; font-size:.85rem; font-weight:700;">${statusLabel}</span>
           </div>
           <p style="margin:0; color:#334155; line-height:1.6;">${this._escape(n.message || "")}</p>
           <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:10px; flex-wrap:wrap;">
-            <small style="color:#94a3b8; direction:ltr; text-align:right;">${date}</small>
+            <small style="color:#94a3b8; direction:ltr; text-align:${this.end()};">${date}</small>
             ${action}
           </div>
         </div>
@@ -315,10 +366,10 @@ const AccountantUI = {
       <section style="padding:20px 5%;">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap;">
           <div>
-            <h2 style="margin:0; color:#1e293b;">الإشعارات</h2>
-            <small style="color:#64748b;">${unreadCount} إشعار غير مقروء</small>
+            <h2 style="margin:0; color:#1e293b;">${this.t("accountant.notificationsTab.title", {}, "Notifications")}</h2>
+            <small style="color:#64748b;">${this.t("accountant.notificationsTab.unreadCount", { count: unreadCount }, `${unreadCount} unread`)}</small>
           </div>
-          ${unreadCount > 0 ? '<button type="button" id="accountant-mark-all-notifications-read" style="background:#064e3b; color:white; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700;">تعيين الكل كمقروء</button>' : ''}
+          ${unreadCount > 0 ? `<button type="button" id="accountant-mark-all-notifications-read" style="background:#064e3b; color:white; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700; font-family: inherit;">${this.t("accountant.notificationsTab.markAllRead", {}, "Mark all as read")}</button>` : ""}
         </div>
         <div>${items}</div>
       </section>
@@ -359,8 +410,8 @@ const AccountantUI = {
       if (!contactId || contactId === currentUserId) return;
 
       const contactName = senderId === currentUserId
-        ? (message.receiver_name || message.receiver_full_name || message.receiver_username || `مستخدم #${contactId}`)
-        : (message.sender_name || message.sender_full_name || message.sender_username || `مستخدم #${contactId}`);
+        ? (message.receiver_name || message.receiver_full_name || message.receiver_username || this.t("accountant.messagesTab.userFallback", { id: contactId }, `User #${contactId}`))
+        : (message.sender_name || message.sender_full_name || message.sender_username || this.t("accountant.messagesTab.userFallback", { id: contactId }, `User #${contactId}`));
       const createdAt = message.created_at || message.timestamp || "";
       const existing = contacts.get(contactId);
 
@@ -379,7 +430,7 @@ const AccountantUI = {
 
   _renderMessageContacts(contacts) {
     if (!contacts || contacts.length === 0) {
-      return `<div class="accountant-message-empty-list">لا توجد محادثات بعد.</div>`;
+      return `<div class="accountant-message-empty-list">${this.t("accountant.messagesTab.emptyList", {}, "No conversations yet.")}</div>`;
     }
 
     return contacts.map(contact => {
@@ -404,19 +455,83 @@ const AccountantUI = {
     return value === true || value === 1 || value === "1" || value === "true";
   },
 
-  _translate(str) {
-    const map = { payments: "المدفوعات", fees: "الرسوم والديون", transactions: "الدفتر اليومي", students: "ملفات الطلاب", search: "بحث وعمليات", attendance: "مراقبة الغيابات", messages: "المراسلة", notifications: "الإشعارات" };
-    return map[str] || str;
+  _translate(section) {
+    return this.t(`accountant.nav.${section}`, {}, section);
   },
+
   _translateStatus(status) {
-    const map = { paid: "مدفوع", unpaid: "غير مدفوع", partial: "مدفوع جزئياً", overdue: "متأخر", completed: "مكتمل", pending: "قيد الانتظار", active: "نشط", inactive: "غير نشط" };
-    return map[(status||"").toLowerCase()] || status;
+    const raw = String(status || "").trim();
+    if (!raw) return this.t("accountant.common.notSpecified", {}, "Not specified");
+    const normalized = raw.toLowerCase().replace(/\s+/g, "_");
+    return this.t(`accountant.status.${normalized}`, {}, raw);
   },
+
   _formatCurrency(amount) {
-    if (amount === null || amount === undefined) return "0 دج";
-    return Number(amount).toLocaleString('ar-DZ') + " دج";
+    const number = Number(amount);
+    const safeAmount = Number.isFinite(number) ? number : 0;
+    return `${safeAmount.toLocaleString(this.locale())} ${this.t("accountant.currency.dzd", {}, "DZD")}`;
   },
-  _formatValue(value) { return value === null || value === undefined || value === "" ? "-" : value; },
-  _escape(value) { return String(this._formatValue(value)).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); },
-  _escapeAttr(value) { return String(value == null ? "" : value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); }
+
+  formatDateTime(value) {
+    if (!value) return this.t("accountant.common.notSpecified", {}, "Not specified");
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value);
+    return date.toLocaleString(this.locale());
+  },
+
+  locale() {
+    return window.I18n ? I18n.get("meta.locale", this.isRtl() ? "ar-DZ" : "en-US") : "ar-DZ";
+  },
+
+  dir() {
+    return window.I18n ? I18n.get("meta.dir", "rtl") : "rtl";
+  },
+
+  isRtl() {
+    return this.dir() === "rtl";
+  },
+
+  start() {
+    return this.isRtl() ? "right" : "left";
+  },
+
+  end() {
+    return this.isRtl() ? "left" : "right";
+  },
+
+  t(key, params = {}, fallback = "") {
+    return window.I18n ? I18n.t(key, params, fallback || key) : (fallback || key);
+  },
+
+  text(value, params = {}) {
+    return window.I18n ? I18n.text(value, params) : value;
+  },
+
+  localize(root = document) {
+    if (window.I18n) I18n.apply(root);
+  },
+
+  _formatValue(value) {
+    return value === null || value === undefined || value === ""
+      ? this.t("accountant.common.none", {}, "-")
+      : value;
+  },
+
+  _escape(value) {
+    return String(this._formatValue(value))
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  },
+
+  _escapeAttr(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
 };

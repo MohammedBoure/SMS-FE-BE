@@ -1,36 +1,64 @@
 // js/roles/accountant/role.js
 
 const AccountantRole = {
-  currentSection: "students", 
-  
-  // حالة الصفحات لكل قسم
-  pages: {
-    students: 1, search: 1, attendance: 1, fees: 1, payments: 1, transactions: 1, messages: 1, notifications: 1
-  },
-  lastSearchKeyword: "", // لحفظ كلمة البحث أثناء التنقل بين الصفحات
+  currentSection: "students",
 
-  init() {
+  pages: {
+    students: 1,
+    search: 1,
+    attendance: 1,
+    fees: 1,
+    payments: 1,
+    transactions: 1,
+    messages: 1,
+    notifications: 1
+  },
+
+  lastSearchKeyword: "",
+
+  async init() {
     if (!Auth.requireAuth("accountant")) return;
-    document.body.dir = "rtl";
+
+    if (window.I18n) {
+      await I18n.init({ scope: "accountant", defaultLang: "ar" });
+    }
+
     document.body.style.fontFamily = "'Cairo', 'Segoe UI', Tahoma, sans-serif";
     AccountantUI.renderHeader(Auth.getSession());
     this.bindNavEvents();
-    this.loadSection(this.currentSection);
+    this.bindLanguageEvents();
     this.bindDynamicEvents();
+    this.loadSection(this.currentSection);
+  },
+
+  bindLanguageEvents() {
+    if (this._languageEventsBound) return;
+
+    window.addEventListener("i18n:change", (event) => {
+      if (event.detail?.scope && event.detail.scope !== "accountant") return;
+      AccountantUI.renderHeader(Auth.getSession());
+      this.loadSection(this.currentSection);
+    });
+
+    this._languageEventsBound = true;
   },
 
   bindNavEvents() {
+    if (this._navEventsBound) return;
+
     document.addEventListener("click", (e) => {
-      if (e.target.classList.contains("nav-btn")) {
-        this.loadSection(e.target.dataset.section, 1); // عند تغيير القسم نعود للصفحة 1
-      }
+      const navButton = e.target.closest(".nav-btn");
+      if (!navButton) return;
+      this.loadSection(navButton.dataset.section, 1);
     });
+
+    this._navEventsBound = true;
   },
 
   async loadSection(section, pageNum = null) {
     this.currentSection = section;
     if (pageNum !== null) this.pages[section] = pageNum;
-    const page = this.pages[section];
+    const page = this.pages[section] || 1;
 
     AccountantUI.renderNav(section);
     AccountantUI.renderLoading();
@@ -41,7 +69,6 @@ const AccountantRole = {
           AccountantUI.renderStudents(await AccountantServices.getStudents(page));
           break;
         case "fees":
-          // إذا كان الباك اند لا يدعم الصفحات للرسوم سيعمل بشكل عادي
           AccountantUI.renderFees(await AccountantServices.getAllFees(page));
           break;
         case "payments":
@@ -58,9 +85,7 @@ const AccountantRole = {
           }
           break;
         case "attendance":
-          // القائمة الجانبية للطلاب
-          const studentsData = await AccountantServices.getStudents(page);
-          AccountantUI.renderAttendance(studentsData);
+          AccountantUI.renderAttendance(await AccountantServices.getStudents(page));
           break;
         case "messages": {
           const session = Auth.getSession();
@@ -75,7 +100,7 @@ const AccountantRole = {
           break;
         }
         default:
-          AccountantUI.renderError("قسم غير معروف");
+          AccountantUI.renderError(AccountantUI.t("accountant.state.unknownSection", {}, "Unknown section"));
       }
     } catch (err) {
       AccountantUI.renderError(err.message);
@@ -83,30 +108,41 @@ const AccountantRole = {
   },
 
   bindDynamicEvents() {
-    // 1. الفلترة السريعة في الصفحة الحالية (للبحث السريع بدون سيرفر)
+    if (this._dynamicEventsBound) return;
+
     document.addEventListener("input", (e) => {
       if (e.target.id === "finance-student-search") {
         const keyword = e.target.value.toLowerCase().trim();
         document.querySelectorAll("#finance-students-tbody tr").forEach(row => {
-          if(row.dataset.search) row.style.display = row.dataset.search.toLowerCase().includes(keyword) ? "" : "none";
+          if (row.dataset.search) {
+            row.style.display = row.dataset.search.toLowerCase().includes(keyword) ? "" : "none";
+          }
+        });
+      }
+
+      if (e.target.id === "attendance-live-search") {
+        const keyword = e.target.value.toLowerCase().trim();
+        document.querySelectorAll("#attendance-students-tbody tr").forEach(row => {
+          if (row.dataset.search) {
+            row.style.display = row.dataset.search.toLowerCase().includes(keyword) ? "" : "none";
+          }
         });
       }
     });
 
-    // 2. إدارة جميع النقرات
     document.addEventListener("click", async (e) => {
       if (e.target.id === "accountant-mark-all-notifications-read") {
         const session = Auth.getSession();
         const originalText = e.target.textContent;
         e.target.disabled = true;
-        e.target.textContent = "جارٍ التحديث...";
+        e.target.textContent = AccountantUI.t("accountant.common.updating", {}, "Updating...");
         try {
           await AccountantServices.markAllNotificationsAsRead(session.user_id);
           await this.loadSection("notifications");
         } catch (err) {
           e.target.disabled = false;
           e.target.textContent = originalText;
-          alert(err.message || "تعذر تحديث الإشعارات.");
+          alert(err.message || AccountantUI.t("accountant.actions.notificationsUpdateFailed", {}, "Could not update notifications."));
         }
         return;
       }
@@ -115,183 +151,216 @@ const AccountantRole = {
       if (markNotificationBtn) {
         const originalText = markNotificationBtn.textContent;
         markNotificationBtn.disabled = true;
-        markNotificationBtn.textContent = "جارٍ التحديث...";
+        markNotificationBtn.textContent = AccountantUI.t("accountant.common.updating", {}, "Updating...");
         try {
           await AccountantServices.markNotificationAsRead(markNotificationBtn.dataset.notificationId);
           await this.loadSection("notifications");
         } catch (err) {
           markNotificationBtn.disabled = false;
           markNotificationBtn.textContent = originalText;
-          alert(err.message || "تعذر تحديث الإشعار.");
+          alert(err.message || AccountantUI.t("accountant.actions.notificationUpdateFailed", {}, "Could not update the notification."));
         }
         return;
       }
-      
-      // === أزرار الانتقال بين الصفحات (Pagination) ===
+
       if (e.target.classList.contains("pagination-btn")) {
         const section = e.target.dataset.section;
         const targetPage = parseInt(e.target.dataset.page, 10);
-        if (targetPage > 0) {
-          this.loadSection(section, targetPage);
-        }
+        if (targetPage > 0) this.loadSection(section, targetPage);
       }
 
-      // === زر البحث في السيرفر ===
       if (e.target.id === "adv-search-btn") {
         const keyword = document.getElementById("adv-search-keyword").value.trim();
-        if (keyword.length < 2) return alert("الرجاء إدخال حرفين على الأقل للبحث في السيرفر.");
-        
-        this.lastSearchKeyword = keyword; // حفظ الكلمة لاستخدامها في الصفحات التالية
-        this.loadSection("search", 1); // تحميل الصفحة 1 من النتائج
+        if (keyword.length < 2) {
+          alert(AccountantUI.t("accountant.actions.searchMinLength", {}, "Please enter at least two characters."));
+          return;
+        }
+
+        this.lastSearchKeyword = keyword;
+        this.loadSection("search", 1);
       }
 
-      // === زر فتح الوضعية المالية (من البحث الشامل أو قائمة الطلاب) ===
       if (e.target.classList.contains("search-finance-btn") || e.target.classList.contains("view-student-finance-btn")) {
-        let studentId = e.target.dataset.id;      
-        const userId = e.target.dataset.userId;   
+        let studentId = e.target.dataset.id;
+        const userId = e.target.dataset.userId;
         const btn = e.target;
         const originalText = btn.textContent;
-        
+
         try {
           btn.disabled = true;
-          btn.textContent = "جاري...";
-          
+          btn.textContent = AccountantUI.t("accountant.actions.loadingShort", {}, "Loading...");
+
           if (userId) {
-            // البحث عن طالب مطابق للـ user_id لتفادي خطأ 404
-            const res = await AccountantServices.getStudents(1); // يمكنك إضافة endpoint مخصص لاحقاً للبحث بالـ user_id
+            const res = await AccountantServices.getStudents(1);
             const studentRecord = (res.data || []).find(s => String(s.user_id) === String(userId) || String(s.id) === String(userId));
-            
-            if (!studentRecord) return alert("هذا المستخدم ليس طالباً مسجلاً.");
+
+            if (!studentRecord) {
+              alert(AccountantUI.t("accountant.actions.userNotStudent", {}, "This user is not linked to a registered student."));
+              return;
+            }
             studentId = studentRecord.id || studentRecord.student_id;
           }
-          
+
           const [student, fees, payments] = await Promise.all([
             AccountantServices.getStudent(studentId),
             AccountantServices.getStudentFees(studentId),
             AccountantServices.getStudentPayments(studentId)
           ]);
-          
+
           AccountantUI.showStudentFinanceModal(student, fees, payments);
         } catch (error) {
-          alert("خطأ: تعذر جلب البيانات المالية.");
+          alert(AccountantUI.t("accountant.actions.financeLoadFailed", {}, "Error: could not load financial data."));
         } finally {
           btn.disabled = false;
           btn.textContent = originalText;
         }
       }
 
-      // === تسديد رسم معين (داخل النافذة المنبثقة) ===
       if (e.target.classList.contains("pay-specific-fee-btn")) {
         const feeId = e.target.dataset.feeId;
         const amountDue = e.target.dataset.amount;
-        
-        const amountToPayStr = prompt(`المبلغ المستحق هو ${amountDue} دج.\nأدخل المبلغ المستلم لتسجيل الدفعة:`, amountDue);
-        
+        const amountToPayStr = prompt(
+          AccountantUI.t(
+            "accountant.actions.paymentPrompt",
+            { amount: AccountantUI._formatCurrency(amountDue) },
+            "Enter the received amount:"
+          ),
+          amountDue
+        );
+
         if (amountToPayStr !== null && amountToPayStr.trim() !== "") {
           const amountPaid = parseInt(amountToPayStr, 10);
-          if (isNaN(amountPaid) || amountPaid <= 0) return alert("مبلغ غير صحيح!");
-          
+          if (Number.isNaN(amountPaid) || amountPaid <= 0) {
+            alert(AccountantUI.t("accountant.actions.invalidAmount", {}, "Invalid amount."));
+            return;
+          }
+
           const btn = e.target;
           try {
             btn.disabled = true;
-            btn.textContent = "جاري التسجيل...";
-            
-            const receipt = "REC-" + Date.now().toString().slice(-6);
-            await AccountantServices.recordPayment({ fee_id: parseInt(feeId), amount_paid: amountPaid, receipt_number: receipt });
+            btn.textContent = AccountantUI.t("accountant.actions.recording", {}, "Recording...");
 
-            alert(`تم تسجيل الدفعة بنجاح!\nرقم الوصل: ${receipt}`);
-            document.getElementById("finance-modal").remove();
-            this.loadSection(this.currentSection); // إعادة تحميل الصفحة الحالية
-            
+            const receipt = "REC-" + Date.now().toString().slice(-6);
+            await AccountantServices.recordPayment({
+              fee_id: parseInt(feeId, 10),
+              amount_paid: amountPaid,
+              receipt_number: receipt
+            });
+
+            alert(AccountantUI.t("accountant.actions.paymentSuccess", { receipt }, "Payment registered successfully."));
+            document.getElementById("finance-modal")?.remove();
+            this.loadSection(this.currentSection);
           } catch (err) {
-            alert("خطأ أثناء التسجيل: " + err.message);
+            alert(AccountantUI.t("accountant.actions.recordPaymentFailed", { message: err.message }, "Error while recording payment."));
             btn.disabled = false;
-            btn.textContent = "تسديد";
+            btn.textContent = AccountantUI.t("accountant.financeModal.pay", {}, "Pay");
           }
         }
       }
 
-      // === إغلاق النوافذ ===
       if (e.target.matches("#close-notif-modal, #cancel-notif")) {
-         const modal = document.getElementById("notification-modal");
-         if(modal) modal.remove();
+        document.getElementById("notification-modal")?.remove();
       }
 
-      // === فتح نافذة إرسال الإشعار ===
       if (e.target.classList.contains("search-notify-btn") || e.target.classList.contains("send-warning-btn")) {
         const userId = e.target.dataset.id || e.target.dataset.userId;
         const name = e.target.dataset.name;
-        
-        let defaultMessage = "يرجى مراجعة الإدارة المالية لتسوية وضعيتكم في أقرب وقت.";
+
+        let defaultMessage = AccountantUI.t(
+          "accountant.actions.defaultNotice",
+          {},
+          "Please contact the finance office to settle your account as soon as possible."
+        );
         if (e.target.classList.contains("send-warning-btn")) {
-          defaultMessage = `تذكير بتسديد الرسوم المتأخرة الخاصة بـ "${e.target.dataset.fee}" والبالغة ${e.target.dataset.amount} دج.`;
+          defaultMessage = AccountantUI.t(
+            "accountant.actions.overdueReminder",
+            {
+              fee: e.target.dataset.fee,
+              amount: AccountantUI._formatCurrency(e.target.dataset.amount)
+            },
+            "Reminder to pay the overdue fee."
+          );
         }
 
-        if (!userId || userId === "undefined") return alert("لا يوجد حساب مربوط بهذا المستخدم.");
+        if (!userId || userId === "undefined") {
+          alert(AccountantUI.t("accountant.actions.noLinkedUser", {}, "No account is linked to this user."));
+          return;
+        }
         AccountantUI.showNotificationModal(userId, name, defaultMessage);
       }
 
-      // === جلب تقرير الغيابات ===
       if (e.target.id === "fetch-attendance-btn" || e.target.classList.contains("fetch-attendance-btn")) {
         const studentId = e.target.dataset.id || document.getElementById("attendance-student-id")?.value;
-        if (!studentId) return alert("الرجاء اختيار طالب");
-        
+        if (!studentId) {
+          alert(AccountantUI.t("accountant.actions.selectStudent", {}, "Please select a student."));
+          return;
+        }
+
         const btn = e.target;
         try {
           btn.disabled = true;
-          document.getElementById("attendance-results").innerHTML = "<p style='text-align:center;'>جاري الجلب...</p>";
+          document.getElementById("attendance-results").innerHTML = `<p style="text-align:center;">${AccountantUI.t("accountant.actions.fetching", {}, "Fetching...")}</p>`;
           const records = await AccountantServices.getStudentAttendance(studentId);
           AccountantUI.renderAttendanceReport(studentId, records);
         } catch (error) {
-          document.getElementById("attendance-results").innerHTML = `<p style="color:red; text-align:center;">تعذر جلب البيانات</p>`;
+          document.getElementById("attendance-results").innerHTML = `<p style="color:red; text-align:center;">${AccountantUI.t("accountant.actions.attendanceLoadFailed", {}, "Could not load data.")}</p>`;
         } finally {
           btn.disabled = false;
         }
       }
     });
 
-    // 3. إدارة النماذج (Forms)
     document.addEventListener("submit", async (e) => {
-      // نموذج إضافة رسم جديد
       if (e.target.id === "add-fee-form") {
         e.preventDefault();
         const form = e.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn?.textContent;
         try {
-          form.querySelector('button[type="submit"]').disabled = true;
+          if (submitBtn) submitBtn.disabled = true;
           await AccountantServices.createFee({
-            student_id: parseInt(form.dataset.studentId),
+            student_id: parseInt(form.dataset.studentId, 10),
             fee_type: document.getElementById("new-fee-type").value,
-            amount_due: parseInt(document.getElementById("new-fee-amount").value),
+            amount_due: parseInt(document.getElementById("new-fee-amount").value, 10),
             due_date: document.getElementById("new-fee-date").value,
             applied_discount: 0
           });
-          alert("تمت إضافة الرسم بنجاح!");
-          document.getElementById("finance-modal").remove();
+          alert(AccountantUI.t("accountant.actions.feeCreateSuccess", {}, "Fee added successfully."));
+          document.getElementById("finance-modal")?.remove();
           this.loadSection(this.currentSection);
         } catch (err) {
-          alert("فشل في إضافة الرسم.");
-          form.querySelector('button[type="submit"]').disabled = false;
+          alert(AccountantUI.t("accountant.actions.feeCreateFailed", {}, "Failed to add the fee."));
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          }
         }
       }
 
-      // نموذج إرسال الإشعار
       if (e.target.id === "send-notification-form") {
         e.preventDefault();
         const form = e.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn?.textContent;
         try {
-          form.querySelector('button[type="submit"]').disabled = true;
+          if (submitBtn) submitBtn.disabled = true;
           await AccountantServices.sendNotification({
-            user_id: parseInt(form.dataset.userId),
+            user_id: parseInt(form.dataset.userId, 10),
             title: document.getElementById("notif-title").value,
             message: document.getElementById("notif-message").value
           });
-          alert("تم إرسال الإشعار بنجاح!");
-          document.getElementById("notification-modal").remove();
+          alert(AccountantUI.t("accountant.actions.notificationSendSuccess", {}, "Notification sent successfully."));
+          document.getElementById("notification-modal")?.remove();
         } catch (err) {
-          alert("فشل في إرسال الإشعار.");
-          form.querySelector('button[type="submit"]').disabled = false;
+          alert(AccountantUI.t("accountant.actions.notificationSendFailed", {}, "Failed to send the notification."));
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          }
         }
       }
     });
+
+    this._dynamicEventsBound = true;
   }
 };

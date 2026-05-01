@@ -92,6 +92,10 @@
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
 }
 
+[dir="ltr"] .accountant-message-user-result {
+  text-align: left;
+}
+
 .accountant-message-user-result:hover {
   background: #f8fafc;
 }
@@ -147,6 +151,10 @@
   cursor: pointer;
   font-family: inherit;
   text-align: right;
+}
+
+[dir="ltr"] .accountant-message-contact {
+  text-align: left;
 }
 
 .accountant-message-contact:hover,

@@ -1,0 +1,279 @@
+{
+  "meta": {
+    "lang": "ar",
+    "dir": "rtl",
+    "locale": "ar-DZ"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "العربية",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    }
+  ],
+  "accountant": {
+    "documentTitle": "نظام المحاسبة والمالية",
+    "brand": {
+      "title": "مكتب المحاسبة والمالية",
+      "userId": "المعرف: #{id}"
+    },
+    "language": {
+      "label": "اللغة",
+      "select": "اختر اللغة"
+    },
+    "auth": {
+      "logout": "تسجيل خروج"
+    },
+    "nav": {
+      "students": "ملفات الطلاب",
+      "fees": "الرسوم والديون",
+      "payments": "المدفوعات",
+      "transactions": "الدفتر اليومي",
+      "search": "بحث وعمليات",
+      "attendance": "مراقبة الغيابات",
+      "messages": "المراسلة",
+      "notifications": "الإشعارات"
+    },
+    "state": {
+      "loading": "جاري تحميل البيانات المالية...",
+      "errorPrefix": "خطأ:",
+      "unknownSection": "قسم غير معروف"
+    },
+    "common": {
+      "actions": "إجراءات",
+      "id": "المعرف",
+      "amount": "المبلغ",
+      "date": "التاريخ",
+      "status": "الحالة",
+      "type": "النوع",
+      "student": "الطالب",
+      "studentGuardian": "الطالب / الولي",
+      "class": "القسم",
+      "notes": "ملاحظات",
+      "phone": "الهاتف",
+      "none": "-",
+      "notSpecified": "غير محدد",
+      "cancel": "إلغاء",
+      "send": "إرسال",
+      "search": "بحث",
+      "loading": "جاري التحميل...",
+      "updating": "جاري التحديث...",
+      "unavailable": "غير متاح",
+      "read": "مقروء",
+      "unread": "غير مقروء",
+      "from": "من:",
+      "to": "إلى:",
+      "general": "عام",
+      "userFallback": "مستخدم #{id}",
+      "studentFallback": "طالب #{id}",
+      "receipt": "وصل #{id}",
+      "paidOn": "بتاريخ: {date}"
+    },
+    "pagination": {
+      "previous": "السابق",
+      "next": "التالي",
+      "pageOf": "صفحة {page} من {total}"
+    },
+    "currency": {
+      "dzd": "دج"
+    },
+    "status": {
+      "paid": "مدفوع",
+      "unpaid": "غير مدفوع",
+      "partial": "مدفوع جزئيا",
+      "overdue": "متأخر",
+      "completed": "مكتمل",
+      "pending": "قيد الانتظار",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "student": "طالب",
+      "parent": "ولي",
+      "teacher": "أستاذ",
+      "admin": "مدير",
+      "receptionist": "استقبال",
+      "accountant": "محاسب",
+      "income": "إيراد",
+      "expense": "مصروف",
+      "absent": "غائب",
+      "late": "متأخر",
+      "present": "حاضر",
+      "justified": "مبرر",
+      "unjustified": "غير مبرر"
+    },
+    "students": {
+      "emptyTitle": "الملفات المالية للطلاب",
+      "emptyText": "لا يوجد طلاب مسجلون في النظام.",
+      "title": "البحث في الملفات المالية",
+      "searchPlaceholder": "ابحث باسم الطالب أو رقمه في هذه الصفحة...",
+      "columns": {
+        "id": "الرقم",
+        "fullName": "الاسم الكامل",
+        "class": "القسم",
+        "action": "إجراء"
+      },
+      "financialFile": "الملف المالي والتسديد"
+    },
+    "financeModal": {
+      "title": "الملف المالي: {name}",
+      "addFeeTitle": "إضافة مطالبة مالية (رسم) للطالب",
+      "feeTypePlaceholder": "نوع الرسم، مثال: قسط شهري، نقل...",
+      "feeAmountPlaceholder": "المبلغ",
+      "registerFee": "تسجيل الرسم",
+      "feesTitle": "سجل الرسوم والمطالبات",
+      "paymentsTitle": "المدفوعات والوصولات السابقة",
+      "noFees": "لا توجد رسوم مستحقة أو مسجلة.",
+      "noPayments": "لم يقم الطالب بأي دفعات حتى الآن.",
+      "feeColumns": {
+        "type": "النوع",
+        "amount": "المبلغ",
+        "due": "الاستحقاق",
+        "status": "الحالة",
+        "action": "إجراء"
+      },
+      "pay": "تسديد",
+      "completed": "مكتمل"
+    },
+    "fees": {
+      "emptyTitle": "الرسوم والديون",
+      "emptyText": "لا توجد رسوم مسجلة في النظام.",
+      "title": "سجل الرسوم والديون الشامل",
+      "columns": {
+        "feeId": "رقم الرسم",
+        "student": "الطالب",
+        "feeType": "نوع الرسم",
+        "amount": "المبلغ",
+        "dueDate": "تاريخ الاستحقاق",
+        "status": "الحالة",
+        "actions": "إجراءات"
+      },
+      "sendWarning": "إرسال إنذار"
+    },
+    "payments": {
+      "emptyTitle": "المدفوعات المستلمة",
+      "emptyText": "لا توجد مدفوعات مسجلة.",
+      "title": "أرشيف الوصولات (المدفوعات المستلمة)",
+      "columns": {
+        "receipt": "رقم الوصل",
+        "student": "الطالب / الولي",
+        "amount": "المبلغ المستلم",
+        "date": "تاريخ الدفع"
+      }
+    },
+    "transactions": {
+      "emptyTitle": "سجل المعاملات",
+      "emptyText": "الدفتر اليومي فارغ.",
+      "title": "الدفتر اليومي الشامل للمؤسسة",
+      "columns": {
+        "id": "المعرف",
+        "amount": "المبلغ",
+        "route": "مسار الدفعة (من/إلى)",
+        "type": "نوع الحركة",
+        "notes": "البيان",
+        "date": "التاريخ"
+      }
+    },
+    "search": {
+      "title": "دليل المستخدمين والعمليات السريعة",
+      "placeholder": "اكتب للبحث في قاعدة البيانات...",
+      "serverSearch": "بحث في السيرفر",
+      "notify": "إشعار",
+      "finance": "المالية",
+      "noUsers": "لا يوجد مستخدمون.",
+      "columns": {
+        "id": "المعرف",
+        "account": "الاسم / الحساب",
+        "type": "النوع",
+        "phone": "الهاتف",
+        "actions": "إجراءات"
+      }
+    },
+    "attendance": {
+      "title": "مراقبة حضور وغياب الطلاب",
+      "searchPlaceholder": "ابحث عن طالب في هذه الصفحة...",
+      "viewButton": "عرض الغيابات",
+      "noStudents": "لا يوجد طلاب.",
+      "selectHint": "اختر طالبا من القائمة لعرض سجل غياباته هنا.",
+      "cleanRecord": "سجل الطالب نظيف، لا توجد غيابات مسجلة.",
+      "reportTitle": "تقرير الغيابات",
+      "totalRecords": "إجمالي السجلات",
+      "unjustifiedAbsences": "غيابات غير مبررة",
+      "columns": {
+        "date": "التاريخ",
+        "status": "الحالة",
+        "justification": "التبرير",
+        "notes": "ملاحظات"
+      }
+    },
+    "messagesTab": {
+      "title": "المراسلة",
+      "subtitle": "تابع محادثاتك أو ابحث عن مستخدم للتواصل معه.",
+      "searchPlaceholder": "ابحث باسم المستخدم...",
+      "searchButton": "بحث",
+      "conversations": "المحادثات",
+      "selectPrompt": "اختر محادثة من القائمة أو ابحث عن مستخدم جديد.",
+      "emptyConversation": "المحادثة ستظهر هنا.",
+      "inputPlaceholder": "اكتب رسالتك...",
+      "minSearch": "اكتب حرفين على الأقل للبحث.",
+      "searching": "جاري البحث...",
+      "noResults": "لا توجد نتائج مطابقة.",
+      "searchFailed": "فشل البحث: {message}",
+      "loadingConversation": "جاري تحميل المحادثة...",
+      "loadFailed": "تعذر تحميل الرسائل: {message}",
+      "noMessages": "لا توجد رسائل بعد.",
+      "you": "أنت",
+      "userFallback": "مستخدم #{id}",
+      "roleFallback": "مستخدم",
+      "sending": "جاري الإرسال...",
+      "sent": "تم الإرسال",
+      "sendFailed": "فشل الإرسال: {message}",
+      "emptyList": "لا توجد محادثات بعد."
+    },
+    "notificationsTab": {
+      "title": "الإشعارات",
+      "empty": "لا توجد إشعارات جديدة.",
+      "unreadCount": "{count} إشعار غير مقروء",
+      "markAllRead": "تعيين الكل كمقروء",
+      "markRead": "تعيين كمقروء",
+      "read": "مقروء",
+      "unread": "غير مقروء",
+      "defaultTitle": "إشعار",
+      "unknownDate": "تاريخ غير محدد"
+    },
+    "notificationModal": {
+      "title": "إرسال إشعار إلى: {name}",
+      "titleLabel": "عنوان الإشعار:",
+      "messageLabel": "نص الرسالة:",
+      "defaultTitle": "إشعار من الإدارة المالية",
+      "cancel": "إلغاء",
+      "submit": "إرسال الإشعار"
+    },
+    "actions": {
+      "searchMinLength": "الرجاء إدخال حرفين على الأقل للبحث في السيرفر.",
+      "loadingShort": "جاري...",
+      "userNotStudent": "هذا المستخدم ليس طالبا مسجلا.",
+      "financeLoadFailed": "خطأ: تعذر جلب البيانات المالية.",
+      "paymentPrompt": "المبلغ المستحق هو {amount}.\nأدخل المبلغ المستلم لتسجيل الدفعة:",
+      "invalidAmount": "مبلغ غير صحيح.",
+      "recording": "جاري التسجيل...",
+      "paymentSuccess": "تم تسجيل الدفعة بنجاح.\nرقم الوصل: {receipt}",
+      "recordPaymentFailed": "خطأ أثناء التسجيل: {message}",
+      "defaultNotice": "يرجى مراجعة الإدارة المالية لتسوية وضعيتكم في أقرب وقت.",
+      "overdueReminder": "تذكير بتسديد الرسم المتأخر \"{fee}\" والبالغ {amount}.",
+      "noLinkedUser": "لا يوجد حساب مربوط بهذا المستخدم.",
+      "selectStudent": "الرجاء اختيار طالب.",
+      "fetching": "جاري الجلب...",
+      "attendanceLoadFailed": "تعذر جلب البيانات.",
+      "feeCreateSuccess": "تمت إضافة الرسم بنجاح.",
+      "feeCreateFailed": "فشل في إضافة الرسم.",
+      "notificationSendSuccess": "تم إرسال الإشعار بنجاح.",
+      "notificationSendFailed": "فشل في إرسال الإشعار.",
+      "notificationsUpdateFailed": "تعذر تحديث الإشعارات.",
+      "notificationUpdateFailed": "تعذر تحديث الإشعار."
+    }
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "meta": {
+    "lang": "en",
+    "dir": "ltr",
+    "locale": "en-US"
+  },
+  "languages": [
+    {
+      "code": "ar",
+      "label": "Arabic",
+      "dir": "rtl"
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "dir": "ltr"
+    }
+  ],
+  "accountant": {
+    "documentTitle": "Accounting and Finance System",
+    "brand": {
+      "title": "Accounting and Finance Office",
+      "userId": "ID: #{id}"
+    },
+    "language": {
+      "label": "Language",
+      "select": "Choose language"
+    },
+    "auth": {
+      "logout": "Log out"
+    },
+    "nav": {
+      "students": "Student Files",
+      "fees": "Fees and Debts",
+      "payments": "Payments",
+      "transactions": "Daily Ledger",
+      "search": "Search and Actions",
+      "attendance": "Absence Monitor",
+      "messages": "Messages",
+      "notifications": "Notifications"
+    },
+    "state": {
+      "loading": "Loading financial data...",
+      "errorPrefix": "Error:",
+      "unknownSection": "Unknown section"
+    },
+    "common": {
+      "actions": "Actions",
+      "id": "ID",
+      "amount": "Amount",
+      "date": "Date",
+      "status": "Status",
+      "type": "Type",
+      "student": "Student",
+      "studentGuardian": "Student / guardian",
+      "class": "Class",
+      "notes": "Notes",
+      "phone": "Phone",
+      "none": "-",
+      "notSpecified": "Not specified",
+      "cancel": "Cancel",
+      "send": "Send",
+      "search": "Search",
+      "loading": "Loading...",
+      "updating": "Updating...",
+      "unavailable": "Unavailable",
+      "read": "Read",
+      "unread": "Unread",
+      "from": "From:",
+      "to": "To:",
+      "general": "General",
+      "userFallback": "User #{id}",
+      "studentFallback": "Student #{id}",
+      "receipt": "Receipt #{id}",
+      "paidOn": "Paid on: {date}"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "pageOf": "Page {page} of {total}"
+    },
+    "currency": {
+      "dzd": "DZD"
+    },
+    "status": {
+      "paid": "Paid",
+      "unpaid": "Unpaid",
+      "partial": "Partially paid",
+      "overdue": "Overdue",
+      "completed": "Completed",
+      "pending": "Pending",
+      "active": "Active",
+      "inactive": "Inactive",
+      "student": "Student",
+      "parent": "Parent",
+      "teacher": "Teacher",
+      "admin": "Admin",
+      "receptionist": "Receptionist",
+      "accountant": "Accountant",
+      "income": "Income",
+      "expense": "Expense",
+      "absent": "Absent",
+      "late": "Late",
+      "present": "Present",
+      "justified": "Justified",
+      "unjustified": "Unjustified"
+    },
+    "students": {
+      "emptyTitle": "Student Financial Files",
+      "emptyText": "No students are registered in the system.",
+      "title": "Search Financial Files",
+      "searchPlaceholder": "Search by student name or ID on this page...",
+      "columns": {
+        "id": "ID",
+        "fullName": "Full name",
+        "class": "Class",
+        "action": "Action"
+      },
+      "financialFile": "Financial file and payment"
+    },
+    "financeModal": {
+      "title": "Financial file: {name}",
+      "addFeeTitle": "Add a financial claim (fee) for the student",
+      "feeTypePlaceholder": "Fee type, for example: monthly installment, transport...",
+      "feeAmountPlaceholder": "Amount",
+      "registerFee": "Register fee",
+      "feesTitle": "Fees and Claims Record",
+      "paymentsTitle": "Previous Payments and Receipts",
+      "noFees": "No due or registered fees.",
+      "noPayments": "The student has not made any payments yet.",
+      "feeColumns": {
+        "type": "Type",
+        "amount": "Amount",
+        "due": "Due date",
+        "status": "Status",
+        "action": "Action"
+      },
+      "pay": "Pay",
+      "completed": "Completed"
+    },
+    "fees": {
+      "emptyTitle": "Fees and Debts",
+      "emptyText": "No fees are registered in the system.",
+      "title": "Complete Fees and Debts Record",
+      "columns": {
+        "feeId": "Fee ID",
+        "student": "Student",
+        "feeType": "Fee type",
+        "amount": "Amount",
+        "dueDate": "Due date",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "sendWarning": "Send warning"
+    },
+    "payments": {
+      "emptyTitle": "Received Payments",
+      "emptyText": "No payments are registered.",
+      "title": "Receipts Archive (Received Payments)",
+      "columns": {
+        "receipt": "Receipt number",
+        "student": "Student / guardian",
+        "amount": "Received amount",
+        "date": "Payment date"
+      }
+    },
+    "transactions": {
+      "emptyTitle": "Transaction Record",
+      "emptyText": "The daily ledger is empty.",
+      "title": "Complete Daily Ledger",
+      "columns": {
+        "id": "ID",
+        "amount": "Amount",
+        "route": "Payment path (from/to)",
+        "type": "Movement type",
+        "notes": "Description",
+        "date": "Date"
+      }
+    },
+    "search": {
+      "title": "User Directory and Quick Actions",
+      "placeholder": "Type to search the database...",
+      "serverSearch": "Search server",
+      "notify": "Notify",
+      "finance": "Finance",
+      "noUsers": "No users found.",
+      "columns": {
+        "id": "ID",
+        "account": "Name / account",
+        "type": "Type",
+        "phone": "Phone",
+        "actions": "Actions"
+      }
+    },
+    "attendance": {
+      "title": "Student Attendance and Absence Monitor",
+      "searchPlaceholder": "Search for a student on this page...",
+      "viewButton": "View absences",
+      "noStudents": "No students found.",
+      "selectHint": "Select a student from the list to view the absence record here.",
+      "cleanRecord": "The student record is clean. No absences are registered.",
+      "reportTitle": "Absence Report",
+      "totalRecords": "Total records",
+      "unjustifiedAbsences": "Unjustified absences",
+      "columns": {
+        "date": "Date",
+        "status": "Status",
+        "justification": "Justification",
+        "notes": "Notes"
+      }
+    },
+    "messagesTab": {
+      "title": "Messages",
+      "subtitle": "Follow your conversations or search for a user to contact.",
+      "searchPlaceholder": "Search by user name...",
+      "searchButton": "Search",
+      "conversations": "Conversations",
+      "selectPrompt": "Choose a conversation from the list or search for a new user.",
+      "emptyConversation": "The conversation will appear here.",
+      "inputPlaceholder": "Write your message...",
+      "minSearch": "Type at least two characters to search.",
+      "searching": "Searching...",
+      "noResults": "No matching results.",
+      "searchFailed": "Search failed: {message}",
+      "loadingConversation": "Loading conversation...",
+      "loadFailed": "Could not load messages: {message}",
+      "noMessages": "No messages yet.",
+      "you": "You",
+      "userFallback": "User #{id}",
+      "roleFallback": "User",
+      "sending": "Sending...",
+      "sent": "Sent",
+      "sendFailed": "Send failed: {message}",
+      "emptyList": "No conversations yet."
+    },
+    "notificationsTab": {
+      "title": "Notifications",
+      "empty": "No new notifications.",
+      "unreadCount": "{count} unread notification(s)",
+      "markAllRead": "Mark all as read",
+      "markRead": "Mark as read",
+      "read": "Read",
+      "unread": "Unread",
+      "defaultTitle": "Notification",
+      "unknownDate": "Unknown date"
+    },
+    "notificationModal": {
+      "title": "Send notification to: {name}",
+      "titleLabel": "Notification title:",
+      "messageLabel": "Message text:",
+      "defaultTitle": "Notification from the finance office",
+      "cancel": "Cancel",
+      "submit": "Send notification"
+    },
+    "actions": {
+      "searchMinLength": "Please enter at least two characters to search the server.",
+      "loadingShort": "Loading...",
+      "userNotStudent": "This user is not linked to a registered student.",
+      "financeLoadFailed": "Error: could not load financial data.",
+      "paymentPrompt": "The due amount is {amount}.\nEnter the received amount to register the payment:",
+      "invalidAmount": "Invalid amount.",
+      "recording": "Recording...",
+      "paymentSuccess": "Payment registered successfully.\nReceipt number: {receipt}",
+      "recordPaymentFailed": "Error while recording payment: {message}",
+      "defaultNotice": "Please contact the finance office to settle your account as soon as possible.",
+      "overdueReminder": "Reminder to pay the overdue fee \"{fee}\" with an amount of {amount}.",
+      "noLinkedUser": "No account is linked to this user.",
+      "selectStudent": "Please select a student.",
+      "fetching": "Fetching...",
+      "attendanceLoadFailed": "Could not load data.",
+      "feeCreateSuccess": "Fee added successfully.",
+      "feeCreateFailed": "Failed to add the fee.",
+      "notificationSendSuccess": "Notification sent successfully.",
+      "notificationSendFailed": "Failed to send the notification.",
+      "notificationsUpdateFailed": "Could not update notifications.",
+      "notificationUpdateFailed": "Could not update the notification."
+    }
+  }
+}

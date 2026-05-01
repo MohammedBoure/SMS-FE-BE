@@ -124,7 +124,7 @@ const I18n = {
     document.documentElement.lang = meta.lang || this.currentLang;
     document.documentElement.dir = meta.dir || "rtl";
     document.body?.setAttribute("dir", meta.dir || "rtl");
-    document.title = this.t("admin.documentTitle", {}, document.title);
+    document.title = this.t(`${this.scope}.documentTitle`, {}, document.title);
   },
 
   apply(root = document) {
