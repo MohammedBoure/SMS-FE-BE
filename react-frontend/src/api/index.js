@@ -5,3 +5,4 @@
 
 export { authAPI } from "./auth";
 export { default as request } from "./request";
+export { dashboardAPI, loadTeacherDashboardData } from "./dashboard";
