@@ -433,8 +433,37 @@ body {
 
 .student-table-wrap {
   width: 100%;
+  margin-block: 0.25rem 1.25rem;
   overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 252, 0.98));
+  border: 1px solid var(--border);
   border-radius: var(--r-lg);
+  box-shadow: var(--shadow);
+  scrollbar-gutter: stable;
+}
+
+.student-table-wrap[dir="ltr"] { direction: ltr; }
+.student-table-wrap[dir="rtl"] { direction: rtl; }
+
+.student-table-wrap::-webkit-scrollbar {
+  height: 8px;
+}
+
+.student-table-wrap::-webkit-scrollbar-track {
+  background: rgba(226, 232, 240, 0.65);
+  border-radius: 999px;
+}
+
+.student-table-wrap::-webkit-scrollbar-thumb {
+  background: rgba(13, 148, 136, 0.38);
+  border-radius: 999px;
+}
+
+.student-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: rgba(13, 148, 136, 0.58);
 }
 
 .ltr-value {
@@ -459,67 +488,82 @@ body {
 /* ==========================================================================
    Tables (shared for all sections)
    ========================================================================== */
-table {
+.student-table-wrap > table {
   width: 100%;
+  min-width: 680px;
   border-collapse: separate;
   border-spacing: 0;
-  background: var(--surface);
-  border-radius: var(--r-lg);
-  box-shadow: var(--shadow);
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
   overflow: hidden;
   font-size: 0.93rem;
+  direction: inherit;
   animation: fade-in 0.35s ease both;
 }
 
-thead {
-  background: linear-gradient(to left, var(--navy), var(--navy-mid));
+.student-table-wrap thead {
+  background:
+    linear-gradient(135deg, var(--navy), var(--navy-mid));
 }
 
-thead th {
-  padding: 0.9rem 1.1rem;
+.student-table-wrap thead th {
+  padding-block: 0.85rem;
+  padding-inline: 1rem;
   color: #e2e8f0;
   font-family: 'Tajawal', sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.03em;
-  text-align: right;
+  text-align: start;
   white-space: nowrap;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-[dir="ltr"] thead th,
-[dir="ltr"] tbody td,
+.student-table-wrap[dir="ltr"] thead th,
+.student-table-wrap[dir="ltr"] tbody td,
+[dir="ltr"] .student-table-wrap thead th,
+[dir="ltr"] .student-table-wrap tbody td,
 [dir="ltr"] .nav-btn,
 [dir="ltr"] .student-message-contact,
 [dir="ltr"] .student-message-user-result {
   text-align: left;
 }
 
-thead th:first-child  { border-radius: 0 var(--r-lg) 0 0; }
-thead th:last-child   { border-radius: var(--r-lg) 0 0 0; }
+.student-table-wrap[dir="rtl"] thead th,
+.student-table-wrap[dir="rtl"] tbody td,
+[dir="rtl"] .student-table-wrap thead th,
+[dir="rtl"] .student-table-wrap tbody td {
+  text-align: right;
+}
 
-tbody tr {
+.student-table-wrap tbody tr {
   transition: background var(--t-fast);
+}
+
+.student-table-wrap tbody tr:hover { background: var(--surface-hover); }
+
+.student-table-wrap tbody td {
+  padding-block: 0.82rem;
+  padding-inline: 1rem;
+  color: var(--text-secondary);
+  vertical-align: middle;
+  text-align: start;
   border-bottom: 1px solid var(--border);
 }
 
-tbody tr:last-child { border-bottom: none; }
-
-tbody tr:hover { background: var(--surface-hover); }
-
-tbody td {
-  padding: 0.85rem 1.1rem;
-  color: var(--text-secondary);
-  vertical-align: middle;
+.student-table-wrap tbody tr:last-child td {
+  border-bottom: none;
 }
 
-tbody td strong {
+.student-table-wrap tbody td strong {
   color: var(--text-primary);
   font-weight: 700;
 }
 
 /* Alternating rows */
-tbody tr:nth-child(even) { background: var(--surface-2); }
-tbody tr:nth-child(even):hover { background: var(--surface-hover); }
+.student-table-wrap tbody tr:nth-child(even) { background: rgba(248, 250, 252, 0.72); }
+.student-table-wrap tbody tr:nth-child(even):hover { background: var(--surface-hover); }
 
 /* ==========================================================================
    Status badges (inline in JS via style, but we override with classes)
@@ -1125,31 +1169,37 @@ body[data-theme="dark"] textarea::placeholder {
   color: #7f8ea3;
 }
 
-body[data-theme="dark"] table {
-  background: var(--surface);
-  border: 1px solid var(--border);
+body[data-theme="dark"] .student-table-wrap {
+  background:
+    linear-gradient(180deg, rgba(17, 24, 39, .96), rgba(23, 32, 51, .92));
+  border-color: var(--border);
   box-shadow: var(--shadow);
 }
 
-body[data-theme="dark"] thead {
+body[data-theme="dark"] .student-table-wrap > table {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+body[data-theme="dark"] .student-table-wrap thead {
   background: linear-gradient(135deg, rgba(20, 184, 166, .22), rgba(15, 23, 42, .98));
 }
 
-body[data-theme="dark"] tbody td {
+body[data-theme="dark"] .student-table-wrap tbody td {
   color: var(--text-secondary);
   border-color: var(--border);
 }
 
-body[data-theme="dark"] tbody tr:nth-child(even) {
+body[data-theme="dark"] .student-table-wrap tbody tr:nth-child(even) {
   background: rgba(255, 255, 255, .025);
 }
 
-body[data-theme="dark"] tbody tr:hover,
-body[data-theme="dark"] tbody tr:nth-child(even):hover {
+body[data-theme="dark"] .student-table-wrap tbody tr:hover,
+body[data-theme="dark"] .student-table-wrap tbody tr:nth-child(even):hover {
   background: rgba(45, 212, 191, .08);
 }
 
-body[data-theme="dark"] .student-table-wrap,
 body[data-theme="dark"] .student-resource-card,
 body[data-theme="dark"] .student-notification-card,
 body[data-theme="dark"] .student-messages-header,
@@ -1422,17 +1472,19 @@ body[data-theme="dark"] .student-post-label {
   }
 
   /* Tables: horizontal scroll */
-  table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  .student-table-wrap {
+    margin-inline: -0.15rem;
     border-radius: var(--r);
-    white-space: nowrap;
   }
 
-  thead th,
-  tbody td {
-    padding: 0.7rem 0.9rem;
+  .student-table-wrap > table {
+    min-width: 640px;
+  }
+
+  .student-table-wrap thead th,
+  .student-table-wrap tbody td {
+    padding-block: 0.7rem;
+    padding-inline: 0.85rem;
     font-size: 0.85rem;
   }
 
@@ -1519,5 +1571,5 @@ body[data-theme="dark"] .student-post-label {
 
   #student-app { display: block; }
   #student-main { padding: 0; }
-  table { box-shadow: none; border: 1px solid #ccc; }
+  .student-table-wrap { box-shadow: none; border: 1px solid #ccc; }
 }

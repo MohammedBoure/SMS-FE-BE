@@ -876,7 +876,8 @@ const StudentUI = {
   },
 
   _table(content) {
-    return `<div class="student-table-wrap"><table>${content}</table></div>`;
+    const dir = this.dir() === "ltr" ? "ltr" : "rtl";
+    return `<div class="student-table-wrap" dir="${dir}"><table class="student-data-table">${content}</table></div>`;
   },
 
   _toArray(value) {
