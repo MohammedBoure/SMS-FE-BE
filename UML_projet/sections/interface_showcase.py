@@ -6,28 +6,34 @@ from utils import BASE_DIR, create_indexed_heading, normal_text, subtitle_style
 
 INTERFACE_SCREENSHOTS = [
     ("Parent Messages", "parent-messages.PNG"),
-    ("Parent - My Children", "parent-mychild.PNG"),
     ("Post Details", "Post.PNG"),
     ("Posts Board", "Posts.PNG"),
+    ("Parent - My Children", "parent-mychild.PNG"),
     ("Teacher Grades", "teacher-grades.PNG"),
     ("Teacher Resources", "teacher-ressources.PNG"),
 ]
 
+FEATURED_SCREENSHOTS = {"Parent Messages", "Post Details", "Posts Board"}
 
-def _append_screenshot(story, title, filename):
+
+def _append_screenshot(story, title, filename, featured=False):
     path = BASE_DIR / filename
     story.append(Paragraph(title, subtitle_style))
-    story.append(Spacer(1, 4))
+    story.append(Spacer(1, 6 if featured else 4))
 
     if not path.exists():
         story.append(Paragraph(f"Screenshot not found: {filename}", normal_text))
         story.append(Spacer(1, 10))
         return
 
-    image = Image(str(path), width=6.35 * inch, height=3.05 * inch, kind="proportional")
+    if featured:
+        image = Image(str(path), width=7.05 * inch, height=7.35 * inch, kind="proportional")
+    else:
+        image = Image(str(path), width=6.75 * inch, height=3.55 * inch, kind="proportional")
+
     image.hAlign = "CENTER"
     story.append(image)
-    story.append(Spacer(1, 12))
+    story.append(Spacer(1, 12 if featured else 10))
 
 
 def build(story):
@@ -44,8 +50,11 @@ def build(story):
     story.append(Spacer(1, 8))
 
     for index, (title, filename) in enumerate(INTERFACE_SCREENSHOTS, start=1):
-        _append_screenshot(story, title, filename)
-        if index % 2 == 0 and index < len(INTERFACE_SCREENSHOTS):
+        featured = title in FEATURED_SCREENSHOTS
+        _append_screenshot(story, title, filename, featured=featured)
+        if featured and index < len(INTERFACE_SCREENSHOTS):
+            story.append(PageBreak())
+        elif not featured and (index - len(FEATURED_SCREENSHOTS)) % 2 == 0 and index < len(INTERFACE_SCREENSHOTS):
             story.append(PageBreak())
 
     story.append(PageBreak())
