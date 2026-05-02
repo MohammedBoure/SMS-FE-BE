@@ -4,18 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login | SMS</title>
-  <meta name="theme-color" content="#0f766e" />
+  <meta name="theme-color" content="#f4f3ef" />
   <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg?v=2" />
   <script src="../js/core/preferences.js?v=global-prefs-1"></script>
   <script>
     (function () {
       try {
-        window.AppPreferences && AppPreferences.initTheme("login");
+        if (window.AppPreferences) {
+          const theme = AppPreferences.initTheme("login");
+          document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#050505" : "#f4f3ef");
+        }
       } catch (e) {}
     })();
   </script>
   <link rel="stylesheet" href="../css/posts.css?v=login-i18n-1">
-  <link rel="stylesheet" href="../css/login.css?v=login-posts-cinema-2">
+  <link rel="stylesheet" href="../css/login.css?v=login-executive-3d-1">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
@@ -340,12 +343,12 @@
               const alpha = Math.min(0.9, 0.16 + state.focusEnergy * 0.18 + state.typingEnergy * 0.26 + (index % 5) * 0.035);
               codeContext.font = `${drop.size}px "Consolas", "Cascadia Code", monospace`;
               codeContext.fillStyle = dark
-                ? `rgba(125, 211, 252, ${alpha})`
-                : `rgba(6, 95, 70, ${alpha})`;
+                ? `rgba(245, 245, 242, ${alpha * 0.62})`
+                : `rgba(18, 18, 18, ${alpha * 0.58})`;
               codeContext.fillText(drop.text, x, y);
               codeContext.fillStyle = dark
-                ? `rgba(251, 191, 36, ${alpha * 0.55})`
-                : `rgba(124, 58, 237, ${alpha * 0.38})`;
+                ? `rgba(245, 245, 242, ${alpha * 0.24})`
+                : `rgba(18, 18, 18, ${alpha * 0.18})`;
               codeContext.fillText(drop.text.slice(0, Math.max(5, Math.floor(drop.text.length * 0.24))), x, y);
 
               drop.y += drop.speed * (1 + state.typingEnergy * 1.8);
@@ -363,7 +366,9 @@
 
             state.bursts.forEach(burst => {
               codeContext.font = `700 ${12 + (1 - burst.life) * 8}px "Consolas", "Cascadia Code", monospace`;
-              codeContext.fillStyle = `rgba(20, 184, 166, ${Math.max(0, burst.life)})`;
+              codeContext.fillStyle = dark
+                ? `rgba(255, 255, 255, ${Math.max(0, burst.life) * 0.82})`
+                : `rgba(0, 0, 0, ${Math.max(0, burst.life) * 0.72})`;
               codeContext.fillText(burst.text, burst.x, burst.y);
               burst.x += burst.vx;
               burst.y += burst.vy;
@@ -396,7 +401,7 @@
           const particleGroup = new THREE.Group();
           const coreGeometry = new THREE.IcosahedronGeometry(2.45, 2);
           const coreMaterial = new THREE.MeshBasicMaterial({
-            color: 0x14b8a6,
+            color: 0x111111,
             wireframe: true,
             transparent: true,
             opacity: 0.16
@@ -404,13 +409,13 @@
           const core = new THREE.Mesh(coreGeometry, coreMaterial);
           const edges = new THREE.LineSegments(
             new THREE.EdgesGeometry(coreGeometry),
-            new THREE.LineBasicMaterial({ color: 0xf59e0b, transparent: true, opacity: 0.28 })
+            new THREE.LineBasicMaterial({ color: 0x111111, transparent: true, opacity: 0.22 })
           );
           const positions = [];
           const colors = [];
-          const colorA = new THREE.Color(0x2dd4bf);
-          const colorB = new THREE.Color(0x60a5fa);
-          const colorC = new THREE.Color(0xf59e0b);
+          const colorA = new THREE.Color(0x111111);
+          const colorB = new THREE.Color(0x57534e);
+          const colorC = new THREE.Color(0xa8a29e);
 
           for (let i = 0; i < 760; i += 1) {
             const angle = i * 0.37;
@@ -428,7 +433,8 @@
             pointsGeometry,
             new THREE.PointsMaterial({
               size: 0.035,
-              vertexColors: true,
+              color: 0x111111,
+              vertexColors: false,
               transparent: true,
               opacity: 0.78,
               depthWrite: false
@@ -453,7 +459,11 @@
 
           function animate(now) {
             const time = now * 0.001;
+            const dark = document.documentElement.dataset.theme === "dark";
             const pulse = 1 + state.typingEnergy * 0.16 + state.focusEnergy * 0.04;
+            coreMaterial.color.setHex(dark ? 0xf5f5f2 : 0x111111);
+            edges.material.color.setHex(dark ? 0xf5f5f2 : 0x111111);
+            points.material.color.setHex(dark ? 0xf5f5f2 : 0x111111);
             group.scale.setScalar(pulse);
             group.rotation.x = time * 0.16 + pointer.ny * 0.22;
             group.rotation.y = time * 0.22 + pointer.nx * 0.28;
@@ -506,7 +516,10 @@
               const depth = 0.65 + Math.sin(now * 0.0008 + point.z) * 0.35;
               const x = cx + Math.cos(point.a + now * 0.00018) * point.r * depth;
               const y = cy + Math.sin(point.a + now * 0.00024) * point.r * depth * 0.42;
-              ctx.fillStyle = index % 5 === 0 ? "rgba(245, 158, 11, .42)" : "rgba(45, 212, 191, .38)";
+              const dark = document.documentElement.dataset.theme === "dark";
+              ctx.fillStyle = dark
+                ? (index % 5 === 0 ? "rgba(255, 255, 255, .34)" : "rgba(255, 255, 255, .2)")
+                : (index % 5 === 0 ? "rgba(0, 0, 0, .24)" : "rgba(0, 0, 0, .16)");
               ctx.beginPath();
               ctx.arc(x, y, 1.2 + state.typingEnergy * 2.8, 0, Math.PI * 2);
               ctx.fill();
@@ -583,8 +596,8 @@
           document.body.dataset.theme = nextTheme;
           localStorage.setItem("sms-theme", nextTheme);
           localStorage.setItem("login-theme", nextTheme);
-          document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
         }
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#050505" : "#f4f3ef");
         themeToggle?.setAttribute("aria-pressed", String(nextTheme === "dark"));
         if (themeLabel) {
           themeLabel.textContent = nextTheme === "dark"
