@@ -600,63 +600,250 @@ td strong[style*="#e11d48"] {
 /* ==========================================================================
    Resource Cards  (renderResources)
    ========================================================================== */
+.student-resource-board {
+  display: grid;
+  gap: 1rem;
+}
+
+.student-resource-heading,
+.student-resource-list-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.student-resource-heading h2,
+.student-resource-list-head h3 {
+  margin: 0 !important;
+}
+
+.student-resource-heading h2::after {
+  display: none;
+}
+
+.student-resource-heading p {
+  margin: 0.28rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.94rem;
+}
+
+.student-resource-heading small,
+.student-resource-list-head small {
+  color: var(--text-muted);
+  font-weight: 800;
+}
+
+.student-resource-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.student-resource-stats > div {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+  padding: 0.85rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-sm);
+}
+
+.student-resource-stats span,
+.student-resource-control > span {
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.student-resource-stats strong {
+  color: var(--text-primary);
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.student-resource-toolbar {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(150px, 0.36fr) minmax(160px, 0.4fr) auto;
+  gap: 0.75rem;
+  align-items: end;
+  padding: 0.9rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(248,250,252,0.96));
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.student-resource-control {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.student-resource-control input,
+.student-resource-control select {
+  width: 100%;
+  min-height: 40px;
+  padding: 0.52rem 0.7rem;
+  color: var(--text-primary);
+  background: var(--surface);
+  border: 1px solid var(--border-dark);
+  border-radius: var(--r);
+  outline: none;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast), background var(--t-fast);
+}
+
+.student-resource-control input:focus,
+.student-resource-control select:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
+}
+
 .student-resource-list,
 .student-notification-list {
   display: grid;
-  gap: 0.9rem;
-}
-
-.student-resource-card,
-.student-notification-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 1.1rem 1.4rem;
-  box-shadow: var(--shadow-sm);
-  animation: fade-in 0.35s ease both;
+  gap: 0.85rem;
 }
 
 .student-resource-card {
-  display: flex;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 1rem;
-  transition: box-shadow var(--t), transform var(--t);
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  animation: fade-in 0.35s ease both;
+  transition: box-shadow var(--t), transform var(--t), border-color var(--t-fast);
 }
 
 .student-resource-card:hover {
+  border-color: rgba(13, 148, 136, 0.34);
   box-shadow: var(--shadow);
   transform: translateY(-2px);
 }
 
-.student-resource-card strong,
-.student-notification-card strong {
-  display: block;
-  color: var(--navy);
-  font-size: 1rem;
+.student-resource-filemark {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--r);
+  color: #0f766e;
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid rgba(20, 184, 166, 0.24);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0;
 }
 
-.student-resource-card small,
-.student-notification-card small {
-  display: block;
+.student-resource-filemark[data-type="video"] {
+  color: #7c3aed;
+  background: rgba(124, 58, 237, 0.12);
+  border-color: rgba(124, 58, 237, 0.24);
+}
+
+.student-resource-filemark[data-type="pdf"] {
+  color: #b91c1c;
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.24);
+}
+
+.student-resource-filemark[data-type="image"] {
+  color: #0369a1;
+  background: rgba(14, 165, 233, 0.12);
+  border-color: rgba(14, 165, 233, 0.24);
+}
+
+.student-resource-filemark[data-type="archive"] {
+  color: #b45309;
+  background: rgba(245, 158, 11, 0.13);
+  border-color: rgba(245, 158, 11, 0.26);
+}
+
+.student-resource-card-main {
+  display: grid;
+  gap: 0.42rem;
+  min-width: 0;
+}
+
+.student-resource-card-topline,
+.student-resource-meta {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.student-resource-type {
+  width: fit-content;
+  padding: 0.23rem 0.55rem;
+  color: #0f766e;
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid rgba(20, 184, 166, 0.24);
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+.student-resource-date {
   color: var(--text-light);
   font-size: 0.78rem;
+  font-weight: 800;
 }
 
-.student-resource-card p,
-.student-notification-card p {
-  margin: 0.3rem 0 0;
+.student-resource-card h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.02rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.student-resource-card p {
+  margin: 0;
   color: var(--text-secondary);
   font-size: 0.93rem;
+  overflow-wrap: anywhere;
 }
 
-.student-resource-card a,
+.student-resource-meta {
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  font-weight: 650;
+}
+
+.student-resource-meta strong {
+  color: var(--text-secondary);
+}
+
+.student-resource-meta span {
+  overflow-wrap: anywhere;
+}
+
+.student-resource-actions {
+  display: flex;
+  justify-content: flex-end;
+  min-width: max-content;
+}
+
+.student-resource-download,
+.student-resource-unavailable,
+.student-resource-clear,
+.student-resource-empty button,
 .student-notification-card button,
 #student-mark-all-notifications-read {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 38px;
+  min-height: 40px;
   border: 0;
   border-radius: var(--r);
   padding: 0.55rem 1rem;
@@ -671,12 +858,88 @@ td strong[style*="#e11d48"] {
   white-space: nowrap;
 }
 
-.student-resource-card a:hover,
+.student-resource-download,
+.student-resource-clear,
+.student-resource-empty button {
+  background: linear-gradient(135deg, var(--teal), #059669);
+  box-shadow: 0 10px 18px rgba(13, 148, 136, 0.16);
+}
+
+.student-resource-unavailable {
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  box-shadow: none;
+  cursor: default;
+}
+
+.student-resource-clear:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.student-resource-clear {
+  min-width: 120px;
+}
+
+.student-resource-download:hover,
+.student-resource-clear:not(:disabled):hover,
+.student-resource-empty button:hover,
 .student-notification-card button:hover,
 #student-mark-all-notifications-read:hover {
   background: var(--teal-light);
   box-shadow: 0 4px 12px rgba(13,148,136,0.28);
   transform: translateY(-1px);
+}
+
+.student-resource-empty {
+  display: grid;
+  gap: 0.4rem;
+  padding: 1.2rem;
+  background: var(--surface);
+  border: 1px dashed var(--border-dark);
+  border-radius: var(--r-lg);
+  color: var(--text-muted);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.student-resource-empty strong {
+  color: var(--text-primary);
+}
+
+.student-resource-empty button {
+  justify-self: center;
+  margin-top: 0.35rem;
+}
+
+.student-notification-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1.1rem 1.4rem;
+  box-shadow: var(--shadow-sm);
+  animation: fade-in 0.35s ease both;
+}
+
+.student-notification-card strong {
+  display: block;
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+.student-notification-card small {
+  display: block;
+  color: var(--text-light);
+  font-size: 0.78rem;
+}
+
+.student-notification-card p {
+  margin: 0.3rem 0 0;
+  color: var(--text-secondary);
+  font-size: 0.93rem;
 }
 
 .student-section-topbar {
@@ -1201,6 +1464,9 @@ body[data-theme="dark"] .student-table-wrap tbody tr:nth-child(even):hover {
 }
 
 body[data-theme="dark"] .student-resource-card,
+body[data-theme="dark"] .student-resource-toolbar,
+body[data-theme="dark"] .student-resource-stats > div,
+body[data-theme="dark"] .student-resource-empty,
 body[data-theme="dark"] .student-notification-card,
 body[data-theme="dark"] .student-messages-header,
 body[data-theme="dark"] .student-message-user-result,
@@ -1210,6 +1476,42 @@ body[data-theme="dark"] .student-message-inline-note {
   background: var(--surface) !important;
   color: var(--text-primary) !important;
   border-color: var(--border) !important;
+}
+
+body[data-theme="dark"] .student-resource-toolbar {
+  background: var(--surface) !important;
+}
+
+body[data-theme="dark"] .student-resource-stats > div,
+body[data-theme="dark"] .student-resource-unavailable {
+  background: var(--surface-2) !important;
+}
+
+body[data-theme="dark"] .student-resource-heading p,
+body[data-theme="dark"] .student-resource-heading small,
+body[data-theme="dark"] .student-resource-list-head small,
+body[data-theme="dark"] .student-resource-date,
+body[data-theme="dark"] .student-resource-meta,
+body[data-theme="dark"] .student-resource-stats span,
+body[data-theme="dark"] .student-resource-control > span {
+  color: var(--text-muted) !important;
+}
+
+body[data-theme="dark"] .student-resource-card h3,
+body[data-theme="dark"] .student-resource-stats strong,
+body[data-theme="dark"] .student-resource-empty strong {
+  color: var(--text-primary) !important;
+}
+
+body[data-theme="dark"] .student-resource-card p,
+body[data-theme="dark"] .student-resource-meta strong {
+  color: var(--text-secondary) !important;
+}
+
+body[data-theme="dark"] .student-resource-type {
+  background: rgba(45, 212, 191, .14);
+  color: #99f6e4;
+  border-color: rgba(45, 212, 191, .32);
 }
 
 body[data-theme="dark"] .student-message-panel-title,
@@ -1369,6 +1671,18 @@ body[data-theme="dark"] .student-post-label {
   .student-messages-shell {
     grid-template-columns: 260px minmax(0, 1fr);
   }
+
+  .student-resource-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .student-resource-toolbar {
+    grid-template-columns: minmax(220px, 1fr) minmax(150px, 0.45fr);
+  }
+
+  .student-resource-clear {
+    grid-column: 1 / -1;
+  }
 }
 
 /* ==========================================================================
@@ -1525,15 +1839,46 @@ body[data-theme="dark"] .student-post-label {
     grid-template-columns: 1fr;
   }
 
-  /* Resource/notification cards stack */
-  .student-resource-card,
+  .student-resource-stats,
+  .student-resource-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .student-resource-heading,
+  .student-resource-list-head,
+  .student-resource-meta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .student-resource-card {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .student-resource-filemark {
+    width: 100%;
+    height: 42px;
+  }
+
+  .student-resource-actions {
+    justify-content: stretch;
+  }
+
   .student-notification-title-row,
   .student-notification-footer {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .student-resource-card a,
+  .student-resource-card {
+    align-items: flex-start;
+  }
+
+  .student-resource-download,
+  .student-resource-unavailable,
+  .student-resource-clear,
+  .student-resource-empty button,
   .student-notification-card button,
   #student-mark-all-notifications-read {
     width: 100%;

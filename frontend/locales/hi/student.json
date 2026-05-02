@@ -167,10 +167,51 @@
     },
     "resources": {
       "title": "शैक्षणिक पाठ और संसाधन",
+      "subtitle": "अपनी कक्षाओं के लिए साझा फाइलों को खोजें, छांटें और डाउनलोड करें.",
       "emptyTitle": "पाठ और संसाधन",
       "emptyText": "वर्तमान में कोई अपलोड की गई फ़ाइल उपलब्ध नहीं।",
       "typeLabel": "प्रकार:",
-      "sizeLabel": "आकार:"
+      "sizeLabel": "आकार:",
+      "subjectLabel": "विषय:",
+      "groupLabel": "समूह:",
+      "teacherLabel": "शिक्षक:",
+      "untitled": "शीर्षक रहित संसाधन",
+      "listTitle": "उपलब्ध संसाधन",
+      "count": "{count} फाइल",
+      "stats": {
+        "files": "फाइलें",
+        "types": "प्रकार",
+        "size": "आकार",
+        "latest": "नवीनतम"
+      },
+      "filters": {
+        "search": "खोज",
+        "searchPlaceholder": "शीर्षक, विषय, शिक्षक से खोजें...",
+        "type": "प्रकार",
+        "allTypes": "सभी प्रकार",
+        "sort": "क्रम",
+        "clear": "फिल्टर हटाएं"
+      },
+      "sort": {
+        "newest": "नवीनतम पहले",
+        "oldest": "पुराने पहले",
+        "title": "शीर्षक",
+        "size": "सबसे बड़ा आकार"
+      },
+      "types": {
+        "document": "दस्तावेज़",
+        "video": "वीडियो",
+        "pdf": "PDF",
+        "image": "चित्र",
+        "archive": "आर्काइव",
+        "audio": "ऑडियो",
+        "spreadsheet": "स्प्रेडशीट",
+        "presentation": "प्रस्तुति",
+        "code": "कोड",
+        "file": "फाइल"
+      },
+      "emptyFilteredTitle": "कोई मेल खाता संसाधन नहीं",
+      "emptyFilteredText": "कोई दूसरा खोज शब्द या संसाधन प्रकार आजमाएं."
     },
     "fees": {
       "title": "वित्तीय स्थिति और देय शुल्क",

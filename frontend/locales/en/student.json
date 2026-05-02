@@ -166,10 +166,51 @@
     },
     "resources": {
       "title": "Educational Lessons and Resources",
+      "subtitle": "Search, filter, and download the files shared for your classes.",
       "emptyTitle": "Lessons and Resources",
       "emptyText": "No uploaded files are available currently.",
       "typeLabel": "Type:",
-      "sizeLabel": "Size:"
+      "sizeLabel": "Size:",
+      "subjectLabel": "Subject:",
+      "groupLabel": "Group:",
+      "teacherLabel": "Teacher:",
+      "untitled": "Untitled resource",
+      "listTitle": "Available resources",
+      "count": "{count} file(s)",
+      "stats": {
+        "files": "Files",
+        "types": "Types",
+        "size": "Size",
+        "latest": "Latest"
+      },
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Search by title, subject, teacher...",
+        "type": "Type",
+        "allTypes": "All types",
+        "sort": "Sort",
+        "clear": "Clear filters"
+      },
+      "sort": {
+        "newest": "Newest first",
+        "oldest": "Oldest first",
+        "title": "Title",
+        "size": "Largest size"
+      },
+      "types": {
+        "document": "Document",
+        "video": "Video",
+        "pdf": "PDF",
+        "image": "Image",
+        "archive": "Archive",
+        "audio": "Audio",
+        "spreadsheet": "Spreadsheet",
+        "presentation": "Presentation",
+        "code": "Code",
+        "file": "File"
+      },
+      "emptyFilteredTitle": "No matching resources",
+      "emptyFilteredText": "Try a different search term or resource type."
     },
     "fees": {
       "title": "Financial Status and Due Fees",

@@ -97,6 +97,11 @@ const StudentRole = {
     if (!main) return;
 
     main.addEventListener("click", async (e) => {
+      if (e.target.id === "student-clear-resource-filters") {
+        StudentUI.clearResourceFilters();
+        return;
+      }
+
       if (e.target.id === "student-mark-all-notifications-read") {
         const session = Auth.getSession();
         const originalText = e.target.textContent;
@@ -134,6 +139,22 @@ const StudentRole = {
             "Could not update the notification."
           ));
         }
+      }
+    });
+
+    main.addEventListener("change", (e) => {
+      if (e.target.id === "student-resource-type-filter") {
+        StudentUI.updateResourceFilters({ type: e.target.value });
+      }
+
+      if (e.target.id === "student-resource-sort-select") {
+        StudentUI.updateResourceFilters({ sort: e.target.value });
+      }
+    });
+
+    main.addEventListener("input", (e) => {
+      if (e.target.id === "student-resource-search-input") {
+        StudentUI.updateResourceFilters({ query: e.target.value }, "student-resource-search-input");
       }
     });
 

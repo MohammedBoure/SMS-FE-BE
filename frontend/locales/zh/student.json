@@ -167,10 +167,51 @@
     },
     "resources": {
       "title": "教学课程与资源",
+      "subtitle": "搜索、筛选并下载与你课程相关的共享文件。",
       "emptyTitle": "课程与资源",
       "emptyText": "当前没有可用上传文件。",
       "typeLabel": "类型：",
-      "sizeLabel": "大小："
+      "sizeLabel": "大小：",
+      "subjectLabel": "科目：",
+      "groupLabel": "班级：",
+      "teacherLabel": "教师：",
+      "untitled": "未命名资源",
+      "listTitle": "可用资源",
+      "count": "{count} 个文件",
+      "stats": {
+        "files": "文件",
+        "types": "类型",
+        "size": "大小",
+        "latest": "最新"
+      },
+      "filters": {
+        "search": "搜索",
+        "searchPlaceholder": "按标题、科目、教师搜索...",
+        "type": "类型",
+        "allTypes": "所有类型",
+        "sort": "排序",
+        "clear": "清除筛选"
+      },
+      "sort": {
+        "newest": "最新优先",
+        "oldest": "最早优先",
+        "title": "标题",
+        "size": "最大文件"
+      },
+      "types": {
+        "document": "文档",
+        "video": "视频",
+        "pdf": "PDF",
+        "image": "图片",
+        "archive": "压缩包",
+        "audio": "音频",
+        "spreadsheet": "电子表格",
+        "presentation": "演示文稿",
+        "code": "代码",
+        "file": "文件"
+      },
+      "emptyFilteredTitle": "没有匹配的资源",
+      "emptyFilteredText": "请尝试其他搜索词或资源类型。"
     },
     "fees": {
       "title": "财务状态与到期费用",

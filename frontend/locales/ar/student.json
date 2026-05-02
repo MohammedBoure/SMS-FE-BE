@@ -166,10 +166,51 @@
     },
     "resources": {
       "title": "الدروس والموارد التعليمية",
+      "subtitle": "ابحث وصفّ الموارد وحمّل الملفات المرتبطة بدروسك.",
       "emptyTitle": "الدروس والموارد",
       "emptyText": "لا توجد ملفات مرفوعة حاليا.",
       "typeLabel": "النوع:",
-      "sizeLabel": "الحجم:"
+      "sizeLabel": "الحجم:",
+      "subjectLabel": "المادة:",
+      "groupLabel": "الفوج:",
+      "teacherLabel": "الأستاذ:",
+      "untitled": "مورد بدون عنوان",
+      "listTitle": "الموارد المتاحة",
+      "count": "{count} ملف",
+      "stats": {
+        "files": "الملفات",
+        "types": "الأنواع",
+        "size": "الحجم",
+        "latest": "الأحدث"
+      },
+      "filters": {
+        "search": "بحث",
+        "searchPlaceholder": "ابحث بالعنوان أو المادة أو الأستاذ...",
+        "type": "النوع",
+        "allTypes": "كل الأنواع",
+        "sort": "الترتيب",
+        "clear": "مسح الفلاتر"
+      },
+      "sort": {
+        "newest": "الأحدث أولا",
+        "oldest": "الأقدم أولا",
+        "title": "العنوان",
+        "size": "الأكبر حجما"
+      },
+      "types": {
+        "document": "مستند",
+        "video": "فيديو",
+        "pdf": "PDF",
+        "image": "صورة",
+        "archive": "أرشيف",
+        "audio": "صوت",
+        "spreadsheet": "جدول",
+        "presentation": "عرض",
+        "code": "كود",
+        "file": "ملف"
+      },
+      "emptyFilteredTitle": "لا توجد موارد مطابقة",
+      "emptyFilteredText": "جرّب عبارة بحث أو نوع مورد مختلف."
     },
     "fees": {
       "title": "الوضعية المالية والرسوم المستحقة",

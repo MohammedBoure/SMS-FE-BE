@@ -167,10 +167,51 @@
     },
     "resources": {
       "title": "Lecciones y recursos educativos",
+      "subtitle": "Busca, filtra y descarga los archivos compartidos para tus clases.",
       "emptyTitle": "Lecciones y recursos",
       "emptyText": "Actualmente no hay archivos subidos disponibles.",
       "typeLabel": "Tipo:",
-      "sizeLabel": "Tamaño:"
+      "sizeLabel": "Tamaño:",
+      "subjectLabel": "Materia:",
+      "groupLabel": "Grupo:",
+      "teacherLabel": "Profesor:",
+      "untitled": "Recurso sin título",
+      "listTitle": "Recursos disponibles",
+      "count": "{count} archivo(s)",
+      "stats": {
+        "files": "Archivos",
+        "types": "Tipos",
+        "size": "Tamaño",
+        "latest": "Más reciente"
+      },
+      "filters": {
+        "search": "Buscar",
+        "searchPlaceholder": "Buscar por título, materia, profesor...",
+        "type": "Tipo",
+        "allTypes": "Todos los tipos",
+        "sort": "Orden",
+        "clear": "Borrar filtros"
+      },
+      "sort": {
+        "newest": "Más recientes primero",
+        "oldest": "Más antiguos primero",
+        "title": "Título",
+        "size": "Mayor tamaño"
+      },
+      "types": {
+        "document": "Documento",
+        "video": "Video",
+        "pdf": "PDF",
+        "image": "Imagen",
+        "archive": "Archivo comprimido",
+        "audio": "Audio",
+        "spreadsheet": "Hoja de cálculo",
+        "presentation": "Presentación",
+        "code": "Código",
+        "file": "Archivo"
+      },
+      "emptyFilteredTitle": "No hay recursos coincidentes",
+      "emptyFilteredText": "Prueba con otro término de búsqueda o tipo de recurso."
     },
     "fees": {
       "title": "Estado financiero y cuotas vencidas",

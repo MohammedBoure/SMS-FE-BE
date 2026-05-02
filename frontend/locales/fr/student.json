@@ -167,10 +167,51 @@
     },
     "resources": {
       "title": "Leçons et ressources pédagogiques",
+      "subtitle": "Recherchez, filtrez et téléchargez les fichiers partagés pour vos cours.",
       "emptyTitle": "Leçons et ressources",
       "emptyText": "Aucun fichier téléversé disponible actuellement.",
       "typeLabel": "Type :",
-      "sizeLabel": "Taille :"
+      "sizeLabel": "Taille :",
+      "subjectLabel": "Matière :",
+      "groupLabel": "Groupe :",
+      "teacherLabel": "Enseignant :",
+      "untitled": "Ressource sans titre",
+      "listTitle": "Ressources disponibles",
+      "count": "{count} fichier(s)",
+      "stats": {
+        "files": "Fichiers",
+        "types": "Types",
+        "size": "Taille",
+        "latest": "Dernier"
+      },
+      "filters": {
+        "search": "Recherche",
+        "searchPlaceholder": "Rechercher par titre, matière, enseignant...",
+        "type": "Type",
+        "allTypes": "Tous les types",
+        "sort": "Tri",
+        "clear": "Effacer les filtres"
+      },
+      "sort": {
+        "newest": "Plus récents d'abord",
+        "oldest": "Plus anciens d'abord",
+        "title": "Titre",
+        "size": "Taille décroissante"
+      },
+      "types": {
+        "document": "Document",
+        "video": "Vidéo",
+        "pdf": "PDF",
+        "image": "Image",
+        "archive": "Archive",
+        "audio": "Audio",
+        "spreadsheet": "Tableur",
+        "presentation": "Présentation",
+        "code": "Code",
+        "file": "Fichier"
+      },
+      "emptyFilteredTitle": "Aucune ressource correspondante",
+      "emptyFilteredText": "Essayez un autre terme de recherche ou un autre type."
     },
     "fees": {
       "title": "Situation financière et frais dus",
