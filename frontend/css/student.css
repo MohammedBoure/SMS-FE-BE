@@ -1081,6 +1081,234 @@ td strong[style*="#e11d48"] {
 }
 
 /* ==========================================================================
+   Comprehensive Dark Mode Fixes
+   ========================================================================== */
+body[data-theme="dark"] {
+  background:
+    radial-gradient(circle at 10% -8%, rgba(45, 212, 191, .13), transparent 32rem),
+    radial-gradient(circle at 95% 2%, rgba(96, 165, 250, .10), transparent 28rem),
+    var(--bg);
+}
+
+body[data-theme="dark"] #student-header {
+  background: rgba(17, 24, 39, .92);
+  backdrop-filter: blur(14px);
+}
+
+body[data-theme="dark"] #student-nav {
+  background:
+    linear-gradient(180deg, rgba(7, 16, 31, .98), rgba(10, 18, 32, .98));
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, .05);
+}
+
+body[data-theme="dark"] #student-main h2,
+body[data-theme="dark"] .student-message-panel-title,
+body[data-theme="dark"] .student-chat-header {
+  border-color: var(--border);
+}
+
+body[data-theme="dark"] select,
+body[data-theme="dark"] input[type="text"],
+body[data-theme="dark"] input[type="number"],
+body[data-theme="dark"] input[type="date"],
+body[data-theme="dark"] input[type="email"],
+body[data-theme="dark"] input[type="password"],
+body[data-theme="dark"] input[type="search"],
+body[data-theme="dark"] textarea {
+  background: #0f172a !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-dark) !important;
+}
+
+body[data-theme="dark"] input::placeholder,
+body[data-theme="dark"] textarea::placeholder {
+  color: #7f8ea3;
+}
+
+body[data-theme="dark"] table {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+body[data-theme="dark"] thead {
+  background: linear-gradient(135deg, rgba(20, 184, 166, .22), rgba(15, 23, 42, .98));
+}
+
+body[data-theme="dark"] tbody td {
+  color: var(--text-secondary);
+  border-color: var(--border);
+}
+
+body[data-theme="dark"] tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, .025);
+}
+
+body[data-theme="dark"] tbody tr:hover,
+body[data-theme="dark"] tbody tr:nth-child(even):hover {
+  background: rgba(45, 212, 191, .08);
+}
+
+body[data-theme="dark"] .student-table-wrap,
+body[data-theme="dark"] .student-resource-card,
+body[data-theme="dark"] .student-notification-card,
+body[data-theme="dark"] .student-messages-header,
+body[data-theme="dark"] .student-message-user-result,
+body[data-theme="dark"] .student-message-contacts,
+body[data-theme="dark"] .student-chat-panel,
+body[data-theme="dark"] .student-message-inline-note {
+  background: var(--surface) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border) !important;
+}
+
+body[data-theme="dark"] .student-message-panel-title,
+body[data-theme="dark"] .student-chat-header {
+  background: var(--surface-2);
+  color: var(--text-primary);
+}
+
+body[data-theme="dark"] .student-chat-messages {
+  background:
+    linear-gradient(rgba(17, 24, 39, .94), rgba(17, 24, 39, .94)),
+    radial-gradient(circle at 12% 14%, rgba(45, 212, 191, .12), transparent 18rem);
+}
+
+body[data-theme="dark"] .student-message-contact:hover,
+body[data-theme="dark"] .student-message-contact.active,
+body[data-theme="dark"] .student-message-user-result:hover {
+  background: rgba(45, 212, 191, .10) !important;
+}
+
+body[data-theme="dark"] .student-message-bubble {
+  background: rgba(96, 165, 250, .16);
+  color: #dbeafe;
+  border-color: rgba(96, 165, 250, .32);
+}
+
+body[data-theme="dark"] .student-message-bubble.mine {
+  background: rgba(45, 212, 191, .16);
+  color: #ccfbf1;
+  border-color: rgba(45, 212, 191, .34);
+}
+
+body[data-theme="dark"] .student-message-inline-note.error {
+  background: rgba(251, 113, 133, .12) !important;
+  color: #fecdd3 !important;
+  border-color: rgba(251, 113, 133, .34) !important;
+}
+
+body[data-theme="dark"] .student-notification-title-row span {
+  background: rgba(251, 191, 36, .13);
+  color: #fde68a;
+  border-color: rgba(251, 191, 36, .35);
+}
+
+body[data-theme="dark"] .student-notification-card.is-read .student-notification-title-row span,
+body[data-theme="dark"] .student-notification-action.is-read {
+  background: rgba(74, 222, 128, .13);
+  color: #bbf7d0;
+  border-color: rgba(74, 222, 128, .34);
+}
+
+body[data-theme="dark"] td[style*="#059669"] {
+  background: rgba(74, 222, 128, .10) !important;
+  color: #86efac !important;
+}
+
+body[data-theme="dark"] td[style*="#dc2626"] {
+  background: rgba(251, 113, 133, .12) !important;
+  color: #fda4af !important;
+}
+
+body[data-theme="dark"] td[style*="#d97706"] {
+  background: rgba(251, 191, 36, .11) !important;
+  color: #fcd34d !important;
+  border-radius: var(--r-sm);
+  font-weight: 700 !important;
+}
+
+body[data-theme="dark"] .danger-value {
+  background: rgba(251, 113, 133, .12);
+  color: #fda4af !important;
+}
+
+body[data-theme="dark"] #student-main [style*="background: white"],
+body[data-theme="dark"] #student-main [style*="background:white"],
+body[data-theme="dark"] #student-main [style*="background: #fff"],
+body[data-theme="dark"] #student-main [style*="background:#fff"],
+body[data-theme="dark"] #student-main [style*="background: #ffffff"],
+body[data-theme="dark"] #student-main [style*="background:#ffffff"] {
+  background: var(--surface) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border) !important;
+}
+
+body[data-theme="dark"] #student-main [style*="background: #f8fafc"],
+body[data-theme="dark"] #student-main [style*="background:#f8fafc"],
+body[data-theme="dark"] #student-main [style*="background: #f1f5f9"],
+body[data-theme="dark"] #student-main [style*="background:#f1f5f9"],
+body[data-theme="dark"] #student-main [style*="background: #ecf0f1"],
+body[data-theme="dark"] #student-main [style*="background:#ecf0f1"] {
+  background: var(--surface-2) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border) !important;
+}
+
+body[data-theme="dark"] #student-main [style*="color: #0f172a"],
+body[data-theme="dark"] #student-main [style*="color:#0f172a"],
+body[data-theme="dark"] #student-main [style*="color: #334155"],
+body[data-theme="dark"] #student-main [style*="color:#334155"],
+body[data-theme="dark"] #student-main [style*="color: #475569"],
+body[data-theme="dark"] #student-main [style*="color:#475569"] {
+  color: var(--text-primary) !important;
+}
+
+body[data-theme="dark"] #student-main [style*="color: #64748b"],
+body[data-theme="dark"] #student-main [style*="color:#64748b"],
+body[data-theme="dark"] #student-main [style*="color: #94a3b8"],
+body[data-theme="dark"] #student-main [style*="color:#94a3b8"] {
+  color: var(--text-muted) !important;
+}
+
+body[data-theme="dark"] .student-post-list-card,
+body[data-theme="dark"] .student-post-card,
+body[data-theme="dark"] .posts-header-bar,
+body[data-theme="dark"] .posts-empty {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+  color: var(--text-primary) !important;
+}
+
+body[data-theme="dark"] .student-post-date,
+body[data-theme="dark"] .post-thumb-placeholder,
+body[data-theme="dark"] .student-post-thumb-placeholder {
+  background: var(--surface-2) !important;
+  color: var(--text-muted) !important;
+  border-color: var(--border) !important;
+}
+
+body[data-theme="dark"] .md-body,
+body[data-theme="dark"] .preview-title,
+body[data-theme="dark"] .student-post-list-title {
+  color: var(--text-primary) !important;
+}
+
+body[data-theme="dark"] .student-post-summary p,
+body[data-theme="dark"] .student-post-label,
+body[data-theme="dark"] .student-post-date,
+body[data-theme="dark"] .student-resource-card small,
+body[data-theme="dark"] .student-notification-card small {
+  color: var(--text-muted) !important;
+}
+
+body[data-theme="dark"] .student-post-label {
+  background: rgba(74, 222, 128, .13) !important;
+  color: #bbf7d0 !important;
+  border-color: rgba(74, 222, 128, .34) !important;
+}
+
+/* ==========================================================================
    Responsive — Tablet  (≤900px)
    ========================================================================== */
 @media (max-width: 900px) {
@@ -1263,6 +1491,21 @@ td strong[style*="#e11d48"] {
     flex-direction: column !important;
     align-items: flex-start !important;
     gap: 0.75rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  body[data-theme="dark"] #student-nav {
+    background:
+      linear-gradient(180deg, rgba(17, 24, 39, .98), rgba(7, 16, 31, .98));
+    border-top-color: rgba(255, 255, 255, .08);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, .36);
+  }
+
+  body[data-theme="dark"] .nav-btn:hover,
+  body[data-theme="dark"] .nav-btn.active {
+    background: rgba(45, 212, 191, .12);
+    color: var(--teal-light);
   }
 }
 
