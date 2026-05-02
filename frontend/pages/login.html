@@ -15,7 +15,7 @@
     })();
   </script>
   <link rel="stylesheet" href="../css/posts.css?v=login-i18n-1">
-  <link rel="stylesheet" href="../css/login.css?v=login-posts-scroll-3d-1">
+  <link rel="stylesheet" href="../css/login.css?v=login-posts-cinema-2">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
@@ -164,7 +164,19 @@
       </div>
 
       <div id="login-posts-status" class="posts-status" data-i18n="login.posts.loading">Loading posts...</div>
-      <div id="login-posts-list" class="login-posts-content" aria-live="polite"></div>
+      <div class="login-cinema-stage" id="login-cinema-stage">
+        <button type="button" class="login-cinema-arrow login-cinema-arrow-prev" data-posts-shift="-1" data-i18n-aria-label="login.posts.previous" aria-label="Previous posts">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15 6 9 12l6 6"/>
+          </svg>
+        </button>
+        <div id="login-posts-list" class="login-posts-content" aria-live="polite" tabindex="0"></div>
+        <button type="button" class="login-cinema-arrow login-cinema-arrow-next" data-posts-shift="1" data-i18n-aria-label="login.posts.next" aria-label="Next posts">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m9 6 6 6-6 6"/>
+          </svg>
+        </button>
+      </div>
     </section>
   </main>
 
@@ -202,6 +214,7 @@
       const loginBtn = document.getElementById("login-btn");
       const loginBtnLabel = loginBtn?.querySelector("span");
       const postsList = document.getElementById("login-posts-list");
+      const postsStage = document.getElementById("login-cinema-stage");
       const postsStatus = document.getElementById("login-posts-status");
       const refreshBtn = document.getElementById("posts-refresh-btn");
       const themeToggle = document.getElementById("login-theme-toggle");
@@ -214,6 +227,8 @@
       const passwordInput = document.getElementById("password");
       let postsCache = [];
       let postsScrollFrame = 0;
+      let postsDragState = null;
+      let suppressPostOpenUntil = 0;
       const loginExperience = initLoginExperience();
 
       function t(key, params = {}, fallback = "") {
@@ -684,6 +699,8 @@
 
       function renderEmptyPosts(message) {
         postsList.innerHTML = "";
+        postsStage?.classList.remove("has-posts", "is-scrollable");
+        postsList.classList.remove("is-dragging");
         postsStatus.textContent = message;
         postsStatus.classList.remove("is-hidden");
       }
@@ -698,31 +715,29 @@
 
       function updatePostsScrollScene() {
         const cards = [...postsList.querySelectorAll(".login-post-list-card")];
+        postsStage?.classList.toggle("is-scrollable", postsList.scrollWidth > postsList.clientWidth + 6);
         if (!cards.length) return;
 
         const listRect = postsList.getBoundingClientRect();
-        const viewportHeight = window.innerHeight || document.documentElement.clientHeight || listRect.height;
-        const hasInternalScroll = postsList.scrollHeight > postsList.clientHeight + 6;
-        const center = hasInternalScroll
-          ? listRect.top + listRect.height * 0.5
-          : viewportHeight * 0.5;
-        const maxDistance = Math.max((hasInternalScroll ? listRect.height : viewportHeight) * 0.58, 220);
+        const center = listRect.left + listRect.width * 0.5;
+        const maxDistance = Math.max(listRect.width * 0.46, 260);
         const direction = document.documentElement.dir === "rtl" ? -1 : 1;
 
         cards.forEach((card, index) => {
           const rect = card.getBoundingClientRect();
-          const cardCenter = rect.top + rect.height * 0.5;
-          const offset = Math.max(-1.35, Math.min(1.35, (cardCenter - center) / maxDistance));
+          const cardCenter = rect.left + rect.width * 0.5;
+          const offset = Math.max(-1.45, Math.min(1.45, (cardCenter - center) / maxDistance));
           const distance = Math.min(1, Math.abs(offset));
           const presence = 1 - distance;
-          const depth = Math.round(presence * 78 - 34);
-          const rotateX = (-offset * 12).toFixed(2);
-          const rotateY = (offset * direction * 4.8).toFixed(2);
-          const scale = (0.92 + presence * 0.08).toFixed(3);
-          const opacity = (0.56 + presence * 0.44).toFixed(3);
-          const lift = (-offset * 8).toFixed(2);
+          const depth = Math.round(presence * 132 - 58);
+          const rotateX = (Math.abs(offset) * -4.5).toFixed(2);
+          const rotateY = (-offset * direction * 24).toFixed(2);
+          const scale = (0.86 + presence * 0.14).toFixed(3);
+          const opacity = (0.48 + presence * 0.52).toFixed(3);
+          const lift = (-presence * 8).toFixed(2);
           const shade = presence.toFixed(3);
-          const shine = (0.18 + presence * 0.34).toFixed(3);
+          const shine = (0.10 + presence * 0.26).toFixed(3);
+          const shift = (-offset * 16).toFixed(2);
 
           card.style.setProperty("--post-depth", `${depth}px`);
           card.style.setProperty("--post-rotate-x", `${rotateX}deg`);
@@ -732,9 +747,23 @@
           card.style.setProperty("--post-lift", `${lift}px`);
           card.style.setProperty("--post-shade", shade);
           card.style.setProperty("--post-shine", shine);
+          card.style.setProperty("--post-shift", `${shift}px`);
           card.style.setProperty("--post-order", String(index));
-          card.classList.toggle("is-scroll-focus", distance < 0.28);
+          card.classList.toggle("is-scroll-focus", distance < 0.24);
         });
+      }
+
+      function getPostRailStep() {
+        const card = postsList.querySelector(".login-post-list-card");
+        if (!card) return Math.max(260, postsList.clientWidth * 0.72);
+        const rect = card.getBoundingClientRect();
+        return rect.width + 28;
+      }
+
+      function shiftPostsRail(direction) {
+        const amount = getPostRailStep() * Number(direction || 1);
+        postsList.scrollBy({ left: amount, behavior: "smooth" });
+        schedulePostsScrollScene();
       }
 
       function renderPosts(posts) {
@@ -757,7 +786,7 @@
           const date = formatDate(post.created_at);
 
           return `
-            <article class="student-post-list-card login-post-list-card" tabindex="0" data-post-index="${index}" style="--post-order:${index}">
+            <article class="student-post-list-card login-post-list-card" role="listitem" tabindex="0" data-post-index="${index}" style="--post-order:${index}">
               ${image
                 ? `<img src="${escapeAttr(image)}" class="student-post-thumb" alt="${title}">`
                 : `<div class="student-post-thumb student-post-thumb-placeholder" aria-hidden="true">${t("login.common.file", {}, "File")}</div>`}
@@ -778,9 +807,14 @@
 
         postsList.innerHTML = `
           <div class="posts-dashboard student-posts-dashboard login-posts-dashboard">
-            <div class="student-posts-list login-parent-posts-list">${cards}</div>
+            <div class="student-posts-list login-parent-posts-list" role="list">${cards}</div>
           </div>
         `;
+        postsStage?.classList.add("has-posts");
+        postsList.scrollLeft = 0;
+        postsList.querySelectorAll("img").forEach(img => {
+          if (!img.complete) img.addEventListener("load", schedulePostsScrollScene, { once: true });
+        });
         schedulePostsScrollScene();
       }
 
@@ -886,14 +920,64 @@
       });
 
       refreshBtn.addEventListener("click", loadPosts);
+      postsStage?.addEventListener("click", event => {
+        const shiftButton = event.target.closest("[data-posts-shift]");
+        if (!shiftButton) return;
+        shiftPostsRail(Number(shiftButton.dataset.postsShift || 1));
+      });
+      postsList.addEventListener("wheel", event => {
+        const canScroll = postsList.scrollWidth > postsList.clientWidth + 6;
+        if (!canScroll || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+        postsList.scrollLeft += event.deltaY;
+        event.preventDefault();
+        schedulePostsScrollScene();
+      }, { passive: false });
+      postsList.addEventListener("pointerdown", event => {
+        if (event.button !== 0 || event.target.closest("button, a, input, select, textarea")) return;
+        postsDragState = {
+          pointerId: event.pointerId,
+          startX: event.clientX,
+          startScrollLeft: postsList.scrollLeft,
+          moved: false
+        };
+        postsList.classList.add("is-dragging");
+        try {
+          postsList.setPointerCapture?.(event.pointerId);
+        } catch (e) {}
+      });
+      postsList.addEventListener("pointermove", event => {
+        if (!postsDragState || postsDragState.pointerId !== event.pointerId) return;
+        const delta = event.clientX - postsDragState.startX;
+        if (Math.abs(delta) > 4) postsDragState.moved = true;
+        postsList.scrollLeft = postsDragState.startScrollLeft - delta;
+        if (postsDragState.moved) event.preventDefault();
+        schedulePostsScrollScene();
+      });
+      function endPostsDrag(event) {
+        if (!postsDragState || postsDragState.pointerId !== event.pointerId) return;
+        if (postsDragState.moved) suppressPostOpenUntil = Date.now() + 260;
+        postsDragState = null;
+        postsList.classList.remove("is-dragging");
+        try {
+          postsList.releasePointerCapture?.(event.pointerId);
+        } catch (e) {}
+      }
+      postsList.addEventListener("pointerup", endPostsDrag);
+      postsList.addEventListener("pointercancel", endPostsDrag);
       postsList.addEventListener("scroll", schedulePostsScrollScene, { passive: true });
       window.addEventListener("scroll", schedulePostsScrollScene, { passive: true });
       window.addEventListener("resize", schedulePostsScrollScene, { passive: true });
       postsList.addEventListener("click", event => {
+        if (Date.now() < suppressPostOpenUntil) return;
         const target = event.target.closest("[data-post-index]");
         if (target) openPost(Number(target.dataset.postIndex));
       });
       postsList.addEventListener("keydown", event => {
+        if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+          event.preventDefault();
+          shiftPostsRail(event.key === "ArrowLeft" ? -1 : 1);
+          return;
+        }
         if (event.key !== "Enter" && event.key !== " ") return;
         const card = event.target.closest("[data-post-index]");
         if (!card) return;
