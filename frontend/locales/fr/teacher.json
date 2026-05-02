@@ -204,7 +204,38 @@
       "sizeLabel": "Taille :",
       "uploadedAt": "Téléversé :",
       "listTitle": "Ressources téléversées",
-      "count": "{count} fichier(s)"
+      "count": "{count} fichier(s)",
+      "scopeLabel": "Ressources de classe",
+      "uploadBadge": "Bibliotheque enseignant",
+      "fileNone": "Aucun fichier selectionne",
+      "form": {
+        "assignment": "Classe et matiere",
+        "title": "Titre de la ressource",
+        "type": "Type",
+        "file": "Fichier"
+      },
+      "stats": {
+        "files": "Fichiers",
+        "types": "Types",
+        "size": "Taille",
+        "latest": "Dernier ajout"
+      },
+      "filters": {
+        "search": "Recherche",
+        "searchPlaceholder": "Rechercher des ressources...",
+        "type": "Type",
+        "allTypes": "Tous les types",
+        "sort": "Tri",
+        "clear": "Effacer les filtres"
+      },
+      "sort": {
+        "newest": "Plus recent",
+        "oldest": "Plus ancien",
+        "title": "Titre",
+        "size": "Taille la plus grande"
+      },
+      "emptyFilteredTitle": "Aucune ressource correspondante",
+      "emptyFilteredText": "Aucun resultat pour les criteres actuels."
     },
     "notifications": {
       "emptyTitle": "Notifications",

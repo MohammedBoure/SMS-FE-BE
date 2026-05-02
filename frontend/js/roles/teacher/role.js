@@ -240,11 +240,34 @@ const TeacherRole = {
         });
         alert(TeacherUI.t("teacher.actions.gradeSaved", {}, "Grade saved."));
       }
+
+      if (e.target.id === "clear-resource-filters") {
+        TeacherUI.clearResourceFilters();
+      }
     });
 
     main.addEventListener("change", async (e) => {
       if (e.target.id === "resource-assignment-id") {
+        TeacherUI.resetResourceFilters();
         await this.loadResourcesForSelectedAssignment();
+      }
+
+      if (e.target.id === "resource-file") {
+        TeacherUI.updateSelectedResourceFile(e.target.files?.[0] || null);
+      }
+
+      if (e.target.id === "resource-type-filter") {
+        TeacherUI.updateResourceFilters({ type: e.target.value });
+      }
+
+      if (e.target.id === "resource-sort-select") {
+        TeacherUI.updateResourceFilters({ sort: e.target.value });
+      }
+    });
+
+    main.addEventListener("input", (e) => {
+      if (e.target.id === "resource-search-input") {
+        TeacherUI.updateResourceFilters({ query: e.target.value }, "resource-search-input");
       }
     });
 
@@ -271,6 +294,7 @@ const TeacherRole = {
           alert(TeacherUI.t("teacher.actions.resourceUploaded", {}, "Resource uploaded."));
           e.target.reset();
           if (assignmentSelect) assignmentSelect.value = assignmentId;
+          TeacherUI.updateSelectedResourceFile(null);
           await this.loadResourcesForSelectedAssignment();
         } catch (err) {
           alert(err.message || TeacherUI.t("teacher.resources.uploadFailed", {}, "Could not upload the resource."));

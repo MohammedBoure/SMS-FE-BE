@@ -203,7 +203,38 @@
       "sizeLabel": "Size:",
       "uploadedAt": "Uploaded:",
       "listTitle": "Uploaded resources",
-      "count": "{count} file(s)"
+      "count": "{count} file(s)",
+      "scopeLabel": "Class resources",
+      "uploadBadge": "Teacher library",
+      "fileNone": "No file selected",
+      "form": {
+        "assignment": "Class and subject",
+        "title": "Resource title",
+        "type": "Type",
+        "file": "File"
+      },
+      "stats": {
+        "files": "Files",
+        "types": "Types",
+        "size": "Size",
+        "latest": "Latest"
+      },
+      "filters": {
+        "search": "Search",
+        "searchPlaceholder": "Search resources...",
+        "type": "Type",
+        "allTypes": "All types",
+        "sort": "Sort",
+        "clear": "Clear filters"
+      },
+      "sort": {
+        "newest": "Newest first",
+        "oldest": "Oldest first",
+        "title": "Title",
+        "size": "Largest size"
+      },
+      "emptyFilteredTitle": "No matching resources",
+      "emptyFilteredText": "No results for the current criteria."
     },
     "notifications": {
       "emptyTitle": "Notifications",

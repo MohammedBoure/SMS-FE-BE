@@ -204,7 +204,38 @@
       "sizeLabel": "Tamaño:",
       "uploadedAt": "Subido:",
       "listTitle": "Recursos subidos",
-      "count": "{count} archivo(s)"
+      "count": "{count} archivo(s)",
+      "scopeLabel": "Recursos de clase",
+      "uploadBadge": "Biblioteca docente",
+      "fileNone": "No se selecciono ningun archivo",
+      "form": {
+        "assignment": "Clase y asignatura",
+        "title": "Titulo del recurso",
+        "type": "Tipo",
+        "file": "Archivo"
+      },
+      "stats": {
+        "files": "Archivos",
+        "types": "Tipos",
+        "size": "Tamano",
+        "latest": "Ultima subida"
+      },
+      "filters": {
+        "search": "Buscar",
+        "searchPlaceholder": "Buscar recursos...",
+        "type": "Tipo",
+        "allTypes": "Todos los tipos",
+        "sort": "Ordenar",
+        "clear": "Limpiar filtros"
+      },
+      "sort": {
+        "newest": "Mas reciente",
+        "oldest": "Mas antiguo",
+        "title": "Titulo",
+        "size": "Mayor tamano"
+      },
+      "emptyFilteredTitle": "No hay recursos coincidentes",
+      "emptyFilteredText": "No hay resultados para los criterios actuales."
     },
     "notifications": {
       "emptyTitle": "Notificaciones",

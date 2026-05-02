@@ -540,6 +540,7 @@ select,
 input[type="text"],
 input[type="number"],
 input[type="date"],
+input[type="search"],
 input[type="file"] {
   font-family: 'Tajawal', sans-serif;
   font-size: .9rem;
@@ -556,7 +557,8 @@ input[type="file"] {
 select:focus,
 input[type="text"]:focus,
 input[type="number"]:focus,
-input[type="date"]:focus {
+input[type="date"]:focus,
+input[type="search"]:focus {
   border-color: var(--indigo);
   box-shadow: 0 0 0 3px var(--indigo-glow);
 }
@@ -677,6 +679,47 @@ button:active { transform: translateY(0); box-shadow: none; }
 }
 
 /* Resource upload form */
+.teacher-resources-page {
+  display: grid;
+  gap: 1rem;
+}
+
+.teacher-resource-upload,
+.teacher-resource-board {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+}
+
+.teacher-resource-upload {
+  padding: 1rem;
+}
+
+.teacher-resource-upload-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .9rem;
+}
+
+.teacher-resource-upload-head h3 {
+  margin: 0;
+  color: var(--txt-1);
+}
+
+.teacher-resource-upload-head span {
+  color: #0f766e;
+  background: rgba(20, 184, 166, .12);
+  border: 1px solid rgba(20, 184, 166, .22);
+  border-radius: 999px;
+  padding: .25rem .65rem;
+  font-size: .78rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
 #upload-resource-form {
   display: flex;
   flex-wrap: wrap;
@@ -685,9 +728,66 @@ button:active { transform: translateY(0); box-shadow: none; }
   width: 100%;
 }
 
+#upload-resource-form.teacher-resource-form {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: .8rem;
+  align-items: end;
+}
+
 #upload-resource-form select,
 #upload-resource-form input {
   flex: 1 1 180px;
+}
+
+.teacher-resource-field {
+  display: grid;
+  grid-column: span 3;
+  gap: .35rem;
+  min-width: 0;
+}
+
+.teacher-resource-field-wide {
+  grid-column: span 4;
+}
+
+.teacher-resource-file-field {
+  grid-column: span 8;
+}
+
+.teacher-resource-field > span,
+.teacher-resource-control > span {
+  color: var(--txt-2);
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.teacher-resource-field input,
+.teacher-resource-field select,
+.teacher-resource-control input,
+.teacher-resource-control select {
+  width: 100%;
+}
+
+.teacher-resource-file-name {
+  color: var(--txt-3);
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.teacher-resource-submit {
+  grid-column: span 4;
+  min-height: 40px;
+  justify-content: center;
+  background: var(--emerald);
+  box-shadow: 0 10px 18px rgba(16, 185, 129, .18);
+}
+
+.teacher-resource-submit:hover {
+  background: #059669;
+  box-shadow: 0 14px 24px rgba(16, 185, 129, .22);
 }
 
 /* ==========================================================================
@@ -727,6 +827,80 @@ button:active { transform: translateY(0); box-shadow: none; }
   background: rgba(254, 242, 242, .92);
 }
 
+.teacher-resource-empty {
+  display: grid;
+  gap: .4rem;
+  padding: 1.2rem;
+  margin-top: 1rem;
+  background: var(--surface);
+  border: 1px dashed var(--border-2);
+  border-radius: var(--r-lg);
+  color: var(--txt-3);
+  text-align: center;
+}
+
+.teacher-resource-empty strong {
+  color: var(--txt-1);
+}
+
+.teacher-resource-empty button {
+  justify-self: center;
+  margin-top: .35rem;
+}
+
+.teacher-resource-board {
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.teacher-resource-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .75rem;
+  margin-bottom: 1rem;
+}
+
+.teacher-resource-stats > div {
+  display: grid;
+  gap: .2rem;
+  min-width: 0;
+  padding: .85rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+
+.teacher-resource-stats span {
+  color: var(--txt-3);
+  font-size: .76rem;
+  font-weight: 800;
+}
+
+.teacher-resource-stats strong {
+  color: var(--txt-1);
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.teacher-resource-toolbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(150px, .38fr) minmax(160px, .42fr);
+  gap: .75rem;
+  align-items: end;
+  padding: .85rem;
+  background: var(--panel-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+
+.teacher-resource-control {
+  display: grid;
+  gap: .35rem;
+  min-width: 0;
+}
+
 .teacher-resource-list-head {
   display: flex;
   justify-content: space-between;
@@ -752,7 +926,8 @@ button:active { transform: translateY(0); box-shadow: none; }
 }
 
 .teacher-resource-card {
-  display: flex;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -761,6 +936,44 @@ button:active { transform: translateY(0); box-shadow: none; }
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   box-shadow: var(--sh-sm);
+}
+
+.teacher-resource-filemark {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--r);
+  color: #0f766e;
+  background: rgba(20, 184, 166, .12);
+  border: 1px solid rgba(20, 184, 166, .24);
+  font-size: .82rem;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.teacher-resource-filemark[data-type="video"] {
+  color: #7c3aed;
+  background: rgba(124, 58, 237, .12);
+  border-color: rgba(124, 58, 237, .24);
+}
+
+.teacher-resource-filemark[data-type="pdf"] {
+  color: #b91c1c;
+  background: rgba(239, 68, 68, .12);
+  border-color: rgba(239, 68, 68, .24);
+}
+
+.teacher-resource-filemark[data-type="image"] {
+  color: #0369a1;
+  background: rgba(14, 165, 233, .12);
+  border-color: rgba(14, 165, 233, .24);
+}
+
+.teacher-resource-filemark[data-type="archive"] {
+  color: #b45309;
+  background: rgba(245, 158, 11, .13);
+  border-color: rgba(245, 158, 11, .26);
 }
 
 .teacher-resource-card-main {
@@ -799,6 +1012,10 @@ button:active { transform: translateY(0); box-shadow: none; }
   color: var(--txt-3);
   font-size: .88rem;
   font-weight: 650;
+}
+
+.teacher-resource-meta strong {
+  color: var(--txt-2);
 }
 
 .teacher-resource-actions {
@@ -1323,6 +1540,24 @@ button:active { transform: translateY(0); box-shadow: none; }
   }
 
   #upload-resource-form { flex-direction: column; }
+  #upload-resource-form.teacher-resource-form,
+  .teacher-resource-toolbar,
+  .teacher-resource-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .teacher-resource-field,
+  .teacher-resource-field-wide,
+  .teacher-resource-file-field,
+  .teacher-resource-submit {
+    grid-column: 1 / -1;
+  }
+
+  .teacher-resource-upload-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   #upload-resource-form select,
   #upload-resource-form input { flex: none; width: 100%; }
 
@@ -1369,11 +1604,20 @@ button:active { transform: translateY(0); box-shadow: none; }
     width: 100%;
   }
 
-  .teacher-resource-card,
   .teacher-resource-meta,
   .teacher-resource-list-head {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .teacher-resource-card {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .teacher-resource-filemark {
+    width: 100%;
+    height: 42px;
   }
 
   .teacher-resource-actions {
@@ -1518,8 +1762,11 @@ body[data-theme="dark"] #teacher-main > div[style*="background: #ecf0f1"],
 body[data-theme="dark"] .teacher-messages-header,
 body[data-theme="dark"] .teacher-message-contacts,
 body[data-theme="dark"] .teacher-chat-panel,
+body[data-theme="dark"] .teacher-resource-upload,
+body[data-theme="dark"] .teacher-resource-board,
 body[data-theme="dark"] .teacher-resource-card,
 body[data-theme="dark"] .teacher-resource-state,
+body[data-theme="dark"] .teacher-resource-empty,
 body[data-theme="dark"] .teacher-notification-card,
 body[data-theme="dark"] .teacher-message-inline-note {
   background: var(--surface) !important;

@@ -204,7 +204,38 @@
       "sizeLabel": "大小：",
       "uploadedAt": "上传时间：",
       "listTitle": "已上传资源",
-      "count": "{count} 个文件"
+      "count": "{count} 个文件",
+      "scopeLabel": "????",
+      "uploadBadge": "?????",
+      "fileNone": "?????",
+      "form": {
+        "assignment": "?????",
+        "title": "????",
+        "type": "??",
+        "file": "??"
+      },
+      "stats": {
+        "files": "??",
+        "types": "??",
+        "size": "??",
+        "latest": "????"
+      },
+      "filters": {
+        "search": "??",
+        "searchPlaceholder": "????...",
+        "type": "??",
+        "allTypes": "????",
+        "sort": "??",
+        "clear": "????"
+      },
+      "sort": {
+        "newest": "????",
+        "oldest": "????",
+        "title": "??",
+        "size": "????"
+      },
+      "emptyFilteredTitle": "??????",
+      "emptyFilteredText": "?????????"
     },
     "notifications": {
       "emptyTitle": "通知",

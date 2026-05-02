@@ -3,6 +3,12 @@
 const TeacherUI = {
   SECTIONS: ["assignments", "schedule", "attendance", "grades", "resources", "posts", "messages", "notifications"],
   _postsCache: [],
+  _resourcesCache: [],
+  _resourceFilters: {
+    query: "",
+    type: "all",
+    sort: "newest"
+  },
   _currentUserId: null,
   _activeMessageContact: null,
 
@@ -401,6 +407,8 @@ const TeacherUI = {
   renderResources(assignmentsData) {
     const assignments = this._toArray(assignmentsData);
     const main = document.getElementById("teacher-main");
+    this._resourcesCache = [];
+    this.resetResourceFilters();
 
     if (!assignments.length) {
       main.innerHTML = this._emptySection(
@@ -417,23 +425,55 @@ const TeacherUI = {
     `).join("");
 
     main.innerHTML = `
-      <h2>${this.t("teacher.resources.title", {}, "Educational Resources")}</h2>
-      <div class="teacher-panel teacher-resource-panel">
-        <h3>${this.t("teacher.resources.uploadTitle", {}, "Upload a New File for the Class")}</h3>
-        <form id="upload-resource-form">
-          <select id="resource-assignment-id" required aria-label="${this._escapeAttr(this.t("teacher.resources.assignmentSelect", {}, "Class and subject"))}">${options}</select>
-          <input type="text" id="resource-title" placeholder="${this._escapeAttr(this.t("teacher.resources.titlePlaceholder", {}, "Lesson/file title"))}" required />
-          <select id="resource-type">
-            <option value="document">${this.t("teacher.resources.types.document", {}, "Document")}</option>
-            <option value="video">${this.t("teacher.resources.types.video", {}, "Video")}</option>
-          </select>
-          <input type="file" id="resource-file" required />
-          <button type="submit">${this.t("teacher.resources.uploadButton", {}, "Upload resource")}</button>
-        </form>
-      </div>
-      <div id="resources-list-container">
-        <p>${this.t("teacher.resources.selectHint", {}, "Choose a class to view its resources...")}</p>
-      </div>
+      <section class="teacher-resources-page">
+        <div class="teacher-section-topbar teacher-resources-topbar">
+          <div>
+            <h2>${this.t("teacher.resources.title", {}, "Educational Resources")}</h2>
+            <small>${this.t("teacher.resources.scopeLabel", {}, "Class resources")}</small>
+          </div>
+        </div>
+
+        <section class="teacher-resource-upload">
+          <div class="teacher-resource-upload-head">
+            <h3>${this.t("teacher.resources.uploadTitle", {}, "Upload a New File for the Class")}</h3>
+            <span>${this.t("teacher.resources.uploadBadge", {}, "Teacher library")}</span>
+          </div>
+          <form id="upload-resource-form" class="teacher-resource-form">
+            <label class="teacher-resource-field teacher-resource-field-wide">
+              <span>${this.t("teacher.resources.form.assignment", {}, "Class and subject")}</span>
+              <select id="resource-assignment-id" required aria-label="${this._escapeAttr(this.t("teacher.resources.assignmentSelect", {}, "Class and subject"))}">${options}</select>
+            </label>
+
+            <label class="teacher-resource-field">
+              <span>${this.t("teacher.resources.form.title", {}, "Resource title")}</span>
+              <input type="text" id="resource-title" placeholder="${this._escapeAttr(this.t("teacher.resources.titlePlaceholder", {}, "Lesson/file title"))}" required />
+            </label>
+
+            <label class="teacher-resource-field">
+              <span>${this.t("teacher.resources.form.type", {}, "Type")}</span>
+              <select id="resource-type">
+                <option value="document">${this.t("teacher.resources.types.document", {}, "Document")}</option>
+                <option value="video">${this.t("teacher.resources.types.video", {}, "Video")}</option>
+                <option value="pdf">${this.t("teacher.resources.types.pdf", {}, "PDF")}</option>
+                <option value="image">${this.t("teacher.resources.types.image", {}, "Image")}</option>
+                <option value="archive">${this.t("teacher.resources.types.archive", {}, "Archive")}</option>
+              </select>
+            </label>
+
+            <label class="teacher-resource-field teacher-resource-file-field">
+              <span>${this.t("teacher.resources.form.file", {}, "File")}</span>
+              <input type="file" id="resource-file" required />
+              <small class="teacher-resource-file-name">${this.t("teacher.resources.fileNone", {}, "No file selected")}</small>
+            </label>
+
+            <button type="submit" class="teacher-resource-submit">${this.t("teacher.resources.uploadButton", {}, "Upload resource")}</button>
+          </form>
+        </section>
+
+        <div id="resources-list-container">
+          <p class="teacher-resource-state">${this.t("teacher.resources.selectHint", {}, "Choose a class to view its resources...")}</p>
+        </div>
+      </section>
     `;
   },
 
@@ -455,13 +495,18 @@ const TeacherUI = {
   },
 
   renderResourcesList(resourcesData) {
-    const resources = this._toArray(resourcesData);
+    this._resourcesCache = this._toArray(resourcesData);
+    this.renderResourcesCatalog();
+  },
+
+  renderResourcesCatalog() {
+    const resources = this._resourcesCache || [];
     const container = document.getElementById("resources-list-container");
     if (!container) return;
 
     if (!resources.length) {
       container.innerHTML = `
-        <div class="teacher-resource-state">
+        <div class="teacher-resource-empty">
           <strong>${this.t("teacher.resources.emptyListTitle", {}, "No resources for this class")}</strong>
           <span>${this.t("teacher.resources.emptyListText", {}, "Uploaded files linked to the selected class and subject will appear here.")}</span>
         </div>
@@ -469,24 +514,34 @@ const TeacherUI = {
       return;
     }
 
-    const cards = resources.map(resource => {
+    const filteredResources = this._getFilteredResources(resources);
+    const typeOptions = this._resourceTypeOptions(resources);
+    const totalSize = resources.reduce((sum, resource) => sum + this._resourceSizeValue(resource), 0);
+    const latest = resources
+      .map(resource => this._resourceDateValue(resource))
+      .filter(Boolean)
+      .sort((a, b) => b - a)[0];
+
+    const cards = filteredResources.map(resource => {
       const id = resource.resource_id || resource.id;
       const date = resource.upload_date ? this.formatDateTime(resource.upload_date) : this.t("teacher.common.unknownDate", {}, "Unknown date");
+      const normalizedType = this._normalizeResourceType(resource.resource_type);
       const type = this._translateResourceType(resource.resource_type);
-      const size = resource.file_size_mb ? `${this._escape(resource.file_size_mb)} MB` : this.t("teacher.common.notSpecified", {}, "Not specified");
+      const size = this._formatResourceSize(resource.file_size_mb);
       const downloadAction = id
         ? `<a class="teacher-resource-download" href="${this._escapeAttr(`${API_BASE_URL}/resources/${id}/download`)}" target="_blank" rel="noopener noreferrer">${this.t("teacher.common.download", {}, "Download")}</a>`
         : `<span class="teacher-resource-unavailable">${this.t("teacher.common.unavailable", {}, "Unavailable")}</span>`;
 
       return `
         <article class="teacher-resource-card">
+          <div class="teacher-resource-filemark" data-type="${this._escapeAttr(normalizedType)}">${this._escape(this._resourceTypeAbbr(normalizedType))}</div>
           <div class="teacher-resource-card-main">
             <div class="teacher-resource-type">${type}</div>
             <h3>${this._escape(resource.title || this.t("teacher.resources.untitled", {}, "Untitled resource"))}</h3>
             ${resource.description ? `<p>${this._escape(resource.description)}</p>` : ""}
             <div class="teacher-resource-meta">
-              <span>${this.t("teacher.resources.sizeLabel", {}, "Size:")} ${size}</span>
-              <span>${this.t("teacher.resources.uploadedAt", {}, "Uploaded:")} <span class="ltr-value">${date}</span></span>
+              <span><strong>${this.t("teacher.resources.sizeLabel", {}, "Size:")}</strong> ${size}</span>
+              <span><strong>${this.t("teacher.resources.uploadedAt", {}, "Uploaded:")}</strong> <span class="ltr-value">${date}</span></span>
             </div>
           </div>
           <div class="teacher-resource-actions">${downloadAction}</div>
@@ -495,12 +550,176 @@ const TeacherUI = {
     }).join("");
 
     container.innerHTML = `
-      <div class="teacher-resource-list-head">
-        <h3>${this.t("teacher.resources.listTitle", {}, "Uploaded resources")}</h3>
-        <small>${this.t("teacher.resources.count", { count: resources.length }, `${resources.length} file(s)`)}</small>
-      </div>
-      <div class="teacher-resource-list">${cards}</div>
+      <section class="teacher-resource-board">
+        <div class="teacher-resource-stats">
+          <div>
+            <span>${this.t("teacher.resources.stats.files", {}, "Files")}</span>
+            <strong>${resources.length}</strong>
+          </div>
+          <div>
+            <span>${this.t("teacher.resources.stats.types", {}, "Types")}</span>
+            <strong>${typeOptions.length}</strong>
+          </div>
+          <div>
+            <span>${this.t("teacher.resources.stats.size", {}, "Size")}</span>
+            <strong>${this._formatResourceSize(totalSize)}</strong>
+          </div>
+          <div>
+            <span>${this.t("teacher.resources.stats.latest", {}, "Latest")}</span>
+            <strong>${latest ? this.formatDateTime(latest) : this.t("teacher.common.notSpecified", {}, "Not specified")}</strong>
+          </div>
+        </div>
+
+        <div class="teacher-resource-toolbar">
+          <label class="teacher-resource-control teacher-resource-search">
+            <span>${this.t("teacher.resources.filters.search", {}, "Search")}</span>
+            <input
+              type="search"
+              id="resource-search-input"
+              value="${this._escapeAttr(this._resourceFilters.query)}"
+              placeholder="${this._escapeAttr(this.t("teacher.resources.filters.searchPlaceholder", {}, "Search resources..."))}"
+            />
+          </label>
+          <label class="teacher-resource-control">
+            <span>${this.t("teacher.resources.filters.type", {}, "Type")}</span>
+            <select id="resource-type-filter">
+              <option value="all">${this.t("teacher.resources.filters.allTypes", {}, "All types")}</option>
+              ${typeOptions.map(type => `
+                <option value="${this._escapeAttr(type)}" ${this._resourceFilters.type === type ? "selected" : ""}>
+                  ${this._escape(this._translateResourceType(type))}
+                </option>
+              `).join("")}
+            </select>
+          </label>
+          <label class="teacher-resource-control">
+            <span>${this.t("teacher.resources.filters.sort", {}, "Sort")}</span>
+            <select id="resource-sort-select">
+              ${this._resourceSortOptions().map(option => `
+                <option value="${this._escapeAttr(option.value)}" ${this._resourceFilters.sort === option.value ? "selected" : ""}>${this._escape(option.label)}</option>
+              `).join("")}
+            </select>
+          </label>
+        </div>
+
+        <div class="teacher-resource-list-head">
+          <h3>${this.t("teacher.resources.listTitle", {}, "Uploaded resources")}</h3>
+          <small>${this.t("teacher.resources.count", { count: filteredResources.length }, `${filteredResources.length} file(s)`)}</small>
+        </div>
+
+        ${filteredResources.length
+          ? `<div class="teacher-resource-list">${cards}</div>`
+          : `<div class="teacher-resource-empty is-filtered">
+              <strong>${this.t("teacher.resources.emptyFilteredTitle", {}, "No matching resources")}</strong>
+              <span>${this.t("teacher.resources.emptyFilteredText", {}, "No results for the current criteria.")}</span>
+              <button type="button" id="clear-resource-filters">${this.t("teacher.resources.filters.clear", {}, "Clear filters")}</button>
+            </div>`}
+      </section>
     `;
+  },
+
+  updateResourceFilters(patch = {}, focusId = "") {
+    this._resourceFilters = {
+      ...this._resourceFilters,
+      ...patch
+    };
+    this.renderResourcesCatalog();
+    if (focusId) {
+      requestAnimationFrame(() => {
+        const control = document.getElementById(focusId);
+        if (!control) return;
+        control.focus();
+        if (typeof control.setSelectionRange === "function" && typeof control.value === "string") {
+          const end = control.value.length;
+          control.setSelectionRange(end, end);
+        }
+      });
+    }
+  },
+
+  resetResourceFilters() {
+    this._resourceFilters = {
+      query: "",
+      type: "all",
+      sort: "newest"
+    };
+  },
+
+  clearResourceFilters() {
+    this.resetResourceFilters();
+    this.renderResourcesCatalog();
+  },
+
+  updateSelectedResourceFile(file) {
+    const label = document.querySelector(".teacher-resource-file-name");
+    if (!label) return;
+    label.textContent = file?.name || this.t("teacher.resources.fileNone", {}, "No file selected");
+  },
+
+  _getFilteredResources(resources) {
+    const query = String(this._resourceFilters.query || "").trim().toLowerCase();
+    const type = this._resourceFilters.type || "all";
+
+    return [...resources]
+      .filter(resource => {
+        const normalizedType = this._normalizeResourceType(resource.resource_type);
+        if (type !== "all" && normalizedType !== type) return false;
+        if (!query) return true;
+        const haystack = [
+          resource.title,
+          resource.description,
+          this._translateResourceType(resource.resource_type),
+          resource.resource_type
+        ].map(value => String(value || "").toLowerCase()).join(" ");
+        return haystack.includes(query);
+      })
+      .sort((a, b) => {
+        const sort = this._resourceFilters.sort || "newest";
+        if (sort === "oldest") return this._resourceDateValue(a) - this._resourceDateValue(b);
+        if (sort === "title") return String(a.title || "").localeCompare(String(b.title || ""), this.locale());
+        if (sort === "size") return this._resourceSizeValue(b) - this._resourceSizeValue(a);
+        return this._resourceDateValue(b) - this._resourceDateValue(a);
+      });
+  },
+
+  _resourceTypeOptions(resources) {
+    return [...new Set(resources.map(resource => this._normalizeResourceType(resource.resource_type)).filter(Boolean))]
+      .sort((a, b) => this._translateResourceType(a).localeCompare(this._translateResourceType(b), this.locale()));
+  },
+
+  _resourceSortOptions() {
+    return [
+      { value: "newest", label: this.t("teacher.resources.sort.newest", {}, "Newest first") },
+      { value: "oldest", label: this.t("teacher.resources.sort.oldest", {}, "Oldest first") },
+      { value: "title", label: this.t("teacher.resources.sort.title", {}, "Title") },
+      { value: "size", label: this.t("teacher.resources.sort.size", {}, "Largest size") }
+    ];
+  },
+
+  _normalizeResourceType(type) {
+    return String(type || "file").trim().toLowerCase().replace(/\s+/g, "_") || "file";
+  },
+
+  _resourceTypeAbbr(type) {
+    const normalized = this._normalizeResourceType(type);
+    if (normalized === "document") return "DOC";
+    if (normalized === "archive") return "ZIP";
+    return normalized.slice(0, 3).toUpperCase();
+  },
+
+  _resourceDateValue(resource) {
+    const timestamp = new Date(resource?.upload_date || 0).getTime();
+    return Number.isFinite(timestamp) ? timestamp : 0;
+  },
+
+  _resourceSizeValue(resource) {
+    const value = typeof resource === "number" ? resource : Number(resource?.file_size_mb);
+    return Number.isFinite(value) ? value : 0;
+  },
+
+  _formatResourceSize(value) {
+    const size = Number(value);
+    if (!Number.isFinite(size) || size <= 0) return this.t("teacher.common.notSpecified", {}, "Not specified");
+    return `${size.toLocaleString(this.locale(), { maximumFractionDigits: 2 })} MB`;
   },
 
   renderNotifications(notificationsData) {
