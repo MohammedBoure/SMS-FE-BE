@@ -182,10 +182,26 @@
       "titlePlaceholder": "Lesson/file title",
       "types": {
         "document": "Document",
-        "video": "Video"
+        "video": "Video",
+        "pdf": "PDF",
+        "image": "Image",
+        "archive": "Archive",
+        "file": "File"
       },
       "uploadButton": "Upload resource",
-      "selectHint": "Choose a class to view its resources..."
+      "selectHint": "Choose a class to view its resources...",
+      "assignmentSelect": "Class and subject",
+      "loading": "Loading resources...",
+      "loadFailed": "Could not load resources.",
+      "uploadFailed": "Could not upload the resource.",
+      "uploading": "Uploading...",
+      "emptyListTitle": "No resources for this class",
+      "emptyListText": "Uploaded files linked to the selected class and subject will appear here.",
+      "untitled": "Untitled resource",
+      "sizeLabel": "Size:",
+      "uploadedAt": "Uploaded:",
+      "listTitle": "Uploaded resources",
+      "count": "{count} file(s)"
     },
     "notifications": {
       "emptyTitle": "Notifications",

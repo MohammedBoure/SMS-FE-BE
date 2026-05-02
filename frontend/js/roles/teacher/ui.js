@@ -408,7 +408,7 @@ const TeacherUI = {
       <div class="teacher-panel teacher-resource-panel">
         <h3>${this.t("teacher.resources.uploadTitle", {}, "Upload a New File for the Class")}</h3>
         <form id="upload-resource-form">
-          <select id="resource-assignment-id" required>${options}</select>
+          <select id="resource-assignment-id" required aria-label="${this._escapeAttr(this.t("teacher.resources.assignmentSelect", {}, "Class and subject"))}">${options}</select>
           <input type="text" id="resource-title" placeholder="${this._escapeAttr(this.t("teacher.resources.titlePlaceholder", {}, "Lesson/file title"))}" required />
           <select id="resource-type">
             <option value="document">${this.t("teacher.resources.types.document", {}, "Document")}</option>
@@ -421,6 +421,72 @@ const TeacherUI = {
       <div id="resources-list-container">
         <p>${this.t("teacher.resources.selectHint", {}, "Choose a class to view its resources...")}</p>
       </div>
+    `;
+  },
+
+  renderResourcesLoading() {
+    const container = document.getElementById("resources-list-container");
+    if (!container) return;
+    container.innerHTML = `<p class="teacher-resource-state">${this.t("teacher.resources.loading", {}, "Loading resources...")}</p>`;
+  },
+
+  renderResourcesError(message) {
+    const container = document.getElementById("resources-list-container");
+    if (!container) return;
+    container.innerHTML = `
+      <div class="teacher-resource-state teacher-resource-state-error">
+        ${this.t("teacher.resources.loadFailed", {}, "Could not load resources.")}
+        ${message ? `<small>${this._escape(message)}</small>` : ""}
+      </div>
+    `;
+  },
+
+  renderResourcesList(resourcesData) {
+    const resources = this._toArray(resourcesData);
+    const container = document.getElementById("resources-list-container");
+    if (!container) return;
+
+    if (!resources.length) {
+      container.innerHTML = `
+        <div class="teacher-resource-state">
+          <strong>${this.t("teacher.resources.emptyListTitle", {}, "No resources for this class")}</strong>
+          <span>${this.t("teacher.resources.emptyListText", {}, "Uploaded files linked to the selected class and subject will appear here.")}</span>
+        </div>
+      `;
+      return;
+    }
+
+    const cards = resources.map(resource => {
+      const id = resource.resource_id || resource.id;
+      const date = resource.upload_date ? this.formatDateTime(resource.upload_date) : this.t("teacher.common.unknownDate", {}, "Unknown date");
+      const type = this._translateResourceType(resource.resource_type);
+      const size = resource.file_size_mb ? `${this._escape(resource.file_size_mb)} MB` : this.t("teacher.common.notSpecified", {}, "Not specified");
+      const downloadAction = id
+        ? `<a href="${this._escapeAttr(`${API_BASE_URL}/resources/${id}/download`)}" target="_blank" rel="noopener noreferrer">${this.t("teacher.common.download", {}, "Download")}</a>`
+        : `<span>${this.t("teacher.common.unavailable", {}, "Unavailable")}</span>`;
+
+      return `
+        <article class="teacher-resource-card">
+          <div class="teacher-resource-card-main">
+            <div class="teacher-resource-type">${type}</div>
+            <h3>${this._escape(resource.title || this.t("teacher.resources.untitled", {}, "Untitled resource"))}</h3>
+            ${resource.description ? `<p>${this._escape(resource.description)}</p>` : ""}
+            <div class="teacher-resource-meta">
+              <span>${this.t("teacher.resources.sizeLabel", {}, "Size:")} ${size}</span>
+              <span>${this.t("teacher.resources.uploadedAt", {}, "Uploaded:")} <span class="ltr-value">${date}</span></span>
+            </div>
+          </div>
+          <div class="teacher-resource-actions">${downloadAction}</div>
+        </article>
+      `;
+    }).join("");
+
+    container.innerHTML = `
+      <div class="teacher-resource-list-head">
+        <h3>${this.t("teacher.resources.listTitle", {}, "Uploaded resources")}</h3>
+        <small>${this.t("teacher.resources.count", { count: resources.length }, `${resources.length} file(s)`)}</small>
+      </div>
+      <div class="teacher-resource-list">${cards}</div>
     `;
   },
 
@@ -945,6 +1011,13 @@ const TeacherUI = {
     if (!raw) return this.t("teacher.common.notSpecified", {}, "Not specified");
     const normalized = raw.toLowerCase().replace(/\s+/g, "_");
     return this.t(`teacher.status.${normalized}`, {}, raw);
+  },
+
+  _translateResourceType(type) {
+    const raw = String(type || "").trim();
+    if (!raw) return this.t("teacher.resources.types.file", {}, "File");
+    const normalized = raw.toLowerCase().replace(/\s+/g, "_");
+    return this.t(`teacher.resources.types.${normalized}`, {}, raw);
   },
 
   _formatPostDate(value) {

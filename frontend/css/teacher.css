@@ -700,6 +700,138 @@ button:active { transform: translateY(0); box-shadow: none; }
   animation: fadeUp .3s ease both;
 }
 
+.teacher-resource-state {
+  display: grid;
+  gap: .35rem;
+  padding: 1rem 1.15rem;
+  margin-top: 1rem;
+  background: var(--surface);
+  color: var(--txt-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+}
+
+.teacher-resource-state strong {
+  color: var(--txt-1);
+}
+
+.teacher-resource-state span,
+.teacher-resource-state small {
+  color: var(--txt-3);
+}
+
+.teacher-resource-state-error {
+  color: #b91c1c;
+  border-color: rgba(239, 68, 68, .28);
+  background: rgba(254, 242, 242, .92);
+}
+
+.teacher-resource-list-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0 .8rem;
+}
+
+.teacher-resource-list-head h3 {
+  margin: 0;
+  color: var(--txt-1);
+}
+
+.teacher-resource-list-head small {
+  color: var(--txt-3);
+  font-weight: 700;
+}
+
+.teacher-resource-list {
+  display: grid;
+  gap: .85rem;
+}
+
+.teacher-resource-card {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-sm);
+}
+
+.teacher-resource-card-main {
+  min-width: 0;
+  display: grid;
+  gap: .45rem;
+}
+
+.teacher-resource-card h3 {
+  margin: 0;
+  color: var(--txt-1);
+  font-size: 1.02rem;
+}
+
+.teacher-resource-card p {
+  margin: 0;
+  color: var(--txt-2);
+}
+
+.teacher-resource-type {
+  width: fit-content;
+  padding: .25rem .55rem;
+  border-radius: 999px;
+  background: rgba(20, 184, 166, .12);
+  color: #0f766e;
+  border: 1px solid rgba(20, 184, 166, .24);
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.teacher-resource-meta {
+  display: flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  color: var(--txt-3);
+  font-size: .88rem;
+  font-weight: 650;
+}
+
+.teacher-resource-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+.teacher-resource-actions a,
+.teacher-resource-actions span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: .55rem .85rem;
+  border-radius: var(--r-md);
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.teacher-resource-actions a {
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  box-shadow: 0 10px 18px rgba(15, 118, 110, .18);
+}
+
+.teacher-resource-actions span {
+  color: var(--txt-3);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
 .teacher-notification-list {
   display: grid;
   gap: .9rem;
@@ -1225,6 +1357,22 @@ button:active { transform: translateY(0); box-shadow: none; }
     width: 100%;
   }
 
+  .teacher-resource-card,
+  .teacher-resource-meta,
+  .teacher-resource-list-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .teacher-resource-actions {
+    justify-content: stretch;
+  }
+
+  .teacher-resource-actions a,
+  .teacher-resource-actions span {
+    width: 100%;
+  }
+
   #teacher-main h2 { font-size: 1.3rem; margin-bottom: 1rem; }
 }
 
@@ -1358,11 +1506,25 @@ body[data-theme="dark"] #teacher-main > div[style*="background: #ecf0f1"],
 body[data-theme="dark"] .teacher-messages-header,
 body[data-theme="dark"] .teacher-message-contacts,
 body[data-theme="dark"] .teacher-chat-panel,
+body[data-theme="dark"] .teacher-resource-card,
+body[data-theme="dark"] .teacher-resource-state,
 body[data-theme="dark"] .teacher-notification-card,
 body[data-theme="dark"] .teacher-message-inline-note {
   background: var(--surface) !important;
   color: var(--txt-1) !important;
   border-color: var(--border) !important;
+}
+
+body[data-theme="dark"] .teacher-resource-state-error {
+  background: rgba(251,113,133,.12) !important;
+  color: #fecdd3 !important;
+  border-color: rgba(251,113,133,.34) !important;
+}
+
+body[data-theme="dark"] .teacher-resource-type {
+  background: rgba(45,212,191,.14);
+  color: #99f6e4;
+  border-color: rgba(45,212,191,.32);
 }
 
 body[data-theme="dark"] .teacher-message-panel-title,

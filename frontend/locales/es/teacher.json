@@ -183,10 +183,26 @@
       "titlePlaceholder": "Título de lección/archivo",
       "types": {
         "document": "Documento",
-        "video": "Video"
+        "video": "Video",
+        "pdf": "PDF",
+        "image": "Imagen",
+        "archive": "Archivo comprimido",
+        "file": "Archivo"
       },
       "uploadButton": "Subir recurso",
-      "selectHint": "Elige una clase para ver sus recursos..."
+      "selectHint": "Elige una clase para ver sus recursos...",
+      "assignmentSelect": "Clase y asignatura",
+      "loading": "Cargando recursos...",
+      "loadFailed": "No se pudieron cargar los recursos.",
+      "uploadFailed": "No se pudo subir el recurso.",
+      "uploading": "Subiendo...",
+      "emptyListTitle": "No hay recursos para esta clase",
+      "emptyListText": "Los archivos vinculados a la clase y asignatura seleccionadas aparecerán aquí.",
+      "untitled": "Recurso sin título",
+      "sizeLabel": "Tamaño:",
+      "uploadedAt": "Subido:",
+      "listTitle": "Recursos subidos",
+      "count": "{count} archivo(s)"
     },
     "notifications": {
       "emptyTitle": "Notificaciones",

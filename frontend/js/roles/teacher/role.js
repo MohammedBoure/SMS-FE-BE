@@ -99,6 +99,7 @@ const TeacherRole = {
 
         case "resources":
           TeacherUI.renderResources(this.myAssignments);
+          await this.loadResourcesForSelectedAssignment();
           break;
 
         case "posts": {
@@ -233,21 +234,60 @@ const TeacherRole = {
       }
     });
 
+    main.addEventListener("change", async (e) => {
+      if (e.target.id === "resource-assignment-id") {
+        await this.loadResourcesForSelectedAssignment();
+      }
+    });
+
     main.addEventListener("submit", async (e) => {
       if (e.target.id === "upload-resource-form") {
         e.preventDefault();
+        const assignmentSelect = document.getElementById("resource-assignment-id");
+        const assignmentId = assignmentSelect?.value || "";
+        const submitButton = e.target.querySelector('button[type="submit"]');
+        const originalText = submitButton?.textContent || "";
         const formData = new FormData();
-        formData.append("assignment_id", document.getElementById("resource-assignment-id").value);
+        formData.append("assignment_id", assignmentId);
         formData.append("title", document.getElementById("resource-title").value);
         formData.append("resource_type", document.getElementById("resource-type").value);
         formData.append("file", document.getElementById("resource-file").files[0]);
 
-        await TeacherServices.uploadResource(formData);
-        alert(TeacherUI.t("teacher.actions.resourceUploaded", {}, "Resource uploaded."));
-        e.target.reset();
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = TeacherUI.t("teacher.resources.uploading", {}, "Uploading...");
+        }
+
+        try {
+          await TeacherServices.uploadResource(formData);
+          alert(TeacherUI.t("teacher.actions.resourceUploaded", {}, "Resource uploaded."));
+          e.target.reset();
+          if (assignmentSelect) assignmentSelect.value = assignmentId;
+          await this.loadResourcesForSelectedAssignment();
+        } catch (err) {
+          alert(err.message || TeacherUI.t("teacher.resources.uploadFailed", {}, "Could not upload the resource."));
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = originalText || TeacherUI.t("teacher.resources.uploadButton", {}, "Upload resource");
+          }
+        }
       }
     });
 
     this._dynamicEventsBound = true;
+  },
+
+  async loadResourcesForSelectedAssignment() {
+    const select = document.getElementById("resource-assignment-id");
+    if (!select || !select.value) return;
+
+    TeacherUI.renderResourcesLoading();
+    try {
+      const resources = await TeacherServices.getResources(select.value);
+      TeacherUI.renderResourcesList(resources);
+    } catch (err) {
+      TeacherUI.renderResourcesError(err.message);
+    }
   }
 };

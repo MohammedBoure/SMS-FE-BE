@@ -34,7 +34,11 @@ const TeacherServices = {
   },
 
   async getResources(assignmentId) {
-    return await Api.get(`/resources/assignment/${assignmentId}`);
+    const response = await Api.get("/resources/");
+    const resources = Array.isArray(response) ? response : (response?.data || []);
+    if (!assignmentId) return resources;
+
+    return resources.filter(resource => Number(resource.assignment_id) === Number(assignmentId));
   },
 
   async uploadResource(formData) {

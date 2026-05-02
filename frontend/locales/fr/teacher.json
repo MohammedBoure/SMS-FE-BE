@@ -178,15 +178,31 @@
     "resources": {
       "title": "Ressources pédagogiques",
       "emptyTitle": "Ressources pédagogiques",
-      "noAssignments": "Aucune affectation disponible pour tÉlèverser des ressources.",
-      "uploadTitle": "TÉlèverser un nouveau fichier pour la classe",
+      "noAssignments": "Aucune affectation disponible pour téléverser des ressources.",
+      "uploadTitle": "Téléverser un nouveau fichier pour la classe",
       "titlePlaceholder": "Titre de la leçon/du fichier",
       "types": {
         "document": "Document",
-        "video": "Vidéo"
+        "video": "Vidéo",
+        "pdf": "PDF",
+        "image": "Image",
+        "archive": "Archive",
+        "file": "Fichier"
       },
-      "uploadButton": "TÉlèverser la ressource",
-      "selectHint": "Choisissez une classe pour voir ses ressources..."
+      "uploadButton": "Téléverser la ressource",
+      "selectHint": "Choisissez une classe pour voir ses ressources...",
+      "assignmentSelect": "Classe et matière",
+      "loading": "Chargement des ressources...",
+      "loadFailed": "Impossible de charger les ressources.",
+      "uploadFailed": "Impossible de téléverser la ressource.",
+      "uploading": "Téléversement...",
+      "emptyListTitle": "Aucune ressource pour cette classe",
+      "emptyListText": "Les fichiers liés à la classe et à la matière sélectionnées apparaîtront ici.",
+      "untitled": "Ressource sans titre",
+      "sizeLabel": "Taille :",
+      "uploadedAt": "Téléversé :",
+      "listTitle": "Ressources téléversées",
+      "count": "{count} fichier(s)"
     },
     "notifications": {
       "emptyTitle": "Notifications",

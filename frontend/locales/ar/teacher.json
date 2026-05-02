@@ -182,10 +182,26 @@
       "titlePlaceholder": "عنوان الدرس/الملف",
       "types": {
         "document": "مستند",
-        "video": "فيديو"
+        "video": "فيديو",
+        "pdf": "PDF",
+        "image": "صورة",
+        "archive": "أرشيف",
+        "file": "ملف"
       },
       "uploadButton": "رفع المورد",
-      "selectHint": "اختر قسما لعرض موارده..."
+      "selectHint": "اختر قسما لعرض موارده...",
+      "assignmentSelect": "القسم والمادة",
+      "loading": "جار تحميل الموارد...",
+      "loadFailed": "تعذر تحميل الموارد.",
+      "uploadFailed": "تعذر رفع المورد.",
+      "uploading": "جار الرفع...",
+      "emptyListTitle": "لا توجد موارد لهذا القسم",
+      "emptyListText": "ستظهر هنا الملفات المرتبطة بالقسم والمادة المحددين.",
+      "untitled": "مورد بدون عنوان",
+      "sizeLabel": "الحجم:",
+      "uploadedAt": "تاريخ الرفع:",
+      "listTitle": "الموارد المرفوعة",
+      "count": "{count} ملف"
     },
     "notifications": {
       "emptyTitle": "الإشعارات",

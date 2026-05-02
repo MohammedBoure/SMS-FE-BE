@@ -183,10 +183,26 @@
       "titlePlaceholder": "课程/文件标题",
       "types": {
         "document": "文档",
-        "video": "视频"
+        "video": "视频",
+        "pdf": "PDF",
+        "image": "图片",
+        "archive": "压缩包",
+        "file": "文件"
       },
       "uploadButton": "上传资源",
-      "selectHint": "选择班级查看资源..."
+      "selectHint": "选择班级查看资源...",
+      "assignmentSelect": "班级和科目",
+      "loading": "正在加载资源...",
+      "loadFailed": "无法加载资源。",
+      "uploadFailed": "无法上传资源。",
+      "uploading": "正在上传...",
+      "emptyListTitle": "此班级暂无资源",
+      "emptyListText": "与所选班级和科目关联的上传文件会显示在这里。",
+      "untitled": "未命名资源",
+      "sizeLabel": "大小：",
+      "uploadedAt": "上传时间：",
+      "listTitle": "已上传资源",
+      "count": "{count} 个文件"
     },
     "notifications": {
       "emptyTitle": "通知",

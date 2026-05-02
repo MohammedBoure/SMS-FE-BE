@@ -183,10 +183,26 @@
       "titlePlaceholder": "पाठ/फ़ाइल शीर्षक",
       "types": {
         "document": "दस्तावेज़",
-        "video": "वीडियो"
+        "video": "वीडियो",
+        "pdf": "PDF",
+        "image": "छवि",
+        "archive": "आर्काइव",
+        "file": "फ़ाइल"
       },
       "uploadButton": "संसाधन अपलोड करें",
-      "selectHint": "इसके संसाधन देखने के लिए कक्षा चुनें..."
+      "selectHint": "इसके संसाधन देखने के लिए कक्षा चुनें...",
+      "assignmentSelect": "कक्षा और विषय",
+      "loading": "संसाधन लोड हो रहे हैं...",
+      "loadFailed": "संसाधन लोड नहीं हो सके।",
+      "uploadFailed": "संसाधन अपलोड नहीं हो सका।",
+      "uploading": "अपलोड हो रहा है...",
+      "emptyListTitle": "इस कक्षा के लिए कोई संसाधन नहीं",
+      "emptyListText": "चुनी गई कक्षा और विषय से जुड़ी अपलोड की गई फ़ाइलें यहाँ दिखाई देंगी।",
+      "untitled": "बिना शीर्षक संसाधन",
+      "sizeLabel": "आकार:",
+      "uploadedAt": "अपलोड:",
+      "listTitle": "अपलोड किए गए संसाधन",
+      "count": "{count} फ़ाइल"
     },
     "notifications": {
       "emptyTitle": "सूचनाएँ",
