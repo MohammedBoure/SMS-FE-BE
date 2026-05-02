@@ -1,4 +1,4 @@
-from reportlab.platypus import PageBreak, Paragraph, Spacer
+from reportlab.platypus import Paragraph, Spacer
 
 from utils import create_indexed_heading, normal_text, subtitle_style
 
@@ -81,4 +81,4 @@ def build(story):
         story.append(Paragraph(description, normal_text))
         story.append(Spacer(1, 6))
 
-    story.append(PageBreak())
+    story.append(Spacer(1, 14))

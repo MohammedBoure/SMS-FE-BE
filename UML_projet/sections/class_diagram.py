@@ -14,26 +14,24 @@ def build(story):
         """,
         normal_text,
     ))
-    story.append(PageBreak())
-
-    create_indexed_heading(story, "School Management System Class Diagram", level=1, visible=False)
-    render_diagram(story, diagram_path("SchoolManagementSystem_A3.svg"), "")
-    story.append(PageBreak())
-
     story.append(Paragraph("Structural Responsibilities", subtitle_style))
-    story.append(Spacer(1, 10))
+    story.append(Spacer(1, 6))
     story.append(Paragraph(
         """
         <b>Identity and people:</b> users, parents, students, teachers, authentication, and role ownership.
-        <br/><br/>
+        <br/>
         <b>Academic structure:</b> programs, classes, enrollments, subjects, and teacher assignments.
-        <br/><br/>
+        <br/>
         <b>Learning operations:</b> schedules, attendance, assessments, grades, and educational resources.
-        <br/><br/>
+        <br/>
         <b>Finance:</b> student fees, payments, and user transactions.
-        <br/><br/>
+        <br/>
         <b>Communication:</b> conversations, messages, notifications, and posts.
         """,
         normal_text,
     ))
+    story.append(PageBreak())
+
+    create_indexed_heading(story, "School Management System Class Diagram", level=1, visible=False)
+    render_diagram(story, diagram_path("SchoolManagementSystem_A3.svg"), "")
     story.append(PageBreak())

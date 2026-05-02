@@ -76,7 +76,6 @@ def build_resume(story):
         """,
         normal_text,
     ))
-    story.append(PageBreak())
 
 
 def build_introduction(story):

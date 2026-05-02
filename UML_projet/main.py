@@ -3,7 +3,7 @@ from pathlib import Path
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
-from reportlab.platypus import BaseDocTemplate, Frame, PageBreak, PageTemplate, Paragraph, Spacer
+from reportlab.platypus import BaseDocTemplate, Frame, PageTemplate, Paragraph, Spacer
 from reportlab.platypus.tableofcontents import TableOfContents
 
 from sections import (
@@ -103,7 +103,7 @@ def add_table_of_contents(story):
         ),
     ]
     story.append(toc)
-    story.append(PageBreak())
+    story.append(Spacer(1, 14))
 
 
 def validate_required_svgs():

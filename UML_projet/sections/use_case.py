@@ -24,30 +24,28 @@ def build(story):
         """,
         normal_text,
     ))
+    story.append(Paragraph("Use Case Scope", subtitle_style))
+    story.append(Spacer(1, 6))
+    story.append(Paragraph(
+        """
+        <b>Admin:</b> complete system administration across people, academic, finance, posts, and notifications.
+        <br/>
+        <b>Receptionist:</b> front-desk workflows for students, parents, records, finance lookup, posts, and communication.
+        <br/>
+        <b>Accountant:</b> fees, payments, transactions, student financial files, notices, and attendance reports.
+        <br/>
+        <b>Teacher:</b> assignments, schedules, attendance, assessments, grades, resources, messages, and notifications.
+        <br/>
+        <b>Student:</b> read-only academic self-service: schedule, assessments, grades, attendance, resources, posts,
+        fees, messages, and notifications.
+        <br/>
+        <b>Parent:</b> child monitoring: grades, attendance, fees, posts, messages, and notifications.
+        """,
+        normal_text,
+    ))
     story.append(PageBreak())
 
     for role, filename in USE_CASE_DIAGRAMS:
         create_indexed_heading(story, f"{role} Use Case Diagram", level=1, visible=False)
         render_diagram(story, diagram_path(filename), "")
         story.append(PageBreak())
-
-    story.append(Paragraph("Use Case Scope", subtitle_style))
-    story.append(Spacer(1, 10))
-    story.append(Paragraph(
-        """
-        <b>Admin:</b> complete system administration across people, academic, finance, posts, and notifications.
-        <br/><br/>
-        <b>Receptionist:</b> front-desk workflows for students, parents, records, finance lookup, posts, and communication.
-        <br/><br/>
-        <b>Accountant:</b> fees, payments, transactions, student financial files, notices, and attendance reports.
-        <br/><br/>
-        <b>Teacher:</b> assignments, schedules, attendance, assessments, grades, resources, messages, and notifications.
-        <br/><br/>
-        <b>Student:</b> read-only academic self-service: schedule, assessments, grades, attendance, resources, posts,
-        fees, messages, and notifications.
-        <br/><br/>
-        <b>Parent:</b> child monitoring: grades, attendance, fees, posts, messages, and notifications.
-        """,
-        normal_text,
-    ))
-    story.append(PageBreak())

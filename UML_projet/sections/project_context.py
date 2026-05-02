@@ -1,6 +1,6 @@
 from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
-from reportlab.platypus import PageBreak, Paragraph, Spacer, Table, TableStyle
+from reportlab.platypus import Paragraph, Spacer, Table, TableStyle
 
 from utils import create_indexed_heading, normal_text, subtitle_style
 
@@ -118,4 +118,4 @@ def build(story):
         normal_text,
     ))
 
-    story.append(PageBreak())
+    story.append(Spacer(1, 14))
