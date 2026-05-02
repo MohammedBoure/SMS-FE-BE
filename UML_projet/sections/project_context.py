@@ -87,8 +87,9 @@ def build(story):
     story.append(Paragraph("Opening Statement", subtitle_style))
     story.append(Paragraph(
         """
-        The project is a role-based web application for school management. It connects administration,
-        reception, accounting, teachers, students, and parents through one frontend/backend platform.
+        The system addresses daily school workflows: learner records, parent follow-up, classes,
+        schedules, attendance, grades, resources, payments, messages, and notifications. Each actor
+        works through a dedicated dashboard connected to the same backend services.
         """,
         normal_text,
     ))

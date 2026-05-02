@@ -167,14 +167,6 @@ def build_resume(story):
     ], [105, 400]))
     story.append(Spacer(1, 10))
 
-    story.append(Paragraph(
-        """
-        In short, this summary gives the reader the project scope, technical structure, main features,
-        data-modeling approach, deployment context, and UML documentation strategy before reading the
-        detailed diagrams and sections.
-        """,
-        normal_text,
-    ))
     story.append(PageBreak())
 
 
@@ -183,17 +175,17 @@ def build_introduction(story):
     story.append(Spacer(1, 10))
     story.append(Paragraph(
         """
-        This report presents the analysis and design of a web-based School Management System. The
-        application is organized around six role-based dashboards: Admin, Receptionist, Accountant,
-        Teacher, Student, and Parent.
+        This document summarizes the UML analysis of the School Management System. It explains the
+        actors, use cases, backend structure, sequence flows, navigation, technology choices, and
+        interface screenshots used to describe the implemented project.
         """,
         normal_text,
     ))
     story.append(Spacer(1, 8))
     story.append(Paragraph(
         """
-        The documentation includes a concise project context, use case diagrams, a class diagram,
-        sequence diagrams, a navigation diagram, technology/deployment notes, and a conclusion.
+        Its purpose is to provide a clear technical reference that helps the reader understand the
+        system without repeating implementation details already shown in the diagrams.
         """,
         normal_text,
     ))
