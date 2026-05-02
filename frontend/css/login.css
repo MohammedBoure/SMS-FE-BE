@@ -1096,3 +1096,262 @@ body {
     transition: none !important;
   }
 }
+
+/* ==========================================================================
+   3D Posts Scroll Stage
+   ========================================================================== */
+:root {
+  --login-post-paper: rgba(255, 255, 255, 0.92);
+  --login-post-paper-strong: #ffffff;
+  --login-post-ink: #050505;
+  --login-post-muted: #4b5563;
+  --login-post-border: rgba(0, 0, 0, 0.13);
+  --login-post-hairline: rgba(0, 0, 0, 0.08);
+  --login-post-button: #050505;
+  --login-post-button-text: #ffffff;
+  --login-post-shadow: 0 26px 58px rgba(0, 0, 0, 0.16);
+}
+
+:root[data-theme="dark"] {
+  --login-post-paper: rgba(0, 0, 0, 0.72);
+  --login-post-paper-strong: #000000;
+  --login-post-ink: #ffffff;
+  --login-post-muted: #c7c7c7;
+  --login-post-border: rgba(255, 255, 255, 0.18);
+  --login-post-hairline: rgba(255, 255, 255, 0.11);
+  --login-post-button: #ffffff;
+  --login-post-button-text: #050505;
+  --login-post-shadow: 0 30px 70px rgba(0, 0, 0, 0.46);
+}
+
+.login-posts-panel {
+  color: var(--login-post-ink);
+  background-color: var(--login-post-paper-strong);
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--login-post-paper-strong) 84%, transparent), color-mix(in srgb, var(--login-post-paper) 76%, transparent)),
+    var(--login-post-paper-strong) !important;
+  border-color: var(--login-post-border);
+}
+
+.login-posts-panel::before {
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--login-post-paper-strong) 24%, transparent), transparent 28%),
+    radial-gradient(circle at 12% 0%, color-mix(in srgb, var(--login-post-ink) 10%, transparent), transparent 18rem),
+    radial-gradient(circle at 100% 18%, color-mix(in srgb, var(--login-post-ink) 7%, transparent), transparent 16rem);
+}
+
+.posts-panel-head h2,
+.login-posts-panel .login-kicker {
+  color: var(--login-post-ink);
+}
+
+.login-posts-content {
+  perspective: 1200px;
+  perspective-origin: 50% 46%;
+  transform-style: preserve-3d;
+  overflow: auto;
+  padding: 10px 12px 18px;
+}
+
+.login-parent-posts-list {
+  gap: 18px;
+  padding: 16px 4px 26px;
+  transform-style: preserve-3d;
+}
+
+.login-post-list-card {
+  --post-depth: 0px;
+  --post-rotate-x: 0deg;
+  --post-rotate-y: 0deg;
+  --post-scale: 1;
+  --post-opacity: 1;
+  --post-lift: 0px;
+  --post-shade: 1;
+  --post-shine: 0.42;
+  position: relative;
+  overflow: hidden;
+  min-height: 132px;
+  color: var(--login-post-ink) !important;
+  background-color: var(--login-post-paper-strong) !important;
+  background:
+    linear-gradient(145deg, color-mix(in srgb, var(--login-post-paper-strong) 86%, transparent), color-mix(in srgb, var(--login-post-paper) 88%, transparent)),
+    var(--login-post-paper-strong) !important;
+  border: 1px solid var(--login-post-border) !important;
+  box-shadow: var(--login-post-shadow);
+  transform:
+    translate3d(0, var(--post-lift), var(--post-depth))
+    rotateX(var(--post-rotate-x))
+    rotateY(var(--post-rotate-y))
+    scale(var(--post-scale));
+  transform-origin: center;
+  transform-style: preserve-3d;
+  opacity: var(--post-opacity);
+  will-change: transform, opacity;
+}
+
+.login-post-list-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent, color-mix(in srgb, var(--login-post-ink) 9%, transparent), transparent 64%),
+    radial-gradient(circle at 16% 12%, color-mix(in srgb, var(--login-post-paper-strong) 42%, transparent), transparent 12rem);
+  opacity: var(--post-shine);
+  transform: translateZ(18px);
+}
+
+.login-post-list-card::after {
+  content: "";
+  position: absolute;
+  inset-inline: 16px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--login-post-border), transparent);
+  opacity: var(--post-shade);
+  pointer-events: none;
+}
+
+.login-post-list-card:hover,
+.login-post-list-card.is-scroll-focus {
+  border-color: color-mix(in srgb, var(--login-post-ink) 32%, var(--login-post-border)) !important;
+}
+
+.login-post-list-card.is-scroll-focus {
+  box-shadow:
+    0 34px 84px rgba(0, 0, 0, 0.22),
+    0 0 0 1px color-mix(in srgb, var(--login-post-ink) 11%, transparent);
+}
+
+:root[data-theme="dark"] .login-post-list-card.is-scroll-focus {
+  box-shadow:
+    0 34px 84px rgba(0, 0, 0, 0.56),
+    0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+.login-post-list-card .student-post-thumb {
+  position: relative;
+  z-index: 1;
+  background: var(--login-post-paper-strong) !important;
+  border-color: var(--login-post-border) !important;
+  filter: grayscale(0.18) contrast(1.04);
+  transform: translateZ(34px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
+}
+
+.login-post-list-card .student-post-summary {
+  position: relative;
+  z-index: 1;
+  transform: translateZ(28px);
+  transform-style: preserve-3d;
+}
+
+.login-post-list-card .student-post-list-title {
+  color: var(--login-post-ink) !important;
+  font-size: 1.12rem;
+}
+
+.login-post-list-card .student-post-summary p {
+  color: var(--login-post-muted) !important;
+}
+
+.login-post-list-card .student-post-label {
+  color: var(--login-post-ink) !important;
+  background: color-mix(in srgb, var(--login-post-paper-strong) 70%, transparent) !important;
+  border-color: var(--login-post-border) !important;
+}
+
+.login-post-list-card .student-post-date {
+  color: var(--login-post-muted) !important;
+  background: color-mix(in srgb, var(--login-post-paper-strong) 66%, transparent) !important;
+  border-color: var(--login-post-border) !important;
+}
+
+.login-post-list-card .student-post-open {
+  color: var(--login-post-button-text) !important;
+  background: var(--login-post-button) !important;
+  border: 1px solid var(--login-post-button) !important;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.16);
+}
+
+.login-post-list-card .student-post-open:hover {
+  box-shadow: 0 20px 38px rgba(0, 0, 0, 0.22);
+}
+
+:root[data-theme="dark"] .login-posts-panel,
+:root[data-theme="dark"] .login-post-list-card {
+  background:
+    linear-gradient(145deg, rgba(0, 0, 0, 0.94), rgba(0, 0, 0, 0.74)),
+    #000000 !important;
+  background-color: #000000 !important;
+}
+
+:root[data-theme="light"] .login-posts-panel,
+:root[data-theme="light"] .login-post-list-card,
+:root:not([data-theme]) .login-posts-panel,
+:root:not([data-theme]) .login-post-list-card {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.82)),
+    #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+.login-post-detail {
+  color: var(--login-post-ink) !important;
+  background: var(--login-post-paper-strong) !important;
+  border-color: var(--login-post-border) !important;
+}
+
+.login-post-detail .student-post-head,
+.login-post-detail .md-body td,
+.login-post-detail .md-body th {
+  border-color: var(--login-post-hairline) !important;
+}
+
+.login-post-detail .student-post-label,
+.login-post-detail .student-post-date {
+  color: var(--login-post-ink) !important;
+  background: color-mix(in srgb, var(--login-post-paper-strong) 72%, transparent) !important;
+  border-color: var(--login-post-border) !important;
+}
+
+@media (max-width: 980px) {
+  .login-posts-panel {
+    max-height: min(720px, calc(100dvh - 36px));
+  }
+
+  .login-posts-content {
+    overflow: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .login-posts-panel {
+    min-height: min(620px, calc(100dvh - 28px));
+    max-height: calc(100dvh - 28px);
+  }
+
+  .login-posts-content {
+    perspective: 900px;
+    padding: 8px 6px 16px;
+  }
+
+  .login-parent-posts-list {
+    padding: 10px 2px 22px;
+  }
+
+  .login-post-list-card {
+    min-height: 0;
+    transform:
+      translate3d(0, var(--post-lift), var(--post-depth))
+      rotateX(var(--post-rotate-x))
+      scale(var(--post-scale));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-post-list-card {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

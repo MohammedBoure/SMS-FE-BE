@@ -15,7 +15,7 @@
     })();
   </script>
   <link rel="stylesheet" href="../css/posts.css?v=login-i18n-1">
-  <link rel="stylesheet" href="../css/login.css?v=login-cyber-3d-1">
+  <link rel="stylesheet" href="../css/login.css?v=login-posts-scroll-3d-1">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
@@ -213,6 +213,7 @@
       const usernameInput = document.getElementById("username");
       const passwordInput = document.getElementById("password");
       let postsCache = [];
+      let postsScrollFrame = 0;
       const loginExperience = initLoginExperience();
 
       function t(key, params = {}, fallback = "") {
@@ -687,6 +688,55 @@
         postsStatus.classList.remove("is-hidden");
       }
 
+      function schedulePostsScrollScene() {
+        if (postsScrollFrame) return;
+        postsScrollFrame = requestAnimationFrame(() => {
+          postsScrollFrame = 0;
+          updatePostsScrollScene();
+        });
+      }
+
+      function updatePostsScrollScene() {
+        const cards = [...postsList.querySelectorAll(".login-post-list-card")];
+        if (!cards.length) return;
+
+        const listRect = postsList.getBoundingClientRect();
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight || listRect.height;
+        const hasInternalScroll = postsList.scrollHeight > postsList.clientHeight + 6;
+        const center = hasInternalScroll
+          ? listRect.top + listRect.height * 0.5
+          : viewportHeight * 0.5;
+        const maxDistance = Math.max((hasInternalScroll ? listRect.height : viewportHeight) * 0.58, 220);
+        const direction = document.documentElement.dir === "rtl" ? -1 : 1;
+
+        cards.forEach((card, index) => {
+          const rect = card.getBoundingClientRect();
+          const cardCenter = rect.top + rect.height * 0.5;
+          const offset = Math.max(-1.35, Math.min(1.35, (cardCenter - center) / maxDistance));
+          const distance = Math.min(1, Math.abs(offset));
+          const presence = 1 - distance;
+          const depth = Math.round(presence * 78 - 34);
+          const rotateX = (-offset * 12).toFixed(2);
+          const rotateY = (offset * direction * 4.8).toFixed(2);
+          const scale = (0.92 + presence * 0.08).toFixed(3);
+          const opacity = (0.56 + presence * 0.44).toFixed(3);
+          const lift = (-offset * 8).toFixed(2);
+          const shade = presence.toFixed(3);
+          const shine = (0.18 + presence * 0.34).toFixed(3);
+
+          card.style.setProperty("--post-depth", `${depth}px`);
+          card.style.setProperty("--post-rotate-x", `${rotateX}deg`);
+          card.style.setProperty("--post-rotate-y", `${rotateY}deg`);
+          card.style.setProperty("--post-scale", scale);
+          card.style.setProperty("--post-opacity", opacity);
+          card.style.setProperty("--post-lift", `${lift}px`);
+          card.style.setProperty("--post-shade", shade);
+          card.style.setProperty("--post-shine", shine);
+          card.style.setProperty("--post-order", String(index));
+          card.classList.toggle("is-scroll-focus", distance < 0.28);
+        });
+      }
+
       function renderPosts(posts) {
         const sortedPosts = posts
           .filter(Boolean)
@@ -707,7 +757,7 @@
           const date = formatDate(post.created_at);
 
           return `
-            <article class="student-post-list-card login-post-list-card" tabindex="0" data-post-index="${index}">
+            <article class="student-post-list-card login-post-list-card" tabindex="0" data-post-index="${index}" style="--post-order:${index}">
               ${image
                 ? `<img src="${escapeAttr(image)}" class="student-post-thumb" alt="${title}">`
                 : `<div class="student-post-thumb student-post-thumb-placeholder" aria-hidden="true">${t("login.common.file", {}, "File")}</div>`}
@@ -731,6 +781,7 @@
             <div class="student-posts-list login-parent-posts-list">${cards}</div>
           </div>
         `;
+        schedulePostsScrollScene();
       }
 
       async function loadPosts() {
@@ -835,6 +886,9 @@
       });
 
       refreshBtn.addEventListener("click", loadPosts);
+      postsList.addEventListener("scroll", schedulePostsScrollScene, { passive: true });
+      window.addEventListener("scroll", schedulePostsScrollScene, { passive: true });
+      window.addEventListener("resize", schedulePostsScrollScene, { passive: true });
       postsList.addEventListener("click", event => {
         const target = event.target.closest("[data-post-index]");
         if (target) openPost(Number(target.dataset.postIndex));
