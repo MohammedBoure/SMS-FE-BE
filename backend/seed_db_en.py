@@ -677,71 +677,322 @@ def seed_public_markdown_posts(cursor, author_user_id):
         {
             "title": "Weekly Study Plan: Turning Effort Into Progress",
             "image": "https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80",
-            "content": """# Weekly Study Plan
+            "content": r"""# Weekly Study Plan
 
-![Students studying in a library](https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80)
+![Student notebook with revision notes](https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80)
 
-A clear weekly plan turns revision from random effort into measurable progress. Students may also use [Khan Academy](https://www.khanacademy.org/) for structured practice by topic.
+> A study plan is useful only when it becomes visible, measurable, and realistic.
 
-| Day | Main Goal | Duration | Output |
-|---|---:|---:|---|
-| Sunday | Review a new lesson | 45 min | 8-line summary |
-| Tuesday | Solve exercises | 60 min | 10 corrected tasks |
-| Thursday | Review mistakes | 30 min | Error checklist |
+Students can use [Khan Academy](https://www.khanacademy.org/) for topic-based practice, but the school recommends a balanced rhythm:
 
-Progress can be measured with:
+- [x] 20 minutes to reread the lesson
+- [x] 25 minutes to solve targeted exercises
+- [ ] 10 minutes to write one mistake and one correction
+
+## Progress Score
 
 $$
-R = \\frac{\\text{completed sessions}}{\\text{planned sessions}} \\times 100
+S = 0.45H + 0.35E + 0.20R
 $$
 
-When $R \\ge 80\\%$, the student is building a reliable study routine.""",
+where \(H\) is homework completion, \(E\) is exercise accuracy, and \(R\) is review consistency.
+
+![Writing a focused study summary](https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?auto=format&fit=crop&w=1200&q=80)
+
+**Mini challenge:** keep \(S \ge 0.80\) for two consecutive weeks, then increase the difficulty of practice questions.""",
+        },
+        {
+            "title": "School Announcement: Assessment Calendar",
+            "image": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80",
+            "content": r"""# Assessment Calendar for the Current Term
+
+![Planning weekly assessment dates](https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=1200&q=80)
+
+The school administration has published the assessment calendar so families can prepare early and avoid last-minute pressure.[^1]
+
+| Window | Assessment Type | Preparation Hint |
+|---|---|---|
+| Week 1 | Reading fluency | Record one practice reading at home |
+| Week 2 | Mathematics quiz | Review errors from the last worksheet |
+| Week 3 | Science portfolio | Bring observation notes and photos |
+| Week 4 | Oral presentation | Practice opening and closing sentences |
+
+![Calendar planning for school deadlines](https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80)
+
+### Family Notes
+
+1. Check the class group before printing any document.
+2. Contact reception only if the student has a documented absence.
+3. Keep revision short and repeated.
+
+[^1]: Class-level details may still be adjusted by teachers on the platform.""",
         },
         {
             "title": "Mathematics Workshop: From Formula to Meaning",
             "image": "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80",
-            "content": """# Mathematics Workshop
+            "content": r"""# Mathematics Workshop
 
-![Mathematics board](https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80)
+![Hands-on mathematics activity](https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=1200&q=80)
 
-This public workshop focuses on quadratic equations and the meaning of the discriminant. For extra practice, students can visit [Math is Fun](https://www.mathsisfun.com/algebra/quadratic-equation.html).
+This workshop moves from substitution to interpretation. Students will compare algebraic, graphical, and verbal representations.
 
-| Concept | Formula | Meaning |
+| Object | Expression | Interpretation |
 |---|---|---|
-| General form | $ax^2 + bx + c = 0$ | Equation structure |
-| Discriminant | $\\Delta = b^2 - 4ac$ | Number of real solutions |
-| Axis of symmetry | $x = -\\frac{b}{2a}$ | Position of the vertex |
-
-If:
+| Vertex | \(V\left(-\frac{b}{2a}, f\left(-\frac{b}{2a}\right)\right)\) | Turning point |
+| Discriminant | \(\Delta = b^2 - 4ac\) | Number of real roots |
+| Area under curve | \(\int_0^1 (ax^2 + bx + c)\,dx\) | Accumulated value |
 
 $$
-\\Delta > 0
+\int_0^1 (ax^2 + bx + c)\,dx = \frac{a}{3} + \frac{b}{2} + c
 $$
 
-then the equation has two distinct real solutions.""",
+![Solving math exercises step by step](https://images.unsplash.com/photo-1596495577886-d920f1fb7238?auto=format&fit=crop&w=1200&q=80)
+
+```text
+Question to answer aloud:
+If the graph opens upward and Delta is negative, what can we say about x-intercepts?
+```
+
+For extra practice, students can visit [Math is Fun](https://www.mathsisfun.com/algebra/quadratic-equation.html).""",
         },
         {
             "title": "Public Announcement: Science and Languages Club",
             "image": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80",
-            "content": """# Science and Languages Club
+            "content": r"""# Science and Languages Club
 
-![Science experiment](https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80)
+![Microscope observation during science club](https://images.unsplash.com/photo-1554475901-4538ddfbccc2?auto=format&fit=crop&w=1200&q=80)
 
-The club is an open space for experiments, discussion, and scientific vocabulary practice. For English vocabulary, learners can explore [British Council LearnEnglish](https://learnenglish.britishcouncil.org/).
+The club is an open space for experiments, discussion, and scientific vocabulary practice.
 
-| Activity | Language Focus | Example |
-|---|---|---|
-| Speed experiment | English vocabulary | speed, distance, time |
-| Short presentation | French communication | presenter une experience |
-| Scientific poster | Arabic terminology | hypothesis, observation, result |
+## This Week's Protocol
 
-For speed experiments, students use:
+1. Predict the result.
+2. Measure twice.
+3. Compare the two measurements.
+4. Present the result in Arabic and one foreign language.
+
+For motion experiments, students distinguish average velocity from instantaneous velocity:
 
 $$
-v = \\frac{d}{t}
+\bar v = \frac{\Delta d}{\Delta t}
+\qquad
+v(t) = \frac{d}{dt}s(t)
 $$
 
-where $v$ is speed, $d$ is distance, and $t$ is time. The goal is to use the formula in a real situation, not only memorize it.""",
+![Students preparing a lab activity](https://images.unsplash.com/photo-1581093458791-9d15482442f6?auto=format&fit=crop&w=1200&q=80)
+
+**Vocabulary focus:** hypothesis, variable, measurement, uncertainty. For English vocabulary, learners can explore [British Council LearnEnglish](https://learnenglish.britishcouncil.org/).""",
+        },
+        {
+            "title": "Reading Challenge: One Book, Many Skills",
+            "image": "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1200&q=80",
+            "content": r"""# Reading Challenge
+
+![Open books for daily reading](https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80)
+
+> We read first for meaning, then again for evidence.
+
+This month, students are invited to read one age-appropriate book and produce a short response.
+
+### Response Structure
+
+- **Claim:** one sentence that explains your opinion.
+- **Evidence:** one short passage or event from the book.
+- **Reasoning:** why the evidence supports the claim.
+
+```markdown
+I think the character changed because ...
+The strongest evidence is ...
+This matters because ...
+```
+
+![Library shelves and printed books](https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1200&q=80)
+
+The reading grade is not about the longest summary. It is about a clear idea supported by evidence.""",
+        },
+        {
+            "title": "Digital Safety Lesson: Think Before You Click",
+            "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+            "content": r"""# Digital Safety for Students
+
+![Laptop used for online learning](https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80)
+
+Digital tools are part of learning, so students need practical habits that protect their accounts, privacy, and focus.
+
+## Password Strength Idea
+
+The number of possible passwords grows quickly:
+
+$$
+N = a^L
+$$
+
+where \(a\) is the number of possible characters and \(L\) is the password length.
+
+```text
+Good habit:
+three words + number + symbol
+Example pattern:
+river-book-sun-42!
+```
+
+![Student workspace with technology](https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=1200&q=80)
+
+**Pause rule:** stop, check the sender, check the link, then decide.""",
+        },
+        {
+            "title": "Green School Project: Learning Through Care",
+            "image": "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1200&q=80",
+            "content": r"""# Green School Project
+
+![Seedlings ready for planting](https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1200&q=80)
+
+Students will work in teams to plant, observe, and document the growth of classroom plants. The project connects science, responsibility, and writing.
+
+| Role | Evidence to Submit |
+|---|---|
+| Observer | Height chart |
+| Photographer | One image per week |
+| Writer | 80-word reflection |
+
+Plant growth can be modeled with a simple logistic curve:
+
+$$
+h(t)=\frac{K}{1+Ae^{-rt}}
+$$
+
+Students do not need to memorize the formula; they use it to discuss why growth slows down after a fast start.
+
+![Green plant growth close-up](https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1200&q=80)
+
+Final question: **What did your plant need that a timetable alone could not provide?**""",
+        },
+        {
+            "title": "School Announcement: Parent-Teacher Meeting",
+            "image": "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80",
+            "content": r"""# Parent-Teacher Meeting
+
+![Teachers reviewing student progress](https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80)
+
+Families are invited to meet teachers for a focused discussion about attendance, homework habits, and progress in core subjects.
+
+### Please Bring
+
+- Recent notebooks
+- Any justified absence documents
+- A question the student wants answered
+
+> The meeting is most useful when it ends with one practical action for the next two weeks.
+
+![Meeting table for family-school discussion](https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80)
+
+Support priorities will be discussed using attendance, homework completion, and recent assessment trend.""",
+        },
+        {
+            "title": "Languages Club: Speaking With Confidence",
+            "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80",
+            "content": r"""# Languages Club
+
+![Students practicing in a group](https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80)
+
+The languages club gives students short, low-pressure opportunities to speak, listen, and learn useful expressions.
+
+| Skill | Sentence Frame |
+|---|---|
+| Agreeing | I agree with ... because ... |
+| Disagreeing politely | I see your point, but ... |
+| Asking for clarity | Could you explain what you mean by ...? |
+
+### Micro Debate
+
+Students choose one statement and speak for **45 seconds**:
+
+- Homework should be shorter but more regular.
+- Reading aloud improves confidence.
+- Group work is better when each student has a role.
+
+![Collaborative language learning with laptops](https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80)
+
+The goal is not a perfect accent; it is a clear message and respectful turn-taking.""",
+        },
+        {
+            "title": "Project Expo: From Idea to Presentation",
+            "image": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80",
+            "content": r"""# Student Project Expo
+
+![Students preparing a project together](https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1200&q=80)
+
+The project expo will showcase student work in science, languages, arts, and digital skills. Each project should explain a problem, a process, and a result.
+
+```mermaid
+flowchart LR
+    Idea --> Research
+    Research --> Prototype
+    Prototype --> Feedback
+    Feedback --> Presentation
+```
+
+Scoring will use a weighted rubric:
+
+$$
+G = 0.30C + 0.25M + 0.25E + 0.20P
+$$
+
+where \(C\) is clarity, \(M\) is method, \(E\) is evidence, and \(P\) is presentation.
+
+![Team discussion before a presentation](https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1200&q=80)
+
+The best presentations are clear, honest about difficulties, and supported by visible evidence.""",
+        },
+        {
+            "title": "Physics Focus: Motion, Vectors, and Graphs",
+            "image": "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=1200&q=80",
+            "content": r"""# Physics Focus
+
+![Physics notes and calculations](https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?auto=format&fit=crop&w=1200&q=80)
+
+This lesson connects motion diagrams, vectors, and equations. Students compare what a formula says with what a graph shows.
+
+$$
+\vec r(t)=\vec r_0+\vec v_0t+\frac{1}{2}\vec at^2
+$$
+
+For projectile motion:
+
+$$
+y(x)=x\tan(\theta)-\frac{gx^2}{2v_0^2\cos^2(\theta)}
+$$
+
+![Students using science equipment](https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&w=1200&q=80)
+
+**Exit ticket:** explain why increasing \(v_0\) changes the range more strongly than increasing the angle after a certain point.""",
+        },
+        {
+            "title": "Statistics Mini-Lesson: Data Tells a Story",
+            "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
+            "content": r"""# Statistics Mini-Lesson
+
+![Data analysis on a laptop screen](https://images.unsplash.com/photo-1556155092-490a1ba16284?auto=format&fit=crop&w=1200&q=80)
+
+Students will analyze anonymous class data and learn why a single average can hide important details.
+
+$$
+\mu = \frac{1}{n}\sum_{i=1}^{n}x_i
+\qquad
+\sigma^2 = \frac{1}{n}\sum_{i=1}^{n}(x_i-\mu)^2
+$$
+
+### Compare
+
+| Measure | Question It Answers |
+|---|---|
+| Mean | What is the balance point? |
+| Median | What is the middle value? |
+| Standard deviation | How spread out are the results? |
+
+![Charts and school analytics](https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80)
+
+Students will finish by writing one sentence that begins: **The data suggests..., but it does not prove...**""",
         },
     ]
 
