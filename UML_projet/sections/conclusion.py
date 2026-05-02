@@ -10,10 +10,10 @@ def build(story):
     story.append(Paragraph("Project Summary", subtitle_style))
     story.append(Paragraph(
         """
-        The UML documentation provides a complete view of the School Management System. The use case diagrams
-        define role responsibilities, the class diagram explains backend structure, the sequence diagrams show
-        runtime frontend-to-backend collaboration, and the navigation diagram clarifies how users move through
-        the interface.
+        The UML documentation provides a complete view of the School Management System and its main
+        responsibilities. The use case diagrams define role responsibilities, the class diagram explains
+        backend structure, the sequence diagrams show runtime frontend-to-backend collaboration, and the
+        navigation diagram clarifies how users move through the interface.
         """,
         normal_text,
     ))
@@ -24,7 +24,21 @@ def build(story):
         """
         Together, the diagrams make the system easier to understand, review, and extend. They separate user
         responsibilities clearly, expose the core backend domains, and document the flow of data between the
-        browser, API layer, and database.
+        browser, API layer, and database. The project also demonstrates a practical school workflow: data
+        structure was first studied through the Al Abakera Excel reference, then transformed into UML models,
+        backend APIs, role-based frontend dashboards, and a hosted web setup.
+        """,
+        normal_text,
+    ))
+    story.append(Spacer(1, 10))
+
+    story.append(Paragraph("Operational Benefits", subtitle_style))
+    story.append(Paragraph(
+        """
+        The system improves daily school management by centralizing academic, administrative, financial,
+        and communication tasks. It gives teachers tools for resources, attendance, assessments, and grades;
+        gives students and parents clearer follow-up; and gives administration, reception, and accounting
+        staff a more organized workspace for records, payments, schedules, notifications, and reports.
         """,
         normal_text,
     ))

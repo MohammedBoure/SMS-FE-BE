@@ -11,6 +11,7 @@ from sections import (
     conclusion,
     cover_page,
     navigation,
+    project_context,
     sequence,
     tech_stack,
     use_case,
@@ -128,12 +129,26 @@ def validate_required_svgs():
         raise FileNotFoundError(f"Missing required SVG files in {BASE_DIR}:\n{formatted}")
 
 
-def next_available_path(path):
+def output_candidates(path):
+    yield path
     for index in range(1, 100):
-        candidate = path.with_name(f"{path.stem}_{index}{path.suffix}")
-        if not candidate.exists():
-            return candidate
-    raise FileExistsError("Could not find an available output filename.")
+        yield path.with_name(f"{path.stem}_{index}{path.suffix}")
+
+
+def build_story():
+    story = []
+    cover_page.build(story)
+    cover_page.build_resume(story)
+    add_table_of_contents(story)
+    cover_page.build_introduction(story)
+    project_context.build(story)
+    use_case.build(story)
+    class_diagram.build(story)
+    sequence.build(story)
+    navigation.build(story)
+    tech_stack.build(story)
+    conclusion.build(story)
+    return story
 
 
 def build_pdf(output_filename=None):
@@ -141,28 +156,20 @@ def build_pdf(output_filename=None):
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     output_path = Path(output_filename) if output_filename else OUTPUT_DIR / REPORT_FILENAME
-    doc = build_doc(output_path)
+    last_error = None
 
-    story = []
-    cover_page.build(story)
-    add_table_of_contents(story)
-    cover_page.build_introduction(story)
-    use_case.build(story)
-    class_diagram.build(story)
-    sequence.build(story)
-    navigation.build(story)
-    tech_stack.build(story)
-    conclusion.build(story)
+    for candidate in output_candidates(output_path):
+        try:
+            doc = build_doc(candidate)
+            doc.multiBuild(build_story())
+            print(f"Successfully generated: {candidate}")
+            return candidate
+        except PermissionError as error:
+            last_error = error
 
-    try:
-        doc.multiBuild(story)
-        final_path = output_path
-    except PermissionError:
-        final_path = next_available_path(output_path)
-        doc = build_doc(final_path)
-        doc.multiBuild(story)
-
-    print(f"Successfully generated: {final_path}")
+    raise PermissionError(
+        f"Could not write the PDF report. Close any open report files in {OUTPUT_DIR} and try again."
+    ) from last_error
 
 if __name__ == "__main__":
     build_pdf()

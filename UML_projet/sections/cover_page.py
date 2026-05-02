@@ -8,9 +8,9 @@ STUDENTS = [
     "1. Bouremouz Mouhammed",
     "2. Debieche Amine",
     "3. Bessibes Mouin",
-    "4. Bouzekria Sohib",
-    "5. Side Ahmed Cheabani",
-    "6. Chemsse Adden Marriche",
+    "4. Chaabani Sidahmed",
+    "5. Bouzekria Sohib",
+    "6. Meriche Chemseddine",
 ]
 
 
@@ -50,23 +50,60 @@ def build(story):
     story.append(PageBreak())
 
 
-def build_introduction(story):
-    story.append(Paragraph("Introduction", title_style))
+def build_resume(story):
+    story.append(Paragraph("Executive Summary", title_style))
     story.append(Spacer(1, 10))
     story.append(Paragraph(
         """
-        This report presents the UML analysis of the School Management System. The project is organized
-        around six role-based dashboards: Admin, Receptionist, Accountant, Teacher, Student, and Parent.
-        The diagrams document the functional responsibilities of each role, the backend structure, the
-        runtime communication between frontend and backend, and the navigation flow of the application.
+        This project focuses on the conception and development of a collaborative web application for
+        school management. The system is designed for educational support schools, training centers,
+        and language learning institutions, with the objective of simplifying administrative work,
+        improving communication, and supporting academic follow-up.
         """,
         normal_text,
     ))
     story.append(Spacer(1, 8))
     story.append(Paragraph(
         """
-        The report is structured into use case diagrams, a class diagram, sequence diagrams, the navigation
-        diagram, a technology stack summary, and a concise conclusion.
+        The application is organized around secure role-based spaces for the main actors of the school:
+        administration, reception, accounting, teachers, students, and parents. Each role has access to
+        the functions that match its responsibilities, including student and parent management, teacher
+        assignments, schedules, attendance, assessments, grades, resources, payments, messages,
+        notifications, and announcements.
+        """,
+        normal_text,
+    ))
+    story.append(Spacer(1, 8))
+    story.append(Paragraph(
+        """
+        The UML documentation models the system through use case diagrams for each role, a class diagram
+        for the backend structure, sequence diagrams for the main runtime interactions, and a navigation
+        diagram that explains how users move between the login page and their dashboards.
+        """,
+        normal_text,
+    ))
+    story.append(PageBreak())
+
+
+def build_introduction(story):
+    story.append(Paragraph("Introduction", title_style))
+    story.append(Spacer(1, 10))
+    story.append(Paragraph(
+        """
+        This report presents the analysis and design of a School Management System developed according
+        to a web architecture. The application is organized around six role-based dashboards: Admin,
+        Receptionist, Accountant, Teacher, Student, and Parent. These roles represent the main actors
+        involved in school administration, pedagogical monitoring, communication, and financial follow-up.
+        """,
+        normal_text,
+    ))
+    story.append(Spacer(1, 8))
+    story.append(Paragraph(
+        """
+        The documentation focuses on the functional and structural modeling of the project. It includes
+        a project context section, use case diagrams for each role, a class diagram for the backend
+        structure, sequence diagrams for runtime interactions, a navigation diagram, a technology and
+        deployment summary, and a concise conclusion.
         """,
         normal_text,
     ))

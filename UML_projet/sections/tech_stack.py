@@ -43,6 +43,15 @@ TECH_SECTIONS = [
         """,
     ),
     (
+        "Hosting and Cloud Access",
+        """
+        The application was prepared for hosted access by configuring port forwarding for both the
+        frontend and backend services. This made it possible to demonstrate and test the web interface
+        and the FastAPI API from outside the local development environment. Cloud services were used to
+        support remote availability, collaboration, and practical validation of the web architecture.
+        """,
+    ),
+    (
         "Artificial Intelligence Assistance",
         """
         AI-assisted tools were used during the project to support analysis, code review, UML/report
@@ -61,11 +70,12 @@ TECH_SECTIONS = [
 
 
 def build(story):
-    create_indexed_heading(story, "Technology Stack and Project Repository", level=0)
+    create_indexed_heading(story, "Technology Stack, Deployment, and Repository", level=0)
     story.append(Spacer(1, 10))
     story.append(Paragraph(
         """
-        This section lists the technologies directly used by the School Management System and its UML report.
+        This section lists the technologies directly used by the School Management System, its UML report,
+        and its hosted demonstration setup.
         """,
         normal_text,
     ))
