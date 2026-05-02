@@ -11,20 +11,21 @@ from typing import Optional
 from .dependencies import get_resources_manager
 from database import ResourcesManager
 
-# =========================
-# CONFIG
-# =========================
 UPLOAD_DIR = "uploads/resources"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-ALLOWED_EXTENSIONS = {".txt", ".pdf", ".png", ".jpg", ".jpeg"}
+ALLOWED_EXTENSIONS = {".txt", ".pdf", ".png", ".jpg", ".jpeg",".doc", ".docx", 
+                      ".xls", ".xlsx", ".ppt", ".pptx", ".zip", ".rar", ".csv",
+                        ".json", ".xml", ".mp4", ".mp3", ".avi", ".mkv", ".gif",
+                          ".bmp", ".svg", ".webp", ".psd", ".ai", ".eps", ".indd", ".cdr",
+                            ".dwg", ".dxf", ".fbx", ".obj", ".stl", ".3ds", ".blend", ".sql",
+                              ".log", ".md", ".html", ".css", ".js", ".ts", ".jsx", ".tsx", ".py",
+                                ".java", ".c", ".cpp", ".h", ".hpp", ".go", ".rb", ".php", ".swift",
+                                  ".kt", ".rs", ".dart", ".lua", ".sh", ".bat", ".ps1"}
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
 router = APIRouter(prefix="/resources", tags=["Resources"])
 
-# =========================
-# HELPERS
-# =========================
 def safe_filename(original_filename: str) -> str:
     ext = Path(original_filename).suffix.lower()
     return f"{uuid.uuid4().hex}{ext}"
@@ -35,17 +36,11 @@ def validate_extension(filename: str):
         raise HTTPException(status_code=400, detail="File type not allowed")
 
 def get_safe_full_path(db_file_path: str) -> str:
-    """
-    دالة حماية ذكية: تستخرج اسم الملف فقط بغض النظر عن نظام التشغيل،
-    وتجبره على أن يكون داخل مجلد UPLOAD_DIR لتجنب أخطاء المسارات (Path Traversal).
-    """
     clean_path = db_file_path.replace("\\", "/")
     filename = os.path.basename(clean_path)
     return os.path.abspath(os.path.join(UPLOAD_DIR, filename))
 
-# =========================
-# MODELS
-# =========================
+
 class ResourceCreate(BaseModel):
     title: str
     resource_type: str
@@ -62,9 +57,6 @@ class ResourceUpdate(BaseModel):
     file_size_mb: Optional[float] = None
     assignment_id: Optional[int] = None
 
-# =========================
-# UPLOAD
-# =========================
 @router.post("/upload", status_code=status.HTTP_201_CREATED)
 def upload_resource(
     title: str = Form(...),
@@ -87,7 +79,6 @@ def upload_resource(
         buffer.write(content)
 
     file_size_mb = len(content) / (1024 * 1024)
-    # توحيد طريقة تخزين المسار كمسار نسبي ثابت
     relative_path = f"uploads/resources/{safe_name}"
 
     resource_id = manager.create_resource(
@@ -109,9 +100,6 @@ def upload_resource(
         "file_path": relative_path
     }
 
-# =========================
-# CREATE LINK
-# =========================
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create_resource_link(data: ResourceCreate, manager: ResourcesManager = Depends(get_resources_manager)):
     resource_id = manager.create_resource(**data.dict())
@@ -119,16 +107,10 @@ def create_resource_link(data: ResourceCreate, manager: ResourcesManager = Depen
         raise HTTPException(status_code=400, detail="Failed to create resource.")
     return {"message": "Resource created successfully.", "resource_id": resource_id}
 
-# =========================
-# GET ALL
-# =========================
 @router.get("/")
 def get_all_resources(manager: ResourcesManager = Depends(get_resources_manager)):
     return manager.get_all_resources()
 
-# =========================
-# GET ONE
-# =========================
 @router.get("/{resource_id}")
 def get_resource(resource_id: int, manager: ResourcesManager = Depends(get_resources_manager)):
     resource = manager.get_resource_by_id(resource_id)
@@ -136,9 +118,7 @@ def get_resource(resource_id: int, manager: ResourcesManager = Depends(get_resou
         raise HTTPException(status_code=404, detail="Resource not found.")
     return resource
 
-# =========================
-# DOWNLOAD (محمي)
-# =========================
+
 @router.get("/{resource_id}/download")
 def download_resource(resource_id: int, manager: ResourcesManager = Depends(get_resources_manager)):
     resource = manager.get_resource_by_id(resource_id)
@@ -149,7 +129,6 @@ def download_resource(resource_id: int, manager: ResourcesManager = Depends(get_
     if not file_path:
         raise HTTPException(status_code=404, detail="File path missing")
 
-    # استخدام دالة الحماية الجديدة للحصول على المسار المؤكد
     full_path = get_safe_full_path(file_path)
 
     if not os.path.exists(full_path):
@@ -158,9 +137,6 @@ def download_resource(resource_id: int, manager: ResourcesManager = Depends(get_
     filename = os.path.basename(full_path)
     return FileResponse(path=full_path, filename=filename)
 
-# =========================
-# UPDATE
-# =========================
 @router.put("/{resource_id}")
 def update_resource(resource_id: int, data: ResourceUpdate, manager: ResourcesManager = Depends(get_resources_manager)):
     update_data = {k: v for k, v in data.dict().items() if v is not None}
@@ -173,9 +149,6 @@ def update_resource(resource_id: int, data: ResourceUpdate, manager: ResourcesMa
 
     return {"message": "Resource updated successfully."}
 
-# =========================
-# DELETE
-# =========================
 @router.delete("/{resource_id}")
 def delete_resource(resource_id: int, manager: ResourcesManager = Depends(get_resources_manager)):
     resource = manager.get_resource_by_id(resource_id)
@@ -184,7 +157,6 @@ def delete_resource(resource_id: int, manager: ResourcesManager = Depends(get_re
 
     success, message = manager.delete_resource(resource_id)
 
-    # إذا تم حذف السجل بنجاح من قاعدة البيانات، نحذفه من التخزين (Disk)
     if success:
         file_path = resource.get("file_path_or_url")
         if file_path:

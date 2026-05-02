@@ -6,3 +6,8 @@ venv/
 app.log
 .env
 backend/.env
+*.pdf
+*.png
+*.jpg
+*.log
+*.rar
