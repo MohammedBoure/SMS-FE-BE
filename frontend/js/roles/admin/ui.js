@@ -763,8 +763,21 @@ const AdminUI = {
   },
 
   _formatCurrency(amount) {
-    if (amount === null || amount === undefined) return "0.00 دج";
-    return new Intl.NumberFormat('ar-DZ', { style: 'currency', currency: 'DZD' }).format(amount);
+    const number = Number(amount);
+    const safeAmount = Number.isFinite(number) ? number : 0;
+    return `${safeAmount.toLocaleString(this.locale())} ${this.t("admin.currency.dzd", {}, "DZD")}`;
+  },
+
+  locale() {
+    return window.I18n ? I18n.get("meta.locale", this.isRtl() ? "ar-DZ" : "en-US") : "ar-DZ";
+  },
+
+  dir() {
+    return window.I18n ? I18n.get("meta.dir", "rtl") : "rtl";
+  },
+
+  isRtl() {
+    return this.dir() === "rtl";
   }
 };
 

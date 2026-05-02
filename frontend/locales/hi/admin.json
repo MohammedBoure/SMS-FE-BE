@@ -72,6 +72,9 @@
       "loading": "डेटा लोड हो रहा है...",
       "errorPrefix": "क्षमा करें, एक त्रुटि हुई:"
     },
+    "currency": {
+      "dzd": "DZD"
+    },
     "nav": {
       "categories": {
         "core": "मुख्य प्रशासन",

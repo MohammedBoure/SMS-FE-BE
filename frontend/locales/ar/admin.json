@@ -71,6 +71,9 @@
       "loading": "جاري تحميل البيانات...",
       "errorPrefix": "عذراً، حدث خطأ:"
     },
+    "currency": {
+      "dzd": "دج"
+    },
     "nav": {
       "categories": {
         "core": "الإدارة الأساسية",

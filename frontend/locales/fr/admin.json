@@ -72,6 +72,9 @@
       "loading": "Chargement des données...",
       "errorPrefix": "Désolé, une erreur est survenue :"
     },
+    "currency": {
+      "dzd": "DZD"
+    },
     "nav": {
       "categories": {
         "core": "Administration centrale",

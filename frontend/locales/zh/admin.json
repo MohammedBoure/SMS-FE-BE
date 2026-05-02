@@ -72,6 +72,9 @@
       "loading": "正在加载数据...",
       "errorPrefix": "抱歉，发生错误："
     },
+    "currency": {
+      "dzd": "DZD"
+    },
     "nav": {
       "categories": {
         "core": "核心管理",

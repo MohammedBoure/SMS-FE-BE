@@ -71,6 +71,9 @@
       "loading": "Loading data...",
       "errorPrefix": "Sorry, an error occurred:"
     },
+    "currency": {
+      "dzd": "DZD"
+    },
     "nav": {
       "categories": {
         "core": "Core Administration",

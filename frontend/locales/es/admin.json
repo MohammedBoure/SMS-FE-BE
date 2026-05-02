@@ -72,6 +72,9 @@
       "loading": "Cargando datos...",
       "errorPrefix": "Lo sentimos, ocurrió un error:"
     },
+    "currency": {
+      "dzd": "DZD"
+    },
     "nav": {
       "categories": {
         "core": "Administración principal",
