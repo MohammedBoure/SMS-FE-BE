@@ -11,11 +11,14 @@
     (function () {
       try {
         window.AppPreferences && AppPreferences.initTheme("login");
+        if (localStorage.getItem("login-cosmic-mode") === "true") {
+          document.documentElement.dataset.loginCosmic = "true";
+        }
       } catch (e) {}
     })();
   </script>
   <link rel="stylesheet" href="../css/posts.css?v=login-i18n-1">
-  <link rel="stylesheet" href="../css/login.css?v=login-pro-3d-1">
+  <link rel="stylesheet" href="../css/login.css?v=login-cosmic-weird-1">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.5/purify.min.js"></script>
   <script>
@@ -61,6 +64,16 @@
               <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/>
             </svg>
             <span id="login-theme-label"></span>
+          </button>
+          <button type="button" class="login-cosmic-toggle" id="login-cosmic-toggle" aria-pressed="false">
+            <svg class="cosmic-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="2.4"/>
+              <path d="M4.8 12c1.7-4.6 6.9-7 11.5-5.3 1.6.6 2.9 1.5 3.9 2.7"/>
+              <path d="M19.2 12c-1.7 4.6-6.9 7-11.5 5.3-1.6-.6-2.9-1.5-3.9-2.7"/>
+              <path d="M3 5.5c2.2.4 4.6 1.2 7 2.6 4.7 2.7 7.1 6.6 8 8.4"/>
+              <path d="M21 18.5c-2.2-.4-4.6-1.2-7-2.6-4.7-2.7-7.1-6.6-8-8.4"/>
+            </svg>
+            <span id="login-cosmic-label"></span>
           </button>
         </div>
       </div>
@@ -198,16 +211,47 @@
         lookY: 0,
         pointerX: 0,
         pointerY: 0,
-        pulse: 0
+        pulse: 0,
+        typingEnergy: 0,
+        typingSpeed: 0,
+        warp: 0,
+        chaosEnergy: 0,
+        chaosTarget: 0,
+        chaosAttempts: 0,
+        chaosX: 0,
+        chaosY: 0
       };
       let points = [];
+      let bursts = [];
+      let chaosWaves = [];
       let frameId = 0;
+
+      function isCosmicMode() {
+        return root.dataset.loginCosmic === "true";
+      }
 
       function random(min, max) {
         return min + Math.random() * (max - min);
       }
 
+      function clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+      }
+
       function getPalette() {
+        const cosmic = isCosmicMode();
+        if (cosmic) {
+          return {
+            cosmic: true,
+            line: "103, 232, 249",
+            point: "226, 244, 255",
+            accent: "167, 139, 250",
+            warm: "251, 191, 36",
+            nebulaA: "67, 56, 202",
+            nebulaB: "8, 145, 178"
+          };
+        }
+
         const dark = root.dataset.theme === "dark";
         return dark
           ? {
@@ -225,7 +269,31 @@
       }
 
       function buildScene() {
-        const count = Math.min(108, Math.max(58, Math.floor((state.width * state.height) / 14000)));
+        const cosmic = isCosmicMode();
+        const count = cosmic
+          ? Math.min(260, Math.max(130, Math.floor((state.width * state.height) / 6600)))
+          : Math.min(108, Math.max(58, Math.floor((state.width * state.height) / 14000)));
+
+        if (cosmic) {
+          const span = Math.min(state.width, state.height);
+          points = Array.from({ length: count }, (_, index) => {
+            const arm = index % 4;
+            const radius = Math.pow(Math.random(), 0.62) * span * 0.72 + random(8, 34);
+            const angle = radius * 0.014 + arm * Math.PI * 0.5 + random(-0.42, 0.42);
+            const core = index < count * 0.18;
+            return {
+              x: core ? random(-span * 0.14, span * 0.14) : Math.cos(angle) * radius + random(-34, 34),
+              y: core ? random(-span * 0.08, span * 0.08) : Math.sin(angle) * radius * 0.38 + random(-46, 46),
+              z: random(-480, 780),
+              size: core ? random(1.2, 3.2) : random(0.55, 2.4),
+              speed: random(0.18, 0.62),
+              phase: random(0, Math.PI * 2),
+              arm
+            };
+          });
+          return;
+        }
+
         points = Array.from({ length: count }, () => ({
           x: random(-state.width * 0.7, state.width * 0.7),
           y: random(-state.height * 0.46, state.height * 0.46),
@@ -258,16 +326,21 @@
         state.targetY = (clientY / state.height - 0.5) * 2;
         root.style.setProperty("--login-pointer-x", `${clientX}px`);
         root.style.setProperty("--login-pointer-y", `${clientY}px`);
+        root.style.setProperty("--login-space-shift-x", `${(state.targetX * -18).toFixed(2)}px`);
+        root.style.setProperty("--login-space-shift-y", `${(state.targetY * -14).toFixed(2)}px`);
         if (reducedMotion.matches) draw(performance.now());
       }
 
       function project(point, time) {
-        const rotY = state.lookX * 0.34 + Math.sin(time * 0.12) * 0.04;
-        const rotX = state.lookY * -0.2 + Math.cos(time * 0.1) * 0.025;
+        const cosmic = isCosmicMode();
+        const energy = cosmic ? state.typingEnergy : 0;
+        const rotY = state.lookX * 0.34 + Math.sin(time * 0.12) * 0.04 + energy * 0.08;
+        const rotX = state.lookY * -0.2 + Math.cos(time * 0.1) * 0.025 - energy * 0.035;
         const wobble = Math.sin(time * point.speed + point.phase);
-        let x = point.x + wobble * 20;
-        let y = point.y + Math.cos(time * point.speed + point.phase) * 12;
-        let z = point.z + Math.sin(time * 0.34 + point.phase) * 34;
+        const wobbleAmp = cosmic ? 20 + energy * 48 : 20;
+        let x = point.x + wobble * wobbleAmp;
+        let y = point.y + Math.cos(time * point.speed + point.phase) * (cosmic ? 12 + energy * 28 : 12);
+        let z = point.z + Math.sin(time * 0.34 + point.phase) * (cosmic ? 34 + state.warp * 120 : 34);
 
         const cosY = Math.cos(rotY);
         const sinY = Math.sin(rotY);
@@ -295,18 +368,288 @@
         const centerY = state.height / 2 + state.lookY * 46;
         const base = Math.min(state.width, state.height);
 
-        for (let index = 0; index < 4; index += 1) {
+        for (let index = 0; index < (palette.cosmic ? 7 : 4); index += 1) {
           ctx.save();
           ctx.translate(centerX, centerY);
-          ctx.rotate(state.lookX * 0.28 + index * 0.38);
-          ctx.scale(1, 0.34 + index * 0.035);
+          ctx.rotate(state.lookX * 0.28 + index * 0.38 + (palette.cosmic ? performance.now() * 0.000025 : 0));
+          ctx.scale(1, palette.cosmic ? 0.22 + index * 0.026 : 0.34 + index * 0.035);
           ctx.beginPath();
-          ctx.ellipse(0, 0, base * (0.32 + index * 0.08), base * (0.32 + index * 0.08), 0, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${index % 2 ? palette.accent : palette.line}, ${0.08 - index * 0.01})`;
-          ctx.lineWidth = 1.2;
+          ctx.ellipse(0, 0, base * (0.28 + index * 0.074), base * (0.28 + index * 0.074), 0, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${index % 2 ? palette.accent : palette.line}, ${palette.cosmic ? 0.12 - index * 0.01 : 0.08 - index * 0.01})`;
+          ctx.lineWidth = palette.cosmic ? 1.35 : 1.2;
           ctx.stroke();
           ctx.restore();
         }
+      }
+
+      function drawCosmicBackdrop(palette, time) {
+        const centerX = state.width / 2 + state.lookX * 66;
+        const centerY = state.height / 2 + state.lookY * 38;
+        const radius = Math.max(state.width, state.height) * 0.72;
+        const nebula = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+        nebula.addColorStop(0, `rgba(${palette.nebulaB}, ${0.22 + state.typingEnergy * 0.22})`);
+        nebula.addColorStop(0.38, `rgba(${palette.nebulaA}, ${0.12 + state.typingEnergy * 0.16})`);
+        nebula.addColorStop(1, "rgba(3, 7, 18, 0)");
+        ctx.fillStyle = nebula;
+        ctx.fillRect(0, 0, state.width, state.height);
+
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(time * (0.026 + state.typingSpeed * 0.006) + state.lookX * 0.16);
+        for (let index = 0; index < 5; index += 1) {
+          ctx.beginPath();
+          ctx.arc(0, 0, Math.min(state.width, state.height) * (0.14 + index * 0.08), index * 0.74, Math.PI * 1.45 + index * 0.74);
+          ctx.strokeStyle = `rgba(${index % 2 ? palette.accent : palette.line}, ${0.08 - index * 0.01 + state.typingEnergy * 0.035})`;
+          ctx.lineWidth = 10 - index + state.typingEnergy * 6;
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      function emitCosmicSignal(detail = {}) {
+        if (!isCosmicMode()) return;
+
+        const x = clamp(Number(detail.x) || state.width / 2, 0, state.width);
+        const y = clamp(Number(detail.y) || state.height / 2, 0, state.height);
+        const speed = clamp(Number(detail.speed) || 1, 0.4, 8);
+        const raw = String(detail.char || "");
+        const char = detail.secure ? "•" : (raw && raw !== " " ? raw.slice(-1) : "∴");
+        const kind = detail.kind || (
+          /\d/.test(raw) ? "digit" :
+          /[^\w\s\u0600-\u06FF]/.test(raw) ? "symbol" :
+          raw === " " ? "space" :
+          "letter"
+        );
+        const count = Math.min(7, Math.max(2, Math.round(speed)));
+
+        state.typingEnergy = clamp(state.typingEnergy + 0.18 + speed * 0.055, 0, 1.6);
+        state.typingSpeed = clamp(speed, 0, 8);
+        state.warp = clamp(state.warp + 0.08 + speed * 0.018, 0, 1);
+        state.pulse = Math.max(state.pulse, 0.55);
+
+        for (let index = 0; index < count; index += 1) {
+          bursts.push({
+            x: x + random(-18, 18),
+            y: y + random(-14, 14),
+            char,
+            kind,
+            born: performance.now(),
+            ttl: random(720, 1280) / (speed > 4 ? 0.86 : 1),
+            angle: random(0, Math.PI * 2),
+            spin: random(-1.4, 1.4),
+            radius: random(18, 54) + speed * 8,
+            speed
+          });
+        }
+
+        if (bursts.length > 90) bursts = bursts.slice(-90);
+      }
+
+      function emitCosmicChaos(detail = {}) {
+        if (!isCosmicMode()) return;
+
+        const x = clamp(Number(detail.x) || state.width / 2, 0, state.width);
+        const y = clamp(Number(detail.y) || state.height / 2, 0, state.height);
+        const force = clamp(Number(detail.force) || 1, 0.7, 3.5);
+        const now = performance.now();
+        const base = Math.max(state.width, state.height);
+
+        state.chaosAttempts += 1;
+        state.chaosX = x;
+        state.chaosY = y;
+        state.chaosTarget = clamp(
+          state.chaosTarget + 0.16 + force * 0.14 + Math.min(state.chaosAttempts, 12) * 0.012,
+          0,
+          2.4
+        );
+        state.typingEnergy = clamp(state.typingEnergy + 0.12 + force * 0.04, 0, 1.8);
+        state.warp = clamp(state.warp + 0.06 + force * 0.035, 0, 1.25);
+        state.pulse = Math.max(state.pulse, 0.72);
+
+        for (let index = 0; index < 3; index += 1) {
+          chaosWaves.push({
+            x: x + random(-base * 0.04, base * 0.04),
+            y: y + random(-base * 0.035, base * 0.035),
+            born: now + index * 140,
+            ttl: random(3600, 5600) + force * 680,
+            radius: random(base * 0.08, base * 0.2),
+            expand: random(base * 0.22, base * 0.44) + force * 38,
+            spin: random(-0.9, 0.9),
+            phase: random(0, Math.PI * 2),
+            sides: Math.floor(random(5, 9)),
+            tone: index % 3
+          });
+        }
+
+        if (chaosWaves.length > 42) chaosWaves = chaosWaves.slice(-42);
+      }
+
+      function drawStrangeObjects(palette, time) {
+        const energy = state.typingEnergy;
+        const centerX = state.width * 0.56 + state.lookX * 84;
+        const centerY = state.height * 0.48 + state.lookY * 52;
+        const size = Math.min(state.width, state.height);
+
+        for (let index = 0; index < 3; index += 1) {
+          const angle = time * (0.16 + index * 0.045) + index * Math.PI * 0.66;
+          const x = centerX + Math.cos(angle) * size * (0.18 + index * 0.07);
+          const y = centerY + Math.sin(angle * 1.28) * size * (0.09 + index * 0.045);
+          const radius = 24 + index * 13 + energy * 20;
+
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(-angle * 0.7);
+          const voidGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, radius * 1.8);
+          voidGradient.addColorStop(0, "rgba(2, 6, 23, 0.86)");
+          voidGradient.addColorStop(0.48, `rgba(${palette.accent}, ${0.08 + energy * 0.06})`);
+          voidGradient.addColorStop(1, "rgba(2, 6, 23, 0)");
+          ctx.fillStyle = voidGradient;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, radius * 1.45, radius * 0.54, 0, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = `rgba(${index % 2 ? palette.line : palette.accent}, ${0.16 + energy * 0.12})`;
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.ellipse(0, 0, radius * 1.62, radius * 0.62, 0, 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
+
+      function drawCosmicChaos(palette, now, time) {
+        state.chaosEnergy += (state.chaosTarget - state.chaosEnergy) * 0.038;
+        state.chaosTarget *= 0.994;
+        if (state.chaosTarget < 0.004) state.chaosTarget = 0;
+        if (state.chaosEnergy < 0.004 && state.chaosTarget === 0) state.chaosEnergy = 0;
+
+        if (state.chaosEnergy <= 0.01 && !chaosWaves.length) return;
+
+        const energy = clamp(state.chaosEnergy, 0, 2.4);
+        const centerX = state.chaosX || state.width / 2;
+        const centerY = state.chaosY || state.height / 2;
+        const base = Math.max(state.width, state.height);
+        const glowRadius = base * (0.28 + energy * 0.2);
+
+        ctx.save();
+        ctx.globalCompositeOperation = "screen";
+
+        const halo = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, glowRadius);
+        halo.addColorStop(0, `rgba(${palette.warm}, ${0.04 + energy * 0.035})`);
+        halo.addColorStop(0.28, `rgba(${palette.accent}, ${0.05 + energy * 0.045})`);
+        halo.addColorStop(0.64, `rgba(${palette.line}, ${0.025 + energy * 0.028})`);
+        halo.addColorStop(1, "rgba(2, 6, 23, 0)");
+        ctx.fillStyle = halo;
+        ctx.fillRect(0, 0, state.width, state.height);
+
+        ctx.translate(centerX, centerY);
+        for (let index = 0; index < 8; index += 1) {
+          const radius = base * (0.1 + index * 0.043 + energy * 0.018);
+          const wobble = Math.sin(time * 0.42 + index * 1.7) * 0.08;
+          ctx.save();
+          ctx.rotate(time * (0.045 + index * 0.006) + index * 0.72 + energy * 0.05);
+          ctx.scale(1, 0.24 + index * 0.018 + wobble);
+          ctx.beginPath();
+          ctx.ellipse(0, 0, radius, radius, 0, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${index % 2 ? palette.accent : palette.line}, ${0.025 + energy * 0.032 - index * 0.0018})`;
+          ctx.lineWidth = 1.1 + energy * 1.4;
+          ctx.stroke();
+          ctx.restore();
+        }
+        ctx.restore();
+
+        chaosWaves = chaosWaves.filter(wave => now - wave.born < wave.ttl);
+        chaosWaves.forEach((wave, waveIndex) => {
+          const age = now - wave.born;
+          if (age < 0) return;
+
+          const progress = clamp(age / wave.ttl, 0, 1);
+          const easeIn = progress * progress * (3 - 2 * progress);
+          const fade = Math.sin(progress * Math.PI);
+          const radius = wave.radius + wave.expand * easeIn;
+          const tone = wave.tone === 0 ? palette.warm : wave.tone === 1 ? palette.accent : palette.line;
+          const segments = 52;
+
+          ctx.save();
+          ctx.globalCompositeOperation = "screen";
+          ctx.translate(wave.x + state.lookX * 30, wave.y + state.lookY * 22);
+          ctx.rotate(wave.phase + wave.spin * time * 0.34 + waveIndex * 0.07);
+          ctx.scale(1, 0.38 + Math.sin(time * 0.2 + wave.phase) * 0.045);
+          ctx.beginPath();
+          for (let i = 0; i <= segments; i += 1) {
+            const angle = (i / segments) * Math.PI * 2;
+            const noise =
+              Math.sin(angle * wave.sides + time * 0.9 + wave.phase) * 0.12 +
+              Math.cos(angle * 3 - time * 0.55 + wave.phase) * 0.07;
+            const r = radius * (1 + noise * (0.7 + energy * 0.1));
+            const x = Math.cos(angle) * r;
+            const y = Math.sin(angle) * r;
+            if (i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+          }
+          ctx.strokeStyle = `rgba(${tone}, ${(0.05 + energy * 0.045) * fade})`;
+          ctx.lineWidth = 1 + energy * 1.2;
+          ctx.stroke();
+
+          for (let ray = 0; ray < 6; ray += 1) {
+            const angle = ray * Math.PI / 3 + time * 0.08 + wave.phase;
+            const inner = radius * (0.28 + progress * 0.12);
+            const outer = radius * (0.7 + progress * 0.34);
+            ctx.beginPath();
+            ctx.moveTo(Math.cos(angle) * inner, Math.sin(angle) * inner);
+            ctx.lineTo(Math.cos(angle) * outer, Math.sin(angle) * outer);
+            ctx.strokeStyle = `rgba(${palette.line}, ${(0.025 + energy * 0.024) * fade})`;
+            ctx.lineWidth = 0.9;
+            ctx.stroke();
+          }
+          ctx.restore();
+        });
+      }
+
+      function drawCosmicBursts(palette, now) {
+        if (!bursts.length) return;
+
+        bursts = bursts.filter(burst => now - burst.born < burst.ttl);
+        bursts.forEach((burst, index) => {
+          const progress = clamp((now - burst.born) / burst.ttl, 0, 1);
+          const ease = 1 - Math.pow(1 - progress, 2);
+          const alpha = (1 - progress) * clamp(0.32 + burst.speed * 0.075, 0.34, 0.92);
+          const radius = burst.radius * (0.5 + ease * 2.2);
+          const tone = burst.kind === "digit"
+            ? palette.warm
+            : burst.kind === "symbol"
+              ? palette.accent
+              : palette.line;
+
+          ctx.save();
+          ctx.translate(burst.x, burst.y);
+          ctx.rotate(burst.angle + burst.spin * progress);
+          ctx.strokeStyle = `rgba(${tone}, ${alpha})`;
+          ctx.lineWidth = burst.kind === "symbol" ? 1.8 : 1.2;
+          ctx.beginPath();
+
+          if (burst.kind === "symbol") {
+            for (let side = 0; side < 6; side += 1) {
+              const a = side * Math.PI / 3;
+              const px = Math.cos(a) * radius;
+              const py = Math.sin(a) * radius;
+              if (side === 0) ctx.moveTo(px, py);
+              else ctx.lineTo(px, py);
+            }
+            ctx.closePath();
+          } else if (burst.kind === "digit") {
+            ctx.rect(-radius * 0.5, -radius * 0.5, radius, radius);
+          } else {
+            ctx.arc(0, 0, radius, 0, Math.PI * 2);
+          }
+
+          ctx.stroke();
+          ctx.fillStyle = `rgba(${tone}, ${alpha * 0.78})`;
+          ctx.font = `${Math.max(12, 18 + burst.speed * 2)}px Segoe UI, Tahoma, Arial, sans-serif`;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(burst.char, Math.cos(progress * Math.PI * 2 + index) * radius * 0.34, Math.sin(progress * Math.PI * 2 + index) * radius * 0.2);
+          ctx.restore();
+        });
       }
 
       function draw(now) {
@@ -316,7 +659,10 @@
         state.lookY += (state.targetY - state.lookY) * 0.075;
         ctx.clearRect(0, 0, state.width, state.height);
 
+        if (palette.cosmic) drawCosmicBackdrop(palette, time);
+        if (palette.cosmic) drawCosmicChaos(palette, now, time);
         drawOrbit(palette);
+        if (palette.cosmic) drawStrangeObjects(palette, time);
 
         const projected = points.map(point => project(point, time));
         for (let i = 0; i < projected.length; i += 1) {
@@ -326,9 +672,10 @@
             const dx = a.x - b.x;
             const dy = a.y - b.y;
             const distance = Math.hypot(dx, dy);
-            if (distance > 128) continue;
+            const maxDistance = palette.cosmic ? 154 : 128;
+            if (distance > maxDistance) continue;
             const depth = Math.max(0.12, Math.min(1, (a.scale + b.scale) * 0.5));
-            const alpha = (1 - distance / 128) * 0.18 * depth;
+            const alpha = (1 - distance / maxDistance) * (palette.cosmic ? 0.22 : 0.18) * depth;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -339,10 +686,11 @@
         }
 
         projected.forEach((point, index) => {
-          const alpha = Math.max(0.12, Math.min(0.64, point.scale * 0.36));
-          const tone = index % 5 === 0 ? palette.warm : index % 3 === 0 ? palette.accent : palette.point;
+          const twinkle = palette.cosmic ? 0.7 + Math.sin(time * 2.2 + index) * 0.3 : 1;
+          const alpha = Math.max(0.12, Math.min(palette.cosmic ? 0.88 : 0.64, point.scale * (palette.cosmic ? 0.58 : 0.36) * twinkle));
+          const tone = index % 7 === 0 ? palette.warm : index % 3 === 0 ? palette.accent : palette.point;
           ctx.beginPath();
-          ctx.arc(point.x, point.y, Math.max(0.8, point.size * point.scale), 0, Math.PI * 2);
+          ctx.arc(point.x, point.y, Math.max(0.7, point.size * point.scale * (palette.cosmic ? 1.18 : 1)), 0, Math.PI * 2);
           ctx.fillStyle = `rgba(${tone}, ${alpha})`;
           ctx.fill();
         });
@@ -356,6 +704,12 @@
           ctx.stroke();
           state.pulse *= 0.91;
         }
+
+        if (palette.cosmic) drawCosmicBursts(palette, now);
+
+        state.typingEnergy *= 0.94;
+        state.typingSpeed *= 0.9;
+        state.warp *= 0.9;
 
         if (!reducedMotion.matches && !document.hidden) {
           frameId = window.requestAnimationFrame(draw);
@@ -376,6 +730,8 @@
       window.addEventListener("pointerleave", () => {
         state.targetX = 0;
         state.targetY = 0;
+        root.style.setProperty("--login-space-shift-x", "0px");
+        root.style.setProperty("--login-space-shift-y", "0px");
       }, { passive: true });
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
@@ -386,13 +742,29 @@
       });
       reducedMotion.addEventListener?.("change", start);
       new MutationObserver(() => {
+        buildScene();
         if (reducedMotion.matches) draw(performance.now());
       }).observe(root, {
         attributes: true,
-        attributeFilter: ["data-theme"]
+        attributeFilter: ["data-theme", "data-login-cosmic"]
       });
 
       resize();
+      window.LoginCosmicEffects = {
+        type: emitCosmicSignal,
+        burst: emitCosmicSignal,
+        chaos: emitCosmicChaos,
+        reset() {
+          bursts = [];
+          chaosWaves = [];
+          state.typingEnergy = 0;
+          state.typingSpeed = 0;
+          state.warp = 0;
+          state.chaosEnergy = 0;
+          state.chaosTarget = 0;
+          state.chaosAttempts = 0;
+        }
+      };
       start();
     })();
   </script>
@@ -412,16 +784,27 @@
       const errorMsg = document.getElementById("error-msg");
       const loginBtn = document.getElementById("login-btn");
       const loginBtnLabel = loginBtn?.querySelector("span");
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
       const postsList = document.getElementById("login-posts-list");
       const postsStatus = document.getElementById("login-posts-status");
       const refreshBtn = document.getElementById("posts-refresh-btn");
       const themeToggle = document.getElementById("login-theme-toggle");
       const themeLabel = document.getElementById("login-theme-label");
+      const cosmicToggle = document.getElementById("login-cosmic-toggle");
+      const cosmicLabel = document.getElementById("login-cosmic-label");
       const languageSelect = document.getElementById("login-language-select");
       const postModal = document.getElementById("login-post-modal");
       const postModalContent = document.getElementById("login-post-modal-content");
       const postModalClose = document.getElementById("login-post-modal-close");
       let postsCache = [];
+      let lastTypingAt = 0;
+      let dodgeResetTimer = 0;
+      let escapeResetTimer = 0;
+      let lastChaosAt = 0;
+      let lastDodgeAt = 0;
+      let dodgeAttemptCount = 0;
+      let fieldAttentionTimer = 0;
 
       function t(key, params = {}, fallback = "") {
         return window.I18n ? I18n.t(key, params, fallback || key) : (fallback || key);
@@ -438,6 +821,279 @@
             ${escapeHtml(lang.label)}
           </option>
         `).join("");
+      }
+
+      function isArabicInterface() {
+        return !window.I18n || I18n.currentLang === "ar";
+      }
+
+      function getStoredCosmicMode() {
+        try {
+          return localStorage.getItem("login-cosmic-mode") === "true";
+        } catch (e) {
+          return document.documentElement.dataset.loginCosmic === "true";
+        }
+      }
+
+      function setLoginCosmicMode(enabled, options = {}) {
+        const active = Boolean(enabled);
+        document.documentElement.dataset.loginCosmic = active ? "true" : "false";
+        document.body?.classList.toggle("login-cosmic-mode", active);
+        cosmicToggle?.setAttribute("aria-pressed", String(active));
+
+        const fallbackLabel = isArabicInterface()
+          ? (active ? "كوني" : "الكون")
+          : (active ? "Cosmic" : "Cosmos");
+        const fallbackTitle = isArabicInterface()
+          ? "تفعيل خلفية الكون والحاويات الشفافة"
+          : "Toggle cosmic glass mode";
+        const label = t(active ? "login.cosmic.enabled" : "login.cosmic.label", {}, fallbackLabel);
+        const title = t("login.cosmic.title", {}, fallbackTitle);
+
+        if (cosmicLabel) cosmicLabel.textContent = label;
+        cosmicToggle?.setAttribute("title", title);
+        cosmicToggle?.setAttribute("aria-label", title);
+        if (!active) {
+          resetLoginDodge();
+          window.LoginCosmicEffects?.reset?.();
+        }
+
+        if (options.persist !== false) {
+          try {
+            localStorage.setItem("login-cosmic-mode", active ? "true" : "false");
+          } catch (e) {}
+        }
+      }
+
+      function isCosmicActive() {
+        return document.documentElement.dataset.loginCosmic === "true";
+      }
+
+      function hasLoginCredentials() {
+        return Boolean(usernameInput?.value.trim() && passwordInput?.value);
+      }
+
+      function getMissingLoginInput() {
+        if (!usernameInput?.value.trim()) return usernameInput;
+        if (!passwordInput?.value) return passwordInput;
+        return null;
+      }
+
+      function clearFieldAttention() {
+        usernameInput?.closest(".field-group")?.classList.remove("is-grumpy-target");
+        passwordInput?.closest(".field-group")?.classList.remove("is-grumpy-target");
+      }
+
+      function markMissingInput(input = getMissingLoginInput()) {
+        if (!isCosmicActive() || !input) return;
+        clearFieldAttention();
+        input.closest(".field-group")?.classList.add("is-grumpy-target");
+        pulseCosmicFromElement(input, { char: "!", kind: "symbol", speed: 3.6 });
+        window.clearTimeout(fieldAttentionTimer);
+        fieldAttentionTimer = window.setTimeout(clearFieldAttention, 900);
+      }
+
+      function resetLoginDodge() {
+        document.documentElement.style.setProperty("--login-button-start-x", "0px");
+        document.documentElement.style.setProperty("--login-button-start-y", "0px");
+        document.documentElement.style.setProperty("--login-button-start-rotate", "0deg");
+        document.documentElement.style.setProperty("--login-button-dodge-x", "0px");
+        document.documentElement.style.setProperty("--login-button-dodge-y", "0px");
+        document.documentElement.style.setProperty("--login-button-dodge-rotate", "0deg");
+        document.documentElement.style.setProperty("--login-button-arc-x", "0px");
+        document.documentElement.style.setProperty("--login-button-arc-y", "0px");
+        document.documentElement.style.setProperty("--login-button-arc-tilt", "0deg");
+        document.documentElement.style.setProperty("--login-button-glide-shadow-x", "-26px");
+        document.documentElement.style.setProperty("--login-button-glide-shadow-y", "2px");
+        document.documentElement.style.setProperty("--login-button-glide-shadow-long-x", "-54px");
+        document.documentElement.style.setProperty("--login-button-glide-shadow-long-y", "4px");
+        loginBtn?.classList.remove("login-btn-escaping");
+        if (hasLoginCredentials() || !isCosmicActive()) {
+          lastDodgeAt = 0;
+          dodgeAttemptCount = 0;
+          clearFieldAttention();
+        }
+      }
+
+      function pulseCosmicFromElement(element, options = {}) {
+        if (!isCosmicActive() || !window.LoginCosmicEffects?.burst || !element) return;
+        const rect = element.getBoundingClientRect();
+        LoginCosmicEffects.burst({
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+          char: options.char || "!",
+          kind: options.kind || "symbol",
+          speed: options.speed || 4,
+          secure: options.secure || false
+        });
+      }
+
+      function triggerLoginChaos(pointerX, pointerY, force = 1) {
+        if (!isCosmicActive() || !window.LoginCosmicEffects?.chaos) return;
+        const now = performance.now();
+        if (now - lastChaosAt < 520 && force < 1.65) return;
+        lastChaosAt = now;
+        const x = Number.isFinite(pointerX) ? pointerX : window.innerWidth / 2;
+        const y = Number.isFinite(pointerY) ? pointerY : window.innerHeight / 2;
+
+        LoginCosmicEffects.chaos({
+          x,
+          y,
+          force
+        });
+      }
+
+      function dodgeLoginButton(pointerX, pointerY, force = 1) {
+        if (!loginBtn || !isCosmicActive() || hasLoginCredentials()) {
+          resetLoginDodge();
+          return;
+        }
+
+        const computed = getComputedStyle(document.documentElement);
+        const currentX = parseFloat(computed.getPropertyValue("--login-button-dodge-x")) || 0;
+        const currentY = parseFloat(computed.getPropertyValue("--login-button-dodge-y")) || 0;
+        const currentRotate = computed.getPropertyValue("--login-button-dodge-rotate").trim() || "0deg";
+        const rect = loginBtn.getBoundingClientRect();
+        const card = loginBtn.closest(".login-card")?.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2 - currentX;
+        const centerY = rect.top + rect.height / 2 - currentY;
+        const dx = centerX - pointerX;
+        const dy = centerY - pointerY;
+        const distance = Math.max(1, Math.hypot(dx, dy));
+        const near = distance < Math.max(rect.width * 0.86, 180) || force > 1;
+        if (!near) return;
+
+        const now = performance.now();
+        if (now - lastDodgeAt < 520) return;
+        lastDodgeAt = now;
+        dodgeAttemptCount += 1;
+        const viewportPadding = 14;
+        const minX = viewportPadding - (centerX - rect.width / 2);
+        const maxX = window.innerWidth - viewportPadding - (centerX + rect.width / 2);
+        const minY = viewportPadding - (centerY - rect.height / 2);
+        const maxY = window.innerHeight - viewportPadding - (centerY + rect.height / 2);
+        const side = dodgeAttemptCount % 2 === 0 ? 1 : -1;
+        const insetX = Math.min(36, Math.max(12, window.innerWidth * 0.018));
+        const insetY = Math.min(34, Math.max(12, window.innerHeight * 0.018));
+        const leftX = Math.min(maxX, minX + insetX);
+        const rightX = Math.max(minX, maxX - insetX);
+        const topY = Math.min(maxY, minY + insetY);
+        const bottomY = Math.max(minY, maxY - insetY);
+        const midLeftX = Math.min(maxX, minX + Math.max(insetX, (maxX - minX) * 0.18));
+        const midRightX = Math.max(minX, maxX - Math.max(insetX, (maxX - minX) * 0.18));
+        const midTopY = Math.min(maxY, minY + Math.max(insetY, (maxY - minY) * 0.22));
+        const midBottomY = Math.max(minY, maxY - Math.max(insetY, (maxY - minY) * 0.22));
+        const candidates = [
+          { x: leftX, y: topY },
+          { x: rightX, y: topY },
+          { x: leftX, y: bottomY },
+          { x: rightX, y: bottomY },
+          { x: midLeftX, y: midBottomY },
+          { x: midRightX, y: midTopY },
+          { x: side > 0 ? rightX : leftX, y: Math.max(minY, Math.min(maxY, -currentY * 0.72)) },
+          { x: side > 0 ? midRightX : midLeftX, y: side > 0 ? bottomY : topY }
+        ].map(candidate => ({
+          x: Math.max(minX, Math.min(maxX, candidate.x)),
+          y: Math.max(minY, Math.min(maxY, candidate.y))
+        }));
+
+        let best = candidates[0];
+        let bestScore = -Infinity;
+        candidates.forEach((candidate, index) => {
+          const candidateCenterX = centerX + candidate.x;
+          const candidateCenterY = centerY + candidate.y;
+          const pointerDistance = Math.hypot(candidateCenterX - pointerX, candidateCenterY - pointerY);
+          const currentDistance = Math.hypot(candidate.x - currentX, candidate.y - currentY);
+          const originalDistance = Math.hypot(candidate.x, candidate.y);
+          const sideBonus = Math.sign(candidate.x || side) === side ? 36 : 0;
+          const hugeLeapBonus = currentDistance > window.innerWidth * 0.28 ? 140 : 0;
+          const repeatedPenalty = currentDistance < Math.max(150, rect.width * 0.46) ? 320 : 0;
+          const score = pointerDistance * 1.34 + currentDistance * 1.1 + originalDistance * 0.16 + sideBonus + hugeLeapBonus - repeatedPenalty - index * 0.8;
+          if (score > bestScore) {
+            bestScore = score;
+            best = candidate;
+          }
+        });
+
+        let nextX = best.x;
+        let nextY = best.y;
+        if (Math.hypot(nextX - currentX, nextY - currentY) < Math.max(160, window.innerWidth * 0.22)) {
+          nextX = Math.max(minX, Math.min(maxX, side > 0 ? rightX : leftX));
+          nextY = Math.max(minY, Math.min(maxY, currentY > (minY + maxY) / 2 ? topY : bottomY));
+        }
+
+        nextX = Math.round(nextX);
+        nextY = Math.round(nextY);
+        const moveX = nextX - currentX;
+        const moveY = nextY - currentY;
+        const moveDistance = Math.max(1, Math.hypot(moveX, moveY));
+        const moveUnitX = moveX / moveDistance;
+        const moveUnitY = moveY / moveDistance;
+        const arcSide = dodgeAttemptCount % 2 === 0 ? 1 : -1;
+        const arcDistance = Math.min(64, Math.max(24, moveDistance * 0.08));
+        const arcX = Math.round((-moveUnitY * arcDistance * arcSide) + moveUnitX * 8);
+        const arcY = Math.round((moveUnitX * arcDistance * arcSide) + moveUnitY * 6);
+        const arcTilt = Math.max(-12, Math.min(12, arcSide * 6 + moveUnitX * 5));
+        const rotate = Math.max(-9, Math.min(9, nextX * 0.018 + arcSide * 2.6));
+        const glideShadowX = Math.round(-moveUnitX * 48);
+        const glideShadowY = Math.round(-moveUnitY * 14);
+
+        document.documentElement.style.setProperty("--login-button-start-x", `${Math.round(currentX)}px`);
+        document.documentElement.style.setProperty("--login-button-start-y", `${Math.round(currentY)}px`);
+        document.documentElement.style.setProperty("--login-button-start-rotate", currentRotate);
+        document.documentElement.style.setProperty("--login-button-dodge-x", `${nextX}px`);
+        document.documentElement.style.setProperty("--login-button-dodge-y", `${nextY}px`);
+        document.documentElement.style.setProperty("--login-button-dodge-rotate", `${rotate.toFixed(1)}deg`);
+        document.documentElement.style.setProperty("--login-button-arc-x", `${arcX}px`);
+        document.documentElement.style.setProperty("--login-button-arc-y", `${arcY}px`);
+        document.documentElement.style.setProperty("--login-button-arc-tilt", `${arcTilt.toFixed(1)}deg`);
+        document.documentElement.style.setProperty("--login-button-glide-shadow-x", `${glideShadowX}px`);
+        document.documentElement.style.setProperty("--login-button-glide-shadow-y", `${glideShadowY}px`);
+        document.documentElement.style.setProperty("--login-button-glide-shadow-long-x", `${Math.round(glideShadowX * 1.8)}px`);
+        document.documentElement.style.setProperty("--login-button-glide-shadow-long-y", `${Math.round(glideShadowY * 1.5)}px`);
+        loginBtn.classList.remove("login-btn-escaping");
+        void loginBtn.offsetWidth;
+        loginBtn.classList.add("login-btn-escaping");
+        pulseCosmicFromElement(loginBtn, { char: "↯", kind: "symbol", speed: 5 });
+
+        triggerLoginChaos(pointerX, pointerY, force);
+        markMissingInput(getMissingLoginInput());
+
+        window.clearTimeout(dodgeResetTimer);
+        dodgeResetTimer = window.setTimeout(() => {
+          if (!hasLoginCredentials()) return;
+          resetLoginDodge();
+        }, 700);
+        window.clearTimeout(escapeResetTimer);
+        escapeResetTimer = window.setTimeout(() => {
+          loginBtn?.classList.remove("login-btn-escaping");
+        }, 620);
+      }
+
+      function emitTypingCosmicEffect(event) {
+        if (!isCosmicActive() || !window.LoginCosmicEffects?.type) return;
+        const input = event.currentTarget;
+        const rect = input.getBoundingClientRect();
+        const now = performance.now();
+        const delta = lastTypingAt ? Math.max(16, now - lastTypingAt) : 240;
+        lastTypingAt = now;
+
+        const chars = Math.max(1, String(event.data || "").length || 1);
+        const speed = Math.min(8, Math.max(0.8, (chars * 520) / delta));
+        const deleting = String(event.inputType || "").includes("delete");
+        const char = deleting ? "⌫" : (event.data || input.value.slice(-1) || "∴");
+
+        LoginCosmicEffects.type({
+          x: rect.left + rect.width * 0.5,
+          y: rect.top + rect.height * 0.52,
+          char,
+          kind: deleting ? "symbol" : undefined,
+          speed,
+          secure: input.type === "password"
+        });
+
+        if (hasLoginCredentials()) resetLoginDodge();
+        else if (isCosmicActive() && input.value.length > 0) markMissingInput(getMissingLoginInput());
       }
 
       function setLoginTheme(theme) {
@@ -671,11 +1327,13 @@
         I18n.apply(document);
         renderLanguageSelect();
         setLoginTheme(document.documentElement.dataset.theme || "light");
+        setLoginCosmicMode(document.documentElement.dataset.loginCosmic === "true", { persist: false });
         renderPosts(postsCache);
       }
 
       renderLanguageSelect();
       setLoginTheme(document.documentElement.dataset.theme || "light");
+      setLoginCosmicMode(getStoredCosmicMode(), { persist: false });
 
       languageSelect?.addEventListener("change", async (event) => {
         languageSelect.disabled = true;
@@ -692,15 +1350,60 @@
         setLoginTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
       });
 
+      cosmicToggle?.addEventListener("click", () => {
+        setLoginCosmicMode(document.documentElement.dataset.loginCosmic !== "true");
+      });
+
+      [usernameInput, passwordInput].forEach(input => {
+        input?.addEventListener("input", emitTypingCosmicEffect);
+        input?.addEventListener("focus", event => {
+          pulseCosmicFromElement(event.currentTarget, {
+            char: event.currentTarget.type === "password" ? "∗" : "∴",
+            kind: "symbol",
+            speed: 2.4,
+            secure: event.currentTarget.type === "password"
+          });
+        });
+      });
+
+      loginBtn?.addEventListener("pointermove", event => {
+        dodgeLoginButton(event.clientX, event.clientY, 1.22);
+      }, { passive: true });
+
+      loginBtn?.addEventListener("pointerenter", event => {
+        dodgeLoginButton(event.clientX, event.clientY, 1.42);
+      }, { passive: true });
+
+      loginBtn?.addEventListener("click", event => {
+        if (!isCosmicActive() || hasLoginCredentials()) return;
+        event.preventDefault();
+        dodgeLoginButton(event.clientX, event.clientY, 1.35);
+      });
+
       form.addEventListener("submit", async function (event) {
         event.preventDefault();
         errorMsg.textContent = "";
+
+        if (isCosmicActive() && !hasLoginCredentials()) {
+          const missingInput = usernameInput?.value.trim() ? passwordInput : usernameInput;
+          const fallback = isArabicInterface()
+            ? "أكمل اسم المستخدم وكلمة المرور أولًا."
+            : "Enter your username and password first.";
+          errorMsg.textContent = t("login.form.missingCredentials", {}, fallback);
+          missingInput?.focus();
+          dodgeLoginButton(window.innerWidth / 2, window.innerHeight / 2, 1.35);
+          triggerLoginChaos(window.innerWidth / 2, window.innerHeight / 2, 1.9);
+          markMissingInput(missingInput);
+          pulseCosmicFromElement(errorMsg, { char: "!", kind: "symbol", speed: 6 });
+          return;
+        }
+
         loginBtn.disabled = true;
         if (loginBtnLabel) loginBtnLabel.textContent = t("login.form.submitting", {}, "Signing in...");
         loginBtn.classList.add("loading");
 
-        const username = document.getElementById("username").value.trim();
-        const password = document.getElementById("password").value;
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
 
         try {
           const user = await Auth.login(username, password);

@@ -24,6 +24,21 @@
   --login-radius: 8px;
   --login-pointer-x: 50%;
   --login-pointer-y: 50%;
+  --login-space-shift-x: 0px;
+  --login-space-shift-y: 0px;
+  --login-button-start-x: 0px;
+  --login-button-start-y: 0px;
+  --login-button-start-rotate: 0deg;
+  --login-button-dodge-x: 0px;
+  --login-button-dodge-y: 0px;
+  --login-button-dodge-rotate: 0deg;
+  --login-button-arc-x: 0px;
+  --login-button-arc-y: 0px;
+  --login-button-arc-tilt: 0deg;
+  --login-button-glide-shadow-x: -26px;
+  --login-button-glide-shadow-y: 2px;
+  --login-button-glide-shadow-long-x: -54px;
+  --login-button-glide-shadow-long-y: 4px;
 }
 
 :root[data-theme="dark"] {
@@ -47,6 +62,26 @@
   --login-danger-border: rgba(251, 113, 133, 0.24);
   --login-shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
   --login-shadow-soft: 0 16px 40px rgba(0, 0, 0, 0.3);
+}
+
+:root[data-login-cosmic="true"] {
+  --login-bg: #020617;
+  --login-bg-end: #090b26;
+  --login-surface: rgba(6, 14, 34, 0.5);
+  --login-surface-solid: rgba(8, 17, 39, 0.72);
+  --login-surface-soft: rgba(13, 25, 56, 0.58);
+  --login-border: rgba(186, 230, 253, 0.22);
+  --login-border-strong: rgba(103, 232, 249, 0.48);
+  --login-text: #eef6ff;
+  --login-muted: #bfd1ee;
+  --login-faint: #89a4c7;
+  --login-primary: #67e8f9;
+  --login-primary-strong: #8b5cf6;
+  --login-primary-soft: rgba(103, 232, 249, 0.14);
+  --login-blue: #a78bfa;
+  --login-amber: #fbbf24;
+  --login-shadow: 0 30px 90px rgba(0, 0, 0, 0.42), 0 0 46px rgba(103, 232, 249, 0.1);
+  --login-shadow-soft: 0 22px 70px rgba(0, 0, 0, 0.34), 0 0 34px rgba(139, 92, 246, 0.08);
 }
 
 *,
@@ -76,6 +111,14 @@ body {
 
 :root[data-theme="dark"] body {
   color-scheme: dark;
+}
+
+:root[data-login-cosmic="true"] body {
+  color-scheme: dark;
+  background:
+    linear-gradient(115deg, rgba(12, 74, 110, 0.22), transparent 38%),
+    linear-gradient(245deg, rgba(109, 40, 217, 0.2), transparent 42%),
+    linear-gradient(180deg, #020617 0%, #070a1f 48%, #10071d 100%);
 }
 
 body.modal-open {
@@ -120,6 +163,28 @@ select {
     repeating-linear-gradient(90deg, rgba(226, 232, 240, 0.04) 0 1px, transparent 1px 76px);
 }
 
+:root[data-login-cosmic="true"] .login-ambient::before {
+  opacity: 0.78;
+  background:
+    repeating-linear-gradient(90deg, rgba(186, 230, 253, 0.052) 0 1px, transparent 1px 82px),
+    repeating-linear-gradient(0deg, rgba(167, 139, 250, 0.045) 0 1px, transparent 1px 82px);
+  mask-image: radial-gradient(ellipse at center, #000 0%, #000 58%, transparent 88%);
+}
+
+:root[data-login-cosmic="true"] .login-ambient::after {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  opacity: 0.56;
+  background:
+    radial-gradient(ellipse at 22% 20%, rgba(103, 232, 249, 0.18), transparent 34%),
+    radial-gradient(ellipse at 74% 34%, rgba(167, 139, 250, 0.16), transparent 38%),
+    radial-gradient(ellipse at 48% 78%, rgba(251, 191, 36, 0.08), transparent 34%);
+  filter: blur(6px);
+  transform: translate3d(var(--login-space-shift-x), var(--login-space-shift-y), 0);
+  transition: transform 220ms ease-out;
+}
+
 .login-3d-canvas {
   position: absolute;
   inset: 0;
@@ -148,6 +213,27 @@ select {
   background-image:
     linear-gradient(rgba(45, 212, 191, 0.18) 1px, transparent 1px),
     linear-gradient(90deg, rgba(96, 165, 250, 0.13) 1px, transparent 1px);
+}
+
+:root[data-login-cosmic="true"] .login-ambient-grid {
+  bottom: -34%;
+  height: 72%;
+  opacity: 0.48;
+  background-image:
+    linear-gradient(rgba(103, 232, 249, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(167, 139, 250, 0.17) 1px, transparent 1px);
+  background-size: 64px 64px;
+  animation: cosmic-grid-drift 14s linear infinite;
+}
+
+@keyframes cosmic-grid-drift {
+  from {
+    background-position: 0 0, 0 0;
+  }
+
+  to {
+    background-position: 0 128px, 128px 0;
+  }
 }
 
 .login-shell {
@@ -189,6 +275,7 @@ select {
 
 .login-language-control,
 .login-theme-toggle,
+.login-cosmic-toggle,
 .posts-refresh-btn,
 .modal-close-btn {
   border: 1px solid var(--login-border);
@@ -225,6 +312,7 @@ select {
 }
 
 .login-theme-toggle,
+.login-cosmic-toggle,
 .posts-refresh-btn,
 .modal-close-btn {
   display: inline-flex;
@@ -248,12 +336,29 @@ select {
 }
 
 .login-theme-toggle:hover,
+.login-cosmic-toggle:hover,
 .posts-refresh-btn:hover,
 .modal-close-btn:hover {
   color: var(--login-primary);
   border-color: var(--login-border-strong);
   background: color-mix(in srgb, var(--login-surface-solid) 92%, var(--login-primary-soft));
   transform: translateY(-1px);
+}
+
+.login-cosmic-toggle {
+  min-height: 38px;
+  gap: 8px;
+  padding: 0 12px;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.login-cosmic-toggle[aria-pressed="true"] {
+  color: #03111f;
+  border-color: rgba(103, 232, 249, 0.72);
+  background:
+    linear-gradient(135deg, rgba(103, 232, 249, 0.92), rgba(167, 139, 250, 0.86));
+  box-shadow: 0 14px 28px rgba(103, 232, 249, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.16) inset;
 }
 
 .theme-icon {
@@ -264,6 +369,21 @@ select {
   stroke-width: 1.9;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.cosmic-icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cosmic-icon circle {
+  fill: currentColor;
+  stroke: none;
 }
 
 :root[data-theme="dark"] .theme-icon-sun,
@@ -451,6 +571,8 @@ html[dir="ltr"] .input-icon {
 }
 
 #login-btn {
+  position: relative;
+  isolation: isolate;
   width: 100%;
   min-height: 50px;
   border: 0;
@@ -463,20 +585,22 @@ html[dir="ltr"] .input-icon {
   color: #ffffff;
   cursor: pointer;
   font-weight: 900;
+  overflow: visible;
   box-shadow: 0 16px 30px rgba(15, 118, 110, 0.24);
+  transform: translate3d(var(--login-button-dodge-x), var(--login-button-dodge-y), 0) rotate(var(--login-button-dodge-rotate));
   transition:
-    transform 160ms ease,
+    transform 320ms cubic-bezier(0.16, 1.18, 0.28, 1),
     box-shadow 160ms ease,
     filter 160ms ease;
 }
 
 #login-btn:hover:not(:disabled) {
-  transform: translateY(-1px);
+  transform: translate3d(var(--login-button-dodge-x), var(--login-button-dodge-y), 0) translateY(-1px) rotate(var(--login-button-dodge-rotate));
   box-shadow: 0 20px 36px rgba(15, 118, 110, 0.3);
 }
 
 #login-btn:active:not(:disabled) {
-  transform: translateY(0);
+  transform: translate3d(var(--login-button-dodge-x), var(--login-button-dodge-y), 0) rotate(var(--login-button-dodge-rotate));
 }
 
 #login-btn:disabled {
@@ -822,6 +946,188 @@ html[dir="ltr"] .modal-close-btn {
   color: var(--login-muted) !important;
 }
 
+:root[data-login-cosmic="true"] .login-card,
+:root[data-login-cosmic="true"] .login-posts-panel {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.025)),
+    var(--login-surface);
+  border-color: var(--login-border);
+  box-shadow: var(--login-shadow);
+  backdrop-filter: blur(28px) saturate(1.25);
+}
+
+:root[data-login-cosmic="true"] .login-card {
+  overflow: visible;
+}
+
+:root[data-login-cosmic="true"] .login-card::before {
+  height: 2px;
+  background: linear-gradient(90deg, #67e8f9, #a78bfa, #fbbf24);
+  box-shadow: 0 0 22px rgba(103, 232, 249, 0.42);
+}
+
+:root[data-login-cosmic="true"] .login-language-control,
+:root[data-login-cosmic="true"] .login-theme-toggle,
+:root[data-login-cosmic="true"] .login-cosmic-toggle,
+:root[data-login-cosmic="true"] .posts-refresh-btn,
+:root[data-login-cosmic="true"] .modal-close-btn {
+  background: rgba(8, 17, 39, 0.56);
+  border-color: rgba(186, 230, 253, 0.18);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(24px) saturate(1.24);
+}
+
+:root[data-login-cosmic="true"] .login-cosmic-toggle[aria-pressed="true"] {
+  color: #03111f;
+  border-color: rgba(103, 232, 249, 0.72);
+  background:
+    linear-gradient(135deg, rgba(103, 232, 249, 0.94), rgba(167, 139, 250, 0.88));
+  box-shadow: 0 16px 34px rgba(103, 232, 249, 0.22), 0 0 30px rgba(167, 139, 250, 0.14);
+}
+
+:root[data-login-cosmic="true"] .input-wrapper input {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(186, 230, 253, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+:root[data-login-cosmic="true"] .input-wrapper input:hover,
+:root[data-login-cosmic="true"] .input-wrapper input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(103, 232, 249, 0.55);
+}
+
+:root[data-login-cosmic="true"] #login-btn {
+  background: linear-gradient(135deg, #0891b2, #7c3aed);
+  box-shadow: 0 18px 38px rgba(8, 145, 178, 0.28), 0 0 34px rgba(124, 58, 237, 0.18);
+  will-change: transform, filter;
+}
+
+:root[data-login-cosmic="true"] #login-btn.login-btn-escaping {
+  animation: login-cosmic-instant-shift 470ms cubic-bezier(0.2, 0.95, 0.2, 1) both;
+  box-shadow:
+    var(--login-button-glide-shadow-x) var(--login-button-glide-shadow-y) 28px -18px rgba(103, 232, 249, 0.42),
+    var(--login-button-glide-shadow-long-x) var(--login-button-glide-shadow-long-y) 42px -25px rgba(167, 139, 250, 0.3),
+    0 18px 38px rgba(8, 145, 178, 0.3),
+    0 0 52px rgba(251, 191, 36, 0.24);
+}
+
+:root[data-login-cosmic="true"] #login-btn:hover:not(:disabled) {
+  box-shadow: 0 22px 48px rgba(8, 145, 178, 0.35), 0 0 42px rgba(124, 58, 237, 0.2);
+}
+
+@keyframes login-cosmic-instant-shift {
+  0% {
+    transform: translate3d(var(--login-button-start-x), var(--login-button-start-y), 0) rotate(var(--login-button-start-rotate)) scale(1);
+    opacity: 1;
+    filter: hue-rotate(0deg) saturate(1);
+  }
+
+  18% {
+    transform: translate3d(var(--login-button-start-x), var(--login-button-start-y), 0) rotate(var(--login-button-start-rotate)) scale(0.86);
+    opacity: 0.14;
+    filter: blur(5px) hue-rotate(36deg) saturate(1.8) brightness(1.2);
+  }
+
+  19% {
+    transform:
+      translate3d(
+        calc(var(--login-button-dodge-x) + var(--login-button-arc-x)),
+        calc(var(--login-button-dodge-y) + var(--login-button-arc-y)),
+        0
+      )
+      rotate(calc(var(--login-button-dodge-rotate) + var(--login-button-arc-tilt)))
+      scale(0.86);
+    opacity: 0.12;
+    filter: blur(5px) hue-rotate(36deg) saturate(1.8) brightness(1.2);
+  }
+
+  42% {
+    transform:
+      translate3d(
+        calc(var(--login-button-dodge-x) + var(--login-button-arc-x)),
+        calc(var(--login-button-dodge-y) + var(--login-button-arc-y)),
+        0
+      )
+      rotate(calc(var(--login-button-dodge-rotate) + var(--login-button-arc-tilt)))
+      scale(1.08);
+    opacity: 1;
+    filter: blur(0) hue-rotate(18deg) saturate(1.44) brightness(1.14);
+  }
+
+  72% {
+    transform: translate3d(var(--login-button-dodge-x), var(--login-button-dodge-y), 0) rotate(var(--login-button-dodge-rotate)) scale(0.99);
+    opacity: 1;
+    filter: hue-rotate(-8deg) saturate(1.16) brightness(1.02);
+  }
+
+  100% {
+    transform: translate3d(var(--login-button-dodge-x), var(--login-button-dodge-y), 0) rotate(var(--login-button-dodge-rotate)) scale(1);
+    opacity: 1;
+    filter: hue-rotate(0deg) saturate(1);
+  }
+}
+
+:root[data-login-cosmic="true"] .field-group.is-grumpy-target label {
+  color: #fbbf24;
+}
+
+:root[data-login-cosmic="true"] .field-group.is-grumpy-target .input-wrapper input {
+  border-color: rgba(251, 191, 36, 0.78);
+  box-shadow:
+    0 0 0 4px rgba(251, 191, 36, 0.12),
+    0 0 26px rgba(251, 191, 36, 0.12);
+  animation: login-grumpy-field 480ms ease;
+}
+
+@keyframes login-grumpy-field {
+  0%, 100% {
+    transform: translateX(0);
+  }
+
+  22% {
+    transform: translateX(5px);
+  }
+
+  48% {
+    transform: translateX(-5px);
+  }
+
+  72% {
+    transform: translateX(3px);
+  }
+}
+
+:root[data-login-cosmic="true"] .login-post-list-card,
+:root[data-login-cosmic="true"] .posts-status {
+  background: rgba(8, 17, 39, 0.5) !important;
+  border-color: rgba(186, 230, 253, 0.18) !important;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.16) !important;
+  backdrop-filter: blur(18px) saturate(1.18);
+}
+
+:root[data-login-cosmic="true"] .login-post-list-card:hover {
+  border-color: rgba(103, 232, 249, 0.42) !important;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.26), 0 0 30px rgba(103, 232, 249, 0.1) !important;
+}
+
+:root[data-login-cosmic="true"] .login-post-list-card .student-post-thumb,
+:root[data-login-cosmic="true"] .login-post-list-card .student-post-thumb-placeholder {
+  background: rgba(13, 25, 56, 0.64) !important;
+}
+
+:root[data-login-cosmic="true"] .login-post-list-card .student-post-open {
+  color: #03111f !important;
+  background: #eef6ff !important;
+}
+
+:root[data-login-cosmic="true"] .login-post-modal-card,
+:root[data-login-cosmic="true"] .login-post-detail {
+  background: rgba(8, 17, 39, 0.86) !important;
+  border-color: rgba(186, 230, 253, 0.22) !important;
+  backdrop-filter: blur(26px) saturate(1.2);
+}
+
 :root[data-theme="dark"] .login-post-list-card:hover {
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.28) !important;
 }
@@ -833,6 +1139,11 @@ html[dir="ltr"] .modal-close-btn {
 
 :root[data-theme="dark"] .login-post-list-card .student-post-open:hover {
   background: var(--login-primary) !important;
+}
+
+:root[data-login-cosmic="true"] .login-post-list-card .student-post-open:hover {
+  color: #ffffff !important;
+  background: #0891b2 !important;
 }
 
 :root[data-theme="dark"] .md-body blockquote,
@@ -874,7 +1185,8 @@ html[dir="ltr"] .modal-close-btn {
   }
 
   .login-language-control,
-  .login-theme-toggle {
+  .login-theme-toggle,
+  .login-cosmic-toggle {
     flex: 1 1 auto;
     justify-content: center;
   }
