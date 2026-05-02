@@ -8,23 +8,23 @@ from utils import create_indexed_heading, normal_text, subtitle_style
 BENEFITS = [
     (
         "Administrative efficiency",
-        "Centralizes student records, parent information, enrollments, schedules, and daily follow-up.",
+        "Centralizes records, enrollments, schedules, and follow-up.",
     ),
     (
         "Pedagogical follow-up",
-        "Allows teachers, students, and parents to follow assessments, grades, attendance, and resources.",
+        "Tracks assessments, grades, attendance, and resources.",
     ),
     (
         "Communication",
-        "Improves information exchange through messages, notifications, and administration posts.",
+        "Uses messages, notifications, and administration posts.",
     ),
     (
         "Financial clarity",
-        "Supports fee tracking, payments, transactions, reminders, and student financial files.",
+        "Supports fees, payments, transactions, and reminders.",
     ),
     (
         "Role-based organization",
-        "Separates responsibilities between administration, reception, accounting, teachers, students, and parents.",
+        "Separates dashboards by responsibility and user role.",
     ),
 ]
 
@@ -87,64 +87,33 @@ def build(story):
     story.append(Paragraph("Opening Statement", subtitle_style))
     story.append(Paragraph(
         """
-        The School Management System was designed as a practical response to the needs of modern
-        educational institutions. The project aims to connect administration, teachers, parents,
-        students, reception staff, and financial managers inside one coherent web platform.
-        The goal is not only to digitize isolated operations, but also to make school information
-        easier to organize, access, review, and communicate.
+        The project is a role-based web application for school management. It connects administration,
+        reception, accounting, teachers, students, and parents through one frontend/backend platform.
         """,
         normal_text,
     ))
     story.append(Spacer(1, 8))
 
     story.append(Paragraph("System Benefits", subtitle_style))
-    story.append(Paragraph(
-        """
-        The system provides value by reducing repeated manual work, improving the visibility of
-        academic progress, and giving each user a dedicated workspace that matches their role.
-        """,
-        normal_text,
-    ))
     story.append(_benefits_table())
-    story.append(Spacer(1, 12))
+    story.append(Spacer(1, 10))
 
     story.append(Paragraph("Initial Data Modeling with Al Abakera Excel Data", subtitle_style))
     story.append(Paragraph(
         """
-        At the beginning of the project, an Excel-based data reference related to Al Abakera School
-        was used to understand the real structure of school information. This helped identify the
-        main data entities, such as users, students, parents, teachers, classes, enrollments, fees,
-        payments, attendance, schedules, assessments, grades, and resources.
+        At the beginning, an Excel data reference from Al Abakera School was used to identify the
+        main entities: users, students, parents, teachers, classes, enrollments, fees, payments,
+        attendance, schedules, assessments, grades, and resources.
         """,
         normal_text,
     ))
-    story.append(Spacer(1, 8))
-    story.append(Paragraph(
-        """
-        This early spreadsheet analysis supported the transition from raw operational data to a more
-        structured relational model. The UML class diagram and the backend database managers were then
-        organized around these domains to keep the implementation close to realistic school workflows.
-        """,
-        normal_text,
-    ))
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 6))
 
     story.append(Paragraph("Hosting, Port Forwarding, and Cloud Services", subtitle_style))
     story.append(Paragraph(
         """
-        To make the application testable outside the local development environment, hosted access was
-        configured with port forwarding for both the frontend and the backend. This allowed the web
-        interface and the FastAPI service to be reached remotely during testing and demonstration.
-        """,
-        normal_text,
-    ))
-    story.append(Spacer(1, 8))
-    story.append(Paragraph(
-        """
-        Cloud services were also used to support remote access, availability, and collaboration during
-        the project. This deployment approach reflects the architecture expected from a web-based school
-        management platform: a browser-based frontend communicating with a backend API and a persistent
-        database layer.
+        Port forwarding was configured for both frontend and backend services to support remote testing.
+        Cloud services were used to make the hosted demonstration accessible outside the local network.
         """,
         normal_text,
     ))
