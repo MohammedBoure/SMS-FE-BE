@@ -29,12 +29,17 @@ const StudentUI = {
               ${options}
             </select>
           </label>
+          <button type="button" class="student-theme-toggle" id="student-theme-toggle" aria-pressed="false">
+            <span class="student-theme-indicator" aria-hidden="true"></span>
+            <span class="student-theme-label">${this.t("student.theme.light", {}, "Light")}</span>
+          </button>
           <button id="logout-btn">${this.t("student.auth.logout", {}, "Log out")}</button>
         </div>
       </div>
     `;
 
     document.getElementById("logout-btn")?.addEventListener("click", () => Auth.logout());
+    this.initTheme();
     const languageSelect = document.getElementById("student-language-select");
     if (languageSelect && window.I18n) {
       languageSelect.addEventListener("change", async (event) => {
@@ -42,6 +47,48 @@ const StudentUI = {
         await I18n.setLanguage(event.target.value);
         languageSelect.disabled = false;
       });
+    }
+  },
+
+  initTheme() {
+    const stored = window.AppPreferences
+      ? AppPreferences.getTheme("student", document.documentElement.dataset.theme)
+      : (localStorage.getItem("sms-theme") || localStorage.getItem("student-theme"));
+    const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    this.applyTheme(stored || document.documentElement.dataset.theme || preferred);
+
+    const toggle = document.getElementById("student-theme-toggle");
+    if (!toggle || toggle.dataset.bound === "true") return;
+
+    toggle.addEventListener("click", () => {
+      const current = document.body.dataset.theme === "dark" ? "dark" : "light";
+      this.applyTheme(current === "dark" ? "light" : "dark");
+    });
+    toggle.dataset.bound = "true";
+  },
+
+  applyTheme(theme) {
+    const nextTheme = window.AppPreferences
+      ? AppPreferences.applyTheme(theme, { scope: "student", persist: true })
+      : (theme === "dark" ? "dark" : "light");
+    if (!window.AppPreferences) {
+      document.documentElement.dataset.theme = nextTheme;
+      document.body.dataset.theme = nextTheme;
+      localStorage.setItem("sms-theme", nextTheme);
+      localStorage.setItem("student-theme", nextTheme);
+      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
+    }
+
+    const toggle = document.getElementById("student-theme-toggle");
+    if (!toggle) return;
+
+    const isDark = nextTheme === "dark";
+    toggle.setAttribute("aria-pressed", isDark ? "true" : "false");
+    const label = toggle.querySelector(".student-theme-label");
+    if (label) {
+      label.textContent = isDark
+        ? this.t("student.theme.dark", {}, "Dark")
+        : this.t("student.theme.light", {}, "Light");
     }
   },
 

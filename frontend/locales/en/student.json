@@ -233,6 +233,10 @@
     },
     "currency": {
       "dzd": "DZD"
+    },
+    "theme": {
+      "light": "Light",
+      "dark": "Dark"
     }
   }
 }

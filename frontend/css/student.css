@@ -324,6 +324,54 @@ body {
   background: var(--surface);
 }
 
+.student-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 38px;
+  padding: 0.38rem 0.72rem;
+  border: 1px solid var(--border-dark);
+  border-radius: var(--r);
+  background: var(--surface-2);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background var(--t-fast), border-color var(--t-fast), color var(--t-fast), transform var(--t-fast), box-shadow var(--t-fast);
+}
+
+.student-theme-toggle:hover,
+.student-theme-toggle:focus-visible {
+  background: var(--surface-hover);
+  border-color: var(--teal);
+  color: var(--teal);
+  box-shadow: 0 8px 18px rgba(13, 148, 136, 0.14);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.student-theme-indicator {
+  width: 17px;
+  height: 17px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 65% 35%, transparent 0 36%, currentColor 37% 38%, transparent 39%),
+    linear-gradient(135deg, #f59e0b, #facc15);
+  box-shadow: inset -4px -4px 0 rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="dark"] .student-theme-indicator {
+  background:
+    radial-gradient(circle at 66% 34%, var(--surface-2) 0 36%, transparent 37%),
+    linear-gradient(135deg, #cbd5e1, #e0f2fe);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.12), 0 6px 14px rgba(45, 212, 191, 0.16);
+}
+
+.student-theme-label {
+  line-height: 1;
+}
+
 /* ==========================================================================
    Main Content  (#student-main)
    ========================================================================== */
@@ -1123,6 +1171,21 @@ td strong[style*="#e11d48"] {
     min-height: 34px;
     padding: 0 0.45rem;
     font-size: 0.78rem;
+  }
+
+  .student-theme-toggle {
+    min-width: 34px;
+    min-height: 34px;
+    padding: 0.35rem 0.45rem;
+  }
+
+  .student-theme-label {
+    display: none;
+  }
+
+  .student-theme-indicator {
+    width: 16px;
+    height: 16px;
   }
 
   #logout-btn {

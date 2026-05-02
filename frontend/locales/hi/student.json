@@ -234,6 +234,10 @@
     },
     "currency": {
       "dzd": "DZD"
+    },
+    "theme": {
+      "light": "लाइट",
+      "dark": "डार्क"
     }
   }
 }
