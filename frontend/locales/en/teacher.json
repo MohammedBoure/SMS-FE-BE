@@ -39,7 +39,8 @@
   "teacher": {
     "documentTitle": "Teacher Dashboard",
     "brand": {
-      "welcome": "Welcome, teacher {name}"
+      "welcome": "Welcome, teacher {name}",
+      "subtitle": "Teaching workspace"
     },
     "language": {
       "label": "Language",
@@ -237,6 +238,10 @@
       "assessmentCreated": "Assessment created.",
       "gradeSaved": "Grade saved.",
       "resourceUploaded": "Resource uploaded."
+    },
+    "theme": {
+      "light": "Light",
+      "dark": "Dark"
     }
   }
 }

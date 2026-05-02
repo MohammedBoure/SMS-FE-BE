@@ -40,7 +40,8 @@
   "teacher": {
     "documentTitle": "शिक्षक डैशबोर्ड",
     "brand": {
-      "welcome": "स्वागत है, शिक्षक {name}"
+      "welcome": "स्वागत है, शिक्षक {name}",
+      "subtitle": "शिक्षक कार्यक्षेत्र"
     },
     "language": {
       "label": "भाषा",
@@ -238,6 +239,10 @@
       "assessmentCreated": "मूल्यांकन बनाया गया।",
       "gradeSaved": "अंक सहेजे गए।",
       "resourceUploaded": "संसाधन अपलोड हुआ।"
+    },
+    "theme": {
+      "light": "लाइट",
+      "dark": "डार्क"
     }
   }
 }

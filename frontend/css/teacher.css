@@ -318,6 +318,43 @@ body {
   font-weight: 800;
 }
 
+.teacher-brand {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.teacher-brand-mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--indigo), var(--violet));
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: .04em;
+  box-shadow: 0 10px 24px rgba(79,70,229,.18);
+}
+
+.teacher-brand-copy {
+  min-width: 0;
+}
+
+.teacher-brand-copy h1 {
+  margin: 0;
+  line-height: 1.25;
+}
+
+.teacher-brand-copy small {
+  display: block;
+  margin-top: .16rem;
+  color: var(--txt-3);
+  font-weight: 700;
+}
+
 .teacher-language-control select {
   min-height: 38px;
   border: 1px solid var(--border-2);
@@ -333,6 +370,44 @@ body {
 .teacher-language-control option {
   color: var(--txt-1);
   background: var(--surface);
+}
+
+.teacher-theme-toggle {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem .78rem !important;
+  border: 1px solid var(--border-2) !important;
+  border-radius: var(--r-sm) !important;
+  background: var(--surface) !important;
+  color: var(--txt-2) !important;
+  box-shadow: none !important;
+}
+
+.teacher-theme-toggle:hover,
+.teacher-theme-toggle:focus-visible {
+  border-color: var(--indigo) !important;
+  color: var(--txt-1) !important;
+  background: var(--surface-hover) !important;
+  transform: translateY(-1px);
+}
+
+.teacher-theme-indicator {
+  width: 17px;
+  height: 17px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  box-shadow: inset -5px -2px 0 rgba(79,70,229,.25);
+}
+
+body[data-theme="dark"] .teacher-theme-indicator {
+  box-shadow: inset 5px -2px 0 rgba(229,238,251,.72);
+}
+
+.teacher-theme-label {
+  font-size: .86rem;
+  font-weight: 800;
 }
 
 /* ==========================================================================
@@ -1161,4 +1236,291 @@ button:active { transform: translateY(0); box-shadow: none; }
   #teacher-app { display: block; }
   #teacher-main { padding: 0; }
   table { box-shadow: none; border: 1px solid #ccc; }
+}
+
+/* ==========================================================================
+   Professional Light/Dark Polish
+   ========================================================================== */
+body {
+  background:
+    radial-gradient(circle at 12% -8%, rgba(79,70,229,.08), transparent 32rem),
+    linear-gradient(180deg, rgba(79,70,229,.04), transparent 260px),
+    var(--bg);
+}
+
+body[data-theme="dark"] {
+  background:
+    radial-gradient(circle at 12% -8%, rgba(129,140,248,.16), transparent 34rem),
+    radial-gradient(circle at 96% 0%, rgba(14,165,233,.10), transparent 28rem),
+    var(--bg);
+}
+
+body[data-theme="dark"] #teacher-header {
+  background: rgba(17,24,39,.92);
+  backdrop-filter: blur(14px);
+}
+
+body[data-theme="dark"] #teacher-nav {
+  background:
+    linear-gradient(180deg, rgba(22,23,42,.98), rgba(15,16,32,.98));
+  box-shadow: -1px 0 0 rgba(255,255,255,.05) inset;
+}
+
+body[data-theme="dark"] #teacher-nav::before {
+  background:
+    linear-gradient(135deg, rgba(79,70,229,.26), transparent),
+    var(--sb-bg-mid);
+  border-bottom-color: rgba(255,255,255,.07);
+}
+
+body[data-theme="dark"] .nav-btn {
+  color: #94a3b8;
+}
+
+body[data-theme="dark"] .nav-btn:hover,
+body[data-theme="dark"] .nav-btn.active {
+  background: rgba(129,140,248,.15);
+  color: #e0e7ff;
+}
+
+body[data-theme="dark"] .teacher-brand-mark {
+  box-shadow: 0 14px 30px rgba(0,0,0,.28);
+}
+
+body[data-theme="dark"] #teacher-main h2 {
+  border-bottom-color: var(--border);
+}
+
+#teacher-main textarea,
+#teacher-main input[type="email"],
+#teacher-main input[type="password"],
+#teacher-main input[type="search"] {
+  font-family: 'Tajawal', sans-serif;
+  color: var(--txt-1);
+  background: var(--surface);
+  border: 1.5px solid var(--border-2);
+  border-radius: var(--r);
+  outline: none;
+}
+
+body[data-theme="dark"] select,
+body[data-theme="dark"] input[type="text"],
+body[data-theme="dark"] input[type="number"],
+body[data-theme="dark"] input[type="date"],
+body[data-theme="dark"] input[type="file"],
+body[data-theme="dark"] #teacher-main textarea,
+body[data-theme="dark"] #teacher-main input[type="email"],
+body[data-theme="dark"] #teacher-main input[type="password"],
+body[data-theme="dark"] #teacher-main input[type="search"] {
+  background: #0f172a !important;
+  color: var(--txt-1) !important;
+  border-color: var(--border-2) !important;
+}
+
+body[data-theme="dark"] input::placeholder,
+body[data-theme="dark"] textarea::placeholder {
+  color: #74839a;
+}
+
+body[data-theme="dark"] table {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--sh);
+}
+
+body[data-theme="dark"] thead {
+  background: linear-gradient(135deg, rgba(79,70,229,.28), rgba(15,16,32,.96));
+}
+
+body[data-theme="dark"] thead th,
+body[data-theme="dark"] thead tr[style] th {
+  color: #dbeafe !important;
+}
+
+body[data-theme="dark"] tbody td {
+  color: var(--txt-2);
+  border-color: var(--border);
+}
+
+body[data-theme="dark"] tbody tr:nth-child(even) {
+  background: rgba(255,255,255,.025);
+}
+
+body[data-theme="dark"] tbody tr:hover,
+body[data-theme="dark"] tbody tr:nth-child(even):hover {
+  background: rgba(129,140,248,.10);
+}
+
+body[data-theme="dark"] .teacher-panel,
+body[data-theme="dark"] #teacher-main > div[style*="margin-bottom"],
+body[data-theme="dark"] #teacher-main > div[style*="background:#ecf0f1"],
+body[data-theme="dark"] #teacher-main > div[style*="background: #ecf0f1"],
+body[data-theme="dark"] .teacher-messages-header,
+body[data-theme="dark"] .teacher-message-contacts,
+body[data-theme="dark"] .teacher-chat-panel,
+body[data-theme="dark"] .teacher-notification-card,
+body[data-theme="dark"] .teacher-message-inline-note {
+  background: var(--surface) !important;
+  color: var(--txt-1) !important;
+  border-color: var(--border) !important;
+}
+
+body[data-theme="dark"] .teacher-message-panel-title,
+body[data-theme="dark"] .teacher-chat-header {
+  background: var(--surface-2);
+  color: var(--txt-2);
+  border-bottom-color: var(--border);
+}
+
+body[data-theme="dark"] .teacher-chat-messages {
+  background:
+    linear-gradient(rgba(17,24,39,.92), rgba(17,24,39,.92)),
+    radial-gradient(circle at 12% 12%, rgba(129,140,248,.12), transparent 20rem);
+}
+
+body[data-theme="dark"] .teacher-message-bubble {
+  background: rgba(96,165,250,.16);
+  color: #dbeafe;
+  border-color: rgba(96,165,250,.32);
+}
+
+body[data-theme="dark"] .teacher-message-bubble.mine {
+  background: rgba(45,212,191,.16);
+  color: #ccfbf1;
+  border-color: rgba(45,212,191,.34);
+}
+
+body[data-theme="dark"] .teacher-message-inline-note.error {
+  background: rgba(251,113,133,.12);
+  color: #fecdd3;
+  border-color: rgba(251,113,133,.34);
+}
+
+body[data-theme="dark"] .teacher-notification-title-row span {
+  background: rgba(251,191,36,.14);
+  color: #fde68a;
+  border-color: rgba(251,191,36,.35);
+}
+
+body[data-theme="dark"] .teacher-notification-card.is-read .teacher-notification-title-row span,
+body[data-theme="dark"] .teacher-notification-action.is-read {
+  background: rgba(74,222,128,.14);
+  color: #bbf7d0;
+  border-color: rgba(74,222,128,.34);
+}
+
+body[data-theme="dark"] .teacher-message-contact:hover,
+body[data-theme="dark"] .teacher-message-contact.active,
+body[data-theme="dark"] .teacher-message-user-result:hover {
+  background: rgba(129,140,248,.12) !important;
+}
+
+body[data-theme="dark"] #teacher-main [style*="background: white"],
+body[data-theme="dark"] #teacher-main [style*="background:white"],
+body[data-theme="dark"] #teacher-main [style*="background: #fff"],
+body[data-theme="dark"] #teacher-main [style*="background:#fff"],
+body[data-theme="dark"] #teacher-main [style*="background: #ffffff"],
+body[data-theme="dark"] #teacher-main [style*="background:#ffffff"] {
+  background: var(--surface) !important;
+  color: var(--txt-1) !important;
+  border-color: var(--border) !important;
+}
+
+body[data-theme="dark"] #teacher-main [style*="background: #f8fafc"],
+body[data-theme="dark"] #teacher-main [style*="background:#f8fafc"],
+body[data-theme="dark"] #teacher-main [style*="background: #f1f5f9"],
+body[data-theme="dark"] #teacher-main [style*="background:#f1f5f9"] {
+  background: var(--surface-2) !important;
+  color: var(--txt-1) !important;
+  border-color: var(--border) !important;
+}
+
+body[data-theme="dark"] #teacher-main [style*="color: #0f172a"],
+body[data-theme="dark"] #teacher-main [style*="color:#0f172a"],
+body[data-theme="dark"] #teacher-main [style*="color: #334155"],
+body[data-theme="dark"] #teacher-main [style*="color:#334155"] {
+  color: var(--txt-1) !important;
+}
+
+body[data-theme="dark"] #teacher-main [style*="color: #64748b"],
+body[data-theme="dark"] #teacher-main [style*="color:#64748b"] {
+  color: var(--txt-3) !important;
+}
+
+body[data-theme="dark"] .student-post-list-card,
+body[data-theme="dark"] .student-post-card,
+body[data-theme="dark"] .posts-header-bar {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+  color: var(--txt-1) !important;
+}
+
+body[data-theme="dark"] .md-body,
+body[data-theme="dark"] .preview-title,
+body[data-theme="dark"] .student-post-list-title {
+  color: var(--txt-1) !important;
+}
+
+body[data-theme="dark"] .student-post-summary p,
+body[data-theme="dark"] .student-post-date,
+body[data-theme="dark"] .student-post-label {
+  color: var(--txt-3) !important;
+}
+
+@media (max-width: 640px) {
+  .teacher-brand {
+    gap: .5rem;
+  }
+
+  .teacher-brand-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    font-size: .86rem;
+  }
+
+  .teacher-brand-copy small,
+  .teacher-theme-label {
+    display: none;
+  }
+
+  .teacher-theme-toggle {
+    min-width: 36px;
+    min-height: 34px;
+    padding: .35rem .45rem !important;
+    justify-content: center;
+  }
+
+  .teacher-theme-indicator {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media print {
+  #teacher-nav,
+  #teacher-header,
+  button {
+    display: none !important;
+  }
+
+  #teacher-app {
+    display: block;
+  }
+
+  #teacher-main {
+    padding: 0;
+  }
+
+  body,
+  body[data-theme="dark"],
+  body[data-theme="light"] {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  table {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+  }
 }

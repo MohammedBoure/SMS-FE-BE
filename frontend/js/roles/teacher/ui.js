@@ -21,7 +21,13 @@ const TeacherUI = {
 
     header.innerHTML = `
       <div class="teacher-header-shell">
-        <h1>${this.t("teacher.brand.welcome", { name: this._escape(name) }, `Welcome, teacher ${this._escape(name)}`)}</h1>
+        <div class="teacher-brand">
+          <div class="teacher-brand-mark" aria-hidden="true">T</div>
+          <div class="teacher-brand-copy">
+            <h1>${this.t("teacher.brand.welcome", { name: this._escape(name) }, `Welcome, teacher ${this._escape(name)}`)}</h1>
+            <small>${this.t("teacher.brand.subtitle", {}, "Teaching workspace")}</small>
+          </div>
+        </div>
         <div class="teacher-header-actions">
           <label class="teacher-language-control">
             <span>${this.t("teacher.language.label", {}, "Language")}</span>
@@ -29,12 +35,17 @@ const TeacherUI = {
               ${options}
             </select>
           </label>
+          <button type="button" class="teacher-theme-toggle" id="teacher-theme-toggle" aria-pressed="false">
+            <span class="teacher-theme-indicator" aria-hidden="true"></span>
+            <span class="teacher-theme-label">${this.t("teacher.theme.light", {}, "Light")}</span>
+          </button>
           <button id="logout-btn">${this.t("teacher.auth.logout", {}, "Log out")}</button>
         </div>
       </div>
     `;
 
     document.getElementById("logout-btn")?.addEventListener("click", () => Auth.logout());
+    this.initTheme();
     const languageSelect = document.getElementById("teacher-language-select");
     if (languageSelect && window.I18n) {
       languageSelect.addEventListener("change", async (event) => {
@@ -42,6 +53,48 @@ const TeacherUI = {
         await I18n.setLanguage(event.target.value);
         languageSelect.disabled = false;
       });
+    }
+  },
+
+  initTheme() {
+    const stored = window.AppPreferences
+      ? AppPreferences.getTheme("teacher", document.documentElement.dataset.theme)
+      : (localStorage.getItem("sms-theme") || localStorage.getItem("teacher-theme"));
+    const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    this.applyTheme(stored || document.documentElement.dataset.theme || preferred);
+
+    const toggle = document.getElementById("teacher-theme-toggle");
+    if (!toggle || toggle.dataset.bound === "true") return;
+
+    toggle.addEventListener("click", () => {
+      const current = document.body.dataset.theme === "dark" ? "dark" : "light";
+      this.applyTheme(current === "dark" ? "light" : "dark");
+    });
+    toggle.dataset.bound = "true";
+  },
+
+  applyTheme(theme) {
+    const nextTheme = window.AppPreferences
+      ? AppPreferences.applyTheme(theme, { scope: "teacher", persist: true })
+      : (theme === "dark" ? "dark" : "light");
+    if (!window.AppPreferences) {
+      document.documentElement.dataset.theme = nextTheme;
+      document.body.dataset.theme = nextTheme;
+      localStorage.setItem("sms-theme", nextTheme);
+      localStorage.setItem("teacher-theme", nextTheme);
+      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
+    }
+
+    const toggle = document.getElementById("teacher-theme-toggle");
+    if (!toggle) return;
+
+    const isDark = nextTheme === "dark";
+    toggle.setAttribute("aria-pressed", isDark ? "true" : "false");
+    const label = toggle.querySelector(".teacher-theme-label");
+    if (label) {
+      label.textContent = isDark
+        ? this.t("teacher.theme.dark", {}, "Dark")
+        : this.t("teacher.theme.light", {}, "Light");
     }
   },
 

@@ -40,7 +40,8 @@
   "teacher": {
     "documentTitle": "教师仪表盘",
     "brand": {
-      "welcome": "欢迎，{name} 老师"
+      "welcome": "欢迎，{name} 老师",
+      "subtitle": "教师工作区"
     },
     "language": {
       "label": "语言",
@@ -238,6 +239,10 @@
       "assessmentCreated": "评估已创建。",
       "gradeSaved": "成绩已保存。",
       "resourceUploaded": "资源已上传。"
+    },
+    "theme": {
+      "light": "浅色",
+      "dark": "深色"
     }
   }
 }

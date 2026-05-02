@@ -40,7 +40,8 @@
   "teacher": {
     "documentTitle": "Panel del docente",
     "brand": {
-      "welcome": "Bienvenido/a, docente {name}"
+      "welcome": "Bienvenido/a, docente {name}",
+      "subtitle": "Espacio docente"
     },
     "language": {
       "label": "Idioma",
@@ -238,6 +239,10 @@
       "assessmentCreated": "Evaluación creada.",
       "gradeSaved": "Nota guardada.",
       "resourceUploaded": "Recurso subido."
+    },
+    "theme": {
+      "light": "Claro",
+      "dark": "Oscuro"
     }
   }
 }

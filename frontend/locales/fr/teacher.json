@@ -40,7 +40,8 @@
   "teacher": {
     "documentTitle": "Tableau de bord enseignant",
     "brand": {
-      "welcome": "Bienvenue, enseignant(e) {name}"
+      "welcome": "Bienvenue, enseignant(e) {name}",
+      "subtitle": "Espace enseignant"
     },
     "language": {
       "label": "Langue",
@@ -238,6 +239,10 @@
       "assessmentCreated": "Évaluation créée.",
       "gradeSaved": "Note enregistrée.",
       "resourceUploaded": "Ressource téléversée."
+    },
+    "theme": {
+      "light": "Clair",
+      "dark": "Sombre"
     }
   }
 }

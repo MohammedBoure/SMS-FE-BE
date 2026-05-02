@@ -39,7 +39,8 @@
   "teacher": {
     "documentTitle": "لوحة الأستاذ",
     "brand": {
-      "welcome": "مرحبا، الأستاذ(ة) {name}"
+      "welcome": "مرحبا، الأستاذ(ة) {name}",
+      "subtitle": "مساحة عمل الأستاذ"
     },
     "language": {
       "label": "اللغة",
@@ -237,6 +238,10 @@
       "assessmentCreated": "تم إنشاء التقييم.",
       "gradeSaved": "تم رصد العلامة.",
       "resourceUploaded": "تم رفع الملف."
+    },
+    "theme": {
+      "light": "فاتح",
+      "dark": "داكن"
     }
   }
 }
