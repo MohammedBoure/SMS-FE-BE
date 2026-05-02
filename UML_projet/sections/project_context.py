@@ -104,7 +104,10 @@ def build(story):
         """
         At the beginning, an Excel data reference from Al Abakera School was used to identify the
         main entities: users, students, parents, teachers, classes, enrollments, fees, payments,
-        attendance, schedules, assessments, grades, and resources.
+        attendance, schedules, assessments, grades, and resources. After understanding this structure
+        in depth, the data model was formalized with UML diagrams, then implemented as a Python backend
+        and a vanilla JavaScript frontend. Both layers communicate through REST APIs, with MySQL used as
+        the relational database.
         """,
         normal_text,
     ))
