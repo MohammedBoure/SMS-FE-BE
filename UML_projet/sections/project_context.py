@@ -1,6 +1,6 @@
 from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
-from reportlab.platypus import Paragraph, Spacer, Table, TableStyle
+from reportlab.platypus import ListFlowable, ListItem, Paragraph, Spacer, Table, TableStyle
 
 from utils import create_indexed_heading, normal_text, subtitle_style
 
@@ -80,6 +80,33 @@ def _benefits_table():
     return table
 
 
+def _methodology_steps():
+    steps = [
+        "Excel data analysis from Al Abakera School.",
+        "Identification of the main entities: users, students, parents, teachers, classes, enrollments, fees, payments, attendance, schedules, assessments, grades, and resources.",
+        "In-depth understanding of the data structure and its relationships.",
+        "Data model design using UML diagrams.",
+        "Backend development with Python and FastAPI.",
+        "Frontend development with HTML, CSS, and vanilla JavaScript.",
+        "Frontend/backend communication through REST APIs.",
+        "Use of MySQL as the relational database.",
+    ]
+
+    return ListFlowable(
+        [
+            ListItem(Paragraph(step, normal_text), leftIndent=10)
+            for step in steps
+        ],
+        bulletType="bullet",
+        leftIndent=18,
+        bulletFontName="Helvetica-Bold",
+        bulletFontSize=7,
+        bulletOffsetY=1,
+        spaceBefore=2,
+        spaceAfter=4,
+    )
+
+
 def build(story):
     create_indexed_heading(story, "Project Context and Benefits", level=0)
     story.append(Spacer(1, 10))
@@ -100,17 +127,7 @@ def build(story):
     story.append(Spacer(1, 10))
 
     story.append(Paragraph("Initial Data Modeling with Al Abakera Excel Data", subtitle_style))
-    story.append(Paragraph(
-        """
-        At the beginning, an Excel data reference from Al Abakera School was used to identify the
-        main entities: users, students, parents, teachers, classes, enrollments, fees, payments,
-        attendance, schedules, assessments, grades, and resources. After understanding this structure
-        in depth, the data model was formalized with UML diagrams, then implemented as a Python backend
-        and a vanilla JavaScript frontend. Both layers communicate through REST APIs, with MySQL used as
-        the relational database.
-        """,
-        normal_text,
-    ))
+    story.append(_methodology_steps())
     story.append(Spacer(1, 6))
 
     story.append(Paragraph("Hosting, Port Forwarding, and Cloud Services", subtitle_style))
