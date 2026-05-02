@@ -1,278 +1,115 @@
 @startuml Navigation_Diagram
 
-' ============================================================
-' هندسة الخطوط والمسافات (لجعل المخطط مرتباً وبدون تداخل)
-' ============================================================
+' A4 portrait navigation map.
+' Compact role-based frontend flow focused on readable printed output.
+top to bottom direction
+hide empty description
+scale max 1240*1754
+
+skinparam dpi 180
 skinparam linetype ortho
-skinparam nodesep 50
-skinparam ranksep 60
-
+skinparam nodesep 34
+skinparam ranksep 40
+skinparam padding 4
+skinparam pageMargin 2
 skinparam shadowing false
-skinparam roundcorner 10
+skinparam roundcorner 8
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
 skinparam ArrowColor #455A64
-skinparam ArrowThickness 1.5
+skinparam ArrowThickness 1.4
+skinparam ArrowFontSize 15
+skinparam StateFontSize 18
+skinparam StateAttributeFontSize 15
+skinparam StateBorderColor #37474F
 skinparam StateBackgroundColor #FFFFFF
-skinparam StateBorderColor #546E7A
-skinparam StateFontSize 11
-skinparam StateAttributeFontSize 10
-skinparam NoteBackgroundColor #FFF9C4
-skinparam NoteBorderColor #F57F17
 
-' ============================================================
-' ENTRY POINT
-' ============================================================
-[*] -down-> Login : App opened
+[*] --> Index
 
-state Login #FFCDD2 {
-  Login : Credentials form
-  Login : username + password
+state "index.html\nRouter" as Index #E3F2FD {
+  Index : Reads stored session
+  Index : Sends user to login or role dashboard
 }
 
-Login -down-> Dashboard : Auth success
-Login -left-> Login : Invalid credentials\nor suspended
-
-' ============================================================
-' DASHBOARD (Hub)
-' ============================================================
-state Dashboard #E3F2FD {
-  Dashboard : KPI overview
-  Dashboard : Quick actions
-  Dashboard : Alerts & summary
+state "login.html\nAuthentication" as Login #FFEBEE {
+  Login : Credentials
+  Login : Public posts
+  Login : Language and theme
 }
 
-' ============================================================
-' GROUP 1 — Settings & System Config
-' ============================================================
-state "Settings & Config" as GRP_SETTINGS {
-
-  state Branches #CFD8DC {
-    Branches : CRUD branches
-  }
-
-  state AcademicYears #CFD8DC {
-    AcademicYears : Manage years
-  }
-
-  state FinancialPolicies #CFD8DC {
-    FinancialPolicies : Manage policies
-  }
-
-  state SystemLogs #CFD8DC {
-    SystemLogs : View all events
-  }
-  
-  state RolesPermissions #CFD8DC {
-    RolesPermissions : Roles matrix
-  }
+state "Role redirect" as Redirect #E8F5E9 {
+  Redirect : Uses user role
+  Redirect : Opens the matching dashboard
 }
 
-Dashboard -down-> Branches         
-Dashboard -down-> AcademicYears    
-Dashboard -down-> FinancialPolicies
-Dashboard -down-> SystemLogs       
-Dashboard -down-> RolesPermissions 
+Index --> Login : no session
+Index --> Redirect : valid session
+Login --> Redirect : sign in
+Redirect --> Login : invalid role
 
-' ============================================================
-' GROUP 2 — Human Resources
-' ============================================================
-state "Human Resources" as GRP_HR {
-
-  state Users #BBDEFB {
-    Users : CRUD users
-  }
-
-  state Teachers #BBDEFB {
-    Teachers : CRUD teachers
-  }
-
-  state Parents #BBDEFB {
-    Parents : CRUD parents
-  }
+state "Admin dashboard" as AdminPage #E8F5E9 {
+  AdminPage : People management
+  AdminPage : Academic management
+  AdminPage : Finance and resources
+  AdminPage : Community tools
 }
 
-Dashboard -down-> Users    
-Dashboard -down-> Teachers 
-Dashboard -down-> Parents  
-
-' ============================================================
-' GROUP 3 — Academics
-' ============================================================
-state "Academics" as GRP_ACAD {
-
-  state Programs #FFECB3 {
-    Programs : Manage programs
-  }
-
-  state Classes #FFECB3 {
-    Classes : CRUD classes
-  }
-
-  state Enrollments #FFECB3 {
-    Enrollments : New enrollment
-  }
-
-  state Students #FFECB3 {
-    Students : CRUD students
-  }
-  
-  state Resources #FFECB3 {
-    Resources : Educational files
-  }
+state "Receptionist dashboard" as ReceptionistPage #E3F2FD {
+  ReceptionistPage : Student reception
+  ReceptionistPage : Parent/student files
+  ReceptionistPage : Payments
+  ReceptionistPage : Messages and posts
 }
 
-Dashboard -down-> Programs    
-Dashboard -down-> Classes     
-Dashboard -down-> Enrollments 
-Dashboard -down-> Students    
-Dashboard -down-> Resources   
-
-' ============================================================
-' GROUP 4 — Operations
-' ============================================================
-state "Operations" as GRP_OPS {
-
-  state Assignments #E1BEE7 {
-    Assignments : Assign teacher
-  }
-
-  state Schedules #E1BEE7 {
-    Schedules : Weekly timetable
-  }
-
-  state Attendance #E1BEE7 {
-    Attendance : Record attendance
-  }
-
-  state Grades #E1BEE7 {
-    Grades : Add assessment
-  }
+state "Accountant dashboard" as AccountantPage #E0F2F1 {
+  AccountantPage : Student fees
+  AccountantPage : Payments
+  AccountantPage : Transactions
+  AccountantPage : Reports and notices
 }
 
-Dashboard -down-> Assignments 
-Dashboard -down-> Schedules   
-Dashboard -down-> Attendance  
-Dashboard -down-> Grades      
-
-' ============================================================
-' GROUP 5 — Finance
-' ============================================================
-state "Finance" as GRP_FIN {
-
-  state Fees #C8E6C9 {
-    Fees : Invoice list
-  }
-
-  state Payrolls #C8E6C9 {
-    Payrolls : Generate monthly
-  }
-
-  state Expenses #C8E6C9 {
-    Expenses : Add expense
-  }
-
-  state Obligations #C8E6C9 {
-    Obligations : Manage obligations
-  }
-
-  state CashHandovers #C8E6C9 {
-    CashHandovers : Close daily cash
-  }
+state "Teacher dashboard" as TeacherPage #FFF3E0 {
+  TeacherPage : Assignments and schedule
+  TeacherPage : Attendance
+  TeacherPage : Assessments and grades
+  TeacherPage : Resources and messages
 }
 
-Dashboard -down-> Fees          
-Dashboard -down-> Payrolls      
-Dashboard -down-> Expenses      
-Dashboard -down-> Obligations   
-Dashboard -down-> CashHandovers 
-
-' ============================================================
-' GROUP 6 — Inventory & Store
-' ============================================================
-state "Inventory & Store" as GRP_INV {
-
-  state Inventory #B2EBF2 {
-    Inventory : Item catalog
-  }
-
-  state StockActions #B2EBF2 {
-    StockActions : Log stock in/out
-  }
-
-  state Consumptions #B2EBF2 {
-    Consumptions : Daily consumption
-  }
-  
-  state Store #B2EBF2 {
-    Store : POS & Cart
-    Store : Wallet Top-up
-  }
+state "Student portal" as StudentPage #F3E5F5 {
+  StudentPage : Schedule
+  StudentPage : Grades and assessments
+  StudentPage : Attendance and resources
+  StudentPage : Messages and fees
 }
 
-Dashboard -down-> Inventory    
-Dashboard -down-> StockActions 
-Dashboard -down-> Consumptions 
-Dashboard -down-> Store        
-
-' ============================================================
-' GROUP 7 — Communications
-' ============================================================
-state "Communications" as GRP_COMM {
-
-  state Messages #FFCDD2 {
-    Messages : Conversation list
-  }
-
-  state Notifications #FFCDD2 {
-    Notifications : Bulk send
-  }
+state "Parent portal" as ParentPage #FFFDE7 {
+  ParentPage : Children follow-up
+  ParentPage : Grades and attendance
+  ParentPage : Fees
+  ParentPage : Messages and posts
 }
 
-Dashboard -down-> Messages      
-Dashboard -down-> Notifications 
+Redirect --> AdminPage : admin
+Redirect --> ReceptionistPage : receptionist
+Redirect --> AccountantPage : accountant
+Redirect --> TeacherPage : teacher
+Redirect --> StudentPage : student
+Redirect --> ParentPage : parent
 
-' ============================================================
-' GROUP 8 — Account & Preferences
-' ============================================================
-state "Account & Preferences" as GRP_ACCOUNT {
-  
-  state Profile #F5F5F5 {
-    Profile : View personal data
-  }
-  
-  state Security #F5F5F5 {
-    Security : Change password
-  }
-  
-  state AppSettings #F5F5F5 {
-    AppSettings : Dark mode toggle
-  }
+state "Shared dashboard controls" as SharedControls #F5F5F5 {
+  SharedControls : Auth guard
+  SharedControls : Header, language, theme
+  SharedControls : loadSection(section)
+  SharedControls : Content renderer
+  SharedControls : Logout
 }
 
-Dashboard -down-> Profile     
-Dashboard -down-> Security    
-Dashboard -down-> AppSettings 
-
-' ============================================================
-' CROSS-PAGE NAVIGATION (Context Links)
-' ============================================================
-Students    -[dotted]-> Fees         
-Students    -[dotted]-> Attendance   
-Students    -[dotted]-> Grades       
-Enrollments -[dotted]-> Classes      
-Teachers    -[dotted]-> Assignments  
-Teachers    -[dotted]-> Schedules    
-Parents     -[dotted]-> Students     
-Assignments -[dotted]-> Schedules    
-
-' ============================================================
-' GLOBAL UI (always accessible)
-' ============================================================
-note as GlobalNote
-  **Global — always accessible:**
-  - Sidebar nav-links
-  - Top Header (profile, notifications)
-  - ESC key: closes modals
-  - Toast notifications
-end note
+AdminPage -[dotted]-> SharedControls
+ReceptionistPage -[dotted]-> SharedControls
+AccountantPage -[dotted]-> SharedControls
+TeacherPage -[dotted]-> SharedControls
+StudentPage -[dotted]-> SharedControls
+ParentPage -[dotted]-> SharedControls
+SharedControls --> Login : logout / denied
 
 @enduml

@@ -1,0 +1,80 @@
+@startuml UseCase_Student
+
+' Student diagram.
+left to right direction
+scale max 3508*2480
+
+skinparam dpi 300
+skinparam linetype ortho
+skinparam nodesep 18
+skinparam ranksep 24
+skinparam padding 2
+skinparam pageMargin 2
+skinparam shadowing false
+skinparam roundcorner 3
+skinparam backgroundColor #FFFFFF
+skinparam ArrowFontSize 7
+skinparam ArrowThickness 0.75
+
+skinparam actor {
+  BackgroundColor #F8F9FA
+  BorderColor #1565C0
+  FontSize 9
+  FontStyle bold
+}
+
+skinparam usecase {
+  BorderColor #37474F
+  BackgroundColor #FFFFFF
+  ArrowColor #455A64
+  FontSize 8
+}
+
+actor "Student" as Student
+
+together {
+  usecase "Account\naccess" as UC_Access
+  usecase "Sign in /\nout" as UC_Auth
+  usecase "Switch\nlanguage" as UC_Lang
+  usecase "Communication\ncenter" as UC_Communication
+  usecase "Send/read\nmessages" as UC_Messages
+  usecase "Read\nnotifications" as UC_ReadNotifications
+  usecase "Mark notifications\nread" as UC_MarkNotifications
+}
+
+together {
+  usecase "Student\nself-service" as UC_StudentSelfService
+  usecase "Learner\nmonitoring" as UC_LearnerMonitoring
+  usecase "View\nschedule" as UC_ViewSchedule
+  usecase "View\nassessments" as UC_ViewAssessments
+  usecase "View\nresources" as UC_ViewResources
+}
+
+together {
+  usecase "View\ngrades" as UC_ViewGrades
+  usecase "View\nattendance" as UC_ViewAttendance
+  usecase "View\nfees" as UC_ViewFees
+  usecase "Read\nposts" as UC_ReadPosts
+}
+
+Student --> UC_Access
+Student --> UC_Communication
+Student --> UC_StudentSelfService
+
+UC_Access .right.> UC_Auth : <<include>>
+UC_Lang .left.> UC_Access : <<extend>>
+UC_Communication .right.> UC_Messages : <<include>>
+UC_Communication .right.> UC_ReadNotifications : <<include>>
+UC_MarkNotifications .left.> UC_ReadNotifications : <<extend>>
+
+UC_StudentSelfService .right.> UC_LearnerMonitoring : <<include>>
+UC_StudentSelfService .up.> UC_ViewSchedule : <<include>>
+UC_StudentSelfService .right.> UC_ViewAssessments : <<include>>
+UC_StudentSelfService .down.> UC_ViewResources : <<include>>
+
+UC_LearnerMonitoring .up.> UC_ViewGrades : <<include>>
+UC_LearnerMonitoring .right.> UC_ViewAttendance : <<include>>
+UC_LearnerMonitoring .down.> UC_ViewFees : <<include>>
+UC_LearnerMonitoring .right.> UC_ReadPosts : <<include>>
+
+@enduml

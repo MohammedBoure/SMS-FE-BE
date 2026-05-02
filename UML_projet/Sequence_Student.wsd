@@ -1,0 +1,130 @@
+@startuml Sequence_Student
+
+title Sequence Diagram - Student
+
+autonumber
+hide footbox
+
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam maxMessageSize 170
+skinparam ParticipantPadding 18
+skinparam BoxPadding 8
+skinparam sequence {
+  ArrowColor #405064
+  LifeLineBorderColor #9AAEC5
+  LifeLineBackgroundColor #EAF3FF
+  ParticipantBorderColor #2B5C92
+  ParticipantBackgroundColor #F8FBFF
+  ActorBorderColor #2B5C92
+  ActorBackgroundColor #F8FBFF
+}
+
+actor "Student" as Student
+boundary "Frontend UI\nstudent.html" as UI
+control "Auth + Router\nfrontend/js/core" as Core
+control "StudentRole\nfrontend/js/roles/student/role.js" as Role
+control "StudentServices\nservices.js" as Services
+control "Backend API\nFastAPI routers" as API
+database "Database\nmanagers + tables" as DB
+
+== Authentication and routing ==
+Student -> UI : Submit username and password
+UI -> Core : Auth.login(username, password)
+Core -> API : POST /users/login
+API -> DB : Validate credentials and load role
+DB --> API : User row or authentication error
+API --> Core : User session payload
+Core -> Core : Storage.saveSession(user)
+Core --> UI : Authenticated user
+UI -> Core : Router.redirectToDashboard(role_name)
+Core -> Role : init()
+Role -> Core : Auth.requireAuth("student")
+Core --> Role : Session accepted
+
+== Resolve linked student profile ==
+Role -> Services : Load user and student records
+Services -> API : GET /users/{user_id}
+Services -> API : GET /students/
+API -> DB : Find student linked to logged user
+DB --> API : Student list and user profile
+API --> Services : Candidate student profile
+Services --> Role : studentId
+Role -> Services : getStudentById(studentId)
+Services -> API : GET /students/{studentId}
+API -> DB : SELECT full student profile
+DB --> API : Student profile and class
+API --> Services : Full profile
+Services --> Role : studentId + classId
+Role -> UI : renderHeader() and loadSection("schedule")
+
+== Student self-service sections ==
+Student -> UI : Select schedule, assessments, grades, attendance, resources, posts, messages, fees, notifications
+UI -> Role : loadSection(section)
+Role -> UI : renderNav(section) + renderLoading()
+
+alt Schedule
+  Role -> Services : getMySchedule(studentId)
+  Services -> API : GET /schedules/student/{studentId}
+else Assessments
+  Role -> Services : getMyAssessments(studentId)
+  Services -> API : GET /assessments/student/{studentId}
+else Grades
+  Role -> Services : getMyGrades(studentId)
+  Services -> API : GET /grades/student/{studentId}
+else Attendance
+  Role -> Services : getMyAttendance(studentId)
+  Services -> API : GET /attendance/student/{studentId}
+else Resources
+  Role -> Services : getResources()
+  Services -> API : GET /resources/
+else Posts
+  Role -> Services : getPosts()
+  Services -> API : GET /posts
+else Fees
+  Role -> Services : getMyFees(studentId)
+  Services -> API : GET /student-fees/student/{studentId}
+else Messages
+  Role -> Services : getMessagesInbox(user_id)
+  Services -> API : GET /messages/inbox/{user_id}
+else Notifications
+  Role -> Services : getMyNotifications(user_id)
+  Services -> API : GET /notifications/user/{user_id}
+end
+
+API -> DB : SELECT student-owned records
+DB --> API : Records
+API --> Services : JSON response
+Services --> Role : Section data
+Role -> UI : Render read-only student view
+
+== Student communication updates ==
+Student -> UI : Open conversation, send message, or mark notifications read
+UI -> Role : UI dynamic event
+
+alt Load conversation
+  Role -> Services : getConversation(user_id, contact_id)
+  Services -> API : GET /messages/conversation/{user_id}/{contact_id}
+  API -> DB : SELECT conversation messages
+else Send message
+  Role -> Services : sendMessage(sender_id, receiver_id, content)
+  Services -> API : POST /messages/
+  API -> DB : INSERT message
+else Mark notification read
+  Role -> Services : markNotificationAsRead() or markAllNotificationsAsRead()
+  Services -> API : PATCH /notifications/{id}/read or /notifications/user/{id}/read-all
+  API -> DB : UPDATE notification read state
+end
+
+DB --> API : Result
+alt Success
+  API --> Services : JSON result
+  Services --> Role : Updated communication state
+  Role -> UI : Refresh messages or notifications
+else Error
+  API --> Services : Error detail
+  Services --> Role : Throw error
+  Role -> UI : renderError(message)
+end
+
+@enduml

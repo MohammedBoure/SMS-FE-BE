@@ -1,0 +1,92 @@
+@startuml UseCase_Receptionist
+
+' Receptionist diagram.
+left to right direction
+scale max 3508*2480
+
+skinparam dpi 300
+skinparam linetype ortho
+skinparam nodesep 18
+skinparam ranksep 24
+skinparam padding 2
+skinparam pageMargin 2
+skinparam shadowing false
+skinparam roundcorner 3
+skinparam backgroundColor #FFFFFF
+skinparam ArrowFontSize 7
+skinparam ArrowThickness 0.75
+
+skinparam actor {
+  BackgroundColor #F8F9FA
+  BorderColor #1565C0
+  FontSize 9
+  FontStyle bold
+}
+
+skinparam usecase {
+  BorderColor #37474F
+  BackgroundColor #FFFFFF
+  ArrowColor #455A64
+  FontSize 8
+}
+
+actor "Receptionist" as Receptionist
+
+together {
+  usecase "Account\naccess" as UC_Access
+  usecase "Sign in /\nout" as UC_Auth
+  usecase "Switch\nlanguage" as UC_Lang
+  usecase "Communication\ncenter" as UC_Communication
+  usecase "Send/read\nmessages" as UC_Messages
+  usecase "Read\nnotifications" as UC_ReadNotifications
+  usecase "Mark notifications\nread" as UC_MarkNotifications
+}
+
+together {
+  usecase "Student\nreception" as UC_StudentReception
+  usecase "Manage\nstudents" as UC_ManageStudents
+  usecase "Manage\nparents" as UC_ManageParents
+  usecase "Search users /\nstudents" as UC_SearchPeople
+  usecase "View\nstudent file" as UC_StudentFile
+}
+
+together {
+  usecase "Payment\noperations" as UC_PaymentOps
+  usecase "Manage/view\nfees" as UC_Fees
+  usecase "Record/view\npayments" as UC_Payments
+  usecase "Send finance\nnotice" as UC_FeeReminder
+}
+
+together {
+  usecase "Posts\nboard" as UC_PostsBoard
+  usecase "Read\nposts" as UC_ReadPosts
+  usecase "Manage\nposts" as UC_ManagePosts
+  usecase "Preview\nposts" as UC_PreviewPosts
+}
+
+Receptionist --> UC_Access
+Receptionist --> UC_Communication
+Receptionist --> UC_StudentReception
+Receptionist --> UC_PaymentOps
+Receptionist --> UC_PostsBoard
+
+UC_Access .right.> UC_Auth : <<include>>
+UC_Lang .left.> UC_Access : <<extend>>
+UC_Communication .right.> UC_Messages : <<include>>
+UC_Communication .right.> UC_ReadNotifications : <<include>>
+UC_MarkNotifications .left.> UC_ReadNotifications : <<extend>>
+
+UC_StudentReception .right.> UC_ManageStudents : <<include>>
+UC_StudentReception .right.> UC_ManageParents : <<include>>
+UC_SearchPeople .left.> UC_StudentReception : <<extend>>
+UC_StudentFile .left.> UC_StudentReception : <<extend>>
+
+UC_PaymentOps .right.> UC_Fees : <<include>>
+UC_PaymentOps .right.> UC_Payments : <<include>>
+UC_FeeReminder .left.> UC_Fees : <<extend>>
+
+UC_PostsBoard .right.> UC_ReadPosts : <<include>>
+UC_PostsBoard .right.> UC_ManagePosts : <<include>>
+UC_PreviewPosts .left.> UC_ManagePosts : <<extend>>
+
+@enduml

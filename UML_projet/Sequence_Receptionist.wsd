@@ -1,0 +1,151 @@
+@startuml Sequence_Receptionist
+
+title Sequence Diagram - Receptionist
+
+autonumber
+hide footbox
+
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam maxMessageSize 170
+skinparam ParticipantPadding 18
+skinparam BoxPadding 8
+skinparam sequence {
+  ArrowColor #405064
+  LifeLineBorderColor #9AAEC5
+  LifeLineBackgroundColor #EAF3FF
+  ParticipantBorderColor #2B5C92
+  ParticipantBackgroundColor #F8FBFF
+  ActorBorderColor #2B5C92
+  ActorBackgroundColor #F8FBFF
+}
+
+actor "Receptionist" as Receptionist
+boundary "Frontend UI\nreceptionist.html" as UI
+control "Auth + Router\nfrontend/js/core" as Core
+control "ReceptionistRole\nfrontend/js/roles/receptionist/role.js" as Role
+control "ReceptionistServices\nservices.js" as Services
+control "Backend API\nFastAPI routers" as API
+database "Database\nmanagers + tables" as DB
+
+== Authentication and routing ==
+Receptionist -> UI : Submit username and password
+UI -> Core : Auth.login(username, password)
+Core -> API : POST /users/login
+API -> DB : Validate credentials and load role
+DB --> API : User row or authentication error
+API --> Core : User session payload
+Core -> Core : Storage.saveSession(user)
+Core --> UI : Authenticated user
+UI -> Core : Router.redirectToDashboard(role_name)
+Core -> Role : init()
+Role -> Core : Auth.requireAuth("receptionist")
+Core --> Role : Session accepted
+
+== Bootstrap reception desk ==
+Role -> Services : Load profile, classes, parents
+Services -> API : GET /users/{user_id}
+Services -> API : GET /classes/
+Services -> API : GET /parents/
+API -> DB : SELECT receptionist profile and reference data
+DB --> API : Profile, classes, parents
+API --> Services : JSON bootstrap data
+Services --> Role : classesList + parentsList
+Role -> UI : renderHeader() and loadSection("students")
+
+== Section loading ==
+Receptionist -> UI : Select students, parents, search, finance, posts, messages, notifications
+UI -> Role : loadSection(section)
+Role -> UI : renderNav(section) + renderLoading()
+
+alt Students
+  Role -> Services : getStudents()
+  Services -> API : GET /students/
+else Parents
+  Role -> Services : getParents()
+  Services -> API : GET /parents/
+else Search
+  Role -> UI : renderSearch()
+else Finance
+  Role -> UI : renderFinanceDashboard()
+else Posts
+  Role -> Services : getPosts()
+  Services -> API : GET /posts
+else Messages
+  Role -> Services : getMessagesInbox(user_id)
+  Services -> API : GET /messages/inbox/{user_id}
+else Notifications
+  Role -> Services : getNotifications(user_id)
+  Services -> API : GET /notifications/user/{user_id}
+end
+
+opt Backend data requested by selected section
+  API -> DB : SELECT requested reception data
+  DB --> API : Records
+  API --> Services : JSON response
+  Services --> Role : Data for section
+end
+Role -> UI : Render ReceptionistUI section
+
+== Register parent or student ==
+Receptionist -> UI : Submit registration form
+UI -> Role : register-parent-form or register-student-form
+Role -> Services : createUser(userData)
+Services -> API : POST /users/
+API -> DB : INSERT user account
+DB --> API : new user_id
+API --> Services : Created user
+
+alt Register parent
+  Role -> Services : createParent(newUser.user_id)
+  Services -> API : POST /parents/
+  API -> DB : INSERT parent profile
+else Register student
+  Role -> Services : createStudent(studentData)
+  Services -> API : POST /students/
+  API -> DB : INSERT student profile
+end
+
+DB --> API : Created profile
+API --> Services : Creation response
+Services --> Role : Operation completed
+Role -> UI : Reload students or parents list
+
+== Student file, editing, and payment ==
+Receptionist -> UI : View/edit student or search fees
+UI -> Role : Student action handler
+
+alt View student details
+  Role -> Services : getStudent(), getStudentGrades(), getStudentAttendance()
+  Services -> API : GET /students/{id}, /grades/student/{id}, /attendance/student/{id}
+  API -> DB : SELECT student file
+else Edit student
+  Role -> Services : getStudent(), updateUser(), updateStudent()
+  Services -> API : GET /students/{id}, PUT /users/{id}, PUT /students/{id}
+  API -> DB : UPDATE user and student data
+else Pay student fee
+  Role -> Services : getStudentFees(), processPayment()
+  Services -> API : GET /student-fees/student/{id}, POST /payments/
+  API -> DB : SELECT fee and INSERT payment
+else Manage posts
+  Role -> Services : createPost(), updatePost(), deletePost()
+  Services -> API : POST/PUT/DELETE /posts/
+  API -> DB : Persist post operation
+else Messages and notifications
+  Role -> Services : getConversation(), sendMessage(), markNotificationAsRead()
+  Services -> API : GET/POST /messages, PATCH /notifications
+  API -> DB : Persist communication state
+end
+
+DB --> API : Result
+alt Success
+  API --> Services : JSON result
+  Services --> Role : Updated data
+  Role -> UI : Render modal, refreshed list, or success message
+else Error
+  API --> Services : Error detail
+  Services --> Role : Throw error
+  Role -> UI : Show error message
+end
+
+@enduml

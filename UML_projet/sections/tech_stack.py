@@ -1,62 +1,79 @@
-from reportlab.platypus import PageBreak, Paragraph, Spacer, KeepTogether
-from utils import title_style, subtitle_style, normal_text, create_indexed_heading
+from reportlab.platypus import PageBreak, Paragraph, Spacer
+
+from utils import create_indexed_heading, normal_text, subtitle_style
+
+
+PROJECT_GITHUB_URL = "https://github.com/MohammedBoure/SMS-FE-BE"
+
+
+TECH_SECTIONS = [
+    (
+        "Frontend Layer",
+        """
+        The frontend is a static web application built with <b>HTML5</b>, <b>CSS3</b>, and
+        <b>vanilla JavaScript</b>. It uses shared core modules for routing, authentication,
+        local storage, API calls, preferences, and internationalization. Each role has its own
+        page, controller, service layer, and UI renderer.
+        """,
+    ),
+    (
+        "Backend API Layer",
+        """
+        The backend is built with <b>Python</b> and <b>FastAPI</b>. The API is organized into
+        routers for users, parents, students, teachers, classes, enrollments, schedules,
+        attendance, assessments, grades, resources, fees, payments, transactions, notifications,
+        messages, posts, and programs. <b>Uvicorn</b> is used as the ASGI server and
+        <b>Pydantic</b> supports request/response validation.
+        """,
+    ),
+    (
+        "Database and Persistence",
+        """
+        The persistence layer uses a relational database accessed through <b>mysql-connector-python</b>
+        and <b>SQLAlchemy</b> utilities. Database managers separate identity, academic, learning,
+        finance, and communication responsibilities.
+        """,
+    ),
+    (
+        "Documentation and UML Report",
+        """
+        UML diagrams are exported as <b>SVG</b> assets and embedded into the PDF report with
+        <b>ReportLab</b> and <b>svglib</b>. The report covers use case diagrams, the class diagram,
+        sequence diagrams, and the navigation diagram.
+        """,
+    ),
+    (
+        "Artificial Intelligence Assistance",
+        """
+        AI-assisted tools were used during the project to support analysis, code review, UML/report
+        refinement, and documentation improvement. The final implementation and modeling decisions
+        remain part of the team project work.
+        """,
+    ),
+    (
+        "Project Repository",
+        f"""
+        The project source code is available on GitHub:
+        <br/><b>{PROJECT_GITHUB_URL}</b>
+        """,
+    ),
+]
+
 
 def build(story):
-    elements = []
-    
-    create_indexed_heading(elements, "Technologies & Library Stack", level=0)
-    elements.append(Spacer(1, 15))
-    
-    tech_data = [
-        ("Python (PDF Generation)", """
-        <b>Current Library Tree:</b>
-        <br/>|-- reportlab (Core Engine)
-        <br/>|&nbsp;&nbsp;&nbsp;&nbsp;|-- platypus (High-level Layout Elements)
-        <br/>|&nbsp;&nbsp;&nbsp;&nbsp;|-- lib.styles (Paragraph Styling)
-        <br/>|&nbsp;&nbsp;&nbsp;&nbsp;\-- pdfgen.canvas (Page Marking)
-        <br/>\-- svglib (Vector Graphics Processing)
-        <br/>&nbsp;&nbsp;&nbsp;&nbsp;\-- svglib.svglib (SVG to RLG Converter)
-        """),
-        
-        ("Rust (Backend Server)", """
-        <b>Library Tree:</b>
-        <br/>|-- axum (High-performance RESTful API Framework)
-        <br/>|-- diesel (Type-safe ORM & MySQL Query Builder)
-        <br/>|-- utoipa & swagger-ui (OpenAPI Documentation)
-        <br/>|-- serde / serde_json (Data Serialization)
-        <br/>|-- o2o (Object-to-Object Data Mapping)
-        <br/>\-- tower-http (Middleware, CORS & Security)
-        """),
+    create_indexed_heading(story, "Technology Stack and Project Repository", level=0)
+    story.append(Spacer(1, 10))
+    story.append(Paragraph(
+        """
+        This section lists the technologies directly used by the School Management System and its UML report.
+        """,
+        normal_text,
+    ))
+    story.append(Spacer(1, 8))
 
-        ("MySQL (Database Management)", """
-        The core relational database used for storing 32 relational tables, handling 
-        concurrency, and ensuring data ACID properties across all modules.
-        """),
-        
-        ("Vanilla JS (Frontend Engine)", """
-        <b>Library Tree:</b>
-        <br/>|-- Custom SPA Routing (Hash-based Navigation & Dynamic Page Injection)
-        <br/>|-- Layout.js (Shared Layout Engine & UI Component Management)
-        <br/>|-- fetch API (AppConfig-based Centralized API Communication)
-        <br/>\-- State Management (In-memory Object-based Data Persistence)
-        """),
+    for title, description in TECH_SECTIONS:
+        story.append(Paragraph(title, subtitle_style))
+        story.append(Paragraph(description, normal_text))
+        story.append(Spacer(1, 6))
 
-        ("Web Standards (HTML5 & CSS3)", """
-                Used for building high-performance Admin dashboards with a custom 
-                CSS Variables-based theme system, RTL support, and responsive 
-                layouts using Flexbox and Grid.
-                """),
-
-        ("UML (System Modeling)", """
-                Unified Modeling Language used for Behavioral (Activity, Sequence, State Machine) 
-                and Structural (Class, Component, Deployment) analysis of the ERP architecture.
-                """)
-    ]
-
-    for title, description in tech_data:
-        elements.append(Paragraph(f"<b>{title}</b>", subtitle_style))
-        elements.append(Paragraph(description, normal_text))
-        elements.append(Spacer(1, 10))
-
-    story.append(KeepTogether(elements))
     story.append(PageBreak())

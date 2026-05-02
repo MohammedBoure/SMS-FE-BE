@@ -1,0 +1,154 @@
+@startuml UseCase_Admin
+
+' Administrator diagram optimized for one A4 landscape page.
+left to right direction
+scale max 3508*2480
+
+skinparam dpi 300
+skinparam linetype polyline
+skinparam nodesep 28
+skinparam ranksep 38
+skinparam padding 2
+skinparam pageMargin 2
+skinparam shadowing false
+skinparam roundcorner 3
+skinparam backgroundColor #FFFFFF
+skinparam ArrowFontSize 5
+skinparam ArrowThickness 0.65
+
+skinparam actor {
+  BackgroundColor #F8F9FA
+  BorderColor #1565C0
+  FontSize 9
+  FontStyle bold
+}
+
+skinparam usecase {
+  BorderColor #37474F
+  BackgroundColor #FFFFFF
+  ArrowColor #455A64
+  FontSize 7
+}
+
+legend right
+  I = <<include>>
+  E = <<extend>>
+endlegend
+
+actor "Admin" as Admin
+
+' ===================== Main admin modules =====================
+together {
+  usecase "Account\naccess" as UC_Access
+  usecase "Communication\ncenter" as UC_Communication
+  usecase "People\nadmin" as UC_PeopleAdmin
+  usecase "Academic\nadmin" as UC_AcademicAdmin
+  usecase "Finance\nadmin" as UC_FinanceAdmin
+  usecase "Posts\nboard" as UC_PostsBoard
+}
+
+' ===================== Shared access details =====================
+together {
+  usecase "Sign in /\nout" as UC_Auth
+  usecase "Switch\nlanguage" as UC_Lang
+  usecase "Send/read\nmessages" as UC_Messages
+  usecase "Read\nnotifications" as UC_ReadNotifications
+  usecase "Mark notifications\nread" as UC_MarkNotifications
+}
+
+' ===================== People details =====================
+together {
+  usecase "Manage\nusers" as UC_ManageUsers
+  usecase "Manage\nparents" as UC_ManageParents
+  usecase "Manage\nstudents" as UC_ManageStudents
+  usecase "Manage\nteachers" as UC_ManageTeachers
+  usecase "Search users /\nstudents" as UC_SearchPeople
+  usecase "View\nstudent file" as UC_StudentFile
+}
+
+' ===================== Academic details =====================
+together {
+  usecase "Academic\ndashboard" as UC_AcademicDashboard
+  usecase "Manage\nclasses" as UC_ManageClasses
+  usecase "Manage\nprograms" as UC_ManagePrograms
+  usecase "Manage\nenrollments" as UC_ManageEnrollments
+  usecase "Academic\nactivities" as UC_AcademicActivities
+}
+
+together {
+  usecase "Teacher\nassignments" as UC_TeacherAssignments
+  usecase "Schedules" as UC_Schedules
+  usecase "Attendance" as UC_Attendance
+  usecase "Assessments" as UC_Assessments
+  usecase "Grades" as UC_Grades
+  usecase "Resources" as UC_Resources
+}
+
+' ===================== Finance details =====================
+together {
+  usecase "Finance\ndashboard" as UC_FinanceDashboard
+  usecase "Payment\noperations" as UC_PaymentOps
+  usecase "Manage/view\nfees" as UC_Fees
+  usecase "Record/view\npayments" as UC_Payments
+  usecase "View\ntransactions" as UC_Transactions
+  usecase "Send finance\nnotice" as UC_FeeReminder
+}
+
+' ===================== Posts details =====================
+together {
+  usecase "Read\nposts" as UC_ReadPosts
+  usecase "Manage\nposts" as UC_ManagePosts
+  usecase "Preview\nposts" as UC_PreviewPosts
+}
+
+' ===================== Actor access =====================
+Admin --> UC_Access
+Admin --> UC_Communication
+Admin --> UC_PeopleAdmin
+Admin --> UC_AcademicAdmin
+Admin --> UC_FinanceAdmin
+Admin --> UC_PostsBoard
+
+' ===================== Shared details =====================
+UC_Access .right.> UC_Auth : I
+UC_Lang .left.> UC_Access : E
+UC_Communication .right.> UC_Messages : I
+UC_Communication .down.> UC_ReadNotifications : I
+UC_MarkNotifications .left.> UC_ReadNotifications : E
+
+' ===================== People details =====================
+UC_PeopleAdmin .up.> UC_ManageUsers : I
+UC_PeopleAdmin .right.> UC_ManageParents : I
+UC_PeopleAdmin .right.> UC_ManageStudents : I
+UC_PeopleAdmin .down.> UC_ManageTeachers : I
+UC_SearchPeople .left.> UC_PeopleAdmin : E
+UC_StudentFile .left.> UC_PeopleAdmin : E
+
+' ===================== Academic details =====================
+UC_AcademicAdmin .up.> UC_AcademicDashboard : I
+UC_AcademicAdmin .right.> UC_ManageClasses : I
+UC_AcademicAdmin .right.> UC_ManagePrograms : I
+UC_AcademicAdmin .down.> UC_ManageEnrollments : I
+UC_AcademicAdmin .down.> UC_AcademicActivities : I
+
+UC_AcademicActivities .left.> UC_TeacherAssignments : I
+UC_AcademicActivities .up.> UC_Schedules : I
+UC_AcademicActivities .right.> UC_Attendance : I
+UC_AcademicActivities .right.> UC_Assessments : I
+UC_AcademicActivities .down.> UC_Grades : I
+UC_AcademicActivities .down.> UC_Resources : I
+
+' ===================== Finance details =====================
+UC_FinanceAdmin .right.> UC_FinanceDashboard : I
+UC_FinanceAdmin .down.> UC_PaymentOps : I
+UC_FinanceAdmin .up.> UC_Transactions : I
+UC_PaymentOps .down.> UC_Fees : I
+UC_PaymentOps .right.> UC_Payments : I
+UC_FeeReminder .left.> UC_Fees : E
+
+' ===================== Posts details =====================
+UC_PostsBoard .right.> UC_ReadPosts : I
+UC_PostsBoard .down.> UC_ManagePosts : I
+UC_PreviewPosts .left.> UC_ManagePosts : E
+
+@enduml

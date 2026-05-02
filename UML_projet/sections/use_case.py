@@ -1,43 +1,53 @@
-import os
-from reportlab.platypus import PageBreak, Paragraph, Spacer, KeepTogether
-from utils import BASE_DIR, render_diagram, normal_text, subtitle_style, create_indexed_heading
+from reportlab.platypus import PageBreak, Paragraph, Spacer
+
+from utils import create_indexed_heading, diagram_path, normal_text, render_diagram, subtitle_style
+
+
+USE_CASE_DIAGRAMS = [
+    ("Admin", "UseCase_Admin.svg"),
+    ("Receptionist", "UseCase_Receptionist.svg"),
+    ("Accountant", "UseCase_Accountant.svg"),
+    ("Teacher", "UseCase_Teacher.svg"),
+    ("Student", "UseCase_Student.svg"),
+    ("Parent", "UseCase_Parent.svg"),
+]
+
 
 def build(story):
-    elements = []
-    
-    create_indexed_heading(elements, "Functional Models: Use Case Diagram", level=0)
-    elements.append(Spacer(1, 10))
-    
-    intro_text = """
-    The Use Case Diagram provides a high-level overview of the functional requirements and system boundaries 
-    of the School Management System. The architecture is heavily centralized around a <b>Dynamic Role-Based 
-    Access Control (RBAC)</b> system. All interactions across all modules are intercepted and validated by 
-    the Global Permission Verification engine.
-    """
-    elements.append(Paragraph(intro_text, normal_text))
-    elements.append(Spacer(1, 15))
+    create_indexed_heading(story, "Functional Models: Use Case Diagrams", level=0)
+    story.append(Spacer(1, 6))
+    story.append(Paragraph(
+        """
+        The use case diagrams define the visible services of the School Management System for each role.
+        They show the functional boundary of every dashboard and clarify which operations belong to
+        administration, reception, accounting, teaching, learner self-service, and parent follow-up.
+        """,
+        normal_text,
+    ))
+    story.append(PageBreak())
 
-    filepath = os.path.join(BASE_DIR, "UseCas", "SchoolManagementSystem_UseCase.svg")
-    render_diagram(elements, filepath, "")
-    
-    elements.append(Spacer(1, 20))
-    elements.append(Paragraph("Actors and Core Responsibilities", subtitle_style))
-    elements.append(Spacer(1, 15))
+    for role, filename in USE_CASE_DIAGRAMS:
+        create_indexed_heading(story, f"{role} Use Case Diagram", level=1, visible=False)
+        render_diagram(story, diagram_path(filename), "")
+        story.append(PageBreak())
 
-    analysis_text = """
-    Given the complexity of the system, it is divided into distinct operational modules, driven by a strict actor hierarchy:
-    <br/><br/>
-    <b>1. Administrator (Super User):</b> Inherits all use cases from other actors. Has exclusive access to system configurations, branch management, dynamic role creation, and the global access matrix.
-    <br/><br/>
-    <b>2. Finance & Accounting (Accountant):</b> Handles the financial core, including managing student fees, processing daily cash handovers, payrolls, external obligations, and user digital wallets.
-    <br/><br/>
-    <b>3. Academics & Operations (Teacher):</b> Responsible for the educational lifecycle. Teachers input grades, record daily attendance, manage assignments, and upload educational resources.
-    <br/><br/>
-    <b>4. End Users (Student & Parent):</b> They can monitor academic progress, download resources, view financial balances, top-up wallets, and communicate with teachers and administration via the messaging module.
-    <br/><br/>
-    <b>5. Inventory & Store (Inventory Mgr & POS Cashier):</b> Manages physical stock, processes Point of Sale (POS) purchases (e.g., cafeteria or bookstore), and records daily consumptions.
-    """
-    elements.append(Paragraph(analysis_text, normal_text))
-    
-    story.append(KeepTogether(elements))
+    story.append(Paragraph("Use Case Scope", subtitle_style))
+    story.append(Spacer(1, 10))
+    story.append(Paragraph(
+        """
+        <b>Admin:</b> complete system administration across people, academic, finance, posts, and notifications.
+        <br/><br/>
+        <b>Receptionist:</b> front-desk workflows for students, parents, records, finance lookup, posts, and communication.
+        <br/><br/>
+        <b>Accountant:</b> fees, payments, transactions, student financial files, notices, and attendance reports.
+        <br/><br/>
+        <b>Teacher:</b> assignments, schedules, attendance, assessments, grades, resources, messages, and notifications.
+        <br/><br/>
+        <b>Student:</b> read-only academic self-service: schedule, assessments, grades, attendance, resources, posts,
+        fees, messages, and notifications.
+        <br/><br/>
+        <b>Parent:</b> child monitoring: grades, attendance, fees, posts, messages, and notifications.
+        """,
+        normal_text,
+    ))
     story.append(PageBreak())

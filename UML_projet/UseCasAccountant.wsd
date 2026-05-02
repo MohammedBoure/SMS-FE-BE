@@ -1,0 +1,82 @@
+@startuml UseCase_Accountant
+
+' Accountant diagram based on frontend/js/roles/accountant.
+left to right direction
+scale max 3508*2480
+
+skinparam dpi 300
+skinparam linetype ortho
+skinparam nodesep 18
+skinparam ranksep 24
+skinparam padding 2
+skinparam pageMargin 2
+skinparam shadowing false
+skinparam roundcorner 3
+skinparam backgroundColor #FFFFFF
+skinparam ArrowFontSize 7
+skinparam ArrowThickness 0.75
+
+skinparam actor {
+  BackgroundColor #F8F9FA
+  BorderColor #1565C0
+  FontSize 9
+  FontStyle bold
+}
+
+skinparam usecase {
+  BorderColor #37474F
+  BackgroundColor #FFFFFF
+  ArrowColor #455A64
+  FontSize 8
+}
+
+actor "Accountant" as Accountant
+
+together {
+  usecase "Account\naccess" as UC_Access
+  usecase "Sign in /\nout" as UC_Auth
+  usecase "Switch\nlanguage" as UC_Lang
+  usecase "Communication\ncenter" as UC_Communication
+  usecase "Send/read\nmessages" as UC_Messages
+  usecase "Read\nnotifications" as UC_ReadNotifications
+  usecase "Mark notifications\nread" as UC_MarkNotifications
+}
+
+together {
+  usecase "Accounting\noperations" as UC_AccountingOps
+  usecase "Student financial\nfile" as UC_StudentFinanceFile
+  usecase "Search users /\nstudents" as UC_SearchPeople
+  usecase "View\nattendance" as UC_ViewAttendance
+}
+
+together {
+  usecase "Payment\noperations" as UC_PaymentOps
+  usecase "Manage/view\nfees" as UC_Fees
+  usecase "Record/view\npayments" as UC_Payments
+  usecase "View\ntransactions" as UC_Transactions
+  usecase "Send finance\nnotice" as UC_FeeReminder
+}
+
+Accountant --> UC_Access
+Accountant --> UC_Communication
+Accountant --> UC_AccountingOps
+
+UC_Access .right.> UC_Auth : <<include>>
+UC_Lang .left.> UC_Access : <<extend>>
+UC_Communication .right.> UC_Messages : <<include>>
+UC_Communication .right.> UC_ReadNotifications : <<include>>
+UC_MarkNotifications .left.> UC_ReadNotifications : <<extend>>
+
+UC_AccountingOps .right.> UC_PaymentOps : <<include>>
+UC_AccountingOps .down.> UC_StudentFinanceFile : <<include>>
+UC_AccountingOps .up.> UC_Transactions : <<include>>
+UC_AccountingOps .right.> UC_ViewAttendance : <<include>>
+UC_SearchPeople .left.> UC_AccountingOps : <<extend>>
+
+UC_StudentFinanceFile .down.> UC_Fees : <<include>>
+UC_StudentFinanceFile .right.> UC_Payments : <<include>>
+UC_PaymentOps .down.> UC_Fees : <<include>>
+UC_PaymentOps .right.> UC_Payments : <<include>>
+UC_FeeReminder .left.> UC_Fees : <<extend>>
+
+@enduml
