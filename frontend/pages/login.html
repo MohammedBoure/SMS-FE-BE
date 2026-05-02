@@ -14,6 +14,8 @@
           const theme = AppPreferences.initTheme("login");
           document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#050505" : "#f4f3ef");
         }
+        const simple = localStorage.getItem("login-simple-mode") === "true";
+        document.documentElement.dataset.loginMode = simple ? "simple" : "cinematic";
       } catch (e) {}
     })();
   </script>
@@ -51,6 +53,14 @@
             <span data-i18n="login.language.label">Language</span>
             <select id="login-language-select" data-i18n-aria-label="login.language.select" aria-label="Choose language"></select>
           </label>
+          <button type="button" class="login-simple-toggle" id="login-simple-toggle" aria-pressed="false" data-i18n-title="login.simple.title" data-i18n-aria-label="login.simple.title" title="Toggle simple mode" aria-label="Toggle simple mode">
+            <svg class="simple-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7h16"/>
+              <path d="M4 12h10"/>
+              <path d="M4 17h16"/>
+            </svg>
+            <span id="login-simple-label" data-i18n="login.simple.label">Simple mode</span>
+          </button>
           <button type="button" class="login-theme-toggle" id="login-theme-toggle" aria-pressed="false">
             <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="12" cy="12" r="4"/>
@@ -223,6 +233,8 @@
       const themeToggle = document.getElementById("login-theme-toggle");
       const themeLabel = document.getElementById("login-theme-label");
       const languageSelect = document.getElementById("login-language-select");
+      const simpleToggle = document.getElementById("login-simple-toggle");
+      const simpleLabel = document.getElementById("login-simple-label");
       const postModal = document.getElementById("login-post-modal");
       const postModalContent = document.getElementById("login-post-modal-content");
       const postModalClose = document.getElementById("login-post-modal-close");
@@ -232,6 +244,8 @@
       let postsScrollFrame = 0;
       let postsDragState = null;
       let suppressPostOpenUntil = 0;
+      let languageChangeToken = 0;
+      let pendingLanguage = "";
       const loginExperience = initLoginExperience();
 
       function t(key, params = {}, fallback = "") {
@@ -263,6 +277,10 @@
           "audit.log('login_attempt');"
         ];
 
+        function isSimpleMode() {
+          return document.documentElement.dataset.loginMode === "simple";
+        }
+
         function setPointer(event) {
           pointer.x = event.clientX;
           pointer.y = event.clientY;
@@ -271,6 +289,21 @@
           state.pointerEnergy = Math.min(1, state.pointerEnergy + 0.08);
           root.style.setProperty("--login-pointer-x", `${event.clientX}px`);
           root.style.setProperty("--login-pointer-y", `${event.clientY}px`);
+          root.style.setProperty("--login-depth-x", pointer.nx.toFixed(3));
+          root.style.setProperty("--login-depth-y", pointer.ny.toFixed(3));
+          root.style.setProperty("--login-parallax-x", `${(pointer.nx * 14).toFixed(2)}px`);
+          root.style.setProperty("--login-parallax-y", `${(pointer.ny * 10).toFixed(2)}px`);
+          root.style.setProperty("--login-card-parallax-x", `${(pointer.nx * -6).toFixed(2)}px`);
+          root.style.setProperty("--login-card-parallax-y", `${(pointer.ny * -4).toFixed(2)}px`);
+          if (isSimpleMode()) {
+            root.style.setProperty("--login-tilt-x", "0deg");
+            root.style.setProperty("--login-tilt-y", "0deg");
+            root.style.setProperty("--login-parallax-x", "0px");
+            root.style.setProperty("--login-parallax-y", "0px");
+            root.style.setProperty("--login-card-parallax-x", "0px");
+            root.style.setProperty("--login-card-parallax-y", "0px");
+            return;
+          }
           root.style.setProperty("--login-tilt-x", `${(-pointer.ny * 2.2).toFixed(2)}deg`);
           root.style.setProperty("--login-tilt-y", `${(pointer.nx * 2.8).toFixed(2)}deg`);
         }
@@ -280,6 +313,7 @@
         }
 
         function addBurst(target, label = "") {
+          if (isSimpleMode()) return;
           const rect = target?.getBoundingClientRect?.();
           const originX = rect ? rect.left + rect.width * 0.5 : pointer.x;
           const originY = rect ? rect.top + rect.height * 0.5 : pointer.y;
@@ -329,6 +363,10 @@
 
           function draw(now) {
             codeContext.clearRect(0, 0, width, height);
+            if (isSimpleMode()) {
+              requestAnimationFrame(draw);
+              return;
+            }
             codeContext.textBaseline = "top";
 
             const dark = document.documentElement.dataset.theme === "dark";
@@ -458,6 +496,11 @@
           }
 
           function animate(now) {
+            if (isSimpleMode()) {
+              renderer.clear();
+              requestAnimationFrame(animate);
+              return;
+            }
             const time = now * 0.001;
             const dark = document.documentElement.dataset.theme === "dark";
             const pulse = 1 + state.typingEnergy * 0.16 + state.focusEnergy * 0.04;
@@ -510,6 +553,10 @@
 
           function draw(now) {
             ctx.clearRect(0, 0, width, height);
+            if (isSimpleMode()) {
+              requestAnimationFrame(draw);
+              return;
+            }
             const cx = width * 0.62 + pointer.nx * 35;
             const cy = height * 0.42 + pointer.ny * 30;
             points.forEach((point, index) => {
@@ -587,6 +634,31 @@
         `).join("");
       }
 
+      function getStoredSimpleMode() {
+        try {
+          return localStorage.getItem("login-simple-mode") === "true";
+        } catch (e) {
+          return document.documentElement.dataset.loginMode === "simple";
+        }
+      }
+
+      function setLoginSimpleMode(enabled, options = {}) {
+        const simple = Boolean(enabled);
+        document.documentElement.dataset.loginMode = simple ? "simple" : "cinematic";
+        document.body?.classList.toggle("login-simple-mode", simple);
+        simpleToggle?.setAttribute("aria-pressed", String(simple));
+        if (simpleLabel) {
+          simpleLabel.textContent = simple
+            ? t("login.simple.enabled", {}, "Simple")
+            : t("login.simple.label", {}, "Simple mode");
+        }
+        if (options.persist !== false) {
+          try {
+            localStorage.setItem("login-simple-mode", simple ? "true" : "false");
+          } catch (e) {}
+        }
+      }
+
       function setLoginTheme(theme) {
         const nextTheme = window.AppPreferences
           ? AppPreferences.applyTheme(theme, { scope: "login", persist: true })
@@ -603,6 +675,29 @@
           themeLabel.textContent = nextTheme === "dark"
             ? t("login.theme.dark", {}, "Dark mode")
             : t("login.theme.light", {}, "Light mode");
+        }
+      }
+
+      async function changeLoginLanguage(nextLang) {
+        if (!languageSelect || !window.I18n || !nextLang) return;
+        if (nextLang === pendingLanguage) return;
+        if (nextLang === I18n.currentLang && !languageSelect.disabled) return;
+        pendingLanguage = nextLang;
+        const token = languageChangeToken + 1;
+        languageChangeToken = token;
+        languageSelect.disabled = true;
+
+        try {
+          await I18n.setLanguage(nextLang);
+        } catch (err) {
+          console.warn("Unable to change login language:", err);
+          if (languageSelect) languageSelect.value = I18n.currentLang || I18n.defaultLang || "ar";
+        } finally {
+          if (pendingLanguage === nextLang) pendingLanguage = "";
+          if (token === languageChangeToken && languageSelect) {
+            languageSelect.disabled = false;
+            languageSelect.value = I18n.currentLang || nextLang;
+          }
         }
       }
 
@@ -887,16 +982,20 @@
         I18n.apply(document);
         renderLanguageSelect();
         setLoginTheme(document.documentElement.dataset.theme || "light");
+        setLoginSimpleMode(document.documentElement.dataset.loginMode === "simple", { persist: false });
         renderPosts(postsCache);
       }
 
       renderLanguageSelect();
       setLoginTheme(document.documentElement.dataset.theme || "light");
+      setLoginSimpleMode(getStoredSimpleMode(), { persist: false });
 
-      languageSelect?.addEventListener("change", async (event) => {
-        languageSelect.disabled = true;
-        await I18n.setLanguage(event.target.value);
-        languageSelect.disabled = false;
+      languageSelect?.addEventListener("input", event => {
+        changeLoginLanguage(event.target.value);
+      });
+
+      languageSelect?.addEventListener("change", event => {
+        changeLoginLanguage(event.target.value);
       });
 
       window.addEventListener("i18n:change", (event) => {
@@ -906,6 +1005,10 @@
 
       themeToggle?.addEventListener("click", () => {
         setLoginTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+      });
+
+      simpleToggle?.addEventListener("click", () => {
+        setLoginSimpleMode(document.documentElement.dataset.loginMode !== "simple");
       });
 
       form.addEventListener("submit", async function (event) {

@@ -46,6 +46,11 @@
       "light": "الوضع الفاتح",
       "dark": "الوضع المظلم"
     },
+    "simple": {
+      "label": "الوضع البسيط",
+      "enabled": "بسيط",
+      "title": "تفعيل الوضع البسيط"
+    },
     "brand": {
       "kicker": "SMS",
       "title": "SMS"

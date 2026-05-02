@@ -47,6 +47,11 @@
       "light": "浅色模式",
       "dark": "深色模式"
     },
+    "simple": {
+      "label": "简洁模式",
+      "enabled": "简洁",
+      "title": "切换简洁模式"
+    },
     "brand": {
       "kicker": "SMS",
       "title": "SMS"

@@ -47,6 +47,11 @@
       "light": "लाइट मोड",
       "dark": "डार्क मोड"
     },
+    "simple": {
+      "label": "सरल मोड",
+      "enabled": "सरल",
+      "title": "सरल मोड बदलें"
+    },
     "brand": {
       "kicker": "SMS",
       "title": "SMS"

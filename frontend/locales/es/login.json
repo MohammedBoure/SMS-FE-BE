@@ -47,6 +47,11 @@
       "light": "Modo claro",
       "dark": "Modo oscuro"
     },
+    "simple": {
+      "label": "Modo simple",
+      "enabled": "Simple",
+      "title": "Activar modo simple"
+    },
     "brand": {
       "kicker": "SMS",
       "title": "SMS"
