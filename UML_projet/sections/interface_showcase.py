@@ -7,13 +7,14 @@ from utils import BASE_DIR, create_indexed_heading, normal_text, subtitle_style
 INTERFACE_SCREENSHOTS = [
     ("Posts Board", "Posts.PNG"),
     ("Post Details", "Post.PNG"),
+    ("Admin Grades", "admin-grades.PNG"),
     ("Parent Messages", "parent-messages.PNG"),
     ("Teacher Resources", "teacher-ressources.PNG"),
     ("Teacher Grades", "teacher-grades.PNG"),
     ("Parent - My Children", "parent-mychild.PNG"),
 ]
 
-FEATURED_SCREENSHOTS = {"Parent Messages", "Post Details", "Posts Board"}
+FEATURED_SCREENSHOTS = {"Admin Grades", "Parent Messages", "Post Details", "Posts Board"}
 
 
 def _append_screenshot(story, title, filename, featured=False):
