@@ -10,6 +10,7 @@ from sections import (
     class_diagram,
     conclusion,
     cover_page,
+    interface_showcase,
     navigation,
     project_context,
     sequence,
@@ -147,6 +148,7 @@ def build_story():
     sequence.build(story)
     navigation.build(story)
     tech_stack.build(story)
+    interface_showcase.build(story)
     conclusion.build(story)
     return story
 
