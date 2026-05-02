@@ -1070,7 +1070,44 @@
         "saving": "Guardando...",
         "updated": "Announcement updated correctamente.",
         "published": "Announcement published correctamente.",
-        "saveFailed": "Error al guardar: {message}"
+        "saveFailed": "Error al guardar: {message}",
+        "mathRequired": "Escribe o elige una ecuacion primero.",
+        "mathInserted": "Ecuacion matematica insertada"
+      },
+      "mathBuilder": {
+        "title": "Constructor de ecuaciones matematicas",
+        "inputLabel": "Escribir o editar LaTeX",
+        "modeLabel": "Modo de ecuacion",
+        "inline": "En linea",
+        "display": "Bloque",
+        "preview": "Vista previa en vivo",
+        "markdownOutput": "Markdown para insertar",
+        "categoriesLabel": "Simbolos por categoria",
+        "examplesLabel": "Formas listas",
+        "insert": "Insertar ecuacion",
+        "emptyPreview": "Elige un simbolo o escribe LaTeX para previsualizar la ecuacion.",
+        "emptyOutput": "Nada para insertar todavia",
+        "categories": {
+          "basic": "Basico",
+          "greek": "Griego",
+          "operators": "Operadores",
+          "sets": "Conjuntos",
+          "functions": "Funciones",
+          "geometry": "Geometria",
+          "structures": "Estructuras"
+        },
+        "examples": {
+          "quadratic": "Formula cuadratica",
+          "limit": "Limite clasico",
+          "integral": "Integral",
+          "derivative": "Derivada",
+          "matrix": "Matriz",
+          "cases": "Por partes",
+          "system": "Sistema de ecuaciones",
+          "vector": "Vectores",
+          "probability": "Probabilidad",
+          "trigonometry": "Trigonometria"
+        }
       }
     },
     "programsTab": {

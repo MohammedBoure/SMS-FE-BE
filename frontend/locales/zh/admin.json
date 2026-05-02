@@ -1070,7 +1070,44 @@
         "saving": "正在保存...",
         "updated": "公告 updated 成功.",
         "published": "公告 published 成功.",
-        "saveFailed": "保存时出错：{message}"
+        "saveFailed": "保存时出错：{message}",
+        "mathRequired": "????????????",
+        "mathInserted": "???????"
+      },
+      "mathBuilder": {
+        "title": "???????",
+        "inputLabel": "????? LaTeX",
+        "modeLabel": "????",
+        "inline": "??",
+        "display": "????",
+        "preview": "????",
+        "markdownOutput": "???? Markdown",
+        "categoriesLabel": "???????",
+        "examplesLabel": "????",
+        "insert": "????",
+        "emptyPreview": "???????? LaTeX ??????",
+        "emptyOutput": "???????",
+        "categories": {
+          "basic": "??",
+          "greek": "????",
+          "operators": "???",
+          "sets": "??",
+          "functions": "??",
+          "geometry": "??",
+          "structures": "??"
+        },
+        "examples": {
+          "quadratic": "????",
+          "limit": "????",
+          "integral": "??",
+          "derivative": "??",
+          "matrix": "??",
+          "cases": "????",
+          "system": "???",
+          "vector": "??",
+          "probability": "??",
+          "trigonometry": "?????"
+        }
       }
     },
     "programsTab": {

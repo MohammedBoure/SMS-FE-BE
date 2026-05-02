@@ -857,6 +857,145 @@
 }
 .math-input-field:focus { border-color: #064e3b; box-shadow: 0 0 0 3px rgba(6,78,59,.08); }
 
+.insert-modal.math-builder-modal {
+    width: min(1180px, calc(100vw - 40px));
+    max-width: calc(100vw - 40px);
+    max-height: calc(100dvh - 40px);
+}
+
+.math-builder-modal .modal-body {
+    padding: 20px;
+}
+
+.math-builder-body {
+    background:
+        linear-gradient(180deg, color-mix(in srgb, var(--post-accent, #0f766e) 5%, transparent), transparent 220px),
+        var(--post-surface, #ffffff);
+}
+
+.math-builder-grid {
+    display: grid;
+    grid-template-columns: minmax(300px, .92fr) minmax(420px, 1.08fr);
+    gap: 18px;
+    align-items: stretch;
+}
+
+.math-compose-panel,
+.math-library-panel {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--post-surface-soft, #f8fafc);
+    border: 1px solid var(--post-border, #e2e8f0);
+    border-radius: 14px;
+    padding: 14px;
+}
+
+.math-builder-input {
+    min-height: 150px;
+    resize: vertical;
+    line-height: 1.75;
+    margin-bottom: 12px;
+}
+
+.math-builder-modal .math-mode-row {
+    flex-wrap: wrap;
+}
+
+.math-builder-modal .math-live-preview {
+    min-height: 126px;
+    background: var(--post-surface, #ffffff);
+    color: var(--post-text, #102033);
+    border-color: var(--post-border, #e2e8f0);
+    margin-bottom: 12px;
+}
+
+.math-output-code {
+    min-height: 72px;
+    max-height: 160px;
+    overflow: auto;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: var(--post-surface, #ffffff);
+    border: 1px solid var(--post-border, #e2e8f0);
+    color: var(--post-muted, #667085);
+    direction: ltr;
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .8rem;
+    line-height: 1.6;
+}
+
+.math-builder-modal .math-cats-row {
+    position: sticky;
+    top: -20px;
+    z-index: 2;
+    padding: 0 0 10px;
+    background: var(--post-surface-soft, #f8fafc);
+}
+
+.math-builder-modal .math-sym-grid {
+    grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+    gap: 8px;
+    max-height: 310px;
+    overflow: auto;
+    padding-inline-end: 4px;
+}
+
+.math-builder-modal .math-sym-btn {
+    min-height: 62px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 10px;
+    text-align: left;
+}
+
+.math-builder-modal .math-sym-btn code,
+.math-builder-modal .math-ex-btn code {
+    direction: ltr;
+    unicode-bidi: plaintext;
+    font-family: 'JetBrains Mono', monospace;
+    color: inherit;
+}
+
+.math-builder-modal .math-sym-btn span {
+    color: var(--post-muted, #667085);
+    font-size: .68rem;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+.math-examples-grid-wide {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    max-height: 250px;
+    overflow: auto;
+    padding-inline-end: 4px;
+}
+
+.math-builder-modal .math-ex-btn {
+    min-height: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: start;
+}
+
+.math-builder-modal .math-ex-btn span {
+    font-weight: 800;
+    color: var(--post-text, #102033);
+}
+
+.math-builder-modal .math-ex-btn code {
+    display: block;
+    color: var(--post-muted, #667085);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /* ═══ معاينة المنشور الكاملة ═══ */
 .post-full-preview {
     position: fixed;
@@ -1543,6 +1682,7 @@ body[data-theme="dark"] .tbl-mini-preview tbody td {
     .editor-meta-row,
     .editor-body,
     .tbl-builder-grid,
+    .math-builder-grid,
     .qstyle-grid,
     .math-examples-grid {
         grid-template-columns: 1fr;
@@ -1621,6 +1761,30 @@ body[data-theme="dark"] .tbl-mini-preview tbody td {
         width: calc(100vw - 16px);
         max-width: calc(100vw - 16px);
         max-height: calc(100dvh - 16px);
+    }
+
+    .insert-modal.math-builder-modal {
+        width: calc(100vw - 16px);
+        max-width: calc(100vw - 16px);
+        max-height: calc(100dvh - 16px);
+    }
+
+    .math-builder-modal .modal-body {
+        padding: 12px;
+    }
+
+    .math-compose-panel,
+    .math-library-panel {
+        padding: 12px;
+    }
+
+    .math-builder-modal .math-sym-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-height: 260px;
+    }
+
+    .math-examples-grid-wide {
+        max-height: 230px;
     }
 
     .table-builder-modal .modal-body {

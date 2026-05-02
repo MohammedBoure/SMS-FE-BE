@@ -1069,7 +1069,44 @@
         "saving": "Saving...",
         "updated": "Announcement updated successfully.",
         "published": "Announcement published successfully.",
-        "saveFailed": "Error while saving: {message}"
+        "saveFailed": "Error while saving: {message}",
+        "mathRequired": "Please write or choose an equation first.",
+        "mathInserted": "Math equation inserted"
+      },
+      "mathBuilder": {
+        "title": "Math Equation Builder",
+        "inputLabel": "Write or edit LaTeX",
+        "modeLabel": "Equation mode",
+        "inline": "Inline",
+        "display": "Display",
+        "preview": "Live preview",
+        "markdownOutput": "Markdown to insert",
+        "categoriesLabel": "Symbols by category",
+        "examplesLabel": "Ready-made shapes",
+        "insert": "Insert equation",
+        "emptyPreview": "Choose a symbol or type LaTeX to preview the equation.",
+        "emptyOutput": "Nothing to insert yet",
+        "categories": {
+          "basic": "Basic",
+          "greek": "Greek",
+          "operators": "Operators",
+          "sets": "Sets",
+          "functions": "Functions",
+          "geometry": "Geometry",
+          "structures": "Structures"
+        },
+        "examples": {
+          "quadratic": "Quadratic formula",
+          "limit": "Classic limit",
+          "integral": "Integral",
+          "derivative": "Derivative",
+          "matrix": "Matrix",
+          "cases": "Piecewise",
+          "system": "Equation system",
+          "vector": "Vectors",
+          "probability": "Probability",
+          "trigonometry": "Trigonometry"
+        }
       }
     },
     "programsTab": {

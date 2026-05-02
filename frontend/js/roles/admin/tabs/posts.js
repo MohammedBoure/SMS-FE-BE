@@ -677,7 +677,7 @@ AdminUI._editorAction = function(action) {
         insertLink: AdminUI._modalInsertLink.bind(AdminUI),
         insertDownload: AdminUI._modalInsertDownload.bind(AdminUI),
         insertCode: AdminUI._quickInsertCode.bind(AdminUI),
-        insertMath: AdminUI._quickInsertMath.bind(AdminUI)
+        insertMath: AdminUI._modalInsertMath.bind(AdminUI)
     };
     actions[action]?.();
 };
@@ -885,8 +885,291 @@ AdminUI._quickInsertCode = function() {
     else AdminUI.insertMarkdown("```python\n", "\n```");
 };
 
-AdminUI._quickInsertMath = function() {
-    AdminUI.insertMarkdown("$$\n", "\n$$");
+AdminUI._mathState = { mode: "display", category: "basic" };
+
+AdminUI._mathCategories = function() {
+    return [
+        {
+            id: "basic",
+            label: this.postsT("mathBuilder.categories.basic", {}, "Basic"),
+            symbols: [
+                ["\\frac{a}{b}", "fraction"], ["\\sqrt{x}", "sqrt"], ["\\sqrt[n]{x}", "nth root"],
+                ["x^{n}", "power"], ["x_{i}", "subscript"], ["\\left( x \\right)", "parentheses"],
+                ["\\pm", "plus/minus"], ["\\times", "times"], ["\\div", "division"],
+                ["\\cdot", "dot"], ["\\approx", "approx"], ["\\infty", "infinity"],
+                ["\\left| x \\right|", "absolute"], ["\\left\\lVert v \\right\\rVert", "norm"], ["\\%", "percent"]
+            ]
+        },
+        {
+            id: "greek",
+            label: this.postsT("mathBuilder.categories.greek", {}, "Greek"),
+            symbols: [
+                ["\\alpha", "alpha"], ["\\beta", "beta"], ["\\gamma", "gamma"], ["\\delta", "delta"], ["\\Delta", "Delta"],
+                ["\\epsilon", "epsilon"], ["\\theta", "theta"], ["\\lambda", "lambda"], ["\\mu", "mu"], ["\\pi", "pi"],
+                ["\\rho", "rho"], ["\\sigma", "sigma"], ["\\Sigma", "Sigma"], ["\\phi", "phi"], ["\\omega", "omega"]
+            ]
+        },
+        {
+            id: "operators",
+            label: this.postsT("mathBuilder.categories.operators", {}, "Operators"),
+            symbols: [
+                ["\\sum_{i=1}^{n}", "sum"], ["\\prod_{i=1}^{n}", "product"], ["\\int_{a}^{b}", "integral"],
+                ["\\iint_{D}", "double integral"], ["\\lim_{x\\to a}", "limit"], ["\\frac{d}{dx}", "derivative"],
+                ["\\frac{\\partial}{\\partial x}", "partial"], ["\\nabla", "nabla"], ["\\vec{v}", "vector"],
+                ["\\overline{x}", "overline"], ["\\hat{x}", "hat"], ["\\dot{x}", "dot accent"],
+                ["\\le", "less equal"], ["\\ge", "greater equal"], ["\\ne", "not equal"]
+            ]
+        },
+        {
+            id: "sets",
+            label: this.postsT("mathBuilder.categories.sets", {}, "Sets"),
+            symbols: [
+                ["\\in", "in"], ["\\notin", "not in"], ["\\subset", "subset"], ["\\subseteq", "subseteq"],
+                ["\\cup", "union"], ["\\cap", "intersection"], ["\\emptyset", "empty set"], ["\\mathbb{N}", "N"],
+                ["\\mathbb{Z}", "Z"], ["\\mathbb{Q}", "Q"], ["\\mathbb{R}", "R"], ["\\mathbb{C}", "C"],
+                ["\\forall", "forall"], ["\\exists", "exists"], ["\\therefore", "therefore"]
+            ]
+        },
+        {
+            id: "functions",
+            label: this.postsT("mathBuilder.categories.functions", {}, "Functions"),
+            symbols: [
+                ["\\sin{x}", "sin"], ["\\cos{x}", "cos"], ["\\tan{x}", "tan"], ["\\log{x}", "log"], ["\\ln{x}", "ln"],
+                ["e^{x}", "exp"], ["\\min", "min"], ["\\max", "max"], ["\\lfloor x \\rfloor", "floor"],
+                ["\\lceil x \\rceil", "ceil"], ["f\\circ g", "composition"], ["f^{-1}(x)", "inverse"],
+                ["\\binom{n}{k}", "binomial"], ["P(A\\mid B)", "conditional"], ["\\operatorname{Var}(X)", "variance"]
+            ]
+        },
+        {
+            id: "geometry",
+            label: this.postsT("mathBuilder.categories.geometry", {}, "Geometry"),
+            symbols: [
+                ["\\angle ABC", "angle"], ["\\triangle ABC", "triangle"], ["AB \\parallel CD", "parallel"],
+                ["AB \\perp CD", "perpendicular"], ["90^{\\circ}", "degrees"], ["\\overline{AB}", "segment"],
+                ["\\widehat{AB}", "arc"], ["\\vec{AB}", "vector AB"], ["A\\cong B", "congruent"],
+                ["A\\sim B", "similar"], ["\\pi r^2", "circle area"], ["\\frac{1}{2}bh", "triangle area"]
+            ]
+        },
+        {
+            id: "structures",
+            label: this.postsT("mathBuilder.categories.structures", {}, "Structures"),
+            symbols: [
+                ["\\begin{bmatrix} a & b \\\\ c & d \\end{bmatrix}", "matrix"],
+                ["\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix}", "determinant"],
+                ["\\begin{cases} a & x>0 \\\\ b & x\\le 0 \\end{cases}", "cases"],
+                ["\\begin{aligned} a&=b+c \\\\ d&=e+f \\end{aligned}", "aligned"],
+                ["\\left\\{\\begin{aligned} x+y&=1 \\\\ x-y&=3 \\end{aligned}\\right.", "system"],
+                ["\\begin{array}{c|cc} & A & B \\\\ 1 & x & y \\end{array}", "array"]
+            ]
+        }
+    ];
+};
+
+AdminUI._mathExamples = function() {
+    return [
+        { label: this.postsT("mathBuilder.examples.quadratic", {}, "Quadratic formula"), latex: "x=\\frac{-b\\pm\\sqrt{b^2-4ac}}{2a}" },
+        { label: this.postsT("mathBuilder.examples.limit", {}, "Classic limit"), latex: "\\lim_{x\\to 0}\\frac{\\sin x}{x}=1" },
+        { label: this.postsT("mathBuilder.examples.integral", {}, "Integral"), latex: "\\int_a^b f(x)\\,dx=F(b)-F(a)" },
+        { label: this.postsT("mathBuilder.examples.derivative", {}, "Derivative"), latex: "\\frac{d}{dx}\\left(x^n\\right)=nx^{n-1}" },
+        { label: this.postsT("mathBuilder.examples.matrix", {}, "Matrix"), latex: "A=\\begin{bmatrix} 1 & 2 \\\\ 3 & 4 \\end{bmatrix}" },
+        { label: this.postsT("mathBuilder.examples.cases", {}, "Piecewise"), latex: "f(x)=\\begin{cases} x^2 & x\\ge 0 \\\\ -x & x<0 \\end{cases}" },
+        { label: this.postsT("mathBuilder.examples.system", {}, "Equation system"), latex: "\\left\\{\\begin{aligned} 2x+y&=5 \\\\ x-y&=1 \\end{aligned}\\right." },
+        { label: this.postsT("mathBuilder.examples.vector", {}, "Vectors"), latex: "\\vec{u}\\cdot\\vec{v}=\\lVert u\\rVert\\lVert v\\rVert\\cos\\theta" },
+        { label: this.postsT("mathBuilder.examples.probability", {}, "Probability"), latex: "P(A\\mid B)=\\frac{P(A\\cap B)}{P(B)}" },
+        { label: this.postsT("mathBuilder.examples.trigonometry", {}, "Trigonometry"), latex: "\\sin^2\\theta+\\cos^2\\theta=1" }
+    ];
+};
+
+AdminUI._stripMathDelimiters = function(value) {
+    let text = String(value || "").trim();
+    if ((text.startsWith("$$") && text.endsWith("$$")) || (text.startsWith("\\[") && text.endsWith("\\]"))) {
+        return text.replace(/^\$\$|^\s*\\\[/, "").replace(/\$\$$|\\\]\s*$/, "").trim();
+    }
+    if ((text.startsWith("$") && text.endsWith("$")) || (text.startsWith("\\(") && text.endsWith("\\)"))) {
+        return text.replace(/^\$|^\s*\\\(/, "").replace(/\$$|\\\)\s*$/, "").trim();
+    }
+    return text;
+};
+
+AdminUI._detectMathMode = function(value) {
+    const text = String(value || "").trim();
+    return text.startsWith("$") && !text.startsWith("$$") ? "inline" : "display";
+};
+
+AdminUI._modalInsertMath = function() {
+    const ta = document.getElementById("editor-content");
+    const selected = ta ? ta.value.substring(ta.selectionStart, ta.selectionEnd) : "";
+    AdminUI._mathState = {
+        mode: AdminUI._detectMathMode(selected),
+        category: "basic"
+    };
+
+    AdminUI._openModal(`
+      <div class="modal-header">
+        <h3>${AdminUI.icon("chart", "inline-svg-icon")} ${AdminUI.postsT("mathBuilder.title", {}, "Math Equation Builder")}</h3>
+        <button class="modal-close-btn" onclick="AdminUI._closeModal()">&times;</button>
+      </div>
+      <div class="modal-body math-builder-body">
+        <div class="math-builder-grid">
+          <section class="math-compose-panel">
+            <div class="tbl-section-label">${AdminUI.postsT("mathBuilder.inputLabel", {}, "Write or edit LaTeX")}</div>
+            <textarea id="math-input" class="math-input-field math-builder-input" spellcheck="false" placeholder="\\frac{a}{b}+\\sqrt{x}"></textarea>
+
+            <div class="math-mode-row" role="group" aria-label="${AdminUI.postsT("mathBuilder.modeLabel", {}, "Equation mode")}">
+              <button type="button" class="math-mode-btn" data-math-mode="inline">${AdminUI.postsT("mathBuilder.inline", {}, "Inline")}</button>
+              <button type="button" class="math-mode-btn" data-math-mode="display">${AdminUI.postsT("mathBuilder.display", {}, "Display")}</button>
+            </div>
+
+            <div class="tbl-section-label">${AdminUI.postsT("mathBuilder.preview", {}, "Live preview")}</div>
+            <div class="math-live-preview" id="math-live-preview"></div>
+
+            <div class="tbl-section-label">${AdminUI.postsT("mathBuilder.markdownOutput", {}, "Markdown to insert")}</div>
+            <div class="math-output-code" id="math-output-code"></div>
+          </section>
+
+          <section class="math-library-panel">
+            <div class="tbl-section-label">${AdminUI.postsT("mathBuilder.categoriesLabel", {}, "Symbols by category")}</div>
+            <div class="math-cats-row" id="math-cats-row"></div>
+            <div class="math-sym-grid" id="math-sym-grid"></div>
+
+            <div class="tbl-section-label">${AdminUI.postsT("mathBuilder.examplesLabel", {}, "Ready-made shapes")}</div>
+            <div class="math-examples-grid math-examples-grid-wide" id="math-examples-grid"></div>
+          </section>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn-cancel" onclick="AdminUI._closeModal()">${AdminUI.t("admin.actions.cancel", {}, "Cancel")}</button>
+        <button class="modal-btn-primary" onclick="AdminUI._doInsertMath()">${AdminUI.postsT("mathBuilder.insert", {}, "Insert equation")}</button>
+      </div>`, { className: "math-builder-modal" });
+
+    const input = document.getElementById("math-input");
+    if (input) {
+        input.value = AdminUI._stripMathDelimiters(selected);
+        input.addEventListener("input", () => AdminUI._updateMathPreview());
+    }
+
+    document.querySelectorAll("[data-math-mode]").forEach(btn => {
+        btn.addEventListener("click", () => AdminUI._setMathMode(btn.dataset.mathMode));
+    });
+
+    AdminUI._renderMathLibrary();
+    AdminUI._setMathMode(AdminUI._mathState.mode);
+    AdminUI._updateMathPreview();
+    input?.focus();
+};
+
+AdminUI._renderMathLibrary = function() {
+    const catsRow = document.getElementById("math-cats-row");
+    const examplesGrid = document.getElementById("math-examples-grid");
+    if (catsRow) {
+        catsRow.innerHTML = AdminUI._mathCategories().map(cat =>
+            `<button type="button" class="math-cat-btn${cat.id === AdminUI._mathState.category ? " sel" : ""}" data-math-category="${_postEscapeAttr(cat.id)}">${AdminUI._escape(cat.label)}</button>`
+        ).join("");
+        catsRow.querySelectorAll("[data-math-category]").forEach(btn => {
+            btn.addEventListener("click", () => AdminUI._setMathCategory(btn.dataset.mathCategory));
+        });
+    }
+
+    if (examplesGrid) {
+        examplesGrid.innerHTML = AdminUI._mathExamples().map(example => `
+          <button type="button" class="math-ex-btn" data-latex="${_postEscapeAttr(example.latex)}">
+            <span>${AdminUI._escape(example.label)}</span>
+            <code>${AdminUI._escape(example.latex)}</code>
+          </button>
+        `).join("");
+        examplesGrid.querySelectorAll("[data-latex]").forEach(btn => {
+            btn.addEventListener("click", () => AdminUI._setMathInput(btn.dataset.latex));
+        });
+    }
+
+    AdminUI._renderMathSymbols();
+};
+
+AdminUI._setMathCategory = function(category) {
+    AdminUI._mathState.category = category || "basic";
+    document.querySelectorAll("[data-math-category]").forEach(btn => {
+        btn.classList.toggle("sel", btn.dataset.mathCategory === AdminUI._mathState.category);
+    });
+    AdminUI._renderMathSymbols();
+};
+
+AdminUI._renderMathSymbols = function() {
+    const grid = document.getElementById("math-sym-grid");
+    if (!grid) return;
+    const category = AdminUI._mathCategories().find(item => item.id === AdminUI._mathState.category) || AdminUI._mathCategories()[0];
+    grid.innerHTML = category.symbols.map(([latex, label]) => `
+      <button type="button" class="math-sym-btn" data-latex="${_postEscapeAttr(latex)}" title="${_postEscapeAttr(label)}">
+        <code>${AdminUI._escape(latex)}</code>
+        <span>${AdminUI._escape(label)}</span>
+      </button>
+    `).join("");
+    grid.querySelectorAll("[data-latex]").forEach(btn => {
+        btn.addEventListener("click", () => AdminUI._insertMathToken(btn.dataset.latex));
+    });
+};
+
+AdminUI._setMathMode = function(mode) {
+    AdminUI._mathState.mode = mode === "inline" ? "inline" : "display";
+    document.querySelectorAll("[data-math-mode]").forEach(btn => {
+        btn.classList.toggle("sel", btn.dataset.mathMode === AdminUI._mathState.mode);
+    });
+    AdminUI._updateMathPreview();
+};
+
+AdminUI._setMathInput = function(latex) {
+    const input = document.getElementById("math-input");
+    if (!input) return;
+    input.value = latex || "";
+    input.focus();
+    input.setSelectionRange(input.value.length, input.value.length);
+    AdminUI._updateMathPreview();
+};
+
+AdminUI._insertMathToken = function(latex) {
+    const input = document.getElementById("math-input");
+    if (!input) return;
+    const start = input.selectionStart ?? input.value.length;
+    const end = input.selectionEnd ?? input.value.length;
+    const selected = input.value.slice(start, end);
+    let token = latex || "";
+    if (selected && token.includes("x")) token = token.replace("x", selected);
+    input.value = input.value.slice(0, start) + token + input.value.slice(end);
+    const nextPos = start + token.length;
+    input.focus();
+    input.setSelectionRange(nextPos, nextPos);
+    AdminUI._updateMathPreview();
+};
+
+AdminUI._mathMarkdown = function(latex) {
+    const body = String(latex || "").trim();
+    if (!body) return "";
+    return AdminUI._mathState.mode === "inline" ? `$${body}$` : `$$\n${body}\n$$`;
+};
+
+AdminUI._updateMathPreview = function() {
+    const input = document.getElementById("math-input");
+    const preview = document.getElementById("math-live-preview");
+    const output = document.getElementById("math-output-code");
+    if (!input || !preview) return;
+    const latex = input.value.trim();
+    const markdown = AdminUI._mathMarkdown(latex);
+    preview.innerHTML = latex
+        ? (AdminUI._mathState.mode === "inline" ? `\\(${latex}\\)` : `\\[${latex}\\]`)
+        : `<span class="preview-placeholder">${AdminUI.postsT("mathBuilder.emptyPreview", {}, "Choose a symbol or type LaTeX to preview the equation.")}</span>`;
+    if (output) output.textContent = markdown || AdminUI.postsT("mathBuilder.emptyOutput", {}, "Nothing to insert yet");
+    AdminUI.typesetPostMath(preview);
+};
+
+AdminUI._doInsertMath = function() {
+    const latex = document.getElementById("math-input")?.value?.trim();
+    if (!latex) {
+        _showToast(AdminUI.postsT("messages.mathRequired", {}, "Please write or choose an equation first."), "error");
+        return;
+    }
+    const md = AdminUI._mathMarkdown(latex);
+    AdminUI.insertMarkdown(AdminUI._mathState.mode === "inline" ? md : `\n${md}\n`, "");
+    AdminUI._closeModal();
+    _showToast(AdminUI.postsT("messages.mathInserted", {}, "Math equation inserted"), "success");
 };
 
 AdminUI._openModal = function(content, options = {}) {

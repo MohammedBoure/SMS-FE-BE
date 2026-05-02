@@ -1070,7 +1070,44 @@
         "saving": "Enregistrement...",
         "updated": "Annonce updated successfully.",
         "published": "Annonce published successfully.",
-        "saveFailed": "Erreur while saving: {message}"
+        "saveFailed": "Erreur while saving: {message}",
+        "mathRequired": "Veuillez ecrire ou choisir une equation.",
+        "mathInserted": "Equation mathematique inseree"
+      },
+      "mathBuilder": {
+        "title": "Constructeur d equation mathematique",
+        "inputLabel": "Ecrire ou modifier le LaTeX",
+        "modeLabel": "Mode de l equation",
+        "inline": "En ligne",
+        "display": "Bloc",
+        "preview": "Apercu en direct",
+        "markdownOutput": "Markdown a inserer",
+        "categoriesLabel": "Symboles par categorie",
+        "examplesLabel": "Formes pretes",
+        "insert": "Inserer l equation",
+        "emptyPreview": "Choisissez un symbole ou saisissez du LaTeX pour voir l apercu.",
+        "emptyOutput": "Rien a inserer pour le moment",
+        "categories": {
+          "basic": "Base",
+          "greek": "Grec",
+          "operators": "Operateurs",
+          "sets": "Ensembles",
+          "functions": "Fonctions",
+          "geometry": "Geometrie",
+          "structures": "Structures"
+        },
+        "examples": {
+          "quadratic": "Formule quadratique",
+          "limit": "Limite classique",
+          "integral": "Integrale",
+          "derivative": "Derivee",
+          "matrix": "Matrice",
+          "cases": "Fonction par morceaux",
+          "system": "Systeme d equations",
+          "vector": "Vecteurs",
+          "probability": "Probabilite",
+          "trigonometry": "Trigonometrie"
+        }
       }
     },
     "programsTab": {
