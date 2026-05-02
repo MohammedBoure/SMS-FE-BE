@@ -38,7 +38,7 @@
     }
   ],
   "login": {
-    "documentTitle": "Connexion | Système de gestion scolaire",
+    "documentTitle": "Connexion | SMS",
     "language": {
       "label": "Langue",
       "select": "Choisir la langue"
@@ -49,7 +49,7 @@
     },
     "brand": {
       "kicker": "SMS",
-      "title": "Système de gestion scolaire"
+      "title": "SMS"
     },
     "form": {
       "title": "Connexion",
@@ -61,7 +61,7 @@
       "submitting": "Connexion...",
       "error": "Échec de la connexion. Veuillez réessayer."
     },
-    "footer": "Tous droits réservés © 2026 - Système de gestion scolaire",
+    "footer": "Tous droits réservés © 2026 - SMS",
     "posts": {
       "kicker": "Annonces de l'école",
       "title": "Dernières publications",

@@ -37,7 +37,7 @@
     }
   ],
   "login": {
-    "documentTitle": "Login | School Management System",
+    "documentTitle": "Login | SMS",
     "language": {
       "label": "Language",
       "select": "Choose language"
@@ -48,7 +48,7 @@
     },
     "brand": {
       "kicker": "SMS",
-      "title": "School Management System"
+      "title": "SMS"
     },
     "form": {
       "title": "Login",
@@ -60,7 +60,7 @@
       "submitting": "Signing in...",
       "error": "Login failed. Please try again."
     },
-    "footer": "All rights reserved © 2026 - School Management System",
+    "footer": "All rights reserved © 2026 - SMS",
     "posts": {
       "kicker": "School Announcements",
       "title": "Latest Posts",
