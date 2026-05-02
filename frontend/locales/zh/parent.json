@@ -40,7 +40,8 @@
   "parent": {
     "documentTitle": "家长仪表盘",
     "brand": {
-      "welcome": "欢迎：{name}"
+      "welcome": "欢迎：{name}",
+      "subtitle": "家庭跟进工作区"
     },
     "language": {
       "label": "语言",
@@ -201,6 +202,10 @@
     },
     "currency": {
       "dzd": "DZD"
+    },
+    "theme": {
+      "light": "浅色",
+      "dark": "深色"
     }
   }
 }

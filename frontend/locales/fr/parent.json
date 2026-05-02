@@ -40,7 +40,8 @@
   "parent": {
     "documentTitle": "Tableau de bord parent",
     "brand": {
-      "welcome": "Bienvenue : {name}"
+      "welcome": "Bienvenue : {name}",
+      "subtitle": "Espace de suivi familial"
     },
     "language": {
       "label": "Langue",
@@ -201,6 +202,10 @@
     },
     "currency": {
       "dzd": "DZD"
+    },
+    "theme": {
+      "light": "Clair",
+      "dark": "Sombre"
     }
   }
 }

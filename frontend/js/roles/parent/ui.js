@@ -21,7 +21,13 @@ const ParentUI = {
 
     header.innerHTML = `
       <div class="parent-header-shell">
-        <h1>${this.t("parent.brand.welcome", { name: this._escape(name) }, `Welcome: ${this._escape(name)}`)}</h1>
+        <div class="parent-brand">
+          <div class="parent-brand-mark" aria-hidden="true">P</div>
+          <div class="parent-brand-copy">
+            <h1>${this.t("parent.brand.welcome", { name: this._escape(name) }, `Welcome: ${this._escape(name)}`)}</h1>
+            <small>${this.t("parent.brand.subtitle", {}, "Family follow-up workspace")}</small>
+          </div>
+        </div>
         <div class="parent-header-actions">
           <label class="parent-language-control">
             <span>${this.t("parent.language.label", {}, "Language")}</span>
@@ -29,12 +35,17 @@ const ParentUI = {
               ${options}
             </select>
           </label>
+          <button type="button" class="parent-theme-toggle" id="parent-theme-toggle" aria-pressed="false">
+            <span class="parent-theme-indicator" aria-hidden="true"></span>
+            <span class="parent-theme-label">${this.t("parent.theme.light", {}, "Light")}</span>
+          </button>
           <button id="logout-btn">${this.t("parent.auth.logout", {}, "Log out")}</button>
         </div>
       </div>
     `;
 
     document.getElementById("logout-btn")?.addEventListener("click", () => Auth.logout());
+    this.initTheme();
     const languageSelect = document.getElementById("parent-language-select");
     if (languageSelect && window.I18n) {
       languageSelect.addEventListener("change", async (event) => {
@@ -42,6 +53,48 @@ const ParentUI = {
         await I18n.setLanguage(event.target.value);
         languageSelect.disabled = false;
       });
+    }
+  },
+
+  initTheme() {
+    const stored = window.AppPreferences
+      ? AppPreferences.getTheme("parent", document.documentElement.dataset.theme)
+      : (localStorage.getItem("sms-theme") || localStorage.getItem("parent-theme"));
+    const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    this.applyTheme(stored || document.documentElement.dataset.theme || preferred);
+
+    const toggle = document.getElementById("parent-theme-toggle");
+    if (!toggle || toggle.dataset.bound === "true") return;
+
+    toggle.addEventListener("click", () => {
+      const current = document.body.dataset.theme === "dark" ? "dark" : "light";
+      this.applyTheme(current === "dark" ? "light" : "dark");
+    });
+    toggle.dataset.bound = "true";
+  },
+
+  applyTheme(theme) {
+    const nextTheme = window.AppPreferences
+      ? AppPreferences.applyTheme(theme, { scope: "parent", persist: true })
+      : (theme === "dark" ? "dark" : "light");
+    if (!window.AppPreferences) {
+      document.documentElement.dataset.theme = nextTheme;
+      document.body.dataset.theme = nextTheme;
+      localStorage.setItem("sms-theme", nextTheme);
+      localStorage.setItem("parent-theme", nextTheme);
+      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "dark" ? "#0b1220" : "#0f766e");
+    }
+
+    const toggle = document.getElementById("parent-theme-toggle");
+    if (!toggle) return;
+
+    const isDark = nextTheme === "dark";
+    toggle.setAttribute("aria-pressed", isDark ? "true" : "false");
+    const label = toggle.querySelector(".parent-theme-label");
+    if (label) {
+      label.textContent = isDark
+        ? this.t("parent.theme.dark", {}, "Dark")
+        : this.t("parent.theme.light", {}, "Light");
     }
   },
 
@@ -55,26 +108,30 @@ const ParentUI = {
   },
 
   renderLoading() {
-    document.getElementById("parent-main").innerHTML = `<h3 style="padding: 20px;">${this.t("parent.state.loading", {}, "Loading data...")}</h3>`;
+    document.getElementById("parent-main").innerHTML = `
+      <div class="parent-state-card">
+        <span class="parent-state-dot" aria-hidden="true"></span>
+        <h3>${this.t("parent.state.loading", {}, "Loading data...")}</h3>
+      </div>
+    `;
   },
 
   renderError(msg) {
     document.getElementById("parent-main").innerHTML = `
-      <h3 style="color: #ef4444; padding: 20px;">
-        ${this.t("parent.state.errorPrefix", {}, "Error:")} ${this._escape(msg)}
-      </h3>
+      <div class="parent-state-card error">
+        <h3>${this.t("parent.state.errorPrefix", {}, "Error:")} ${this._escape(msg)}</h3>
+      </div>
     `;
   },
 
   renderChildren(children) {
     const main = document.getElementById("parent-main");
-    const align = this.start();
 
     if (!children || children.length === 0) {
-      main.innerHTML = `
-        <h2>${this.t("parent.children.emptyTitle", {}, "My Children")}</h2>
-        <p style="color: #64748b;">${this.t("parent.children.emptyText", {}, "No children are currently linked to your account.")}</p>
-      `;
+      main.innerHTML = this._renderEmpty(
+        this.t("parent.children.emptyTitle", {}, "My Children"),
+        this.t("parent.children.emptyText", {}, "No children are currently linked to your account.")
+      );
       return;
     }
 
@@ -82,38 +139,39 @@ const ParentUI = {
       <tr>
         <td><strong>${this._escape(c.student_name || c.full_name)}</strong></td>
         <td>${this._escape(c.class_name)} (${this._escape(c.level)})</td>
-        <td style="direction: ltr; text-align: ${align};">${this._escape(c.date_of_birth)}</td>
-        <td><span style="background: ${c.status === "active" ? '#dcfce7' : '#f1f5f9'}; padding: 4px 8px; border-radius: 4px;">${this._translateStatus(c.status)}</span></td>
+        <td class="parent-ltr-value">${this._escape(c.date_of_birth)}</td>
+        <td><span class="parent-pill ${c.status === "active" ? "success" : "muted"}">${this._translateStatus(c.status)}</span></td>
       </tr>
     `).join("");
 
     main.innerHTML = `
-      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">${this.t("parent.children.title", {}, "My Registered Children")}</h2>
-      <div style="overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <table style="width: 100%; border-collapse: collapse; text-align: ${align};">
-          <thead style="background: #f1f5f9;">
-            <tr>
-              <th>${this.t("parent.children.columns.name", {}, "Name")}</th>
-              <th>${this.t("parent.children.columns.classLevel", {}, "Class (level)")}</th>
-              <th>${this.t("parent.children.columns.birthDate", {}, "Date of birth")}</th>
-              <th>${this.t("parent.children.columns.status", {}, "Status")}</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
+      <section class="parent-section">
+        ${this._renderSectionHeader(this.t("parent.children.title", {}, "My Registered Children"))}
+        <div class="parent-table-card">
+          <table class="parent-data-table">
+            <thead>
+              <tr>
+                <th>${this.t("parent.children.columns.name", {}, "Name")}</th>
+                <th>${this.t("parent.children.columns.classLevel", {}, "Class (level)")}</th>
+                <th>${this.t("parent.children.columns.birthDate", {}, "Date of birth")}</th>
+                <th>${this.t("parent.children.columns.status", {}, "Status")}</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </section>
     `;
   },
 
   renderGrades(grades) {
     const main = document.getElementById("parent-main");
-    const align = this.start();
 
     if (!grades || grades.length === 0) {
-      main.innerHTML = `
-        <h2>${this.t("parent.grades.emptyTitle", {}, "Grades and Assessments")}</h2>
-        <p style="color: #64748b;">${this.t("parent.grades.emptyText", {}, "No grades have been recorded yet.")}</p>
-      `;
+      main.innerHTML = this._renderEmpty(
+        this.t("parent.grades.emptyTitle", {}, "Grades and Assessments"),
+        this.t("parent.grades.emptyText", {}, "No grades have been recorded yet.")
+      );
       return;
     }
 
@@ -123,134 +181,136 @@ const ParentUI = {
         <tr>
           <td><strong>${this._escape(g.child_name)}</strong></td>
           <td>${this._escape(g.subject_name)}</td>
-          <td>${this._escape(g.assessment_title)} <span style="color:#64748b; font-size:0.85em;">(${this._escape(assessmentType)})</span></td>
-          <td style="direction: ltr; text-align: ${align}; font-weight: bold; color: #10b981;">${this._escape(g.grade_value)} / ${this._escape(g.max_grade)}</td>
+          <td>${this._escape(g.assessment_title)} <span class="parent-muted-inline">(${this._escape(assessmentType)})</span></td>
+          <td class="parent-ltr-value parent-value-success">${this._escape(g.grade_value)} / ${this._escape(g.max_grade)}</td>
           <td>${this._escape(g.teacher_name)}</td>
         </tr>
       `;
     }).join("");
 
     main.innerHTML = `
-      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">${this.t("parent.grades.title", {}, "Grades and Assessments")}</h2>
-      <div style="overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <table style="width: 100%; border-collapse: collapse; text-align: ${align};">
-          <thead style="background: #f1f5f9;">
-            <tr>
-              <th>${this.t("parent.grades.columns.child", {}, "Child")}</th>
-              <th>${this.t("parent.grades.columns.subject", {}, "Subject")}</th>
-              <th>${this.t("parent.grades.columns.assessment", {}, "Assessment")}</th>
-              <th>${this.t("parent.grades.columns.grade", {}, "Grade")}</th>
-              <th>${this.t("parent.grades.columns.teacher", {}, "Teacher")}</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
+      <section class="parent-section">
+        ${this._renderSectionHeader(this.t("parent.grades.title", {}, "Grades and Assessments"))}
+        <div class="parent-table-card">
+          <table class="parent-data-table">
+            <thead>
+              <tr>
+                <th>${this.t("parent.grades.columns.child", {}, "Child")}</th>
+                <th>${this.t("parent.grades.columns.subject", {}, "Subject")}</th>
+                <th>${this.t("parent.grades.columns.assessment", {}, "Assessment")}</th>
+                <th>${this.t("parent.grades.columns.grade", {}, "Grade")}</th>
+                <th>${this.t("parent.grades.columns.teacher", {}, "Teacher")}</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </section>
     `;
   },
 
   renderAttendance(records) {
     const main = document.getElementById("parent-main");
-    const align = this.start();
 
     if (!records || records.length === 0) {
-      main.innerHTML = `
-        <h2>${this.t("parent.attendance.emptyTitle", {}, "Absence Record")}</h2>
-        <p style="color: #64748b;">${this.t("parent.attendance.emptyText", {}, "No absences were found.")}</p>
-      `;
+      main.innerHTML = this._renderEmpty(
+        this.t("parent.attendance.emptyTitle", {}, "Absence Record"),
+        this.t("parent.attendance.emptyText", {}, "No absences were found.")
+      );
       return;
     }
 
     const rows = records.map(r => {
-      const statusColor = r.status === "absent" ? "#ef4444" : (r.status === "present" ? "#10b981" : "#f59e0b");
+      const statusClass = r.status === "absent" ? "danger" : (r.status === "present" ? "success" : "warning");
       const justification = r.is_justified
         ? this.t("parent.attendance.justifiedYes", { reason: this._escape(r.justification_reason) }, "Yes")
         : this.t("parent.attendance.justifiedNo", {}, "No");
 
       return `
-        <tr style="background: ${r.status === 'absent' ? '#fef2f2' : 'white'};">
+        <tr class="${r.status === "absent" ? "is-alert" : ""}">
           <td><strong>${this._escape(r.child_name)}</strong></td>
-          <td style="direction: ltr; text-align: ${align}; font-weight:bold;">${this._escape(r.date)}</td>
-          <td style="font-weight:bold; color: ${statusColor};">${this._translateStatus(r.status)}</td>
+          <td class="parent-ltr-value">${this._escape(r.date)}</td>
+          <td><span class="parent-status ${statusClass}">${this._translateStatus(r.status)}</span></td>
           <td>${justification}</td>
         </tr>
       `;
     }).join("");
 
     main.innerHTML = `
-      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">${this.t("parent.attendance.title", {}, "Absence and Tardiness Record")}</h2>
-      <div style="overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <table style="width: 100%; border-collapse: collapse; text-align: ${align};">
-          <thead style="background: #f1f5f9;">
-            <tr>
-              <th>${this.t("parent.attendance.columns.child", {}, "Child")}</th>
-              <th>${this.t("parent.attendance.columns.date", {}, "Date")}</th>
-              <th>${this.t("parent.attendance.columns.status", {}, "Status")}</th>
-              <th>${this.t("parent.attendance.columns.justified", {}, "Justified?")}</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
+      <section class="parent-section">
+        ${this._renderSectionHeader(this.t("parent.attendance.title", {}, "Absence and Tardiness Record"))}
+        <div class="parent-table-card">
+          <table class="parent-data-table">
+            <thead>
+              <tr>
+                <th>${this.t("parent.attendance.columns.child", {}, "Child")}</th>
+                <th>${this.t("parent.attendance.columns.date", {}, "Date")}</th>
+                <th>${this.t("parent.attendance.columns.status", {}, "Status")}</th>
+                <th>${this.t("parent.attendance.columns.justified", {}, "Justified?")}</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </section>
     `;
   },
 
   renderFees(fees) {
     const main = document.getElementById("parent-main");
-    const align = this.start();
 
     if (!fees || fees.length === 0) {
-      main.innerHTML = `
-        <h2>${this.t("parent.fees.emptyTitle", {}, "Financial Status")}</h2>
-        <p style="color: #64748b;">${this.t("parent.fees.emptyText", {}, "No due debts were found.")}</p>
-      `;
+      main.innerHTML = this._renderEmpty(
+        this.t("parent.fees.emptyTitle", {}, "Financial Status"),
+        this.t("parent.fees.emptyText", {}, "No due debts were found.")
+      );
       return;
     }
 
     const rows = fees.map(f => {
       const isPaid = f.status === "paid" || f.status === "completed";
-      const programName = f.program_name ? `<span style="color:#64748b;">(${this._escape(f.program_name)})</span>` : "";
+      const programName = f.program_name ? `<span class="parent-muted-inline">(${this._escape(f.program_name)})</span>` : "";
 
       return `
-        <tr style="background: ${isPaid ? 'white' : '#fef2f2'};">
+        <tr class="${isPaid ? "" : "is-alert"}">
           <td><strong>${this._escape(f.child_name)}</strong></td>
           <td>${this._escape(f.fee_type)} ${programName}</td>
-          <td style="font-weight: bold;">${this._formatCurrency(f.amount_due || f.net_amount)}</td>
-          <td style="direction: ltr; text-align: ${align};">${this._escape(f.due_date)}</td>
-          <td style="color: ${isPaid ? '#10b981' : '#ef4444'}; font-weight: bold;">${this._translateStatus(f.status)}</td>
+          <td class="parent-amount-value">${this._formatCurrency(f.amount_due || f.net_amount)}</td>
+          <td class="parent-ltr-value">${this._escape(f.due_date)}</td>
+          <td><span class="parent-status ${isPaid ? "success" : "danger"}">${this._translateStatus(f.status)}</span></td>
         </tr>
       `;
     }).join("");
 
     main.innerHTML = `
-      <h2 style="color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;">${this.t("parent.fees.title", {}, "Financial Claims and Fees")}</h2>
-      <div style="overflow-x: auto; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-        <table style="width: 100%; border-collapse: collapse; text-align: ${align};">
-          <thead style="background: #f1f5f9;">
-            <tr>
-              <th>${this.t("parent.fees.columns.child", {}, "Child")}</th>
-              <th>${this.t("parent.fees.columns.feeType", {}, "Fee type")}</th>
-              <th>${this.t("parent.fees.columns.amount", {}, "Amount")}</th>
-              <th>${this.t("parent.fees.columns.dueDate", {}, "Due date")}</th>
-              <th>${this.t("parent.fees.columns.status", {}, "Status")}</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
+      <section class="parent-section">
+        ${this._renderSectionHeader(this.t("parent.fees.title", {}, "Financial Claims and Fees"))}
+        <div class="parent-table-card">
+          <table class="parent-data-table">
+            <thead>
+              <tr>
+                <th>${this.t("parent.fees.columns.child", {}, "Child")}</th>
+                <th>${this.t("parent.fees.columns.feeType", {}, "Fee type")}</th>
+                <th>${this.t("parent.fees.columns.amount", {}, "Amount")}</th>
+                <th>${this.t("parent.fees.columns.dueDate", {}, "Due date")}</th>
+                <th>${this.t("parent.fees.columns.status", {}, "Status")}</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </section>
     `;
   },
 
   renderNotifications(notifications) {
     const main = document.getElementById("parent-main");
-    const start = this.start();
-    const end = this.end();
 
     if (!notifications || notifications.length === 0) {
-      main.innerHTML = `
-        <h2>${this.t("parent.notifications.emptyTitle", {}, "Notifications and Alerts")}</h2>
-        <p style="color: #64748b;">${this.t("parent.notifications.emptyText", {}, "The notifications inbox is empty.")}</p>
-      `;
+      main.innerHTML = this._renderEmpty(
+        this.t("parent.notifications.emptyTitle", {}, "Notifications and Alerts"),
+        this.t("parent.notifications.emptyText", {}, "The notifications inbox is empty.")
+      );
       return;
     }
 
@@ -260,38 +320,40 @@ const ParentUI = {
       const isRead = this._isNotificationRead(n);
       const notificationId = this._getNotificationId(n);
       const action = isRead
-        ? `<span style="color:#16a34a; font-weight:700;">${this.t("parent.notifications.read", {}, "Read")}</span>`
+        ? `<span class="parent-notification-read">${this.t("parent.notifications.read", {}, "Read")}</span>`
         : notificationId !== null
-          ? `<button type="button" class="parent-mark-notification-read" data-notification-id="${this._escapeAttr(notificationId)}" style="background:#eab308; color:white; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-family: inherit;">${this.t("parent.notifications.markRead", {}, "Mark as read")}</button>`
-          : `<span style="color:#64748b; font-weight:700;">${this.t("parent.common.unavailable", {}, "Unavailable")}</span>`;
+          ? `<button type="button" class="parent-mark-notification-read parent-warning-action" data-notification-id="${this._escapeAttr(notificationId)}">${this.t("parent.notifications.markRead", {}, "Mark as read")}</button>`
+          : `<span class="parent-muted-inline strong">${this.t("parent.common.unavailable", {}, "Unavailable")}</span>`;
       const statusLabel = isRead
         ? this.t("parent.notifications.read", {}, "Read")
         : this.t("parent.notifications.unread", {}, "Unread");
 
       return `
-        <div style="background: white; padding: 15px; margin-bottom: 15px; border-radius: 8px; border-${start}: 4px solid ${isRead ? '#94a3b8' : '#eab308'}; box-shadow: 0 2px 4px rgba(0,0,0,0.05); opacity:${isRead ? '.78' : '1'};">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:5px;">
-            <strong style="display:block; font-size:1.1rem; color: #0f172a;">${this._escape(n.title || this.t("parent.notifications.defaultTitle", {}, "Notification"))}</strong>
-            <span style="white-space:nowrap; color:${isRead ? '#16a34a' : '#d97706'}; background:${isRead ? '#dcfce7' : '#fef3c7'}; border:1px solid ${isRead ? '#bbf7d0' : '#fde68a'}; padding:4px 10px; border-radius:999px; font-size:.85rem; font-weight:700;">${statusLabel}</span>
+        <article class="parent-notification-card ${isRead ? "is-read" : "is-unread"}">
+          <div class="parent-notification-head">
+            <strong>${this._escape(n.title || this.t("parent.notifications.defaultTitle", {}, "Notification"))}</strong>
+            <span class="parent-pill ${isRead ? "success" : "warning"}">${statusLabel}</span>
           </div>
-          <p style="margin:0; color:#334155; line-height: 1.6;">${this._escape(n.message)}</p>
-          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:10px; flex-wrap:wrap;">
-            <small style="color:#94a3b8; direction: ltr; text-align: ${end};">${dateStr}</small>
+          <p>${this._escape(n.message)}</p>
+          <div class="parent-notification-foot">
+            <small class="parent-ltr-value">${dateStr}</small>
             ${action}
           </div>
-        </div>
+        </article>
       `;
     }).join("");
 
     main.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; border-bottom:2px solid #e2e8f0; padding-bottom:10px;">
-        <div>
-          <h2 style="color:#1e293b; margin:0;">${this.t("parent.notifications.title", {}, "Incoming Notifications")}</h2>
-          <small style="color:#64748b;">${this.t("parent.notifications.unreadCount", { count: unreadCount }, `${unreadCount} unread`)}</small>
+      <section class="parent-section">
+        <div class="parent-section-header parent-notifications-top">
+          <div>
+            <h2>${this.t("parent.notifications.title", {}, "Incoming Notifications")}</h2>
+            <small>${this.t("parent.notifications.unreadCount", { count: unreadCount }, `${unreadCount} unread`)}</small>
+          </div>
+          ${unreadCount > 0 ? `<button type="button" id="parent-mark-all-notifications-read" class="parent-primary-action">${this.t("parent.notifications.markAllRead", {}, "Mark all as read")}</button>` : ""}
         </div>
-        ${unreadCount > 0 ? `<button type="button" id="parent-mark-all-notifications-read" style="background:#0f172a; color:white; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700; font-family: inherit;">${this.t("parent.notifications.markAllRead", {}, "Mark all as read")}</button>` : ""}
-      </div>
-      <div>${items}</div>
+        <div class="parent-notifications-list">${items}</div>
+      </section>
     `;
   },
 
@@ -601,6 +663,27 @@ const ParentUI = {
   _isNotificationRead(notification) {
     const value = notification?.is_read;
     return value === true || value === 1 || value === "1" || value === "true";
+  },
+
+  _renderSectionHeader(title, subtitle = "") {
+    return `
+      <div class="parent-section-header">
+        <div>
+          <h2>${title}</h2>
+          ${subtitle ? `<p>${subtitle}</p>` : ""}
+        </div>
+      </div>
+    `;
+  },
+
+  _renderEmpty(title, text) {
+    return `
+      <section class="parent-section parent-empty-state">
+        <div class="parent-empty-icon" aria-hidden="true"></div>
+        <h2>${title}</h2>
+        <p>${text}</p>
+      </section>
+    `;
   },
 
   _translate(section) {

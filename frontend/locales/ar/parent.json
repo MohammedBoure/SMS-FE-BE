@@ -39,7 +39,8 @@
   "parent": {
     "documentTitle": "لوحة ولي الأمر",
     "brand": {
-      "welcome": "مرحبا بك: {name}"
+      "welcome": "مرحبا بك: {name}",
+      "subtitle": "مساحة متابعة الأسرة"
     },
     "language": {
       "label": "اللغة",
@@ -200,6 +201,10 @@
     },
     "currency": {
       "dzd": "دج"
+    },
+    "theme": {
+      "light": "فاتح",
+      "dark": "داكن"
     }
   }
 }

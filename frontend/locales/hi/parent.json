@@ -40,7 +40,8 @@
   "parent": {
     "documentTitle": "अभिभावक डैशबोर्ड",
     "brand": {
-      "welcome": "स्वागत है: {name}"
+      "welcome": "स्वागत है: {name}",
+      "subtitle": "परिवार अनुवर्तन कार्यक्षेत्र"
     },
     "language": {
       "label": "भाषा",
@@ -201,6 +202,10 @@
     },
     "currency": {
       "dzd": "DZD"
+    },
+    "theme": {
+      "light": "लाइट",
+      "dark": "डार्क"
     }
   }
 }

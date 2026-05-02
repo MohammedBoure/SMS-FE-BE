@@ -39,7 +39,8 @@
   "parent": {
     "documentTitle": "Parent Dashboard",
     "brand": {
-      "welcome": "Welcome: {name}"
+      "welcome": "Welcome: {name}",
+      "subtitle": "Family follow-up workspace"
     },
     "language": {
       "label": "Language",
@@ -200,6 +201,10 @@
     },
     "currency": {
       "dzd": "DZD"
+    },
+    "theme": {
+      "light": "Light",
+      "dark": "Dark"
     }
   }
 }
