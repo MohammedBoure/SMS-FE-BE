@@ -173,7 +173,9 @@
         "student": "Estudiante",
         "grade": "Nota",
         "remarks": "Observaciones del docente"
-      }
+      },
+      "invalidGrade": "Introduce una nota válida.",
+      "missingAssessment": "Falta el identificador de la evaluación."
     },
     "resources": {
       "title": "Recursos educativos",

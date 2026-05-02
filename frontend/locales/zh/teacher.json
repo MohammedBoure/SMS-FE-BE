@@ -173,7 +173,9 @@
         "student": "学生",
         "grade": "成绩",
         "remarks": "教师评语"
-      }
+      },
+      "invalidGrade": "请输入有效成绩。",
+      "missingAssessment": "缺少评估 ID。"
     },
     "resources": {
       "title": "教学资源",

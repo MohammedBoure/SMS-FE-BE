@@ -29,6 +29,10 @@ const TeacherServices = {
     return await Api.get(`/grades/assessment/${assessmentId}`);
   },
 
+  async getClassEnrollments(classId) {
+    return await Api.get(`/enrollments/class/${classId}?status=active`);
+  },
+
   async saveGrade(data) {
     return await Api.post("/grades/", data);
   },

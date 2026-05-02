@@ -215,20 +215,28 @@ const TeacherRole = {
         document.getElementById("load-assessments-btn").click();
       }
 
-      if (e.target.classList.contains("load-grades-btn")) {
-        const assessmentId = e.target.dataset.assessmentId;
-        const grades = await TeacherServices.getAssessmentGrades(assessmentId);
-        TeacherUI.renderGradesSheet(grades, assessmentId);
+      const loadGradesBtn = e.target.closest(".load-grades-btn");
+      if (loadGradesBtn) {
+        await this.loadGradesForAssessment(loadGradesBtn);
       }
 
       if (e.target.classList.contains("save-grade-btn")) {
         const studentId = e.target.dataset.studentId;
         const assessmentId = e.target.dataset.assessmentId;
+        const gradeInput = document.querySelector(`.grade-input[data-student-id="${studentId}"]`);
+        const remarkInput = document.querySelector(`.remark-input[data-student-id="${studentId}"]`);
+        const gradeValue = parseFloat(gradeInput?.value);
+
+        if (!Number.isFinite(gradeValue)) {
+          alert(TeacherUI.t("teacher.grades.invalidGrade", {}, "Please enter a valid grade."));
+          return;
+        }
+
         await TeacherServices.saveGrade({
           student_id: parseInt(studentId, 10),
           assessment_id: parseInt(assessmentId, 10),
-          grade_value: parseFloat(document.querySelector(`.grade-input[data-student-id="${studentId}"]`).value),
-          teacher_remarks: document.querySelector(`.remark-input[data-student-id="${studentId}"]`).value
+          grade_value: gradeValue,
+          teacher_remarks: remarkInput?.value || ""
         });
         alert(TeacherUI.t("teacher.actions.gradeSaved", {}, "Grade saved."));
       }
@@ -276,6 +284,81 @@ const TeacherRole = {
     });
 
     this._dynamicEventsBound = true;
+  },
+
+  async loadGradesForAssessment(button) {
+    const assessmentId = button.dataset.assessmentId;
+    if (!assessmentId) {
+      alert(TeacherUI.t("teacher.grades.missingAssessment", {}, "Assessment ID is missing."));
+      return;
+    }
+
+    const assignmentId = button.dataset.assignmentId || document.getElementById("grades-assignment-select")?.value;
+    const assignment = this.myAssignments.find(item => Number(item.assignment_id) === Number(assignmentId));
+    const classId = assignment?.class_id;
+    const maxGrade = Number(button.dataset.maxGrade);
+    const sheetContainer = document.getElementById("grades-sheet-container");
+    const originalText = button.textContent;
+
+    button.disabled = true;
+    button.textContent = TeacherUI.t("teacher.common.loading", {}, "Loading...");
+    if (sheetContainer) {
+      sheetContainer.innerHTML = `<p>${TeacherUI.t("teacher.state.loading", {}, "Loading data...")}</p>`;
+    }
+
+    try {
+      const [grades, enrollments] = await Promise.all([
+        TeacherServices.getAssessmentGrades(assessmentId),
+        classId ? TeacherServices.getClassEnrollments(classId).catch(() => []) : Promise.resolve([])
+      ]);
+      TeacherUI.renderGradesSheet(
+        this.buildGradeSheetRows(grades, enrollments, Number.isFinite(maxGrade) ? maxGrade : undefined),
+        assessmentId
+      );
+    } catch (err) {
+      TeacherUI.renderError(err.message);
+    } finally {
+      button.disabled = false;
+      button.textContent = originalText || TeacherUI.t("teacher.grades.enterGrades", {}, "Enter grades");
+    }
+  },
+
+  buildGradeSheetRows(gradesData, enrollmentsData, maxGrade) {
+    const grades = this.toArray(gradesData);
+    const enrollments = this.toArray(enrollmentsData);
+    const rowsByStudent = new Map();
+
+    enrollments.forEach(enrollment => {
+      const studentId = Number(enrollment.student_id);
+      if (!studentId) return;
+      rowsByStudent.set(studentId, {
+        student_id: studentId,
+        student_name: enrollment.student_name,
+        grade_value: null,
+        teacher_remarks: "",
+        max_grade: maxGrade ?? enrollment.max_grade ?? ""
+      });
+    });
+
+    grades.forEach(grade => {
+      const studentId = Number(grade.student_id);
+      if (!studentId) return;
+      const existing = rowsByStudent.get(studentId) || {};
+      rowsByStudent.set(studentId, {
+        ...existing,
+        ...grade,
+        student_id: studentId,
+        student_name: grade.student_name || existing.student_name,
+        max_grade: grade.max_grade ?? existing.max_grade ?? maxGrade ?? ""
+      });
+    });
+
+    return Array.from(rowsByStudent.values())
+      .sort((a, b) => String(a.student_name || "").localeCompare(String(b.student_name || "")));
+  },
+
+  toArray(value) {
+    return Array.isArray(value) ? value : (value?.data || []);
   },
 
   async loadResourcesForSelectedAssignment() {

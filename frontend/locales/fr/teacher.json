@@ -173,7 +173,9 @@
         "student": "Élève",
         "grade": "Note",
         "remarks": "Remarques de l'enseignant"
-      }
+      },
+      "invalidGrade": "Veuillez saisir une note valide.",
+      "missingAssessment": "Identifiant de l evaluation manquant."
     },
     "resources": {
       "title": "Ressources pédagogiques",

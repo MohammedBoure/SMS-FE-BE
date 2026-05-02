@@ -318,14 +318,24 @@ const TeacherUI = {
     `;
 
     if (assessments.length) {
-      const rows = assessments.map(assessment => `
-        <tr>
-          <td>${this._escape(assessment.title)}</td>
-          <td>${this._translateStatus(assessment.type === "exam" ? "exam" : "homework")}</td>
-          <td>${this._escape(assessment.max_grade)}</td>
-          <td><button class="load-grades-btn" data-assessment-id="${this._escapeAttr(assessment.id)}">${this.t("teacher.grades.enterGrades", {}, "Enter grades")}</button></td>
-        </tr>
-      `).join("");
+      const rows = assessments.map(assessment => {
+        const assessmentId = assessment.assessment_id ?? assessment.id;
+        return `
+          <tr>
+            <td>${this._escape(assessment.title)}</td>
+            <td>${this._translateStatus(assessment.type === "exam" ? "exam" : "homework")}</td>
+            <td>${this._escape(assessment.max_grade)}</td>
+            <td>
+              <button
+                class="load-grades-btn"
+                data-assessment-id="${this._escapeAttr(assessmentId)}"
+                data-assignment-id="${this._escapeAttr(assessment.assignment_id ?? assignmentId)}"
+                data-max-grade="${this._escapeAttr(assessment.max_grade)}"
+              >${this.t("teacher.grades.enterGrades", {}, "Enter grades")}</button>
+            </td>
+          </tr>
+        `;
+      }).join("");
 
       html += this._table(`
         <thead>
@@ -357,17 +367,20 @@ const TeacherUI = {
       return;
     }
 
-    const rows = grades.map(grade => `
-      <tr>
-        <td>${this._escape(grade.student_name)}</td>
-        <td>
-          <input type="number" step="0.25" class="grade-input" data-student-id="${this._escapeAttr(grade.student_id)}" value="${this._escapeAttr(grade.grade_value !== null ? grade.grade_value : "")}" max="${this._escapeAttr(grade.max_grade)}" />
-          / ${this._escape(grade.max_grade)}
-        </td>
-        <td><input type="text" class="remark-input" data-student-id="${this._escapeAttr(grade.student_id)}" value="${this._escapeAttr(grade.teacher_remarks || "")}" placeholder="${this._escapeAttr(this.t("teacher.grades.remarksPlaceholder", {}, "Remarks..."))}" /></td>
-        <td><button class="save-grade-btn" data-student-id="${this._escapeAttr(grade.student_id)}" data-assessment-id="${this._escapeAttr(assessmentId)}">${this.t("teacher.common.save", {}, "Save")}</button></td>
-      </tr>
-    `).join("");
+    const rows = grades.map(grade => {
+      const gradeValue = grade.grade_value === null || grade.grade_value === undefined ? "" : grade.grade_value;
+      return `
+        <tr>
+          <td>${this._escape(grade.student_name)}</td>
+          <td>
+            <input type="number" step="0.25" class="grade-input" data-student-id="${this._escapeAttr(grade.student_id)}" value="${this._escapeAttr(gradeValue)}" max="${this._escapeAttr(grade.max_grade)}" />
+            / ${this._escape(grade.max_grade)}
+          </td>
+          <td><input type="text" class="remark-input" data-student-id="${this._escapeAttr(grade.student_id)}" value="${this._escapeAttr(grade.teacher_remarks || "")}" placeholder="${this._escapeAttr(this.t("teacher.grades.remarksPlaceholder", {}, "Remarks..."))}" /></td>
+          <td><button class="save-grade-btn" data-student-id="${this._escapeAttr(grade.student_id)}" data-assessment-id="${this._escapeAttr(assessmentId)}">${this.t("teacher.common.save", {}, "Save")}</button></td>
+        </tr>
+      `;
+    }).join("");
 
     container.innerHTML = `
       <h3>${this.t("teacher.grades.sheetTitle", {}, "Grade Entry Sheet")}</h3>
@@ -462,8 +475,8 @@ const TeacherUI = {
       const type = this._translateResourceType(resource.resource_type);
       const size = resource.file_size_mb ? `${this._escape(resource.file_size_mb)} MB` : this.t("teacher.common.notSpecified", {}, "Not specified");
       const downloadAction = id
-        ? `<a href="${this._escapeAttr(`${API_BASE_URL}/resources/${id}/download`)}" target="_blank" rel="noopener noreferrer">${this.t("teacher.common.download", {}, "Download")}</a>`
-        : `<span>${this.t("teacher.common.unavailable", {}, "Unavailable")}</span>`;
+        ? `<a class="teacher-resource-download" href="${this._escapeAttr(`${API_BASE_URL}/resources/${id}/download`)}" target="_blank" rel="noopener noreferrer">${this.t("teacher.common.download", {}, "Download")}</a>`
+        : `<span class="teacher-resource-unavailable">${this.t("teacher.common.unavailable", {}, "Unavailable")}</span>`;
 
       return `
         <article class="teacher-resource-card">

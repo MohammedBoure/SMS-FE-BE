@@ -172,7 +172,9 @@
         "student": "Student",
         "grade": "Grade",
         "remarks": "Teacher remarks"
-      }
+      },
+      "invalidGrade": "Please enter a valid grade.",
+      "missingAssessment": "Assessment ID is missing."
     },
     "resources": {
       "title": "Educational Resources",
