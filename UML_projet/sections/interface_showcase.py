@@ -5,12 +5,12 @@ from utils import BASE_DIR, create_indexed_heading, normal_text, subtitle_style
 
 
 INTERFACE_SCREENSHOTS = [
-    ("Parent Messages", "parent-messages.PNG"),
-    ("Post Details", "Post.PNG"),
     ("Posts Board", "Posts.PNG"),
-    ("Parent - My Children", "parent-mychild.PNG"),
-    ("Teacher Grades", "teacher-grades.PNG"),
+    ("Post Details", "Post.PNG"),
+    ("Parent Messages", "parent-messages.PNG"),
     ("Teacher Resources", "teacher-ressources.PNG"),
+    ("Teacher Grades", "teacher-grades.PNG"),
+    ("Parent - My Children", "parent-mychild.PNG"),
 ]
 
 FEATURED_SCREENSHOTS = {"Parent Messages", "Post Details", "Posts Board"}
