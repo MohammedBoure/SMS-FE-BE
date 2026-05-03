@@ -1,142 +1,118 @@
-from reportlab.lib import colors
-from reportlab.lib.styles import ParagraphStyle
-from reportlab.platypus import ListFlowable, ListItem, Paragraph, Spacer, Table, TableStyle
+from reportlab.platypus import PageBreak, Paragraph, Spacer
 
-from utils import create_indexed_heading, normal_text, subtitle_style
-
-
-BENEFITS = [
-    (
-        "Administrative efficiency",
-        "Centralizes records, enrollments, schedules, and follow-up.",
-    ),
-    (
-        "Pedagogical follow-up",
-        "Tracks assessments, grades, attendance, and resources.",
-    ),
-    (
-        "Communication",
-        "Uses messages, notifications, and administration posts.",
-    ),
-    (
-        "Financial clarity",
-        "Supports fees, payments, transactions, and reminders.",
-    ),
-    (
-        "Role-based organization",
-        "Separates dashboards by responsibility and user role.",
-    ),
-]
-
-
-def _benefits_table():
-    header_style = ParagraphStyle(
-        "BenefitHeader",
-        fontName="Helvetica-Bold",
-        fontSize=8.8,
-        leading=11,
-        textColor=colors.HexColor("#1F3A5F"),
-    )
-    label_style = ParagraphStyle(
-        "BenefitLabel",
-        fontName="Helvetica-Bold",
-        fontSize=8.6,
-        leading=10.5,
-        textColor=colors.HexColor("#1E293B"),
-    )
-    cell_style = ParagraphStyle(
-        "BenefitCell",
-        fontName="Helvetica",
-        fontSize=8.6,
-        leading=10.5,
-        textColor=colors.HexColor("#334155"),
-    )
-
-    rows = [
-        [
-            Paragraph("Benefit", header_style),
-            Paragraph("Contribution to the School Management System", header_style),
-        ]
-    ]
-    rows.extend([
-        [Paragraph(title, label_style), Paragraph(description, cell_style)]
-        for title, description in BENEFITS
-    ])
-
-    table = Table(rows, colWidths=[145, 360], hAlign="CENTER", repeatRows=1)
-    table.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#EAF2F8")),
-        ("TEXTCOLOR", (0, 0), (-1, 0), colors.HexColor("#1F3A5F")),
-        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
-        ("FONTNAME", (0, 1), (0, -1), "Helvetica-Bold"),
-        ("FONTSIZE", (0, 0), (-1, -1), 8.8),
-        ("LEADING", (0, 0), (-1, -1), 11),
-        ("GRID", (0, 0), (-1, -1), 0.35, colors.HexColor("#B7C6D6")),
-        ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.white, colors.HexColor("#F8FAFC")]),
-        ("TOPPADDING", (0, 0), (-1, -1), 6),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 6),
-    ]))
-    return table
-
-
-def _methodology_steps():
-    steps = [
-        "Excel data analysis from Al Abakera School.",
-        "Identification of the main entities: users, students, parents, teachers, classes, enrollments, fees, payments, attendance, schedules, assessments, grades, and resources.",
-        "In-depth understanding of the data structure and its relationships.",
-        "Data model design using UML diagrams.",
-        "Backend development with Python and FastAPI.",
-        "Frontend development with HTML, CSS, and vanilla JavaScript.",
-        "Frontend/backend communication through REST APIs.",
-        "Use of MySQL as the relational database.",
-    ]
-
-    return ListFlowable(
-        [
-            ListItem(Paragraph(step, normal_text), leftIndent=10)
-            for step in steps
-        ],
-        bulletType="bullet",
-        leftIndent=18,
-        bulletFontName="Helvetica-Bold",
-        bulletFontSize=7,
-        bulletOffsetY=1,
-        spaceBefore=2,
-        spaceAfter=4,
-    )
+from utils import create_indexed_heading, make_table, normal_text
 
 
 def build(story):
-    create_indexed_heading(story, "Project Context and Benefits", level=0)
-    story.append(Spacer(1, 10))
-
-    story.append(Paragraph("Opening Statement", subtitle_style))
-    story.append(Paragraph(
-        """
-        The system addresses daily school workflows: learner records, parent follow-up, classes,
-        schedules, attendance, grades, resources, payments, messages, and notifications. Each actor
-        works through a dedicated dashboard connected to the same backend services.
-        """,
-        normal_text,
-    ))
+    create_indexed_heading(story, "Chapter 1 - Existing-System Study and Problem Statement", level=0)
     story.append(Spacer(1, 8))
 
-    story.append(Paragraph("System Benefits", subtitle_style))
-    story.append(_benefits_table())
-    story.append(Spacer(1, 10))
-
-    story.append(Paragraph("Initial Data Modeling with Al Abakera Excel Data", subtitle_style))
-    story.append(_methodology_steps())
-    story.append(Spacer(1, 6))
-
-    story.append(Paragraph("Hosting, Port Forwarding, and Cloud Services", subtitle_style))
+    create_indexed_heading(story, "Introduction", level=1)
     story.append(Paragraph(
         """
-        Port forwarding was configured for both frontend and backend services to support remote testing.
-        Cloud services were used to make the hosted demonstration accessible outside the local network.
+        Before designing a software solution, it is necessary to understand how a school operates and
+        where current practices fail. This chapter presents the domain, the main stakeholders, the
+        business processes, the limitations of traditional management, and the proposed solution.
         """,
         normal_text,
     ))
 
-    story.append(Spacer(1, 14))
+    create_indexed_heading(story, "Domain Overview", level=1)
+    story.append(Paragraph(
+        """
+        A school manages administrative, academic, financial, and communication activities. These
+        activities are connected: student enrollment affects classes, schedules, resources,
+        attendance, grades, and fees. A global view is therefore required to avoid disconnected
+        processes between departments.
+        """,
+        normal_text,
+    ))
+    story.append(make_table([
+        ["Process", "Managed Data", "Stakeholders"],
+        ["Student enrollment and file", "Identity, parent, class, program, and status", "Administration, reception, parent"],
+        ["Academic follow-up", "Subjects, assignments, assessments, grades, and attendance", "Teacher, student, parent, administration"],
+        ["Financial management", "Fees, payments, transactions, and reminders", "Accountant, reception, parent, administration"],
+        ["Communication", "Messages, conversations, notifications, and posts", "All profiles"],
+        ["Administrative control", "Users, roles, classes, programs, and resources", "Administrator"],
+    ], [120, 210, 158]))
+
+    story.append(Spacer(1, 10))
+    create_indexed_heading(story, "Existing-System Study", level=1)
+    story.append(Paragraph(
+        """
+        In many schools, management remains partially manual: paper registers, Excel files,
+        uncentralized conversations, and documents kept separately by each service. These tools are
+        easy to start with, but they become fragile when the number of students, teachers, and daily
+        operations increases.
+        """,
+        normal_text,
+    ))
+    story.append(make_table([
+        ["Existing Solution", "Advantages", "Limitations"],
+        ["Paper registers", "Simple and independent from technical infrastructure", "Slow search, risk of loss, duplication, and no reliable backup"],
+        ["Excel files", "Flexible and quick for simple lists", "Possible inconsistencies, difficult sharing, and weak access control"],
+        ["Informal messaging", "Fast communication between people", "Scattered information, weak traceability, and no business context"],
+        ["Disconnected applications", "Automate some isolated tasks", "Limited consistency between academic, financial, and communication modules"],
+    ], [120, 180, 188]))
+
+    story.append(Spacer(1, 10))
+    create_indexed_heading(story, "Critique of the Existing System", level=1)
+    story.append(Paragraph(
+        """
+        The study reveals recurring issues: redundant data entry, slow information retrieval,
+        difficult consolidation of grades and attendance, possible financial errors, lack of
+        role-based dashboards, and weak communication follow-up. These limits reduce administrative
+        responsiveness and the quality of academic supervision.
+        """,
+        normal_text,
+    ))
+    story.append(make_table([
+        ["Observed Limit", "Consequence", "Expected Response"],
+        ["Information dispersion", "Decisions may rely on incomplete data", "Centralized reference system"],
+        ["Repeated manual entry", "Errors and time loss", "Controlled forms and shared APIs"],
+        ["Undifferentiated access", "Risk of unauthorized consultation or modification", "Role-based dashboards and permissions"],
+        ["Unstructured communication", "Lost messages and weak traceability", "Integrated messages and notifications"],
+        ["Fragile financial follow-up", "Delays, duplicates, and incorrect balances", "Fees, payments, and transactions linked to students"],
+    ], [130, 180, 178]))
+
+    story.append(Spacer(1, 10))
+    create_indexed_heading(story, "Problem Statement", level=1)
+    story.append(Paragraph(
+        """
+        The project problem can be stated as follows: how can we build a web application that
+        centralizes the main processes of a school, provides each stakeholder with a dedicated
+        interface, and ensures reliable information flow between administration, teachers, students,
+        parents, and the finance office?
+        """,
+        normal_text,
+    ))
+
+    create_indexed_heading(story, "Proposed Solution", level=1)
+    story.append(Paragraph(
+        """
+        The proposed solution is a role-based web platform called School Management System. It clearly
+        separates frontend, backend API, and database responsibilities. Each role has a specific
+        dashboard, while the data remains synchronized through common REST services.
+        """,
+        normal_text,
+    ))
+    story.append(make_table([
+        ["Solution Area", "Contribution"],
+        ["Functional coverage", "Users, students, parents, teachers, classes, enrollments, attendance, assessments, grades, resources, fees, payments, messages, notifications, and posts."],
+        ["Maintainable architecture", "Static frontend organized by roles, modular FastAPI backend, data managers, and MySQL database."],
+        ["Role-based approach", "Each profile accesses the features that match its responsibilities."],
+        ["Integrated communication", "Messages, conversations, notifications, and posts reduce scattered exchanges."],
+        ["Internationalization readiness", "Translation files prepare the interface for multiple languages."],
+    ], [130, 358]))
+
+    story.append(Spacer(1, 10))
+    create_indexed_heading(story, "Conclusion", level=1)
+    story.append(Paragraph(
+        """
+        The existing-system study confirms the need for a centralized, structured, and extensible
+        platform. The next chapter transforms this observation into functional requirements,
+        non-functional requirements, and use cases.
+        """,
+        normal_text,
+    ))
+    story.append(PageBreak())

@@ -3,48 +3,58 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.platypus import Image, PageBreak, Paragraph, Spacer, Table, TableStyle
 
-from utils import BASE_DIR, LOGO_PATH, create_indexed_heading, normal_center, normal_text, subtitle_style, title_style
+from utils import (
+    BASE_DIR,
+    LOGO_PATH,
+    REPORT_FONT,
+    REPORT_FONT_BOLD,
+    create_indexed_heading,
+    make_table,
+    normal_center,
+    normal_text,
+    subtitle_style,
+    title_style,
+)
 
+
+PROJECT_NAME = "School Management System"
+PROJECT_TITLE = "Design and Implementation of a Web-Based School Management System"
+ACADEMIC_YEAR = "2025 / 2026"
 
 STUDENTS = [
-    "1. Bouremouz Mouhammed",
-    "2. Debieche Amine",
-    "3. Bessibes Mouin",
-    "4. Chaabani Sidahmed",
-    "5. Bouzekria Sohib",
-    "6. Meriche Chemseddine",
+    "Bouremouz Mouhammed",
+    "Debieche Amine",
+    "Bessibes Mouin",
+    "Chaabani Sidahmed",
+    "Bouzekria Sohib",
+    "Meriche Chemseddine",
 ]
 
 LOGIN_PREVIEW_PATH = BASE_DIR / "login.PNG"
 
 
-def _resume_cell_style(name, bold=False):
+def _cover_label_style(name, bold=False):
     return ParagraphStyle(
         name,
-        fontName="Helvetica-Bold" if bold else "Helvetica",
-        fontSize=8.4,
-        leading=10.6,
-        textColor=colors.HexColor("#1E293B") if bold else colors.HexColor("#334155"),
+        fontName=REPORT_FONT_BOLD if bold else REPORT_FONT,
+        fontSize=9.2,
+        leading=12,
+        alignment=1,
+        textColor=colors.HexColor("#1E293B"),
     )
 
 
-def _resume_table(rows, col_widths):
-    label_style = _resume_cell_style("ResumeLabel", bold=True)
-    value_style = _resume_cell_style("ResumeValue")
-    formatted_rows = [
-        [Paragraph(label, label_style), Paragraph(value, value_style)]
-        for label, value in rows
-    ]
-    table = Table(formatted_rows, colWidths=col_widths, hAlign="CENTER")
+def _people_table(title, values):
+    title_style_local = _cover_label_style(f"{title}Title", bold=True)
+    value_style = _cover_label_style(f"{title}Value")
+    rows = [[Paragraph(f"<u><b>{title}</b></u>", title_style_local)]]
+    rows.extend([[Paragraph(value, value_style)] for value in values])
+    table = Table(rows, colWidths=[250], hAlign="CENTER")
     table.setStyle(TableStyle([
-        ("BACKGROUND", (0, 0), (0, -1), colors.HexColor("#EEF6FF")),
-        ("ROWBACKGROUNDS", (1, 0), (1, -1), [colors.white, colors.HexColor("#F8FAFC")]),
-        ("GRID", (0, 0), (-1, -1), 0.3, colors.HexColor("#C8D3E0")),
-        ("VALIGN", (0, 0), (-1, -1), "TOP"),
-        ("TOPPADDING", (0, 0), (-1, -1), 5),
-        ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
-        ("LEFTPADDING", (0, 0), (-1, -1), 7),
-        ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+        ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+        ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("TOPPADDING", (0, 0), (-1, -1), 3),
+        ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
     ]))
     return table
 
@@ -53,139 +63,164 @@ def build(story):
     story.append(Spacer(1, 8))
 
     if LOGO_PATH.exists():
-        logo = Image(str(LOGO_PATH), width=1.1 * inch, height=1.1 * inch, kind="proportional")
+        logo = Image(str(LOGO_PATH), width=1.05 * inch, height=1.05 * inch, kind="proportional")
         logo.hAlign = "CENTER"
         story.append(logo)
-        story.append(Spacer(1, 10))
+        story.append(Spacer(1, 8))
 
     story.append(Paragraph("People's Democratic Republic of Algeria", normal_center))
     story.append(Paragraph("Ministry of Higher Education and Scientific Research", normal_center))
     story.append(Spacer(1, 4))
     story.append(Paragraph("<b>Mohamed Seddik Ben Yahia University - Jijel</b>", subtitle_style))
-    story.append(Paragraph("Faculty of Sciences and Technology", normal_center))
+    story.append(Paragraph("Faculty of Exact Sciences and Computer Science", normal_center))
     story.append(Paragraph("Department of Computer Science", normal_center))
 
-    story.append(Spacer(1, 30))
-    story.append(Paragraph("School Management System", title_style))
-    story.append(Paragraph("UML Analysis and Design Report", subtitle_style))
+    story.append(Spacer(1, 28))
+    story.append(Paragraph("Bachelor's Degree Project", subtitle_style))
+    story.append(Paragraph(PROJECT_TITLE, title_style))
+    story.append(Paragraph(f"<b>{PROJECT_NAME}</b>", subtitle_style))
 
-    story.append(Spacer(1, 22))
-    story.append(Paragraph("<b>Specialty:</b> Computer Science (Informatics)", normal_center))
-    story.append(Paragraph("<b>Level:</b> 3rd Year License", normal_center))
-    story.append(Paragraph("<b>Academic Session:</b> 2025 - 2026", normal_center))
+    story.append(Spacer(1, 16))
+    story.append(Paragraph("<b>Level:</b> 3rd Year Bachelor's Degree", normal_center))
+    story.append(Paragraph("<b>Specialty:</b> Computer Science", normal_center))
+    story.append(Paragraph(f"<b>Academic Year:</b> {ACADEMIC_YEAR}", normal_center))
 
     story.append(Spacer(1, 24))
-    story.append(Paragraph("<u><b>Prepared by</b></u>", subtitle_style))
-    for student in STUDENTS:
-        story.append(Paragraph(student, normal_center))
+    story.append(_people_table("Prepared by (G16):", STUDENTS))
 
-    story.append(Spacer(1, 20))
-    story.append(Paragraph("<u><b>Under the supervision of</b></u>", subtitle_style))
-    story.append(Paragraph("Dr. El Hillali Kerkouche", normal_center))
+    story.append(Spacer(1, 16))
+    story.append(_people_table("Supervised by", ["Dr. El Hillali Kerkouche"]))
+
     story.append(PageBreak())
 
 
 def build_resume(story):
-    story.append(Paragraph("Executive Summary", title_style))
+    create_indexed_heading(story, "Executive Summary", level=0)
     story.append(Spacer(1, 8))
-
-    if LOGIN_PREVIEW_PATH.exists():
-        preview = Image(str(LOGIN_PREVIEW_PATH), width=5.45 * inch, height=3.7 * inch, kind="proportional")
-        preview.hAlign = "CENTER"
-        story.append(preview)
-        story.append(Spacer(1, 5))
-        story.append(Paragraph("Login interface preview", normal_center))
-        story.append(Spacer(1, 8))
-
     story.append(Paragraph(
         """
-        The School Management System is a complete web application for organizing school administration,
-        academic follow-up, communication, and finance. It is built around a frontend/backend architecture
-        and six role-based dashboards: Admin, Receptionist, Accountant, Teacher, Student, and Parent.
+        This report presents the design and implementation of a web-based School Management System.
+        The proposed platform centralizes administrative, academic, financial, and communication data
+        in one structured system. Each user role accesses a dedicated workspace that matches its
+        responsibilities.
+        """,
+        normal_text,
+    ))
+    story.append(Paragraph(
+        """
+        The system follows a layered RESTful architecture: an HTML5, CSS3, and vanilla JavaScript
+        frontend; a Python FastAPI backend exposing modular REST endpoints; and a MySQL relational
+        database for persistence. The application supports six main profiles: administrator,
+        receptionist, accountant, teacher, student, and parent.
         """,
         normal_text,
     ))
     story.append(Spacer(1, 8))
-    story.append(_resume_table([
-        (
-            "Project goal",
-            "Digitize daily school workflows, reduce manual follow-up, and give each actor a secure workspace.",
-        ),
-        (
-            "Architecture",
-            "Static HTML/CSS/JavaScript frontend connected to a Python FastAPI backend and relational database.",
-        ),
-        (
-            "Frontend structure",
-            "Shared core modules manage API calls, authentication, routing, preferences, storage, and i18n; each role has its own page, services, controller, and UI renderer.",
-        ),
-        (
-            "Backend structure",
-            "FastAPI routers and database managers cover users, parents, students, teachers, classes, enrollments, assignments, schedules, attendance, assessments, grades, resources, fees, payments, transactions, messages, notifications, posts, and programs.",
-        ),
-        (
-            "Data design",
-            "The initial structure was studied from an Excel data reference from Al Abakera School, then transformed into relational entities and UML models.",
-        ),
-        (
-            "Deployment",
-            "The project was prepared for hosted demonstration using frontend/backend port forwarding and cloud services for remote access.",
-        ),
-        (
-            "Documentation",
-            "The UML report includes use case diagrams, class diagram, sequence diagrams, navigation diagram, technology notes, GitHub repository, and tooling notes.",
-        ),
-    ], [120, 385]))
-    story.append(Spacer(1, 10))
+    story.append(Paragraph(
+        "<b>Keywords:</b> school management, web application, FastAPI, MySQL, REST API, UML, role-based architecture.",
+        normal_text,
+    ))
+    story.append(Spacer(1, 12))
+    story.append(make_table([
+        ["Area", "Summary"],
+        ["Objective", "Automate daily school management processes and provide each role with an appropriate workspace."],
+        ["Scope", "Users, students, parents, teachers, classes, enrollments, attendance, grades, resources, fees, payments, messages, notifications, and posts."],
+        ["Method", "Existing-system study, requirements analysis, UML design, frontend/backend implementation, and scenario-based validation."],
+        ["Result", "A modular web application with role-based dashboards, a REST API, and a relational database."],
+    ], [105, 383]))
+    story.append(PageBreak())
 
-    story.append(Paragraph("Role Coverage", subtitle_style))
-    story.append(_resume_table([
-        (
-            "Admin",
-            "Manages users, parents, students, teachers, classes, programs, enrollments, attendance, schedules, assessments, grades, resources, finance, posts, notifications, and conversations.",
-        ),
-        (
-            "Receptionist",
-            "Handles student and parent registration, student files, search, finance lookup, payments, posts, messages, and notifications.",
-        ),
-        (
-            "Accountant",
-            "Follows student fees, payments, transactions, financial files, attendance reports, messages, notifications, and finance notices.",
-        ),
-        (
-            "Teacher",
-            "Uses assignments, schedules, attendance sheets, assessments, grade entry, educational resources, posts, messages, and notifications.",
-        ),
-        (
-            "Student",
-            "Consults schedule, assessments, grades, attendance, resources, fees, posts, messages, and notifications.",
-        ),
-        (
-            "Parent",
-            "Follows linked children, grades, attendance, fees, posts, messages, and notifications.",
-        ),
-    ], [105, 400]))
-    story.append(Spacer(1, 10))
-
+    create_indexed_heading(story, "System Overview and Development Methodology", level=0)
+    story.append(Spacer(1, 8))
+    story.append(Paragraph(
+        """
+        This thesis-style report documents the complete software engineering process used to design
+        and implement the School Management System. It begins with the study of the school management
+        domain and the limitations of manual or disconnected tools, then formalizes the functional
+        and non-functional requirements.
+        """,
+        normal_text,
+    ))
+    story.append(Paragraph(
+        """
+        The design chapter presents the system architecture, database model, UML diagrams, API
+        organization, security considerations, and user-interface structure. The implementation
+        chapter describes the development environment, source-code organization, application screens,
+        and validation scenarios. The final result is a maintainable, extensible, role-based school
+        management platform.
+        """,
+        normal_text,
+    ))
     story.append(PageBreak())
 
 
 def build_introduction(story):
-    create_indexed_heading(story, "Introduction", level=0)
-    story.append(Spacer(1, 10))
-    story.append(Paragraph(
-        """
-        This document summarizes the UML analysis of the School Management System. It explains the
-        actors, use cases, backend structure, sequence flows, navigation, technology choices, and
-        interface screenshots used to describe the implemented project.
-        """,
-        normal_text,
-    ))
+    create_indexed_heading(story, "General Introduction", level=0)
     story.append(Spacer(1, 8))
+
+    create_indexed_heading(story, "General Context", level=1)
     story.append(Paragraph(
         """
-        Its purpose is to provide a clear technical reference that helps the reader understand the
-        system without repeating implementation details already shown in the diagrams.
+        Digital transformation has become a major requirement for educational institutions. Schools
+        manage a large amount of sensitive data every day, including student files, enrollments,
+        schedules, attendance, grades, resources, payments, and communication between stakeholders.
+        When this information is spread across paper registers, spreadsheets, and informal messages,
+        follow-up becomes slower and less reliable.
         """,
         normal_text,
     ))
+    story.append(Paragraph(
+        """
+        A centralized web application is an appropriate response to this problem. It provides a shared
+        information base, automates repetitive tasks, traces important operations, and gives each user
+        profile a dedicated interface.
+        """,
+        normal_text,
+    ))
+
+    create_indexed_heading(story, "Problem Statement", level=1)
+    story.append(Paragraph(
+        """
+        Traditional school management suffers from data dispersion, slow access to information,
+        fragmented academic follow-up, manual financial errors, and unstructured communication
+        between administrators, teachers, students, parents, and financial staff. The central question
+        is therefore: how can we design a reliable, clear, and extensible platform that centralizes
+        the core processes of a school while respecting the rights and responsibilities of each role?
+        """,
+        normal_text,
+    ))
+
+    create_indexed_heading(story, "Project Objectives", level=1)
+    story.append(make_table([
+        ["Objective", "Description"],
+        ["Centralization", "Group school information into one coherent reference system."],
+        ["Role-based access", "Adapt features to the responsibilities of the administrator, receptionist, accountant, teacher, student, and parent."],
+        ["Automation", "Reduce manual work related to enrollments, attendance, grades, payments, and communication."],
+        ["Traceability", "Keep fa clear record of important operations and make follow-up easier."],
+        ["Scalability", "Build a modular architecture that can integrate future modules."],
+    ], [120, 368]))
+
+    story.append(Spacer(1, 10))
+    create_indexed_heading(story, "Work Methodology", level=1)
+    story.append(make_table([
+        ["Phase", "Work Performed"],
+        ["Preliminary study", "Understanding the school domain, stakeholders, existing documents, and limits of manual management."],
+        ["Requirements analysis", "Identifying actors, functional requirements, non-functional requirements, and use cases."],
+        ["Design", "Defining the architecture, UML models, database model, REST API structure, and user-interface organization."],
+        ["Implementation", "Developing frontend interfaces, JavaScript services, FastAPI routers, and data managers."],
+        ["Validation", "Checking business scenarios, API behavior, role navigation, and interface consistency."],
+    ], [120, 368]))
+
+    story.append(Spacer(1, 10))
+    create_indexed_heading(story, "Report Organization", level=1)
+    story.append(Paragraph(
+        """
+        This report is organized into four chapters. Chapter 1 presents the existing-system study and
+        the proposed solution. Chapter 2 formalizes the requirements and use cases. Chapter 3 explains
+        the system design, including architecture, UML models, database structure, API design, and
+        security. Chapter 4 presents the implementation, application interfaces, and validation
+        scenarios. A general conclusion summarizes the work and proposes future improvements.
+        """,
+        normal_text,
+    ))
+    story.append(PageBreak())

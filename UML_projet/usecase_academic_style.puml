@@ -1,0 +1,52 @@
+' Shared academic style for UML use case diagrams.
+left to right direction
+scale max 3508*2480
+
+skinparam dpi 300
+skinparam shadowing false
+skinparam handwritten false
+skinparam backgroundColor #FFFFFF
+skinparam monochrome true
+skinparam linetype ortho
+skinparam nodesep 55
+skinparam ranksep 65
+skinparam padding 6
+skinparam pageMargin 8
+skinparam packageStyle rectangle
+
+skinparam defaultFontName "Times New Roman"
+skinparam defaultFontSize 12
+skinparam ArrowThickness 1.0
+skinparam ArrowFontSize 10
+skinparam ArrowColor Black
+
+skinparam actor {
+  BackgroundColor White
+  BorderColor Black
+  FontColor Black
+  FontSize 12
+  FontStyle plain
+}
+
+skinparam usecase {
+  BackgroundColor White
+  BorderColor Black
+  FontColor Black
+  FontSize 11
+}
+
+skinparam rectangle {
+  BackgroundColor White
+  BorderColor Black
+  FontColor Black
+  FontSize 12
+  FontStyle bold
+}
+
+skinparam package {
+  BackgroundColor White
+  BorderColor Black
+  FontColor Black
+  FontSize 11
+  FontStyle bold
+}

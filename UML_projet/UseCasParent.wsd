@@ -1,76 +1,51 @@
 @startuml UseCase_Parent
 
-' Parent diagram.
-left to right direction
-scale max 3508*2480
-
-skinparam dpi 300
-skinparam linetype ortho
-skinparam nodesep 18
-skinparam ranksep 24
-skinparam padding 2
-skinparam pageMargin 2
-skinparam shadowing false
-skinparam roundcorner 3
-skinparam backgroundColor #FFFFFF
-skinparam ArrowFontSize 7
-skinparam ArrowThickness 0.75
-
-skinparam actor {
-  BackgroundColor #F8F9FA
-  BorderColor #1565C0
-  FontSize 9
-  FontStyle bold
-}
-
-skinparam usecase {
-  BorderColor #37474F
-  BackgroundColor #FFFFFF
-  ArrowColor #455A64
-  FontSize 8
-}
+!include usecase_academic_style.puml
+title Use Case Diagram - Parent
 
 actor "Parent" as Parent
 
-together {
-  usecase "Account\naccess" as UC_Access
-  usecase "Sign in /\nout" as UC_Auth
-  usecase "Switch\nlanguage" as UC_Lang
-  usecase "Communication\ncenter" as UC_Communication
-  usecase "Send/read\nmessages" as UC_Messages
-  usecase "Read\nnotifications" as UC_ReadNotifications
-  usecase "Mark notifications\nread" as UC_MarkNotifications
+rectangle "School Management System" {
+  package "System Access" {
+    usecase "Access\ndashboard" as UC_Dashboard
+    usecase "Authenticate" as UC_Login
+    usecase "Manage\nsession" as UC_Session
+    usecase "Change\nlanguage" as UC_Language
+    usecase "Change\ntheme" as UC_Theme
+  }
+
+  package "Children Follow-Up" {
+    usecase "Follow children" as UC_Followup
+    usecase "Consult linked\nchildren" as UC_Children
+    usecase "Consult grades" as UC_Grades
+    usecase "Consult attendance" as UC_Attendance
+    usecase "Consult fees" as UC_Fees
+    usecase "Consult posts" as UC_Posts
+  }
+
+  package "Communication" {
+    usecase "Communicate\nwith school" as UC_Communication
+    usecase "Exchange messages" as UC_Messages
+    usecase "Consult notifications" as UC_Notifications
+  }
 }
 
-together {
-  usecase "Parent\nfollow-up" as UC_ParentFollowup
-  usecase "View\nchildren" as UC_ViewChildren
-  usecase "Learner\nmonitoring" as UC_LearnerMonitoring
-}
+Parent -- UC_Dashboard
+Parent -- UC_Followup
+Parent -- UC_Communication
 
-together {
-  usecase "View\ngrades" as UC_ViewGrades
-  usecase "View\nattendance" as UC_ViewAttendance
-  usecase "View\nfees" as UC_ViewFees
-  usecase "Read\nposts" as UC_ReadPosts
-}
+UC_Dashboard ..> UC_Login : <<include>>
+UC_Dashboard ..> UC_Session : <<include>>
+UC_Language ..> UC_Dashboard : <<extend>>
+UC_Theme ..> UC_Dashboard : <<extend>>
 
-Parent --> UC_Access
-Parent --> UC_Communication
-Parent --> UC_ParentFollowup
+UC_Followup ..> UC_Children : <<include>>
+UC_Followup ..> UC_Grades : <<include>>
+UC_Followup ..> UC_Attendance : <<include>>
+UC_Followup ..> UC_Fees : <<include>>
+UC_Followup ..> UC_Posts : <<include>>
 
-UC_Access .right.> UC_Auth : <<include>>
-UC_Lang .left.> UC_Access : <<extend>>
-UC_Communication .right.> UC_Messages : <<include>>
-UC_Communication .right.> UC_ReadNotifications : <<include>>
-UC_MarkNotifications .left.> UC_ReadNotifications : <<extend>>
-
-UC_ParentFollowup .right.> UC_ViewChildren : <<include>>
-UC_ParentFollowup .right.> UC_LearnerMonitoring : <<include>>
-
-UC_LearnerMonitoring .up.> UC_ViewGrades : <<include>>
-UC_LearnerMonitoring .right.> UC_ViewAttendance : <<include>>
-UC_LearnerMonitoring .down.> UC_ViewFees : <<include>>
-UC_LearnerMonitoring .right.> UC_ReadPosts : <<include>>
+UC_Communication ..> UC_Messages : <<include>>
+UC_Communication ..> UC_Notifications : <<include>>
 
 @enduml

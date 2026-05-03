@@ -17,7 +17,7 @@ from sections import (
     tech_stack,
     use_case,
 )
-from utils import BASE_DIR, OUTPUT_DIR, title_style
+from utils import BASE_DIR, OUTPUT_DIR, REPORT_FONT, REPORT_FONT_BOLD, create_indexed_heading, title_style
 
 
 REPORT_FILENAME = "School_Management_System_UML_Report.pdf"
@@ -26,14 +26,16 @@ REPORT_FILENAME = "School_Management_System_UML_Report.pdf"
 class IndexedDocTemplate(BaseDocTemplate):
     def afterFlowable(self, flowable):
         level = getattr(flowable, "toc_level", None)
-        if level is None:
-            return
+        if level is not None:
+            text = getattr(flowable, "toc_text", None)
+            if text is None and isinstance(flowable, Paragraph):
+                text = flowable.getPlainText()
+            if text:
+                self.notify("TOCEntry", (level, text, self.page))
 
-        text = getattr(flowable, "toc_text", None)
-        if text is None and isinstance(flowable, Paragraph):
-            text = flowable.getPlainText()
-        if text:
-            self.notify("TOCEntry", (level, text, self.page))
+        figure_text = getattr(flowable, "figure_text", None)
+        if figure_text:
+            self.notify("LOFEntry", (0, figure_text, self.page))
 
 
 def add_page_number(canvas, doc):
@@ -43,10 +45,10 @@ def add_page_number(canvas, doc):
 
     width, height = A4
     canvas.saveState()
-    canvas.setFont("Helvetica", 8)
+    canvas.setFont(REPORT_FONT, 8)
     canvas.setStrokeColorRGB(0.82, 0.87, 0.92)
     canvas.line(20 * mm, 14 * mm, width - 20 * mm, 14 * mm)
-    canvas.drawString(20 * mm, 9 * mm, "School Management System - UML Report")
+    canvas.drawString(20 * mm, 9 * mm, "School Management System - Design Report")
     canvas.drawRightString(width - 20 * mm, 9 * mm, f"Page {page_num}")
     canvas.restoreState()
 
@@ -55,11 +57,11 @@ def build_doc(output_filename):
     doc = IndexedDocTemplate(
         str(output_filename),
         pagesize=A4,
-        leftMargin=24,
-        rightMargin=24,
-        topMargin=28,
-        bottomMargin=34,
-        title="School Management System - UML Report",
+        leftMargin=18 * mm,
+        rightMargin=18 * mm,
+        topMargin=18 * mm,
+        bottomMargin=24 * mm,
+        title="Design and Implementation of a Web-Based School Management System",
         author="UML_projet",
     )
 
@@ -86,8 +88,8 @@ def add_table_of_contents(story):
     toc.levelStyles = [
         ParagraphStyle(
             name="TOCLevel0",
-            fontSize=10.5,
-            fontName="Helvetica-Bold",
+            fontSize=10.2,
+            fontName=REPORT_FONT_BOLD,
             leftIndent=0,
             firstLineIndent=0,
             spaceBefore=5,
@@ -96,14 +98,44 @@ def add_table_of_contents(story):
         ParagraphStyle(
             name="TOCLevel1",
             fontSize=9,
-            fontName="Helvetica",
-            leftIndent=18,
+            fontName=REPORT_FONT,
+            leftIndent=14,
             firstLineIndent=0,
             spaceBefore=2,
             leading=11,
         ),
+        ParagraphStyle(
+            name="TOCLevel2",
+            fontSize=8.5,
+            fontName=REPORT_FONT,
+            leftIndent=28,
+            firstLineIndent=0,
+            spaceBefore=1,
+            leading=10,
+        ),
     ]
     story.append(toc)
+    story.append(PageBreak())
+
+
+def add_list_of_figures(story):
+    create_indexed_heading(story, "List of Figures and Diagrams", level=0)
+    story.append(Spacer(1, 8))
+
+    lof = TableOfContents()
+    lof._notifyKind = "LOFEntry"
+    lof.levelStyles = [
+        ParagraphStyle(
+            name="LOFLevel0",
+            fontSize=9.2,
+            fontName=REPORT_FONT,
+            leftIndent=0,
+            firstLineIndent=0,
+            spaceBefore=2,
+            leading=11.5,
+        ),
+    ]
+    story.append(lof)
     story.append(PageBreak())
 
 
@@ -141,6 +173,7 @@ def build_story():
     cover_page.build(story)
     cover_page.build_resume(story)
     add_table_of_contents(story)
+    add_list_of_figures(story)
     cover_page.build_introduction(story)
     project_context.build(story)
     use_case.build(story)

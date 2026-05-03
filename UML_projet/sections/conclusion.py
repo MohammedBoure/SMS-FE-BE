@@ -1,37 +1,60 @@
 from reportlab.platypus import Paragraph, Spacer
 
-from utils import create_indexed_heading, normal_text, subtitle_style
+from utils import create_indexed_heading, make_table, normal_text
 
 
 def build(story):
-    create_indexed_heading(story, "Conclusion", level=0)
-    story.append(Spacer(1, 10))
+    create_indexed_heading(story, "General Conclusion", level=0)
+    story.append(Spacer(1, 8))
 
-    story.append(Paragraph("Project Summary", subtitle_style))
     story.append(Paragraph(
         """
-        The UML documentation gives a structured view of the system: role responsibilities, backend
-        structure, frontend-to-backend interactions, and navigation flow.
+        This work made it possible to design and implement a web-based school management application
+        covering administrative, academic, financial, and communication dimensions. The project starts
+        from a concrete need: replacing scattered management practices with a centralized, structured,
+        and role-based platform.
         """,
         normal_text,
     ))
-    story.append(Spacer(1, 10))
-
-    story.append(Paragraph("Design Value", subtitle_style))
     story.append(Paragraph(
         """
-        The diagrams make the project easier to review and extend. The data structure was first studied
-        from the Al Abakera Excel reference, then modeled into UML, backend APIs, frontend dashboards,
-        and a hosted web setup.
+        The existing-system study revealed the limits of manual documents and disconnected tools. The
+        requirements analysis identified actors, modules, and quality constraints. UML design
+        formalized use cases, the structural model, interaction sequences, and navigation. Finally,
+        implementation materialized these choices in a frontend/backend architecture connected to a
+        MySQL database.
         """,
         normal_text,
     ))
+
+    story.append(Spacer(1, 8))
+    create_indexed_heading(story, "Project Assessment", level=1)
+    story.append(make_table([
+        ["Aspect", "Result"],
+        ["Functional", "Dedicated dashboards for administrator, receptionist, accountant, teacher, student, and parent."],
+        ["Technical", "RESTful architecture with JavaScript frontend, FastAPI backend, and MySQL relational database."],
+        ["Modeling", "Use case, class, sequence, and navigation diagrams integrated into the report."],
+        ["User experience", "Role-based interfaces, theme support, languages, messaging, notifications, and posts."],
+        ["Documentation", "Academic report structured around context, requirements, design, implementation, and testing."],
+    ], [115, 373]))
+
     story.append(Spacer(1, 10))
-    story.append(Paragraph("Repository and Tooling Note", subtitle_style))
+    create_indexed_heading(story, "Future Work", level=1)
+    story.append(make_table([
+        ["Perspective", "Possible Improvement"],
+        ["Advanced security", "Add token-based authentication, stronger password policies, and audit logging."],
+        ["Reporting", "Create PDF/Excel exports for grades, attendance, fees, and class statistics."],
+        ["Deployment", "Prepare a Docker environment and a reproducible production configuration."],
+        ["Automated tests", "Add backend unit tests, API integration tests, and frontend end-to-end tests."],
+        ["Mobile experience", "Improve responsive behavior or provide a dedicated mobile experience for parents and students."],
+    ], [115, 373]))
+
+    story.append(Spacer(1, 8))
     story.append(Paragraph(
         """
-        The project repository is available at <b>https://github.com/MohammedBoure/SMS-FE-BE</b>.
-        AI-assisted tools supported analysis, documentation refinement, and UML/report quality improvements.
+        In conclusion, the School Management System provides a solid basis for modernizing school
+        administration. Its modular structure supports gradual evolution and keeps a clear connection
+        between analysis, design, and implementation.
         """,
         normal_text,
     ))

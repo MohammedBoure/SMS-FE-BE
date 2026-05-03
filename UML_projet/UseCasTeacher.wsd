@@ -1,90 +1,57 @@
 @startuml UseCase_Teacher
 
-' Teacher diagram.
-left to right direction
-scale max 3508*2480
-
-skinparam dpi 300
-skinparam linetype ortho
-skinparam nodesep 18
-skinparam ranksep 24
-skinparam padding 2
-skinparam pageMargin 2
-skinparam shadowing false
-skinparam roundcorner 3
-skinparam backgroundColor #FFFFFF
-skinparam ArrowFontSize 7
-skinparam ArrowThickness 0.75
-
-skinparam actor {
-  BackgroundColor #F8F9FA
-  BorderColor #1565C0
-  FontSize 9
-  FontStyle bold
-}
-
-skinparam usecase {
-  BorderColor #37474F
-  BackgroundColor #FFFFFF
-  ArrowColor #455A64
-  FontSize 8
-}
+!include usecase_academic_style.puml
+title Use Case Diagram - Teacher
 
 actor "Teacher" as Teacher
 
-together {
-  usecase "Account\naccess" as UC_Access
-  usecase "Sign in /\nout" as UC_Auth
-  usecase "Switch\nlanguage" as UC_Lang
-  usecase "Communication\ncenter" as UC_Communication
-  usecase "Send/read\nmessages" as UC_Messages
-  usecase "Read\nnotifications" as UC_ReadNotifications
-  usecase "Mark notifications\nread" as UC_MarkNotifications
+rectangle "School Management System" {
+  package "System Access" {
+    usecase "Access\ndashboard" as UC_Dashboard
+    usecase "Authenticate" as UC_Login
+    usecase "Manage\nsession" as UC_Session
+    usecase "Change\nlanguage" as UC_Language
+    usecase "Change\ntheme" as UC_Theme
+  }
+
+  package "Teaching Activities" {
+    usecase "Manage teaching\nactivities" as UC_Teaching
+    usecase "Consult assignments" as UC_Assignments
+    usecase "Consult schedule" as UC_Schedule
+    usecase "Enter attendance" as UC_Attendance
+    usecase "Manage assessments" as UC_Assessments
+    usecase "Enter grades" as UC_Grades
+    usecase "Share resources" as UC_Resources
+  }
+
+  package "Communication" {
+    usecase "Communicate\nwith actors" as UC_Communication
+    usecase "Exchange messages" as UC_Messages
+    usecase "Consult notifications" as UC_Notifications
+    usecase "Consult posts" as UC_Posts
+  }
 }
 
-together {
-  usecase "Teaching\noperations" as UC_TeachingOps
-  usecase "Academic\nactivities" as UC_AcademicActivities
-  usecase "Teacher\nassignments" as UC_TeacherAssignments
-}
+Teacher -- UC_Dashboard
+Teacher -- UC_Teaching
+Teacher -- UC_Communication
 
-together {
-  usecase "Schedules" as UC_Schedules
-  usecase "Attendance" as UC_Attendance
-  usecase "Assessments" as UC_Assessments
-  usecase "Grades" as UC_Grades
-  usecase "Resources" as UC_Resources
-}
+UC_Dashboard ..> UC_Login : <<include>>
+UC_Dashboard ..> UC_Session : <<include>>
+UC_Language ..> UC_Dashboard : <<extend>>
+UC_Theme ..> UC_Dashboard : <<extend>>
 
-together {
-  usecase "Posts\nboard" as UC_PostsBoard
-  usecase "Read\nposts" as UC_ReadPosts
-}
+UC_Teaching ..> UC_Assignments : <<include>>
+UC_Teaching ..> UC_Schedule : <<include>>
+UC_Teaching ..> UC_Attendance : <<include>>
+UC_Teaching ..> UC_Assessments : <<include>>
+UC_Teaching ..> UC_Grades : <<include>>
+UC_Teaching ..> UC_Resources : <<include>>
+UC_Grades ..> UC_Assessments : <<include>>
+UC_Resources ..> UC_Assignments : <<include>>
 
-Teacher --> UC_Access
-Teacher --> UC_Communication
-Teacher --> UC_TeachingOps
-Teacher --> UC_PostsBoard
-
-UC_Access .right.> UC_Auth : <<include>>
-UC_Lang .left.> UC_Access : <<extend>>
-UC_Communication .right.> UC_Messages : <<include>>
-UC_Communication .right.> UC_ReadNotifications : <<include>>
-UC_MarkNotifications .left.> UC_ReadNotifications : <<extend>>
-
-UC_TeachingOps .right.> UC_AcademicActivities : <<include>>
-UC_AcademicActivities .up.> UC_TeacherAssignments : <<include>>
-UC_AcademicActivities .up.> UC_Schedules : <<include>>
-UC_AcademicActivities .right.> UC_Attendance : <<include>>
-UC_AcademicActivities .right.> UC_Assessments : <<include>>
-UC_AcademicActivities .down.> UC_Grades : <<include>>
-UC_AcademicActivities .down.> UC_Resources : <<include>>
-
-UC_Assessments .up.> UC_TeacherAssignments : <<include>>
-UC_Grades .right.> UC_Assessments : <<include>>
-UC_Resources .down.> UC_TeacherAssignments : <<include>>
-UC_Schedules .up.> UC_TeacherAssignments : <<include>>
-
-UC_PostsBoard .right.> UC_ReadPosts : <<include>>
+UC_Communication ..> UC_Messages : <<include>>
+UC_Communication ..> UC_Notifications : <<include>>
+UC_Communication ..> UC_Posts : <<include>>
 
 @enduml

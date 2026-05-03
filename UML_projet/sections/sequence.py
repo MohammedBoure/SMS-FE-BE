@@ -1,54 +1,45 @@
 from reportlab.platypus import PageBreak, Paragraph, Spacer
 
-from utils import create_indexed_heading, diagram_path, normal_text, render_diagram, subtitle_style
+from utils import add_caption, create_indexed_heading, diagram_path, make_table, normal_text, render_diagram
 
 
 SEQUENCE_DIAGRAMS = [
-    ("Admin", "Sequence_Admin.svg"),
-    ("Receptionist", "Sequence_Receptionist.svg"),
-    ("Accountant", "Sequence_Accountant.svg"),
-    ("Teacher", "Sequence_Teacher.svg"),
-    ("Student", "Sequence_Student.svg"),
-    ("Parent", "Sequence_Parent.svg"),
+    ("3.2", "Administrator", "Sequence_Admin.svg"),
+    ("3.3", "Receptionist", "Sequence_Receptionist.svg"),
+    ("3.4", "Accountant", "Sequence_Accountant.svg"),
+    ("3.5", "Teacher", "Sequence_Teacher.svg"),
+    ("3.6", "Student", "Sequence_Student.svg"),
+    ("3.7", "Parent", "Sequence_Parent.svg"),
 ]
 
 
 def build(story):
-    create_indexed_heading(story, "Dynamic Models: Sequence Diagrams", level=0)
-    story.append(Spacer(1, 10))
+    create_indexed_heading(story, "Sequence Diagrams", level=1)
+    story.append(Spacer(1, 8))
     story.append(Paragraph(
         """
-        The sequence diagrams describe how each role interacts with the application at runtime. The
-        common pattern is: user action in the frontend, role controller handling, service/API request,
-        FastAPI router processing, database operation, then UI rendering of the result.
+        Sequence diagrams describe the behavior of the system at runtime. They show collaboration
+        between the user, dashboard, frontend controller, API service, FastAPI router, and data
+        manager.
         """,
         normal_text,
     ))
-    story.append(Paragraph("Sequence Flow Summary", subtitle_style))
-    story.append(Spacer(1, 6))
-    story.append(Paragraph(
-        """
-        <b>Admin:</b> authentication, route selection, data loading, and full create/update/delete administration.
-        <br/>
-        <b>Receptionist:</b> dashboard bootstrap, student and parent registration, student records, payments,
-        posts, messaging, and notifications.
-        <br/>
-        <b>Accountant:</b> finance workspace loading, student financial files, fee creation, payment recording,
-        notices, attendance reports, messaging, and notification updates.
-        <br/>
-        <b>Teacher:</b> teacher profile resolution, assignments, schedules, attendance, assessments, grades,
-        resources, messaging, and notifications.
-        <br/>
-        <b>Student:</b> linked profile resolution, academic self-service views, messages, and notifications.
-        <br/>
-        <b>Parent:</b> parent profile resolution, linked children aggregation, child monitoring, posts,
-        messages, and notifications.
-        """,
-        normal_text,
-    ))
+
+    create_indexed_heading(story, "Selected Dynamic Scenarios", level=2)
+    story.append(make_table([
+        ["Role", "Represented Scenario", "Design Purpose"],
+        ["Administrator", "Dashboard loading, consultation, and global CRUD operations.", "Validate central control and calls to the main modules."],
+        ["Receptionist", "File creation, file consultation, and front-office search.", "Show the relationship between reception, students, parents, and payments."],
+        ["Accountant", "Fee follow-up, payments, transactions, and notifications.", "Separate financial operations from general administration."],
+        ["Teacher", "Assignments, attendance, assessments, grades, resources, and messages.", "Formalize academic flows from classroom work to family follow-up."],
+        ["Student", "Consultation of personal and academic information.", "Ensure secure read access to data linked to the connected profile."],
+        ["Parent", "Aggregation of information for linked children.", "Illustrate multi-child follow-up and communication with the school."],
+    ], [92, 210, 186]))
+
     story.append(PageBreak())
 
-    for role, filename in SEQUENCE_DIAGRAMS:
-        create_indexed_heading(story, f"{role} Sequence Diagram", level=1, visible=False)
+    for figure_no, role, filename in SEQUENCE_DIAGRAMS:
+        create_indexed_heading(story, f"Sequence Diagram - {role}", level=2, visible=False)
         render_diagram(story, diagram_path(filename), "")
+        add_caption(story, f"Figure {figure_no} - Sequence diagram: {role}.")
         story.append(PageBreak())
