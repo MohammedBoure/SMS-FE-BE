@@ -14,9 +14,13 @@ from svglib.svglib import svg2rlg
 
 UML_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = UML_DIR.parent
-BASE_DIR = PROJECT_ROOT / "out" / "UML_projet"
-OUTPUT_DIR = BASE_DIR
-LOGO_PATH = UML_DIR / "logo.png"
+OUTPUT_ROOT = PROJECT_ROOT / "outputs" / "uml-report"
+BASE_DIR = OUTPUT_ROOT
+REPORT_DIR = OUTPUT_ROOT / "report"
+DIAGRAMS_DIR = OUTPUT_ROOT / "diagrams"
+SCREENSHOTS_DIR = OUTPUT_ROOT / "screenshots"
+OUTPUT_DIR = REPORT_DIR
+LOGO_PATH = UML_DIR / "assets" / "logo.png"
 
 PAGE_WIDTH, PAGE_HEIGHT = A4
 MAX_IMG_WIDTH = PAGE_WIDTH - 40 * mm
@@ -159,7 +163,32 @@ def fill_drawing(drawing, max_width, max_height):
     return drawing
 
 def diagram_path(filename):
-    return BASE_DIR / filename
+    filename = str(filename)
+    if filename in {"Class_Diagram.svg", "SchoolManagementSystem_A3.svg"}:
+        return DIAGRAMS_DIR / "class" / "Class_Diagram.svg"
+    if filename == "Navigation_Diagram.svg":
+        return DIAGRAMS_DIR / "navigation" / filename
+    if filename.startswith("Sequence_"):
+        return DIAGRAMS_DIR / "sequence" / filename
+    if filename.startswith("UseCase_"):
+        filename = filename.replace("UseCase_", "Use_Case_", 1)
+    if filename.startswith("Use_Case_"):
+        return DIAGRAMS_DIR / "use-case" / filename
+    return DIAGRAMS_DIR / filename
+
+def screenshot_path(filename):
+    filename = str(filename)
+    legacy_names = {
+        "login.PNG": "login.png",
+        "Posts.PNG": "posts-board.png",
+        "Post.PNG": "post-details.png",
+        "admin-grades.PNG": "admin-grades.png",
+        "parent-messages.PNG": "parent-messages.png",
+        "teacher-ressources.PNG": "teacher-resources.png",
+        "teacher-grades.PNG": "teacher-grades.png",
+        "parent-mychild.PNG": "parent-children-follow-up.png",
+    }
+    return SCREENSHOTS_DIR / legacy_names.get(filename, filename)
 
 def _svg_viewbox(root, drawing):
     viewbox = root.get("viewBox")

@@ -17,7 +17,7 @@ from sections import (
     tech_stack,
     use_case,
 )
-from utils import BASE_DIR, OUTPUT_DIR, REPORT_FONT, REPORT_FONT_BOLD, create_indexed_heading, title_style
+from utils import DIAGRAMS_DIR, OUTPUT_DIR, REPORT_FONT, REPORT_FONT_BOLD, create_indexed_heading, diagram_path, title_style
 
 
 REPORT_FILENAME = "School_Management_System_UML_Report.pdf"
@@ -142,24 +142,24 @@ def add_list_of_figures(story):
 def validate_required_svgs():
     required = [
         "Navigation_Diagram.svg",
-        "SchoolManagementSystem_A3.svg",
+        "Class_Diagram.svg",
         "Sequence_Accountant.svg",
         "Sequence_Admin.svg",
         "Sequence_Parent.svg",
         "Sequence_Receptionist.svg",
         "Sequence_Student.svg",
         "Sequence_Teacher.svg",
-        "UseCase_Accountant.svg",
-        "UseCase_Admin.svg",
-        "UseCase_Parent.svg",
-        "UseCase_Receptionist.svg",
-        "UseCase_Student.svg",
-        "UseCase_Teacher.svg",
+        "Use_Case_Accountant.svg",
+        "Use_Case_Admin.svg",
+        "Use_Case_Parent.svg",
+        "Use_Case_Receptionist.svg",
+        "Use_Case_Student.svg",
+        "Use_Case_Teacher.svg",
     ]
-    missing = [name for name in required if not (BASE_DIR / name).exists()]
+    missing = [name for name in required if not diagram_path(name).exists()]
     if missing:
         formatted = "\n".join(f" - {name}" for name in missing)
-        raise FileNotFoundError(f"Missing required SVG files in {BASE_DIR}:\n{formatted}")
+        raise FileNotFoundError(f"Missing required SVG files in {DIAGRAMS_DIR}:\n{formatted}")
 
 
 def output_candidates(path):

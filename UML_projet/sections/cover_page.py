@@ -4,7 +4,6 @@ from reportlab.lib.units import inch
 from reportlab.platypus import Image, PageBreak, Paragraph, Spacer, Table, TableStyle
 
 from utils import (
-    BASE_DIR,
     LOGO_PATH,
     REPORT_FONT,
     REPORT_FONT_BOLD,
@@ -12,6 +11,7 @@ from utils import (
     make_table,
     normal_center,
     normal_text,
+    screenshot_path,
     subtitle_style,
     title_style,
 )
@@ -30,7 +30,7 @@ STUDENTS = [
     "Meriche Chemseddine",
 ]
 
-LOGIN_PREVIEW_PATH = BASE_DIR / "login.PNG"
+LOGIN_PREVIEW_PATH = screenshot_path("login.png")
 
 
 def _cover_label_style(name, bold=False):

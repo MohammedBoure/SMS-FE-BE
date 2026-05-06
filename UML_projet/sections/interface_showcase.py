@@ -1,23 +1,23 @@
 from reportlab.lib.units import inch
 from reportlab.platypus import Image, PageBreak, Paragraph, Spacer
 
-from utils import BASE_DIR, add_caption, create_indexed_heading, make_table, normal_text
+from utils import add_caption, create_indexed_heading, make_table, normal_text, screenshot_path
 
 
 INTERFACE_SCREENSHOTS = [
-    ("4.1", "Login Interface", "login.PNG", True),
-    ("4.2", "Posts Board", "Posts.PNG", False),
-    ("4.3", "Post Details", "Post.PNG", True),
-    ("4.4", "Administrator Grade Management", "admin-grades.PNG", False),
-    ("4.5", "Parent Messaging Interface", "parent-messages.PNG", False),
-    ("4.6", "Teacher Resources Interface", "teacher-ressources.PNG", False),
-    ("4.7", "Teacher Grade Entry and Consultation", "teacher-grades.PNG", False),
-    ("4.8", "Parent Children Follow-Up View", "parent-mychild.PNG", False),
+    ("4.1", "Login Interface", "login.png", True),
+    ("4.2", "Posts Board", "posts-board.png", False),
+    ("4.3", "Post Details", "post-details.png", True),
+    ("4.4", "Administrator Grade Management", "admin-grades.png", False),
+    ("4.5", "Parent Messaging Interface", "parent-messages.png", False),
+    ("4.6", "Teacher Resources Interface", "teacher-resources.png", False),
+    ("4.7", "Teacher Grade Entry and Consultation", "teacher-grades.png", False),
+    ("4.8", "Parent Children Follow-Up View", "parent-children-follow-up.png", False),
 ]
 
 
 def _append_screenshot(story, figure_no, title, filename, featured=False):
-    path = BASE_DIR / filename
+    path = screenshot_path(filename)
     create_indexed_heading(story, title, level=2, visible=False)
 
     if not path.exists():

@@ -45,9 +45,14 @@ SMS-FE-BE/
 |   +-- main.py
 |   +-- generate_academic_usecase_svgs.py
 |   +-- sections/
-|   +-- *.wsd
-+-- out/
-    +-- UML_projet/
+|   +-- diagrams/
+|   +-- assets/
+|   +-- data/
++-- outputs/
+    +-- uml-report/
+        +-- report/
+        +-- diagrams/
+        +-- screenshots/
 ```
 
 ## Backend Setup
@@ -128,7 +133,7 @@ const API_BASE_URL = "http://localhost:8000";
 The generated academic report is located at:
 
 ```text
-out/UML_projet/School_Management_System_UML_Report.pdf
+outputs/uml-report/report/School_Management_System_UML_Report.pdf
 ```
 
 To regenerate the use case SVG diagrams and the PDF report:
@@ -164,7 +169,7 @@ The report includes:
 - Database access is isolated in `backend/database/*_manager.py`.
 - Shared frontend logic is under `frontend/js/core`.
 - Role-specific frontend behavior is under `frontend/js/roles`.
-- Generated report assets are written under `out/UML_projet`.
+- Generated report assets are written under `outputs/uml-report`.
 
 ## Repository
 

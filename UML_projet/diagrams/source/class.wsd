@@ -1,8 +1,6 @@
 @startuml SchoolManagementSystem_A3
 
-' ===================== إعدادات المساحة والضغط =====================
-' تغيير محوري لاستغلال شاشات العرض (التي تكون عريضة) بشكل أفضل
-' A3 landscape at 300 dpi is about 4960 x 3508 px.
+
 left to right direction
 scale max 4960*3508
 
@@ -28,16 +26,19 @@ skinparam class {
   AttributeFontSize 8
 }
 
-' ===================== الكلاسات =====================
-' تم إزالة قوالب together لترك الحرية لمحرك الرسم لتوزيع الكتل هندسياً
+
+class RolesTable <<table>> {
+  - id: INT
+  - name: VARCHAR(50) UNIQUE NOT NULL
+}
 
 class UsersManager {
   - id: INT
-  - role_id: INT
-  - username: VARCHAR(50)
-  - password: VARCHAR(255)
-  - email: VARCHAR(100)
-  - full_name: VARCHAR(100)
+  - role_id: INT NULL
+  - username: VARCHAR(50) UNIQUE NOT NULL
+  - password: VARCHAR(255) NOT NULL
+  - email: VARCHAR(100) UNIQUE
+  - full_name: VARCHAR(100) NOT NULL
   - phone: VARCHAR(20)
   - address: TEXT
   - is_active: BOOLEAN
@@ -55,7 +56,7 @@ class UsersManager {
 
 class ParentsManager {
   - id: INT
-  - user_id: INT
+  - user_id: INT UNIQUE
   ..
   + create_parent(user_id: Integer): Integer
   + get_all_parents(): List
@@ -67,7 +68,7 @@ class ParentsManager {
 
 class TeachersManager {
   - id: INT
-  - user_id: INT
+  - user_id: INT UNIQUE
   - specialty: VARCHAR(100)
   - hire_date: DATE
   ..
@@ -97,10 +98,10 @@ class SubjectsManager {
 
 class ClassesManager {
   - id: INT
-  - program_id: INT
-  - class_name: VARCHAR(50)
+  - program_id: INT NULL
+  - class_name: VARCHAR(50) NOT NULL
   - level: VARCHAR(50)
-  - age_group: VARCHAR(50)
+  - age_group: VARCHAR(50) NULL
   - capacity: INT
   ..
   + add_class(class_name: String, level: String,\n  age_group: String, capacity: Integer, program_id: Integer): Integer
@@ -113,8 +114,8 @@ class ClassesManager {
 
 class ProgramsManager {
   - id: INT
-  - program_name: VARCHAR(100)
-  - program_type: VARCHAR(50)
+  - program_name: VARCHAR(100) NOT NULL
+  - program_type: VARCHAR(50) NOT NULL
   - price_cash: INT
   - price_installments: INT
   ..
@@ -131,7 +132,7 @@ class StudentEnrollmentsManager {
   - id: INT
   - student_id: INT
   - program_id: INT
-  - class_id: INT
+  - class_id: INT NULL
   - group_name: VARCHAR(50)
   - enrollment_date: DATE
   - status: VARCHAR(50)
@@ -167,7 +168,7 @@ class AssessmentsManager {
   - title: VARCHAR(100) 
   - type: VARCHAR(50) 
   - max_grade: DOUBLE 
-  - assignment_id: INT 
+  - assignment_id: INT
   - due_date: DATE 
   ..
   + create_assessment(title: String, type: String,\n  assignment_id: Integer, max_grade: Float,\n  due_date: String): Integer 
@@ -184,7 +185,7 @@ class GradesManager {
   - id: INT
   - student_id: INT
   - assessment_id: INT
-  - grade_value: DOUBLE
+  - grade_value: DOUBLE NOT NULL
   - teacher_remarks: TEXT
   ..
   + save_grade(student_id: Integer, assessment_id: Integer,\n  grade_value: Float, teacher_remarks: String): Integer
@@ -197,10 +198,10 @@ class GradesManager {
 class AttendanceManager {
   - id: INT
   - student_id: INT
-  - class_id: INT
-  - date: DATE
-  - status: VARCHAR
-  - is_justified: BOOLEAN
+  - class_id: INT NULL
+  - date: DATE NOT NULL
+  - status: VARCHAR(20) NOT NULL
+  - is_justified: BOOLEAN DEFAULT FALSE
   - justification_reason: TEXT
   ..
   - _student_has_active_class_enrollment(cursor: Cursor, student_id: Integer, class_id: Integer): Boolean
@@ -211,14 +212,13 @@ class AttendanceManager {
   + update_justification(attendance_id: Integer,\n  is_justified: Boolean, justification_reason: String): Boolean
   + delete_attendance(attendance_id: Integer): Tuple
 }
-
 class SchedulesManager {
   - id: INT
   - assignment_id: INT
-  - day_of_week: VARCHAR
+  - day_of_week: ENUM(Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday)
   - start_time: TIME
   - end_time: TIME
-  - room_number: VARCHAR
+  - room_number: VARCHAR(20)
   ..
   - _check_conflict(cursor: Cursor, assignment_id: Integer,\n  day_of_week: String, start_time: String,\n  end_time: String, room_number: String,\n  exclude_schedule_id: Integer): String
   + get_student_schedule(student_id: Integer): List
@@ -250,14 +250,14 @@ class ResourcesManager {
 
 class UserTransactionsManager {
   - id: INT
-  - from_user_id:  INT
-  - to_user_id: INT
-  - amount: INT
-  - transaction_type: VARCHAR
-  - reference_type: VARCHAR
+  - from_user_id: INT NOT NULL
+  - to_user_id: INT NOT NULL
+  - amount: INT NOT NULL
+  - transaction_type: VARCHAR(50) NOT NULL
+  - reference_type: VARCHAR(50)
   - reference_id: INT
   - notes: TEXT
-  - status: VARCHAR
+  - status: ENUM(pending, completed, cancelled)
   - created_at: TIMESTAMP
   ..
   + create_transaction(from_user_id: Integer, to_user_id: Integer,\n  amount: Integer, transaction_type: String,\n  reference_type: String, reference_id: Integer,\n  notes: String, status: String): Integer
@@ -271,11 +271,11 @@ class UserTransactionsManager {
 class PaymentsManager {
   - id: INT
   - fee_id: INT
-  - transaction_id: INT
-  - amount_paid: INT
+  - transaction_id: INT UNIQUE
+  - amount_paid: INT NOT NULL
   - installment_number: INT
   - payment_date: TIMESTAMP
-  - receipt_number: VARCHAR
+  - receipt_number: VARCHAR(50) UNIQUE
   ..
   + record_payment(fee_id: Integer, amount_paid: Integer,\n  installment_number: Integer, transaction_id: Integer,\n  receipt_number: String): Integer
   + get_all_payments(): List
@@ -305,10 +305,10 @@ class ConversationsManager {
 
 class MessagesManager {
   - id: INT
-  - content: TEXT
+  - content: TEXT NOT NULL
   - created_at: TIMESTAMP
-  - sender_id: INT
-  - receiver_id: INT
+  - sender_id: INT NOT NULL
+  - receiver_id: INT NOT NULL
   ..
   + send_message(sender_id: Integer, receiver_id: Integer,\n  content: String): Integer
   + get_message_by_id(message_id: Integer): Dictionary
@@ -318,11 +318,11 @@ class MessagesManager {
 
 class PostsManager {
   - id: INT
-  - title: VARCHAR
-  - content: TEXT
-  - image: VARCHAR
+  - title: VARCHAR(255) NOT NULL
+  - content: TEXT NOT NULL
+  - image: VARCHAR(500)
   - created_at: TIMESTAMP
-  - user_id: INT
+  - user_id: INT NOT NULL
   ..
   + create_post(title: String, content: String,\n  user_id: Integer, image: String): Integer
   + get_all_posts(): List
@@ -334,9 +334,9 @@ class PostsManager {
 
 class StudentsManager {
   - id: INT
-  - user_id: INT
-  - parent_id: INT
-  - class_id: INT
+  - user_id: INT UNIQUE
+  - parent_id: INT NULL
+  - class_id: INT NULL
   - date_of_birth: DATE
   - registration_date: DATE
   - blood_group: VARCHAR(5)
@@ -357,13 +357,13 @@ class StudentsManager {
 class StudentFeesManager {
   - id: INT
   - student_id: INT
-  - enrollment_id: INT
-  - program_id: INT
-  - fee_type: VARCHAR
-  - amount_due: INT
+  - enrollment_id: INT NULL
+  - program_id: INT NULL
+  - fee_type: VARCHAR(50) NOT NULL
+  - amount_due: INT NOT NULL
   - applied_discount: INT
   - due_date: DATE
-  - transaction_id: INT
+  - transaction_id: INT NULL
   ..
   - _resolve_program_for_enrollment(cursor: Cursor, student_id: Integer,\n  enrollment_id: Integer, program_id: Integer): Tuple
   + create_fee(student_id: Integer, fee_type: String, amount_due: Integer,\n  enrollment_id: Integer, program_id: Integer, applied_discount: Integer,\n  due_date: String, transaction_id: Integer): Integer
@@ -377,7 +377,7 @@ class StudentFeesManager {
 class NotificationsManager {
   - id: INT
   - user_id: INT
-  - title: VARCHAR
+  - title: VARCHAR(255)
   - message: TEXT
   - is_read: BOOLEAN
   - created_at: TIMESTAMP
@@ -393,48 +393,54 @@ class NotificationsManager {
   + delete_old_notifications(days_old: Integer): Tuple
 }
 
-' ===================== العلاقات (Relations) =====================
-' تم إزالة الاتجاهات القسرية (-up->) و (-[hidden]down->) للسماح بتنظيم تلقائي ومدمج
+legend right
+  *-- composition: child rows are deleted with the owner
+  o-- aggregation: optional/shared reference, often SET NULL
+  --> association: reference without clear whole/part ownership
+endlegend
 
-ParentsManager "1" --> "1" UsersManager : user_id
-StudentsManager "1" --> "1" UsersManager : user_id
-StudentsManager "*" --> "1" ParentsManager : parent_id
-StudentsManager "*" --> "1" ClassesManager : class_id
-ClassesManager "*" --> "1" ProgramsManager : program_id
-TeachersManager "1" --> "1" UsersManager : user_id
+RolesTable "0..1" o-- "*" UsersManager : role_id
+UsersManager "1" *-- "0..1" ParentsManager : user_id UNIQUE
+UsersManager "1" *-- "0..1" StudentsManager : user_id UNIQUE
+UsersManager "1" *-- "0..1" TeachersManager : user_id UNIQUE
 
-StudentEnrollmentsManager "*" --> "1" StudentsManager : student_id
-StudentEnrollmentsManager "*" --> "1" ProgramsManager : program_id
-StudentEnrollmentsManager "*" --> "1" ClassesManager : class_id
+ParentsManager "0..1" o-- "*" StudentsManager : parent_id
+ClassesManager "0..1" o-- "*" StudentsManager : class_id
+ProgramsManager "0..1" o-- "*" ClassesManager : program_id
 
-TeacherAssignmentsManager "*" --> "1" TeachersManager : teacher_id
-TeacherAssignmentsManager "*" --> "1" SubjectsManager : subject_id
-TeacherAssignmentsManager "*" --> "1" ClassesManager : class_id
+StudentsManager "1" *-- "*" StudentEnrollmentsManager : student_id
+ProgramsManager "1" *-- "*" StudentEnrollmentsManager : program_id
+ClassesManager "0..1" o-- "*" StudentEnrollmentsManager : class_id
 
-ResourcesManager "*" --> "1" TeacherAssignmentsManager : assignment_id
-AssessmentsManager "*" --> "1" TeacherAssignmentsManager : assignment_id
-SchedulesManager "*" --> "1" TeacherAssignmentsManager : assignment_id
+TeachersManager "1" *-- "*" TeacherAssignmentsManager : teacher_id
+SubjectsManager "1" *-- "*" TeacherAssignmentsManager : subject_id
+ClassesManager "1" *-- "*" TeacherAssignmentsManager : class_id
 
-GradesManager "*" --> "1" StudentsManager : student_id
-GradesManager "*" --> "1" AssessmentsManager : assessment_id
+TeacherAssignmentsManager "0..1" o-- "*" ResourcesManager : assignment_id
+TeacherAssignmentsManager "1" *-- "*" AssessmentsManager : assignment_id
+TeacherAssignmentsManager "1" *-- "*" SchedulesManager : assignment_id
 
-AttendanceManager "*" --> "1" ClassesManager : class_id
-AttendanceManager "*" --> "1" StudentsManager : student_id
+StudentsManager "1" *-- "*" GradesManager : student_id
+AssessmentsManager "1" *-- "*" GradesManager : assessment_id
 
-UserTransactionsManager "*" --> "1" UsersManager : from_user_id
-UserTransactionsManager "*" --> "1" UsersManager : to_user_id
+ClassesManager "0..1" o-- "*" AttendanceManager : class_id
+StudentsManager "1" *-- "*" AttendanceManager : student_id
+AttendanceManager ..> StudentEnrollmentsManager : active enrollment check
 
-StudentFeesManager "*" --> "1" StudentsManager : student_id
-StudentFeesManager "*" --> "1" ProgramsManager : program_id
-StudentFeesManager "*" --> "1" UserTransactionsManager : transaction_id
+UsersManager "1" --> "*" UserTransactionsManager : from_user_id
+UsersManager "1" --> "*" UserTransactionsManager : to_user_id
 
-PaymentsManager "*" --> "1" StudentFeesManager : fee_id
-PaymentsManager "1" --> "1" UserTransactionsManager : transaction_id
+StudentsManager "1" *-- "*" StudentFeesManager : student_id
+ProgramsManager "0..1" o-- "*" StudentFeesManager : program_id
+UserTransactionsManager "0..1" o-- "*" StudentFeesManager : transaction_id
+StudentEnrollmentsManager "0..1" o-- "*" StudentFeesManager : enrollment_id
 
-NotificationsManager "*" --> "1" UsersManager : user_id
-PostsManager "*" --> "1" UsersManager : user_id
-MessagesManager "*" --> "1" UsersManager : sender_id
-MessagesManager "*" --> "1" UsersManager : receiver_id
+StudentFeesManager "1" *-- "*" PaymentsManager : fee_id
+UserTransactionsManager "0..1" o-- "0..1" PaymentsManager : transaction_id UNIQUE
 
-StudentFeesManager "*" --> "1" StudentEnrollmentsManager : enrollment_id
+UsersManager "1" *-- "*" NotificationsManager : user_id
+UsersManager "1" *-- "*" PostsManager : user_id
+UsersManager "1" --> "*" MessagesManager : sender_id
+UsersManager "1" --> "*" MessagesManager : receiver_id
+
 @enduml

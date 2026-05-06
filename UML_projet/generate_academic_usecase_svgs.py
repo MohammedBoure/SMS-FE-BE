@@ -4,7 +4,7 @@ import math
 import textwrap
 
 
-OUT_DIR = Path(__file__).resolve().parents[1] / "out" / "UML_projet"
+OUT_DIR = Path(__file__).resolve().parents[1] / "outputs" / "uml-report" / "diagrams" / "use-case"
 
 WIDTH = 1240
 HEIGHT = 1754
@@ -28,7 +28,7 @@ STYLE = {
 
 DIAGRAMS = [
     {
-        "filename": "UseCase_Admin.svg",
+        "filename": "Use_Case_Admin.svg",
         "title": "Use Case Diagram - Administrator",
         "actor": "Administrator",
         "sections": [
@@ -88,7 +88,7 @@ DIAGRAMS = [
         ],
     },
     {
-        "filename": "UseCase_Receptionist.svg",
+        "filename": "Use_Case_Receptionist.svg",
         "title": "Use Case Diagram - Receptionist",
         "actor": "Receptionist",
         "sections": [
@@ -126,7 +126,7 @@ DIAGRAMS = [
         ],
     },
     {
-        "filename": "UseCase_Accountant.svg",
+        "filename": "Use_Case_Accountant.svg",
         "title": "Use Case Diagram - Accountant",
         "actor": "Accountant",
         "sections": [
@@ -160,7 +160,7 @@ DIAGRAMS = [
         ],
     },
     {
-        "filename": "UseCase_Teacher.svg",
+        "filename": "Use_Case_Teacher.svg",
         "title": "Use Case Diagram - Teacher",
         "actor": "Teacher",
         "sections": [
@@ -196,7 +196,7 @@ DIAGRAMS = [
         ],
     },
     {
-        "filename": "UseCase_Student.svg",
+        "filename": "Use_Case_Student.svg",
         "title": "Use Case Diagram - Student",
         "actor": "Student",
         "sections": [
@@ -229,7 +229,7 @@ DIAGRAMS = [
         ],
     },
     {
-        "filename": "UseCase_Parent.svg",
+        "filename": "Use_Case_Parent.svg",
         "title": "Use Case Diagram - Parent",
         "actor": "Parent",
         "sections": [

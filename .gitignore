@@ -11,3 +11,7 @@ backend/.env
 *.jpg
 *.log
 *.rar
+
+!outputs/
+!outputs/uml-report/
+!outputs/uml-report/**

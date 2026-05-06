@@ -83,6 +83,6 @@ def build(story):
     story.append(PageBreak())
 
     create_indexed_heading(story, "School Management System Class Diagram", level=2, visible=False)
-    render_diagram(story, diagram_path("SchoolManagementSystem_A3.svg"), "")
+    render_diagram(story, diagram_path("Class_Diagram.svg"), "")
     add_caption(story, "Figure 3.1 - School Management System class diagram.")
     story.append(PageBreak())

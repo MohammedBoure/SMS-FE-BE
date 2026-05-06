@@ -4,12 +4,12 @@ from utils import add_caption, create_indexed_heading, diagram_path, make_table,
 
 
 USE_CASE_DIAGRAMS = [
-    ("2.1", "Administrator", "UseCase_Admin.svg"),
-    ("2.2", "Receptionist", "UseCase_Receptionist.svg"),
-    ("2.3", "Accountant", "UseCase_Accountant.svg"),
-    ("2.4", "Teacher", "UseCase_Teacher.svg"),
-    ("2.5", "Student", "UseCase_Student.svg"),
-    ("2.6", "Parent", "UseCase_Parent.svg"),
+    ("2.1", "Administrator", "Use_Case_Admin.svg"),
+    ("2.2", "Receptionist", "Use_Case_Receptionist.svg"),
+    ("2.3", "Accountant", "Use_Case_Accountant.svg"),
+    ("2.4", "Teacher", "Use_Case_Teacher.svg"),
+    ("2.5", "Student", "Use_Case_Student.svg"),
+    ("2.6", "Parent", "Use_Case_Parent.svg"),
 ]
 
 
