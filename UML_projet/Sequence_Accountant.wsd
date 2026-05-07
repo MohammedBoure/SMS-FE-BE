@@ -1,0 +1,134 @@
+@startuml Sequence_Accountant
+
+title Sequence Diagram - Accountant
+
+autonumber
+hide footbox
+
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam maxMessageSize 170
+skinparam ParticipantPadding 18
+skinparam BoxPadding 8
+skinparam sequence {
+  ArrowColor #405064
+  LifeLineBorderColor #9AAEC5
+  LifeLineBackgroundColor #EAF3FF
+  ParticipantBorderColor #2B5C92
+  ParticipantBackgroundColor #F8FBFF
+  ActorBorderColor #2B5C92
+  ActorBackgroundColor #F8FBFF
+}
+
+actor "Accountant" as Accountant
+boundary "Frontend UI\naccountant.html" as UI
+control "Auth + Router\nfrontend/js/core" as Core
+control "AccountantRole\nfrontend/js/roles/accountant/role.js" as Role
+control "AccountantServices\nservices.js" as Services
+control "Backend API\nFastAPI routers" as API
+database "Database\nmanagers + tables" as DB
+
+== Authentication and routing ==
+Accountant -> UI : Submit username and password
+UI -> Core : Auth.login(username, password)
+Core -> API : POST /users/login
+API -> DB : Validate credentials and load role
+DB --> API : User row or authentication error
+API --> Core : User session payload
+Core -> Core : Storage.saveSession(user)
+Core --> UI : Authenticated user
+UI -> Core : Router.redirectToDashboard(role_name)
+Core -> Role : init()
+Role -> Core : Auth.requireAuth("accountant")
+Core --> Role : Session accepted
+Role -> UI : renderHeader(session)
+
+== Load accounting workspace ==
+Accountant -> UI : Select students, fees, payments, transactions, search, attendance, messages, notifications
+UI -> Role : loadSection(section, page)
+Role -> UI : renderNav(section) + renderLoading()
+
+alt Students or attendance list
+  Role -> Services : getStudents(page)
+  Services -> API : GET /students/?page={page}&limit=50
+else Fees
+  Role -> Services : getAllFees(page)
+  Services -> API : GET /student-fees/?page={page}&limit=50
+else Payments
+  Role -> Services : getPayments(page)
+  Services -> API : GET /payments/?page={page}&limit=50
+else Transactions
+  Role -> Services : getTransactions(page)
+  Services -> API : GET /transactions/?page={page}&limit=50
+else Search users
+  Role -> Services : getAllUsers(page) or searchUsers(keyword, page)
+  Services -> API : GET /users/ or /users/search
+else Messages
+  Role -> Services : getMessagesInbox(user_id)
+  Services -> API : GET /messages/inbox/{user_id}
+else Notifications
+  Role -> Services : getNotifications(user_id)
+  Services -> API : GET /notifications/user/{user_id}
+end
+
+API -> DB : SELECT paged accounting data
+DB --> API : Records
+API --> Services : JSON page
+Services --> Role : Section data
+Role -> UI : Render AccountantUI table
+
+== Student financial file ==
+Accountant -> UI : Open student finance file
+UI -> Role : view-student-finance-btn
+Role -> Services : getStudent(), getStudentFees(), getStudentPayments()
+Services -> API : GET /students/{student_id}
+Services -> API : GET /student-fees/student/{student_id}
+Services -> API : GET /payments/student/{student_id}
+API -> DB : SELECT student profile and financial history
+DB --> API : Student account state
+API --> Services : Modal data
+Services --> Role : Financial file
+Role -> UI : showStudentFinanceModal()
+
+== Accountant operations ==
+Accountant -> UI : Create fee, record payment, send notice, or fetch attendance
+UI -> Role : Dynamic click/submit handler
+
+alt Create fee
+  Role -> Services : createFee(feeData)
+  Services -> API : POST /student-fees/
+  API -> DB : INSERT fee
+else Record payment
+  Role -> Services : recordPayment(paymentData)
+  Services -> API : POST /payments/
+  API -> DB : INSERT payment
+else Send finance notification
+  Role -> Services : sendNotification(data)
+  Services -> API : POST /notifications/
+  API -> DB : INSERT notification
+else View attendance report
+  Role -> Services : getStudentAttendance(student_id)
+  Services -> API : GET /attendance/student/{student_id}
+  API -> DB : SELECT attendance records
+else Messaging
+  Role -> Services : getConversation(), sendMessage()
+  Services -> API : GET/POST /messages
+  API -> DB : SELECT/INSERT messages
+else Mark notifications read
+  Role -> Services : markNotificationAsRead() or markAllNotificationsAsRead()
+  Services -> API : PATCH /notifications/{id}/read or /notifications/user/{id}/read-all
+  API -> DB : UPDATE notification read state
+end
+
+DB --> API : Result
+alt Success
+  API --> Services : JSON result
+  Services --> Role : Operation completed
+  Role -> UI : Refresh current section or modal
+else Error
+  API --> Services : Error detail
+  Services --> Role : Throw error
+  Role -> UI : Show error message
+end
+
+@enduml

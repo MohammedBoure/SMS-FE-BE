@@ -1,0 +1,55 @@
+@startuml UseCase_Student
+
+!include usecase_academic_style.puml
+title Use Case Diagram - Student
+
+actor "Student" as Student
+
+rectangle "School Management System" {
+  package "System Access" {
+    usecase "Access\ndashboard" as UC_Dashboard
+    usecase "Authenticate" as UC_Login
+    usecase "Manage\nsession" as UC_Session
+    usecase "Change\nlanguage" as UC_Language
+    usecase "Change\ntheme" as UC_Theme
+  }
+
+  package "Academic Follow-Up" {
+    usecase "Consult personal\nschool follow-up" as UC_SelfService
+    usecase "Consult schedule" as UC_Schedule
+    usecase "Consult assessments" as UC_Assessments
+    usecase "Consult grades" as UC_Grades
+    usecase "Consult attendance" as UC_Attendance
+    usecase "Consult resources" as UC_Resources
+    usecase "Consult fees" as UC_Fees
+    usecase "Consult posts" as UC_Posts
+  }
+
+  package "Communication" {
+    usecase "Communicate\nwith school" as UC_Communication
+    usecase "Exchange messages" as UC_Messages
+    usecase "Consult notifications" as UC_Notifications
+  }
+}
+
+Student -- UC_Dashboard
+Student -- UC_SelfService
+Student -- UC_Communication
+
+UC_Dashboard ..> UC_Login : <<include>>
+UC_Dashboard ..> UC_Session : <<include>>
+UC_Language ..> UC_Dashboard : <<extend>>
+UC_Theme ..> UC_Dashboard : <<extend>>
+
+UC_SelfService ..> UC_Schedule : <<include>>
+UC_SelfService ..> UC_Assessments : <<include>>
+UC_SelfService ..> UC_Grades : <<include>>
+UC_SelfService ..> UC_Attendance : <<include>>
+UC_SelfService ..> UC_Resources : <<include>>
+UC_SelfService ..> UC_Fees : <<include>>
+UC_SelfService ..> UC_Posts : <<include>>
+
+UC_Communication ..> UC_Messages : <<include>>
+UC_Communication ..> UC_Notifications : <<include>>
+
+@enduml

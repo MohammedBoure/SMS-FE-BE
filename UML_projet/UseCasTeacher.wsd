@@ -1,0 +1,57 @@
+@startuml UseCase_Teacher
+
+!include usecase_academic_style.puml
+title Use Case Diagram - Teacher
+
+actor "Teacher" as Teacher
+
+rectangle "School Management System" {
+  package "System Access" {
+    usecase "Access\ndashboard" as UC_Dashboard
+    usecase "Authenticate" as UC_Login
+    usecase "Manage\nsession" as UC_Session
+    usecase "Change\nlanguage" as UC_Language
+    usecase "Change\ntheme" as UC_Theme
+  }
+
+  package "Teaching Activities" {
+    usecase "Manage teaching\nactivities" as UC_Teaching
+    usecase "Consult assignments" as UC_Assignments
+    usecase "Consult schedule" as UC_Schedule
+    usecase "Enter attendance" as UC_Attendance
+    usecase "Manage assessments" as UC_Assessments
+    usecase "Enter grades" as UC_Grades
+    usecase "Share resources" as UC_Resources
+  }
+
+  package "Communication" {
+    usecase "Communicate\nwith actors" as UC_Communication
+    usecase "Exchange messages" as UC_Messages
+    usecase "Consult notifications" as UC_Notifications
+    usecase "Consult posts" as UC_Posts
+  }
+}
+
+Teacher -- UC_Dashboard
+Teacher -- UC_Teaching
+Teacher -- UC_Communication
+
+UC_Dashboard ..> UC_Login : <<include>>
+UC_Dashboard ..> UC_Session : <<include>>
+UC_Language ..> UC_Dashboard : <<extend>>
+UC_Theme ..> UC_Dashboard : <<extend>>
+
+UC_Teaching ..> UC_Assignments : <<include>>
+UC_Teaching ..> UC_Schedule : <<include>>
+UC_Teaching ..> UC_Attendance : <<include>>
+UC_Teaching ..> UC_Assessments : <<include>>
+UC_Teaching ..> UC_Grades : <<include>>
+UC_Teaching ..> UC_Resources : <<include>>
+UC_Grades ..> UC_Assessments : <<include>>
+UC_Resources ..> UC_Assignments : <<include>>
+
+UC_Communication ..> UC_Messages : <<include>>
+UC_Communication ..> UC_Notifications : <<include>>
+UC_Communication ..> UC_Posts : <<include>>
+
+@enduml

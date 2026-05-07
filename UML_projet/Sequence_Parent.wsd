@@ -1,0 +1,146 @@
+@startuml Sequence_Parent
+
+title Sequence Diagram - Parent
+
+autonumber
+hide footbox
+
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam maxMessageSize 170
+skinparam ParticipantPadding 18
+skinparam BoxPadding 8
+skinparam sequence {
+  ArrowColor #405064
+  LifeLineBorderColor #9AAEC5
+  LifeLineBackgroundColor #EAF3FF
+  ParticipantBorderColor #2B5C92
+  ParticipantBackgroundColor #F8FBFF
+  ActorBorderColor #2B5C92
+  ActorBackgroundColor #F8FBFF
+}
+
+actor "Parent" as Parent
+boundary "Frontend UI\nparent.html" as UI
+control "Auth + Router\nfrontend/js/core" as Core
+control "ParentRole\nfrontend/js/roles/parent/role.js" as Role
+control "ParentServices\nservices.js" as Services
+control "Backend API\nFastAPI routers" as API
+database "Database\nmanagers + tables" as DB
+
+== Authentication and routing ==
+Parent -> UI : Submit username and password
+UI -> Core : Auth.login(username, password)
+Core -> API : POST /users/login
+API -> DB : Validate credentials and load role
+DB --> API : User row or authentication error
+API --> Core : User session payload
+Core -> Core : Storage.saveSession(user)
+Core --> UI : Authenticated user
+UI -> Core : Router.redirectToDashboard(role_name)
+Core -> Role : init()
+Role -> Core : Auth.requireAuth("parent")
+Core --> Role : Session accepted
+
+== Resolve parent profile and children ==
+Role -> Services : Load user and parent profile
+Services -> API : GET /users/{user_id}
+Services -> API : GET /parents/user/{user_id}
+API -> DB : Find parent linked to logged user
+DB --> API : Parent profile
+API --> Services : Parent data
+Services --> Role : parentId
+Role -> Services : getMyChildren(parentId)
+Services -> API : GET /parents/{parentId}/students
+API -> DB : SELECT linked students
+DB --> API : Children list
+API --> Services : Children JSON
+Services --> Role : myChildren
+Role -> UI : renderHeader() and renderChildren()
+
+== Parent monitoring sections ==
+Parent -> UI : Select children, grades, attendance, fees, posts, messages, notifications
+UI -> Role : loadSection(section)
+Role -> UI : renderNav(section) + renderLoading()
+
+alt Children
+  Role -> UI : renderChildren(myChildren)
+else Grades
+  loop For each child
+    Role -> Services : getChildGrades(studentId)
+    Services -> API : GET /grades/student/{studentId}
+    API -> DB : SELECT child grades
+    DB --> API : Grades
+    API --> Services : Grades JSON
+  end
+else Attendance
+  loop For each child
+    Role -> Services : getChildAttendance(studentId)
+    Services -> API : GET /attendance/student/{studentId}
+    API -> DB : SELECT child attendance
+    DB --> API : Attendance records
+    API --> Services : Attendance JSON
+  end
+else Fees
+  loop For each child
+    Role -> Services : getChildFees(studentId)
+    Services -> API : GET /student-fees/student/{studentId}
+    API -> DB : SELECT child fees
+    DB --> API : Fees
+    API --> Services : Fees JSON
+  end
+else Posts
+  Role -> Services : getPosts()
+  Services -> API : GET /posts
+  API -> DB : SELECT posts
+  DB --> API : Posts
+  API --> Services : Posts JSON
+else Messages
+  Role -> Services : getMessagesInbox(user_id)
+  Services -> API : GET /messages/inbox/{user_id}
+  API -> DB : SELECT inbox
+  DB --> API : Inbox
+  API --> Services : Inbox JSON
+else Notifications
+  Role -> Services : getNotifications(user_id)
+  Services -> API : GET /notifications/user/{user_id}
+  API -> DB : SELECT notifications
+  DB --> API : Notifications
+  API --> Services : Notifications JSON
+end
+
+opt Backend data requested by selected section
+  Services --> Role : Section data
+end
+Role -> UI : Render parent section
+
+== Parent communication updates ==
+Parent -> UI : Open conversation, send message, or mark notification read
+UI -> Role : UI dynamic event
+
+alt Load conversation
+  Role -> Services : getConversation(user_id, contact_id)
+  Services -> API : GET /messages/conversation/{user_id}/{contact_id}
+  API -> DB : SELECT conversation messages
+else Send message
+  Role -> Services : sendMessage(sender_id, receiver_id, content)
+  Services -> API : POST /messages/
+  API -> DB : INSERT message
+else Mark notifications read
+  Role -> Services : markNotificationAsRead() or markAllNotificationsAsRead()
+  Services -> API : PATCH /notifications/{id}/read or /notifications/user/{id}/read-all
+  API -> DB : UPDATE notification read state
+end
+
+DB --> API : Result
+alt Success
+  API --> Services : JSON result
+  Services --> Role : Updated communication state
+  Role -> UI : Refresh messages or notifications
+else Error
+  API --> Services : Error detail
+  Services --> Role : Throw error
+  Role -> UI : renderError(message)
+end
+
+@enduml

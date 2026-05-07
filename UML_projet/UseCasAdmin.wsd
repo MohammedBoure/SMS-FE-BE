@@ -1,0 +1,91 @@
+@startuml UseCase_Admin
+
+!include usecase_academic_style.puml
+title Use Case Diagram - Administrator
+
+actor "Administrator" as Admin
+
+rectangle "School Management System" {
+  package "System Access" {
+    usecase "Access\ndashboard" as UC_Dashboard
+    usecase "Authenticate" as UC_Login
+    usecase "Manage\nsession" as UC_Session
+    usecase "Change\nlanguage" as UC_Language
+    usecase "Change\ntheme" as UC_Theme
+  }
+
+  package "Actor Administration" {
+    usecase "Administer\nactors" as UC_Actors
+    usecase "Manage users" as UC_Users
+    usecase "Manage parents" as UC_Parents
+    usecase "Manage students" as UC_Students
+    usecase "Manage teachers" as UC_Teachers
+    usecase "Consult\nstudent file" as UC_StudentFile
+  }
+
+  package "Academic Management" {
+    usecase "Administer\nacademics" as UC_Academic
+    usecase "Manage classes" as UC_Classes
+    usecase "Manage programs" as UC_Programs
+    usecase "Manage enrollments" as UC_Enrollments
+    usecase "Assign teachers" as UC_Assignments
+    usecase "Manage schedules" as UC_Schedules
+    usecase "Track attendance" as UC_Attendance
+    usecase "Manage assessments" as UC_Assessments
+    usecase "Manage grades" as UC_Grades
+    usecase "Manage resources" as UC_Resources
+  }
+
+  package "Financial Management" {
+    usecase "Administer\nfinance" as UC_Finance
+    usecase "Track fees" as UC_Fees
+    usecase "Record payments" as UC_Payments
+    usecase "Consult transactions" as UC_Transactions
+    usecase "Send financial\nnotice" as UC_FinanceNotice
+  }
+
+  package "Communication" {
+    usecase "Administer\ncommunication" as UC_Communication
+    usecase "Manage posts" as UC_Posts
+    usecase "Exchange messages" as UC_Messages
+    usecase "Consult notifications" as UC_Notifications
+  }
+}
+
+Admin -- UC_Dashboard
+Admin -- UC_Actors
+Admin -- UC_Academic
+Admin -- UC_Finance
+Admin -- UC_Communication
+
+UC_Dashboard ..> UC_Login : <<include>>
+UC_Dashboard ..> UC_Session : <<include>>
+UC_Language ..> UC_Dashboard : <<extend>>
+UC_Theme ..> UC_Dashboard : <<extend>>
+
+UC_Actors ..> UC_Users : <<include>>
+UC_Actors ..> UC_Parents : <<include>>
+UC_Actors ..> UC_Students : <<include>>
+UC_Actors ..> UC_Teachers : <<include>>
+UC_StudentFile ..> UC_Students : <<extend>>
+
+UC_Academic ..> UC_Classes : <<include>>
+UC_Academic ..> UC_Programs : <<include>>
+UC_Academic ..> UC_Enrollments : <<include>>
+UC_Academic ..> UC_Assignments : <<include>>
+UC_Academic ..> UC_Schedules : <<include>>
+UC_Academic ..> UC_Attendance : <<include>>
+UC_Academic ..> UC_Assessments : <<include>>
+UC_Academic ..> UC_Grades : <<include>>
+UC_Academic ..> UC_Resources : <<include>>
+
+UC_Finance ..> UC_Fees : <<include>>
+UC_Finance ..> UC_Payments : <<include>>
+UC_Finance ..> UC_Transactions : <<include>>
+UC_FinanceNotice ..> UC_Fees : <<extend>>
+
+UC_Communication ..> UC_Posts : <<include>>
+UC_Communication ..> UC_Messages : <<include>>
+UC_Communication ..> UC_Notifications : <<include>>
+
+@enduml

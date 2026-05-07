@@ -1,0 +1,145 @@
+@startuml Sequence_Teacher
+
+title Sequence Diagram - Teacher
+
+autonumber
+hide footbox
+
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam maxMessageSize 170
+skinparam ParticipantPadding 18
+skinparam BoxPadding 8
+skinparam sequence {
+  ArrowColor #405064
+  LifeLineBorderColor #9AAEC5
+  LifeLineBackgroundColor #EAF3FF
+  ParticipantBorderColor #2B5C92
+  ParticipantBackgroundColor #F8FBFF
+  ActorBorderColor #2B5C92
+  ActorBackgroundColor #F8FBFF
+}
+
+actor "Teacher" as Teacher
+boundary "Frontend UI\nteacher.html" as UI
+control "Auth + Router\nfrontend/js/core" as Core
+control "TeacherRole\nfrontend/js/roles/teacher/role.js" as Role
+control "TeacherServices\nservices.js" as Services
+control "Backend API\nFastAPI routers" as API
+database "Database\nmanagers + tables" as DB
+
+== Authentication and routing ==
+Teacher -> UI : Submit username and password
+UI -> Core : Auth.login(username, password)
+Core -> API : POST /users/login
+API -> DB : Validate credentials and load role
+DB --> API : User row or authentication error
+API --> Core : User session payload
+Core -> Core : Storage.saveSession(user)
+Core --> UI : Authenticated user
+UI -> Core : Router.redirectToDashboard(role_name)
+Core -> Role : init()
+Role -> Core : Auth.requireAuth("teacher")
+Core --> Role : Session accepted
+
+== Bootstrap teacher dashboard ==
+Role -> Services : Load user profile and teacher profile
+Services -> API : GET /users/{user_id}
+Services -> API : GET /teachers/
+API -> DB : Find teacher linked to logged user
+DB --> API : Teacher profile
+API --> Services : Profile data
+Services --> Role : teacherId
+Role -> Services : getMyAssignments(teacherId)
+Services -> API : GET /assignments/teacher/{teacherId}
+API -> DB : SELECT teacher assignments
+DB --> API : Assignments
+API --> Services : Assignments JSON
+Services --> Role : myAssignments
+Role -> UI : renderHeader() and renderAssignments()
+
+== Load teaching sections ==
+Teacher -> UI : Select assignments, schedule, attendance, grades, resources, posts, messages, notifications
+UI -> Role : loadSection(section)
+Role -> UI : renderNav(section) + renderLoading()
+
+alt Assignments
+  Role -> UI : renderAssignments(myAssignments)
+else Schedule
+  Role -> Services : getMySchedule(teacherId)
+  Services -> API : GET /schedules/teacher/{teacherId}
+else Attendance sheet
+  Role -> UI : renderAttendance(myAssignments)
+  Teacher -> UI : Select class and date
+  UI -> Role : load-attendance-btn
+  Role -> Services : getAttendanceSheet(classId, date)
+  Services -> API : GET /attendance/class/{classId}/sheet?target_date={date}
+else Assessments and grades
+  Role -> UI : renderGrades(myAssignments)
+  Teacher -> UI : Select assignment or assessment
+  Role -> Services : getAssessments(), getAssessmentGrades()
+  Services -> API : GET /assessments/assignment/{assignmentId}, /grades/assessment/{assessmentId}
+else Resources
+  Role -> Services : getResources(assignmentId)
+  Services -> API : GET /resources/
+else Posts
+  Role -> Services : getPosts()
+  Services -> API : GET /posts
+else Messages
+  Role -> Services : getMessagesInbox(user_id)
+  Services -> API : GET /messages/inbox/{user_id}
+else Notifications
+  Role -> Services : getNotifications(user_id)
+  Services -> API : GET /notifications/user/{user_id}
+end
+
+opt Backend data requested by selected section
+  API -> DB : SELECT requested teaching data
+  DB --> API : Records
+  API --> Services : JSON response
+  Services --> Role : Section data
+end
+Role -> UI : Render selected section
+
+== Teacher write operations ==
+Teacher -> UI : Save attendance, create assessment, save grade, upload resource, send message, mark notification
+UI -> Role : Dynamic event handler
+
+alt Save attendance
+  Role -> Services : saveAttendance(attendanceData)
+  Services -> API : POST /attendance/
+  API -> DB : INSERT or UPDATE attendance
+else Create assessment
+  Role -> Services : createAssessment(assessmentData)
+  Services -> API : POST /assessments/
+  API -> DB : INSERT assessment
+else Save grade
+  Role -> Services : saveGrade(gradeData)
+  Services -> API : POST /grades/
+  API -> DB : INSERT or UPDATE grade
+else Upload resource
+  Role -> Services : uploadResource(formData)
+  Services -> API : POST /resources/upload
+  API -> DB : INSERT resource metadata and store file
+else Messaging
+  Role -> Services : getConversation(), sendMessage()
+  Services -> API : GET/POST /messages
+  API -> DB : SELECT/INSERT messages
+else Mark notifications read
+  Role -> Services : markNotificationAsRead() or markAllNotificationsAsRead()
+  Services -> API : PATCH /notifications/{id}/read or /notifications/user/{id}/read-all
+  API -> DB : UPDATE notification read state
+end
+
+DB --> API : Result
+alt Success
+  API --> Services : JSON result
+  Services --> Role : Operation completed
+  Role -> UI : Confirm and refresh current view
+else Error
+  API --> Services : Error detail
+  Services --> Role : Throw error
+  Role -> UI : renderError(message)
+end
+
+@enduml

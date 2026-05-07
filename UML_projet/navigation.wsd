@@ -1,0 +1,115 @@
+@startuml Navigation_Diagram
+
+' A4 portrait navigation map.
+' Compact role-based frontend flow focused on readable printed output.
+top to bottom direction
+hide empty description
+scale max 1240*1754
+
+skinparam dpi 180
+skinparam linetype ortho
+skinparam nodesep 34
+skinparam ranksep 40
+skinparam padding 4
+skinparam pageMargin 2
+skinparam shadowing false
+skinparam roundcorner 8
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam ArrowColor #455A64
+skinparam ArrowThickness 1.4
+skinparam ArrowFontSize 15
+skinparam StateFontSize 18
+skinparam StateAttributeFontSize 15
+skinparam StateBorderColor #37474F
+skinparam StateBackgroundColor #FFFFFF
+
+[*] --> Index
+
+state "index.html\nRouter" as Index #E3F2FD {
+  Index : Reads stored session
+  Index : Sends user to login or role dashboard
+}
+
+state "login.html\nAuthentication" as Login #FFEBEE {
+  Login : Credentials
+  Login : Public posts
+  Login : Language and theme
+}
+
+state "Role redirect" as Redirect #E8F5E9 {
+  Redirect : Uses user role
+  Redirect : Opens the matching dashboard
+}
+
+Index --> Login : no session
+Index --> Redirect : valid session
+Login --> Redirect : sign in
+Redirect --> Login : invalid role
+
+state "Admin dashboard" as AdminPage #E8F5E9 {
+  AdminPage : People management
+  AdminPage : Academic management
+  AdminPage : Finance and resources
+  AdminPage : Community tools
+}
+
+state "Receptionist dashboard" as ReceptionistPage #E3F2FD {
+  ReceptionistPage : Student reception
+  ReceptionistPage : Parent/student files
+  ReceptionistPage : Payments
+  ReceptionistPage : Messages and posts
+}
+
+state "Accountant dashboard" as AccountantPage #E0F2F1 {
+  AccountantPage : Student fees
+  AccountantPage : Payments
+  AccountantPage : Transactions
+  AccountantPage : Reports and notices
+}
+
+state "Teacher dashboard" as TeacherPage #FFF3E0 {
+  TeacherPage : Assignments and schedule
+  TeacherPage : Attendance
+  TeacherPage : Assessments and grades
+  TeacherPage : Resources and messages
+}
+
+state "Student portal" as StudentPage #F3E5F5 {
+  StudentPage : Schedule
+  StudentPage : Grades and assessments
+  StudentPage : Attendance and resources
+  StudentPage : Messages and fees
+}
+
+state "Parent portal" as ParentPage #FFFDE7 {
+  ParentPage : Children follow-up
+  ParentPage : Grades and attendance
+  ParentPage : Fees
+  ParentPage : Messages and posts
+}
+
+Redirect --> AdminPage : admin
+Redirect --> ReceptionistPage : receptionist
+Redirect --> AccountantPage : accountant
+Redirect --> TeacherPage : teacher
+Redirect --> StudentPage : student
+Redirect --> ParentPage : parent
+
+state "Shared dashboard controls" as SharedControls #F5F5F5 {
+  SharedControls : Auth guard
+  SharedControls : Header, language, theme
+  SharedControls : loadSection(section)
+  SharedControls : Content renderer
+  SharedControls : Logout
+}
+
+AdminPage -[dotted]-> SharedControls
+ReceptionistPage -[dotted]-> SharedControls
+AccountantPage -[dotted]-> SharedControls
+TeacherPage -[dotted]-> SharedControls
+StudentPage -[dotted]-> SharedControls
+ParentPage -[dotted]-> SharedControls
+SharedControls --> Login : logout / denied
+
+@enduml

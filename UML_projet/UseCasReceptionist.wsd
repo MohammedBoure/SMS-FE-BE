@@ -1,0 +1,65 @@
+@startuml UseCase_Receptionist
+
+!include usecase_academic_style.puml
+title Use Case Diagram - Receptionist
+
+actor "Receptionist" as Receptionist
+
+rectangle "School Management System" {
+  package "System Access" {
+    usecase "Access\ndashboard" as UC_Dashboard
+    usecase "Authenticate" as UC_Login
+    usecase "Manage\nsession" as UC_Session
+    usecase "Change\nlanguage" as UC_Language
+    usecase "Change\ntheme" as UC_Theme
+  }
+
+  package "Reception and Files" {
+    usecase "Manage school\nreception" as UC_Reception
+    usecase "Create / update\nstudent file" as UC_Students
+    usecase "Create / update\nparent file" as UC_Parents
+    usecase "Search a file" as UC_Search
+    usecase "Consult\nstudent file" as UC_StudentFile
+  }
+
+  package "Reception Payments" {
+    usecase "Process\npayments" as UC_PaymentOps
+    usecase "Consult fees" as UC_Fees
+    usecase "Record payment" as UC_Payments
+    usecase "Send financial\nnotice" as UC_FinanceNotice
+  }
+
+  package "Communication" {
+    usecase "Communicate\nwith actors" as UC_Communication
+    usecase "Exchange messages" as UC_Messages
+    usecase "Consult notifications" as UC_Notifications
+    usecase "Consult posts" as UC_ReadPosts
+    usecase "Manage posts" as UC_ManagePosts
+  }
+}
+
+Receptionist -- UC_Dashboard
+Receptionist -- UC_Reception
+Receptionist -- UC_PaymentOps
+Receptionist -- UC_Communication
+
+UC_Dashboard ..> UC_Login : <<include>>
+UC_Dashboard ..> UC_Session : <<include>>
+UC_Language ..> UC_Dashboard : <<extend>>
+UC_Theme ..> UC_Dashboard : <<extend>>
+
+UC_Reception ..> UC_Students : <<include>>
+UC_Reception ..> UC_Parents : <<include>>
+UC_Search ..> UC_Reception : <<extend>>
+UC_StudentFile ..> UC_Reception : <<extend>>
+
+UC_PaymentOps ..> UC_Fees : <<include>>
+UC_PaymentOps ..> UC_Payments : <<include>>
+UC_FinanceNotice ..> UC_Fees : <<extend>>
+
+UC_Communication ..> UC_Messages : <<include>>
+UC_Communication ..> UC_Notifications : <<include>>
+UC_Communication ..> UC_ReadPosts : <<include>>
+UC_ManagePosts ..> UC_ReadPosts : <<extend>>
+
+@enduml

@@ -1,0 +1,57 @@
+@startuml UseCase_Accountant
+
+!include usecase_academic_style.puml
+title Use Case Diagram - Accountant
+
+actor "Accountant" as Accountant
+
+rectangle "School Management System" {
+  package "System Access" {
+    usecase "Access\ndashboard" as UC_Dashboard
+    usecase "Authenticate" as UC_Login
+    usecase "Manage\nsession" as UC_Session
+    usecase "Change\nlanguage" as UC_Language
+    usecase "Change\ntheme" as UC_Theme
+  }
+
+  package "Financial Management" {
+    usecase "Manage school\nfinance" as UC_Finance
+    usecase "Consult student\nfinancial file" as UC_StudentFinanceFile
+    usecase "Track fees" as UC_Fees
+    usecase "Record payments" as UC_Payments
+    usecase "Consult transactions" as UC_Transactions
+    usecase "Search student\nor user" as UC_Search
+    usecase "Consult attendance" as UC_Attendance
+    usecase "Send financial\nnotice" as UC_FinanceNotice
+  }
+
+  package "Communication" {
+    usecase "Communicate\nwith actors" as UC_Communication
+    usecase "Exchange messages" as UC_Messages
+    usecase "Consult notifications" as UC_Notifications
+    usecase "Mark notifications\nas read" as UC_ReadNotifications
+  }
+}
+
+Accountant -- UC_Dashboard
+Accountant -- UC_Finance
+Accountant -- UC_Communication
+
+UC_Dashboard ..> UC_Login : <<include>>
+UC_Dashboard ..> UC_Session : <<include>>
+UC_Language ..> UC_Dashboard : <<extend>>
+UC_Theme ..> UC_Dashboard : <<extend>>
+
+UC_Finance ..> UC_StudentFinanceFile : <<include>>
+UC_Finance ..> UC_Fees : <<include>>
+UC_Finance ..> UC_Payments : <<include>>
+UC_Finance ..> UC_Transactions : <<include>>
+UC_Finance ..> UC_Attendance : <<include>>
+UC_Search ..> UC_Finance : <<extend>>
+UC_FinanceNotice ..> UC_Fees : <<extend>>
+
+UC_Communication ..> UC_Messages : <<include>>
+UC_Communication ..> UC_Notifications : <<include>>
+UC_ReadNotifications ..> UC_Notifications : <<extend>>
+
+@enduml

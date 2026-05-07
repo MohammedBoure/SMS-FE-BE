@@ -1,0 +1,112 @@
+@startuml Sequence_Admin
+
+title Sequence Diagram - Admin
+
+autonumber
+hide footbox
+
+skinparam shadowing false
+skinparam backgroundColor #FFFFFF
+skinparam maxMessageSize 170
+skinparam ParticipantPadding 18
+skinparam BoxPadding 8
+skinparam sequence {
+  ArrowColor #405064
+  LifeLineBorderColor #9AAEC5
+  LifeLineBackgroundColor #EAF3FF
+  ParticipantBorderColor #2B5C92
+  ParticipantBackgroundColor #F8FBFF
+  ActorBorderColor #2B5C92
+  ActorBackgroundColor #F8FBFF
+}
+
+actor "Admin" as Admin
+boundary "Frontend UI\nadmin.html" as UI
+control "Auth + Router\nfrontend/js/core" as Core
+control "AdminRole\nfrontend/js/roles/admin/role.js" as Role
+control "Admin Services/Tabs\nservices.js + tabs" as Services
+control "Backend API\nFastAPI routers" as API
+database "Database\nmanagers + tables" as DB
+
+== Authentication and routing ==
+Admin -> UI : Submit username and password
+UI -> Core : Auth.login(username, password)
+Core -> API : POST /users/login
+API -> DB : Validate credentials and load role
+DB --> API : User row or authentication error
+API --> Core : User session payload
+Core -> Core : Storage.saveSession(user)
+Core --> UI : Authenticated user
+UI -> Core : Router.redirectToDashboard(role_name)
+Core -> Role : init()
+Role -> Core : Auth.requireAuth("admin")
+Core --> Role : Session accepted
+Role -> UI : renderHeader(session)
+Role -> Role : handleRoute(hash || "academic")
+
+== Load selected administration section ==
+Admin -> UI : Select sidebar section
+UI -> Role : loadSection(section)
+Role -> UI : renderNav(section) + renderLoading()
+
+alt Users and people
+  Role -> Services : getUsers(), getParents(), getStudents(), getTeachers()
+  Services -> API : GET /users, /parents, /students, /teachers
+else Academic structure
+  Role -> Services : getClasses(), getPrograms(), getEnrollments()
+  Services -> API : GET /classes, /programs, /enrollments
+else Learning operations
+  Role -> Services : Load attendance, schedules, assessments, grades, resources
+  Services -> API : GET /attendance, /schedules, /assessments, /grades, /resources
+else Finance
+  Role -> Services : getStudentFees(), getPayments(), getTransactions()
+  Services -> API : GET /student-fees, /payments, /transactions
+else Community
+  Role -> Services : getConversations(), getNotifications(), getPosts()
+  Services -> API : GET /conversations, /notifications, /posts
+end
+
+API -> DB : SELECT requested records
+DB --> API : Records
+API --> Services : JSON dataset
+Services --> Role : Dataset for active tab
+Role -> UI : Render AdminUI tab
+
+== Admin write operations ==
+Admin -> UI : Submit create/update/delete/status action
+UI -> Role : Call tab handler or deleteItem()
+
+alt Create or update core record
+  Role -> Services : POST/PUT users, parents, students, teachers, classes, programs
+  Services -> API : POST/PUT /users, /parents, /students, /teachers, /classes, /programs
+  API -> DB : INSERT or UPDATE core table
+else Academic operation
+  Role -> Services : Manage enrollments, schedules, assessments, grades, attendance
+  Services -> API : POST/PUT/PATCH /enrollments, /schedules, /assessments, /grades, /attendance
+  API -> DB : Persist academic operation
+else Finance operation
+  Role -> Services : Manage fees, payments, transactions, reminders
+  Services -> API : POST/PUT/PATCH /student-fees, /payments, /transactions, /notifications
+  API -> DB : Persist finance operation
+else Community operation
+  Role -> Services : Manage posts, conversations, notifications
+  Services -> API : POST/PUT/PATCH/DELETE /posts, /messages, /notifications
+  API -> DB : Persist community operation
+else Delete record
+  Role -> Services : deleteRecord(endpoint, id)
+  Services -> API : DELETE /{endpoint}/{id}
+  API -> DB : DELETE target record
+end
+
+DB --> API : Commit result
+alt Success
+  API --> Services : Saved/deleted response
+  Services --> Role : Operation completed
+  Role -> UI : Reload active section and show success
+else Validation or authorization error
+  API --> Services : Error detail
+  Services --> Role : Throw error
+  Role -> UI : renderError(message)
+end
+
+@enduml

@@ -1,0 +1,51 @@
+@startuml UseCase_Parent
+
+!include usecase_academic_style.puml
+title Use Case Diagram - Parent
+
+actor "Parent" as Parent
+
+rectangle "School Management System" {
+  package "System Access" {
+    usecase "Access\ndashboard" as UC_Dashboard
+    usecase "Authenticate" as UC_Login
+    usecase "Manage\nsession" as UC_Session
+    usecase "Change\nlanguage" as UC_Language
+    usecase "Change\ntheme" as UC_Theme
+  }
+
+  package "Children Follow-Up" {
+    usecase "Follow children" as UC_Followup
+    usecase "Consult linked\nchildren" as UC_Children
+    usecase "Consult grades" as UC_Grades
+    usecase "Consult attendance" as UC_Attendance
+    usecase "Consult fees" as UC_Fees
+    usecase "Consult posts" as UC_Posts
+  }
+
+  package "Communication" {
+    usecase "Communicate\nwith school" as UC_Communication
+    usecase "Exchange messages" as UC_Messages
+    usecase "Consult notifications" as UC_Notifications
+  }
+}
+
+Parent -- UC_Dashboard
+Parent -- UC_Followup
+Parent -- UC_Communication
+
+UC_Dashboard ..> UC_Login : <<include>>
+UC_Dashboard ..> UC_Session : <<include>>
+UC_Language ..> UC_Dashboard : <<extend>>
+UC_Theme ..> UC_Dashboard : <<extend>>
+
+UC_Followup ..> UC_Children : <<include>>
+UC_Followup ..> UC_Grades : <<include>>
+UC_Followup ..> UC_Attendance : <<include>>
+UC_Followup ..> UC_Fees : <<include>>
+UC_Followup ..> UC_Posts : <<include>>
+
+UC_Communication ..> UC_Messages : <<include>>
+UC_Communication ..> UC_Notifications : <<include>>
+
+@enduml

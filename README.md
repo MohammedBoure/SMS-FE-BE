@@ -4,6 +4,31 @@ A web-based School Management System that centralizes academic administration, s
 
 The project is organized as a lightweight frontend, a FastAPI backend, a MySQL database layer, and a reproducible UML/PDF report generator.
 
+## Current Hosting
+
+The current hosted domain is:
+
+```text
+https://genius-sms.me/
+```
+
+## Demo Accounts
+
+All demo accounts use the same password:
+
+```text
+python
+```
+
+| Role | Username |
+| --- | --- |
+| Admin | `admin` |
+| Student | `student.islam.touati.en` |
+| Parent | `parent.aitali.en` |
+| Teacher | `teacher.it.ryma.en` |
+| Reception | `seed.reception.en` |
+| Accountant | `seed.accounting.en` |
+
 ## Features
 
 - Role-based dashboards for administrator, receptionist, accountant, teacher, student, and parent.
