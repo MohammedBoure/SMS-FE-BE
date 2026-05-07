@@ -41,7 +41,7 @@ if root_logger.hasHandlers():
 
 log_file = get_external_path("logs.log")
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.StreamHandler(sys.stdout),
@@ -49,6 +49,9 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger("SCHOOL_SYS")
+logging.getLogger("mysql.connector").setLevel(logging.WARNING)
+logging.getLogger("mysql").setLevel(logging.WARNING)
+logging.getLogger("sqlalchemy.engine").setLevel(logging.WARNING)
 
 
 # ─── Constants ────────────────────────────────────────────────────────────────

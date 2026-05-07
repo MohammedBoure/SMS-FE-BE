@@ -1,5 +1,7 @@
 # apis/dependencies.py
 
+from typing import Optional
+
 from database import Database
 from database import (
     SubjectsManager,
@@ -25,68 +27,75 @@ from database import (
     PostsManager
 )
 
-db_instance = Database()
+db_instance: Optional[Database] = None
+
+
+def get_database() -> Database:
+    global db_instance
+    if db_instance is None:
+        db_instance = Database()
+    return db_instance
 
 
 def get_users_manager() -> UsersManager:
-    return UsersManager(db_instance)
+    return UsersManager(get_database())
 
 def get_parents_manager() -> ParentsManager:
-    return ParentsManager(db_instance)
+    return ParentsManager(get_database())
 
 def get_conversations_manager() -> ConversationsManager:
-    return ConversationsManager(db_instance)
+    return ConversationsManager(get_database())
 
 def get_notifications_manager() -> NotificationsManager:
-    return NotificationsManager(db_instance)
+    return NotificationsManager(get_database())
 
 def get_programs_manager() -> ProgramsManager:
-    return ProgramsManager(db_instance)
+    return ProgramsManager(get_database())
 
 def get_classes_manager() -> ClassesManager:
-    return ClassesManager(db_instance)
+    return ClassesManager(get_database())
 
 def get_subjects_manager() -> SubjectsManager:
-    return SubjectsManager(db_instance)
+    return SubjectsManager(get_database())
 
 def get_students_manager() -> StudentsManager:
-    return StudentsManager(db_instance)
+    return StudentsManager(get_database())
 
 def get_teachers_manager() -> TeachersManager:
-    return TeachersManager(db_instance)
+    return TeachersManager(get_database())
 
 def get_student_enrollments_manager() -> StudentEnrollmentsManager:
-    return StudentEnrollmentsManager(db_instance)
+    return StudentEnrollmentsManager(get_database())
 
 def get_teacher_assignments_manager() -> TeacherAssignmentsManager:
-    return TeacherAssignmentsManager(db_instance)
+    return TeacherAssignmentsManager(get_database())
 
 def get_schedules_manager() -> SchedulesManager:
-    return SchedulesManager(db_instance)
+    return SchedulesManager(get_database())
 
 def get_attendance_manager() -> AttendanceManager:
-    return AttendanceManager(db_instance)
+    return AttendanceManager(get_database())
 
 def get_assessments_manager() -> AssessmentsManager:
-    return AssessmentsManager(db_instance)
+    return AssessmentsManager(get_database())
 
 def get_grades_manager() -> GradesManager:
-    return GradesManager(db_instance)
+    return GradesManager(get_database())
 
 def get_resources_manager() -> ResourcesManager:
-    return ResourcesManager(db_instance)
+    return ResourcesManager(get_database())
 
 def get_user_transactions_manager() -> UserTransactionsManager:
-    return UserTransactionsManager(db_instance)
+    return UserTransactionsManager(get_database())
 
 def get_student_fees_manager() -> StudentFeesManager:
-    return StudentFeesManager(db_instance)
+    return StudentFeesManager(get_database())
 
 def get_payments_manager() -> PaymentsManager:
-    return PaymentsManager(db_instance)
+    return PaymentsManager(get_database())
 
 def get_posts_manager() -> PostsManager:
-    return PostsManager(db_instance)
+    return PostsManager(get_database())
 
 def get_messages_manager() -> MessagesManager:
-    return MessagesManager(db_instance)
+    return MessagesManager(get_database())

@@ -39,9 +39,10 @@ class ConnectionManager:
         if ConnectionManager._pool is not None:
             return
         try:
+            pool_size = int(os.getenv('DB_POOL_SIZE', 5))
             ConnectionManager._pool = pooling.MySQLConnectionPool(
                 pool_name="school_pool",
-                pool_size=10,
+                pool_size=pool_size,
                 pool_reset_session=True,
                 use_pure=True,
                 auth_plugin='mysql_native_password',

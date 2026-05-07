@@ -1,13 +1,13 @@
 # app.py
 
+from contextlib import asynccontextmanager
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-# Import database to ensure initialization
-from database.base import Database
-
 # Import all routers from the apis package
+from apis.dependencies import get_database
 from apis import (
     users_router,
     parents_router,
@@ -31,10 +31,16 @@ from apis import (
     programs_router
 )
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    get_database()
+    yield
+
 app = FastAPI(
     title="School Management System API",
     description="Integrated API for the School Management System",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -44,8 +50,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-db = Database()
 
 # Include all application routers
 app.include_router(users_router)

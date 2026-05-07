@@ -5283,3 +5283,855 @@
 2026-05-02 19:52:26,702 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
 2026-05-02 19:52:26,702 - python_multipart.multipart - DEBUG - Calling on_end with no data
 2026-05-02 19:52:26,715 - root - INFO - ✅ Ressource ajoutée : [25] 'stata' (Type: archive)
+2026-05-03 00:12:28,069 - root - INFO - Message sent:[41] From user #2 to #24
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_header_field with data[56:75]
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_header_value with data[77:100]
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_part_data with data[104:110]
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_header_field with data[168:187]
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_header_value with data[189:220]
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_part_data with data[224:232]
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_header_field with data[290:309]
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_header_value with data[311:342]
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_part_data with data[346:348]
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_part_begin with no data
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_header_field with data[406:425]
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_header_value with data[427:473]
+2026-05-03 00:20:13,201 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2026-05-03 00:20:13,214 - python_multipart.multipart - DEBUG - Calling on_header_field with data[475:487]
+2026-05-03 00:20:13,214 - python_multipart.multipart - DEBUG - Calling on_header_value with data[489:504]
+2026-05-03 00:20:13,214 - python_multipart.multipart - DEBUG - Calling on_header_end with no data
+2026-05-03 00:20:13,214 - python_multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2026-05-03 00:20:13,218 - python_multipart.multipart - DEBUG - Calling on_part_data with data[508:683]
+2026-05-03 00:20:13,218 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:10350]
+2026-05-03 00:20:13,508 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,511 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:6900]
+2026-05-03 00:20:13,515 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,515 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,518 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,519 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,523 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,523 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,801 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,801 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,818 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:13,819 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:13,823 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,824 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:13,825 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:13,828 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:3450]
+2026-05-03 00:20:13,828 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:13,831 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,833 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,834 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,835 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,837 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,844 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:13,845 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:3450]
+2026-05-03 00:20:13,845 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,845 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,845 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,852 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,853 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:13,854 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,151 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,151 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,151 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,151 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,151 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,167 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,168 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,169 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,174 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,175 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,177 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,178 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,179 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,181 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,182 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,185 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,186 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,187 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,192 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,193 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,194 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,194 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:14,194 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:3450]
+2026-05-03 00:20:14,194 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,194 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,201 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,203 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,204 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,301 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,301 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2286]
+2026-05-03 00:20:14,301 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,301 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,301 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,308 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,464 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:4600]
+2026-05-03 00:20:14,466 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:43700]
+2026-05-03 00:20:14,467 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:5750]
+2026-05-03 00:20:14,470 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,472 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,474 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,475 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,476 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2286]
+2026-05-03 00:20:14,505 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,507 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,507 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,507 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,507 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,507 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,514 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,515 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,516 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,518 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,520 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,521 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,523 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,526 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,527 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,528 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,528 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,529 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,531 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:14,533 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,534 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,535 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:14,545 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,545 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,545 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,552 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2328]
+2026-05-03 00:20:14,553 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,555 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,556 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,557 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,560 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,561 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,562 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,564 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,566 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,567 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:14,569 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,570 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:14,571 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,572 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,574 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,575 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,576 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,577 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,579 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,584 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,586 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:14,589 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,589 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,593 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,595 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,596 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,598 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:14,599 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,600 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:14,600 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,602 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,604 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,606 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,607 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,610 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:3450]
+2026-05-03 00:20:14,610 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:14,611 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,611 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,611 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,611 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,617 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:2300]
+2026-05-03 00:20:14,619 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1150]
+2026-05-03 00:20:14,620 - python_multipart.multipart - DEBUG - Calling on_part_data with data[0:1948]
+2026-05-03 00:20:14,621 - python_multipart.multipart - DEBUG - Calling on_part_end with no data
+2026-05-03 00:20:14,621 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2026-05-03 00:20:14,653 - root - INFO - ✅ Ressource ajoutée : [26] 'tp se2' (Type: document)
+2026-05-04 22:22:52,579 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:22:53,280 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:22:53,330 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:22:53,335 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:22:53,336 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:22:53,337 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-04 22:22:53,338 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-04 22:22:53,348 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-04 22:22:53,350 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:22:53,356 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-04 22:22:53,370 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:22:53,993 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:22:54,001 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:22:54,003 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:22:54,003 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:22:54,007 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:22:54,016 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:22:54,452 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:22:54,457 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:22:54,459 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:22:54,460 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:22:54,461 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:22:54,465 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:22:54,887 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:22:54,893 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:22:54,894 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:22:54,894 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:22:54,895 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:22:54,899 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:22:55,280 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:22:55,284 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:22:55,284 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:22:55,284 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:22:55,285 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:22:55,288 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:22:55,626 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:22:55,630 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:22:55,630 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:22:55,631 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:22:55,631 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:22:55,635 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:22:55,970 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:22:55,975 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:22:55,976 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:22:55,976 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:22:55,977 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:22:55,980 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:22:56,290 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:22:56,296 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:22:56,297 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:22:56,299 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:22:56,301 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:22:56,307 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:22:56,664 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:22:56,674 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:22:56,674 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:22:56,675 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:22:56,676 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:22:56,680 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:22:56,999 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:22:57,003 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:22:57,003 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:22:57,003 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:22:57,004 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:22:57,024 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:22:57,281 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:22:57,285 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:22:57,285 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:22:57,286 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:22:57,286 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:22:57,291 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-04 22:22:57,367 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-04 22:22:57,754 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-04 22:22:57,770 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-04 22:22:57,792 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-04 22:23:00,226 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:23:00,548 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:23:00,552 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:23:00,553 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:23:00,553 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:23:00,554 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-04 22:23:00,554 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-04 22:23:00,555 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-04 22:23:00,556 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:23:00,560 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-04 22:23:00,568 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:23:00,898 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:23:00,902 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:23:00,903 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:23:00,903 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:23:00,903 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:23:00,919 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:23:01,426 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:23:01,431 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:23:01,432 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:23:01,432 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:23:01,433 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:23:01,437 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:23:01,713 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:23:01,717 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:23:01,718 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:23:01,718 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:23:01,719 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:23:01,723 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:23:02,084 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:23:02,088 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:23:02,088 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:23:02,088 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:23:02,089 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:23:02,097 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:23:02,416 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:23:02,423 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:23:02,423 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:23:02,424 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:23:02,426 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:23:02,432 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:23:02,849 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:23:02,853 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:23:02,853 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:23:02,854 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:23:02,854 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:23:02,860 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:23:03,322 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:23:03,327 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:23:03,327 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:23:03,328 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:23:03,329 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:23:03,335 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:23:03,586 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:23:03,590 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:23:03,591 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:23:03,591 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:23:03,592 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:23:03,596 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:23:03,920 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:23:03,925 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:23:03,925 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:23:03,926 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:23:03,926 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:23:03,930 - mysql.connector - DEBUG - Building SSL context
+2026-05-04 22:23:04,220 - mysql.connector - DEBUG - Switching to SSL
+2026-05-04 22:23:04,225 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-04 22:23:04,226 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-04 22:23:04,226 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-04 22:23:04,227 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-04 22:23:04,230 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-04 22:23:04,280 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-04 22:23:04,340 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-04 22:23:04,354 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-04 22:23:04,386 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-04 22:23:04,820 - asyncio - DEBUG - Using selector: SelectSelector
+2026-05-07 11:38:45,719 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:38:45,986 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:38:46,001 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:38:46,001 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:38:46,002 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:38:46,002 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-07 11:38:46,002 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-07 11:38:46,006 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-07 11:38:46,007 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:38:46,017 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-07 11:38:46,025 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:38:46,349 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:38:46,349 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:38:46,349 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:38:46,349 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:38:46,349 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:38:46,365 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:38:46,690 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:38:46,694 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:38:46,694 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:38:46,694 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:38:46,695 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:38:46,698 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:38:46,933 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:38:46,933 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:38:46,933 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:38:46,933 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:38:46,933 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:38:46,942 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:38:47,209 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:38:47,213 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:38:47,214 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:38:47,214 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:38:47,214 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:38:47,218 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:38:47,478 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:38:47,482 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:38:47,482 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:38:47,482 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:38:47,483 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:38:47,486 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:38:47,706 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:38:47,712 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:38:47,712 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:38:47,712 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:38:47,713 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:38:47,717 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:38:47,994 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:38:47,998 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:38:47,999 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:38:47,999 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:38:48,000 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:38:48,003 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:38:48,232 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:38:48,238 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:38:48,238 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:38:48,238 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:38:48,238 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:38:48,238 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:38:48,474 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:38:48,475 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:38:48,475 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:38:48,475 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:38:48,475 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:38:48,475 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:38:48,675 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:38:48,679 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:38:48,679 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:38:48,679 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:38:48,680 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:38:48,682 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-07 11:38:48,727 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-07 11:38:48,866 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-07 11:38:48,893 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-07 11:38:48,908 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-07 11:38:49,052 - fastapi - ERROR - Form data requires "python-multipart" to be installed. 
+You can install "python-multipart" with: 
+
+pip install python-multipart
+
+2026-05-07 11:39:48,051 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:48,243 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:48,246 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:48,247 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:48,247 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:48,247 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-07 11:39:48,247 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-07 11:39:48,250 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-07 11:39:48,250 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:48,253 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-07 11:39:48,257 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:48,473 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:48,476 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:48,477 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:48,477 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:48,477 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:48,480 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:48,673 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:48,676 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:48,677 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:48,677 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:48,678 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:48,680 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:48,880 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:48,884 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:48,884 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:48,885 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:48,885 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:48,887 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:49,089 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:49,093 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:49,093 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:49,093 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:49,094 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:49,097 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:49,293 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:49,297 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:49,298 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:49,298 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:49,299 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:49,302 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:49,510 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:49,513 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:49,514 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:49,514 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:49,515 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:49,517 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:49,711 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:49,714 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:49,715 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:49,715 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:49,716 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:49,718 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:49,915 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:49,918 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:49,918 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:49,919 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:49,919 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:49,921 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:50,111 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:50,115 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:50,115 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:50,115 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:50,116 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:50,119 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:50,327 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:50,330 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:50,331 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:50,331 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:50,332 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:50,333 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-07 11:39:50,380 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-07 11:39:50,416 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-07 11:39:50,426 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-07 11:39:50,441 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-07 11:39:51,751 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:52,007 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:52,010 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:52,010 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:52,011 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:52,011 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-07 11:39:52,011 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-07 11:39:52,012 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-07 11:39:52,013 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:52,014 - SCHOOL_SYS - INFO - ✅ Database 'school_manager' verified/created.
+2026-05-07 11:39:52,020 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:52,231 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:52,235 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:52,235 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:52,235 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:52,236 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:52,239 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:52,455 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:52,458 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:52,459 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:52,459 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:52,460 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:52,462 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:52,650 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:52,650 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:52,650 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:52,650 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:52,650 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:52,650 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:52,877 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:52,881 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:52,881 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:52,881 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:52,882 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:52,885 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:53,092 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:53,095 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:53,096 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:53,096 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:53,096 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:53,098 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:53,289 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:53,292 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:53,293 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:53,293 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:53,293 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:53,296 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:53,486 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:53,489 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:53,490 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:53,490 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:53,490 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:53,492 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:53,692 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:53,692 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:53,692 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:53,692 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:53,692 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:53,706 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:53,930 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:53,936 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:53,937 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:53,937 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:53,938 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:53,940 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:39:54,129 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:39:54,129 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:39:54,129 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:39:54,129 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:39:54,129 - mysql.connector - DEBUG - mysql_native_password completed succesfully
+2026-05-07 11:39:54,129 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-07 11:39:54,151 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-07 11:39:54,198 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-07 11:39:54,208 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-07 11:39:54,221 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-07 11:39:54,541 - asyncio - DEBUG - Using selector: SelectSelector
+2026-05-07 11:40:09,926 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:40:10,118 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:40:14,836 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:40:14,837 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:40:14,837 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:40:14,837 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-07 11:40:14,837 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-07 11:40:14,838 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-07 11:40:16,344 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:40:16,344 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:40:16,344 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-07 11:40:16,345 - mysql.connector - INFO - plugin_name: caching_sha2_password
+2026-05-07 11:40:16,345 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-05-07 11:40:16,345 - mysql.connector - DEBUG - # request: b'\x98X}{Y\xf2\x07\x0f\xb5T\x166\xf5\xf0\xbe\x80iPJ\xfa\xab\x86c"\xa8@\xa9]\x14\xb6\x0f\x05' size: 32
+2026-05-07 11:40:16,427 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x04'
+2026-05-07 11:40:16,428 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:40:16,659 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:40:25,531 - SCHOOL_SYS - INFO - ✅ Database 'school' verified/created.
+2026-05-07 11:40:26,419 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:40:26,619 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:40:34,818 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:40:34,818 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:40:34,818 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:40:35,418 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:40:35,418 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:40:35,418 - mysql.connector - DEBUG - # request: b")\xa5\xb8n\x91\x9e2*~\xbfE\xa4\xfd\xc3=\xff'\x8b?\x1a\x91\xc8\x97\x11_\xdb\xe1\xa5\x93\xd5\xc5\xa7" size: 32
+2026-05-07 11:40:35,718 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:40:35,718 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:40:35,952 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:40:45,427 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:40:45,624 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:40:46,565 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:40:46,565 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:40:46,566 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:40:47,462 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:40:47,462 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:40:47,462 - mysql.connector - DEBUG - # request: b'\x03\x8f\xc3^\xb3\x9a\xfd\x1d\n\xc7\xad9\x91\xc4\xab\xd8k6\xdfw\xf9Y\x7fV\x05\xa1\xd2\xdc\x1a\xe6\xd5\x1e' size: 32
+2026-05-07 11:40:47,583 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:40:47,583 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:40:47,584 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:40:53,231 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:40:53,422 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:40:54,374 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:40:54,374 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:40:54,375 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:40:54,718 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:40:54,718 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:40:54,718 - mysql.connector - DEBUG - # request: b'\xb6=W\'\x8a\xff\xfb\xb7\xd6\xaa\xb6\xa8w\xfen\xcd\xd4amf:@a\x80\xaeq\x82\xb2\xb2\xb8\r"' size: 32
+2026-05-07 11:40:54,996 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:40:54,996 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:40:54,997 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:40:55,936 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:40:56,129 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:41:08,756 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:41:08,757 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:41:08,757 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:41:18,212 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:41:18,213 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:41:18,213 - mysql.connector - DEBUG - # request: b"\x1a\x8c'\xb6\x97\x07k\x83\xd9V\xab&\x8d\x88\xb2\x85\xd6\xe3\xf0\x8a\xe9\xd6\r\xee\xa2\xf7\xbd\xcd\xa3g\xd0\xfc" size: 32
+2026-05-07 11:41:18,466 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:41:18,466 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:41:18,467 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:41:19,350 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:41:19,544 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:41:21,315 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:41:21,316 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:41:21,317 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:41:21,934 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:41:21,934 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:41:21,935 - mysql.connector - DEBUG - # request: b'\xdbX"([\x905\xc4s\xf2\xa3\x96\x08\x87\xb9\xcd\xf1\x9a,\xd5rG*\x99\xa8\xb6\xe5](1\x16\xd0' size: 32
+2026-05-07 11:41:22,147 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:41:22,148 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:41:22,148 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:41:23,077 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:41:23,303 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:41:24,350 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:41:24,350 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:41:24,351 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:41:25,186 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:41:25,186 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:41:25,186 - mysql.connector - DEBUG - # request: b'y\xf5\x99\x9a\xec\xf9\xf6\xf2\x89\x17\x96I\xbd\x16\x18\x1c\xfc\x85@\x17\x8ab\xd9t\x04K.Wz\xbf\xeb\xe7' size: 32
+2026-05-07 11:41:25,337 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:41:25,337 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:41:25,337 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:41:26,267 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:41:26,455 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:41:29,378 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:41:29,378 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:41:29,378 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:41:34,459 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:41:34,459 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:41:34,459 - mysql.connector - DEBUG - # request: b'\xc3\x8b\xea\xf9z\xc9\xc7\xbf\xe0\xd5\x1eG\x17\xba\xed]\x8e\xbf\xbb\xac\x19\xf6-|\xd3\xd44\x85*H\xfb}' size: 32
+2026-05-07 11:41:36,421 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:41:36,421 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:41:36,421 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:41:39,088 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:41:39,271 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:41:43,455 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:41:43,455 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:41:43,456 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:41:43,793 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:41:43,793 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:41:43,793 - mysql.connector - DEBUG - # request: b'\x05B\x804K\xee\xd3q\x07<\x00\xc0N\xb8\xe3<Et\x83\xf26(\xa8\x08u\x9c\x829}\x14L*' size: 32
+2026-05-07 11:41:43,980 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:41:43,981 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:41:43,981 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:41:44,619 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:41:44,829 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:41:45,117 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:41:45,118 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:41:45,118 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:41:45,635 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:41:45,636 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:41:45,636 - mysql.connector - DEBUG - # request: b',p\x1d\'r\xa0\x98\xad\xb93w\x1a\xd3.\xde\xa8\x9c\x85"\x9a\xf7\xeav\xc2\xcf\xf1\x9cE*\xb2\xe5\xb5' size: 32
+2026-05-07 11:41:45,928 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:41:45,928 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:41:45,928 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:41:47,563 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:41:47,761 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:41:55,751 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:41:55,752 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:41:55,752 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:41:56,127 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:41:56,128 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:41:56,128 - mysql.connector - DEBUG - # request: b'\x12\xa0Y\xb57\x05\xb0\x8a\x82yX\x9a"\xb4\x0c\x00\xe4\x06\x15\x07\xba\xbdt\xd7\xb8\xd3\x97 \x9e}\x18\x91' size: 32
+2026-05-07 11:41:56,221 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:41:56,222 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:41:56,222 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:41:56,541 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-07 11:41:57,509 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-07 11:42:13,236 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-07 11:42:14,525 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-07 11:42:44,449 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-07 11:43:01,056 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:43:01,272 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:43:02,308 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:43:02,309 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:43:02,309 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:43:02,309 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-07 11:43:02,309 - mysql.connector - INFO - plugin_name: mysql_native_password
+2026-05-07 11:43:02,310 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2026-05-07 11:43:03,043 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:43:03,043 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:43:03,043 - mysql.connector - INFO - package: mysql.connector.plugins
+2026-05-07 11:43:03,043 - mysql.connector - INFO - plugin_name: caching_sha2_password
+2026-05-07 11:43:03,043 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLCachingSHA2PasswordAuthPlugin
+2026-05-07 11:43:03,044 - mysql.connector - DEBUG - # request: b'\xaf+!\x83\xeb\xabbo\xa8\x94\xd7\x1aF\x94\xee\xbe\xe6y\xbfD\xdb\xc2\x85\xb0\x18n\xafQ}/%F' size: 32
+2026-05-07 11:43:04,269 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:43:04,269 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:43:04,269 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:43:05,968 - SCHOOL_SYS - INFO - ✅ Database 'school' verified/created.
+2026-05-07 11:43:06,694 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:43:06,926 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:43:08,352 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:43:08,353 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:43:08,353 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:43:08,828 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:43:08,828 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:43:08,829 - mysql.connector - DEBUG - # request: b'\x83\xb9\xa9I\x9b\x96C\xc3\xe9\x1f\xf4\x80\xf6\x16\xef\x92\x0f\xd5\x03\x97\x12\xdf\xcc\x9cG\x04\x9b \xe6\xbf\xc4\xe1' size: 32
+2026-05-07 11:43:09,454 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:43:09,454 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:43:09,455 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:43:10,615 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:43:10,810 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:43:11,296 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:43:11,296 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:43:11,296 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:43:11,726 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:43:11,726 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:43:11,726 - mysql.connector - DEBUG - # request: b'\x1clI\xa2T\xb9-j\xfd2\xaaW\x8a\x8az@Q\xba\xac\\\xf9\xc55\xd7B(\x01\xde\xe0\xa5\xae\xe3' size: 32
+2026-05-07 11:43:12,123 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:43:12,124 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:43:12,124 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:43:12,883 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:43:13,091 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:43:13,971 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:43:13,972 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:43:13,972 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:43:14,923 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:43:14,924 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:43:14,924 - mysql.connector - DEBUG - # request: b'\x88\xfeW\xc4f%@\x8d}\xf0\xa2\xaf)\x91\xd5\x95\x00 L(\xd0C\x13\x92\xce\x97\x13\x90\xedb\xa5z' size: 32
+2026-05-07 11:43:15,310 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:43:15,311 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:43:15,311 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:43:19,014 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:43:19,207 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:43:23,143 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:43:23,143 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:43:23,144 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:43:23,472 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:43:23,472 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:43:23,472 - mysql.connector - DEBUG - # request: b'\x01\xf9\xc7N\xcb\x80\x87\x86\x15\xd7\x97\xe1x\xeb6\x8d\xcf\x93Et\xac\x1c\xf2f\xc2\xc1\xce\x05A\x93\xd56' size: 32
+2026-05-07 11:43:23,566 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:43:23,566 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:43:23,567 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:43:31,125 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:43:31,752 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:43:33,076 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:43:33,077 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:43:33,077 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:43:33,948 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:43:33,948 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:43:33,949 - mysql.connector - DEBUG - # request: b'GR\xb8}\xbeY\x9dX\xc8\xb1\x95\x10\xff\x8c\xa9_\xa8?\xda\xe5\xcf\x93\xc9\x0fphw\x93\x81\x07\xdb\xd6' size: 32
+2026-05-07 11:43:34,227 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:43:34,227 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:43:34,228 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:43:42,892 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:43:43,118 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:43:45,511 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:43:45,511 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:43:45,511 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:43:46,606 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:43:46,607 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:43:46,607 - mysql.connector - DEBUG - # request: b'\x17\xa5(^?[\xb9\x90\xb3\x8e\xb7\x92.\x86b\x80\x04\xb3\x1aC)@\xef\xf6\xb4\x03\x03\xcfr-\xfa.' size: 32
+2026-05-07 11:43:46,936 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:43:46,936 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:43:46,937 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:43:49,322 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:43:49,616 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:43:50,379 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:43:50,379 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:43:50,379 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:43:55,512 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:43:55,512 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:43:55,513 - mysql.connector - DEBUG - # request: b'\xd5@\x92s\x9d\x05\x06\xb9e\xb5\x80\xbc\xfbh\x87\x9b\xe0\xe5\xb3\xb7\x9aH\x1ew\x87\x0ec\x9cU\xe9\xee\x99' size: 32
+2026-05-07 11:43:56,553 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:43:56,553 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:43:56,553 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:43:57,695 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:43:57,940 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:43:58,356 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:43:58,357 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:43:58,357 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:43:59,292 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:43:59,293 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:43:59,293 - mysql.connector - DEBUG - # request: b'\x08Ny~\x00\xc8\xd0\x91\xe3o\xa0\x1dP\x86m\x84\x08\xaa\x97\xb8\x97\x1e\xe2\xa5%\xc6\x1d\x87"\xe3]\x86' size: 32
+2026-05-07 11:43:59,559 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:43:59,559 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:43:59,559 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:44:00,377 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:44:00,629 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:44:00,999 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:44:00,999 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:44:00,999 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:44:03,071 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:44:03,072 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:44:03,072 - mysql.connector - DEBUG - # request: b'Ub\xfc\xe6\xd3)\x18\xa7\x8c\xf8\xd8\x0cVw\x01Y1\x82\x85)u\xb2\xd2\xa4\xcc\xaa\x9b\x02\x82\xf2\x85[' size: 32
+2026-05-07 11:44:03,743 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:44:03,743 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:44:03,743 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:44:04,697 - mysql.connector - DEBUG - Building SSL context
+2026-05-07 11:44:04,916 - mysql.connector - DEBUG - Switching to SSL
+2026-05-07 11:44:05,293 - mysql.connector - DEBUG - SSL has been enabled
+2026-05-07 11:44:05,293 - mysql.connector - DEBUG - Starting authorization phase
+2026-05-07 11:44:05,308 - mysql.connector - DEBUG - The provided initial strategy is mysql_native_password
+2026-05-07 11:44:05,934 - mysql.connector - DEBUG - Server's response is an auth switch request
+2026-05-07 11:44:05,934 - mysql.connector - DEBUG - Switching to strategy caching_sha2_password
+2026-05-07 11:44:05,934 - mysql.connector - DEBUG - # request: b'\xb9]K\x84\x92n\xe1l\x9f\xd3Ki3\xe9\xdf/\x1e\x08\xd6\x94\xf4Up=\xd57Y`\xc4z@r' size: 32
+2026-05-07 11:44:06,093 - mysql.connector - DEBUG - # server response packet: b'\x02\x00\x00\x05\x01\x03'
+2026-05-07 11:44:06,093 - mysql.connector - DEBUG - Exchanging further packets
+2026-05-07 11:44:06,093 - mysql.connector - DEBUG - caching_sha2_password completed succesfully
+2026-05-07 11:44:06,625 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-07 11:44:08,795 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-07 11:44:32,816 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-07 11:44:34,165 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-07 11:44:53,200 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-07 11:44:55,803 - asyncio - DEBUG - Using selector: SelectSelector
+2026-05-07 11:50:02,227 - fastapi - ERROR - Form data requires "python-multipart" to be installed. 
+You can install "python-multipart" with: 
+
+pip install python-multipart
+
+2026-05-07 11:50:26,641 - SCHOOL_SYS - INFO - ✅ Database 'school' verified/created.
+2026-05-07 11:51:18,022 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-07 11:51:20,776 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-07 11:51:45,352 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-07 11:51:48,224 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-07 11:51:54,633 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-07 11:55:35,216 - SCHOOL_SYS - INFO - ✅ Database 'school' verified/created.
+2026-05-07 11:55:41,037 - SCHOOL_SYS - INFO - 🚀 Connection Pool initialized successfully.
+2026-05-07 11:55:41,333 - SCHOOL_SYS - INFO - Running Schema queries (27 total)…
+2026-05-07 11:55:44,006 - SCHOOL_SYS - INFO - Running Views queries (3 total)…
+2026-05-07 11:55:44,317 - SCHOOL_SYS - INFO - Running Indexes queries (20 total)…
+2026-05-07 11:55:47,183 - SCHOOL_SYS - INFO - ✅ Schema initialized successfully.
+2026-05-07 11:55:48,142 - __main__ - INFO - Starting English seed data generation...
+2026-05-07 11:57:22,653 - __main__ - INFO - English seed completed successfully.
+2026-05-07 11:57:22,653 - __main__ - INFO - Programs: 4
+2026-05-07 11:57:22,653 - __main__ - INFO - Classes: 8
+2026-05-07 11:57:22,653 - __main__ - INFO - Teachers: 9
+2026-05-07 11:57:22,653 - __main__ - INFO - Parents: 12
+2026-05-07 11:57:22,654 - __main__ - INFO - Students: 30
+2026-05-07 11:57:22,654 - __main__ - INFO - Enrollments: 49
+2026-05-07 11:57:22,654 - __main__ - INFO - Fees: 49
+2026-05-07 11:57:22,654 - __main__ - INFO - Default generated password: python
