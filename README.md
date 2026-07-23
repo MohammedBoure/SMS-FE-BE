@@ -106,6 +106,8 @@ DB_NAME=SchoolDB
 DB_PORT=3306
 ```
 
+For hosted MySQL services such as Aiven, `DB_HOST` may be either just the host name or `host:port`. You can also provide a MySQL `DATABASE_URL`.
+
 4. Start the backend API.
 
 ```bash

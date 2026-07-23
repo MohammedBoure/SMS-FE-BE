@@ -76,6 +76,8 @@ DB_NAME=SchoolDB
 Important notes:
 
 - Run backend commands from inside the `backend/` folder so the `.env` file is loaded correctly.
+- Hosted MySQL providers may give `host:port`; you can either split them into `DB_HOST` and `DB_PORT`, or set `DB_HOST` to `host:port`.
+- `DATABASE_URL` is also supported when your platform provides a MySQL connection URL.
 - Do not commit real database passwords.
 - The database is created automatically if it does not already exist.
 
@@ -223,7 +225,8 @@ python hash_gen.py
 If the backend cannot connect to MySQL:
 
 - Make sure MySQL Server is running.
-- Check `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME` in `backend/.env`.
+- Check `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME` in `backend/.env` or in your host environment variables.
+- For Render/Aiven, make sure `DB_HOST` is only the host name and `DB_PORT` is the numeric port, or use the provider's `DATABASE_URL`.
 - Make sure the command is executed from inside the `backend/` folder.
 
 If imports fail:

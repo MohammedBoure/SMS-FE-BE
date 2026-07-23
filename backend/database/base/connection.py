@@ -20,6 +20,49 @@ from .config import get_external_path
 logger = logging.getLogger("SCHOOL_SYS")
 
 
+def _read_int_env(name: str, default: int) -> int:
+    value = os.getenv(name)
+    if not value:
+        return default
+    try:
+        return int(value)
+    except ValueError as exc:
+        raise ValueError(f"{name} must be a valid integer, got {value!r}") from exc
+
+
+def _split_host_port(host_value: str, default_port: int) -> tuple[str, int | None]:
+    """Accept DB_HOST as either host or host:port."""
+    host_value = (host_value or "").strip()
+    if not host_value:
+        return "localhost", None
+
+    # urlsplit needs a netloc marker to parse bare host:port values correctly.
+    parsed = urllib.parse.urlsplit(
+        host_value if "://" in host_value else f"//{host_value}"
+    )
+    host = parsed.hostname or host_value
+    try:
+        port = parsed.port
+    except ValueError as exc:
+        raise ValueError(f"DB_HOST contains an invalid port: {host_value!r}") from exc
+
+    return host, port or default_port
+
+
+def _config_from_database_url(database_url: str) -> dict:
+    parsed = urllib.parse.urlparse(database_url)
+    if not parsed.hostname:
+        raise ValueError("DATABASE_URL must include a database host")
+
+    return {
+        'host': parsed.hostname,
+        'user': urllib.parse.unquote(parsed.username or 'root'),
+        'password': urllib.parse.unquote(parsed.password or ''),
+        'database': urllib.parse.unquote(parsed.path.lstrip('/') or 'SchoolDB'),
+        'port': parsed.port or 3306,
+    }
+
+
 class ConnectionManager:
     """
     يدير Connection Pool و SQLAlchemy Engine.
@@ -104,12 +147,19 @@ def load_db_config() -> dict:
     """قراءة إعدادات الاتصال من ملف .env."""
     env_path = get_external_path(".env")
     load_dotenv(env_path)
+    database_url = os.getenv('DATABASE_URL')
+    if database_url:
+        return _config_from_database_url(database_url)
+
+    default_port = 3306
+    host, host_port = _split_host_port(os.getenv('DB_HOST', 'localhost'), default_port)
+    port = _read_int_env('DB_PORT', host_port or default_port)
     return {
-        'host':     os.getenv('DB_HOST', 'localhost'),
+        'host':     host,
         'user':     os.getenv('DB_USER', 'root'),
         'password': os.getenv('DB_PASSWORD', ''),
         'database': os.getenv('DB_NAME', 'SchoolDB'),
-        'port':     int(os.getenv('DB_PORT', 3306)),
+        'port':     port,
     }
 
 
