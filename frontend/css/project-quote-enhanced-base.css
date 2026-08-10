@@ -1,0 +1,159 @@
+@import url("project-quote.css?v=1");
+
+/* Configuration layer for the modular quote editor. */
+.scope-notice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border: 1px solid #b9ded3;
+  border-radius: 12px;
+  background: #effaf6;
+  color: #285a53;
+}
+.scope-notice > span {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  color: #fff;
+  background: #0f766e;
+  font-size: 1.1rem;
+}
+.scope-notice p { flex: 1; margin: 0; font-size: .76rem; }
+.scope-notice p strong { color: #0f766e; }
+.scope-notice .button { flex: 0 0 auto; min-height: 34px; padding: 5px 10px; font-size: .68rem; }
+
+.feature-editor-section .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.feature-card.is-disabled { opacity: .46; filter: grayscale(.35); }
+.feature-card .feature-editor-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 17px;
+  padding-top: 11px;
+  border-top: 1px solid rgba(15,118,110,.12);
+}
+.feature-toggle { width: 17px; height: 17px; accent-color: #0f766e; }
+.feature-card .feature-editor-label { margin-inline-start: auto; color: #63817b; font-size: .66rem; }
+.feature-price-input {
+  width: 105px;
+  min-height: 31px;
+  padding: 4px 7px;
+  border: 1px solid #cfe1dc;
+  border-radius: 7px;
+  outline: 0;
+  color: #0f766e;
+  background: #f8fcfb;
+  font-family: "DM Sans", sans-serif;
+  font-size: .72rem;
+  direction: ltr;
+  text-align: left;
+}
+.feature-price-input:focus { border-color: #5cb29f; box-shadow: 0 0 0 3px rgba(15,118,110,.10); }
+.feature-remove, .role-remove { min-height: 30px; padding: 4px 8px; border: 0; border-radius: 7px; color: #b25b68; background: #fff0f2; font-size: .65rem; }
+.feature-editor-section .feature-card h3 { padding-inline-end: 30px; }
+.feature-custom-label { display: inline-block; margin-top: 5px; color: #8b6c36; font-size: .64rem; }
+
+.add-feature-form {
+  display: grid;
+  grid-template-columns: 1.1fr 1.6fr .65fr auto;
+  gap: 10px;
+  align-items: end;
+  margin-top: 17px;
+  padding: 15px;
+  border: 1px dashed #b9d8d0;
+  border-radius: 12px;
+  background: #fbfdfc;
+}
+.form-title { align-self: center; }
+.form-title strong, .form-title small { display: block; }
+.form-title strong { color: #0f766e; font-size: .82rem; }
+.form-title small { margin-top: 3px; color: #75908c; font-size: .65rem; }
+.add-feature-form label, .add-role-form label { display: grid; gap: 5px; color: #627575; font-size: .68rem; font-weight: 700; }
+.add-feature-form input, .add-role-form input, .add-role-form select { width: 100%; min-height: 38px; padding: 6px 9px; border: 1px solid #dce8e5; border-radius: 8px; outline: 0; color: #132a2a; background: #fff; font-size: .74rem; }
+.add-feature-form input:focus, .add-role-form input:focus, .add-role-form select:focus { border-color: #5cb29f; box-shadow: 0 0 0 3px rgba(15,118,110,.10); }
+.add-feature-form .button { min-height: 38px; white-space: nowrap; }
+
+.configuration-section { background: #f8fbfa; }
+.configuration-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.config-card { padding: 18px; border: 1px solid #dce8e5; border-radius: 14px; background: #fff; }
+.config-card-heading { display: flex; align-items: center; gap: 11px; margin-bottom: 14px; }
+.config-card-heading > div { min-width: 0; }
+.config-card-heading strong, .config-card-heading small { display: block; }
+.config-card-heading strong { color: #132a2a; font-size: .88rem; }
+.config-card-heading small { margin-top: 3px; color: #718985; font-size: .68rem; }
+.config-icon { width: 42px; height: 42px; flex: 0 0 42px; display: grid; place-items: center; border-radius: 12px; color: #0f766e; background: #dff3ed; font-size: 1.35rem; }
+.config-card:nth-child(2) .config-icon { color: #7256a7; background: #f1edfb; }
+.option-list { display: grid; gap: 8px; }
+.config-option { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; align-items: start; gap: 8px; padding: 10px; border: 1px solid #e2ece9; border-radius: 9px; cursor: pointer; transition: border-color .18s ease, background .18s ease; }
+.config-option:hover, .config-option.is-active { border-color: #9ed2c5; background: #f1faf7; }
+.config-option input { width: 16px; height: 16px; margin-top: 2px; accent-color: #0f766e; }
+.config-option strong, .config-option small { display: block; }
+.config-option strong { color: #183b38; font-size: .75rem; }
+.config-option small { margin-top: 3px; color: #748c88; font-size: .65rem; line-height: 1.55; }
+.config-option b { color: #0f766e; font-family: "DM Sans", sans-serif; font-size: .65rem; direction: ltr; white-space: nowrap; }
+.config-total-line { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; padding-top: 11px; border-top: 1px solid #e5efec; color: #718985; font-size: .7rem; }
+.config-total-line strong { color: #0f766e; font-family: "DM Sans", sans-serif; direction: ltr; }
+.role-builder { margin-top: 15px; padding: 20px; border: 1px solid #d9d2ef; border-radius: 14px; background: linear-gradient(145deg, #fbf9ff, #fff); }
+.role-builder.is-disabled { opacity: .58; }
+.role-builder-heading { display: flex; align-items: start; justify-content: space-between; gap: 18px; }
+.role-builder-heading h3 { margin: 6px 0 3px; color: #3e3068; font-size: 1rem; }
+.role-builder-heading p { margin: 0; color: #7d709d; font-size: .72rem; }
+.role-mode-badge { padding: 5px 9px; border-radius: 999px; color: #7256a7; background: #f1edfb; font-size: .65rem; white-space: nowrap; }
+.role-mode-badge.is-ready { color: #1d785b; background: #e5f7ef; }
+.role-list { display: grid; gap: 8px; margin-top: 16px; }
+.role-empty { padding: 12px; border: 1px dashed #d4cceb; border-radius: 9px; color: #81759c; text-align: center; font-size: .72rem; }
+.role-row { display: grid; grid-template-columns: 1.05fr .85fr 1.5fr 120px auto; align-items: center; gap: 9px; padding: 10px; border: 1px solid #e2dbf2; border-radius: 9px; background: #fff; }
+.role-row strong, .role-row small { display: block; }
+.role-row strong { color: #3e3068; font-size: .75rem; }
+.role-row small { margin-top: 3px; color: #81759c; font-size: .64rem; }
+.role-price-input { width: 100%; min-height: 32px; padding: 4px 7px; border: 1px solid #d9d2ef; border-radius: 7px; color: #7256a7; background: #fbf9ff; font-family: "DM Sans", sans-serif; font-size: .72rem; direction: ltr; text-align: left; }
+.add-role-form { display: grid; grid-template-columns: 1fr .8fr 1.35fr .7fr auto; gap: 9px; align-items: end; margin-top: 13px; padding-top: 13px; border-top: 1px dashed #d4cceb; }
+.add-role-form .button { min-height: 38px; white-space: nowrap; }
+
+.pricing-table .custom-row td:nth-child(2) strong::after { content: "مضاف"; display: inline-block; margin-inline-start: 6px; padding: 2px 5px; border-radius: 999px; color: #8b6c36; background: #fff4da; font-size: .58rem; }
+.pricing-empty { padding: 22px; color: #7a928d; text-align: center; font-size: .78rem; }
+.total-line strong.is-negative, .config-total-line strong.is-negative { color: #b25b68; }
+.payment-steps small { direction: ltr; }
+
+@media (max-width: 1050px) {
+  .feature-editor-section .feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .add-feature-form { grid-template-columns: 1fr 1.3fr .65fr auto; }
+  .role-row { grid-template-columns: 1fr 1fr 1.3fr 105px auto; }
+  .add-role-form { grid-template-columns: 1fr 1fr 1.2fr .7fr auto; }
+}
+
+@media (max-width: 760px) {
+  .scope-notice { align-items: flex-start; flex-wrap: wrap; }
+  .scope-notice p { flex-basis: calc(100% - 44px); }
+  .scope-notice .button { margin-inline-start: 42px; }
+  .feature-editor-section .feature-grid, .configuration-grid { grid-template-columns: 1fr; }
+  .add-feature-form { grid-template-columns: 1fr 1fr; }
+  .add-feature-form .form-title, .add-feature-form label:nth-of-type(2) { grid-column: 1 / -1; }
+  .add-feature-form .button { grid-column: 1 / -1; }
+  .role-builder-heading { display: block; }
+  .role-mode-badge { display: inline-block; margin-top: 10px; }
+  .role-row { grid-template-columns: 1fr 1fr; }
+  .role-row > :nth-child(3) { grid-column: 1 / -1; }
+  .role-row .role-remove { justify-self: start; }
+  .add-role-form { grid-template-columns: 1fr 1fr; }
+  .add-role-form label:nth-of-type(3), .add-role-form .button { grid-column: 1 / -1; }
+}
+
+@media print {
+  .configuration-section, .addons-section { break-before: page; }
+  .scope-notice .button, .feature-editor-bar input, .feature-remove, .add-feature-form, .role-mode-badge, .add-role-form, .role-remove, .addon-remove, .addon-price, .addon-toggle { display: none !important; }
+  .scope-notice { margin-bottom: 10px; }
+  .feature-card .feature-editor-bar { justify-content: flex-end; }
+  .feature-price-input, .role-price-input { border: 0; background: transparent; }
+  .configuration-section { padding: 16px; }
+  .config-option { padding: 7px; }
+  .config-option input { display: none; }
+  .role-builder { padding: 13px; }
+  .role-builder.is-disabled { display: none; }
+  .role-row { grid-template-columns: 1fr 1fr 1.4fr 95px; }
+}

@@ -1,0 +1,13 @@
+@import url("project-quote-enhanced-base.css?v=2");
+
+.feature-empty { grid-column: 1 / -1; padding: 28px; border: 1px dashed #b9d8d0; border-radius: 12px; color: #718985; background: #fbfdfc; text-align: center; font-size: .8rem; }
+.role-field { display: grid; gap: 4px; min-width: 0; color: #81759c; font-size: .62rem; font-weight: 700; }
+.role-field > span { white-space: nowrap; }
+.role-text-input, .role-scope-select, .role-permissions-input { width: 100%; min-height: 32px; padding: 4px 7px; border: 1px solid #d9d2ef; border-radius: 7px; outline: 0; color: #3e3068; background: #fbf9ff; font-size: .7rem; }
+.role-text-input:focus, .role-scope-select:focus, .role-permissions-input:focus, .role-price-input:focus { border-color: #a18ad2; box-shadow: 0 0 0 3px rgba(114,86,167,.10); }
+.role-row .role-remove { align-self: end; }
+
+@media (max-width: 760px) {
+  .role-row .role-field:nth-child(3) { grid-column: 1 / -1; }
+  .role-row .role-remove { grid-column: 1 / -1; justify-self: start; }
+}

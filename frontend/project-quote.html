@@ -4,20 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0f766e">
-  <meta name="description" content="عرض سعر احترافي لنظام إدارة المدارس Genius SMS">
-  <title>عرض سعر المشروع | Genius SMS</title>
+  <meta name="description" content="عرض سعر مرن وقابل للتكوين لنظام إدارة المدارس Genius SMS">
+  <title>عرض سعر قابل للتكوين | Genius SMS</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2">
-  <link rel="stylesheet" href="css/project-quote.css?v=1">
+  <link rel="stylesheet" href="css/project-quote-enhanced.css?v=2">
 </head>
 <body>
   <div class="quote-app">
     <header class="quote-toolbar no-print" aria-label="أدوات العرض">
       <a class="toolbar-brand" href="pages/login.html" aria-label="العودة إلى تسجيل الدخول">
         <span class="toolbar-mark">G</span>
-        <span>
-          <strong>Genius SMS</strong>
-          <small>نظام إدارة المدارس</small>
-        </span>
+        <span><strong>Genius SMS</strong><small>نظام إدارة المدارس</small></span>
       </a>
       <div class="toolbar-actions">
         <button class="button button-ghost" id="reset-quote" type="button">إعادة ضبط البيانات</button>
@@ -31,17 +28,13 @@
         <div class="hero-copy">
           <div class="eyebrow"><span class="eyebrow-dot"></span> حل رقمي متكامل للمؤسسات التعليمية</div>
           <h1>عرض سعر نظام<br><span>إدارة المدارس</span></h1>
-          <p>منصة واحدة تجمع الإدارة الأكاديمية، المتابعة المالية، التواصل، والعمليات اليومية في تجربة واضحة قابلة للتوسع.</p>
-          <div class="hero-badges">
-            <span>واجهة عربية RTL</span>
-            <span>لوحات حسب الصلاحية</span>
-            <span>تجربة متجاوبة</span>
-          </div>
+          <p>كوّن النظام كما تريد: اختر الميزات، هيكل الفروع، نموذج الصلاحيات، والأدوار. كل اختيار ظاهر في النطاق والسعر النهائي.</p>
+          <div class="hero-badges"><span>نطاق قابل للتكوين</span><span>فروع متعددة الطبقات</span><span>صلاحيات مرنة</span></div>
         </div>
         <div class="hero-total">
           <span class="document-label">عرض سعر / فاتورة تقديرية</span>
-          <strong class="hero-price">300,000 <small>دج</small></strong>
-          <span class="hero-price-caption">قيمة النطاق الأساسي الكامل</span>
+          <strong class="hero-price" id="hero-price">300,000 <small>دج</small></strong>
+          <span class="hero-price-caption" id="hero-price-caption">قيمة الحزمة الأساسية الكاملة</span>
           <div class="document-meta">
             <div><span>رقم العرض</span><strong>GNS-2026-001</strong></div>
             <div><span>تاريخ الإصدار</span><strong id="issue-date">—</strong></div>
@@ -63,151 +56,89 @@
         <div class="section-card intro-card">
           <div class="section-kicker">ملخص الحل</div>
           <h2>برنامج عملي لإدارة المدرسة من مكان واحد</h2>
-          <p>تم إعداد هذا العرض بناءً على البنية الحالية للمشروع: واجهة ويب متعددة الأدوار، واجهات API منظمة، وقاعدة بيانات تدعم العمليات الأكاديمية والمالية والتواصلية.</p>
-          <div class="trust-row">
-            <div><strong>6</strong><span>أدوار مستخدمين</span></div>
-            <div><strong>20+</strong><span>مجالاً وظيفياً</span></div>
-            <div><strong>AR / EN</strong><span>لغات الواجهة</span></div>
-          </div>
+          <p>تم إعداد هذا العرض بناءً على الواجهة الحالية متعددة الأدوار وواجهة FastAPI وقاعدة البيانات. ويمكن الآن تفكيك كل جزء أو توسيعه دون فقدان وضوح التكلفة.</p>
+          <div class="trust-row"><div><strong>09</strong><span>وحدات أساسية</span></div><div><strong>06</strong><span>أدوار حالية</span></div><div><strong>AR / EN</strong><span>لغات الواجهة</span></div></div>
         </div>
         <div class="section-card promise-card">
           <div class="promise-icon">✦</div>
-          <div>
-            <div class="section-kicker">ما يحصل عليه العميل</div>
-            <h2>نطاق واضح وقابل للتوسع</h2>
-            <p>السعر أدناه يغطي النطاق الأساسي الموضح بالتفصيل. أي ميزة جديدة يمكن إضافتها لاحقاً كملحق مستقل مع سعرها الخاص.</p>
-          </div>
+          <div><div class="section-kicker">فلسفة التسعير</div><h2>كل شيء قابل للاختيار</h2><p>الميزات، الإضافات، الفروع، الصلاحيات والأدوار تعمل بنفس الطريقة: تفعيل، حذف، تعديل السعر، أو إضافة بند جديد.</p></div>
         </div>
       </section>
 
-      <section class="section-block">
-        <div class="section-heading">
-          <div><div class="section-kicker">مكونات الحل</div><h2>الميزات المشمولة في النسخة الأساسية</h2></div>
-          <span class="section-count">06 محاور رئيسية</span>
-        </div>
-        <div class="feature-grid">
-          <article class="feature-card feature-teal">
-            <span class="feature-number">01</span><span class="feature-icon">⌂</span>
-            <h3>الإدارة والمستخدمون</h3>
-            <p>إدارة المستخدمين والصلاحيات والملفات الأساسية مع لوحات مخصصة لكل دور.</p>
-            <ul><li>مدير النظام</li><li>الاستقبال والمحاسبة</li><li>الطالب والولي والأستاذ</li><li>الطلاب والأولياء والأساتذة والأقسام</li></ul>
-          </article>
-          <article class="feature-card feature-blue">
-            <span class="feature-number">02</span><span class="feature-icon">▦</span>
-            <h3>المسار الأكاديمي</h3>
-            <p>تنظيم البنية التعليمية ومتابعة تقدم الطالب طوال السنة الدراسية.</p>
-            <ul><li>البرامج والأقسام</li><li>التسجيلات والتعيينات</li><li>المواد والموارد التعليمية</li><li>البحث والملفات التفصيلية</li></ul>
-          </article>
-          <article class="feature-card feature-violet">
-            <span class="feature-number">03</span><span class="feature-icon">◷</span>
-            <h3>الحضور والتقييم</h3>
-            <p>أدوات يومية للمتابعة الأكاديمية واتخاذ القرار بناءً على معلومات منظمة.</p>
-            <ul><li>الحضور والغياب</li><li>الجداول الزمنية</li><li>الواجبات والتقييمات</li><li>الدرجات والنتائج</li></ul>
-          </article>
-          <article class="feature-card feature-amber">
-            <span class="feature-number">04</span><span class="feature-icon">▤</span>
-            <h3>المالية والمداخيل</h3>
-            <p>رؤية أوضح للرسوم، الدفعات، الأرصدة، والحركات المالية المرتبطة بالطلاب.</p>
-            <ul><li>رسوم الطلاب</li><li>تسجيل الدفعات</li><li>الأرصدة والمبالغ المتبقية</li><li>المعاملات والتقارير المالية</li></ul>
-          </article>
-          <article class="feature-card feature-rose">
-            <span class="feature-number">05</span><span class="feature-icon">✉</span>
-            <h3>التواصل والإشعارات</h3>
-            <p>قنوات داخلية لتقريب الإدارة من الطاقم التربوي والطلاب والأولياء.</p>
-            <ul><li>المحادثات والرسائل</li><li>الإشعارات</li><li>المنشورات والإعلانات</li><li>سجل تواصل منظم</li></ul>
-          </article>
-          <article class="feature-card feature-slate">
-            <span class="feature-number">06</span><span class="feature-icon">◈</span>
-            <h3>المنصة والتقنية</h3>
-            <p>أساس تقني منظم يسهّل الصيانة، التوسع، وربط خدمات جديدة مستقبلاً.</p>
-            <ul><li>FastAPI REST API</li><li>قاعدة بيانات MySQL</li><li>تسجيل دخول وصلاحيات</li><li>عربية / إنجليزية وثيم فاتح/داكن</li></ul>
-          </article>
-        </div>
+      <section class="section-block feature-editor-section no-print-break">
+        <div class="section-heading"><div><div class="section-kicker">مكونات الحل</div><h2>كوّن برنامجك ميزةً بميزة</h2></div><span class="section-count" id="feature-count">09 ميزات مفعلة</span></div>
+        <p class="section-intro">كل بند مستقل: فعّله أو أزله، عدّل سعره، أو أضف ميزة جديدة باسمها ووصفها وسعرها. سيظهر النطاق الفعلي في الفاتورة ويتغير الإجمالي مباشرة.</p>
+        <div class="scope-notice"><span>↕</span><p><strong>التسعير مرن بالكامل</strong> — السعر الافتراضي 300,000 دج عند اعتماد الحزمة الكاملة. إزالة ميزة تُنقص نطاق العرض، وإضافة ميزة ترفع قيمته.</p><button class="button button-ghost" id="restore-features" type="button">استعادة الحزمة الأساسية</button></div>
+        <div class="feature-grid" id="base-feature-grid" aria-live="polite"></div>
+        <form class="add-feature-form" id="add-feature-form">
+          <div class="form-title"><strong>إضافة ميزة جديدة</strong><small>ستدخل مفعّلة في الفاتورة فور الإضافة</small></div>
+          <label>اسم الميزة<input id="new-feature-name" type="text" placeholder="مثال: بوابة أولياء متقدمة" required></label>
+          <label>الوصف<input id="new-feature-description" type="text" placeholder="ما الذي سيحصل عليه العميل؟" required></label>
+          <label>السعر<input id="new-feature-price" type="number" min="0" step="1000" placeholder="0" required></label>
+          <button class="button button-outline" type="submit">+ إضافة الميزة</button>
+        </form>
       </section>
 
       <section class="section-block pricing-section">
-        <div class="section-heading">
-          <div><div class="section-kicker">التكلفة الأساسية</div><h2>تفصيل السعر المتوقع للبرنامج</h2></div>
-          <span class="section-note">المبالغ بالدينار الجزائري</span>
-        </div>
-        <div class="table-card">
-          <table class="pricing-table">
-            <thead><tr><th>#</th><th>البند</th><th>ما يشمله البند</th><th>القيمة</th></tr></thead>
-            <tbody>
-              <tr><td>01</td><td><strong>تحليل وتجهيز نطاق العمل</strong></td><td>تثبيت الأولويات، ضبط الأدوار، وتجهيز الهيكل العام للنظام.</td><td>20,000 دج</td></tr>
-              <tr><td>02</td><td><strong>الواجهة ولوحات الأدوار</strong></td><td>تجربة الدخول واللوحات الخاصة بالمدير، الاستقبال، المحاسبة، الأستاذ، الطالب والولي.</td><td>50,000 دج</td></tr>
-              <tr><td>03</td><td><strong>الإدارة الأكاديمية</strong></td><td>المستخدمون، الطلاب، الأولياء، الأساتذة، الأقسام، البرامج، التسجيلات والتعيينات.</td><td>55,000 دج</td></tr>
-              <tr><td>04</td><td><strong>المتابعة التعليمية</strong></td><td>الحضور، الجداول، الواجبات، التقييمات، الدرجات، والموارد التعليمية.</td><td>45,000 دج</td></tr>
-              <tr><td>05</td><td><strong>المالية</strong></td><td>رسوم الطلاب، الدفعات، الأرصدة، المعاملات، وعرض الوضع المالي.</td><td>40,000 دج</td></tr>
-              <tr><td>06</td><td><strong>التواصل داخل المؤسسة</strong></td><td>المحادثات، الرسائل، الإشعارات، والمنشورات الإعلانية.</td><td>30,000 دج</td></tr>
-              <tr><td>07</td><td><strong>الواجهة الخلفية والبيانات</strong></td><td>FastAPI، نقاط REST، MySQL/SQLAlchemy، الربط، التحقق، والصلاحيات.</td><td>45,000 دج</td></tr>
-              <tr><td>08</td><td><strong>التعريب والاستجابة والتسليم</strong></td><td>RTL عربي، English، التوافق مع الهاتف، التحقق الأساسي، وشرح التشغيل.</td><td>15,000 دج</td></tr>
-            </tbody>
-            <tfoot><tr><td colspan="3">إجمالي النطاق الأساسي</td><td>300,000 دج</td></tr></tfoot>
-          </table>
-        </div>
-        <div class="price-callout"><span>✓</span><p><strong>السعر الأساسي ثابت: 300,000 دج</strong><br>يشمل البنود الثمانية أعلاه كما هي موضحة، وتُحسب أي إضافات لاحقة بشكل مستقل.</p></div>
+        <div class="section-heading"><div><div class="section-kicker">التكلفة الأساسية</div><h2>تفصيل السعر حسب النطاق المختار</h2></div><span class="section-note">المبالغ بالدينار الجزائري</span></div>
+        <div class="table-card"><table class="pricing-table"><thead><tr><th>#</th><th>البند</th><th>ما يشمله البند</th><th>القيمة</th></tr></thead><tbody id="pricing-body"></tbody><tfoot><tr><td colspan="3">إجمالي الميزات المفعلة</td><td id="base-table-total">300,000 دج</td></tr></tfoot></table></div>
+        <div class="price-callout"><span>✓</span><p><strong id="price-callout-title">السعر الأساسي الكامل: 300,000 دج</strong><br><span id="price-callout-text">يمكنك تعديل النطاق قبل اعتماد العرض، وستظهر الميزات المفعلة فقط في جدول التكلفة.</span></p></div>
       </section>
 
-      <section class="section-block addons-section no-print-break">
-        <div class="section-heading">
-          <div><div class="section-kicker">مساحة التوسع</div><h2>ميزات إضافية يمكن تسعيرها لاحقاً</h2></div>
-          <span class="section-note">اختيارية — لا تدخل في السعر الأساسي</span>
+      <section class="section-block configuration-section no-print-break">
+        <div class="section-heading"><div><div class="section-kicker">الهيكل والصلاحيات</div><h2>اختر طريقة تشغيل المؤسسة</h2></div><span class="section-note">كل اختيار ينعكس على السعر والنطاق</span></div>
+        <p class="section-intro">يمكن للعميل اعتماد نموذج بسيط بصلاحيات جاهزة، أو اختيار تحكم كامل قابل للبرمجة لكل مستخدم ودور وفرع. لا يفرض الموقع نموذجاً واحداً.</p>
+        <div class="configuration-grid">
+          <div class="config-card">
+            <div class="config-card-heading"><span class="config-icon">⌘</span><div><strong>نظام الفروع والطبقات الإدارية</strong><small>تحديد نطاق رؤية كل مدير ومستخدم</small></div></div>
+            <div class="option-list" id="branch-options">
+              <label class="config-option is-active"><input type="radio" name="branch-model" value="hierarchical" checked><span><strong>فروع متعددة + طبقات مدير</strong><small>مدير عام، مدراء فروع، ومستخدمون بنطاق فرعي واضح</small></span><b>ضمن الأساسي</b></label>
+              <label class="config-option"><input type="radio" name="branch-model" value="single"><span><strong>مؤسسة / فرع واحد</strong><small>تشغيل مبسط دون تقسيمات متعددة</small></span><b>ضمن الأساسي</b></label>
+              <label class="config-option"><input type="radio" name="branch-model" value="advanced"><span><strong>فروع متقدمة وتقارير موحدة</strong><small>تحليلات عابرة للفروع، نقل المستخدمين، ومقارنات مركزية</small></span><b>+45,000 دج</b></label>
+            </div>
+            <div class="config-total-line"><span>إضافة هيكل الفروع</span><strong id="branch-model-price">0 دج</strong></div>
+          </div>
+          <div class="config-card">
+            <div class="config-card-heading"><span class="config-icon">⚿</span><div><strong>نموذج الصلاحيات والأدوار</strong><small>اختر مستوى التحكم المناسب للعميل</small></div></div>
+            <div class="option-list" id="permission-options">
+              <label class="config-option is-active"><input type="radio" name="permission-model" value="fixed" checked><span><strong>صلاحيات ثابتة جاهزة</strong><small>الأدوار الأساسية محددة مسبقاً وسريعة التشغيل</small></span><b>ضمن الأساسي</b></label>
+              <label class="config-option"><input type="radio" name="permission-model" value="hybrid"><span><strong>نموذج هجين قابل للتعديل</strong><small>قوالب جاهزة مع استثناءات وتخصيصات إضافية</small></span><b>+35,000 دج</b></label>
+              <label class="config-option"><input type="radio" name="permission-model" value="custom"><span><strong>صلاحيات مبرمجة بالكامل</strong><small>أدوار منفصلة، صلاحية لكل مستخدم، ولكل وحدة وفرع</small></span><b>+65,000 دج</b></label>
+            </div>
+            <div class="config-total-line"><span>إضافة نموذج الصلاحيات</span><strong id="permission-model-price">0 دج</strong></div>
+          </div>
         </div>
-        <p class="section-intro">فعّل أي إضافة تريدها، عدّل سعرها، أو أضف بنداً جديداً. سيُحدّث الموقع الإجمالي فوراً ويمكن طباعة العرض بعد اعتمادك للنطاق.</p>
-        <div class="addons-card">
-          <div class="addon-list" id="addon-list" aria-live="polite"></div>
-          <form class="add-addon-form" id="add-addon-form">
-            <label>اسم الميزة الجديدة<input id="new-addon-name" type="text" placeholder="مثال: تطبيق هاتف للأولياء" required></label>
-            <label>السعر المقترح<input id="new-addon-price" type="number" min="0" step="1000" placeholder="0" required></label>
-            <button class="button button-outline" type="submit">+ إضافة إلى العرض</button>
+        <div class="role-builder" id="role-builder">
+          <div class="role-builder-heading"><div><div class="section-kicker">مصمم الأدوار</div><h3>عرّف الأدوار المنفصلة التي تريدها</h3><p>لكل دور اسم، نطاق فروع، وصف للصلاحيات، وسعر مستقل يضاف إلى العرض عند تفعيله.</p></div><span class="role-mode-badge" id="role-mode-badge">يظهر عند اختيار نموذج قابل للتخصيص</span></div>
+          <div class="role-list" id="role-list" aria-live="polite"></div>
+          <form class="add-role-form" id="add-role-form">
+            <label>اسم الدور<input id="new-role-name" type="text" placeholder="مثال: مدير فرع" required></label>
+            <label>نطاق الفروع<select id="new-role-scope"><option>كل الفروع</option><option>فرع محدد</option><option>فرع + وحدات محددة</option></select></label>
+            <label>الصلاحيات المطلوبة<input id="new-role-permissions" type="text" placeholder="الطلاب، الحضور، المالية..." required></label>
+            <label>سعر الدور<input id="new-role-price" type="number" min="0" step="1000" placeholder="0" required></label>
+            <button class="button button-outline" type="submit">+ إضافة دور</button>
           </form>
         </div>
       </section>
 
+      <section class="section-block addons-section no-print-break">
+        <div class="section-heading"><div><div class="section-kicker">مساحة التوسع</div><h2>إضافات أخرى يمكن تسعيرها لاحقاً</h2></div><span class="section-note">اختيارية — لا تدخل في السعر الأساسي</span></div>
+        <p class="section-intro">فعّل أي إضافة تريدها، عدّل سعرها، أو أضف بنداً جديداً. سيُحدّث الموقع الإجمالي فوراً ويمكن طباعة العرض بعد اعتمادك للنطاق.</p>
+        <div class="addons-card"><div class="addon-list" id="addon-list" aria-live="polite"></div><form class="add-addon-form" id="add-addon-form"><label>اسم الإضافة<input id="new-addon-name" type="text" placeholder="مثال: تطبيق هاتف للأولياء" required></label><label>السعر المقترح<input id="new-addon-price" type="number" min="0" step="1000" placeholder="0" required></label><button class="button button-outline" type="submit">+ إضافة إلى العرض</button></form></div>
+      </section>
+
       <section class="summary-grid">
-        <div class="section-card terms-card">
-          <div class="section-kicker">شروط الدفع المقترحة</div>
-          <h2>دفعات مرتبطة بمراحل الإنجاز</h2>
-          <div class="payment-steps">
-            <div><span class="step-percent">40%</span><span><strong>عند الانطلاق</strong><small>120,000 دج</small></span></div>
-            <div><span class="step-percent">40%</span><span><strong>بعد التسليم الوظيفي</strong><small>120,000 دج</small></span></div>
-            <div><span class="step-percent">20%</span><span><strong>عند الاعتماد النهائي</strong><small>60,000 دج</small></span></div>
-          </div>
-          <p class="small-note">يمكن تعديل النسب أو المواعيد باتفاق الطرفين قبل اعتماد الفاتورة النهائية.</p>
-        </div>
-        <div class="section-card total-card">
-          <div class="section-kicker">ملخص العرض</div>
-          <div class="total-line"><span>النطاق الأساسي</span><strong>300,000 دج</strong></div>
-          <div class="total-line"><span>الإضافات المختارة</span><strong id="addons-total">0 دج</strong></div>
-          <div class="total-divider"></div>
-          <div class="grand-total"><span>الإجمالي المتوقع</span><strong id="grand-total">300,000 <small>دج</small></strong></div>
-          <p>الإضافات غير المفعلة لا تؤثر على المبلغ المستحق.</p>
-        </div>
+        <div class="section-card terms-card"><div class="section-kicker">شروط الدفع المقترحة</div><h2>دفعات مرتبطة بمراحل الإنجاز</h2><div class="payment-steps"><div><span class="step-percent">40%</span><span><strong>عند الانطلاق</strong><small id="payment-initial">120,000 دج</small></span></div><div><span class="step-percent">40%</span><span><strong>بعد التسليم الوظيفي</strong><small id="payment-functional">120,000 دج</small></span></div><div><span class="step-percent">20%</span><span><strong>عند الاعتماد النهائي</strong><small id="payment-final">60,000 دج</small></span></div></div><p class="small-note">يمكن تعديل النسب أو المواعيد باتفاق الطرفين قبل اعتماد الفاتورة النهائية.</p></div>
+        <div class="section-card total-card"><div class="section-kicker">ملخص العرض</div><div class="total-line"><span>الميزات الأساسية المفعلة</span><strong id="base-scope-total">300,000 دج</strong></div><div class="total-line"><span>الفروع والصلاحيات</span><strong id="configuration-total">0 دج</strong></div><div class="total-line"><span>الإضافات والأدوار</span><strong id="addons-total">0 دج</strong></div><div class="total-divider"></div><div class="grand-total"><span>الإجمالي المتوقع</span><strong id="grand-total">300,000 <small>دج</small></strong></div><p>كل عنصر غير مفعّل لا يدخل في المبلغ المستحق، ويمكن تعديل العرض قبل الطباعة.</p></div>
       </section>
 
-      <section class="section-block delivery-section">
-        <div class="section-heading"><div><div class="section-kicker">خطة التسليم</div><h2>من الاتفاق إلى التشغيل</h2></div></div>
-        <div class="delivery-grid">
-          <div><span>01</span><strong>اعتماد النطاق</strong><p>تأكيد البنود، البيانات المطلوبة، والأولويات.</p></div>
-          <div><span>02</span><strong>التنفيذ والربط</strong><p>بناء الواجهات وربط الوظائف وقاعدة البيانات.</p></div>
-          <div><span>03</span><strong>المراجعة والتجربة</strong><p>عرض نسخة تشغيلية وجمع الملاحظات الأساسية.</p></div>
-          <div><span>04</span><strong>التسليم والتوجيه</strong><p>تسليم النسخة وشرح التشغيل والإدارة.</p></div>
-        </div>
-      </section>
+      <section class="section-block delivery-section"><div class="section-heading"><div><div class="section-kicker">خطة التسليم</div><h2>من الاتفاق إلى التشغيل</h2></div></div><div class="delivery-grid"><div><span>01</span><strong>اعتماد النطاق</strong><p>تأكيد البنود، البيانات المطلوبة، والأولويات.</p></div><div><span>02</span><strong>التنفيذ والربط</strong><p>بناء الواجهات وربط الوظائف وقاعدة البيانات.</p></div><div><span>03</span><strong>المراجعة والتجربة</strong><p>عرض نسخة تشغيلية وجمع الملاحظات الأساسية.</p></div><div><span>04</span><strong>التسليم والتوجيه</strong><p>تسليم النسخة وشرح التشغيل والإدارة.</p></div></div></section>
 
-      <section class="scope-grid">
-        <div class="scope-card included"><h3><span>✓</span> مشمول في العرض</h3><ul><li>الوظائف المذكورة في جدول السعر</li><li>واجهة ويب متجاوبة للحاسوب والهاتف</li><li>الصلاحيات الأساسية حسب الأدوار</li><li>تسليم نسخة تشغيلية وشرح مختصر</li></ul></div>
-        <div class="scope-card excluded"><h3><span>!</span> بنود تُسعّر منفصلة</h3><ul><li>الاستضافة، النطاق، ورسوم الخدمات الخارجية</li><li>تطبيقات Android / iOS الأصلية</li><li>بوابات الدفع أو الرسائل SMS والبريد المدفوع</li><li>ترحيل بيانات قديمة أو تقارير مخصصة جديدة</li></ul></div>
-      </section>
+      <section class="scope-grid"><div class="scope-card included"><h3><span>✓</span> مشمول في العرض</h3><ul><li>كل ميزة مفعلة في محرر النطاق</li><li>واجهة ويب متجاوبة للحاسوب والهاتف</li><li>نموذج الفروع والصلاحيات الذي تم اختياره</li><li>الأدوار التي أضافها العميل مع أسعارها</li></ul></div><div class="scope-card excluded"><h3><span>!</span> بنود تُسعّر منفصلة</h3><ul><li>الاستضافة، النطاق، ورسوم الخدمات الخارجية</li><li>تطبيقات Android / iOS الأصلية</li><li>بوابات الدفع أو الرسائل SMS والبريد المدفوع</li><li>ترحيل بيانات قديمة أو تقارير مخصصة جديدة</li></ul></div></section>
 
-      <footer class="quote-footer">
-        <div><strong>Genius SMS</strong><span>حلول رقمية أبسط لإدارة المدارس</span></div>
-        <p>هذا العرض يحدد النطاق الأساسي وقيمته التقديرية. كل ميزة إضافية تُضاف لاحقاً بموافقة واضحة وسعر مستقل.</p>
-        <span class="footer-code">GNS-2026-001 · 300,000 DZD</span>
-      </footer>
+      <footer class="quote-footer"><div><strong>Genius SMS</strong><span>حلول رقمية أبسط لإدارة المدارس</span></div><p>هذا العرض يحدد النطاق الفعلي وقيمته التقديرية. كل ميزة أو دور أو صلاحية إضافية تُضاف بموافقة واضحة وسعر مستقل.</p><span class="footer-code" id="footer-total">GNS-2026-001 · 300,000 DZD</span></footer>
     </main>
   </div>
-  <script src="js/project-quote.js?v=1"></script>
+  <script src="js/project-quote-enhanced.js?v=2"></script>
 </body>
 </html>
